@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="frame_height">161dp</dimen>
+    <dimen name="cover_width">160dp</dimen>
+    <dimen name="txt_size">24sp</dimen>
+    <dimen name="large_txt_size">26sp</dimen>
+    <dimen name="small_txt_size">21sp</dimen>
+</resources>

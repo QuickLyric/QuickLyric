@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_lyrics">Teksten</string>
+    <string name="share">Verdelen</string>
+    <string name="refresh">Verversen</string>
+    <string name="no_results">Geen teksten gevonden voor deze track</string>
+    <string name="unknown_error">Onbekende fout</string>
+    <string name="id_error_recording">Identificatie is mislukt</string>
+    <string name="connection_error">Kon niet verbinden.</string>
+    <string name="search_ab_title">Zoeken : %s</string>
+    <string name="no_refresh">Geen behoefte om te vernieuwen</string>
+    <string name="id_nomic">Het toestel heeft geen microfoon</string>
+    <string name="search_hint">Zoeken</string>
+    <string name="id_title">Muziekherkenning</string>
+    <string name="search_no_result">Geen resultaat</string>
+    <string name="beam_txt">Stuur deze teksten?</string>
+    <string name="id_arch_err">De architectuur van dit apparaat wordt niet ondersteund</string>
+    <string name="pref_20min_ignore">Negeer lange tracks</string>
+    <string name="pref_20min_ignore_sum">Tracks langer dan 20 minuten (zoals podcasts) zullen geblokkeerd worden</string>
+    <string name="pref_scrobbling_category">Scrobble</string>
+    <string name="pref_about">Over ons</string>
+    <string name="pref_about_summary">Meer informatie over QuickLyric</string>
+    <string name="local_title">Opgeslagen teksten</string>
+    <string name="settings_title">Instellingen</string>
+    <string name="save_action">Opslagen</string>
+    <string name="lyrics_saved">Teksten opgeslagen</string>
+    <string name="lyrics_removed">Teksten verwijderd</string>
+    <string name="remove_action">Weghalen</string>
+    <string name="pref_auto_refresh_title">Teksten automatisch vernieuwen</string>
+    <string name="pref_auto_refresh_summary">Teksten automatisch vernieuwen elke keer de muziek verandert</string>
+    <string name="select_all_action">Alles selecteren</string>
+    <string name="unselect_all_action">Alles deselecteren</string>
+    <string name="sort_action">Sorteren</string>
+    <string name="sort_dialog_title">Sorteren…</string>
+    <string name="share_url_action_text">URL Verdelen</string>
+
+    <string name="local_empty_database">Nog geen teksten opgeslagen</string>
+    <string name="pref_animations_title">Animaties inschakelen</string>
+    <string name="pref_animations_sum">Dit kan de app misschien vertragen</string>
+    <string name="pref_look_feel_category">Aspect</string>
+    <string name="welcome">Welkom bij QuickLyric !</string>
+    <string name="welcome_sub"> Laten we eens een kijkje nemen !</string>
+    <string name="welcome2">Onmiddellijke resultaten</string>
+    <string name="welcome2_sub">De teksten die je zoekt…\nOnmiddelijk.</string>
+    <string name="refresh_desc">Als de song verandert…</string>
+    <string name="refresh_desc_sub">…Druk op deze knop. QuickLyric zal de rest doen.</string>
+    <string name="drawer_desc">Laten we dieper graven !</string>
+    <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
+    <string name="pref_more_category">Meer</string>
+
+    <string-array name="nav_items">
+        <item>@string/title_lyrics</item>
+        <item>@string/id_title</item>
+        <item>@string/local_title</item>
+        <item>@string/settings_title</item>
+    </string-array>
+
+    <string-array name="sort_modes">
+        <item>Per kunstenaar…</item>
+        <item>Per titel…</item>
+    </string-array>
+
+    <string-array name="AZ_sort_order">
+        <item>Alfabetisch</item>
+        <item>Omgekeerd</item>
+    </string-array>
+</resources>

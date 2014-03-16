@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_lyrics">Paroles</string>
+    <string name="share">Partager</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="no_results">Aucune parole trouvée pour ce morceau</string>
+    <string name="unknown_error">Erreur inconnue</string>
+    <string name="id_error_recording">Identification échouée</string>
+    <string name="connection_error">Connexion impossible.</string>
+    <string name="search_ab_title">Recherche : %s</string>
+    <string name="no_refresh">Inutile de rafraîchir</string>
+    <string name="id_nomic">Votre appareil n\'a pas de micro</string>
+    <string name="search_hint">Recherche</string>
+    <string name="id_title">Reconnaissance musicale</string>
+    <string name="search_no_result">Aucun résultats</string>
+    <string name="beam_txt">Envoyer ces paroles ?</string>
+    <string name="id_arch_err">L\'architecture de votre appareil n\'est pas supportée</string>
+    <string name="pref_20min_ignore">Ignorer les morceaux longs</string>
+    <string name="pref_20min_ignore_sum">Les morceaux plus longs que 20 minutes (comme des podcasts) sont bloqués</string>
+    <string name="pref_scrobbling_category">Scrobble</string>
+    <string name="pref_about">À propos</string>
+    <string name="pref_about_summary">Plus d\'informations à propos de QuickLyric</string>
+    <string name="local_title">Paroles sauvées</string>
+    <string name="settings_title">Options</string>
+    <string name="save_action">Sauver</string>
+    <string name="lyrics_saved">Paroles sauvées</string>
+    <string name="lyrics_removed">Paroles supprimées</string>
+    <string name="remove_action">Supprimer</string>
+    <string name="pref_auto_refresh_title">Rafraîchissement automatique</string>
+    <string name="pref_auto_refresh_summary">Les paroles changeront automatiquement en fonction de la musique</string>
+    <string name="select_all_action">Tout sélectionner</string>
+    <string name="unselect_all_action">Tout désélectionner</string>
+    <string name="sort_action">Trier</string>
+    <string name="sort_dialog_title">Tri…</string>
+    <string name="share_url_action_text">Partager l\'URL</string>
+
+    <string name="local_empty_database">Vous n\'avez pas encore sauvé de paroles</string>
+    <string name="pref_animations_title">Activer les animations</string>
+    <string name="pref_animations_sum">Ceci peut rendre l\'application moins fluide</string>
+    <string name="pref_look_feel_category">Aspect</string>
+    <string name="welcome">Bienvenue dans QuickLyric !</string>
+    <string name="welcome_sub">Faisons une petite visite, d\'accord ?</string>
+    <string name="welcome2">Des résultats instantanés</string>
+    <string name="welcome2_sub">Les paroles que vous cherchiez…\nInstantanément.</string>
+    <string name="refresh_desc">Quand la chanson a changé…</string>
+    <string name="refresh_desc_sub">…Appuyez sur ce bouton, QuickLyric fera le reste.</string>
+    <string name="drawer_desc">Creusons encore un peu !</string>
+    <string name="drawer_desc_sub">Pour accéder à d\'autres fonctionnalités, appuyez ici (ou tirez le menu avec votre doigt).</string>
+    <string name="pref_more_category">Autre</string>
+
+    <string-array name="nav_items">
+        <item>@string/title_lyrics</item>
+        <item>@string/id_title</item>
+        <item>@string/local_title</item>
+        <item>@string/settings_title</item>
+    </string-array>
+
+    <string-array name="sort_modes">
+        <item>Par Artiste…</item>
+        <item>Par Titre…</item>
+    </string-array>
+
+    <string-array name="AZ_sort_order">
+        <item>Alphabétique</item>
+        <item>Inverse</item>
+    </string-array>
+</resources>

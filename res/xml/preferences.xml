@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/pref_look_feel_category">
+        <CheckBoxPreference
+            android:key="pref_animations"
+            android:title="@string/pref_animations_title"
+            android:summary="@string/pref_animations_sum"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_scrobbling_category">
+        <CheckBoxPreference
+            android:key="pref_filter_20min"
+            android:title="@string/pref_20min_ignore"
+            android:summary="@string/pref_20min_ignore_sum"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="pref_auto_refresh"
+            android:title="@string/pref_auto_refresh_title"
+            android:summary="@string/pref_auto_refresh_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_more_category">
+        <Preference
+            android:title="@string/pref_about"
+            android:key="pref_about"
+            android:summary="@string/pref_about_summary" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="21sp"
+    android:gravity="center_vertical"
+    android:paddingLeft="16.0dip"
+    android:paddingRight="16.0dip"
+    android:textColor="#000"
+    android:id="@+id/drawerlist_row_text"
+    android:layout_width="fill_parent"
+    android:layout_gravity="center"
+    android:layout_height="65.0dip"
+    android:minHeight="65.0dip"
+    android:singleLine="true"
+    android:drawablePadding="5dp" />

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_lyrics">Letras</string>
+    <string name="share">Compartilhar</string>
+    <string name="refresh">Atualizar</string>
+    <string name="no_results">Não foi encontrado letras para esta mùsica</string>
+    <string name="unknown_error">Problemo desconhecido</string>
+    <string name="id_error_recording">Erro ao gravar e identificar</string>
+    <string name="connection_error">Conexão impossível.</string>
+    <string name="search_ab_title">Pesquisar : %s</string>
+    <string name="no_refresh">Não é preciso refrescar</string>
+    <string name="id_nomic">O seu aparelho não tem microfone</string>
+    <string name="search_hint">Pesquisar</string>
+    <string name="id_title">Identificar música</string>
+    <string name="search_no_result">Não há resultados</string>
+    <string name="beam_txt">Mandar estas letras ?</string>
+    <string name="id_arch_err">A arquitetura do seu aparelho não é suportada</string>
+    <string name="pref_20min_ignore">Ignorar músicas longas</string>
+    <string name="pref_20min_ignore_sum">Faixas de som mais longas que 20 minutos (como podcasts) não são consideradas como mùsicas</string>
+    <string name="pref_scrobbling_category">Scrobble</string>
+    <string name="pref_about">Sobre</string>
+    <string name="pref_about_summary">Mais sobre QuickLyric</string>
+    <string name="local_title">Letras guardadas</string>
+    <string name="settings_title">Configuração</string>
+    <string name="save_action">Guardar</string>
+    <string name="lyrics_saved">Letras baixadas</string>
+    <string name="lyrics_removed">Letras removidas da memória</string>
+    <string name="remove_action">Deletar</string>
+    <string name="pref_auto_refresh_title">Refrescar letras automaticamente</string>
+    <string name="pref_auto_refresh_summary">Letras serão refrescadas automaticamente cada vez que mudas de mùsica</string>
+    <string name="select_all_action">Selecionar tudo</string>
+    <string name="unselect_all_action">Deselecionar tudo</string>
+    <string name="sort_action">Ordenar</string>
+    <string name="sort_dialog_title">Ordenar…</string>
+    <string name="share_url_action_text">Partilhar URL</string>
+    <string name="local_empty_database">Ainda não guardou uma letra</string>
+    <string name="pref_animations_title">Permitir animações</string>
+    <string name="pref_animations_sum">Isto pode causar problemas de desempenho em aparelhos mais antigos</string>
+    <string name="pref_look_feel_category">Aspecto</string>
+    <string name="welcome">Bem-vindo a QuickLyric !</string>
+    <string name="welcome_sub">Vamos dar uma volta !</string>
+    <string name="welcome2">Resultados instantâneos</string>
+    <string name="welcome2_sub">As letras que você esta pesquisando…\nAqui, e agora</string>
+    <string name="refresh_desc">Quando a música mudou…</string>
+    <string name="refresh_desc_sub">…Aperte este botão. QuickLyric fará o resto.</string>
+    <string name="drawer_desc">Vamos mais profundo !</string>
+    <string name="drawer_desc_sub">Para acessar outras opções, aperte aqui (ou arraste a tela desde o bordo).</string>
+    <string name="pref_more_category">Outros</string>
+
+    <string-array name="nav_items">
+        <item>@string/title_lyrics</item>
+        <item>@string/id_title</item>
+        <item>@string/local_title</item>
+        <item>@string/settings_title</item>
+    </string-array>
+
+    <string-array name="sort_modes">
+        <item>Por Artista…</item>
+        <item>Por título…</item>
+    </string-array>
+
+    <string-array name="AZ_sort_order">
+        <item>Alfabeticamente</item>
+        <item>Invertida</item>
+    </string-array>
+</resources>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res" >
+            <file
+                name="btn_cling_normal"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-xhdpi/btn_cling_normal.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="cling_bleached"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-xhdpi/cling_bleached.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="hand"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-xhdpi/hand.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_cling_pressed"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-xhdpi/btn_cling_pressed.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="cling"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-xhdpi/cling.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="handy"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/layout/handy.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="showcase_button"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/layout/showcase_button.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="cling_button_bg"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable/cling_button_bg.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/values/ids.xml"
+                qualifiers="" >
+                <item
+                    name="showcase_button"
+                    type="id"/>
+                <item
+                    name="showcase_sub_text"
+                    type="id"/>
+                <item
+                    name="showcase_title_text"
+                    type="id"/>
+            </file>
+            <file
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/values/strings.xml"
+                qualifiers="" >
+                <string name="ok" >OK
+                </string>
+            </file>
+            <file
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/values/styles.xml"
+                qualifiers="" >
+
+                <style name="ShowcaseView" >
+                    <item name="sv_titleTextAppearance">
+@style/TextAppearance.ShowcaseView.Title
+                    </item>
+                    <item name="sv_detailTextAppearance">
+@style/TextAppearance.ShowcaseView.Detail
+                    </item>
+                    <item name="sv_backgroundColor">
+#3333B5E5
+                    </item>
+                    <item name="sv_buttonText">
+@string/ok
+                    </item>
+                </style>
+
+                <style name="TextAppearance.ShowcaseView.Title.Light" >
+                    <item name="android:shadowRadius">
+0
+                    </item>
+                </style>
+
+                <style name="ShowcaseButton" >
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:paddingTop">
+10dp
+                    </item>
+                    <item name="android:paddingBottom">
+15dp
+                    </item>
+                    <item name="android:paddingLeft">
+35dp
+                    </item>
+                    <item name="android:paddingRight">
+35dp
+                    </item>
+                    <item name="android:textStyle">
+bold
+                    </item>
+                    <item name="android:textColor">
+#FFFFFF
+                    </item>
+                    <item name="android:background">
+@drawable/cling_button_bg
+                    </item>
+                </style>
+
+                <style name="TextAppearance.ShowcaseView.Detail.Light" >
+                    <item name="android:textColor">
+#666666
+                    </item>
+                    <item name="android:shadowColor">
+#FF0000
+                    </item>
+                    <item name="android:shadowRadius">
+0
+                    </item>
+                </style>
+
+                <style
+                    name="TextAppearance.ShowcaseView.Title"
+                    parent="android:style/TextAppearance.Large" >
+                    <item name="android:textColor">
+#33B5E5
+                    </item>
+                </style>
+
+                <style
+                    name="TextAppearance.ShowcaseView.Detail"
+                    parent="android:style/TextAppearance" >
+                    <item name="android:textColor">
+#FFFFFF
+                    </item>
+                </style>
+
+                <style name="ShowcaseView.Light" >
+                    <item name="sv_titleTextAppearance">
+@style/TextAppearance.ShowcaseView.Title
+                    </item>
+                    <item name="sv_detailTextAppearance">
+@style/TextAppearance.ShowcaseView.Detail.Light
+                    </item>
+                    <item name="sv_backgroundColor">
+#3333B5E5
+                    </item>
+                    <item name="sv_buttonText">
+@string/ok
+                    </item>
+                </style>
+            </file>
+            <file
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/values/attrs.xml"
+                qualifiers="" >
+                <declare-styleable name="CustomTheme" >
+                    <attr
+                        name="showcaseViewStyle"
+                        format="reference" />
+                </declare-styleable>
+                <declare-styleable name="ShowcaseView" >
+                    <attr
+                        name="sv_backgroundColor"
+                        format="color|reference" />
+                    <attr
+                        name="sv_detailTextColor"
+                        format="color|reference" />
+                    <attr
+                        name="sv_titleTextColor"
+                        format="color|reference" />
+                    <attr
+                        name="sv_buttonBackgroundColor"
+                        format="color|reference" />
+                    <attr
+                        name="sv_buttonForegroundColor"
+                        format="color|reference" />
+                    <attr
+                        name="sv_buttonText"
+                        format="string|reference" />
+                    <attr
+                        name="sv_detailTextAppearance"
+                        format="reference" />
+                    <attr
+                        name="sv_titleTextAppearance"
+                        format="reference" />
+                    <attr
+                        name="sv_showcaseColor"
+                        format="color|reference" />
+                </declare-styleable>
+            </file>
+            <file
+                name="btn_cling_normal"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-hdpi/btn_cling_normal.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="hand"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-hdpi/hand.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_cling_pressed"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-hdpi/btn_cling_pressed.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="cling"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-hdpi/cling.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_cling_normal"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-mdpi/btn_cling_normal.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="hand"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-mdpi/hand.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_cling_pressed"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-mdpi/btn_cling_pressed.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="cling"
+                path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/res/drawable-mdpi/cling.png"
+                qualifiers="mdpi"
+                type="drawable" />
+        </source>
+        <source path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/build/res/rs/release" />
+        <source path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/build/res/generated/release" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/home/geecko/Documents/Android/QuickLyric/libraries/ShowcaseView/src/release/res" />
+    </dataSet>
+
+</merger>

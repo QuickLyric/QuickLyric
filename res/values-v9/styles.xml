@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ListView.quicklyric" parent="android:Widget.ListView">
+        <item name="android:listSelector">@drawable/selectable_background_quicklyric</item>
+        <item name="android:divider">#ccc</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+</resources>
