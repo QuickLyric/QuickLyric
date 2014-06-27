@@ -24,9 +24,11 @@ The app features a slick drawer menu on the left of the screen. Here are the con
 ## Build
 * Download the sources 
 * Get an API key for both Last.FM (mandatory) and Gracenote (optional). Put those in be.geecko.quicklyric.Keys .
-* If you want the MusicID feature : head over to  developer.gracenote.com, download the mobile library, put it in the libraries folder and sign up for a license.
-* Import the project with the LATEST version of Android Studio. Each Android Studio update breaks compatibility with the project, meaning the build.gradle file has to be updated regularly.
-* Build ! :)
+* If you want the MusicID feature : head over to  developer.gracenote.com, download the mobile library, put it in the libraries folder and sign up for a license. (you need armeabi/, armeabi-v7a/ and GN_Music_SDK.jar in the /QuickLyric/libs folder)
+* Input your signature keystore, login and passwords into the QuickLyric/build.gradle file
+* cd to the sources and execute "gradle build"
+**OR**
+* Import the project with the LATEST version of Android Studio. Android Studio updates often break compatibility with older versions of Gradle, meaning the build.gradle file has to be updated regularly.
 
 ## APK
 Please don't ask for a compiled apk. QuickLyric will hopefully someday be distributed via some app store, maybe F-Droid, maybe the Google Play Store. But until the licensing issues are sorted out, no apk will be distributed.
