@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+
+dependencies {
+	compile 'com.android.support:support-v4:+'
+	compile 'com.nineoldandroids:library:2.4.+'
+}
+
+android {
+	compileSdkVersion 20
+    buildToolsVersion '20.0.0'
+
+    defaultConfig {
+        minSdkVersion 4
+        targetSdkVersion 20
+    }
+
+    lintOptions {
+        abortOnError false //otherwise ShowcaseView fails to build because of its calls to 11+ APIs
+    }
+}

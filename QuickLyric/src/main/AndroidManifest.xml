@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="be.geecko.QuickLyric"
+    android:versionCode="1">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-sdk tools:node="replace" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
+
+    <application
+        android:name="be.geecko.QuickLyric.App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:logo="@drawable/ab_logo"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.quicklyric"
+        android:supportsRtl="true">
+        <activity
+            android:name="be.geecko.QuickLyric.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/lyrics" />
+            </intent-filter>
+
+        </activity>
+
+        <receiver
+            android:name="be.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.jrtstudio.music.metachanged" />
+                <action android:name="com.jrtstudio.AnotherMusicPlayer.metachanged" />
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.htc.music.metachanged" />
+                <action android:name="com.rdio.android.playstatechanged" />
+                <action android:name="fm.last.android.metachanged" />
+                <action android:name="com.miui.player.metachanged" />
+                <action android:name="com.real.IMP.metachanged" />
+                <action android:name="com.sonyericsson.music.metachanged" />
+                <action android:name="com.samsung.MusicPlayer.metachanged" />
+                <action android:name="com.samsung.sec.metachanged" />
+                <action android:name="com.samsung.music.metachanged" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.metachanged" />
+                <action android:name="com.rhapsody.playstatechanged" />
+                <action android:name="com.maxmpz.audioplayer.playstatechanged" />
+                <action android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
+                <action android:name="com.adam.aslfms.notify.playstatechanged" />
+                <action android:name="com.andrew.apollo.metachanged" />
+                <action android:name="com.amazon.mp3.metachanged" />
+                <action android:name="com.sec.android.app.music.metachanged" />
+                <action android:name="com.spotify.mobile.android.metadatachanged" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+
+android {
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+        }
+    }
+    compileSdkVersion 20
+    buildToolsVersion '20.0.0'
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 20
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    signingConfigs {
+
+        release {
+            storeFile file('../release.keystore')
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:+'
+    compile "com.android.support:appcompat-v7:20.+" //FIXME 21+ breaks builds atm
+    compile 'com.android.support:recyclerview-v7:+'
+    compile "com.nineoldandroids:library:2.4.+"
+    compile project(':ShowcaseView')
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+task copyNativeLibs(type: Copy) {
+    from fileTree(dir: 'libs', include: '**/*.so')
+    into new File(buildDir, 'native-libs')
+}
+
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+
+clean.dependsOn 'cleanCopyNativeLibs'
+
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+    pkgTask.jniFolders = new HashSet<File>()
+    pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}

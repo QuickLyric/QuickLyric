@@ -1,2 +1,2 @@
-include ':libraries:ShowcaseView'
 include ':QuickLyric'
+include ':ShowcaseView'
