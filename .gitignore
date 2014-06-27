@@ -29,6 +29,7 @@ proguard/
 *.iws
 *.log
 .idea/
+libraries/
 
 # Gradle files
 gradle/
@@ -42,5 +43,6 @@ GN_Music_SDK.jar
 armeabi/
 armeabi-v7a/
 
-# Private API keys
+# Private keys
 Keys.java
+release.keystore
