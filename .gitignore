@@ -33,6 +33,7 @@ libraries/
 
 # Gradle files
 gradle/
+gradle.properties
 gradle-app.setting
 gradlew
 gradlew.bat

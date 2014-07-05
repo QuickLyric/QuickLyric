@@ -96,6 +96,8 @@ public class Lyrics implements Serializable {
     }
 
     public static Lyrics fromBytes(byte[] data) throws IOException, ClassNotFoundException {
+        if (data == null)
+            return null;
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         ObjectInputStream is = new ObjectInputStream(in);
         return (Lyrics) is.readObject();

@@ -25,7 +25,6 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
         if (url == null) {
             try {
-                //todo extract API key
                 String html = Lyrics.getUrlAsString(new URL(String.format("http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=%s&track=%s&format=json", Keys.lastFM, URLEncoder.encode(lyrics.getArtist(), "UTF-8"), URLEncoder.encode(lyrics.getTrack(), "UTF-8"))));
                 JSONObject json = new JSONObject(html);
                 url = json.getJSONObject("track").getJSONObject("album").getJSONArray("image").getJSONObject(2).getString("#text");

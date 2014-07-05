@@ -39,42 +39,100 @@
     <string name="sort_action">Sort</string>
     <string name="sort_dialog_title">Sort…</string>
     <string name="share_url_action_text">Share URL</string>
-    <string name="about_dialog_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-        nec magna non est aliquet laoreet id in diam. Aenean pharetra sollicitudin urna, vitae
-        suscipit lectus pulvinar quis. Nunc nisi augue, pellentesque non ante id, sollicitudin
-        hendrerit risus. Mauris ultricies venenatis gravida. Morbi quis arcu pharetra, pulvinar sem
-        vel, convallis augue. Curabitur egestas varius turpis, id mollis mi mollis quis. Praesent ac
-        rutrum mi. Phasellus suscipit tortor eget mauris dapibus, eget aliquam neque porttitor. Sed
-        in massa quam. Aliquam erat volutpat.\n\nEtiam ultricies lorem non tellus vulputate
-        molestie. Suspendisse potenti. Donec eleifend
-        justo id elementum rhoncus. Nam vehicula sagittis erat nec pulvinar. Mauris facilisis
-        convallis ante dapibus mollis. Nullam vel lacinia turpis. Mauris convallis sagittis quam ac
-        blandit. Donec sapien nibh, pulvinar sed erat eu, congue placerat lorem. Phasellus ultricies
-        nec metus a cursus. Ut fringilla et nulla quis blandit. In est diam, facilisis non
-        adipiscing non, fringilla ac sapien. Nullam id mauris et sapien laoreet placerat. Proin
-        faucibus turpis vitae eleifend porta. Curabitur ultricies turpis vitae urna ultricies
-        dignissim. Donec vestibulum tristique adipiscing.\n\nUt rutrum pellentesque diam sed
-        sollicitudin. Nulla facilisi. Nam faucibus metus at mi
-        bibendum pretium. Etiam quis erat eget elit faucibus vestibulum vel id nulla. Suspendisse et
-        nisl ultrices lacus ullamcorper euismod. Donec fermentum non risus auctor egestas. Etiam
-        sodales, massa id aliquet vestibulum, mi lacus molestie mi, vitae pharetra sapien tortor
-        varius libero. Proin non lorem tellus. Proin semper lorem nec faucibus gravida. Aenean
-        convallis tortor ac adipiscing dignissim.\n\nVivamus aliquet orci ut elit scelerisque
-        tristique. Etiam ullamcorper imperdiet tortor eu
-        vehicula. Praesent vitae convallis neque, sed adipiscing est. Mauris pellentesque ipsum
-        orci, et congue orci facilisis vitae. Maecenas pulvinar semper elit vel scelerisque. Nunc
-        venenatis ut augue id tincidunt. Praesent fermentum arcu vel ultricies faucibus. Suspendisse
-        quis auctor nibh. Aenean faucibus vel justo ut interdum. Donec fringilla suscipit neque, sit
-        amet ultricies massa venenatis et. Donec consequat leo luctus nisl placerat convallis.
-        Pellentesque nec consectetur nibh. Integer eget cursus sapien, id fermentum erat. Duis
-        gravida commodo nulla.\n\nSed ac dui ante. Pellentesque habitant morbi tristique senectus et
-        netus et malesuada fames
-        ac turpis egestas. Proin erat eros, cursus vitae ipsum id, bibendum pulvinar risus. Quisque
-        vel tempor risus, vel consequat velit. Nam in pretium leo. Nam blandit tincidunt dictum. In
-        accumsan massa vel lectus lobortis varius. Maecenas ac lectus scelerisque, aliquet diam eu,
-        lobortis erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras quis
-        tortor lectus. Donec sollicitudin in mi quis laoreet.
-    </string>
+    <string name="about_dialog_content">
+Lyrics provided by AZLyrics, LyricsWiki and LyricsNMusic. Search provided by LyricsNMusic.\n
+\n
+Terms of service available at:
+\n	LyricsNMusic:
+\n      http://www.lyricsnmusic.com/term
+\n	AZLyrics:
+\n      http://www.azlyrics.com/copyright.html
+\n	LyricWikia:
+\n      http://lyrics.wikia.com/LyricWiki:Copyrights
+\n
+\nThe lyrics provided via this app are property of their respective owners. Please investigate each track individually for copyright information.
+\n-------------------------------------
+\nGracenote, the Gracenote logo and logotype, “Gracenote MusicID” and the “Powered by Gracenote” logo are either a registered trademark or a trademark of Gracenote, Inc. in the United States and/or other countries.
+\n-------------------------------------
+\nCover arts are provided by Last FM as part of the last fm non-commercial usage license
+\n-------------------------------------
+\n- Scrolling tricks by Roman Nurik
+\n
+\n          Copyright 2013 Google Inc.
+\n
+\n          Licensed under the Apache License, Version 2.0 (the "License");
+\n          you may not use this file except in compliance with the License.
+\n          You may obtain a copy of the License at
+\n
+\n              http://www.apache.org/licenses/LICENSE-2.0
+\n
+\n          Unless required by applicable law or agreed to in writing, software
+\n          distributed under the License is distributed on an "AS IS" BASIS,
+\n          WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+\n          See the License for the specific language governing permissions and
+\n          limitations under the License.
+\n
+\n-------------------------------------
+\n- Android support libraries
+\n- Volley networking library
+\n
+\n/*
+\n * Copyright © 2006 The Android Open Source Project
+\n *
+\n * Licensed under the Apache License, Version 2.0 (the "License");
+\n * you may not use this file except in compliance with the License.
+\n * You may obtain a copy of the License at
+\n *
+\n *      http://www.apache.org/licenses/LICENSE-2.0
+\n *
+\n * Unless required by applicable law or agreed to in writing, software
+\n * distributed under the License is distributed on an "AS IS" BASIS,
+\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+\n * See the License for the specific language governing permissions and
+\n * limitations under the License.
+\n */
+\n
+\n-------------------------------------
+\n- NineOldAndroid
+\n
+\n  Copyright 2012 Jake Wharton
+\n
+\n    Licensed under the Apache License, Version 2.0 (the "License");
+\n    you may not use this file except in compliance with the License.
+\n    You may obtain a copy of the License at
+\n
+\n    http://www.apache.org/licenses/LICENSE-2.0
+\n
+\n    Unless required by applicable law or agreed to in writing, software
+\n    distributed under the License is distributed on an "AS IS" BASIS,
+\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+\n    See the License for the specific language governing permissions and
+\n    limitations under the License.
+\n
+\n-------------------------------------
+\n- ProgressWheel
+\n
+\nThe MIT License (MIT)
+\n
+\nCopyright © 2014 Todd Davies
+\n
+\nPermission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+\n
+\nThe above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+\n
+\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</string>
     <string name="local_empty_database">You haven\'t saved any lyrics yet.</string>
     <string name="pref_animations_title">Enable animations</string>
     <string name="pref_animations_sum">Might cause performance issues on older devices</string>

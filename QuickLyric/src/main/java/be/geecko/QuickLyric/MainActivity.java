@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,11 +52,6 @@ import static be.geecko.QuickLyric.R.string;
 public class MainActivity extends ActionBarActivity {
     // TODO new Icon/Bugpic ?
     // TODO batch saving lyrics from Google Music / Storage (Note : make sure it's easy to go through 10k+ songs in LocalLyricsFragment) (Note2: Make sure I'm allowed to do that)
-
-    // TODO Translations
-    // TODO Test more screen formats
-    // TODO About (Gracenote, LastFM, Lyrics Providers, ProgressWheel, Roman Nurik, Volley, Jake Wharton's nineoldandroids, ShowcaseView)
-    // TODO Legal stuff, licensing, etc
 
     public View drawer;
     private ActionBarDrawerToggle mDrawerToggle;
