@@ -23,10 +23,9 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         super(context, R.id.drawerlist_row_text, strings);
         this.stringArray = strings;
         Drawable drawable1 = context.getResources().getDrawable(R.drawable.ic_lyrics);
-        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_mic);
-        Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_sdcard);
-        Drawable drawable4 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
-        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3, drawable4};
+        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_sdcard);
+        Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
+        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3};
     }
 
     @Override

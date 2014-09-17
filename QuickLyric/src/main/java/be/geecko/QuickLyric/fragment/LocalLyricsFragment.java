@@ -61,8 +61,8 @@ public class LocalLyricsFragment extends ListFragment {
             return;
 
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) mainActivity.findViewById(R.id.drawer_list)).getAdapter());
-        if (drawerAdapter.getSelectedItem() != 2) {
-            drawerAdapter.setSelectedItem(2);
+        if (drawerAdapter.getSelectedItem() != 1) {
+            drawerAdapter.setSelectedItem(1);
             drawerAdapter.notifyDataSetChanged();
         }
 

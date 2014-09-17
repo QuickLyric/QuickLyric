@@ -9,7 +9,7 @@
     android:id="@+id/drawerlist_row_text"
     android:layout_width="fill_parent"
     android:layout_gravity="center"
-    android:layout_height="65.0dip"
-    android:minHeight="65.0dip"
+    android:layout_height="75.0dip"
+    android:minHeight="75.0dip"
     android:singleLine="true"
     android:drawablePadding="5dp" />

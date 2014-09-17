@@ -43,7 +43,7 @@
     <string name="welcome2">すぐに結果</string>
     <string name="welcome2_sub">ます探していました歌詞を…\n瞬時に。</string>
     <string name="refresh_desc">曲は変更されたとき…</string>
-    <string name="refresh_desc_sub">…このボタンを押してください, QuickLyricは残りを行います。</string>
+    <string name="refresh_desc_sub">このボタンを押してください, QuickLyricは残りを行います。</string>
     <string name="drawer_desc">深く掘る！</string>
     <string name="drawer_desc_sub">他の機能にアクセスするには、こちらをクリック（または、ここに指をスライドさせ）。.</string>
     <string name="pref_more_category">その他</string>

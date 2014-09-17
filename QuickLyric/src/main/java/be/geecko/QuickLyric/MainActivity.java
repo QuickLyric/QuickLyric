@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -33,15 +34,19 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import be.geecko.QuickLyric.adapter.DrawerAdapter;
-import be.geecko.QuickLyric.fragment.IDFragment;
 import be.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import be.geecko.QuickLyric.fragment.LyricsViewFragment;
 import be.geecko.QuickLyric.fragment.SearchFragment;
 import be.geecko.QuickLyric.fragment.SettingsFragment;
 import be.geecko.QuickLyric.lyrics.Lyrics;
+import be.geecko.QuickLyric.tasks.DownloadTask;
 import be.geecko.QuickLyric.utils.DatabaseHelper;
+import be.geecko.QuickLyric.utils.IdDecoder;
 
 import static be.geecko.QuickLyric.R.array;
 import static be.geecko.QuickLyric.R.drawable;
@@ -50,7 +55,6 @@ import static be.geecko.QuickLyric.R.layout;
 import static be.geecko.QuickLyric.R.string;
 
 public class MainActivity extends ActionBarActivity {
-    // TODO new Icon/Bugpic ?
     // TODO batch saving lyrics from Google Music / Storage (Note : make sure it's easy to go through 10k+ songs in LocalLyricsFragment) (Note2: Make sure I'm allowed to do that)
 
     public View drawer;
@@ -84,7 +88,9 @@ public class MainActivity extends ActionBarActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, drawable.ic_drawer, string.drawer_open_desc, string.drawer_closed_desc) {
 
-                /** Called when a drawer has settled in a completely open state. */
+                /**
+                 * Called when a drawer has settled in a completely open state.
+                 */
                 public void onDrawerOpened(View drawerView) {
                     focusOnFragment = false;
                     if (mActionMode != null)
@@ -92,7 +98,9 @@ public class MainActivity extends ActionBarActivity {
                     MainActivity.this.supportInvalidateOptionsMenu(); // onPrepareOptionsMenu()
                 }
 
-                /** Called when a drawer has settled in a completely closed state. */
+                /**
+                 * Called when a drawer has settled in a completely closed state.
+                 */
                 public void onDrawerClosed(View view) {
                     focusOnFragment = true;
                     MainActivity.this.supportInvalidateOptionsMenu(); // onPrepareOptionsMenu()
@@ -129,18 +137,26 @@ public class MainActivity extends ActionBarActivity {
                 } else if (fragment == displayedFragment)
                     fragmentTransaction.show(fragment);
             }
-        Lyrics beamLyrics = getBeamLyrics(getIntent());
-        if (beamLyrics == null)
-            fragmentTransaction.commit();
-        else
-            updateLyricsFragment(0, 0, false, beamLyrics);
+        Intent intent = getIntent();
+        if (intent.getAction().equals("android.intent.action.SEND")) {
+            String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
+            new IdDecoder(this).execute(getIdUrl(extra));
+        } else if (intent.getAction().equals("android.intent.action.VIEW")) {
+            processURL(intent);
+        } else {
+            Lyrics receivedLyrics = getBeamedLyrics(intent);
+            if (receivedLyrics == null)
+                fragmentTransaction.commit();
+            else
+                updateLyricsFragment(0, 0, false, receivedLyrics);
+        }
     }
 
     public Fragment getDisplayedFragment(Fragment[] fragments) {
         for (Fragment fragment : fragments) {
             if (fragment == null)
                 continue;
-            if ((fragment instanceof LyricsViewFragment && ((LyricsViewFragment) fragment).isActiveFragment) || (fragment instanceof IDFragment && ((IDFragment) fragment).isActiveFragment) || (fragment instanceof SettingsFragment && ((SettingsFragment) fragment).isActiveFragment) || (fragment instanceof SearchFragment && ((SearchFragment) fragment).isActiveFragment) || (fragment instanceof LocalLyricsFragment && ((LocalLyricsFragment) fragment).isActiveFragment))
+            if ((fragment instanceof LyricsViewFragment && ((LyricsViewFragment) fragment).isActiveFragment) || (fragment instanceof SettingsFragment && ((SettingsFragment) fragment).isActiveFragment) || (fragment instanceof SearchFragment && ((SearchFragment) fragment).isActiveFragment) || (fragment instanceof LocalLyricsFragment && ((LocalLyricsFragment) fragment).isActiveFragment))
                 return fragment;
         }
         return fragments[0];
@@ -162,8 +178,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         App.activityResumed();
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (Build.VERSION.SDK_INT >= 14) {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (nfcAdapter != null) {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, ((Object) this).getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
                 IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
@@ -181,30 +197,60 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (Build.VERSION.SDK_INT >= 14)
-            getBeamLyrics(intent);
+        String action = intent.getAction();
+        if (action != null)
+            if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED))
+                getBeamedLyrics(intent);
+            else if (action.equals("android.intent.action.SEND")) {
+                String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
+                new IdDecoder(this).execute(getIdUrl(extra));
+            } else if (action.equals("android.intent.action.VIEW")) {
+                processURL(intent);
+            }
     }
 
     @TargetApi(14)
-    private Lyrics getBeamLyrics(Intent intent) {
-        String action = intent.getAction();
-        if (action != null && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            // only one message sent during the beam
-            if (rawMsgs != null && rawMsgs.length > 0) {
-                NdefMessage msg = (NdefMessage) rawMsgs[0];
-                // record 0 contains the MIME type, record 1 is the AAR, if present
-                NdefRecord[] records = msg.getRecords();
-                if (records.length > 0) {
-                    try {
-                        return Lyrics.fromBytes(records[0].getPayload());
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+    private Lyrics getBeamedLyrics(Intent intent) {
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        // only one message sent during the beam
+        if (rawMsgs != null && rawMsgs.length > 0) {
+            NdefMessage msg = (NdefMessage) rawMsgs[0];
+            // record 0 contains the MIME type, record 1 is the AAR, if present
+            NdefRecord[] records = msg.getRecords();
+            if (records.length > 0) {
+                try {
+                    return Lyrics.fromBytes(records[0].getPayload());
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
         }
         return null;
+    }
+
+    private void processURL(Intent intent) {
+        Uri data = intent.getData();
+        String scheme = data.getScheme();//get the scheme (http,https)
+        String fullPath = data.getEncodedSchemeSpecificPart();//get the full path -scheme - fragments
+        String url = scheme + ":" + fullPath;
+        if (url.contains("www.azlyrics.com/") ||
+                url.contains("lyrics.wikia.com/") ||
+                url.contains("lyricsnmusic.com"))
+            new DownloadTask().execute(this, url);
+    }
+
+    private String getIdUrl(String extra) {
+        final Pattern urlPattern = Pattern.compile(
+                "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
+                        + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
+                        + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
+                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+
+        Matcher matcher = urlPattern.matcher(extra);
+        if (matcher.find())
+            return extra.substring(matcher.start(), matcher.end());
+        else
+            return null;
     }
 
     @SuppressLint("NewApi")
@@ -365,10 +411,12 @@ public class MainActivity extends ActionBarActivity {
         if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_animations", true))
             fragmentTransaction.setCustomAnimations(inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-        if (lyricsViewFragment != null && transition) {
-            fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);
-            lyricsViewFragment.update(lyrics);
-            prepareAnimations(activeFragment);
+        if (lyricsViewFragment != null) {
+            lyricsViewFragment.update(lyrics, lyricsViewFragment.getView());
+            if (transition) {
+                fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);
+                prepareAnimations(activeFragment);
+            }
         } else {
             Bundle lyricsBundle = new Bundle();
             try {
@@ -410,20 +458,13 @@ public class MainActivity extends ActionBarActivity {
                 ((LyricsViewFragment) newFragment).showTransitionAnim = true;
                 break;
             case 1:
-                tag = "MusicIDFragment";
-                newFragment = fragmentManager.findFragmentByTag(tag);
-                if (newFragment == null || !(newFragment instanceof IDFragment))
-                    newFragment = new IDFragment();
-                ((IDFragment) newFragment).showTransitionAnim = true;
-                break;
-            case 2:
                 tag = "LocalLyricsFragment";
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof LocalLyricsFragment))
                     newFragment = new LocalLyricsFragment();
                 ((LocalLyricsFragment) newFragment).showTransitionAnim = true;
                 break;
-            case 3:
+            case 2:
                 tag = "SettingsFragment";
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof SettingsFragment))

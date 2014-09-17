@@ -1,5 +1,12 @@
 package be.geecko.QuickLyric.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * This file is part of QuickLyric
  * Created by geecko on 15/09/14.
@@ -16,4 +23,29 @@ package be.geecko.QuickLyric.utils;
  * limitations under the License.
  */
 public class Net {
+
+    public static String getUrlAsString(String paramURL) throws IOException {
+        return getUrlAsString(new URL(paramURL));
+    }
+
+    public static String getUrlAsString(URL paramURL)
+            throws IOException {
+
+        HttpURLConnection localHttpURLConnection = (HttpURLConnection) paramURL.openConnection();
+        localHttpURLConnection.setRequestMethod("GET");
+        localHttpURLConnection.setReadTimeout(15000);
+        localHttpURLConnection.setUseCaches(false);
+        localHttpURLConnection.connect();
+        InputStreamReader localInputStreamReader = new InputStreamReader(localHttpURLConnection.getInputStream());
+        BufferedReader localBufferedReader = new BufferedReader(localInputStreamReader);
+        StringBuilder localStringBuilder = new StringBuilder();
+        while (true) {
+            String str = localBufferedReader.readLine();
+            if (str == null)
+                break;
+            localStringBuilder.append(str).append("\n");
+        }
+        localInputStreamReader.close();
+        return localStringBuilder.toString();
+    }
 }

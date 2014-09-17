@@ -101,7 +101,7 @@
         <item name="sv_showcaseColor">#ffe6800b</item>
         <item name="sv_buttonText">OK</item>
 
-        <item name="sv_backgroundColor">#ddffc799</item>
+        <item name="sv_backgroundColor">#f0ffc799</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle</item>
         <item name="sv_detailTextAppearance">@style/CustomDetailText</item>
 

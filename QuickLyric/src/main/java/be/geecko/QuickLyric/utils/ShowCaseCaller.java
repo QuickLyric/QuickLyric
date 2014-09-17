@@ -1,5 +1,14 @@
 package be.geecko.QuickLyric.utils;
 
+import android.app.Activity;
+import android.content.Context;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
+
+import be.geecko.QuickLyric.R;
+
 /**
  * This file is part of QuickLyric
  * Created by geecko on 17/09/14.
@@ -15,5 +24,29 @@ package be.geecko.QuickLyric.utils;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class ShowCaseCaller {
+public class ShowCaseCaller implements OnShowcaseEventListener {
+    Activity mActivity;
+
+    public ShowCaseCaller(Activity activity) {
+        this.mActivity = activity;
+    }
+
+    @Override
+    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+        //pass
+    }
+
+    @Override
+    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+        new ShowcaseView.Builder(mActivity)
+                .setTarget(new ActionItemTarget(mActivity, R.id.refresh_action))
+                .setContentTitle(R.string.refresh_desc)
+                .setContentText(R.string.refresh_desc_sub)
+                .hideOnTouchOutside().build();
+    }
+
+    @Override
+    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+        //pass
+    }
 }

@@ -42,7 +42,7 @@
     <string name="welcome2">Resultados instantâneos</string>
     <string name="welcome2_sub">As letras que você esta pesquisando…\nAqui, e agora</string>
     <string name="refresh_desc">Quando a música mudou…</string>
-    <string name="refresh_desc_sub">…Aperte este botão. QuickLyric fará o resto.</string>
+    <string name="refresh_desc_sub">Aperte este botão. QuickLyric fará o resto.</string>
     <string name="drawer_desc">Vamos mais profundo !</string>
     <string name="drawer_desc_sub">Para acessar outras opções, aperte aqui (ou arraste a tela desde o bordo).</string>
     <string name="pref_more_category">Outros</string>

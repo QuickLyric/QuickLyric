@@ -26,6 +26,7 @@
         <activity
             android:name="be.geecko.QuickLyric.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +37,40 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/lyrics" />
             </intent-filter>
-
+            <intent-filter
+                android:icon="@drawable/ic_launcher"
+                android:label="@string/app_name">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:pathPattern="/lyrics/.*/.*.html"/>
+                <data android:host="www.azlyrics.com" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:pathPattern="/.*:.*"/>
+                <data android:host="lyrics.wikia.com" />
+            </intent-filter>
+            <intent-filter>
+            	<action android:name="android.intent.action.VIEW" />
+			    <category android:name="android.intent.category.DEFAULT" />
+			    <category android:name="android.intent.category.BROWSABLE" />
+          	    <data android:scheme="http" />
+            	<data android:scheme="https" />
+                <data android:pathPattern="/.*/.*/.*"/>
+            	<data android:host="www.lyricsnmusic.com" />
+        	</intent-filter>
         </activity>
 
         <receiver
@@ -63,7 +97,7 @@
                 <action android:name="com.andrew.apollo.metachanged" />
                 <action android:name="com.amazon.mp3.metachanged" />
                 <action android:name="com.sec.android.app.music.metachanged" />
-                <action android:name="com.spotify.mobile.android.metadatachanged" />
+                <action android:name="com.spotify.music.metadatachanged" />
             </intent-filter>
         </receiver>
     </application>

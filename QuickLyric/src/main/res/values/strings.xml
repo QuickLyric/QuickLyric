@@ -142,14 +142,13 @@ SOFTWARE.</string>
     <string name="welcome2">Instant results</string>
     <string name="welcome2_sub">The lyrics you were looking for…\nRight here, right now.</string>
     <string name="refresh_desc">When the song has changed…</string>
-    <string name="refresh_desc_sub">…Tap this button. QuickLyric will do the rest.</string>
+    <string name="refresh_desc_sub">Tap this button. QuickLyric will do the rest.</string>
     <string name="drawer_desc">Let\'s dig deeper !</string>
     <string name="drawer_desc_sub">To access other features, tap here (or swipe the screen from the edge).</string>
     <string name="pref_more_category">More</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
-        <item>@string/id_title</item>
         <item>@string/local_title</item>
         <item>@string/settings_title</item>
     </string-array>

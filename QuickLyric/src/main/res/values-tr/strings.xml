@@ -42,7 +42,7 @@
     <string name="welcome2">Anında sonuç</string>
     <string name="welcome2_sub">Aradığınız sözler… hemen\n…simdi.</string>
     <string name="refresh_desc">Müzik değiştiğinde…</string>
-    <string name="refresh_desc_sub">…Bu düğmeye basın, birakin QuickLyric geri kalanini yapsin.</string>
+    <string name="refresh_desc_sub">Bu düğmeye basın, birakin QuickLyric geri kalanini yapsin.</string>
     <string name="drawer_desc">Aramaya devam edelim !</string>
     <string name="drawer_desc_sub">Diğer özelliklere erişmek için buraya tıklayın (veya parmağınızla menüyü çekin).</string>
     <string name="pref_more_category">Diğer</string>

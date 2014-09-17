@@ -1,5 +1,16 @@
 package be.geecko.QuickLyric.utils;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
+import java.io.IOException;
+import java.util.Set;
+
+import be.geecko.QuickLyric.MainActivity;
+import be.geecko.QuickLyric.lyrics.Lyrics;
+
+import static be.geecko.QuickLyric.utils.Net.getUrlAsString;
+
 /**
  * This file is part of QuickLyric
  * Created by geecko on 15/09/14.
@@ -15,5 +26,54 @@ package be.geecko.QuickLyric.utils;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class IdDecoder {
+public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
+    private Context mContext;
+
+    public IdDecoder(Context context) {
+        this.mContext = context;
+    }
+
+    @Override
+    protected Lyrics doInBackground(String... strings) {
+        String url = strings[0];
+        String artist = null;
+        String track = null;
+        if (url.contains("http://www.soundhound.com/")) {
+            try {
+                String html = getUrlAsString(url);
+                int preceding = html.indexOf("<title>SoundHound") + 20;
+                int following = html.substring(preceding).indexOf("</title>");
+                String title = html.substring(preceding, preceding + following);
+                track = title.split(" by ")[0];
+                artist = title.split(" by ")[1];
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (url.contains("http://shz.am/")) {
+            try {
+                String html = getUrlAsString(url);
+                int preceding = html.indexOf("<title>") + 7;
+                int following = html.substring(preceding).indexOf("</title>");
+                String title = html.substring(preceding, preceding + following);
+                track = title.split(" : ")[1];
+                artist = title.split(" : ")[0];
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else
+            return null;
+        Lyrics res = new Lyrics(Lyrics.NO_RESULT);
+        res.setArtist(artist);
+        res.setTitle(track);
+        return res;
+    }
+
+    @Override
+    protected void onPostExecute(Lyrics lyrics) {
+        super.onPostExecute(lyrics);
+        ((MainActivity) mContext).updateLyricsFragment(0, 0, false, lyrics);
+    }
+
+
 }

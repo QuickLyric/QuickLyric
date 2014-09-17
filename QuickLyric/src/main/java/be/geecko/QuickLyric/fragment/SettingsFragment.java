@@ -45,8 +45,8 @@ public class SettingsFragment extends PreferenceListFragment implements Preferen
         final MainActivity activity = ((MainActivity) this.getActivity());
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) activity.findViewById(R.id.drawer_list)).getAdapter());
 
-        if (drawerAdapter.getSelectedItem() != 3) {
-            drawerAdapter.setSelectedItem(3);
+        if (drawerAdapter.getSelectedItem() != 2) {
+            drawerAdapter.setSelectedItem(2);
             drawerAdapter.notifyDataSetChanged();
         }
         this.isActiveFragment = true;

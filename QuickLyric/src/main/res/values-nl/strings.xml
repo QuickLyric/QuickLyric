@@ -43,7 +43,7 @@
     <string name="welcome2">Onmiddellijke resultaten</string>
     <string name="welcome2_sub">De teksten die je zoekt…\nOnmiddelijk.</string>
     <string name="refresh_desc">Als de song verandert…</string>
-    <string name="refresh_desc_sub">…Druk op deze knop. QuickLyric zal de rest doen.</string>
+    <string name="refresh_desc_sub">Druk op deze knop. QuickLyric zal de rest doen.</string>
     <string name="drawer_desc">Laten we dieper graven !</string>
     <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
     <string name="pref_more_category">Meer</string>

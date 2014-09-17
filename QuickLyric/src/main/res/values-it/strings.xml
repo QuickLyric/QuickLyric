@@ -43,7 +43,7 @@
     <string name="welcome2">Risultati istantanei</string>
     <string name="welcome2_sub">Il testo che stavi cercando…\nProprio qui, proprio ora.</string>
     <string name="refresh_desc">Quando la canzone è cambiata…</string>
-    <string name="refresh_desc_sub">…premi questo pulsante. QuickLyrics farà il resto.</string>
+    <string name="refresh_desc_sub">premi questo pulsante. QuickLyrics farà il resto.</string>
     <string name="drawer_desc">Andiamo più a fondo !</string>
     <string name="drawer_desc_sub">Per avere accesso alle altre caratteristiche, premere qui (oppure trascinare lo schermo dall’alto)</string>
     <string name="pref_more_category">Altro</string>

@@ -43,7 +43,7 @@
     <string name="welcome2">Des résultats instantanés</string>
     <string name="welcome2_sub">Les paroles que vous cherchiez…\nInstantanément.</string>
     <string name="refresh_desc">Quand la chanson a changé…</string>
-    <string name="refresh_desc_sub">…Appuyez sur ce bouton, QuickLyric fera le reste.</string>
+    <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric fera le reste.</string>
     <string name="drawer_desc">Creusons encore un peu !</string>
     <string name="drawer_desc_sub">Pour accéder à d\'autres fonctionnalités, appuyez ici (ou tirez le menu avec votre doigt).</string>
     <string name="pref_more_category">Autre</string>

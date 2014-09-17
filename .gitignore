@@ -39,11 +39,5 @@ gradlew
 gradlew.bat
 .gradle/
 
-# Gracenote Library
-GN_Music_SDK.jar
-armeabi/
-armeabi-v7a/
-
 # Private keys
-Keys.java
 release.keystore

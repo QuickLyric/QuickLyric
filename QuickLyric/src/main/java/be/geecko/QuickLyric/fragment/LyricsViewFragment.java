@@ -34,8 +34,9 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.espian.showcaseview.ShowcaseView;
-import com.espian.showcaseview.ShowcaseViews;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.io.IOException;
@@ -54,6 +55,7 @@ import be.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import be.geecko.QuickLyric.utils.CoverCache;
 import be.geecko.QuickLyric.utils.LyricsTextFactory;
 import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import be.geecko.QuickLyric.utils.ShowCaseCaller;
 import be.geecko.QuickLyric.view.FadeInNetworkImageView;
 import be.geecko.QuickLyric.view.ObservableScrollView;
 import be.geecko.QuickLyric.view.RefreshIcon;
@@ -93,6 +95,21 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
+        else {
+            Bundle args = getArguments();
+            if (args != null)
+                try {
+                    Lyrics lyrics = Lyrics.fromBytes(args.getByteArray("lyrics"));
+                    this.mLyrics = lyrics;
+                    if (lyrics.getText() == null) {
+                        String artist = lyrics.getArtist();
+                        String track = lyrics.getTrack();
+                        fetchLyrics(artist, track);
+                    }
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+        }
         //View layout = ((MainActivity) getActivity()).inflatedViews.get(getTag());
         View layout = inflater.inflate(R.layout.lyrics_view, container, false);
         if (layout != null) {
@@ -115,16 +132,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
                 ((TextView) (layout.findViewById(R.id.song))).setText(mLyrics.getTrack());
             } else { //Rotation, resume
-                setCoverArt(mLyrics.getCoverURL(), cover);
-                ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
-                ((TextView) (layout.findViewById(R.id.song))).setText(mLyrics.getTrack());
-                if (mLyrics.getText() != null) {
-                    textSwitcher.setText(Html.fromHtml(mLyrics.getText()));
-                    layout.findViewById(R.id.error_msg).setVisibility(View.INVISIBLE);
-                } else if (!refreshAnimationFlag) {
-                    textSwitcher.setText("");
-                    layout.findViewById(R.id.error_msg).setVisibility(View.VISIBLE);
-                }
+                update(mLyrics, layout);
             }
         }
         broadcastReceiver = new BroadcastReceiver() {
@@ -156,17 +164,13 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (!sharedPref.getBoolean("welcome_lyrics_view", false)) {
-            ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
-            configOptions.centerText = true;
-            ShowcaseViews showcases = new ShowcaseViews(getActivity());
-            showcases.addView(new ShowcaseViews.ItemViewProperties(R.id.action_bar_title, R.string.welcome, R.string.welcome_sub, ShowcaseView.ITEM_TITLE,configOptions));
-            showcases.addView(new ShowcaseViews.ItemViewProperties(R.id.switcher, R.string.welcome2, R.string.welcome2_sub, 1.2f, configOptions));
-            showcases.addView(new ShowcaseViews.ItemViewProperties(R.id.refresh_action, R.string.refresh_desc, R.string.refresh_desc_sub, ShowcaseView.ITEM_ACTION_ITEM, 0.5f,configOptions));
-            if (((MainActivity) getActivity()).drawer instanceof DrawerLayout) {
-                showcases.addView(new ShowcaseViews.ItemViewProperties(R.id.home, R.string.drawer_desc, R.string.drawer_desc_sub, ShowcaseView.ITEM_ACTION_HOME));
-                showcases.addAnimatedGestureToView(3, 0, 200, 350, 200, true);
-            }
-            showcases.show();
+            ShowcaseView scs1 = new ShowcaseView.Builder(getActivity())
+                    .setTarget(new ActionViewTarget(getActivity(), ActionViewTarget.Type.TITLE))
+                    .setContentTitle(R.string.welcome)
+                    .setContentText(R.string.welcome2_sub)
+                    .hideOnTouchOutside().build();
+            scs1.setOnShowcaseEventListener(new ShowCaseCaller(getActivity()));
+            //scs1.show();
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putBoolean("welcome_lyrics_view", true);
@@ -249,22 +253,21 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             broadcastReceiver.onReceive(context, intent);
     }
 
-    public void update(Lyrics lyrics) {
-        MainActivity activity = (MainActivity) this.getActivity();
-        TextSwitcher textSwitcher = ((TextSwitcher) (activity).findViewById(R.id.switcher));
-        TextView artist = ((TextView) activity.findViewById(R.id.artist));
-        TextView song = (TextView) activity.findViewById(R.id.song);
-        RelativeLayout bugLayout = (RelativeLayout) activity.findViewById(R.id.error_msg);
+    public void update(Lyrics lyrics, View layout) {
+        TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
+        TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
+        TextView songTV = (TextView) layout.findViewById(R.id.song);
+        RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
         if (mObservableScrollView.getScrollY() != 0) {
             mObservableScrollView.smoothScrollTo(0, 0);
         }
         this.mLyrics = lyrics;
         if (SDK_INT >= ICE_CREAM_SANDWICH)
-            beamLyrics(lyrics, activity);
+            beamLyrics(lyrics, this.getActivity());
         new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack()});
 
-        artist.setText(lyrics.getArtist());
-        song.setText(lyrics.getTrack());
+        artistTV.setText(lyrics.getArtist());
+        songTV.setText(lyrics.getTrack());
         new CoverArtLoader().execute(lyrics, this);
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
@@ -286,7 +289,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                         ((DrawerLayout) drawer).openDrawer((getActivity()).findViewById(R.id.left_drawer));
                     EditText searchbox = (EditText) (getActivity()).findViewById(R.id.searchBox);
                     searchbox.setText(lyrics.getTrack());
-                    searchbox.setSelection(song.length() - 1);
+                    searchbox.setSelection(songTV.length() - 1);
                 }
             }
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);

@@ -103,27 +103,6 @@ public class Lyrics implements Serializable {
         return (Lyrics) is.readObject();
     }
 
-    public static String getUrlAsString(URL paramURL)
-            throws IOException {
-
-        HttpURLConnection localHttpURLConnection = (HttpURLConnection) paramURL.openConnection();
-        localHttpURLConnection.setRequestMethod("GET");
-        localHttpURLConnection.setReadTimeout(15000);
-        localHttpURLConnection.setUseCaches(false);
-        localHttpURLConnection.connect();
-        InputStreamReader localInputStreamReader = new InputStreamReader(localHttpURLConnection.getInputStream());
-        BufferedReader localBufferedReader = new BufferedReader(localInputStreamReader);
-        StringBuilder localStringBuilder = new StringBuilder();
-        while (true) {
-            String str = localBufferedReader.readLine();
-            if (str == null)
-                break;
-            localStringBuilder.append(str).append("\n");
-        }
-        localInputStreamReader.close();
-        return localStringBuilder.toString();
-    }
-
     @Override
     public boolean equals(Object object) {
         return object instanceof Lyrics && this.getURL().equals(((Lyrics) object).getURL());

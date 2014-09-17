@@ -43,7 +43,7 @@
     <string name="welcome2">Direkte Treffer</string>
     <string name="welcome2_sub">Ihr gesuchter Songtext… sofort</string>
     <string name="refresh_desc">Wenn das Lied geändert hat…</string>
-    <string name="refresh_desc_sub">…Drücken sie auf den button, QuickLyric erledigt den Rest.</string>
+    <string name="refresh_desc_sub">Drücken sie auf den button, QuickLyric erledigt den Rest.</string>
     <string name="drawer_desc">Entdecke noch mehr !</string>
     <string name="drawer_desc_sub">Um auf andere Funktionen zu zugreifen drücken sie hier (oder rufen sie das menü mit ihrem daumen auf).</string>
     <string name="pref_more_category">Andere</string>

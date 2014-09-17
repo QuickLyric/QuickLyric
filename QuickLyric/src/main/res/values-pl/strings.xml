@@ -43,7 +43,7 @@
     <string name="welcome2">Szybkie wyniki</string>
     <string name="welcome2_sub">Teksty których szukałeś… Tu i teraz</string>
     <string name="refresh_desc">Jeśli piosenka zmieniła się…</string>
-    <string name="refresh_desc_sub">…Kliknij tutaj, QuickLyric zrobi resztę.</string>
+    <string name="refresh_desc_sub">Kliknij tutaj, QuickLyric zrobi resztę.</string>
     <string name="drawer_desc">Poznaj więcej możliwości !</string>
     <string name="drawer_desc_sub">By mieć dostęp do pozostałych opcji, kliknij tutaj (albo przesuń palcem od krawędzi ekranu).</string>
     <string name="pref_more_category">Drugi</string>
