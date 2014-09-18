@@ -47,13 +47,6 @@
     <string name="drawer_desc_sub">Para acceder a otras funciones, presione aquí (o golpee la orilla de la pantalla).</string>
     <string name="pref_more_category">Más</string>
 
-    <string-array name="nav_items">
-        <item>@string/title_lyrics</item>
-        <item>@string/id_title</item>
-        <item>@string/local_title</item>
-        <item>@string/settings_title</item>
-    </string-array>
-
     <string-array name="sort_modes">
         <item>Por artista…</item>
         <item>Por titulo…</item>

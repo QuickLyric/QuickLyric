@@ -146,8 +146,10 @@ public class MainActivity extends ActionBarActivity {
                     fragmentTransaction.show(fragment);
             }
         Intent intent = getIntent();
-        if (intent.getAction().equals("android.intent.action.SEND")) {
-            String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (intent.getAction().equals("android.intent.action.SEND")
+                && (extra.contains("http://www.soundhound.com/")
+                || extra.contains("http://shz.am/"))) {
             new IdDecoder(this).execute(getIdUrl(extra));
         } else if (intent.getAction().equals("android.intent.action.VIEW")) {
             processURL(intent);
@@ -206,15 +208,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String action = intent.getAction();
+        String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (action != null)
             if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED))
                 getBeamedLyrics(intent);
-            else if (action.equals("android.intent.action.SEND")) {
-                String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
+            else if (intent.getAction().equals("android.intent.action.SEND")
+                    && (extra.contains("http://www.soundhound.com/")
+                    || extra.contains("http://shz.am/")))
                 new IdDecoder(this).execute(getIdUrl(extra));
-            } else if (action.equals("android.intent.action.VIEW")) {
+            else if (action.equals("android.intent.action.VIEW"))
                 processURL(intent);
-            }
     }
 
     @TargetApi(14)

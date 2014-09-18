@@ -265,8 +265,14 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             beamLyrics(lyrics, this.getActivity());
         new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack()});
 
-        artistTV.setText(lyrics.getArtist());
-        songTV.setText(lyrics.getTrack());
+        if (lyrics.getArtist() != null)
+            artistTV.setText(lyrics.getArtist());
+        else
+            artistTV.setText("");
+        if (lyrics.getTrack() != null)
+            songTV.setText(lyrics.getTrack());
+        else
+            songTV.setText("");
         new CoverArtLoader().execute(lyrics, this);
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
@@ -274,6 +280,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             bugLayout.setVisibility(View.INVISIBLE);
             EditText searchbox = (EditText) (getActivity()).findViewById(R.id.searchBox);
             searchbox.setText("");
+            ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout)).closeDrawers();
         } else {
             textSwitcher.setText("");
             bugLayout.setVisibility(View.VISIBLE);

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.IOException;
-import java.util.Set;
 
-import be.geecko.QuickLyric.MainActivity;
 import be.geecko.QuickLyric.lyrics.Lyrics;
+import be.geecko.QuickLyric.tasks.DownloadTask;
+import be.geecko.QuickLyric.tasks.ParseTask;
 
 import static be.geecko.QuickLyric.utils.Net.getUrlAsString;
 
@@ -62,7 +62,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 e.printStackTrace();
             }
         } else
-            return null;
+            return new Lyrics(Lyrics.ERROR);
         Lyrics res = new Lyrics(Lyrics.NO_RESULT);
         res.setArtist(artist);
         res.setTitle(track);
@@ -72,7 +72,10 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
-        ((MainActivity) mContext).updateLyricsFragment(0, 0, false, lyrics);
+        if (lyrics.getFlag() == Lyrics.NO_RESULT)
+            new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
+        else
+            new ParseTask().execute();
     }
 
 

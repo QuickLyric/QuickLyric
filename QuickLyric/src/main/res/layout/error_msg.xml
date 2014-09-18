@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/error_msg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
         android:gravity="center"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:visibility="invisible">
 
     <TextView
             android:id="@+id/bugtext"
-            android:textSize="@dimen/large_txt_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/no_results"
-            android:textColor="#ff6c6c6f"
+        android:gravity="top|center_horizontal"
             android:paddingBottom="20dp"
-            android:gravity="top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:text="@string/no_results"
+        android:textColor="#ff6c6c6f"
+        android:textSize="@dimen/large_txt_size" />
 
     <ImageView
             android:id="@+id/no_results"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/bugtext"
-            android:src="@drawable/ic_bug"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/no_results"/>
+        android:contentDescription="@string/no_results"
+        android:src="@drawable/ic_bug" />
 
 </RelativeLayout>

@@ -49,13 +49,6 @@
     <string name="drawer_desc_sub">Για επιπλέον λειτουργίες, πατήστε εδώ (ή τραβήξτε το μενού με το δάχτυλό σας).</string>
     <string name="pref_more_category">Aλλες</string>
 
-    <string-array name="nav_items">
-        <item>@string/title_lyrics</item>
-        <item>@string/id_title</item>
-        <item>@string/local_title</item>
-        <item>@string/settings_title</item>
-    </string-array>
-
     <string-array name="sort_modes">
         <item>Ανά Καλλιτέχνη</item>
         <item>Ανά Τίτλο</item>

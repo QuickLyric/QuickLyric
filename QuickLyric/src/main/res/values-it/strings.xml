@@ -48,13 +48,6 @@
     <string name="drawer_desc_sub">Per avere accesso alle altre caratteristiche, premere qui (oppure trascinare lo schermo dall’alto)</string>
     <string name="pref_more_category">Altro</string>
 
-    <string-array name="nav_items">
-        <item>@string/title_lyrics</item>
-        <item>@string/id_title</item>
-        <item>@string/local_title</item>
-        <item>@string/settings_title</item>
-    </string-array>
-
     <string-array name="sort_modes">
         <item>Per artista…</item>
         <item>Per titolo…</item>
