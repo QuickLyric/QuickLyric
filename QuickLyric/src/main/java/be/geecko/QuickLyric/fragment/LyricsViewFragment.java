@@ -35,7 +35,6 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
 import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -66,23 +65,27 @@ import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 public class LyricsViewFragment extends Fragment implements ObservableScrollView.Callbacks {
 
     private static final int STATE_ONSCREEN = 0;
+    private int mState = STATE_ONSCREEN;
     private static final int STATE_OFFSCREEN = 1;
     private static final int STATE_RETURNING = 2;
-
-    private Lyrics mLyrics;
-    private boolean refreshAnimationFlag = false;
-    private int mState = STATE_ONSCREEN;
-    private int mMinRawY = 0;
-    private RelativeLayout mQuickReturnView;
-    private ObservableScrollView mObservableScrollView;
-    public boolean lyricsPresentInDB;
     private static BroadcastReceiver broadcastReceiver;
-    private ImageLoader.ImageCache imageCache = new CoverCache(1024);
+    public boolean lyricsPresentInDB;
     public DownloadTask currentDownload;
     public boolean isActiveFragment = false;
     public boolean showTransitionAnim = true;
+    private Lyrics mLyrics;
+    private boolean refreshAnimationFlag = false;
+    private int mMinRawY = 0;
+    private RelativeLayout mQuickReturnView;
+    private ObservableScrollView mObservableScrollView;
+    private ImageLoader.ImageCache imageCache = new CoverCache(1024);
 
     public LyricsViewFragment() {
+    }
+
+    public static void sendIntent(Context context, Intent intent) {
+        if (broadcastReceiver != null)
+            broadcastReceiver.onReceive(context, intent);
     }
 
     @Override
@@ -171,6 +174,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                     .hideOnTouchOutside().build();
             scs1.setOnShowcaseEventListener(new ShowCaseCaller(getActivity()));
             //scs1.show();
+            //fixme
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putBoolean("welcome_lyrics_view", true);
@@ -246,11 +250,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 }, activity);
             }
         }
-    }
-
-    public static void sendIntent(Context context, Intent intent) {
-        if (broadcastReceiver != null)
-            broadcastReceiver.onReceive(context, intent);
     }
 
     public void update(Lyrics lyrics, View layout) {

@@ -56,23 +56,29 @@ public class LyricsNMusic {
 
     public static Lyrics fromURL(String url, String artist, String track) {
         try {
-            String startTag = "<pre itemprop='description'>";
             String html = getUrlAsString(url);
-            if (!html.contains(startTag))
-                return new Lyrics(Lyrics.NEGATIVE_RESULT);
+            if (artist == null || track == null) {
+                String endTag = " property='og:title' />";
+                String startTag = "<meta content='";
+                String cut = html.substring(0, html.indexOf(endTag));
+                cut = cut.substring(cut.lastIndexOf(startTag));
+                String[] metaData = cut
+                        .substring(startTag.length())
+                        .split(" - ", 2);
+                artist = metaData[0].replaceAll("\\[.*\\]", "");
+                track = metaData[1].replaceAll("\\[.*\\]", "");
+            }
+            String startTag = "<pre itemprop='description'>";
+            if (!html.contains(startTag)) {
+                Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
+                result.setTitle(track);
+                result.setArtist(artist);
+                return result;
+            }
             String preceding = html.substring(html.indexOf(startTag));
             String text = preceding.substring(startTag.length(), preceding.indexOf("</pre>"))
                     .replace("\n", "<br />");
             Lyrics lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);
-            if (artist == null || track == null) {
-                startTag = "<h1>";
-                preceding = html.substring(html.indexOf(startTag));
-                String[] metaData = preceding
-                        .substring(startTag.length(), preceding.indexOf(" Lyrics</h1>"))
-                        .split(" &ndash; ");
-                artist = metaData[0].replaceAll("\\[.*\\]", "");
-                track = metaData[1].replaceAll("\\[.*\\]", "");
-            }
             lyrics.setArtist(artist);
             lyrics.setTitle(track);
             lyrics.setText(text);

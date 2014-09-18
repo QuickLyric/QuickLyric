@@ -3,15 +3,12 @@ package be.geecko.QuickLyric.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Process;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
 import java.net.URL;
 
 import be.geecko.QuickLyric.MainActivity;
 import be.geecko.QuickLyric.R;
-import be.geecko.QuickLyric.fragment.LyricsViewFragment;
 import be.geecko.QuickLyric.lyrics.AZLyrics;
 import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.lyrics.LyricsNMusic;
@@ -55,8 +52,10 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
         if (url != null) {
             if (url.contains("http://www.azlyrics.com/"))
                 lyrics = AZLyrics.fromURL(url, null, null);
-            else if (url.contains("lyrics.wikia.com/"))
+            else if (url.contains("lyrics.wikia.com/")) {
                 lyrics = LyricsWiki.fromURL(url, null, null);
+                lyrics.setTitle(lyrics.getTrack());
+            }
             else
                 lyrics = LyricsNMusic.fromURL(url, null, null);
         } else {
@@ -84,10 +83,6 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             return;
         }
 */
-
-        FragmentManager fm = ((ActionBarActivity) mContext).getSupportFragmentManager();
-        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) fm.findFragmentByTag("LyricsViewFragment");
-
         if (!OnlineAccessVerifier.check(mContext))
             Toast.makeText(mContext, mContext.getString(R.string.connection_error), Toast.LENGTH_LONG).show();
         if (lyrics.getArtist() == null)

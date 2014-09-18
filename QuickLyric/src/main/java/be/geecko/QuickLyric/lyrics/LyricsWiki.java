@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -16,9 +15,9 @@ public class LyricsWiki {
     public static Lyrics fromMetaData(String artist, String song) {
         if ((artist == null) || (song == null))
             return new Lyrics(Lyrics.ERROR);
-        String encodedArtist = null;
-        String encodedSong = null;
-        URL url = null;
+        String encodedArtist;
+        String encodedSong;
+        URL url;
         try {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(song, "UTF-8");
@@ -63,13 +62,16 @@ public class LyricsWiki {
         }
 
         if (artist == null)
-            artist = url.substring(24).split(":")[0].replace('_', ' ');
+            artist = url.substring(24).replace("Gracenote:", "").split(":", 2)[0].replace('_', ' ');
         if (song == null)
-            song = url.substring(24).split(":")[1].replace('_', ' ');
+            song = url.substring(24).replace("Gracenote:", "").split(":", 2)[1].replace('_', ' ');
         String text = stringBuilder.toString();
-        if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment."))
-            return new Lyrics(Lyrics.NEGATIVE_RESULT);
-        else if (text.equals("") || text.length() < 3)
+        if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")) {
+            Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
+            result.setArtist(artist);
+            result.setTitle(song);
+            return result;
+        } else if (text.equals("") || text.length() < 3)
             return new Lyrics(Lyrics.NO_RESULT);
         else {
             Lyrics lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);

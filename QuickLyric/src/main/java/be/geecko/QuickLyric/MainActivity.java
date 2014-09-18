@@ -34,7 +34,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,20 +55,29 @@ import static be.geecko.QuickLyric.R.string;
 
 public class MainActivity extends ActionBarActivity {
     // TODO batch saving lyrics from Google Music / Storage (Note : make sure it's easy to go through 10k+ songs in LocalLyricsFragment) (Note2: Make sure I'm allowed to do that)
-
-    public View drawer;
-    private ActionBarDrawerToggle mDrawerToggle;
-    public View drawerView;
-    public boolean focusOnFragment = true;
-    private Fragment displayedFragment;
-    public ActionMode mActionMode;
-    public SQLiteDatabase database;
+    // TODO replace gracenote correction with iTunes correction
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String MUSIC_ID_FRAGMENT_TAG = "MusicIDFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
     private static final String SEARCH_FRAGMENT_TAG = "SearchFragment";
+    public View drawer;
+    public View drawerView;
+    public boolean focusOnFragment = true;
+    public ActionMode mActionMode;
+    public SQLiteDatabase database;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Fragment displayedFragment;
+
+    private static void prepareAnimations(Fragment nextFragment) {
+        Class fragmentClass = ((Object) nextFragment).getClass();
+        try {
+            fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -311,17 +319,6 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         if (mDrawerToggle != null)
             mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    private static void prepareAnimations(Fragment nextFragment) {
-        Class fragmentClass = ((Object) nextFragment).getClass();
-        try {
-            fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
     }
 
     private void setupSearchBox(final FragmentManager fragmentManager) {
