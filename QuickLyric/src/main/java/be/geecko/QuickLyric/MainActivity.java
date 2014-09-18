@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
+            #e.printStackTrace();
         }
     }
 
