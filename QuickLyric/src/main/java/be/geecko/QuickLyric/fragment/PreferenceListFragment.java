@@ -262,11 +262,11 @@ public abstract class PreferenceListFragment extends ListFragment {
         if (anim != null) {
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
+                public void onAnimationEnd(Animation animation) {
                 }
 
                 @Override
-                public void onAnimationEnd(Animation animation) {
+                public void onAnimationStart(Animation animation) {
                     MainActivity mainActivity = (MainActivity) getActivity();
                     if (mainActivity.drawer instanceof DrawerLayout && ((DrawerLayout) mainActivity.drawer).isDrawerOpen(mainActivity.drawerView))
                         ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);

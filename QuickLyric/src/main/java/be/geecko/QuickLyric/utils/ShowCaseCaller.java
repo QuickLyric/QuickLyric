@@ -39,6 +39,7 @@ public class ShowCaseCaller implements OnShowcaseEventListener {
     @Override
     public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
         new ShowcaseView.Builder(mActivity)
+                .singleShot(2l)
                 .setTarget(new ActionItemTarget(mActivity, R.id.refresh_action))
                 .setContentTitle(R.string.refresh_desc)
                 .setContentText(R.string.refresh_desc_sub)

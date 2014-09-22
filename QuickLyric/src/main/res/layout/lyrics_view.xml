@@ -41,7 +41,7 @@
                 android:layout_width="@dimen/cover_width"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/cover_art_desc"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentLeft="true" />
 
             <View
                 android:id="@+id/separator_vertical"
@@ -59,21 +59,22 @@
 
             <TextView
                 android:id="@+id/song"
-                android:lines="1"
-                android:ellipsize="end"
+                android:singleLine="true"
                 android:scrollHorizontally="true"
+                android:ellipsize="end"
                 android:background="@android:color/white"
                 android:layout_above="@id/center"
                 android:layout_toRightOf="@id/separator_vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:paddingLeft="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:textSize="@dimen/txt_size"
                 android:gravity="bottom|start" />
 
             <TextView
                 android:id="@+id/artist"
-                android:lines="1"
+                android:singleLine="true"
                 android:ellipsize="end"
                 android:scrollHorizontally="true"
                 android:background="@android:color/white"
@@ -81,7 +82,8 @@
                 android:layout_toRightOf="@id/separator_vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:paddingLeft="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:textColor="#999999"
                 android:textSize="@dimen/small_txt_size"
                 android:gravity="start" />

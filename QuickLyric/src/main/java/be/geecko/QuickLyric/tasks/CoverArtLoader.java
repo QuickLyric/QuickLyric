@@ -19,6 +19,12 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
     private LyricsViewFragment lyricsViewFragment;
 
     @Override
+    protected void onPreExecute(){
+        super.onPreExecute();
+        lyricsViewFragment.setCoverArt(null,null);
+    }
+
+    @Override
     protected String doInBackground(Object... objects) {
         Lyrics lyrics = (Lyrics) objects[0];
         lyricsViewFragment = (LyricsViewFragment) objects[1];

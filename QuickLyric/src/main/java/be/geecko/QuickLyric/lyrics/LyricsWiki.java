@@ -21,14 +21,17 @@ public class LyricsWiki {
         try {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(song, "UTF-8");
-            url = new URL(new JSONObject(getUrlAsString(new URL(String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", "")).getString("url"));
+            JSONObject json = new JSONObject(getUrlAsString(new URL(
+                    String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
+            url = new URL(json.getString("url"));
+            artist = json.getString("artist");
+            song = json.getString("song");
         } catch (JSONException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
         return fromURL(url.toExternalForm(), artist, song);
     }
-
 
     public static Lyrics fromURL(String url, String artist, String song) {
         int j;

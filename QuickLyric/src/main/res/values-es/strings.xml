@@ -11,7 +11,7 @@
     <string name="no_refresh">No es necesario actualizar</string>
     <string name="id_nomic">El dispositivo no tiene micrófono</string>
     <string name="search_hint">Buscar</string>
-    <string name="id_title">Identificando musica</string>
+    <string name="id_title">Identificando música</string>
     <string name="search_no_result">Sin resultados</string>
     <string name="beam_txt">Enviar la letra ?</string>
     <string name="id_arch_err">La arquitectura de tu dispositivo no esta respaladado.</string>

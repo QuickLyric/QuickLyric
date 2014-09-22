@@ -5,14 +5,12 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -113,7 +111,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                     e.printStackTrace();
                 }
         }
-        //View layout = ((MainActivity) getActivity()).inflatedViews.get(getTag());
         View layout = inflater.inflate(R.layout.lyrics_view, container, false);
         if (layout != null) {
             TextSwitcher textSwitcher = (TextSwitcher) layout.findViewById(R.id.switcher);
@@ -165,21 +162,14 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
         this.isActiveFragment = true;
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        if (!sharedPref.getBoolean("welcome_lyrics_view", false)) {
-            ShowcaseView scs1 = new ShowcaseView.Builder(getActivity())
-                    .setTarget(new ActionViewTarget(getActivity(), ActionViewTarget.Type.TITLE))
-                    .setContentTitle(R.string.welcome)
-                    .setContentText(R.string.welcome2_sub)
-                    .hideOnTouchOutside().build();
-            scs1.setOnShowcaseEventListener(new ShowCaseCaller(getActivity()));
-            //scs1.show();
-            //fixme
-
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putBoolean("welcome_lyrics_view", true);
-            editor.commit();
-        }
+        //fixme gets called every time
+        ShowcaseView scs1 = new ShowcaseView.Builder(getActivity())
+                .singleShot(1l)
+                .setTarget(new ActionViewTarget(getActivity(), ActionViewTarget.Type.TITLE))
+                .setContentTitle(R.string.welcome)
+                .setContentText(R.string.welcome2_sub)
+                .hideOnTouchOutside().build();
+        scs1.setOnShowcaseEventListener(new ShowCaseCaller(getActivity()));
     }
 
     @Override
@@ -195,7 +185,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
     public void startRefreshAnimation(boolean wait) {
         this.refreshAnimationFlag = true;
-        if (!wait)
+        if (!wait && getActivity() != null)
             this.getActivity().supportInvalidateOptionsMenu();
     }
 
@@ -301,7 +291,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
         }
         stopRefreshAnimation();
-
     }
 
     @Override
@@ -335,13 +324,13 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (anim != null) {
             anim.setAnimationListener(new Animation.AnimationListener() {
 
-                public void onAnimationStart(Animation animation) {
+                public void onAnimationEnd(Animation animation) {
                 }
 
                 public void onAnimationRepeat(Animation animation) {
                 }
 
-                public void onAnimationEnd(Animation animation) {
+                public void onAnimationStart(Animation animation) {
                     if (refreshAnimationFlag)
                         LyricsViewFragment.this.getActivity().supportInvalidateOptionsMenu();
                     MainActivity mainActivity = (MainActivity) getActivity();

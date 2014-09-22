@@ -15,8 +15,7 @@ public class SearchAdapter extends ArrayAdapter<String> {
     private final String[] songs;
     private final String[] artists;
 
-    public SearchAdapter(Context context, String[] songs, String[] artists)
-    {
+    public SearchAdapter(Context context, String[] songs, String[] artists) {
         super(context, R.layout.list_row, songs);
         this.context = context;
         this.artists = artists;
@@ -25,17 +24,26 @@ public class SearchAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_row, parent, false);
-        if (rowView==null)
-            return null;
-        TextView title = (TextView) rowView.findViewById(R.id.title);
-        title.setText(songs[position]);
-        TextView artist = (TextView) rowView.findViewById(R.id.artist);
-        artist.setText(artists[position]);
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.list_row, parent, false);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+            viewHolder.artist = (TextView) convertView.findViewById(R.id.artist);
+            convertView.setTag(viewHolder);
+        } else
+            viewHolder = (ViewHolder) convertView.getTag();
 
-        return rowView;
+        viewHolder.title.setText(songs[position]);
+        viewHolder.artist.setText(artists[position]);
+
+        return convertView;
+    }
+
+    static class ViewHolder {
+        private TextView title;
+        private TextView artist;
     }
 
 }

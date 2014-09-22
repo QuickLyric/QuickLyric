@@ -30,27 +30,28 @@ public class DrawerAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textview = (TextView) convertView;
-        if (textview == null || textview.getId() != position) {
+        if (convertView == null || convertView.getId() != position) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            textview = (TextView) inflater.inflate(R.layout.drawer_row, null);
-            if (textview != null) {
-                textview.setId(position);
-                textview.setText(stringArray[position]);
-                textview.setCompoundDrawablesWithIntrinsicBounds(drawableArray[position], null, null, null);
+            convertView = inflater.inflate(R.layout.drawer_row, null);
+            if (convertView != null) {
+                TextView textView = (TextView) convertView;
+                convertView.setId(position);
+                textView.setText(stringArray[position]);
+                textView.setCompoundDrawablesWithIntrinsicBounds(drawableArray[position], null, null, null);
             }
         }
-        if (textview != null) {
+        if (convertView != null) {
+            TextView textView = (TextView) convertView;
             Typeface roboto = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Light.ttf");
             Typeface robotoBold = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Bold.ttf");
-            textview.setTextColor(Color.parseColor("#505050"));
-            if (position == selectedItem && (textview.getTypeface() != robotoBold)) {
-                ((ListView) parent).setSelectionFromTop(position, textview.getTop());
-                textview.setTypeface(robotoBold);
-            } else if (position != selectedItem && textview.getTypeface() != roboto)
-                textview.setTypeface(roboto);
-            return textview;
+            textView.setTextColor(Color.parseColor("#505050"));
+            if (position == selectedItem && (textView.getTypeface() != robotoBold)) {
+                ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
+                textView.setTypeface(robotoBold);
+            } else if (position != selectedItem && textView.getTypeface() != roboto)
+                textView.setTypeface(roboto);
+            return convertView;
         } else
             return null;
     }

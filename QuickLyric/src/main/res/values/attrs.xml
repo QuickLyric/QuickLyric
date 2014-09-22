@@ -31,4 +31,5 @@
         <attr name="barLength" format="dimension" />
         <attr name="delayMillis" format="integer" />
     </declare-styleable>
+
 </resources>

@@ -55,7 +55,8 @@ import static be.geecko.QuickLyric.R.string;
 
 public class MainActivity extends ActionBarActivity {
     // TODO batch saving lyrics from Google Music / Storage (Note : make sure it's easy to go through 10k+ songs in LocalLyricsFragment) (Note2: Make sure I'm allowed to do that)
-    // TODO replace gracenote correction with iTunes correction
+
+    // fixme short podcasts? e.g. Tech News Tonight
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String MUSIC_ID_FRAGMENT_TAG = "MusicIDFragment";
@@ -74,8 +75,8 @@ public class MainActivity extends ActionBarActivity {
         Class fragmentClass = ((Object) nextFragment).getClass();
         try {
             fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            #e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -150,7 +151,7 @@ public class MainActivity extends ActionBarActivity {
         if (intent.getAction().equals("android.intent.action.SEND")
                 && (extra.contains("http://www.soundhound.com/")
                 || extra.contains("http://shz.am/"))) {
-            new IdDecoder(this).execute(getIdUrl(extra));
+            new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
         } else if (intent.getAction().equals("android.intent.action.VIEW")) {
             processURL(intent);
         } else {
@@ -214,9 +215,10 @@ public class MainActivity extends ActionBarActivity {
                 getBeamedLyrics(intent);
             else if (intent.getAction().equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
-                    || extra.contains("http://shz.am/")))
-                new IdDecoder(this).execute(getIdUrl(extra));
-            else if (action.equals("android.intent.action.VIEW"))
+                    || extra.contains("http://shz.am/"))) {
+                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
+            } else if (action.equals("android.intent.action.VIEW"))
                 processURL(intent);
     }
 
@@ -400,7 +402,7 @@ public class MainActivity extends ActionBarActivity {
             lyricsViewFragment.setArguments(lyricsBundle);
             fragmentTransaction.hide(activeFragment).add(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
         }
-        lyricsViewFragment.showTransitionAnim = true;
+        //lyricsViewFragment.showTransitionAnim = true;
         lyricsViewFragment.isActiveFragment = true;
         fragmentTransaction.commit();
     }
@@ -431,7 +433,7 @@ public class MainActivity extends ActionBarActivity {
             else
                 fragmentTransaction.replace(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
         }
-        lyricsViewFragment.showTransitionAnim = true;
+        //lyricsViewFragment.showTransitionAnim = true;
         fragmentTransaction.commit();
         lyricsViewFragment.isActiveFragment = true;
     }

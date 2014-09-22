@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import be.geecko.QuickLyric.fragment.LyricsViewFragment;
 import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.tasks.DownloadTask;
 import be.geecko.QuickLyric.tasks.ParseTask;
@@ -28,9 +29,11 @@ import static be.geecko.QuickLyric.utils.Net.getUrlAsString;
  */
 public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     private Context mContext;
+    private LyricsViewFragment lyricsViewFragment;
 
-    public IdDecoder(Context context) {
+    public IdDecoder(Context context, LyricsViewFragment lyricsFragment) {
         this.mContext = context;
+        this.lyricsViewFragment = lyricsFragment;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
             }
         } else
             return new Lyrics(Lyrics.ERROR);
-        Lyrics res = new Lyrics(Lyrics.NO_RESULT);
+        Lyrics res = new Lyrics(Lyrics.SEARCH_ITEM);
         res.setArtist(artist);
         res.setTitle(track);
         return res;
@@ -72,11 +75,16 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
-        if (lyrics.getFlag() == Lyrics.NO_RESULT)
-            new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
-        else
+        if (lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
+            lyricsViewFragment.startRefreshAnimation(false);
+            if (lyricsViewFragment.currentDownload != null &&
+                    lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
+                lyricsViewFragment.currentDownload.cancel(true);
+            new DownloadTask().execute(mContext,
+                    lyrics.getArtist(),
+                    lyrics.getTrack(),
+                    null);
+        } else
             new ParseTask().execute();
     }
-
-
 }
