@@ -13,6 +13,7 @@ import be.geecko.QuickLyric.lyrics.AZLyrics;
 import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.lyrics.LyricsNMusic;
 import be.geecko.QuickLyric.lyrics.LyricsWiki;
+import be.geecko.QuickLyric.utils.LastFMCorrection;
 import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
@@ -62,10 +63,18 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
                 return new Lyrics(Lyrics.ERROR);
             if (searchURL != null)
                 lyrics = LyricsNMusic.fromURL(searchURL.toExternalForm(), artist, track);
-            else if (correction && givenArtist.equals(artist) && givenTrack.equals(track))
-                lyrics = new Lyrics(Lyrics.NEGATIVE_RESULT);
-            else
+            else {
+                if (correction) {
+                    String[] corrections = LastFMCorrection.getCorrection(artist, track);
+                    if (corrections[0] != null)
+                        artist = corrections[0];
+                    if (corrections[1] != null)
+                        track = corrections[1];
+                    if (givenArtist.equals(artist) && givenTrack.equals(track))
+                        return new Lyrics(Lyrics.NEGATIVE_RESULT);
+                }
                 lyrics = LyricsWiki.fromMetaData(artist, track);
+            }
 
             if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
@@ -80,8 +89,8 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
 
     protected void onPostExecute(Lyrics lyrics) {
         if (lyrics.getFlag() != Lyrics.POSITIVE_RESULT && !correction) {
-            String correctedArtist = givenArtist.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*","");
-            String correctedTrack = givenTrack.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*","");
+            String correctedArtist = givenArtist.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*", "");
+            String correctedTrack = givenTrack.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*", "");
             new DownloadTask().execute(mContext, correctedArtist, correctedTrack, true,
                     givenArtist, givenTrack);
             return;
