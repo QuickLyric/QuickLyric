@@ -49,7 +49,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             SharedPreferences.Editor editor = current.edit();
             editor.putString("artist", artist);
             editor.putString("track", track);
-            editor.commit();
+            editor.apply();
 
             if (App.isActivityVisible() && sharedPref.getBoolean("pref_auto_refresh", false)) {
                 Intent internalIntent = new Intent("Broadcast");

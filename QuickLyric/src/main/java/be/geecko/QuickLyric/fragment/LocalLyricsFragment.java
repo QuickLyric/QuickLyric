@@ -33,11 +33,83 @@ import be.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 
 public class LocalLyricsFragment extends ListFragment {
 
+    private final AdapterView.OnItemClickListener standardOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            final MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity.mActionMode != null) {
+                mainActivity.mActionMode.finish();
+                ((LocalAdapter) getListAdapter()).checkAll(false);
+            }
+            mainActivity.updateLyricsFragment(R.anim.slide_out_start, R.anim.slide_in_start, true, lyricsArray.get(position));
+        }
+    };
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
     public ArrayList<Lyrics> lyricsArray = null;
     private boolean unselectMode;
+    private final AdapterView.OnItemClickListener actionOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            LocalAdapter adapter = ((LocalAdapter) getListAdapter());
+            adapter.toggle(position);
+            if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
+                unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
+                ((MainActivity) getActivity()).mActionMode.invalidate();
+            }
+        }
+    };
     private boolean actionModeInitialized = false;
+    private final ActionMode.Callback callback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            MenuInflater inflater = actionMode.getMenuInflater();
+            inflater.inflate(R.menu.local_action_mode, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            getListView().setOnItemClickListener(actionOnClickListener);
+            MenuItem selectAllItem = menu.findItem(R.id.action_select_all);
+            if (selectAllItem != null) {
+                if (unselectMode)
+                    selectAllItem.setTitle(R.string.unselect_all_action);
+                else
+                    selectAllItem.setTitle(R.string.select_all_action);
+                return true;
+            } else
+                return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+            LocalAdapter adapter = (LocalAdapter) getListAdapter();
+            switch (menuItem.getItemId()) {
+                case R.id.action_delete:
+                    for (int i = 0; i < lyricsArray.size(); i++)
+                        if (adapter.isItemChecked(i))
+                            new WriteToDatabaseTask().execute(LocalLyricsFragment.this, lyricsArray.get(i));
+                    actionMode.finish();
+                    return true;
+                case R.id.action_select_all:
+                    adapter.checkAll(!unselectMode);
+                    unselectMode = !unselectMode;
+                    actionMode.invalidate();
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            if (actionModeInitialized) {
+                ((LocalAdapter) getListAdapter()).checkAll(false);
+                ((MainActivity) getActivity()).mActionMode = null;
+                getListView().setOnItemClickListener(standardOnClickListener);
+                actionModeInitialized = false;
+            }
+        }
+    };
 
     @Override
     public void onActivityCreated(Bundle onSavedInstanceState) {
@@ -113,81 +185,6 @@ public class LocalLyricsFragment extends ListFragment {
         getListView().scrollTo(0, scrollY);
     }
 
-    private final AdapterView.OnItemClickListener standardOnClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            final MainActivity mainActivity = (MainActivity) getActivity();
-            if (mainActivity.mActionMode != null) {
-                mainActivity.mActionMode.finish();
-                ((LocalAdapter) getListAdapter()).checkAll(false);
-            }
-            mainActivity.updateLyricsFragment(R.anim.slide_out_start, R.anim.slide_in_start, true, lyricsArray.get(position));
-        }
-    };
-
-    private final AdapterView.OnItemClickListener actionOnClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            LocalAdapter adapter = ((LocalAdapter) getListAdapter());
-            adapter.toggle(position);
-            if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
-                unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
-                ((MainActivity) getActivity()).mActionMode.invalidate();
-            }
-        }
-    };
-
-    private final ActionMode.Callback callback = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            MenuInflater inflater = actionMode.getMenuInflater();
-            inflater.inflate(R.menu.local_action_mode, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            getListView().setOnItemClickListener(actionOnClickListener);
-            MenuItem selectAllItem = menu.findItem(R.id.action_select_all);
-            if (selectAllItem != null) {
-                if (unselectMode)
-                    selectAllItem.setTitle(R.string.unselect_all_action);
-                else
-                    selectAllItem.setTitle(R.string.select_all_action);
-                return true;
-            } else
-                return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            LocalAdapter adapter = (LocalAdapter) getListAdapter();
-            switch (menuItem.getItemId()) {
-                case R.id.action_delete:
-                    for (int i = 0; i < lyricsArray.size(); i++)
-                        if (adapter.isItemChecked(i))
-                            new WriteToDatabaseTask().execute(LocalLyricsFragment.this, lyricsArray.get(i));
-                    actionMode.finish();
-                    return true;
-                case R.id.action_select_all:
-                    adapter.checkAll(!unselectMode);
-                    unselectMode = !unselectMode;
-                    actionMode.invalidate();
-            }
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode actionMode) {
-            if (actionModeInitialized) {
-                ((LocalAdapter) getListAdapter()).checkAll(false);
-                ((MainActivity) getActivity()).mActionMode = null;
-                getListView().setOnItemClickListener(standardOnClickListener);
-                actionModeInitialized = false;
-            }
-        }
-    };
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -249,7 +246,7 @@ public class LocalLyricsFragment extends ListFragment {
                                         editor.putInt("order_title", order);
                                         break;
                                 }
-                                editor.commit();
+                                editor.apply();
                                 dialog2.dismiss();
                                 new DBContentLister().execute(LocalLyricsFragment.this);
                             }
