@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_lyrics">лирика</string>
+    <string name="title_lyrics">Текст песни</string>
     <string name="share">Поделиться</string>
     <!-- unsure !-->
     <string name="refresh">перезагрузить</string>
