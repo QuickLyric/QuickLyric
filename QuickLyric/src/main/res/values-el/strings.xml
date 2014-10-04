@@ -4,20 +4,14 @@
     <string name="share">Κοινοποίηση</string>
     <string name="refresh">Ανανέωση</string>
     <string name="no_results">Δεν βρέθηκαν στίχοι για αυτό το κομμάτι</string>
-    <string name="unknown_error">Άγνωστο σφάλμα</string>
-    <string name="id_error_recording">Αποτυχία αναγνώρισης</string>
     <string name="connection_error">Αδυναμία σύνδεσης</string>
     <string name="search_ab_title">Αναζήτηση : %s</string>
     <string name="no_refresh">Υπομονή, δεν χρειάζεται ανανέωση</string>
-    <string name="id_nomic">Η συσκευή σας δεν \nδιαθέτει μικρόφωνο</string>
     <string name="search_hint">Αναζήτηση</string>
-    <string name="id_title">Αναγνώριση μουσικής</string>
     <string name="search_no_result">Κανένα αποτέλεσμα</string>
     <string name="beam_txt">Αποστολή αυτών των στίχων;</string>
-    <string name="id_arch_err">Η εφαρμογή δεν υποστηρίζει την αρχιτεκτονική της συσκευής σας</string>
     <string name="pref_20min_ignore">Φιλτράρισμα των μεγάλων κομματιών</string>
     <string name="pref_20min_ignore_sum">Μπλοκάρισμα των κομματιών με διάρκεια πάνω από 20 λεπτά (όπως τα podcasts)</string>
-    <string name="pref_scrobbling_category">Scrobble</string>
     <string name="pref_about">Σχετικά</string>
     <string name="pref_about_summary">Περισσότερες πληροφορίες για το QuickLyric</string>
     <string name="local_title">Αποθηκευμένοι στίχοι</string>
@@ -32,21 +26,14 @@
     <string name="unselect_all_action">Αποεπιλογή όλων</string>
     <string name="sort_action">Ταξινόμηση</string>
     <string name="sort_dialog_title">Ταξινόμηση…</string>
-    <string name="share_url_action_text">Κοινοποίηση διεύθυνσης URL</string>
-
     <string name="local_empty_database">Δεν υπάρχουν ακόμα αποθηκευμένοι στίχοι</string>
     <string name="pref_animations_title">Ενεργοποίηση γραφικών εφέ</string>
     <string name="pref_animations_sum">Αυτή η επιλογή μπορεί να μειώσει τις επιδόσεις της εφαρμογής</string>
     <string name="pref_look_feel_category">Εμφανιση και συμπεριφορα</string>
     <string name="welcome">Καλωσορίσατε στο QuickLyric!</string>
-
-    <string name="welcome_sub">Πάμε για μία γρήγορη ξενάγηση;</string>
-    <string name="welcome2">\'Αμεσα αποτελέσματα</string>
     <string name="welcome2_sub">Οι στίχοι που ψάχνετε…στη στιγμή.</string>
     <string name="refresh_desc">Μετά την αλλαγή του τραγουδιού…</string>
     <string name="refresh_desc_sub">Πατήστε αυτό το κουμπί και το QuickLyric θα κάνει τα υπολοιπα!</string>
-    <string name="drawer_desc">Ας βουτήξουμε βαθύτερα!</string>
-    <string name="drawer_desc_sub">Για επιπλέον λειτουργίες, πατήστε εδώ (ή τραβήξτε το μενού με το δάχτυλό σας).</string>
     <string name="pref_more_category">Aλλες</string>
 
     <string-array name="sort_modes">

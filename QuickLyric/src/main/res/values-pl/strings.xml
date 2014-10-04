@@ -4,20 +4,14 @@
     <string name="share">Udostępnij</string>
     <string name="refresh">Odśwież</string>
     <string name="no_results">Brak wyników</string>
-    <string name="unknown_error">Nieznany błąd</string>
-    <string name="id_error_recording">Nie udało się rozpoznać piosenki</string>
     <string name="connection_error">Nie udało się połączyć.</string>
     <string name="search_ab_title">Szukaj: %s</string>
     <string name="no_refresh">Nie wymaga odświeżania.</string>
-    <string name="id_nomic">Twoje urządzenie nie posiada mikrofonu</string>
     <string name="search_hint">Szukaj</string>
-    <string name="id_title">Rozpoznaj piosenkę</string>
     <string name="search_no_result">Brak wyników</string>
     <string name="beam_txt">Wyślij tekst?</string>
-    <string name="id_arch_err">Twoje urządzenie nie jest obsługiwane</string>
     <string name="pref_20min_ignore">Ignoruj długie kawałki</string>
     <string name="pref_20min_ignore_sum">Kawałki dłuższe niż 20 minut (takie jak podcasty) nie są traktowane jako piosenki</string>
-    <string name="pref_scrobbling_category">Scrobble</string>
     <string name="pref_about">Więcej</string>
     <string name="pref_about_summary">Więcej o QuickLyric</string>
     <string name="local_title">Zachowane teksty piosenek</string>
@@ -32,20 +26,14 @@
     <string name="unselect_all_action">Odznacz wszystko</string>
     <string name="sort_action">Sortuj</string>
     <string name="sort_dialog_title">Sortuj…</string>
-    <string name="share_url_action_text">Udostępnij stronę</string>
-
     <string name="local_empty_database">Nie zapisano jeszcze żadnych tekstów piosenek</string>
     <string name="pref_animations_title">Animacje są niedostępne</string>
     <string name="pref_animations_sum">Na starszych urządzeniach, ta opcja może powodować zakłócenia w działaniu aplikacji</string>
     <string name="pref_look_feel_category">Wygląd</string>
     <string name="welcome">Witaj w QuickLyric!</string>
-    <string name="welcome_sub">Gotów na krótkie wprowadzenie?</string>
-    <string name="welcome2">Szybkie wyniki</string>
     <string name="welcome2_sub">Teksty których szukałeś… Tu i teraz</string>
     <string name="refresh_desc">Jeśli piosenka zmieniła się…</string>
     <string name="refresh_desc_sub">Kliknij tutaj, QuickLyric zrobi resztę.</string>
-    <string name="drawer_desc">Poznaj więcej możliwości!</string>
-    <string name="drawer_desc_sub">By mieć dostęp do pozostałych opcji, kliknij tutaj (albo przesuń palcem od krawędzi ekranu).</string>
     <string name="pref_more_category">Drugi</string>
 
     <string-array name="sort_modes">

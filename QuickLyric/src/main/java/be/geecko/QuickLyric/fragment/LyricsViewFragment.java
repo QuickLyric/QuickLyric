@@ -162,7 +162,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
         this.isActiveFragment = true;
 
-        //fixme gets called every time
+        //fixme? ShowcaseView gets called every time
         ShowcaseView scs1 = new ShowcaseView.Builder(getActivity())
                 .singleShot(1l)
                 .setTarget(new ActionViewTarget(getActivity(), ActionViewTarget.Type.TITLE))
