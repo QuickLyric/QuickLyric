@@ -302,7 +302,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 sendIntent.setType("text/plain");
                 if (mLyrics != null && mLyrics.getURL() != null) {
                     sendIntent.putExtra(Intent.EXTRA_TEXT, mLyrics.getURL());
-                    startActivity(sendIntent);
+                    startActivity(Intent.createChooser(sendIntent,""));
                 }
                 return true;
             case R.id.save_action:
