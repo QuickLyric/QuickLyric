@@ -4,10 +4,13 @@ package be.geecko.QuickLyric.fragment;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 
 import be.geecko.QuickLyric.MainActivity;
@@ -16,6 +19,7 @@ import be.geecko.QuickLyric.adapter.DrawerAdapter;
 
 public class SettingsFragment extends PreferenceListFragment implements Preference.OnPreferenceClickListener {
 
+    public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
 
     @Override
@@ -72,5 +76,35 @@ public class SettingsFragment extends PreferenceListFragment implements Preferen
                 actionBar.setTitle(R.string.settings_title);
         } else
             menu.clear();
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        Animation anim = null;
+        if (nextAnim != 0)
+            anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
+        if (anim != null) {
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity.drawer instanceof DrawerLayout)
+                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            if (!showTransitionAnim)
+                anim.setDuration(0);
+            else
+                showTransitionAnim = false;
+        }
+        return anim;
     }
 }

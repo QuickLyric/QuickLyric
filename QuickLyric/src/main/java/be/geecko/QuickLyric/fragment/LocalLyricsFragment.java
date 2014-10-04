@@ -282,7 +282,7 @@ public class LocalLyricsFragment extends ListFragment {
                 @Override
                 public void onAnimationStart(Animation animation) {
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    if (mainActivity.drawer instanceof DrawerLayout && ((DrawerLayout) mainActivity.drawer).isDrawerOpen(mainActivity.drawerView))
+                    if (mainActivity.drawer instanceof DrawerLayout)
                         ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
                 }
 

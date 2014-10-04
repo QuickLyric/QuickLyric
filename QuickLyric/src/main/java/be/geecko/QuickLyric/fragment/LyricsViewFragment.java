@@ -270,7 +270,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             bugLayout.setVisibility(View.INVISIBLE);
             EditText searchbox = (EditText) (getActivity()).findViewById(R.id.searchBox);
             searchbox.setText("");
-            ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout)).closeDrawers();
+            if (getActivity().findViewById(R.id.drawer_layout) instanceof DrawerLayout)
+                ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout)).closeDrawers();
         } else {
             textSwitcher.setText("");
             bugLayout.setVisibility(View.VISIBLE);
@@ -302,7 +303,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 sendIntent.setType("text/plain");
                 if (mLyrics != null && mLyrics.getURL() != null) {
                     sendIntent.putExtra(Intent.EXTRA_TEXT, mLyrics.getURL());
-                    startActivity(Intent.createChooser(sendIntent,""));
+                    startActivity(Intent.createChooser(sendIntent, getString(R.string.share)));
                 }
                 return true;
             case R.id.save_action:
