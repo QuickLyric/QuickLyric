@@ -15,12 +15,12 @@ The app features a slick drawer menu on the left of the screen. Here are the con
 * **Search** - Search and even find lyrics.
 * **Settings** - QuickLyric offers a minimal choice of settings to avoid an overwhelming amount of possibilities. 3 choices are offered to the user : whether transitions will be animated, whether the app should try to find lyrics for tracks that are longer than 20 minutes (those are presumably podcasts and not songs) and whether to automatically update the lyrics when the song has changed, without having to press the refresh button in the action bar. In this screen You'll also find the "About" info.
 * **System Integration** - Access the lyrics you want after you've identified a song with Shazam or Soundhound via the share button. Open URLs from AZLyrics, LyricsNMusic and LyricWikia directly with the app.
-* **NFC** - Share lyrics with your friends with Android Beam.
+* **NFC** - Share lyrics with your friends via Android Beam.
 
 ## Notes
 * You might find some commentaries/var names in french. I'm really sorry if that's the case. Report a bug and I'll be happy to correct it.
 * The app supports all screen formats, but I only own a Nexus 4. Therefore you might experience issues on bigger screens. 7" tablets should be fine but I'm not too sure about 10" tablets since I don't own one.
-* The app is currently in RC2. Almost ready for public release, needs some more testing. Please report any crash you find.
+* The app is now ready for release.
 
 ## Build
 * Make sure you have the **latest** version of Gradle installed. You should have at least the version that is used in Quicklyric/build.gradle.
