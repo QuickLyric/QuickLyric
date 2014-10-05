@@ -36,6 +36,8 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
 import com.nineoldandroids.view.ViewHelper;
 
+import org.acra.ACRA;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -287,6 +289,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                     EditText searchbox = (EditText) (getActivity()).findViewById(R.id.searchBox);
                     searchbox.setText(lyrics.getTrack());
                     searchbox.setSelection(songTV.length() - 1);
+                    ACRA.getErrorReporter().handleSilentException(new Throwable(
+                            "artist:" + lyrics.getArtist() + " - Track:" + lyrics.getTrack()));
                 }
             }
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
