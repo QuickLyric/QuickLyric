@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="title_lyrics">歌詞</string>
-    <string name="share">分け合う</string>
-    <string name="refresh">更新します</string>
-    <string name="no_results">この曲見つかりませんん歌詞</string>
-    <string name="connection_error">接続できない。</string>
+    <string name="share">共有</string>
+    <string name="refresh">更新</string>
+    <string name="drawer_open_desc">ナビゲーション ドロワーは開いています</string>
+    <string name="drawer_closed_desc">ナビゲーション ドロワーは閉じています</string>
+    <string name="no_results">このトラックの歌詞は見つかりません</string>
+    <string name="connection_error">接続できません。</string>
     <string name="search_ab_title">検索 : %s</string>
-    <string name="no_refresh">更新しする必要がありません</string>
+    <string name="no_refresh">更新する必要はありません</string>
     <string name="search_hint">検索</string>
-    <string name="search_no_result">ものがありませんでした</string>
-    <string name="beam_txt">これら歌詞を送る</string>
+    <string name="cover_art_desc">カバー アート</string>
+    <string name="search_no_result">検索結果はありません</string>
+    <string name="beam_txt">この歌詞を送信しますか ?</string>
     <string name="pref_20min_ignore">長いトラックを無視します</string>
-    <string name="pref_20min_ignore_sum">20分を超えるトラック無視されます</string>
-    <string name="pref_about">約</string>
+    <string name="pref_20min_ignore_sum">(ポッドキャストのような)20分を超えるトラックは曲として見なしません</string>
+    <string name="pref_scrobbling_category">送信(Scrobbling)</string>
+    <string name="pref_about">QuickLyricについて</string>
     <string name="pref_about_summary">QuickLyricについての詳細</string>
-    <string name="local_title">地元歌詞</string>
+    <string name="local_title">保存した歌詞</string>
     <string name="settings_title">設定</string>
-    <string name="save_action">溜める</string>
-    <string name="lyrics_saved">救わ歌詞</string>
-    <string name="lyrics_removed">削除された歌詞</string>
-    <string name="remove_action">取り去る</string>
-    <string name="pref_auto_refresh_title">オートリフレッシュ</string>
-    <string name="pref_auto_refresh_summary">歌詞は、音楽に合わせに自動的変更することが</string>
-    <string name="select_all_action">全てを選択</string>
+    <string name="save_action">保存</string>
+    <string name="lyrics_saved">歌詞を保存しました</string>
+    <string name="lyrics_removed">ストレージから歌詞を削除しました</string>
+    <string name="remove_action">削除</string>
+    <string name="pref_auto_refresh_title">歌詞を自動更新</string>
+    <string name="pref_auto_refresh_summary">音楽に合わせて歌詞を自動的に変更します</string>
+    <string name="select_all_action">すべて選択</string>
     <string name="unselect_all_action">すべて選択解除</string>
     <string name="sort_action">並べ替え</string>
     <string name="sort_dialog_title">並べ替え…</string>
-    <string name="local_empty_database">まだ歌詞を保管していない</string>
+    <string name="local_empty_database">まだ歌詞を保管していません</string>
     <string name="pref_animations_title">アニメーションを有効</string>
-    <string name="pref_animations_sum">パフォーマンスの問題を引き起こす可能性があります</string>
+    <string name="pref_animations_sum">古いデバイスではパフォーマンスの問題を引き起こす可能性があります</string>
     <string name="pref_look_feel_category">ルック＆フィール</string>
     <string name="welcome">QuickLyricへようこそ !</string>
-    <string name="welcome2_sub">ます探していました歌詞を…\n瞬時に。</string>
-    <string name="refresh_desc">曲は変更されたとき…</string>
-    <string name="refresh_desc_sub">このボタンを押してください, QuickLyricは残りを行います。</string>
+    <string name="welcome2_sub">探していた歌詞が…\nいますぐ、ここに…</string>
+    <string name="refresh_desc">曲が変更されたとき…</string>
+    <string name="refresh_desc_sub">このボタンを押してください、あとはQuickLyricが行います。</string>
     <string name="pref_more_category">その他</string>
 
     <string-array name="sort_modes">
-        <item>アーティストによる…</item>
-        <item>タイトルごとに並べ…</item>
+        <item>アーティスト順…</item>
+        <item>タイトル順…</item>
     </string-array>
 
     <string-array name="AZ_sort_order">
-        <item>アルファベット順に</item>
-        <item>逆転</item>
+        <item>アルファベット順</item>
+        <item>逆順</item>
     </string-array>
 </resources>
