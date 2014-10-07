@@ -57,6 +57,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:20.+'
     compile 'com.nineoldandroids:library:2.4.+'
     compile 'com.github.amlcurran.showcaseview:library:5.+'
-    compile 'ch.acra:acra:4.+'
     compile fileTree(dir: 'libs', include: 'volley.jar')
 }
