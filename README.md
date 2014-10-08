@@ -1,10 +1,10 @@
 # QuickLyric
 
-QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, it doesn't have ads, it features Music ID, a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. The app's also very pretty since it mimics the design of the Google Play apps for Android.
+QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, it doesn't have ads, it features a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. The app's design mimics the Google Play apps for Android.
 
 ![alt text](http://i.imgur.com/VlSv894.png "Banner Logo")
 
-QuickLyric is of course written in Java and runs on phones and tablets equipped with *at least* Android 2.2 Froyo. The build system relies on Gradle and Android Studio is therefore recommended.
+QuickLyric is of course written in Java and runs on phones and tablets equipped with *at least* Android 4.0. (although you can still find some old builds that supported Android 2.2) The build system relies on Gradle and Android Studio is therefore recommended.
 
 ## Features
 
@@ -22,7 +22,7 @@ The app features a slick drawer menu on the left of the screen. Here are the con
 * The app is now ready for release.
 * Because I could not test it on many different devices, I chose to use a bugtracker (ACRA). This causes F-Droid to mark my app with the "Tracking" AntiFeature.
 * Your language is not supported? We'll take contributions from anyone :).
-* The "Material" branch requires Android L-Preview and will be merged when Android L & its support libraries come out.
+* SDK 21 is required to use the Material theme
 
 ## Build
 * Make sure you have the **latest** version of Gradle installed. You should have at least the version that is used in Quicklyric/build.gradle.
@@ -40,7 +40,7 @@ I welcome all forks & pull requests but *please*, if you want to fork QL, immedi
 
 ## Credits
 
-Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley, Jake Wharton for his nineoldandroids lib, [ShowcaseView](https://github.com/amlcurran/ShowcaseView).
+Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley and [ShowcaseView](https://github.com/amlcurran/ShowcaseView).
 
 ## Screenshots
 

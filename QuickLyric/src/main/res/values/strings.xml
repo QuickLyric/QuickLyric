@@ -54,7 +54,7 @@ Terms of service available at:
 \n      http://lyrics.wikia.com/LyricWiki:Copyrights
 \n
 \nThe lyrics provided via this app are property of their respective owners. Please investigate each track individually for copyright information.
-\nApp is developed by geecko. Sources available at github.com/geecko86/QuickLyric
+\nApp is developed by geecko. Sources available at github.com/geecko86/QuickLyric under the GPLv3 license
 \n-------------------------------------
 \nCover arts are provided by Last FM as part of the last fm non-commercial usage license
 \n-------------------------------------
@@ -93,48 +93,6 @@ Terms of service available at:
 \n * See the License for the specific language governing permissions and
 \n * limitations under the License.
 \n */
-\n
-\n-------------------------------------
-\n- NineOldAndroid
-\n
-\n  Copyright 2012 Jake Wharton
-\n
-\n    Licensed under the Apache License, Version 2.0 (the "License");
-\n    you may not use this file except in compliance with the License.
-\n    You may obtain a copy of the License at
-\n
-\n    http://www.apache.org/licenses/LICENSE-2.0
-\n
-\n    Unless required by applicable law or agreed to in writing, software
-\n    distributed under the License is distributed on an "AS IS" BASIS,
-\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-\n    See the License for the specific language governing permissions and
-\n    limitations under the License.
-\n
-\n-------------------------------------
-\n- ProgressWheel
-\n
-\nThe MIT License (MIT)
-\n
-\nCopyright © 2014 Todd Davies
-\n
-\nPermission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-\n
-\nThe above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-\n
-\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 \n
 \nSincere thanks to the following persons who helped translate the app:
 \nTatiana - Russian
