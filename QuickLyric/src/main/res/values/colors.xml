@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="pressed">#ccff9e52</color>
-    <color name="selected">#ffffbd87</color>
+    <color name="primary">#ffc107</color>
+    <color name="primary_dark">#ffa000</color>
+    <color name="accent">#ff6e40</color>
     <color name="selected_pressed">#ffffac70</color>
     <color name="window_background">#eeeeee</color>
 </resources>

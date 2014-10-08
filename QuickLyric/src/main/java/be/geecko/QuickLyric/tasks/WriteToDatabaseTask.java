@@ -1,10 +1,10 @@
 package be.geecko.QuickLyric.tasks;
 
+import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import be.geecko.QuickLyric.MainActivity;
@@ -58,7 +58,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Integer> {
     protected void onPostExecute(Integer message) {
         if (fragment instanceof LyricsViewFragment) {
             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-            ((MainActivity) mContext).supportInvalidateOptionsMenu();
+            ((MainActivity) mContext).invalidateOptionsMenu();
         } else {
             new DBContentLister().execute(fragment);
         }

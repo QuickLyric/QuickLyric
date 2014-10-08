@@ -53,7 +53,7 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Lyrics l = results.get(position);
-                mainActivity.updateLyricsFragment(R.anim.slide_out_end,l.getArtist(), l.getTrack(), l.getURL());
+                mainActivity.updateLyricsFragment(R.animator.slide_out_end,l.getArtist(), l.getTrack(), l.getURL());
             }
         });
         lf.setListShown(true);

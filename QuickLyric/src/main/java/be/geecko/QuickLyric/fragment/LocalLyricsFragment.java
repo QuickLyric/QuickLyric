@@ -1,23 +1,23 @@
 package be.geecko.QuickLyric.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.view.ActionMode;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -41,7 +41,7 @@ public class LocalLyricsFragment extends ListFragment {
                 mainActivity.mActionMode.finish();
                 ((LocalAdapter) getListAdapter()).checkAll(false);
             }
-            mainActivity.updateLyricsFragment(R.anim.slide_out_start, R.anim.slide_in_start, true, lyricsArray.get(position));
+            mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start, true, lyricsArray.get(position));
         }
     };
     public boolean showTransitionAnim = true;
@@ -140,7 +140,7 @@ public class LocalLyricsFragment extends ListFragment {
 
         if (actionModeInitialized && mainActivity.mActionMode == null) {
             getListView().setOnItemClickListener(actionOnClickListener);
-            mainActivity.mActionMode = mainActivity.startSupportActionMode(LocalLyricsFragment.this.callback);
+            mainActivity.mActionMode = mainActivity.startActionMode(LocalLyricsFragment.this.callback);
         } else
             getListView().setOnItemClickListener(standardOnClickListener);
 
@@ -151,7 +151,7 @@ public class LocalLyricsFragment extends ListFragment {
                 adapter.toggle(position);
                 if (mainActivity.mActionMode == null) {
                     actionModeInitialized = true;
-                    mainActivity.mActionMode = mainActivity.startSupportActionMode(LocalLyricsFragment.this.callback);
+                    mainActivity.mActionMode = mainActivity.startActionMode(LocalLyricsFragment.this.callback);
                 } else if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
                     unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
                     mainActivity.mActionMode.invalidate();
@@ -198,7 +198,7 @@ public class LocalLyricsFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = (mainActivity).getSupportActionBar();
+        ActionBar actionBar = (mainActivity).getActionBar();
         if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
@@ -266,25 +266,29 @@ public class LocalLyricsFragment extends ListFragment {
     }
 
     @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Animation anim = null;
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        Animator anim = null;
         if (nextAnim != 0)
-            anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
+            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
         if (anim != null) {
-            anim.setAnimationListener(new Animation.AnimationListener() {
+            anim.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationEnd(Animation animation) {
+                public void onAnimationEnd(Animator animator) {
                 }
 
                 @Override
-                public void onAnimationStart(Animation animation) {
+                public void onAnimationCancel(Animator animator) {
+                }
+
+                @Override
+                public void onAnimationStart(Animator animator) {
                     MainActivity mainActivity = (MainActivity) getActivity();
                     if (mainActivity.drawer instanceof DrawerLayout)
                         ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {
+                public void onAnimationRepeat(Animator animator) {
                 }
             });
             if (!showTransitionAnim)

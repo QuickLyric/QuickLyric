@@ -2,48 +2,47 @@
 
 <resources>
 
-    <style name="Theme.quicklyric" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarItemBackground">@drawable/selectable_background_quicklyric</item>
-        <item name="popupMenuStyle">@style/PopupMenu.quicklyric</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.quicklyric</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabStyle.quicklyric</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.quicklyric</item>
-        <item name="actionBarStyle">@style/ActionBar.Solid.quicklyric</item>
-        <item name="actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
-        <item name="actionModeBackground">@drawable/cab_background_top_quicklyric</item>
+    <style name="Theme.QuickLyric" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_quicklyric
+        </item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Quicklyric</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Quicklyric</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.QuickLyric</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_quicklyric</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="android:listViewStyle">@style/ListView.quicklyric</item>
         <item name="android:editTextStyle">@style/EditTextQuicklyric</item>
         <item name="android:scrollViewStyle">@style/ScrollViewQuicklyric</item>
         <item name="android:checkboxStyle">@style/CheckBoxQuicklyric</item>
         <!-- Light.DarkActionBar specific -->
-        <item name="actionBarWidgetTheme">@style/Theme.quicklyric.Widget</item>
-
+        <item name="android:actionBarWidgetTheme">@style/Theme.Quicklyric.Widget</item>
         <item name="showcaseViewStyle">@style/quicklyricShowcaseTheme</item>
     </style>
 
-    <style name="ActionBar.Solid.quicklyric" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@drawable/ab_solid_quicklyric</item>
-        <item name="backgroundStacked">@drawable/ab_stacked_solid_quicklyric</item>
-        <item name="backgroundSplit">@drawable/ab_bottom_solid_quicklyric</item>
-        <item name="progressBarStyle">@style/ProgressBar.quicklyric</item>
-        <item name="titleTextStyle">@style/ActionBar.Title</item>
+    <style name="ActionBar.Solid.QuickLyric" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_quicklyric</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_quicklyric</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_quicklyric</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Quicklyric</item>
+        <item name="android:titleTextStyle">@style/ActionBar.Title</item>
     </style>
 
-    <style name="ActionMode.CloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+    <style name="ActionMode.CloseButton" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_quicklyric</item>
     </style>
 
-    <style name="ActionBar.Transparent.Quicklyric" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="background">@drawable/ab_transparent_quicklyric</item>
-        <item name="progressBarStyle">@style/ProgressBar.quicklyric</item>
+    <style name="ActionBar.Transparent.Quicklyric" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_quicklyric</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Quicklyric</item>
     </style>
 
-    <style name="PopupMenu.Quicklyric" parent="@style/Widget.AppCompat.PopupMenu">
+    <style name="PopupMenu.Quicklyric" parent="@android:style/Widget.Holo.PopupMenu">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_quicklyric</item>
     </style>
 
-    <style name="DropDownListView.Quicklyric" parent="@style/Widget.AppCompat.ListView.DropDown">
+    <style name="DropDownListView.Quicklyric" parent="@android:style/Widget.Holo.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_quicklyric</item>
     </style>
 
@@ -54,7 +53,7 @@
         <item name="android:cacheColorHint">@android:color/transparent</item>
     </style>
 
-    <style name="ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -68,24 +67,18 @@
         <item name="android:button">@drawable/btn_check_holo_light</item>
     </style>
 
-    <style name="DropDownNav.Quicklyric" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="android:background">@drawable/spinner_background_ab_quicklyric</item>
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_quicklyric</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background_quicklyric</item>
-    </style>
-
-    <style name="ProgressBar.Quicklyric" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+    <style name="ProgressBar.Quicklyric" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_quicklyric</item>
     </style>
 
-    <style name="ActionButton.CloseMode.Quicklyric" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+    <style name="ActionButton.CloseMode.Quicklyric" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_quicklyric</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Quicklyric.Widget" parent="@style/Theme.AppCompat">
-        <item name="popupMenuStyle">@style/PopupMenu.quicklyric</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.quicklyric</item>
+    <style name="Theme.Quicklyric.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Quicklyric</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Quicklyric</item>
     </style>
 
     <style name="ScrollViewQuicklyric" parent="android:Widget.ScrollView">

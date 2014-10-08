@@ -1,11 +1,10 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:support="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/refresh_action"
-        support:actionLayout="@layout/refresh_action_view"
+        android:actionLayout="@layout/refresh_action_view"
         android:orderInCategory="0"
-        support:showAsAction="always"
+        android:showAsAction="always"
         android:icon="@drawable/refresh"
         android:title="@string/refresh" />
 
@@ -13,13 +12,13 @@
         android:id="@+id/save_action"
         android:icon="@drawable/refresh"
         android:orderInCategory="1"
-        support:showAsAction="ifRoom"
+        android:showAsAction="ifRoom"
         android:title="@string/save_action" />
 
     <item
         android:id="@+id/share_action"
         android:icon="@drawable/ic_menu_share"
         android:orderInCategory="2"
-        support:showAsAction="ifRoom"
+        android:showAsAction="ifRoom"
         android:title="@string/share" />
 </menu>

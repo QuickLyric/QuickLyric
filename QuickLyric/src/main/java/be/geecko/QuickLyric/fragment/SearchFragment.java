@@ -1,15 +1,15 @@
 package be.geecko.QuickLyric.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.app.ActionBar;
+import android.app.ListFragment;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -57,7 +57,7 @@ public class SearchFragment extends ListFragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Lyrics l = results.get(position);
-                    ((MainActivity) SearchFragment.this.getActivity()).updateLyricsFragment(R.anim.slide_out_end, l.getArtist(), l.getTrack());
+                    ((MainActivity) SearchFragment.this.getActivity()).updateLyricsFragment(R.animator.slide_out_end, l.getArtist(), l.getTrack());
                 }
             });
 
@@ -101,10 +101,12 @@ public class SearchFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = mainActivity.getSupportActionBar();
-        actionBar.setTitle(String.format(this.getString(R.string.search_ab_title), searchQuery));
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
+        ActionBar actionBar = mainActivity.getActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(String.format(this.getString(R.string.search_ab_title), searchQuery));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
     }
 
     public void setSearchQuery(String searchQuery) {
@@ -141,10 +143,10 @@ public class SearchFragment extends ListFragment {
     }
 
     @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Animation anim = null;
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        Animator anim = null;
         if (nextAnim != 0)
-            anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
+            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
         if (anim != null)
             if (!showTransitionAnim)
                 anim.setDuration(0);

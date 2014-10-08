@@ -1,7 +1,11 @@
 package be.geecko.QuickLyric.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +15,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,8 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -34,7 +34,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
-import com.nineoldandroids.view.ViewHelper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -186,12 +185,12 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public void startRefreshAnimation(boolean wait) {
         this.refreshAnimationFlag = true;
         if (!wait && getActivity() != null)
-            this.getActivity().supportInvalidateOptionsMenu();
+            this.getActivity().invalidateOptionsMenu();
     }
 
     void stopRefreshAnimation() {
         this.refreshAnimationFlag = false;
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     public void fetchLyrics(String... params) {
@@ -316,30 +315,31 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-
-        Animation anim = null;
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        Animator anim = null;
         if (nextAnim != 0)
-            anim = AnimationUtils.loadAnimation(getActivity(), nextAnim);
-
+            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
         if (anim != null) {
-            anim.setAnimationListener(new Animation.AnimationListener() {
-
-                public void onAnimationEnd(Animation animation) {
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animator) {
                 }
 
-                public void onAnimationRepeat(Animation animation) {
+                @Override
+                public void onAnimationCancel(Animator animator) {
                 }
 
-                public void onAnimationStart(Animation animation) {
-                    if (refreshAnimationFlag)
-                        LyricsViewFragment.this.getActivity().supportInvalidateOptionsMenu();
+                @Override
+                public void onAnimationStart(Animator animator) {
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    if (mainActivity.drawer instanceof DrawerLayout && ((DrawerLayout) mainActivity.drawer).isDrawerOpen(mainActivity.drawerView))
+                    if (mainActivity.drawer instanceof DrawerLayout)
                         ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
                 }
-            });
 
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+                }
+            });
             if (!showTransitionAnim)
                 anim.setDuration(0);
             else
@@ -352,7 +352,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = mainActivity.getSupportActionBar();
+        ActionBar actionBar = mainActivity.getActionBar();
         if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
         {
             inflater.inflate(R.menu.lyrics, menu);
@@ -450,6 +450,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             translationY = mObservableScrollView.getScrollY() + translationY;
         else
             translationY = 0;
-        ViewHelper.setTranslationY(mQuickReturnView, translationY);
+        mQuickReturnView.setTranslationY(translationY);
     }
 }
