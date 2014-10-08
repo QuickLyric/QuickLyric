@@ -404,7 +404,7 @@ public class MainActivity extends ActionBarActivity {
         }
         //lyricsViewFragment.showTransitionAnim = true;
         lyricsViewFragment.isActiveFragment = true;
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     public void updateLyricsFragment(int outAnim, int inAnim, boolean transition, Lyrics lyrics) {
