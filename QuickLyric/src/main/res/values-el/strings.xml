@@ -5,7 +5,7 @@
     <string name="refresh">Ανανέωση</string>
     <string name="no_results">Δεν βρέθηκαν στίχοι για αυτό το κομμάτι</string>
     <string name="connection_error">Αδυναμία σύνδεσης</string>
-    <string name="search_ab_title">Αναζήτηση : %s</string>
+    <string name="search_ab_title">Αναζήτηση: %s</string>
     <string name="no_refresh">Υπομονή, δεν χρειάζεται ανανέωση</string>
     <string name="search_hint">Αναζήτηση</string>
     <string name="search_no_result">Κανένα αποτέλεσμα</string>
@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Ενεργοποίηση γραφικών εφέ</string>
     <string name="pref_animations_sum">Αυτή η επιλογή μπορεί να μειώσει τις επιδόσεις της εφαρμογής</string>
     <string name="pref_look_feel_category">Εμφανιση και συμπεριφορα</string>
+    <string name="skip">Παράλειψη</string>
     <string name="welcome">Καλωσορίσατε στο QuickLyric!</string>
     <string name="welcome2_sub">Οι στίχοι που ψάχνετε…στη στιγμή.</string>
     <string name="refresh_desc">Μετά την αλλαγή του τραγουδιού…</string>
     <string name="refresh_desc_sub">Πατήστε αυτό το κουμπί και το QuickLyric θα κάνει τα υπολοιπα!</string>
+    <string name="drawer_desc">Ας βουτήξουμε βαθύτερα!</string>
+    <string name="drawer_desc_sub">Για επιπλέον λειτουργίες, πατήστε εδώ (ή τραβήξτε το μενού με το δάχτυλό σας).</string>
     <string name="pref_more_category">Aλλες</string>
 
     <string-array name="sort_modes">

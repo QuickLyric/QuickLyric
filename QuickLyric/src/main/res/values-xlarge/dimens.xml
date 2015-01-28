@@ -2,6 +2,8 @@
 <resources>
     <dimen name="frame_height">161dp</dimen>
     <dimen name="cover_width">160dp</dimen>
+    <dimen name="fab_top_margin">150dp</dimen>
+    <dimen name="lyrics_top_margin">195dp</dimen>
     <dimen name="txt_size">24sp</dimen>
     <dimen name="large_txt_size">26sp</dimen>
     <dimen name="small_txt_size">21sp</dimen>

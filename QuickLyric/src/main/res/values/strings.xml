@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
     <string name="app_name">QuickLyric</string>
     <string name="title_lyrics">Lyrics</string>
     <string name="share">Share</string>
@@ -8,7 +9,7 @@
     <string name="drawer_closed_desc">Navigation Drawer is closed</string>
     <string name="no_results">No lyrics were found for this track</string>
     <string name="connection_error">Could not connect.</string>
-    <string name="search_ab_title">Search : %s</string>
+    <string name="search_ab_title">Search: %s</string>
     <string name="no_refresh">No need to refresh</string>
     <string name="search_hint">Search</string>
     <string name="cover_art_desc">Cover Art</string>
@@ -35,15 +36,18 @@
     <string name="pref_animations_title">Enable animations</string>
     <string name="pref_animations_sum">Might cause performance issues on older devices</string>
     <string name="pref_look_feel_category">Look and feel</string>
-    <string name="welcome">Welcome to QuickLyric !</string>
+    <string name="welcome">Welcome to QuickLyric!</string>
     <string name="welcome2_sub">The lyrics you were looking for…\nRight here, right now.</string>
     <string name="refresh_desc">When the song has changed…</string>
     <string name="refresh_desc_sub">Tap this button. QuickLyric will do the rest.</string>
+    <string name="drawer_desc">Let\'s dig deeper!</string>
+    <string name="drawer_desc_sub">To access other features, tap here (or swipe the screen from the edge).</string>
     <string name="pref_more_category">More</string>
     <string name="share_prompt">Import from Shazam/Soundhound</string>
-    <!-- TODO: translate !-->
-    <string name="about_dialog_content">
-Lyrics provided by AZLyrics, LyricsWiki and LyricsNMusic. Search provided by LyricsNMusic.\n
+    <!-- TODO: translate ! -->
+    <string name="undo">Undo</string>
+    <!-- TODO: translate ! -->
+    <string name="about_dialog_content">Lyrics provided by AZLyrics, LyricsWiki and LyricsNMusic. Search provided by LyricsNMusic.\n
 \n
 Terms of service available at:
 \n	LyricsNMusic:
@@ -97,27 +101,32 @@ Terms of service available at:
 \nSincere thanks to the following persons who helped translate the app:
 \nTatiana - Russian
 \nMarius - German
-\nFanis - Greek
+\nTheophanis - Greek
 \nGiorgia - Italian
-\nMari - Japanese
+\nNaofum on GitHub - Japanese
 \nNathalie - Dutch
 \nDominika + Kasia - Polish
 \nYusuf - Turkish
 \nGuy whose name I forgot - Portuguese</string>
+    <string name="pager_arrow"><![CDATA[>]]></string>
+    <string name="skip">Skip</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
         <item>@string/local_title</item>
         <item>@string/settings_title</item>
     </string-array>
-
     <string-array name="sort_modes">
         <item>By artist…</item>
         <item>By title…</item>
     </string-array>
-
     <string-array name="AZ_sort_order">
         <item>Alphabetically</item>
         <item>Reversed</item>
     </string-array>
+
+    <string name="title_activity_search">search</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

@@ -42,10 +42,8 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             givenArtist = (String) params[4];
             givenTrack = (String) params[5];
         } else {
-            artist = (String) params[1];
-            track = (String) params[2];
-            givenArtist = artist;
-            givenTrack = track;
+            givenArtist = artist = (String) params[1];
+            givenTrack = track = (String) params[2];
             if (params.length > 3)
                 searchURL = (URL) params[3];
         }
@@ -53,10 +51,9 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
         if (url != null) {
             if (url.contains("http://www.azlyrics.com/"))
                 lyrics = AZLyrics.fromURL(url, null, null);
-            else if (url.contains("lyrics.wikia.com/")) {
+            else if (url.contains("lyrics.wikia.com/"))
                 lyrics = LyricsWiki.fromURL(url, null, null);
-                lyrics.setTitle(lyrics.getTrack());
-            } else
+            else
                 lyrics = LyricsNMusic.fromURL(url, null, null);
         } else {
             if (!OnlineAccessVerifier.check(mContext))
@@ -83,6 +80,10 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
                 lyrics = AZLyrics.fromMetaData(artist, track);
+        }
+        if (givenArtist != null && givenTrack != null) {
+            lyrics.setOriginalArtist(givenArtist);
+            lyrics.setOriginalTitle(givenTrack);
         }
         return lyrics;
     }

@@ -5,7 +5,7 @@
     <string name="refresh">Aktualisieren</string>
     <string name="no_results">Kein Songtext verfügbar für diesen Ausschnitt</string>
     <string name="connection_error">Verbindung nicht möglich.</string>
-    <string name="search_ab_title">Suche : %s</string>
+    <string name="search_ab_title">Suche: %s</string>
     <string name="no_refresh">Nicht möglich zu aktualisieren</string>
     <string name="search_hint">Suche</string>
     <string name="search_no_result">Kein Ergebnis</string>
@@ -34,6 +34,9 @@
     <string name="welcome2_sub">Ihr gesuchter Songtext… sofort</string>
     <string name="refresh_desc">Wenn das Lied geändert hat…</string>
     <string name="refresh_desc_sub">Drücken sie auf den button, QuickLyric erledigt den Rest.</string>
+    <string name="drawer_desc">Entdecke noch mehr !</string>
+    <string name="drawer_desc_sub">Um auf andere Funktionen zu zugreifen drücken sie hier (oder rufen sie das menü mit ihrem daumen auf).</string>
+
     <string name="pref_more_category">Andere</string>
 
     <string-array name="sort_modes">

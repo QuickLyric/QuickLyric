@@ -13,15 +13,18 @@ import java.net.URLEncoder;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
+import be.geecko.QuickLyric.Keys;
+
 import static be.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 @SuppressLint("NewApi")
 public class LyricsNMusic {
+
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
         try {
             query = Normalizer.normalize(query, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-            URL queryURL = new URL(String.format("http://api.lyricsnmusic.com/songs?api_key=%s&q=%s", "e35aa198cf1a370a90f27be98ec2d4", URLEncoder.encode(query, "UTF-8")));
+            URL queryURL = new URL(String.format("http://api.lyricsnmusic.com/songs?api_key=%s&q=%s", Keys.lyricsNMusic, URLEncoder.encode(query, "UTF-8")));
             JSONArray response = new JSONArray(getUrlAsString(queryURL));
 
             int processed = 0;

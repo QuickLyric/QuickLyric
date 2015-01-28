@@ -5,22 +5,10 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
 
-    <EditText
-        android:layout_alignParentTop="true"
-        android:id="@+id/searchBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_menu_search_holo_light"
-        android:drawableLeft="@drawable/ic_menu_search_holo_light"
-        android:hint="@string/search_hint"
-        android:imeOptions="actionSearch"
-        android:inputType="text|textNoSuggestions"
-        android:singleLine="true" />
-
     <ListView
         android:id="@+id/drawer_list"
-        android:layout_below="@id/searchBox"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
+        android:background="#F7F7F7"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:dividerHeight="0.5dp"

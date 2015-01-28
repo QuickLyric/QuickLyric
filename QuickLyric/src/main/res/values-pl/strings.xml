@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Animacje są niedostępne</string>
     <string name="pref_animations_sum">Na starszych urządzeniach, ta opcja może powodować zakłócenia w działaniu aplikacji</string>
     <string name="pref_look_feel_category">Wygląd</string>
+    <string name="skip">Pomiń</string>
     <string name="welcome">Witaj w QuickLyric!</string>
     <string name="welcome2_sub">Teksty których szukałeś… Tu i teraz</string>
     <string name="refresh_desc">Jeśli piosenka zmieniła się…</string>
     <string name="refresh_desc_sub">Kliknij tutaj, QuickLyric zrobi resztę.</string>
+    <string name="drawer_desc">Poznaj więcej możliwości!</string>
+    <string name="drawer_desc_sub">By mieć dostęp do pozostałych opcji, kliknij tutaj (albo przesuń palcem od krawędzi ekranu).</string>
     <string name="pref_more_category">Drugi</string>
 
     <string-array name="sort_modes">

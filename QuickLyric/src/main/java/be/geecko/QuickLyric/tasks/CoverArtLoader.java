@@ -29,7 +29,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
             try {
                 String html = getUrlAsString(new URL(String.format(
                         "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=%s&track=%s&format=json",
-                        Keys.LastFM,
+                        Keys.lastFM,
                         URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
                         URLEncoder.encode(lyrics.getTrack(), "UTF-8"))));
                 JSONObject json = new JSONObject(html);

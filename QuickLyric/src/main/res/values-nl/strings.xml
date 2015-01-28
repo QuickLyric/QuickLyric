@@ -5,7 +5,7 @@
     <string name="refresh">Verversen</string>
     <string name="no_results">Geen teksten gevonden voor deze track</string>
     <string name="connection_error">Kon niet verbinden.</string>
-    <string name="search_ab_title">Zoeken : %s</string>
+    <string name="search_ab_title">Zoeken: %s</string>
     <string name="no_refresh">Geen behoefte om te vernieuwen</string>
     <string name="search_hint">Zoeken</string>
     <string name="search_no_result">Geen resultaat</string>
@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Animaties inschakelen</string>
     <string name="pref_animations_sum">Dit kan de app misschien vertragen</string>
     <string name="pref_look_feel_category">Aspect</string>
+    <string name="skip">Overslaan</string>
     <string name="welcome">Welkom bij QuickLyric !</string>
     <string name="welcome2_sub">De teksten die je zoekt…\nOnmiddelijk.</string>
     <string name="refresh_desc">Als de song verandert…</string>
     <string name="refresh_desc_sub">Druk op deze knop. QuickLyric zal de rest doen.</string>
+    <string name="drawer_desc">Laten we dieper graven !</string>
+    <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
     <string name="pref_more_category">Meer</string>
 
     <string-array name="sort_modes">

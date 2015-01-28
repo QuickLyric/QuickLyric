@@ -18,25 +18,25 @@ import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
 
-    private SearchFragment lf;
+    private SearchFragment searchFragment;
 
     @Override
     protected List<Lyrics> doInBackground(Object... params) {
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         String keyword = (String) params[0];
-        lf = (SearchFragment) params[1];
-        if (!OnlineAccessVerifier.check(lf.getActivity()))
+        searchFragment = (SearchFragment) params[1];
+        if (searchFragment == null || !OnlineAccessVerifier.check(searchFragment.getActivity()))
             return null;
 
         List<Lyrics> results;
         do
             results = LyricsNMusic.search(keyword);
-        while (results == null);
+        while (results == null && !isCancelled() && searchFragment.isActiveFragment);
         return results;
     }
 
     protected void onPostExecute(final List<Lyrics> results) {
-        if (results == null)
+        if (results == null || !searchFragment.isActiveFragment)
             return;
         String[] mSongsArray = new String[results.size()];
         String[] mArtistsArray = new String[mSongsArray.length];
@@ -46,17 +46,18 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
             mArtistsArray[i++] = l.getArtist();
         }
 
-        final MainActivity mainActivity = ((MainActivity) lf.getActivity());
-        lf.setListAdapter(new SearchAdapter(lf.getActivity(), mSongsArray, mArtistsArray));
-        lf.setResults(results);
-        lf.getListView().setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Lyrics l = results.get(position);
-                mainActivity.updateLyricsFragment(R.animator.slide_out_end,l.getArtist(), l.getTrack(), l.getURL());
-            }
-        });
-        lf.setListShown(true);
+        final MainActivity mainActivity = ((MainActivity) searchFragment.getActivity());
+        searchFragment.setListAdapter(new SearchAdapter(searchFragment.getActivity(), mSongsArray, mArtistsArray));
+        searchFragment.setResults(results);
+        if (searchFragment.getListView() != null)
+            searchFragment.getListView().setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Lyrics l = results.get(position);
+                    mainActivity.updateLyricsFragment(R.animator.slide_out_end, l.getArtist(), l.getTrack(), l.getURL());
+                }
+            });
+        searchFragment.setListShown(true);
     }
 
 }

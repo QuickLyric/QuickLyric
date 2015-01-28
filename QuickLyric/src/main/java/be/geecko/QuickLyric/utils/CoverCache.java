@@ -2,23 +2,44 @@ package be.geecko.QuickLyric.utils;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+
 import com.android.volley.toolbox.ImageLoader;
 
-public class CoverCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {
+public class CoverCache implements ImageLoader.ImageCache {
 
-    public CoverCache() {
-        this((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
+    private static LruCache<String, Bitmap> mMemoryCache;
+
+    private static CoverCache coverCache;
+
+    private CoverCache(){
+        // Get the Max available memory
+        int maxMemory = (int) Runtime.getRuntime().maxMemory();
+        int cacheSize = maxMemory / 8;
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize){
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap){
+                return bitmap.getRowBytes() * bitmap.getHeight();
+            }
+        };
     }
 
-    public CoverCache(int sizeInKiloBytes) {
-        super(sizeInKiloBytes);
+    public static CoverCache instance(){
+        if(coverCache == null){
+            coverCache = new CoverCache();
+        }
+        return coverCache;
     }
 
+    @Override
     public Bitmap getBitmap(String key) {
-        return get(key);
+        return mMemoryCache.get(key);
     }
 
-    public void putBitmap(String url, Bitmap bitmap) {
-        put(url, bitmap);
+    @Override
+    public void putBitmap(String key, Bitmap arg1) {
+        if(getBitmap(key) == null){
+            mMemoryCache.put(key, arg1);
+        }
     }
+
 }

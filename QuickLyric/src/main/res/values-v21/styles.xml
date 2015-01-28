@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="actionBar.QuickLyric" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
+
+    <style name="actionBarItemStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+</resources>

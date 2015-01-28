@@ -8,7 +8,7 @@
     <string name="drawer_closed_desc">ナビゲーション ドロワーは閉じています</string>
     <string name="no_results">このトラックの歌詞は見つかりません</string>
     <string name="connection_error">接続できません。</string>
-    <string name="search_ab_title">検索 : %s</string>
+    <string name="search_ab_title">検索: %s</string>
     <string name="no_refresh">更新する必要はありません</string>
     <string name="search_hint">検索</string>
     <string name="cover_art_desc">カバー アート</string>
@@ -35,10 +35,13 @@
     <string name="pref_animations_title">アニメーションを有効</string>
     <string name="pref_animations_sum">古いデバイスではパフォーマンスの問題を引き起こす可能性があります</string>
     <string name="pref_look_feel_category">ルック＆フィール</string>
+    <string name="skip">スキップ</string>
     <string name="welcome">QuickLyricへようこそ !</string>
     <string name="welcome2_sub">探していた歌詞が…\nいますぐ、ここに…</string>
     <string name="refresh_desc">曲が変更されたとき…</string>
     <string name="refresh_desc_sub">このボタンを押してください、あとはQuickLyricが行います。</string>
+    <string name="drawer_desc">深く掘る！</string>
+    <string name="drawer_desc_sub">他の機能にアクセスするには、こちらをクリック（または、ここに指をスライドさせ）。.</string>
     <string name="pref_more_category">その他</string>
 
     <string-array name="sort_modes">

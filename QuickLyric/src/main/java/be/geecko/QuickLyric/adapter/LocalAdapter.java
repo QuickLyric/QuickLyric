@@ -14,14 +14,14 @@ import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.view.CheckableLayout;
 
 public class LocalAdapter extends ArrayAdapter<Lyrics> {
-    private final Context mcontext;
-    private ArrayList<Lyrics> savedLyrics = new ArrayList<Lyrics>();
+    private final Context mContext;
+    private ArrayList<Lyrics> savedLyrics = new ArrayList<>();
     static private boolean[] checkedItems;
     static private int checkedItemCount = 0;
 
     public LocalAdapter(Context context, int resource, ArrayList<Lyrics> lyrics) {
         super(context, resource, lyrics);
-        mcontext = context;
+        mContext = context;
         savedLyrics = lyrics;
         if (checkedItems == null || checkedItems.length != lyrics.size())
             checkedItems = new boolean[lyrics.size()];
@@ -30,7 +30,7 @@ public class LocalAdapter extends ArrayAdapter<Lyrics> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_row, parent, false);
             if (convertView == null)
                 return null;

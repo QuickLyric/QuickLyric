@@ -2,8 +2,16 @@
 
 <resources>
     <color name="primary">#ffc107</color>
-    <color name="primary_dark">#ffa000</color>
+    <color name="primary_dark">#e59900</color>
+    <color name="action">#9E9E9E</color>
+    <color name="action_dark">#757575</color>
     <color name="accent">#ff6e40</color>
-    <color name="selected_pressed">#ffffac70</color>
-    <color name="window_background">#eeeeee</color>
+    <color name="accent_pressed">#FF8A65</color>
+    <color name="deep_orange">#DD2C00</color>
+    <color name="deep_red">#B40000</color>
+    <color name="amber">#FFAB00</color>
+    <color name="selected">#BDBDBD</color>
+    <color name="selected_pressed">#E0E0E0</color>
+    <color name="fragment_background">#eeeeee</color>
+    <color name="window_background">#bbbbbb</color>
 </resources>

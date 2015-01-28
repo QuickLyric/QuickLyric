@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/demo_center"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/demo_image"
+        android:src="@drawable/ic_quicklyric"
+        android:scaleType="centerInside"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/demo_center"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:text="@string/welcome2_sub"
+        android:id="@+id/textView2"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textSize="30sp"
+        android:text="@string/welcome"
+        android:id="@+id/textView"
+        android:layout_below="@+id/demo_image"
+        android:layout_above="@id/textView2"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="5dp" />
+
+</RelativeLayout>

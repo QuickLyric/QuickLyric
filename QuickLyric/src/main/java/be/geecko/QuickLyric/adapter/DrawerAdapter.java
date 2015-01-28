@@ -20,10 +20,10 @@ public class DrawerAdapter extends ArrayAdapter<String> {
     private int selectedItem;
 
     public DrawerAdapter(Context context, String[] strings) {
-        super(context, R.id.drawerlist_row_text, strings);
+        super(context, R.layout.drawer_row, strings);
         this.stringArray = strings;
         Drawable drawable1 = context.getResources().getDrawable(R.drawable.ic_lyrics);
-        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_sdcard);
+        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
         Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
         this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3};
     }

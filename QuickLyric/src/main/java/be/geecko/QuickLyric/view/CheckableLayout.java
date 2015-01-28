@@ -3,8 +3,9 @@ package be.geecko.QuickLyric.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-public class CheckableLayout extends LinearLayout {
+public class CheckableLayout extends RelativeLayout {
     private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
     private boolean isChecked = false;
 

@@ -30,13 +30,18 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean lengthFilter = sharedPref.getBoolean("filter_20min", true);
 
-        if (extras == null || extras.getInt("state") > 1 || (lengthFilter && (extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000) || (extras.get("duration") instanceof Double && extras.getDouble("duration") > 1200000) || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200))) //Tracks longer than 20min are presumably not songs
+        if (extras == null || extras.getInt("state") > 1 //Tracks longer than 20min are presumably not songs
+                || (lengthFilter && (extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000)
+                || (extras.get("duration") instanceof Double && extras.getDouble("duration") > 1200000)
+                || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200)))
             return;
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
 
-        if ((artist == null || "".equals(artist) || artist.contains("Unknown")) || (track == null || "".equals(track) || track.contains("Unknown"))) //Could be problematic
+        if ((artist == null || "".equals(artist) || artist.contains("Unknown"))  //Could be problematic
+                || (track == null || "".equals(track) || track.contains("Unknown")
+                || track.startsWith("TN2") || track.startsWith("DTNS"))) // Ignore my favorite podcasts
             return;
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);

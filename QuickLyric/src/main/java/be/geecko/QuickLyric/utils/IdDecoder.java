@@ -76,7 +76,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
         if (lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
-            lyricsViewFragment.startRefreshAnimation(false);
+            lyricsViewFragment.startRefreshAnimation();
             if (lyricsViewFragment.currentDownload != null &&
                     lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
                 lyricsViewFragment.currentDownload.cancel(true);

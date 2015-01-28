@@ -2,11 +2,11 @@ package be.geecko.QuickLyric;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,19 +19,19 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.ActionMode;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
+
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -46,29 +46,32 @@ import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.tasks.DownloadTask;
 import be.geecko.QuickLyric.utils.DatabaseHelper;
 import be.geecko.QuickLyric.utils.IdDecoder;
+import be.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 
 import static be.geecko.QuickLyric.R.array;
 import static be.geecko.QuickLyric.R.id;
-import static be.geecko.QuickLyric.R.string;
 import static be.geecko.QuickLyric.R.layout;
-import static be.geecko.QuickLyric.R.drawable;
+import static be.geecko.QuickLyric.R.string;
 
-public class MainActivity extends Activity {
-    // TODO batch saving lyrics from Google Music / Storage (Note : make sure it's easy to go through 10k+ songs in LocalLyricsFragment) (Note2: Make sure I'm allowed to do that)
+public class MainActivity extends ActionBarActivity {
+    // TODO transitions? (Retro-Compatibility issues)
+    // TODO animation when you delete, select all or deselect all saved lyrics
+    // TODO "undo" when deleting lyrics (requires translation)
 
-    // fixme short podcasts? e.g. Tech News Tonight
+    // TODO Arabic + Serb translation
+    // TODO Test NFC
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
-    private static final String MUSIC_ID_FRAGMENT_TAG = "MusicIDFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
     private static final String SEARCH_FRAGMENT_TAG = "SearchFragment";
     public View drawer;
     public View drawerView;
+    public DrawerItemClickListener drawerListener;
     public boolean focusOnFragment = true;
     public ActionMode mActionMode;
     public SQLiteDatabase database;
-    private ActionBarDrawerToggle mDrawerToggle;
+    public ActionBarDrawerToggle mDrawerToggle;
     private Fragment displayedFragment;
 
     private static void prepareAnimations(Fragment nextFragment) {
@@ -85,18 +88,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         final FragmentManager fragmentManager = getFragmentManager();
         setContentView(layout.nav_drawer_activity);
-        if (getActionBar() != null)
-            getActionBar().setDisplayUseLogoEnabled(true);
+        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(id.toolbar));
 
         /** Drawer setup */
-        final ListView mDrawerList = (ListView) findViewById(id.drawer_list);
+        final ListView drawerList = (ListView) findViewById(id.drawer_list);
         DrawerAdapter drawerAdapter = new DrawerAdapter(this, this.getResources().getStringArray(array.nav_items));
-        mDrawerList.setAdapter(drawerAdapter);
+        drawerList.setAdapter(drawerAdapter);
         drawerView = this.findViewById(id.left_drawer);
         drawer = this.findViewById(id.drawer_layout);
         if (drawer instanceof DrawerLayout) { // if phone
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, drawable.ic_drawer, string.drawer_open_desc, string.drawer_closed_desc) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, string.drawer_open_desc, string.drawer_closed_desc) {
 
                 /**
                  * Called when a drawer has settled in a completely open state.
@@ -119,17 +121,15 @@ public class MainActivity extends Activity {
             ((DrawerLayout) drawer).setDrawerListener(mDrawerToggle);
         }
 
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        drawerListener = new DrawerItemClickListener();
+        drawerList.setOnItemClickListener(drawerListener);
         database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
-
-        setupSearchBox(fragmentManager);
 
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment == null)
             lyricsViewFragment = new LyricsViewFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_animations", true))
-            fragmentTransaction.setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_end);
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_end);
         if (!lyricsViewFragment.isAdded()) {
             fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, LYRICS_FRAGMENT_TAG);
         }
@@ -162,6 +162,9 @@ public class MainActivity extends Activity {
             else
                 updateLyricsFragment(0, 0, false, receivedLyrics);
         }
+        if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
+            setupDemoScreen();
+        }
     }
 
     public Fragment getDisplayedFragment(Fragment[] fragments) {
@@ -176,12 +179,11 @@ public class MainActivity extends Activity {
 
     public Fragment[] getActiveFragments() {
         FragmentManager fragmentManager = this.getFragmentManager();
-        Fragment[] fragments = new Fragment[5];
+        Fragment[] fragments = new Fragment[4];
         fragments[0] = fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        fragments[1] = fragmentManager.findFragmentByTag(MUSIC_ID_FRAGMENT_TAG);
-        fragments[2] = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
-        fragments[3] = fragmentManager.findFragmentByTag(SETTINGS_FRAGMENT);
-        fragments[4] = fragmentManager.findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+        fragments[1] = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
+        fragments[2] = fragmentManager.findFragmentByTag(SETTINGS_FRAGMENT);
+        fragments[3] = fragmentManager.findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
         return fragments;
     }
 
@@ -214,7 +216,9 @@ public class MainActivity extends Activity {
         if (action != null)
             if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED))
                 getBeamedLyrics(intent);
-            else if (intent.getAction().equals("android.intent.action.SEND")
+            else if (action.equals("android.intent.action.SEARCH"))
+                search(intent.getStringExtra(SearchManager.QUERY));
+            else if (action.equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
                     || extra.contains("http://shz.am/"))) {
                 LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
@@ -240,6 +244,27 @@ public class MainActivity extends Activity {
             }
         }
         return null;
+    }
+
+    private void search(String searchQuery) {
+        android.os.SystemClock.sleep(75); // fixme, keyboard animation slows down the transition
+        SearchFragment sf = (SearchFragment) getFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
+        if (sf != null && sf.isActiveFragment) { //focus on search
+            sf.setSearchQuery(searchQuery);
+            sf.refresh();
+            sf.onActivityCreated(null);
+        } else if (sf == null) { //searchFragment doesn't exist
+            sf = new SearchFragment();
+            sf.setSearchQuery(searchQuery);
+            sf.refresh();
+            sf.showTransitionAnim = true;
+            LyricsViewFragment activeFragment = ((LyricsViewFragment) getFragmentManager()
+                    .findFragmentByTag(LYRICS_FRAGMENT_TAG));
+            prepareAnimations(activeFragment);
+            getFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start)
+                    .add(R.id.main_fragment_container, sf, SEARCH_FRAGMENT_TAG).hide(activeFragment).commit();
+        }
     }
 
     private void processURL(Intent intent) {
@@ -303,13 +328,26 @@ public class MainActivity extends Activity {
         SearchFragment searchFragment = (SearchFragment) getFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
         if (drawer instanceof DrawerLayout && ((DrawerLayout) drawer).isDrawerOpen(drawerView))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
-        else if (getFragmentManager().getBackStackEntryCount() != 0 && searchFragment != null && searchFragment.isActiveFragment) {
-            searchFragment.showTransitionAnim = true;
-            FragmentManager.BackStackEntry backStackEntry = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1);
-            prepareAnimations(getFragmentManager().findFragmentByTag(backStackEntry.getName()));
-            getFragmentManager().popBackStack();
+        else if (searchFragment != null && searchFragment.isActiveFragment) {
+            popSearchFragment(searchFragment);
         } else
             finish();
+    }
+
+    private void popSearchFragment(SearchFragment searchFragment) {
+        if (searchFragment.searchTask != null)
+            searchFragment.searchTask.cancel(true);
+        searchFragment.isActiveFragment = false;
+        searchFragment.showTransitionAnim = true;
+        Fragment lyricsFragment = getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        prepareAnimations(lyricsFragment);
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_end)
+                .remove(searchFragment).show(lyricsFragment).commit();
+        if (drawer instanceof DrawerLayout) {
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            ((DrawerLayout) drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
     }
 
     @Override
@@ -327,67 +365,60 @@ public class MainActivity extends Activity {
             mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private void setupSearchBox(final FragmentManager fragmentManager) {
-        EditText searchBox = (EditText) this.findViewById(id.searchBox);
-        searchBox.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView tv, int keycode, KeyEvent event) {
-                if (event == null)
-                    return false;
-                final CharSequence boxText = tv.getText();
-                if (null != boxText && (boxText.length() > 0) && keycode == KeyEvent.KEYCODE_UNKNOWN && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    SearchFragment sf = (SearchFragment) fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_animations", true))
-                        fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_end);
-                    String searchQuery = boxText.toString().replaceAll("(?!\")\\p{Punct}", " ").replaceAll("\\s+", " ");
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(tv.getWindowToken(), 0);
-                    imm.showSoftInputFromInputMethod(tv.getWindowToken(), 0);
-                    if (drawer instanceof DrawerLayout)
-                        ((DrawerLayout) drawer).closeDrawer(drawerView);
-                    tv.setText("");
-                    if (sf != null && sf.isActiveFragment) { //focus on search
-                        sf.setSearchQuery(searchQuery);
-                        sf.refresh();
-                        sf.onActivityCreated(null);
-                    } else if (sf == null) { //focus on something else but no searchfragment
-                        sf = new SearchFragment();
-                        sf.setSearchQuery(searchQuery);
-                        sf.refresh();
-                        Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-                        prepareAnimations(activeFragment);
-                        fragmentTransaction.add(R.id.main_fragment_container, sf, "SearchFragment").hide(activeFragment).addToBackStack(activeFragment.getTag()).commit();
-                    } else { //already created a searchfragment
-                        sf.setSearchQuery(searchQuery);
-                        sf.refresh();
-                        sf.showTransitionAnim = true;
-                        Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-                        prepareAnimations(activeFragment);
-                        fragmentTransaction.show(sf).hide(activeFragment).addToBackStack(activeFragment.getTag()).commit();
-                        sf.onActivityCreated(null);
-                    }
-                    return true;
-                } else
-                    return false;
-            }
-        });
+    public void setDrawerListener(boolean bool){
+        ((ListView)findViewById(id.drawer_list))
+                .setOnItemClickListener(bool ? drawerListener : null);
     }
 
-    public void updateLyricsFragment(int outAnim, String... params) {
+    private void setupDemoScreen() {
+        FrameLayout rootView = (FrameLayout) findViewById(id.root_view);
+        getLayoutInflater().inflate(layout.tutorial_view, rootView);
+        ViewPager pager = (ViewPager) findViewById(id.pager);
+        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
+        final ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), this);
+        pager.setAdapter(pagerAdapter);
+        pager.setOnPageChangeListener(pagerAdapter);
+        indicator.setViewPager(pager);
+        indicator.setOnPageChangeListener(pagerAdapter);
+        Button skipButton = (Button) rootView.findViewById(id.pager_button);
+        Button arrowButton = (Button) rootView.findViewById(id.pager_arrow);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pagerAdapter.exitAction();
+            }
+        });
+        arrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pagerAdapter.nextAction();
+            }
+        });
+        if (mDrawerToggle != null) {
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        focusOnFragment = false;
+        invalidateOptionsMenu();
+    }
+
+    @TargetApi(21)
+    public void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= 20)
+            getWindow().setStatusBarColor(color);
+    }
+
+    public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment
         String artist = params[0];
         String song = params[1];
         String url = null;
         if (params.length > 2)
             url = params[2];
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag("LyricsViewFragment");
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_animations", true))
-            fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, outAnim);
-        Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-        prepareAnimations(activeFragment);
         if (lyricsViewFragment != null) {
-            fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);
+            SearchFragment searchFragment = (SearchFragment) getFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
+            if (searchFragment != null && searchFragment.isActiveFragment)
+                popSearchFragment(searchFragment);
             lyricsViewFragment.fetchLyrics(artist, song, url);
         } else {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
@@ -401,18 +432,25 @@ public class MainActivity extends Activity {
             }
             lyricsViewFragment = new LyricsViewFragment();
             lyricsViewFragment.setArguments(lyricsBundle);
+
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, outAnim, R.animator.slide_in_start, outAnim);
+            Fragment activeFragment = getDisplayedFragment(getActiveFragments());
+            prepareAnimations(activeFragment);
             fragmentTransaction.hide(activeFragment).add(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
+            lyricsViewFragment.isActiveFragment = true;
+            fragmentTransaction.commit();
         }
-        //lyricsViewFragment.showTransitionAnim = true;
-        lyricsViewFragment.isActiveFragment = true;
-        fragmentTransaction.commit();
+        if (drawer instanceof DrawerLayout) {
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            ((DrawerLayout) drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
     }
 
     public void updateLyricsFragment(int outAnim, int inAnim, boolean transition, Lyrics lyrics) {
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag("LyricsViewFragment");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_animations", true))
-            fragmentTransaction.setCustomAnimations(inAnim, outAnim);
+        fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
         if (lyricsViewFragment != null) {
             lyricsViewFragment.update(lyrics, lyricsViewFragment.getView());
@@ -434,8 +472,8 @@ public class MainActivity extends Activity {
             else
                 fragmentTransaction.replace(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
         }
-        //lyricsViewFragment.showTransitionAnim = true;
-        fragmentTransaction.commit();
+        lyricsViewFragment.showTransitionAnim = true;
+        fragmentTransaction.commitAllowingStateLoss();
         lyricsViewFragment.isActiveFragment = true;
     }
 
@@ -454,21 +492,21 @@ public class MainActivity extends Activity {
         String tag;
         switch (position) {
             default:
-                tag = "LyricsViewFragment";
+                tag = LYRICS_FRAGMENT_TAG;
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof LyricsViewFragment))
                     newFragment = new LyricsViewFragment();
                 ((LyricsViewFragment) newFragment).showTransitionAnim = true;
                 break;
             case 1:
-                tag = "LocalLyricsFragment";
+                tag = LOCAL_LYRICS_FRAGMENT_TAG;
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof LocalLyricsFragment))
                     newFragment = new LocalLyricsFragment();
                 ((LocalLyricsFragment) newFragment).showTransitionAnim = true;
                 break;
             case 2:
-                tag = "SettingsFragment";
+                tag = SETTINGS_FRAGMENT;
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof SettingsFragment))
                     newFragment = new SettingsFragment();
@@ -484,8 +522,7 @@ public class MainActivity extends Activity {
             if (mActionMode != null)
                 mActionMode.finish();
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_animations", true))
-                fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_start);
+            fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_start);
             fragmentTransaction.hide(activeFragment);
             if (newFragment.isAdded())
                 fragmentTransaction.show(newFragment);
@@ -493,9 +530,10 @@ public class MainActivity extends Activity {
                 fragmentTransaction.add(id.main_fragment_container, newFragment, tag);
             fragmentTransaction.commit();
         }
-        if (drawer instanceof DrawerLayout && (newFragment == activeFragment || !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_animations", true)))
+        if (drawer instanceof DrawerLayout && (newFragment == activeFragment))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
     }
+
 
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {

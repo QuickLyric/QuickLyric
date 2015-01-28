@@ -1,24 +1,35 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto">
 
+    <!--
     <item
         android:id="@+id/refresh_action"
-        android:actionLayout="@layout/refresh_action_view"
+        support:actionLayout="@layout/refresh_action_view"
         android:orderInCategory="0"
-        android:showAsAction="always"
-        android:icon="@drawable/refresh"
+        support:showAsAction="always"
+        android:icon="@drawable/ic_refresh"
         android:title="@string/refresh" />
+    !-->
+
+    <item
+        android:title="@string/search_hint"
+        android:id="@+id/search_view"
+        android:icon="@drawable/ic_menu_search"
+        android:orderInCategory="0"
+        support:showAsAction="collapseActionView|ifRoom"
+        support:actionViewClass="android.widget.SearchView"/>
 
     <item
         android:id="@+id/save_action"
-        android:icon="@drawable/refresh"
         android:orderInCategory="1"
-        android:showAsAction="ifRoom"
+        support:showAsAction="ifRoom"
+        android:icon="@drawable/ic_save"
         android:title="@string/save_action" />
 
     <item
         android:id="@+id/share_action"
-        android:icon="@drawable/ic_menu_share"
         android:orderInCategory="2"
-        android:showAsAction="ifRoom"
+        support:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_share"
         android:title="@string/share" />
 </menu>

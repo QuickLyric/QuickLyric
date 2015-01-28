@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <be.geecko.QuickLyric.view.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:background="@drawable/listview_row_selector"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/listview_row_selector"
+    android:translationZ="5.7dp"
+    elevation="5.7dp"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/frame_height">
 
-    <TextView
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:textSize="@dimen/txt_size"
-            android:textColor="@android:color/primary_text_light"
+        <View
+            android:id="@+id/center"
+            android:layout_centerInParent="true"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp" />
+
+        <TextView
+            tools:text="Bad"
             android:id="@+id/title"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_above="@id/center"
+            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="@dimen/txt_size"
+            android:textColor="@android:color/black"
+            android:gravity="bottom" />
 
-    <TextView
-            android:paddingBottom="8dp"
-            android:paddingStart="8dp"
-            android:gravity="bottom"
-            android:textSize="@dimen/small_txt_size"
-            android:textColor="@android:color/secondary_text_light"
+        <TextView
+            tools:text="Michael Jackson"
             android:id="@+id/artist"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:layout_below="@id/center"
+            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="@dimen/small_txt_size" />
 </be.geecko.QuickLyric.view.CheckableLayout>

@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.+'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
     }
 }
 
@@ -21,13 +21,13 @@ android {
         }
     }
     compileSdkVersion 21
-    buildToolsVersion '21.0.0'
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "1.5"
     }
 
     compileOptions {
@@ -51,10 +51,11 @@ android {
         }
     }
 }
-
 dependencies {
-    compile "com.android.support:support-v4:21.0.0"
-    compile "com.android.support:appcompat-v7:21.0.0"
-    compile 'com.github.amlcurran.showcaseview:library:5.+'
+    compile 'com.android.support:support-v4:21.+'
+    compile 'com.android.support:appcompat-v7:21.+'
+    compile 'com.android.support:cardview-v7:21.+'
+    compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
+    compile 'com.melnykov:floatingactionbutton:1.+'
     compile fileTree(dir: 'libs', include: 'volley.jar')
 }

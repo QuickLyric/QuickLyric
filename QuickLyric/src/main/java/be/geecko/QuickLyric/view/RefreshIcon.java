@@ -2,25 +2,33 @@ package be.geecko.QuickLyric.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
+import android.widget.ScrollView;
 
-public class RefreshIcon extends ImageView implements Animation.AnimationListener {
+import com.melnykov.fab.*;
+import com.melnykov.fab.ObservableScrollView;
 
-    private final RotateAnimation rotateAnimation = new RotateAnimation(1, 360, Animation.RELATIVE_TO_SELF, (float) 0.5, Animation.RELATIVE_TO_SELF, (float) 0.5);
+import be.geecko.QuickLyric.MainActivity;
+import be.geecko.QuickLyric.R;
+
+public class RefreshIcon extends FloatingActionButton implements Animation.AnimationListener {
+
+    private final RotateAnimation rotateAnimation;
+    private com.melnykov.fab.ObservableScrollView scrollView;
     private boolean mRunning = false;
     private boolean mEnded = false;
 
     public RefreshIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (rotateAnimation.getDuration() != 1100) {
-            rotateAnimation.setRepeatCount(Animation.INFINITE);
-            rotateAnimation.setDuration(1100);
-            rotateAnimation.setAnimationListener(this);
-            rotateAnimation.setInterpolator(new LinearInterpolator());
-        }
+        rotateAnimation = new RotateAnimation(1, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
+        rotateAnimation.setDuration(1100);
+        rotateAnimation.setAnimationListener(this);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
     }
 
     public void startAnimation() {
@@ -29,12 +37,14 @@ public class RefreshIcon extends ImageView implements Animation.AnimationListene
             mRunning = true;
             mEnded = false;
         }
+        scrollView.setOnScrollChangedListener(null);
     }
 
     public void stopAnimation() {
         if (mRunning) {
             mEnded = true;
         }
+        attachToScrollView(scrollView);
     }
 
     @Override
@@ -51,5 +61,11 @@ public class RefreshIcon extends ImageView implements Animation.AnimationListene
             this.clearAnimation();
             mRunning = false;
         }
+    }
+
+    @Override
+    public void attachToScrollView(ObservableScrollView scrollView){
+        this.scrollView = scrollView;
+        super.attachToScrollView(scrollView);
     }
 }

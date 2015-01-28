@@ -1,21 +1,19 @@
 package be.geecko.QuickLyric.lyrics;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class Lyrics implements Serializable {
 
     private String mTitle;
     private String mArtist;
+    private String mOriginalTitle;
+    private String mOriginalArtist;
     private String mSourceUrl;
     private String mCoverURL;
     private String mLyrics;
@@ -39,12 +37,28 @@ public class Lyrics implements Serializable {
         this.mTitle = title;
     }
 
+    public String getOriginalTrack() {
+        return mOriginalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.mOriginalTitle = originalTitle;
+    }
+
     public String getArtist() {
         return mArtist;
     }
 
     public void setArtist(String artist) {
         this.mArtist = artist;
+    }
+
+    public String getOriginalArtist() {
+        return mOriginalArtist;
+    }
+
+    public void setOriginalArtist(String originalArtist) {
+        this.mOriginalArtist = originalArtist;
     }
 
     public String getURL() {

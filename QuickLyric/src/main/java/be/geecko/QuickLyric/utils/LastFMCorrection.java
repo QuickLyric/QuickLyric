@@ -38,7 +38,7 @@ public class LastFMCorrection {
             encodedSong = URLEncoder.encode(track, "UTF-8");
             String baseUrl = "http://ws.audioscrobbler.com/2.0/?method=track.getcorrection&artist=%s&track=%s&api_key=%s&format=json";
             JSONObject json = new JSONObject(getUrlAsString(new URL(
-                    String.format(baseUrl, encodedArtist, encodedSong, Keys.LastFM))))
+                    String.format(baseUrl, encodedArtist, encodedSong, Keys.lastFM))))
                     .getJSONObject("corrections").getJSONObject("correction");
             artist = json.getJSONObject("track").getJSONObject("artist").getString("name");
             track = json.getJSONObject("track").getString("name");

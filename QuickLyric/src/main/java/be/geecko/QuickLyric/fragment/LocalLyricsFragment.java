@@ -2,7 +2,7 @@ package be.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.ActionBar;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
@@ -10,8 +10,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,10 +39,7 @@ public class LocalLyricsFragment extends ListFragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final MainActivity mainActivity = (MainActivity) getActivity();
-            if (mainActivity.mActionMode != null) {
-                mainActivity.mActionMode.finish();
-                ((LocalAdapter) getListAdapter()).checkAll(false);
-            }
+            getListView().setOnItemClickListener(null); // prevents bug on double tap
             mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start, true, lyricsArray.get(position));
         }
     };
@@ -65,6 +64,7 @@ public class LocalLyricsFragment extends ListFragment {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             MenuInflater inflater = actionMode.getMenuInflater();
             inflater.inflate(R.menu.local_action_mode, menu);
+            actionModeStatusBar(true);
             return true;
         }
 
@@ -89,7 +89,7 @@ public class LocalLyricsFragment extends ListFragment {
                 case R.id.action_delete:
                     for (int i = 0; i < lyricsArray.size(); i++)
                         if (adapter.isItemChecked(i))
-                            new WriteToDatabaseTask().execute(LocalLyricsFragment.this, lyricsArray.get(i));
+                            new WriteToDatabaseTask().execute(LocalLyricsFragment.this, null, lyricsArray.get(i));
                     actionMode.finish();
                     return true;
                 case R.id.action_select_all:
@@ -108,8 +108,16 @@ public class LocalLyricsFragment extends ListFragment {
                 getListView().setOnItemClickListener(standardOnClickListener);
                 actionModeInitialized = false;
             }
+            actionModeStatusBar(false);
         }
     };
+
+    @TargetApi(21)
+    private void actionModeStatusBar(boolean actionMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getActivity().getWindow().setStatusBarColor
+                    (getResources().getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
+    }
 
     @Override
     public void onActivityCreated(Bundle onSavedInstanceState) {
@@ -119,9 +127,15 @@ public class LocalLyricsFragment extends ListFragment {
         setListShown(true);
         ListView listView = getListView();
         if (listView != null) {
+            View fragmentView = getView();
+            if (fragmentView != null)
+                fragmentView.setBackgroundResource(R.color.fragment_background);
             listView.setDivider(new ColorDrawable(Color.parseColor("#cccccc")));
-            listView.setDividerHeight(1);
+            listView.setDividerHeight(0);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                listView.setSelector(R.drawable.abc_list_selector_disabled_holo_dark);
             listView.setFastScrollEnabled(true);
+            listView.setDrawSelectorOnTop(true);
         }
     }
 
@@ -198,7 +212,7 @@ public class LocalLyricsFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = (mainActivity).getActionBar();
+        ActionBar actionBar = (mainActivity).getSupportActionBar();
         if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
@@ -231,26 +245,24 @@ public class LocalLyricsFragment extends ListFragment {
                         dialog1.dismiss();
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(LocalLyricsFragment.this.getActivity());
                         builder2.setTitle(R.string.sort_dialog_title);
-                        builder2.setSingleChoiceItems(items, sortOrder, new DialogInterface.OnClickListener()
-
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog2, int order) {
-                                SharedPreferences.Editor editor = localSortOrderPreferences.edit();
-                                editor.putInt("mode", mode);
-                                switch (mode) {
-                                    default:
-                                        editor.putInt("order_artist", order);
-                                        break;
-                                    case 1:
-                                        editor.putInt("order_title", order);
-                                        break;
+                        builder2.setSingleChoiceItems(items, sortOrder, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog2, int order) {
+                                        SharedPreferences.Editor editor = localSortOrderPreferences.edit();
+                                        editor.putInt("mode", mode);
+                                        switch (mode) {
+                                            default:
+                                                editor.putInt("order_artist", order);
+                                                break;
+                                            case 1:
+                                                editor.putInt("order_title", order);
+                                                break;
+                                        }
+                                        editor.apply();
+                                        dialog2.dismiss();
+                                        new DBContentLister().execute(LocalLyricsFragment.this);
+                                    }
                                 }
-                                editor.apply();
-                                dialog2.dismiss();
-                                new DBContentLister().execute(LocalLyricsFragment.this);
-                            }
-                        }
 
                         );
                         AlertDialog alert2 = builder2.create();
@@ -267,6 +279,7 @@ public class LocalLyricsFragment extends ListFragment {
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        final MainActivity mainActivity = (MainActivity) getActivity();
         Animator anim = null;
         if (nextAnim != 0)
             anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
@@ -274,6 +287,9 @@ public class LocalLyricsFragment extends ListFragment {
             anim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationEnd(Animator animator) {
+                    if (mainActivity.drawer instanceof DrawerLayout)
+                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                    mainActivity.setDrawerListener(true);
                 }
 
                 @Override
@@ -282,9 +298,7 @@ public class LocalLyricsFragment extends ListFragment {
 
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    MainActivity mainActivity = (MainActivity) getActivity();
-                    if (mainActivity.drawer instanceof DrawerLayout)
-                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                    mainActivity.setDrawerListener(false);
                 }
 
                 @Override

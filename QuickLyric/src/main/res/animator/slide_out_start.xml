@@ -7,7 +7,7 @@
         android:duration="@android:integer/config_longAnimTime"
         android:propertyName="x"
         android:valueFrom="0"
-        android:valueTo="-1000"
+        android:valueTo="-2000"
         android:valueType="floatType" />
 
 </set>

@@ -3,7 +3,7 @@ package be.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -48,6 +48,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         if (this.isHidden())
             return;
         final MainActivity activity = ((MainActivity) this.getActivity());
+        View fragmentView = getView();
+        if (fragmentView != null)
+            fragmentView.setBackgroundResource(R.color.fragment_background);
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) activity.findViewById(R.id.drawer_list)).getAdapter());
 
         if (drawerAdapter.getSelectedItem() != 2) {
@@ -70,10 +73,10 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = (mainActivity).getActionBar();
+        ActionBar actionBar = (mainActivity).getSupportActionBar();
         if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
         {
-            if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
+            if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title)))
                 actionBar.setTitle(R.string.settings_title);
         } else
             menu.clear();
@@ -81,6 +84,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        final MainActivity mainActivity = (MainActivity) getActivity();
         Animator anim = null;
         if (nextAnim != 0)
             anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
@@ -88,6 +92,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             anim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationEnd(Animator animator) {
+                    if (mainActivity.drawer instanceof DrawerLayout)
+                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                    mainActivity.setDrawerListener(true);
                 }
 
                 @Override
@@ -96,9 +103,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    MainActivity mainActivity = (MainActivity) getActivity();
-                    if (mainActivity.drawer instanceof DrawerLayout)
-                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                    mainActivity.setDrawerListener(false);
                 }
 
                 @Override

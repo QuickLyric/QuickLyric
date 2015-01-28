@@ -16,5 +16,6 @@ package be.geecko.QuickLyric;
  * limitations under the License.
  */
 public class Keys {
-    public static final String LastFM = "402bdca12feff2668e36a9aa3c675273";
+    public static final String lastFM = "402bdca12feff2668e36a9aa3c675273";
+    public static final String lyricsNMusic = "e35aa198cf1a370a90f27be98ec2d4";
 }

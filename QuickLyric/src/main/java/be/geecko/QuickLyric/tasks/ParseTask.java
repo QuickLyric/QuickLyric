@@ -35,7 +35,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
     @Override
     protected void onPostExecute(String[] metaData) {
-        if (currentLyrics != null && metaData[0].equals(currentLyrics.getArtist()) && metaData[1].equals(currentLyrics.getTrack()) && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+        if (currentLyrics != null && metaData[0].equals(currentLyrics.getOriginalArtist()) && metaData[1].equals(currentLyrics.getOriginalTrack()) && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
             Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
         else {
             SQLiteDatabase sqLiteDatabase = ((MainActivity) lyricsViewFragment.getActivity()).database;
@@ -43,7 +43,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                 lyricsViewFragment.update(DatabaseHelper.get(sqLiteDatabase, metaData),
                         lyricsViewFragment.getView());
             else if (OnlineAccessVerifier.check(mContext)) {
-                lyricsViewFragment.startRefreshAnimation(false);
+                lyricsViewFragment.startRefreshAnimation();
                 if (lyricsViewFragment.currentDownload != null && lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
                     lyricsViewFragment.currentDownload.cancel(true);
                 lyricsViewFragment.currentDownload = new DownloadTask();

@@ -5,7 +5,7 @@
     <string name="refresh">перезагрузить</string>
     <string name="no_results">никакой текст не найден на эту песню </string>
     <string name="connection_error">Не удается подключиться к Интернету.</string>
-    <string name="search_ab_title">Поиск : %s</string>
+    <string name="search_ab_title">Поиск: %s</string>
     <string name="no_refresh">Бесполезно перезагрузить</string>
     <string name="search_hint">Поиск</string>
     <string name="search_no_result">Ничего не найденo</string>
@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Включить анимацию</string>
     <string name="pref_animations_sum">Это может сделать приложение менее подвижным</string>
     <string name="pref_look_feel_category">внешний вид</string>
+    <string name="skip">Пропуск</string>
     <string name="welcome">Добро пожаловать на Quicklyric !</string>
     <string name="welcome2_sub">Текст слов которые вы разыскиваете…\nМгновенно.</string>
     <string name="refresh_desc">Когда песня поменялась…</string>
     <string name="refresh_desc_sub">Нажмите, Quicklyric сделает все остальное.</string>
+    <string name="drawer_desc">Углубляем ещё немного !</string>
+    <string name="drawer_desc_sub">Для доступа к другим функциям,  нажмите здесь (или тянуть меню вашем пальцем).</string>
     <string name="pref_more_category">Другое</string>
 
     <string-array name="sort_modes">

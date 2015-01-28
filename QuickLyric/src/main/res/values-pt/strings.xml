@@ -5,7 +5,7 @@
     <string name="refresh">Atualizar</string>
     <string name="no_results">Não foi encontrado letras para esta mùsica</string>
     <string name="connection_error">Conexão impossível.</string>
-    <string name="search_ab_title">Pesquisar : %s</string>
+    <string name="search_ab_title">Pesquisar: %s</string>
     <string name="no_refresh">Não é preciso refrescar</string>
     <string name="search_hint">Pesquisar</string>
     <string name="search_no_result">Não há resultados</string>
@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Permitir animações</string>
     <string name="pref_animations_sum">Isto pode causar problemas de desempenho em aparelhos mais antigos</string>
     <string name="pref_look_feel_category">Aspecto</string>
+    <string name="skip">Ignorar</string>
     <string name="welcome">Bem-vindo a QuickLyric !</string>
     <string name="welcome2_sub">As letras que você esta pesquisando…\nAqui, e agora</string>
     <string name="refresh_desc">Quando a música mudou…</string>
     <string name="refresh_desc_sub">Aperte este botão. QuickLyric fará o resto.</string>
+    <string name="drawer_desc">Vamos mais profundo !</string>
+    <string name="drawer_desc_sub">Para acessar outras opções, aperte aqui (ou arraste a tela desde o bordo).</string>
     <string name="pref_more_category">Outros</string>
 
     <string-array name="sort_modes">

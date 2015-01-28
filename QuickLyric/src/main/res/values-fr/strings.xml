@@ -15,7 +15,7 @@
     <string name="pref_about">À propos</string>
     <string name="pref_about_summary">Plus d\'informations à propos de QuickLyric</string>
     <string name="local_title">Paroles sauvées</string>
-    <string name="settings_title">Options</string>
+    <string name="settings_title">Paramètres</string>
     <string name="save_action">Sauver</string>
     <string name="lyrics_saved">Paroles sauvées</string>
     <string name="lyrics_removed">Paroles supprimées</string>
@@ -30,10 +30,13 @@
     <string name="pref_animations_title">Activer les animations</string>
     <string name="pref_animations_sum">Ceci peut rendre l\'application moins fluide</string>
     <string name="pref_look_feel_category">Aspect</string>
+    <string name="skip">Passer</string>
     <string name="welcome">Bienvenue dans QuickLyric !</string>
     <string name="welcome2_sub">Les paroles que vous cherchiez…\nInstantanément.</string>
     <string name="refresh_desc">Quand la chanson a changé…</string>
-    <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric fera le reste.</string>
+    <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric se chargera du reste.</string>
+    <string name="drawer_desc">Creusons encore un peu !</string>
+    <string name="drawer_desc_sub">Pour accéder à d\'autres fonctionnalités, appuyez ici (ou tirez le menu avec votre doigt).</string>
     <string name="pref_more_category">Autre</string>
 
     <string-array name="sort_modes">

@@ -1,103 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<be.geecko.QuickLyric.view.ObservableScrollView
-    android:id="@+id/scrollview"
-    android:scrollbarStyle="outsideOverlay"
-    android:overScrollMode="never"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
+    xmlns:android.support.v7.cardview="http://schemas.android.com/apk/res-auto"
     tools:ignore="RtlCompat"
-    android:fillViewport="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:targetApi="17"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <FrameLayout
+    <be.geecko.QuickLyric.view.ObservableScrollView
+        android:id="@+id/scrollview"
+        android:background="@color/fragment_background"
+        android:scrollbarStyle="outsideOverlay"
+        android:overScrollMode="never"
+        tools:context=".MainActivity"
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextSwitcher
-            android:layout_gravity="top"
-            android:id="@+id/switcher"
-            android:measureAllChildren="false"
-            android:padding="5dp"
-            android:layout_marginTop="@dimen/frame_height"
-            android:inAnimation="@android:anim/fade_in"
-            android:outAnimation="@android:anim/fade_out"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
 
-        <include
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/frame_height"
-            layout="@layout/error_msg" />
-
-        <RelativeLayout
-            android:id="@+id/frame"
-            android:layout_height="@dimen/frame_height"
-            android:layout_width="match_parent">
-
-            <be.geecko.QuickLyric.view.FadeInNetworkImageView
-                android:id="@+id/cover"
-                android:layout_width="@dimen/cover_width"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/cover_art_desc"
-                android:layout_alignParentStart="true" />
-
-            <View
-                android:id="@+id/separator_vertical"
-                android:layout_toEndOf="@id/cover"
-                android:background="#bebebe"
-                android:layout_width="1dp"
+            <TextSwitcher
+                android:layout_gravity="top"
+                android:id="@+id/switcher"
+                android:focusable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:measureAllChildren="false"
+                android:padding="5dp"
+                android:layout_marginTop="@dimen/lyrics_top_margin"
+                android:inAnimation="@android:anim/fade_in"
+                android:outAnimation="@android:anim/fade_out"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <View
-                android:id="@+id/center"
-                android:layout_toEndOf="@id/separator_vertical"
-                android:layout_centerInParent="true"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp" />
-
-            <TextView
-                android:id="@+id/song"
-                android:singleLine="true"
-                android:scrollHorizontally="true"
-                android:ellipsize="end"
-                android:background="@android:color/white"
-                android:layout_above="@id/center"
-                android:layout_toEndOf="@id/separator_vertical"
+            <include
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:textSize="@dimen/txt_size"
-                android:gravity="start|bottom"/>
+                android:layout_marginTop="@dimen/frame_height"
+                layout="@layout/error_msg" />
 
-            <TextView
-                android:id="@+id/artist"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:scrollHorizontally="true"
-                android:background="@android:color/white"
-                android:layout_below="@id/center"
-                android:layout_toEndOf="@id/separator_vertical"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:textColor="#999999"
-                android:textSize="@dimen/small_txt_size"
-                android:gravity="start" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/frame"
+                android.support.v7.cardview:cardPreventCornerOverlap="false"
+                android.support.v7.cardview:cardElevation="4dp"
+                android:translationZ="3dp"
+                android:layout_margin="8dp"
+                android:layout_height="@dimen/frame_height"
+                android:layout_width="match_parent">
 
-            <View
-                android:id="@+id/separator_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:background="#bebebe"
-                android:layout_width="match_parent" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </RelativeLayout>
+                    <be.geecko.QuickLyric.view.FadeInNetworkImageView
+                        android:id="@+id/cover"
+                        android:layout_width="@dimen/cover_width"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/cover_art_desc"
+                        android:layout_alignParentStart="true" />
 
-    </FrameLayout>
+                    <View
+                        android:id="@+id/separator_vertical"
+                        android:layout_toEndOf="@id/cover"
+                        android:background="#bebebe"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent" />
 
-</be.geecko.QuickLyric.view.ObservableScrollView>
+                    <View
+                        android:id="@+id/center"
+                        android:layout_toEndOf="@id/separator_vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/song"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="end"
+                        android:background="@android:color/white"
+                        android:layout_above="@id/center"
+                        android:layout_toEndOf="@id/separator_vertical"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textSize="@dimen/txt_size"
+                        android:gravity="start|bottom" />
+
+                    <TextView
+                        android:id="@+id/artist"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:scrollHorizontally="true"
+                        android:background="@android:color/white"
+                        android:layout_below="@id/center"
+                        android:layout_toEndOf="@id/separator_vertical"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/small_txt_size"
+                        android:gravity="start" />
+
+                    <View
+                        android:id="@+id/separator_horizontal"
+                        android:layout_alignParentBottom="true"
+                        android:layout_height="1dp"
+                        android:background="#bebebe"
+                        android:layout_width="match_parent" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </FrameLayout>
+
+    </be.geecko.QuickLyric.view.ObservableScrollView>
+
+
+    <be.geecko.QuickLyric.view.RefreshIcon
+        android:id="@+id/refresh_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_refresh"
+        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorPressed="@color/accent_pressed"
+        fab:fab_colorRipple="@null" />
+
+</FrameLayout>

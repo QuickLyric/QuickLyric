@@ -2,17 +2,23 @@ package be.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.ActionBar;
 import android.app.ListFragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ActionMenuView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -20,6 +26,7 @@ import java.util.List;
 import be.geecko.QuickLyric.MainActivity;
 import be.geecko.QuickLyric.R;
 import be.geecko.QuickLyric.adapter.DrawerAdapter;
+import be.geecko.QuickLyric.adapter.SearchAdapter;
 import be.geecko.QuickLyric.lyrics.Lyrics;
 import be.geecko.QuickLyric.tasks.SearchTask;
 import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
@@ -31,8 +38,9 @@ public class SearchFragment extends ListFragment {
     private List<Lyrics> results;
     private boolean refresh = false;
     private ViewGroup errorView;
-    private static int errorVisible = View.INVISIBLE;
+    private static int errorVisibility = View.INVISIBLE;
     public boolean isActiveFragment = false;
+    public SearchTask searchTask;
 
     public SearchFragment() {
     }
@@ -40,16 +48,21 @@ public class SearchFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle bundle) {
         setRetainInstance(true);
-        setHasOptionsMenu(false);
+        setHasOptionsMenu(true);
         super.onActivityCreated(bundle);
 
         ListView listView = getListView();
+        View fragmentView = getView();
+        if (fragmentView != null)
+            fragmentView.setBackgroundResource(R.color.fragment_background);
 
         if (searchQuery == null || searchQuery.equals("")) // bug
         {
-            this.getFragmentManager().popBackStack();
+            getActivity().onBackPressed();
         } else if (listView.getAdapter() == null || refresh) //refresh or empty list
         {
+            if (searchTask != null)
+                searchTask.cancel(true);
             refresh = false;
             search(searchQuery);
         } else if (this.results != null) //orientation change
@@ -60,19 +73,6 @@ public class SearchFragment extends ListFragment {
                     ((MainActivity) SearchFragment.this.getActivity()).updateLyricsFragment(R.animator.slide_out_end, l.getArtist(), l.getTrack());
                 }
             });
-
-        LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
-        errorView = (ViewGroup) inflater.inflate(R.layout.error_msg, null);
-        if (errorView != null) {
-            errorView.setVisibility(errorVisible);
-            ViewGroup layout = ((ViewGroup) ((ViewGroup) this.getView()).getChildAt(0));
-            if (layout != null && errorView.getParent() == null)
-                layout.addView(errorView);
-            TextView txt = (TextView) errorView.getChildAt(0);
-            if (txt != null)
-                txt.setText(R.string.search_no_result);
-        }
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -101,12 +101,34 @@ public class SearchFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = mainActivity.getActionBar();
+        ActionBar actionBar = mainActivity.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(String.format(this.getString(R.string.search_ab_title), searchQuery));
+            actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+        inflater.inflate(R.menu.menu_search, menu);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getActivity()
+                .getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setQuery(searchQuery, false);
+        searchView.setMaxWidth(99999); //fixme?
+        if (mainActivity.mDrawerToggle != null) {
+            mainActivity.mDrawerToggle.setDrawerIndicatorEnabled(false);
+            ((DrawerLayout) mainActivity.drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setSearchQuery(String searchQuery) {
@@ -119,9 +141,14 @@ public class SearchFragment extends ListFragment {
 
     public void setResults(List<Lyrics> results) {
         this.results = results;
-        if (errorView != null && results.size() == 0) {
-            errorView.setVisibility(View.VISIBLE);
-            errorVisible = View.VISIBLE;
+        if (errorView != null) {
+            if (results.size() == 0) {
+                errorView.setVisibility(View.VISIBLE);
+                errorVisibility = View.VISIBLE;
+            } else {
+                errorVisibility = View.INVISIBLE;
+                errorView.setVisibility(errorVisibility);
+            }
         }
     }
 
@@ -129,17 +156,31 @@ public class SearchFragment extends ListFragment {
         this.setListShown(false);
         if (errorView != null) {
             errorView.setVisibility(View.INVISIBLE);
-            errorVisible = View.INVISIBLE;
+            errorVisibility = View.INVISIBLE;
         }
         if (!OnlineAccessVerifier.check(this.getActivity())) {
             LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
-            View errorView = inflater.inflate(R.layout.error_msg, this.getListView());
+            errorView = (ViewGroup) inflater.inflate(R.layout.error_msg, this.getListView(), false);
             Toast.makeText(this.getActivity(), this.getString(R.string.connection_error), Toast.LENGTH_LONG).show();
-            ViewGroup layout = (ViewGroup) ((ViewGroup) this.getView()).getChildAt(0);
-            if (layout != null && errorView != null)
-                layout.addView(errorView);
-        } else
-            new SearchTask().execute(searchQuery, this);
+            ViewGroup layout = null;
+            if (this.getView() != null) {
+                layout = (ViewGroup) getListView().getParent();
+            }
+            if (layout != null && errorView != null) {
+                errorVisibility = View.VISIBLE;
+                errorView.setVisibility(errorVisibility);
+                if (errorView.getParent() == null)
+                    layout.addView(errorView);
+            }
+            setListShown(true);
+            if (results != null && results.size() > 0) {
+                results.clear();
+                ((SearchAdapter) getListAdapter()).notifyDataSetChanged();
+            }
+        } else {
+            searchTask = new SearchTask();
+            searchTask.execute(searchQuery, this);
+        }
     }
 
     @Override

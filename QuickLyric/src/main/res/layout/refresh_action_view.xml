@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="55dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
     android:layout_height="match_parent">
 
     <be.geecko.QuickLyric.view.RefreshIcon
-        android:src="@drawable/refresh"
-        android:background="@drawable/selectable_background_quicklyric"
+        android:id="@+id/refresh_view"
+        android:src="@drawable/ic_refresh"
+        android:layout_centerInParent="true"
         android:scaleType="center"
+        android:background="?android:attr/actionBarItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="48dp" />
+</RelativeLayout>

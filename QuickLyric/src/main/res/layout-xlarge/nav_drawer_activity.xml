@@ -1,25 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:id="@+id/drawer_layout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        tools:theme="@style/actionBar.QuickLyric"
+        android:background="@color/primary"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/drawer_layout"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <include
             android:id="@+id/left_drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            layout="@layout/drawer"/>
+            layout="@layout/drawer" />
 
-    <View
+        <View
             android:background="#bebebe"
             android:layout_width="1dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-    <FrameLayout
+        <FrameLayout
             android:id="@+id/main_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>
