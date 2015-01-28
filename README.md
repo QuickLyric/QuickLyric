@@ -1,38 +1,30 @@
 # QuickLyric
 
-QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, it doesn't have ads, it features a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. The app's design mimics the Google Play apps for Android.
+QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, doesn't have ads, features a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. QuickLyric makes use of Google's Material Design.
 
-![alt text](http://i.imgur.com/VlSv894.png "Banner Logo")
+![alt text](http://i.imgur.com/dFjxzpT.png "Banner Logo")
 
-QuickLyric is of course written in Java and runs on phones and tablets equipped with *at least* Android 4.0. (although you can still find some old builds that supported Android 2.2) The build system relies on Gradle and Android Studio is therefore recommended.
+QuickLyric is of course written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
+The build system relies on Gradle and Android Studio is therefore recommended.
 
 ## Features
 
-The app features a slick drawer menu on the left of the screen. Here are the contents of that menu :
-
-* **Lyrics** - Shows the lyrics of the song you are listening to at the moment. In the action bar you'll find buttons to update the lyrics when the next song has started playing, to download the lyrics on your device (for offline usage) and to share the URL to a friend.
-* **Local Storage** - In this screen, you can see a list of the lyrics you've chosen to download.
-* **Search** - Search and even find lyrics.
-* **Settings** - QuickLyric offers a minimal choice of settings to avoid an overwhelming amount of possibilities. 3 choices are offered to the user : whether transitions will be animated, whether the app should try to find lyrics for tracks that are longer than 20 minutes (those are presumably podcasts and not songs) and whether to automatically update the lyrics when the song has changed, without having to press the refresh button in the action bar. In this screen You'll also find the "About" info.
+* **Lyrics** - Shows the lyrics of the song you are listening to at the moment. The Refresh button allows your to update the lyrics when the next song has started playing. In the action bar, you can to download the lyrics on your device (for offline usage), search and share the URL with a friend.
+* **Local Storage** - Each lyrics can be stored on your device.
+* **Search** - Search for Lyrics on LyricsNMusic.
 * **System Integration** - Access the lyrics you want after you've identified a song with Shazam or Soundhound via the share button. Open URLs from AZLyrics, LyricsNMusic and LyricWikia directly with the app.
 * **NFC** - Share lyrics with your friends via Android Beam.
 * **More than 10 languages supported** - Including German, Greek, Spanish, French, Italian, Japanese, Dutch, Polish, Russian, Turkish and English.
-
-## Notes
-* The app is now ready for release.
-* Because I could not test it on many different devices, I chose to use a bugtracker (ACRA). This causes F-Droid to mark my app with the "Tracking" AntiFeature.
-* Your language is not supported? We'll take contributions from anyone :).
-* SDK 21 is required to use the Material theme
 
 ## Build
 * Make sure you have the **latest** version of Gradle installed. You should have at least the version that is used in Quicklyric/build.gradle.
 * Download the sources
 * Input your signature keystore, login and passwords into the QuickLyric/build.gradle file
-* cd to the sources and execute "gradle build"
+* cd to the root of the project and execute "$ gradle build"
 
 ## APK
 
-Should be available soon on F-droid.
+The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric).
 
 ## Open Source Contributors
 
@@ -40,10 +32,18 @@ I welcome all forks & pull requests but *please*, if you want to fork QL, immedi
 
 ## Credits
 
-Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley and [ShowcaseView](https://github.com/amlcurran/ShowcaseView).
+Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley, Jake Wharton for his ViewPagerIndicator and makovkastar for the FloatingActionButton library.
 
 ## Screenshots
+![Imgur](https://i.imgur.com/Dq6DNoT.png)
+![Imgur](https://i.imgur.com/fQd6Gmz.png)
+![Imgur](https://i.imgur.com/MwAhQvp.png)
+![Imgur](https://i.imgur.com/ITCmin4.png)
+![Imgur](https://i.imgur.com/i8vgnX9.png)
+![Imgur](https://i.imgur.com/Jibe5nN.png)
+![Imgur](https://i.imgur.com/3llqmPA.png)
 
+Old screenshots:
 ![Imgur](http://i.imgur.com/bKq0GLW.png)
 ![Imgur](https://i.imgur.com/bEdjfIn.png)
 ![Imgur](http://i.imgur.com/RtIdK24.png)
