@@ -4,7 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import static be.geecko.QuickLyric.utils.Net.getUrlAsString;
@@ -68,6 +70,13 @@ public class LyricsWiki {
             artist = url.substring(24).replace("Gracenote:", "").split(":", 2)[0].replace('_', ' ');
         if (song == null)
             song = url.substring(24).replace("Gracenote:", "").split(":", 2)[1].replace('_', ' ');
+
+        try {
+            artist = URLDecoder.decode(artist,"UTF-8");
+            song = URLDecoder.decode(song,"UTF-8");
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
         String text = stringBuilder.toString();
         if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")) {
             Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
