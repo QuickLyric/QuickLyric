@@ -12,8 +12,8 @@ import be.geecko.QuickLyric.MainActivity;
 import be.geecko.QuickLyric.R;
 import be.geecko.QuickLyric.adapter.SearchAdapter;
 import be.geecko.QuickLyric.fragment.SearchFragment;
+import be.geecko.QuickLyric.lyrics.Genius;
 import be.geecko.QuickLyric.lyrics.Lyrics;
-import be.geecko.QuickLyric.lyrics.LyricsNMusic;
 import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
@@ -30,7 +30,7 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
 
         List<Lyrics> results;
         do
-            results = LyricsNMusic.search(keyword);
+            results = Genius.search(keyword);
         while (results == null && !isCancelled() && searchFragment.isActiveFragment);
         return results;
     }

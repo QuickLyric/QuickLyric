@@ -86,7 +86,7 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:pathPattern="/.*/.*/.*" />
-                <data android:host="www.lyricsnmusic.com" />
+                <data android:host="www.genius.com" />
             </intent-filter>
         </activity>
 

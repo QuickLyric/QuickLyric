@@ -10,8 +10,8 @@ import java.net.URL;
 import be.geecko.QuickLyric.MainActivity;
 import be.geecko.QuickLyric.R;
 import be.geecko.QuickLyric.lyrics.AZLyrics;
+import be.geecko.QuickLyric.lyrics.Genius;
 import be.geecko.QuickLyric.lyrics.Lyrics;
-import be.geecko.QuickLyric.lyrics.LyricsNMusic;
 import be.geecko.QuickLyric.lyrics.LyricsWiki;
 import be.geecko.QuickLyric.utils.LastFMCorrection;
 import be.geecko.QuickLyric.utils.OnlineAccessVerifier;
@@ -26,7 +26,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
     @Override
     protected Lyrics doInBackground(Object... params) {
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-        Lyrics lyrics;
+        Lyrics lyrics = null;
         mContext = (Context) params[0];
         String artist = null;
         String track = null;
@@ -54,12 +54,12 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             else if (url.contains("lyrics.wikia.com/"))
                 lyrics = LyricsWiki.fromURL(url, null, null);
             else
-                lyrics = LyricsNMusic.fromURL(url, null, null);
+                lyrics = Genius.fromURL(url, null, null);
         } else {
             if (!OnlineAccessVerifier.check(mContext))
                 return new Lyrics(Lyrics.ERROR);
             if (searchURL != null)
-                lyrics = LyricsNMusic.fromURL(searchURL.toExternalForm(), artist, track);
+                lyrics = Genius.fromURL(searchURL.toExternalForm(), artist, track);
             else {
                 if (correction) {
                     String[] corrections = LastFMCorrection.getCorrection(artist, track);
@@ -67,15 +67,15 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
                         artist = corrections[0];
                     if (corrections[1] != null)
                         track = corrections[1];
-                    if (givenArtist.equals(artist) && givenTrack.equals(track))
-                        return new Lyrics(Lyrics.NEGATIVE_RESULT);
-                }
-                lyrics = LyricsWiki.fromMetaData(artist, track);
+                    if (!givenArtist.equals(artist) || !givenTrack.equals(track))
+                        lyrics = LyricsWiki.fromMetaData(artist, track);
+                } else
+                    lyrics = LyricsWiki.fromMetaData(artist, track);
             }
 
             if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
-                lyrics = LyricsNMusic.fromMetaData(artist, track);
+                lyrics = Genius.fromMetaData(artist, track);
 
             if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
@@ -90,8 +90,10 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
 
     protected void onPostExecute(Lyrics lyrics) {
         if (lyrics.getFlag() != Lyrics.POSITIVE_RESULT && !correction) {
-            String correctedArtist = givenArtist.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*", "");
-            String correctedTrack = givenTrack.replaceAll("\\(.*\\)", "").replaceAll(" \\- .*", "");
+            String correctedArtist = givenArtist.replaceAll("\\(.*\\)", "")
+                    .replaceAll(" \\- .*", "").trim();
+            String correctedTrack = givenTrack.replaceAll("\\(.*\\)", "")
+                    .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
             new DownloadTask().execute(mContext, correctedArtist, correctedTrack, true,
                     givenArtist, givenTrack);
             return;
