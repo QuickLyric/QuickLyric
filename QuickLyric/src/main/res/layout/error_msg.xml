@@ -17,7 +17,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="@string/no_results"
-        android:textColor="#ff6c6c6f"
+        android:textColor="#42000000"
         android:textSize="@dimen/large_txt_size" />
 
     <ImageView
@@ -27,6 +27,6 @@
         android:layout_below="@id/bugtext"
         android:layout_centerInParent="true"
         android:contentDescription="@string/no_results"
-        android:src="@drawable/ic_bug" />
+        android:src="@drawable/ic_error" />
 
 </RelativeLayout>
