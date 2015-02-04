@@ -1,5 +1,23 @@
-package be.geecko.QuickLyric.fragment;
+/*
+ * *
+ *  * This file is part of QuickLyric
+ *  * Created by geecko
+ *  *
+ *  * QuickLyric is free software: you can redistribute it and/or modify
+ *  * it under the terms of the GNU General Public License as published by
+ *  * the Free Software Foundation, either version 3 of the License, or
+ *  * (at your option) any later version.
+ *  *
+ *  * QuickLyric is distributed in the hope that it will be useful,
+ *  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  * GNU General Public License for more details.
+ *  * You should have received a copy of the GNU General Public License
+ *  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
+package be.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -36,7 +54,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public boolean onPreferenceClick(Preference preference) {
         if ("pref_about".equals(preference.getKey())) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, null));
+            dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, (android.view.ViewGroup) getView(), false));
             dialog.create().show();
         }
         return true;
