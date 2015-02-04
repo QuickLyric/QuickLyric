@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
-    <item android:state_focused="true" android:state_enabled="false" android:state_pressed="true" android:drawable="@drawable/list_focused_quicklyric" />
-    <item android:state_focused="true" android:state_enabled="false" android:drawable="@drawable/list_focused_quicklyric" />
-    <item android:state_focused="true" android:state_pressed="true" android:drawable="@drawable/list_focused_quicklyric" />
-    <item android:state_focused="false" android:state_pressed="true" android:drawable="@drawable/list_focused_quicklyric" />
-    <item android:state_focused="true" android:drawable="@drawable/list_focused_quicklyric" />
-    <item android:drawable="@android:color/transparent" />
-</selector>

@@ -26,9 +26,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.viewpagerindicator.CirclePageIndicator;
@@ -54,12 +54,6 @@ import static be.geecko.QuickLyric.R.layout;
 import static be.geecko.QuickLyric.R.string;
 
 public class MainActivity extends ActionBarActivity {
-    // TODO transitions? (Retro-Compatibility issues)
-    // TODO animation when you delete, select all or deselect all saved lyrics
-    // TODO "undo" when deleting lyrics (requires translation)
-
-    // TODO Arabic + Serb translation
-    // TODO Test NFC
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
@@ -134,10 +128,8 @@ public class MainActivity extends ActionBarActivity {
             fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, LYRICS_FRAGMENT_TAG);
         }
 
-        /** ugly */
         Fragment[] activeFragments = getActiveFragments();
         displayedFragment = getDisplayedFragment(activeFragments);
-        /** ugly */
 
         for (Fragment fragment : activeFragments)
             if (fragment != null) {
@@ -192,19 +184,17 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         App.activityResumed();
-        if (Build.VERSION.SDK_INT >= 14) {
-            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (nfcAdapter != null) {
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, ((Object) this).getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-                IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-                try {
-                    ndef.addDataType("application/lyrics");
-                } catch (IntentFilter.MalformedMimeTypeException e) {
-                    return;
-                }
-                IntentFilter[] intentFiltersArray = new IntentFilter[]{ndef,};
-                nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter != null) {
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, ((Object) this).getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+            IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            try {
+                ndef.addDataType("application/lyrics");
+            } catch (IntentFilter.MalformedMimeTypeException e) {
+                return;
             }
+            IntentFilter[] intentFiltersArray = new IntentFilter[]{ndef,};
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
         }
     }
 
@@ -262,7 +252,7 @@ public class MainActivity extends ActionBarActivity {
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG));
             prepareAnimations(activeFragment);
             getFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start)
+                    .setCustomAnimations(R.animator.slide_in_end, android.R.animator.fade_out)
                     .add(R.id.main_fragment_container, sf, SEARCH_FRAGMENT_TAG).hide(activeFragment).commit();
         }
     }
@@ -297,11 +287,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         App.activityPaused();
-        if (Build.VERSION.SDK_INT >= 14) {
-            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (nfcAdapter != null)
-                nfcAdapter.disableForegroundDispatch(this);
-        }
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter != null)
+            nfcAdapter.disableForegroundDispatch(this);
     }
 
     @Override
@@ -315,7 +303,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (displayedFragment instanceof LyricsViewFragment) {
-            DrawerAdapter drawerAdapter = (DrawerAdapter) ((ListView) findViewById(id.drawer_list)).getAdapter();
+            DrawerAdapter drawerAdapter = (DrawerAdapter)
+                    ((ListView) findViewById(id.drawer_list)).getAdapter();
             if (drawerAdapter.getSelectedItem() != 0) {
                 drawerAdapter.setSelectedItem(0);
                 drawerAdapter.notifyDataSetChanged();
@@ -342,7 +331,7 @@ public class MainActivity extends ActionBarActivity {
         Fragment lyricsFragment = getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         prepareAnimations(lyricsFragment);
         getFragmentManager().beginTransaction()
-                .setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_end)
+                .setCustomAnimations(android.R.animator.fade_in, R.animator.slide_out_end)
                 .remove(searchFragment).show(lyricsFragment).commit();
         if (drawer instanceof DrawerLayout) {
             mDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -365,13 +354,13 @@ public class MainActivity extends ActionBarActivity {
             mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void setDrawerListener(boolean bool){
-        ((ListView)findViewById(id.drawer_list))
+    public void setDrawerListener(boolean bool) {
+        ((ListView) findViewById(id.drawer_list))
                 .setOnItemClickListener(bool ? drawerListener : null);
     }
 
     private void setupDemoScreen() {
-        FrameLayout rootView = (FrameLayout) findViewById(id.root_view);
+        ViewGroup rootView = (ViewGroup) findViewById(id.root_view);
         getLayoutInflater().inflate(layout.tutorial_view, rootView);
         ViewPager pager = (ViewPager) findViewById(id.pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
@@ -408,6 +397,12 @@ public class MainActivity extends ActionBarActivity {
             getWindow().setStatusBarColor(color);
     }
 
+    @TargetApi(21)
+    public void setNavBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= 20)
+            getWindow().setNavigationBarColor(color);
+    }
+
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment
         String artist = params[0];
         String song = params[1];
@@ -441,7 +436,7 @@ public class MainActivity extends ActionBarActivity {
             lyricsViewFragment.isActiveFragment = true;
             fragmentTransaction.commit();
         }
-        if (drawer instanceof DrawerLayout) {
+        if (drawer instanceof DrawerLayout && !mDrawerToggle.isDrawerIndicatorEnabled()) {
             mDrawerToggle.setDrawerIndicatorEnabled(true);
             ((DrawerLayout) drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
@@ -453,10 +448,11 @@ public class MainActivity extends ActionBarActivity {
         fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
         if (lyricsViewFragment != null) {
-            lyricsViewFragment.update(lyrics, lyricsViewFragment.getView());
+            lyricsViewFragment.update(lyrics, lyricsViewFragment.getView(), true);
             if (transition) {
                 fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);
                 prepareAnimations(activeFragment);
+                prepareAnimations(lyricsViewFragment);
             }
         } else {
             Bundle lyricsBundle = new Bundle();
@@ -472,9 +468,7 @@ public class MainActivity extends ActionBarActivity {
             else
                 fragmentTransaction.replace(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
         }
-        lyricsViewFragment.showTransitionAnim = true;
         fragmentTransaction.commitAllowingStateLoss();
-        lyricsViewFragment.isActiveFragment = true;
     }
 
     @Override
