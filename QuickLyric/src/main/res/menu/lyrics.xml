@@ -17,7 +17,7 @@
         android:icon="@drawable/ic_menu_search"
         android:orderInCategory="0"
         support:showAsAction="collapseActionView|ifRoom"
-        support:actionViewClass="android.widget.SearchView"/>
+        support:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
         android:id="@+id/save_action"

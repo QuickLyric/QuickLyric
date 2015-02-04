@@ -114,9 +114,14 @@ public class LocalLyricsFragment extends ListFragment {
 
     @TargetApi(21)
     private void actionModeStatusBar(boolean actionMode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getActivity().getWindow().setStatusBarColor
-                    (getResources().getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
+                    (getActivity().getResources()
+                            .getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
+            getActivity().getWindow().setNavigationBarColor
+                    (getActivity().getResources()
+                            .getColor(actionMode ? R.color.action : R.color.primary));
+        }
     }
 
     @Override
@@ -281,35 +286,34 @@ public class LocalLyricsFragment extends ListFragment {
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         final MainActivity mainActivity = (MainActivity) getActivity();
         Animator anim = null;
-        if (nextAnim != 0)
-            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-        if (anim != null) {
-            anim.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (mainActivity.drawer instanceof DrawerLayout)
-                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
-                    mainActivity.setDrawerListener(true);
-                }
+        if (showTransitionAnim) {
+            if (nextAnim != 0)
+                anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
+            showTransitionAnim = false;
+            if (anim != null)
+                anim.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        if (mainActivity.drawer instanceof DrawerLayout)
+                            ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                        mainActivity.setDrawerListener(true);
+                    }
 
-                @Override
-                public void onAnimationCancel(Animator animator) {
-                }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
 
-                @Override
-                public void onAnimationStart(Animator animator) {
-                    mainActivity.setDrawerListener(false);
-                }
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        mainActivity.setDrawerListener(false);
+                    }
 
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-                }
-            });
-            if (!showTransitionAnim)
-                anim.setDuration(0);
-            else
-                showTransitionAnim = false;
-        }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
+        } else
+            anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
         return anim;
     }
 }

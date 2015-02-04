@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
-    android:background="#F7F7F7"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
     android:focusableInTouchMode="true">
 
-    <ListView
-        android:id="@+id/drawer_list"
-        android:layout_width="240dp"
-        android:background="#F7F7F7"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:dividerHeight="0.5dp"
-        android:divider="#d1d1d1"
-        android:entries="@array/nav_items"
-        android:overScrollMode="never" />
-</RelativeLayout>
+    <ImageView
+        android:src="@drawable/drawer_header"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/drawer_list" />
+
+</LinearLayout>

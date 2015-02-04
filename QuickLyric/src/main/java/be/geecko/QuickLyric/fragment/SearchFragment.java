@@ -8,8 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.ActionMenuView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -186,13 +184,12 @@ public class SearchFragment extends ListFragment {
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         Animator anim = null;
-        if (nextAnim != 0)
-            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-        if (anim != null)
-            if (!showTransitionAnim)
-                anim.setDuration(0);
-            else
-                showTransitionAnim = false;
+        if (showTransitionAnim) {
+            if (nextAnim != 0)
+                anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
+            showTransitionAnim = false;
+        } else
+            anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
         return anim;
     }
 

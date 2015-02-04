@@ -1,44 +1,50 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_view"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            tools:theme="@style/actionBar.QuickLyric"
-            android:background="@color/primary"
-            android:layout_height="?attr/actionBarSize"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:elevation="4dp"
-            android:focusable="false" />
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
-        <android.support.v4.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:theme="@style/actionBar.QuickLyric"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:background="@color/primary"
+                android:elevation="4dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:focusable="false" />
 
             <!-- The main content view -->
             <FrameLayout
                 android:id="@+id/main_fragment_container"
+                android:layout_marginTop="?actionBarSize"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
 
-            <!-- The navigation drawer -->
+                <include layout="@layout/toolbar_shadow" />
 
-            <include
-                android:id="@+id/left_drawer"
-                android:layout_width="240dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                layout="@layout/drawer" />
+            </FrameLayout>
 
-        </android.support.v4.widget.DrawerLayout>
+        </FrameLayout>
     </FrameLayout>
+    <!-- The navigation drawer -->
 
-</FrameLayout>
+    <include
+        android:id="@+id/left_drawer"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        layout="@layout/drawer" />
+
+</android.support.v4.widget.DrawerLayout>

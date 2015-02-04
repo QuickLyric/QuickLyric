@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlist_row_text"
     android:layout_width="fill_parent"
-    android:layout_height="75.0dip"
+    android:layout_height="@dimen/drawer_row_height"
+    tools:text="test"
     android:layout_gravity="center"
     android:gravity="center_vertical"
     android:paddingLeft="16.0dip"
     android:paddingRight="16.0dip"
-    android:textSize="21sp"
+    android:fontFamily="roboto-medium"
+    android:textSize="14sp"
     android:textColor="@android:color/black"
-    android:minHeight="75.0dip"
+    android:minHeight="@dimen/drawer_row_height"
     android:singleLine="true"
-    android:drawablePadding="5dp" />
+    android:drawablePadding="32dp" />

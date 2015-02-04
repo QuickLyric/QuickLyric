@@ -27,16 +27,20 @@ import be.geecko.QuickLyric.R;
 public class CustomSelectionCallback implements ActionMode.Callback {
     Activity mActivity;
 
-    public CustomSelectionCallback(Activity activity){
+    public CustomSelectionCallback(Activity activity) {
         this.mActivity = activity;
     }
 
     @TargetApi(21)
     private void actionModeStatusBar(boolean actionMode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mActivity.getWindow().setStatusBarColor
                     (mActivity.getResources()
                             .getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
+            mActivity.getWindow().setNavigationBarColor
+                    (mActivity.getResources()
+                            .getColor(actionMode ? R.color.action : R.color.primary));
+        }
     }
 
     @Override

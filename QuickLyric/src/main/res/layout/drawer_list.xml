@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/DrawerListViewAppearance"
+    android:id="@+id/drawer_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="#F7F7F7"
+    android:divider="@null"
+    android:entries="@array/nav_items"
+    android:overScrollMode="never" />

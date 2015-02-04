@@ -41,7 +41,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
             SQLiteDatabase sqLiteDatabase = ((MainActivity) lyricsViewFragment.getActivity()).database;
             if (DatabaseHelper.presenceCheck(sqLiteDatabase, metaData))
                 lyricsViewFragment.update(DatabaseHelper.get(sqLiteDatabase, metaData),
-                        lyricsViewFragment.getView());
+                        lyricsViewFragment.getView(), true);
             else if (OnlineAccessVerifier.check(mContext)) {
                 lyricsViewFragment.startRefreshAnimation();
                 if (lyricsViewFragment.currentDownload != null && lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
@@ -52,7 +52,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                 Lyrics lyrics = new Lyrics(Lyrics.ERROR);
                 lyrics.setArtist(metaData[0]);
                 lyrics.setTitle(metaData[1]);
-                lyricsViewFragment.update(lyrics, lyricsViewFragment.getView());
+                lyricsViewFragment.update(lyrics, lyricsViewFragment.getView(), true);
             }
         }
     }

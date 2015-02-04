@@ -71,16 +71,18 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         View tutorialLayout = mActivity.findViewById(R.id.tutorial_layout);
-        if (position < getCount() - 1) {
-            ArgbEvaluator evaluator = new ArgbEvaluator();
-            Object background = evaluator
-                    .evaluate(positionOffset, mActivity.getResources().getColor(colors[position]),
-                            mActivity.getResources().getColor(colors[position + 1]));
-            tutorialLayout.setBackgroundColor((int) background);
-            ((MainActivity) mActivity).setStatusBarColor((int)
-                    evaluator.evaluate(0.5f, Color.parseColor("#aa0c0006"), background));
-        } else
-            tutorialLayout.setBackgroundResource(android.R.color.holo_orange_light);
+        ArgbEvaluator evaluator = new ArgbEvaluator();
+        Object background = position < getCount() - 1 ?
+                evaluator.evaluate(positionOffset, mActivity.getResources().getColor(colors[position]),
+                        mActivity.getResources().getColor(colors[position + 1]))
+                : mActivity.getResources().getColor(colors[position]);
+        tutorialLayout.setBackgroundColor((int) background);
+        ((MainActivity) mActivity).setNavBarColor((int)
+                evaluator.evaluate(0.5f, mActivity.getResources().getColor(R.color.action_dark),
+                        background));
+        ((MainActivity) mActivity).setStatusBarColor((int)
+                evaluator.evaluate(0.5f, mActivity.getResources().getColor(R.color.action_dark),
+                        background));
     }
 
     @Override
@@ -136,6 +138,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
         });
         ((MainActivity) mActivity).setStatusBarColor(mActivity.getResources()
                 .getColor(R.color.primary_dark));
+        ((MainActivity) mActivity).setNavBarColor(mActivity.getResources()
+                .getColor(R.color.primary));
         ((RelativeLayout) mPager.getParent()).startAnimation(slideOut);
     }
 

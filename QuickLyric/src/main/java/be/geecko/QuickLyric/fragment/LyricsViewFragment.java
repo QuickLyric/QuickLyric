@@ -9,6 +9,7 @@ import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -29,7 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
@@ -74,6 +75,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public boolean isActiveFragment = false;
     public boolean showTransitionAnim = true;
     private Lyrics mLyrics;
+    private String mSearchQuery;
+    private boolean mSearchFocused;
     private int minFrameRawY = 0;
     private FrameLayout mFrame;
     private ObservableScrollView mObservableScrollView;
@@ -95,6 +98,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        View searchView = getActivity().findViewById(R.id.search_view);
+        if (searchView instanceof SearchView) {
+            outState.putString("searchQuery", ((SearchView) searchView).getQuery().toString());
+            outState.putBoolean("searchFocused", searchView.hasFocus());
+        }
     }
 
     @Override
@@ -106,6 +114,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 Lyrics l = Lyrics.fromBytes(savedInstanceState.getByteArray("lyrics"));
                 if (l != null)
                     this.mLyrics = l;
+                mSearchQuery = savedInstanceState.getString("searchQuery");
+                mSearchFocused = savedInstanceState.getBoolean("searchFocused");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -160,7 +170,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
                 ((TextView) (layout.findViewById(R.id.song))).setText(mLyrics.getTrack());
             } else //Rotation, resume
-                update(mLyrics, layout);
+                update(mLyrics, layout, false);
         }
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -261,7 +271,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
     }
 
-    public void update(Lyrics lyrics, View layout) {
+    public void update(Lyrics lyrics, View layout, boolean animation) {
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
         TextView songTV = (TextView) layout.findViewById(R.id.song);
@@ -280,9 +290,14 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         else
             songTV.setText("");
         new CoverArtLoader().execute(lyrics, this);
+        ((FloatingActionButton) layout.findViewById(R.id.refresh_fab)).show();
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-            textSwitcher.setText(Html.fromHtml(lyrics.getText()));
+            if (animation)
+                textSwitcher.setText(Html.fromHtml(lyrics.getText()));
+            else
+                textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
+
             bugLayout.setVisibility(View.INVISIBLE);
             mObservableScrollView.post(new Runnable() {
                 @Override
@@ -291,9 +306,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                     mObservableScrollView.smoothScrollTo(0, 0);
                 }
             });
-            View drawerLayout = getActivity().findViewById(R.id.drawer_layout);
-            if (drawerLayout instanceof DrawerLayout)
-                ((DrawerLayout) drawerLayout).closeDrawers();
         } else {
             textSwitcher.setText("");
             bugLayout.setVisibility(View.VISIBLE);
@@ -332,35 +344,34 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         final MainActivity mainActivity = (MainActivity) getActivity();
         Animator anim = null;
-        if (nextAnim != 0)
-            anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-        if (anim != null) {
-            anim.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    if (mainActivity.drawer instanceof DrawerLayout)
-                        ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
-                    mainActivity.setDrawerListener(true);
-                }
+        if (showTransitionAnim) {
+            if (nextAnim != 0)
+                anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
+            showTransitionAnim = false;
+            if (anim != null)
+                anim.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        if (mainActivity.drawer instanceof DrawerLayout)
+                            ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                        mainActivity.setDrawerListener(true);
+                    }
 
-                @Override
-                public void onAnimationCancel(Animator animator) {
-                }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
 
-                @Override
-                public void onAnimationStart(Animator animator) {
-                    mainActivity.setDrawerListener(false);
-                }
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        mainActivity.setDrawerListener(false);
+                    }
 
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-                }
-            });
-            if (!showTransitionAnim)
-                anim.setDuration(0);
-            else
-                showTransitionAnim = false;
-        }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
+        } else
+            anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
         return anim;
     }
 
@@ -400,6 +411,12 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 return true;
             }
         });
+        if (mSearchQuery != null) {
+            searchItem.expandActionView();
+            searchView.setQuery(mSearchQuery, false);
+            if (mSearchFocused)
+                searchView.requestFocus();
+        }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
             saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);

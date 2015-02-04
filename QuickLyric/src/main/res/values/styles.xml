@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
+        <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/primary</item>
         <item name="android:actionBarSize">@dimen/abc_action_bar_default_height_material</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
-        <item name="android:actionModeBackground">@color/action</item>
+        <item name="android:actionModeBackground">@drawable/cab_background</item>
         <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:actionMenuTextAppearance">@style/menuItemTextAppearance</item>
         <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="android:windowBackground">@color/window_background</item>
@@ -26,25 +30,31 @@
     <style name="actionBar.QuickLyric" parent="Base.ThemeOverlay.AppCompat.ActionBar">
         <item name="android:actionBarItemBackground">@drawable/abc_item_background_holo_light</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
+        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="android:actionOverflowMenuStyle" tools:ignore="NewApi">
+            @android:style/Widget.Material.Light.PopupMenu.Overflow
+        </item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item>
-        <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark</item>
+        <item name="android:textColorPrimaryDisableOnly">
+            @color/abc_primary_text_disable_only_material_dark
+        </item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
-        <item name="android:textColorSecondaryInverse">@color/abc_secondary_text_material_light</item>
+        <item name="android:textColorSecondaryInverse">@color/abc_secondary_text_material_light
+        </item>
         <item name="android:textColorTertiary">@color/abc_secondary_text_material_dark</item>
-        <item name="android:textColorTertiaryInverse">@color/abc_secondary_text_material_light</item>
+        <item name="android:textColorTertiaryInverse">@color/abc_secondary_text_material_light
+        </item>
         <item name="android:textColorHint">@color/hint_foreground_material_dark</item>
         <item name="android:textColorHintInverse">@color/hint_foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
-        <item name="android:colorBackgroundCacheHint">@color/abc_background_cache_hint_selector_material_dark</item>
+        <item name="android:colorBackgroundCacheHint">
+            @color/abc_background_cache_hint_selector_material_dark
+        </item>
     </style>
 
     <style name="ActionMode.CloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:background">?selectableItemBackgroundBorderless</item>
-    </style>
-
-    <style name="EditTextQuicklyric" parent="android:Widget.EditText">
-        <item name="android:textColor">#000000</item>
     </style>
 
     <style name="ScrollViewQuicklyric" parent="android:Widget.ScrollView">
@@ -52,7 +62,11 @@
     </style>
 
     <style name="DrawerArrowQuickLyric" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
+        <item name="spinBars">false</item>
         <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="DrawerListViewAppearance" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlHighlight">#e0e0e0</item>
     </style>
 </resources>

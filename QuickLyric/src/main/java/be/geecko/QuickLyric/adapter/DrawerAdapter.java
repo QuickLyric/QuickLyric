@@ -2,8 +2,10 @@ package be.geecko.QuickLyric.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PaintDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,19 +40,27 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 TextView textView = (TextView) convertView;
                 convertView.setId(position);
                 textView.setText(stringArray[position]);
-                textView.setCompoundDrawablesWithIntrinsicBounds(drawableArray[position], null, null, null);
+                textView.setCompoundDrawablesWithIntrinsicBounds
+                        (drawableArray[position], null, null, null);
             }
         }
         if (convertView != null) {
             TextView textView = (TextView) convertView;
-            Typeface roboto = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Light.ttf");
-            Typeface robotoBold = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Bold.ttf");
-            textView.setTextColor(Color.parseColor("#505050"));
-            if (position == selectedItem && (textView.getTypeface() != robotoBold)) {
+            Typeface roboto = Typeface
+                    .createFromAsset(getContext().getAssets(), "fonts/Roboto-Medium.ttf");
+            textView.setTypeface(roboto);
+            if (position == selectedItem) {
                 ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
-                textView.setTypeface(robotoBold);
-            } else if (position != selectedItem && textView.getTypeface() != roboto)
-                textView.setTypeface(roboto);
+                textView.setTextColor(getContext().getResources().getColor(R.color.primary_dark));
+                textView.getCompoundDrawables()[0].setColorFilter(
+                        getContext().getResources().getColor(R.color.primary_dark),
+                        PorterDuff.Mode.SRC_IN);
+                convertView.setBackgroundResource(R.color.selected_drawer);
+            } else {
+                textView.setTextColor(Color.parseColor("#DE000000"));
+                convertView.setBackgroundResource(android.R.color.transparent);
+                textView.getCompoundDrawables()[0].clearColorFilter();
+            }
             return convertView;
         } else
             return null;
