@@ -17,6 +17,7 @@
 package be.geecko.QuickLyric.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -36,6 +37,11 @@ public class ObservableScrollView extends com.melnykov.fab.ObservableScrollView 
         if (mCallbacks != null) {
             mCallbacks.onScrollChanged();
         }
+    }
+
+    @Override
+    protected boolean onRequestFocusInDescendants(int direction, Rect previouslyFocusedRect){
+        return true;
     }
 
     @Override
