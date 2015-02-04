@@ -37,10 +37,10 @@ Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatri
 ## Screenshots
 ![Imgur](https://i.imgur.com/Dq6DNoT.png)
 ![Imgur](https://i.imgur.com/fQd6Gmz.png)
-![Imgur](https://i.imgur.com/MwAhQvp.png)
+![Imgur](https://i.imgur.com/gULWBIs.png)
 ![Imgur](https://i.imgur.com/ITCmin4.png)
 ![Imgur](https://i.imgur.com/i8vgnX9.png)
-![Imgur](https://i.imgur.com/Jibe5nN.png)
+![Imgur](https://i.imgur.com/S3tgiHn.png)
 ![Imgur](https://i.imgur.com/3llqmPA.png)
 
 Old screenshots:
