@@ -139,9 +139,4 @@ Terms of service available at:
         <item>Alphabetically</item>
         <item>Reversed</item>
     </string-array>
-
-    <string name="title_activity_search">search</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
 </resources>
