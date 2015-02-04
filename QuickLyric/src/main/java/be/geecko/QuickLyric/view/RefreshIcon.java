@@ -37,6 +37,8 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
             mRunning = true;
             mEnded = false;
         }
+        if (this.getTranslationY() != 0)
+            this.show();
         scrollView.setOnScrollChangedListener(null);
     }
 
@@ -64,7 +66,7 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
     }
 
     @Override
-    public void attachToScrollView(ObservableScrollView scrollView){
+    public void attachToScrollView(ObservableScrollView scrollView) {
         this.scrollView = scrollView;
         super.attachToScrollView(scrollView);
     }
