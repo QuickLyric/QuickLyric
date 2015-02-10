@@ -26,9 +26,16 @@ The build system relies on Gradle and Android Studio is therefore recommended.
 
 The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric).
 
+## Translations
+
+What QuickLyric needs most right now is translations!
+If you're bilingual you can submit translations over at [Crowdin](https://crowdin.com/project/quicklyric/invite/public?show_welcome&d=f326bebae52bede2605396991089b9bf380270) (no need to register, just use your GitHub/Google/Facebook/Twitter account). 
+
+**Every translator may request 1 free beer if they live in Brussels.** ;)
+
 ## Open Source Contributors
 
-I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update be.geecko.quicklyric.Keys with your own LastFM key.
+Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update be.geecko.quicklyric.Keys with your own LastFM key.
 
 ## Credits
 
