@@ -60,8 +60,11 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 int preceding = html.indexOf("<title>") + 7;
                 int following = html.substring(preceding).indexOf("</title>");
                 String title = html.substring(preceding, preceding + following);
-                track = title.split(" : ")[1];
-                artist = title.split(" : ")[0];
+                artist = title.split(" - ")[0];
+
+                preceding = html.indexOf("\"og:title\"") + 20;
+                following = html.substring(preceding).indexOf("\"");
+                track = html.substring(preceding, preceding + following);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,10 +84,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
             if (lyricsViewFragment.currentDownload != null &&
                     lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
                 lyricsViewFragment.currentDownload.cancel(true);
-            new DownloadTask().execute(mContext,
-                    lyrics.getArtist(),
-                    lyrics.getTrack(),
-                    null);
+            new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
         } else
             new ParseTask().execute();
     }
