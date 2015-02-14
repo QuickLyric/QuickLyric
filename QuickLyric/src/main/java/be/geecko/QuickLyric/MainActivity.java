@@ -173,6 +173,7 @@ public class MainActivity extends ActionBarActivity {
             else
                 updateLyricsFragment(0, 0, false, receivedLyrics);
         }
+        intent.setAction("");
         if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
             setupDemoScreen();
         }
@@ -468,7 +469,7 @@ public class MainActivity extends ActionBarActivity {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-        if (lyricsViewFragment != null) {
+        if (lyricsViewFragment != null && lyricsViewFragment.getView() != null) {
             lyricsViewFragment.update(lyrics, lyricsViewFragment.getView(), true);
             if (transition) {
                 fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);
