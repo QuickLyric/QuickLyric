@@ -223,9 +223,11 @@ public class MainActivity extends ActionBarActivity {
         String action = intent.getAction();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (action != null)
-            if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED))
-                getBeamedLyrics(intent);
-            else if (action.equals("android.intent.action.SEARCH"))
+            if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+                Lyrics receivedLyrics = getBeamedLyrics(intent);
+                if (receivedLyrics != null)
+                    updateLyricsFragment(0, 0, false, receivedLyrics);
+            } else if (action.equals("android.intent.action.SEARCH"))
                 search(intent.getStringExtra(SearchManager.QUERY));
             else if (action.equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
