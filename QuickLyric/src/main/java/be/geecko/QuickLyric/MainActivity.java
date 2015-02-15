@@ -19,7 +19,7 @@
 
 package be.geecko.QuickLyric;
 
-import android.annotation.SuppressLint;
+
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -57,6 +57,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import be.geecko.QuickLyric.adapter.DrawerAdapter;
+import be.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import be.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import be.geecko.QuickLyric.fragment.LyricsViewFragment;
 import be.geecko.QuickLyric.fragment.SearchFragment;
@@ -175,6 +176,7 @@ public class MainActivity extends ActionBarActivity {
         }
         intent.setAction("");
         if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
+            registerTempReceiver();
             setupDemoScreen();
         }
     }
@@ -199,7 +201,6 @@ public class MainActivity extends ActionBarActivity {
         return fragments;
     }
 
-    @TargetApi(14)
     @Override
     protected void onResume() {
         super.onResume();
@@ -304,7 +305,6 @@ public class MainActivity extends ActionBarActivity {
             return null;
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected void onPause() {
         super.onPause();
@@ -379,6 +379,31 @@ public class MainActivity extends ActionBarActivity {
     public void setDrawerListener(boolean bool) {
         ((ListView) findViewById(id.drawer_list))
                 .setOnItemClickListener(bool ? drawerListener : null);
+    }
+
+    private void registerTempReceiver() {
+        MusicBroadcastReceiver receiver = new MusicBroadcastReceiver();
+        receiver.setAutoUpdate(true);
+        IntentFilter intentfilter = new IntentFilter();
+        intentfilter.addAction("com.android.music.metachanged");
+        intentfilter.addAction("com.htc.music.metachanged");
+        intentfilter.addAction("com.miui.player.metachanged");
+        intentfilter.addAction("com.real.IMP.metachanged");
+        intentfilter.addAction("com.sonyericsson.music.metachanged");
+        intentfilter.addAction("com.rdio.android.playstatechanged");
+        intentfilter.addAction("com.samsung.sec.android.MusicPlayer.metachanged");
+        intentfilter.addAction("com.sec.android.app.music.metachanged");
+        intentfilter.addAction("com.nullsoft.winamp.metachanged");
+        intentfilter.addAction("com.amazon.mp3.metachanged");
+        intentfilter.addAction("com.rhapsody.metachanged");
+        intentfilter.addAction("com.maxmpz.audioplayer.metachanged");
+        intentfilter.addAction("com.real.IMP.metachanged");
+        intentfilter.addAction("com.andrew.apollo.metachanged");
+        intentfilter.addAction("fm.last.android.metachanged");
+        intentfilter.addAction("com.adam.aslfms.notify.playstatechanged");
+        intentfilter.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
+        intentfilter.addAction("com.spotify.music.metadatachanged");
+        registerReceiver(receiver, intentfilter);
     }
 
     private void setupDemoScreen() {

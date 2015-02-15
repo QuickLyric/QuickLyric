@@ -30,6 +30,13 @@ import be.geecko.QuickLyric.App;
 import be.geecko.QuickLyric.fragment.LyricsViewFragment;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
+
+    private boolean mAutoUpdate = false;
+
+    public void setAutoUpdate(boolean force){
+        this.mAutoUpdate = force;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         /** Google Play Music
@@ -58,6 +65,11 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         String artist = extras.getString("artist");
         String track = extras.getString("track");
 
+        if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
+            artist = extras.getString("com.amazon.mp3.artist");
+            track = extras.getString("com.amazon.mp3.track");
+        }
+
         if ((artist == null || "".equals(artist) || artist.contains("Unknown"))  //Could be problematic
                 || (track == null || "".equals(track) || track.contains("Unknown")
                 || track.startsWith("TN2") || track.startsWith("DTNS"))) // Ignore my favorite podcasts
@@ -75,10 +87,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             editor.putString("track", track);
             editor.apply();
 
-            if (App.isActivityVisible() && sharedPref.getBoolean("pref_auto_refresh", false)) {
+            mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
+
+            if (App.isActivityVisible() && mAutoUpdate) {
                 Intent internalIntent = new Intent("Broadcast");
                 internalIntent.putExtra("artist", artist).putExtra("track", track);
                 LyricsViewFragment.sendIntent(context, internalIntent);
+                setAutoUpdate(false);
             }
         }
     }

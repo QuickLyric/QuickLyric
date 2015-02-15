@@ -255,6 +255,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (currentDownload != null && currentDownload.getStatus() != AsyncTask.Status.FINISHED)
             currentDownload.cancel(true);
         this.currentDownload = new DownloadTask();
+        currentDownload.interruptible = false;
         currentDownload.execute(this.getActivity(), artist, song, url);
     }
 

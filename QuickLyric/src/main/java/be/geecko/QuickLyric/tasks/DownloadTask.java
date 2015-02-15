@@ -41,6 +41,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
     private String givenArtist;
     private String givenTrack;
     private boolean correction;
+    public boolean interruptible = true;
 
     @Override
     protected Lyrics doInBackground(Object... params) {

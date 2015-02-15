@@ -115,6 +115,7 @@
                 <action android:name="com.amazon.mp3.metachanged" />
                 <action android:name="com.sec.android.app.music.metachanged" />
                 <action android:name="com.spotify.music.metadatachanged" />
+                <action android:name="com.nullsoft.winamp.metachanged" />
             </intent-filter>
         </receiver>
     </application>
