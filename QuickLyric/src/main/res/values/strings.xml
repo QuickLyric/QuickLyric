@@ -47,17 +47,18 @@
     <!-- TODO: translate ! -->
     <string name="undo">Undo</string>
     <!-- TODO: translate ! -->
-    <string name="about_dialog_content">Lyrics provided by AZLyrics, LyricsWiki and LyricsNMusic. Search provided by LyricsNMusic.\n
+    <string name="about_dialog_content">Lyrics provided by AZLyrics, LyricsWiki and Genius.com. Search provided by Genius.com.\n
 \n
 Terms of service available at:
-\n	LyricsNMusic:
-\n      http://www.lyricsnmusic.com/term
+\n	Genius.com:
+\n      http://genius.com/static/terms
 \n	AZLyrics:
 \n      http://www.azlyrics.com/copyright.html
 \n	LyricWikia:
 \n      http://lyrics.wikia.com/LyricWiki:Copyrights
 \n
 \nThe lyrics provided via this app are property of their respective owners. Please investigate each track individually for copyright information.
+\nIf you believe QuickLyric uses your work in a way that doesn\'t qualify as Fair Use, please contact me via the GitHub page.
 \nApp is developed by geecko. Sources available at github.com/geecko86/QuickLyric under the GPLv3 license
 \n-------------------------------------
 \nCover arts are provided by Last FM as part of the last fm non-commercial usage license
@@ -122,7 +123,10 @@ Terms of service available at:
 \nNathalie - Dutch
 \nDominika + Kasia - Polish
 \nYusuf - Turkish
-\nGuy whose name I forgot - Portuguese</string>
+\nSonia - Arabic
+\nPolaris - Hungarian
+\nGurshabad - Hindi
+\nGuy whose name I forgot + Marcos - Portuguese</string>
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
 
