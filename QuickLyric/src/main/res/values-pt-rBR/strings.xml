@@ -30,7 +30,7 @@
   <string name="pref_animations_title">Permitir animações</string>
   <string name="pref_animations_sum">Isto pode causar problemas de desempenho em aparelhos mais antigos</string>
   <string name="pref_look_feel_category">Olhe e sinta</string>
-  <string name="welcome">Bem vindo ao QuickLyric!</string>
+  <string name="welcome">Bem-vindo ao QuickLyric!</string>
   <string name="welcome2_sub">As letras que você está procurando&#8230;\nAqui, e agora.</string>
   <string name="refresh_desc">Quando a música mudar&#8230;</string>
   <string name="refresh_desc_sub">Clique no botão. QuickLyric fará o resto.</string>
