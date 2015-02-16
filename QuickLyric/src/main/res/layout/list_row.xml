@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<be.geecko.QuickLyric.view.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.geecko.QuickLyric.view.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/listview_row_selector"
     android:translationZ="4dp"
@@ -40,4 +40,4 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textSize="@dimen/small_txt_size" />
-</be.geecko.QuickLyric.view.CheckableLayout>
+</com.geecko.QuickLyric.view.CheckableLayout>

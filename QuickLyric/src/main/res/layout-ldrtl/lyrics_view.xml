@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <be.geecko.QuickLyric.view.ObservableScrollView
+    <com.geecko.QuickLyric.view.ObservableScrollView
         android:id="@+id/scrollview"
         android:background="@color/fragment_background"
         android:scrollbarStyle="outsideOverlay"
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <be.geecko.QuickLyric.view.FadeInNetworkImageView
+                    <com.geecko.QuickLyric.view.FadeInNetworkImageView
                         android:id="@+id/cover"
                         android:minWidth="@dimen/cover_width"
                         android:layout_width="wrap_content"
@@ -109,9 +109,9 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </FrameLayout>
-    </be.geecko.QuickLyric.view.ObservableScrollView>
+    </com.geecko.QuickLyric.view.ObservableScrollView>
 
-    <be.geecko.QuickLyric.view.RefreshIcon
+    <com.geecko.QuickLyric.view.RefreshIcon
         android:id="@+id/refresh_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

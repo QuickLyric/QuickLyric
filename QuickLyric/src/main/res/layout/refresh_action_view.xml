@@ -3,7 +3,7 @@
     android:layout_width="48dp"
     android:layout_height="match_parent">
 
-    <be.geecko.QuickLyric.view.RefreshIcon
+    <com.geecko.QuickLyric.view.RefreshIcon
         android:id="@+id/refresh_view"
         android:src="@drawable/ic_refresh"
         android:layout_centerInParent="true"
