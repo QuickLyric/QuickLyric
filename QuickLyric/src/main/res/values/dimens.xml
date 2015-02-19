@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="frame_height">95dp</dimen>
-    <dimen name="cover_width">87dp</dimen>
+    <dimen name="frame_height">90dp</dimen>
+    <dimen name="cover_width">90dp</dimen>
     <dimen name="fab_top_margin">75dp</dimen>
     <dimen name="lyrics_top_margin">100dp</dimen>
     <dimen name="txt_size">18sp</dimen>

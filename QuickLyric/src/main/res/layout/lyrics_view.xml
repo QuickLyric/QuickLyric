@@ -83,8 +83,8 @@
                         android:layout_toRightOf="@id/separator_vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
                         android:textSize="@dimen/txt_size"
                         android:textColor="@android:color/black"
                         android:gravity="bottom|left" />
@@ -99,8 +99,8 @@
                         android:layout_toRightOf="@id/separator_vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
                         android:textColor="#999999"
                         android:textSize="@dimen/small_txt_size"
                         android:gravity="start" />
