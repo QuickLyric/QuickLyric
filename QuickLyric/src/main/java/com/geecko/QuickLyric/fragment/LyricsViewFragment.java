@@ -162,7 +162,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((TextView) textSwitcher.getChildAt(1)).setCustomSelectionActionModeCallback(callback);
 
             FadeInNetworkImageView cover = (FadeInNetworkImageView) layout.findViewById(R.id.cover);
-            cover.setDefaultImageResId(R.drawable.default_cover);
+            cover.setDefaultImageResId(R.drawable.no_cover);
             cover.setErrorImageResId(android.R.drawable.ic_menu_close_clear_cancel);
 
             mFrame = (FrameLayout) layout.findViewById(R.id.frame);
