@@ -24,6 +24,7 @@ android {
     buildToolsVersion '21.1.2'
 
     defaultConfig {
+        applicationId "be.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 5
@@ -50,6 +51,14 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    productFlavors {
+        fdroid {
+        }
+        play {
+            versionName "1.5.2p"
+        }
+    }
 }
 dependencies {
     compile 'com.android.support:support-v4:21.+'
@@ -58,4 +67,5 @@ dependencies {
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.melnykov:floatingactionbutton:1.+'
     compile fileTree(dir: 'libs', include: 'volley.jar')
+    playCompile 'com.android.support:palette-v7:21.0.0'
 }
