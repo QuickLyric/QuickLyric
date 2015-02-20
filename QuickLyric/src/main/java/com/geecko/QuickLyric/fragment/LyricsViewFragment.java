@@ -292,6 +292,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
+        new CoverArtLoader().execute(lyrics, this);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
         TextView songTV = (TextView) layout.findViewById(R.id.song);
@@ -309,7 +310,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             songTV.setText(lyrics.getTrack());
         else
             songTV.setText("");
-        new CoverArtLoader().execute(lyrics, this);
         ((FloatingActionButton) layout.findViewById(R.id.refresh_fab)).show();
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
@@ -449,10 +449,13 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (cover == null)
             cover = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (mLyrics != null) {
+            if (url != null && !url.equals(cover.getImageURL()))
+                cover.setImageResource(R.drawable.no_cover);
             mLyrics.setCoverURL(url);
             if (url == null)
                 url = "";
-            cover.setImageUrl(url, new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
+            cover.setImageUrl(url,
+                    new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
         }
     }
 

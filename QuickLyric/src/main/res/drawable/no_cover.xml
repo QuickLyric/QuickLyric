@@ -22,5 +22,5 @@
     <item
         android:drawable="@color/action" />
     <item
-        android:drawable="@drawable/default_cover"/>
+        android:drawable="@drawable/base_cover"/>
 </layer-list>

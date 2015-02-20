@@ -33,7 +33,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.geecko.QuickLyric.R;
 
 public class FadeInNetworkImageView extends NetworkImageView {
-    private static final int FADE_IN_TIME_MS = 250;
+    private static final int FADE_IN_TIME_MS = 500;
 
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,14 +43,14 @@ public class FadeInNetworkImageView extends NetworkImageView {
     public void setImageBitmap(Bitmap bm) {
         Context context = getContext();
         if (context != null) {
+            Resources resources = context.getResources();
             if (bm == null) {
-                Resources resources = context.getResources();
-                BitmapDrawable bd = ((BitmapDrawable) resources.getDrawable(R.drawable.default_cover));
+                BitmapDrawable bd = ((BitmapDrawable) resources.getDrawable(R.drawable.base_cover));
                 if (bd != null)
                     bm = bd.getBitmap();
             }
             TransitionDrawable td = new TransitionDrawable(new Drawable[]{
-                    new ColorDrawable(android.R.color.transparent),
+                    new ColorDrawable(resources.getColor(android.R.color.transparent)),
                     new BitmapDrawable(context.getResources(), bm)
             });
 

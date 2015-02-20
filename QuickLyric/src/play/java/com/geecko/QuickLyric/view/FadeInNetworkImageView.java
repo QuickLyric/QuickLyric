@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -36,6 +35,8 @@ import android.util.AttributeSet;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.geecko.QuickLyric.R;
+
+import static android.graphics.PorterDuff.Mode.OVERLAY;
 
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
@@ -50,25 +51,28 @@ public class FadeInNetworkImageView extends NetworkImageView {
         if (context != null) {
             Resources resources = context.getResources();
             Bitmap diskBitmap =
-                    ((BitmapDrawable) resources.getDrawable(R.drawable.default_cover)).getBitmap();
+                    ((BitmapDrawable) resources.getDrawable(R.drawable.base_cover)).getBitmap();
+            int overlayColor = 0xFFF;
             if (bm != null) {
-                // fixme separate disk drawable from default drawable
                 Palette coverPalette = Palette.generate(bm);
-                int muted = coverPalette.getMutedColor(resources.getColor(R.color.selected));
-//                int vibrant = coverPalette.getLightVibrantColor(Color.WHITE);
+//              int muted = coverPalette.getLightMutedColor(resources.getColor(R.color.selected));
+                Palette.Swatch swatch = coverPalette.getVibrantSwatch();
+                if (swatch == null || swatch.getPopulation() < 200) {
+                    swatch = coverPalette.getLightMutedSwatch();
+                    if (swatch == null || swatch.getPopulation() < 200)
+                        swatch = coverPalette.getMutedSwatch();
+                } // fixme possible NullPointer if they're all null?
                 // DST = Disk, SRC = Artwork
-                ColorFilter inFilter = new PorterDuffColorFilter(muted, PorterDuff.Mode.OVERLAY);
-                ColorFilter outFilter = new PorterDuffColorFilter(muted, PorterDuff.Mode.SRC_OUT);
+                overlayColor = swatch.getRgb();
+                ColorFilter filter = new PorterDuffColorFilter(overlayColor, OVERLAY);
                 diskBitmap = diskBitmap.copy(Bitmap.Config.ARGB_8888, true);
                 Canvas diskCanvas = new Canvas(diskBitmap);
                 Paint paint = new Paint();
-                paint.setColorFilter(inFilter);
-                diskCanvas.drawBitmap(diskBitmap, 0f, 0f, paint);
-                paint.setColorFilter(outFilter);
+                paint.setColorFilter(filter);
                 diskCanvas.drawBitmap(diskBitmap, 0f, 0f, paint);
             }
             TransitionDrawable td = new TransitionDrawable(new Drawable[]{
-                    new ColorDrawable(R.color.action),
+                    new ColorDrawable(overlayColor),
                     new BitmapDrawable(context.getResources(), diskBitmap)
             });
 
