@@ -17,7 +17,7 @@
   <string name="local_title">Songtext gespeichert</string>
   <string name="settings_title">Optionen</string>
   <string name="save_action">Speichern</string>
-  <string name="lyrics_saved">Der songtext wurde gespeichter</string>
+  <string name="lyrics_saved">Der Songtext wurde gespeichert</string>
   <string name="lyrics_removed">Songtext gelöscht</string>
   <string name="remove_action">Löschen</string>
   <string name="pref_auto_refresh_title">Automatisches aktualisieren</string>
