@@ -24,11 +24,11 @@ android {
     buildToolsVersion '21.1.2'
 
     defaultConfig {
-        applicationId "be.geecko.QuickLyric"
+        applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.5.2"
+        versionCode 6
+        versionName "1.5.3"
     }
 
     compileOptions {
@@ -56,7 +56,7 @@ android {
         fdroid {
         }
         play {
-            versionName "1.5.2p"
+            versionName "1.5.3p"
         }
     }
 }
@@ -67,5 +67,6 @@ dependencies {
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.melnykov:floatingactionbutton:1.+'
+    compile 'com.nispok:snackbar:2.9.+'
     playCompile 'com.android.support:palette-v7:21.0.0'
 }
