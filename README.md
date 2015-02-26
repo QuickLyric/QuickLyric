@@ -2,6 +2,10 @@
 
 QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, doesn't have ads, features a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. QuickLyric makes use of Google's Material Design.
 
+## Download
+
+The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric) or on the [Google Play Store](https://play.google.com/store/apps/details?id=com.geecko.QuickLyric) (NB: no album covers on Google Play).
+
 ![alt text](http://i.imgur.com/dFjxzpT.png "Banner Logo")
 
 QuickLyric is of course written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
@@ -21,10 +25,6 @@ The build system relies on Gradle and Android Studio is therefore recommended.
 * Download the sources
 * Input your signature keystore, login and passwords into the QuickLyric/build.gradle file
 * cd to the root of the project and execute "$ gradle build"
-
-## APK
-
-The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric).
 
 ## Translations
 
