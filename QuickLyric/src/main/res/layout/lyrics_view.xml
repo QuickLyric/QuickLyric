@@ -137,7 +137,7 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_refresh"
         fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_pressed"
+        fab:fab_colorPressed="@color/accent_light"
         fab:fab_colorRipple="@null" />
 
 </FrameLayout>

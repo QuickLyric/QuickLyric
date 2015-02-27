@@ -24,7 +24,7 @@
     <color name="action">#303030</color>
     <color name="action_dark">#212121</color>
     <color name="accent">#ff6e40</color>
-    <color name="accent_pressed">#FF8A65</color>
+    <color name="accent_light">#FF8A65</color>
     <color name="deep_orange">#DD2C00</color>
     <color name="deep_red">#B40000</color>
     <color name="amber">#FFAB00</color>
