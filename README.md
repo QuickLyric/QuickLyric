@@ -6,6 +6,10 @@ QuickLyric is an android app that fetches your lyrics for you almost instantly. 
 
 The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric) or on the [Google Play Store](https://play.google.com/store/apps/details?id=com.geecko.QuickLyric) (NB: no album covers on Google Play).
 
+## Donate
+
+If you want to support my work as a developer (not for this app specifically), you may make a donation [here](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RSJZUSUHBBKTJ&lc=US&item_name=geecko&item_number=00&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted).
+
 ![alt text](http://i.imgur.com/dFjxzpT.png "Banner Logo")
 
 QuickLyric is of course written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
