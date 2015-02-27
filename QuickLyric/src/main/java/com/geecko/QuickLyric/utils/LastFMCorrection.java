@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
-
 /**
  * This file is part of QuickLyric
  * Created by geecko
@@ -44,8 +42,7 @@ public class LastFMCorrection {
             artist = json.getJSONObject("track").getJSONObject("artist").getString("name");
             track = json.getJSONObject("track").getString("name");
             return new String[]{artist, track};
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
+        } catch (JSONException | IOException ignored) {
         }
         return new String[]{null, null};
     }
