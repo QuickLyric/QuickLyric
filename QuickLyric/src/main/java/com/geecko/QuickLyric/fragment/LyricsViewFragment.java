@@ -54,29 +54,27 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.geecko.QuickLyric.MainActivity;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.tasks.DownloadTask;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.CoverCache;
+import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.ObservableScrollView;
+import com.geecko.QuickLyric.view.RefreshIcon;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.geecko.QuickLyric.MainActivity;
-import com.geecko.QuickLyric.R;
-
-import com.geecko.QuickLyric.tasks.CoverArtLoader;
-import com.geecko.QuickLyric.utils.CustomSelectionCallback;
-import com.geecko.QuickLyric.view.FadeInNetworkImageView;
-import com.geecko.QuickLyric.view.RefreshIcon;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
@@ -84,10 +82,9 @@ import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 public class LyricsViewFragment extends Fragment implements ObservableScrollView.Callbacks {
 
     private static final int STATE_ONSCREEN = 0;
+    private int mState = STATE_ONSCREEN;
     private static final int STATE_OFFSCREEN = 1;
     private static final int STATE_RETURNING = 2;
-    private int mState = STATE_ONSCREEN;
-
     private static BroadcastReceiver broadcastReceiver;
     public boolean lyricsPresentInDB;
     public DownloadTask currentDownload;
@@ -231,9 +228,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void startRefreshAnimation() {
-        RefreshIcon refreshIcon = (RefreshIcon) getActivity().findViewById(R.id.refresh_fab);
-        if (refreshIcon != null)
-            refreshIcon.startAnimation();
+        if (getActivity() != null)
+            ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).startAnimation();
     }
 
     void stopRefreshAnimation() {

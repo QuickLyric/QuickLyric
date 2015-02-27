@@ -166,6 +166,13 @@ public class MainActivity extends ActionBarActivity {
             new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
         } else if (intent.getAction().equals("android.intent.action.VIEW")) {
             processURL(intent);
+        } else if (intent.getAction().equals("com.geecko.QuickLyric.getLyrics")) {
+            String[] metadata = intent.getStringArrayExtra("TAGS");
+            String artist = metadata[0];
+            String track = metadata[1];
+            lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+            lyricsViewFragment.fetchLyrics(artist, track);
         } else {
             Lyrics receivedLyrics = getBeamedLyrics(intent);
             if (receivedLyrics == null)
@@ -223,8 +230,8 @@ public class MainActivity extends ActionBarActivity {
         super.onNewIntent(intent);
         String action = intent.getAction();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (action != null)
-            if (Build.VERSION.SDK_INT >= 14 && action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+        if (action != null) {
+            if (action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
                 Lyrics receivedLyrics = getBeamedLyrics(intent);
                 if (receivedLyrics != null)
                     updateLyricsFragment(0, 0, false, receivedLyrics);
@@ -233,10 +240,23 @@ public class MainActivity extends ActionBarActivity {
             else if (action.equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
                     || extra.contains("http://shz.am/"))) {
-                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                        .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                 new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
             } else if (action.equals("android.intent.action.VIEW"))
                 processURL(intent);
+            else if (action.equals("com.geecko.QuickLyric.getLyrics")) {
+                String[] metadata = intent.getStringArrayExtra("TAGS");
+                if (metadata != null) {
+                    String artist = metadata[0];
+                    String track = metadata[1];
+                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                            .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                    lyricsViewFragment.fetchLyrics(artist, track);
+                }
+            }
+            selectItem(0);
+        }
     }
 
     @TargetApi(14)
@@ -286,7 +306,7 @@ public class MainActivity extends ActionBarActivity {
         String url = scheme + ":" + fullPath;
         if (url.contains("www.azlyrics.com/") ||
                 url.contains("lyrics.wikia.com/") ||
-                url.contains("lyricsnmusic.com"))
+                url.contains("genius.com"))
             new DownloadTask().execute(this, url);
     }
 

@@ -88,6 +88,12 @@
                 <data android:pathPattern="/.*/.*/.*" />
                 <data android:host="www.genius.com" />
             </intent-filter>
+            <intent-filter
+                android:icon="@drawable/ic_launcher"
+                android:label="@string/app_name">
+                <action android:name="com.geecko.QuickLyric.getLyrics" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <receiver
