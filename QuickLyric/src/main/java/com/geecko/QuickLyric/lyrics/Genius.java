@@ -12,8 +12,6 @@ import java.net.URLEncoder;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
-import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
-
 /**
  * This file is part of QuickLyric
  * Created by geecko
@@ -90,7 +88,8 @@ public class Genius {
             return new Lyrics(Lyrics.ERROR);
         }
         String cut = html.substring(html.indexOf("<div class=\"lyrics_container\">"));
-        cut = cut.substring(cut.indexOf("<p>") + 3, cut.indexOf("</div>"));
+        cut = cut.substring(cut.indexOf("<p>") + 3);
+        cut = cut.substring(0, cut.indexOf("</div>"));
         String text = cut.substring(0, cut.lastIndexOf("</p>"));
         text = text.replaceAll("</?a[^>]*>", "").trim();
         if (artist == null) {
