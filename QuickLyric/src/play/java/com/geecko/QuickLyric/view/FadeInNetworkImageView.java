@@ -61,7 +61,9 @@ public class FadeInNetworkImageView extends NetworkImageView {
                     swatch = coverPalette.getLightMutedSwatch();
                     if (swatch == null || swatch.getPopulation() < 200)
                         swatch = coverPalette.getMutedSwatch();
-                } // fixme possible NullPointer if they're all null?
+                    if (swatch == null)
+                        return;
+                }
                 // DST = Disk, SRC = Artwork
                 overlayColor = swatch.getRgb();
                 ColorFilter filter = new PorterDuffColorFilter(overlayColor, OVERLAY);
