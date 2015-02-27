@@ -103,6 +103,8 @@ public class Genius {
             }
         }
         Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
+        if (text.equals("[Instrumental]"))
+            result = new Lyrics(Lyrics.NEGATIVE_RESULT);
         result.setArtist(artist);
         result.setTitle(title);
         result.setText(text);
