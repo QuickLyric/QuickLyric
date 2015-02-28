@@ -160,25 +160,23 @@ public class MainActivity extends ActionBarActivity {
             }
         Intent intent = getIntent();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (intent.getAction().equals("android.intent.action.SEND")
-                && (extra.contains("http://www.soundhound.com/")
-                || extra.contains("http://shz.am/"))) {
-            new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
-        } else if (intent.getAction().equals("android.intent.action.VIEW")) {
-            processURL(intent);
-        } else if (intent.getAction().equals("com.geecko.QuickLyric.getLyrics")) {
-            String[] metadata = intent.getStringArrayExtra("TAGS");
-            String artist = metadata[0];
-            String track = metadata[1];
-            lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
-                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            lyricsViewFragment.fetchLyrics(artist, track);
+        Lyrics receivedLyrics = getBeamedLyrics(intent);
+        if (receivedLyrics != null) {
+            updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
-            Lyrics receivedLyrics = getBeamedLyrics(intent);
-            if (receivedLyrics == null)
-                fragmentTransaction.commit();
-            else
-                updateLyricsFragment(0, 0, false, receivedLyrics);
+            fragmentTransaction.commit();
+            if (intent.getAction().equals("android.intent.action.SEND")
+                    && (extra.contains("http://www.soundhound.com/")
+                    || extra.contains("http://shz.am/"))) {
+                new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
+            } else if (intent.getAction().equals("android.intent.action.VIEW")) {
+                processURL(intent);
+            } else if (intent.getAction().equals("com.geecko.QuickLyric.getLyrics")) {
+                String[] metadata = intent.getStringArrayExtra("TAGS");
+                String artist = metadata[0];
+                String track = metadata[1];
+                lyricsViewFragment.fetchLyrics(artist, track);
+            }
         }
         intent.setAction("");
         if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
