@@ -4,7 +4,7 @@ QuickLyric is an android app that fetches your lyrics for you almost instantly. 
 
 ## Download
 
-The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=QuickLyric&fdid=be.geecko.QuickLyric) or on the [Google Play Store](https://play.google.com/store/apps/details?id=com.geecko.QuickLyric) (NB: no album covers on Google Play).
+The app is available for download on [F-Droid](https://f-droid.org/repository/browse/?fdfilter=quicklyric&fdid=com.geecko.QuickLyric) or on the [Google Play Store](https://play.google.com/store/apps/details?id=com.geecko.QuickLyric) (NB: no album covers on Google Play).
 
 ## Donate
 
