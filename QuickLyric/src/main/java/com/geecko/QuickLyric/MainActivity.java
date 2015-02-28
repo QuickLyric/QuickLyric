@@ -63,6 +63,7 @@ import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadTask;
+import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IdDecoder;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
@@ -233,6 +234,12 @@ public class MainActivity extends ActionBarActivity {
             }
             IntentFilter[] intentFiltersArray = new IntentFilter[]{ndef,};
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+        }
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPref.getBoolean("pref_auto_refresh", false)){
+            LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+            new ParseTask().execute(lyricsViewFragment, null);
         }
     }
 
