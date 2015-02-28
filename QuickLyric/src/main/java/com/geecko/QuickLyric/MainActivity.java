@@ -41,6 +41,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -90,6 +91,8 @@ public class MainActivity extends ActionBarActivity {
     public SQLiteDatabase database;
     public ActionBarDrawerToggle mDrawerToggle;
     private Fragment displayedFragment;
+    private MusicBroadcastReceiver receiver;
+    private boolean receiverRegistered = false;
 
     private static void prepareAnimations(Fragment nextFragment) {
         Class fragmentClass = ((Object) nextFragment).getClass();
@@ -336,6 +339,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         App.activityPaused();
+        if (receiver != null && receiverRegistered)
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null)
             nfcAdapter.disableForegroundDispatch(this);
@@ -409,7 +414,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void registerTempReceiver() {
-        MusicBroadcastReceiver receiver = new MusicBroadcastReceiver();
+        receiver = new MusicBroadcastReceiver();
         receiver.setAutoUpdate(true);
         IntentFilter intentfilter = new IntentFilter();
         intentfilter.addAction("com.android.music.metachanged");
@@ -431,6 +436,7 @@ public class MainActivity extends ActionBarActivity {
         intentfilter.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
         intentfilter.addAction("com.spotify.music.metadatachanged");
         registerReceiver(receiver, intentfilter);
+        this.receiverRegistered = true;
     }
 
     private void setupDemoScreen() {
