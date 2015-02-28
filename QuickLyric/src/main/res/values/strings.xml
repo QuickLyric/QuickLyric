@@ -155,6 +155,9 @@ Terms of service available at:
 \nGuy whose name I forgot + Marcos - Portuguese</string>
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
+    <string name="pref_theme">Theme</string>
+    <string name="defaut_theme">Amber (Default)</string>
+    <string name="dark_theme">Dark</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
@@ -168,5 +171,13 @@ Terms of service available at:
     <string-array name="AZ_sort_order">
         <item>Alphabetically</item>
         <item>Reversed</item>
+    </string-array>
+    <string-array name="themes">
+        <item>@string/defaut_theme</item>
+        <item>@string/dark_theme</item>
+    </string-array>
+    <string-array name="themes_values">
+        <item>0</item>
+        <item>1</item>
     </string-array>
 </resources>

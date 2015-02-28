@@ -134,10 +134,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
             public void onAnimationStart(Animation animation) {
             }
         });
-        ((MainActivity) mActivity).setStatusBarColor(mActivity.getResources()
-                .getColor(R.color.primary_dark));
-        ((MainActivity) mActivity).setNavBarColor(mActivity.getResources()
-                .getColor(R.color.primary));
+        ((MainActivity) mActivity).setStatusBarColor(null);
+        ((MainActivity) mActivity).setNavBarColor(null);
         ((RelativeLayout) mPager.getParent()).startAnimation(slideOut);
     }
 

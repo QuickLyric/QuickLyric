@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -18,13 +17,14 @@
   ~  */
   -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- <PreferenceCategory android:title="@string/pref_look_feel_category">
-        <CheckBoxPreference
-            android:key="pref_animations"
-            android:title="@string/pref_animations_title"
-            android:summary="@string/pref_animations_sum"
-            android:defaultValue="true" />
-    </PreferenceCategory> !-->
+    <PreferenceCategory android:title="@string/pref_look_feel_category">
+        <ListPreference
+            android:key="pref_theme"
+            android:title="@string/pref_theme"
+            android:entries="@array/themes"
+            android:entryValues="@array/themes_values"
+            android:defaultValue="0" />
+    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_scrobbling_category">
         <CheckBoxPreference

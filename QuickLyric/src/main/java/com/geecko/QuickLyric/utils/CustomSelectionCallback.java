@@ -7,6 +7,7 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 
 /**
@@ -26,27 +27,25 @@ import com.geecko.QuickLyric.R;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class CustomSelectionCallback implements ActionMode.Callback {
-    Activity mActivity;
+    MainActivity mActivity;
 
     public CustomSelectionCallback(Activity activity) {
-        this.mActivity = activity;
+        this.mActivity = (MainActivity) activity;
     }
 
     @TargetApi(21)
-    private void actionModeStatusBar(boolean actionMode) {
+    private void changeThemeColors(boolean actionMode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActivity.getWindow().setStatusBarColor
-                    (mActivity.getResources()
-                            .getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
-            mActivity.getWindow().setNavigationBarColor
-                    (mActivity.getResources()
-                            .getColor(actionMode ? R.color.action : R.color.primary));
+            mActivity.setStatusBarColor(actionMode ? mActivity.getResources()
+                            .getColor(R.color.action_dark) : null);
+            mActivity.setNavBarColor(actionMode ? mActivity.getResources()
+                    .getColor(R.color.action) : null);
         }
     }
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        actionModeStatusBar(true);
+        changeThemeColors(true);
         return true;
     }
 
@@ -62,6 +61,6 @@ public class CustomSelectionCallback implements ActionMode.Callback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        actionModeStatusBar(false);
+        changeThemeColors(false);
     }
 }

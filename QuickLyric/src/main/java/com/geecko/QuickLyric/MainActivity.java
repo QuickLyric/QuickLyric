@@ -29,7 +29,9 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -38,10 +40,12 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +103,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
+        int theme = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        setTheme(themes[theme]);
+        setStatusBarColor(null);
+        setNavBarColor(null);
         final FragmentManager fragmentManager = getFragmentManager();
         setContentView(layout.nav_drawer_activity);
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(id.toolbar));
@@ -456,15 +466,29 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @TargetApi(21)
-    public void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= 20)
+    public void setStatusBarColor(Integer color) {
+        if (Build.VERSION.SDK_INT >= 20) {
+            if (color == null) {
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = getTheme();
+                theme.resolveAttribute(android.R.attr.statusBarColor, typedValue, true);
+                color = typedValue.data;
+            }
             getWindow().setStatusBarColor(color);
+        }
     }
 
     @TargetApi(21)
-    public void setNavBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= 20)
+    public void setNavBarColor(Integer color) {
+        if (Build.VERSION.SDK_INT >= 20) {
+            if (color == null) {
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = getTheme();
+                theme.resolveAttribute(android.R.attr.navigationBarColor, typedValue, true);
+                color = typedValue.data;
+            }
             getWindow().setNavigationBarColor(color);
+        }
     }
 
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment

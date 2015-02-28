@@ -134,13 +134,12 @@ public class LocalLyricsFragment extends ListFragment {
 
     @TargetApi(21)
     private void actionModeStatusBar(boolean actionMode) {
+        MainActivity activity = (MainActivity) getActivity();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setStatusBarColor
-                    (getActivity().getResources()
-                            .getColor(actionMode ? R.color.action_dark : R.color.primary_dark));
-            getActivity().getWindow().setNavigationBarColor
-                    (getActivity().getResources()
-                            .getColor(actionMode ? R.color.action : R.color.primary));
+            activity.setStatusBarColor(actionMode ? activity.getResources()
+                    .getColor(R.color.action_dark) : null);
+            activity.setNavBarColor(actionMode ? activity.getResources()
+                    .getColor(R.color.action) : null);
         }
     }
 

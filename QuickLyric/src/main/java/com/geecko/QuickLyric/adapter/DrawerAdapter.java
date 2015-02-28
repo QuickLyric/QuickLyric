@@ -20,10 +20,12 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,10 +70,14 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                     .createFromAsset(getContext().getAssets(), "fonts/Roboto-Medium.ttf");
             textView.setTypeface(roboto);
             if (position == selectedItem) {
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = getContext().getTheme();
+                theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+                int primaryDark = typedValue.data;
                 ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
-                textView.setTextColor(getContext().getResources().getColor(R.color.primary_dark));
+                textView.setTextColor(primaryDark);
                 textView.getCompoundDrawables()[0].setColorFilter(
-                        getContext().getResources().getColor(R.color.primary_dark),
+                        primaryDark,
                         PorterDuff.Mode.SRC_IN);
                 convertView.setBackgroundResource(R.color.selected_drawer);
             } else {

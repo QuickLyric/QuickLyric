@@ -21,12 +21,13 @@ package com.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -48,6 +49,17 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         findPreference("pref_about").setOnPreferenceClickListener(this);
+        Preference.OnPreferenceChangeListener prefChangeListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setAction("android.intent.action.MAIN");
+                startActivity(intent);
+                return true;
+            }
+        };
+        findPreference("pref_theme").setOnPreferenceChangeListener(prefChangeListener);
     }
 
     @Override

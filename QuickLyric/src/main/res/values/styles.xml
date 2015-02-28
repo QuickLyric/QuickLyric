@@ -21,13 +21,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/primary</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorPrimary</item>
         <item name="android:actionBarSize">@dimen/abc_action_bar_default_height_material</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
@@ -39,6 +40,14 @@
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:scrollViewStyle">@style/ScrollViewQuicklyric</item>
         <item name="drawerArrowStyle">@style/DrawerArrowQuickLyric</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="colorPrimary">@color/primary_material_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/black</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/black</item>
     </style>
 
     <style name="menuItemTextAppearance" parent="Widget.AppCompat.Light.ActionBar.TabText.Inverse">

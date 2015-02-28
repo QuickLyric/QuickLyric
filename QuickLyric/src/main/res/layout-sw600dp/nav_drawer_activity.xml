@@ -39,7 +39,7 @@
                 android:id="@+id/toolbar"
                 app:theme="@style/actionBar.QuickLyric"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="@color/primary"
+                android:background="?attr/colorPrimary"
                 android:elevation="4dp"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
