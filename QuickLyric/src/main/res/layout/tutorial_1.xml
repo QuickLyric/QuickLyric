@@ -22,36 +22,38 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/demo_image"
-        android:src="@drawable/demo_refresh"
+        android:id="@+id/music_apps"
+        android:src="@drawable/players"
         android:scaleType="fitCenter"
-        android:layout_below="@+id/textView2"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp" />
+        android:padding="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:text="@string/refresh_desc"
-        android:id="@+id/textView"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:text="@string/apps_desc"
+        android:id="@+id/textView3_a"
+        android:gravity="center_vertical"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_alignParentTop="true"
+        android:layout_above="@id/music_apps"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMediumInverse"
-        android:text="@string/refresh_desc_sub"
-        android:id="@+id/textView2"
-        android:layout_marginRight="20dp"
-        android:layout_alignLeft="@id/textView"
-        android:layout_below="@+id/textView"
+        android:text="@string/apps_desc_sub"
+        android:id="@+id/textView3_b"
+        android:layout_below="@id/music_apps"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

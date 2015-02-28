@@ -24,12 +24,12 @@ import com.geecko.QuickLyric.R;
 /**
  * This file is part of QuickLyric
  * Created by geecko
- *
+ * <p/>
  * QuickLyric is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * QuickLyric is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -38,7 +38,13 @@ import com.geecko.QuickLyric.R;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
-    private int[] colors = new int[]{android.R.color.holo_orange_dark, R.color.deep_red, android.R.color.holo_orange_light};
+    private int[] colors = new int[]{
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_red_light,
+            R.color.deep_red,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_dark
+    };
     private Activity mActivity;
     private ViewPager mPager;
     private boolean hasClicked = false;
@@ -58,12 +64,16 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
                 return new Tutorial_1();
             case 2:
                 return new Tutorial_2();
+            case 3:
+                return new Tutorial_3();
+            case 4:
+                return new Tutorial_4();
         }
     }
 
     @Override
     public int getCount() {
-        return ((MainActivity) mActivity).mDrawerToggle == null ? 2 : 3;
+        return ((MainActivity) mActivity).mDrawerToggle == null ? 4 : 5;
     }
 
     @Override
@@ -157,6 +167,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     };
 
     public static class Tutorial_0 extends Fragment {
+        // Welcome page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.tutorial_0, container, false);
@@ -164,6 +175,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     }
 
     public static class Tutorial_1 extends Fragment {
+        // Players page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.tutorial_1, container, false);
@@ -171,9 +183,26 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     }
 
     public static class Tutorial_2 extends Fragment {
+        // Refresh page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.tutorial_2, container, false);
+        }
+    }
+
+    public static class Tutorial_3 extends Fragment {
+        // MusicID page
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.tutorial_3, container, false);
+        }
+    }
+
+    public static class Tutorial_4 extends Fragment {
+        // Drawer page
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.tutorial_4, container, false);
         }
     }
 }
