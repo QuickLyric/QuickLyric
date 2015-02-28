@@ -85,8 +85,8 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:pathPattern="/.*/.*/.*" />
-                <data android:host="www.genius.com" />
+                <data android:pathPattern=".*lyrics" />
+                <data android:host="genius.com" />
             </intent-filter>
             <intent-filter
                 android:icon="@drawable/ic_launcher"
