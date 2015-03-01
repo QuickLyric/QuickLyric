@@ -96,11 +96,13 @@ public class MainActivity extends ActionBarActivity {
     private boolean receiverRegistered = false;
 
     private static void prepareAnimations(Fragment nextFragment) {
-        Class fragmentClass = ((Object) nextFragment).getClass();
-        try {
-            fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (nextFragment != null) {
+            Class fragmentClass = ((Object) nextFragment).getClass();
+            try {
+                fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -236,7 +238,7 @@ public class MainActivity extends ActionBarActivity {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPref.getBoolean("pref_auto_refresh", false)){
+        if (sharedPref.getBoolean("pref_auto_refresh", false)) {
             LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG);
             new ParseTask().execute(lyricsViewFragment, null);
@@ -324,8 +326,9 @@ public class MainActivity extends ActionBarActivity {
         String url = scheme + ":" + fullPath;
         if (url.contains("www.azlyrics.com/") ||
                 url.contains("lyrics.wikia.com/") ||
-                url.contains("genius.com"))
-            new DownloadTask().execute(this, url);
+                url.contains("genius.com") ||
+                url.contains("j-lyric.net"))
+            updateLyricsFragment(0, null, null, url);
     }
 
     private String getIdUrl(String extra) {

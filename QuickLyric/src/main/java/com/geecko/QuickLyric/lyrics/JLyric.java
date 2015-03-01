@@ -62,6 +62,11 @@ public class JLyric {
         try {
             Document lyricsPage = Jsoup.connect(url).get();
             text = lyricsPage.select("p#lyricBody").html();
+            if (artist == null)
+                artist = lyricsPage.select("div.body")
+                        .get(0).child(0).child(0).child(0).child(0).child(0).text();
+            if (song == null)
+                song = lyricsPage.select("div.caption").get(0).child(0).text();
         } catch (IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);

@@ -241,19 +241,15 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public void fetchLyrics(String... params) {
         String artist = params[0];
         String song = params[1];
-        URL url = null;
+        String url = null;
         if (params.length > 2)
-            try {
-                url = new URL(params[2]);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            url = params[2];
         this.startRefreshAnimation();
         if (currentDownload != null && currentDownload.getStatus() != AsyncTask.Status.FINISHED)
             currentDownload.cancel(true);
         this.currentDownload = new DownloadTask();
         currentDownload.interruptible = false;
-        currentDownload.execute(this.getActivity(), artist, song, url);
+        currentDownload.execute(this.getActivity(), url);
     }
 
     void fetchCurrentLyrics() {

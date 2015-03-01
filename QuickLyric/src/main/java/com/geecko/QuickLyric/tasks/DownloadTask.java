@@ -74,8 +74,10 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
                 lyrics = AZLyrics.fromURL(url, null, null);
             else if (url.contains("lyrics.wikia.com/"))
                 lyrics = LyricsWiki.fromURL(url, null, null);
-            else
+            else if (url.contains("genius.com"))
                 lyrics = Genius.fromURL(url, null, null);
+            else if (url.contains("j-lyric.net"))
+                lyrics = JLyric.fromURL(url, null, null);
         } else {
             if (!OnlineAccessVerifier.check(mContext))
                 return new Lyrics(Lyrics.ERROR);
