@@ -19,21 +19,26 @@
 
 package com.geecko.QuickLyric.broadcastReceiver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
 import com.geecko.QuickLyric.App;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
 
     private boolean mAutoUpdate = false;
 
-    public void setAutoUpdate(boolean force){
+    public void forceAutoUpdate(boolean force) {
         this.mAutoUpdate = force;
     }
 
@@ -88,12 +93,36 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             editor.apply();
 
             mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
+            int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
 
-            if (App.isActivityVisible() && mAutoUpdate) {
+            if (mAutoUpdate && App.isActivityVisible()) {
                 Intent internalIntent = new Intent("Broadcast");
                 internalIntent.putExtra("artist", artist).putExtra("track", track);
                 LyricsViewFragment.sendIntent(context, internalIntent);
-                setAutoUpdate(false);
+                forceAutoUpdate(false);
+            }
+
+            if (notificationPref != 0) {
+                Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
+                        .putExtra("TAGS", new String[]{artist, track});
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+                NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
+
+                if (sharedPref.getString("pref_theme", "0").equals("0"))
+                    notifBuilder.setColor(context.getResources().getColor(R.color.primary));
+                notifBuilder.setSmallIcon(R.drawable.ic_notif);
+                notifBuilder.setContentTitle(context.getString(R.string.app_name));
+                notifBuilder.setContentText(String.format("%s - %s", artist, track));
+                notifBuilder.setContentIntent(pendingIntent);
+                notifBuilder.setPriority(-1);
+                Notification notif = notifBuilder.build();
+                if (notificationPref == 2)
+                    notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+                else
+                    notif.flags |= Notification.FLAG_AUTO_CANCEL;
+                ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+                        .notify(0, notif);
             }
         }
     }

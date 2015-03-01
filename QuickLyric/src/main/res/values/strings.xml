@@ -158,8 +158,10 @@ Terms of service available at:
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
     <string name="pref_theme">Theme</string>
+    <string name="pref_notifications">Notifications</string>
     <string name="defaut_theme">Amber (Default)</string>
     <string name="dark_theme">Dark</string>
+    <string name="pref_notifications_sum">Get a discrete notification when the song changes</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
@@ -181,5 +183,15 @@ Terms of service available at:
     <string-array name="themes_values">
         <item>0</item>
         <item>1</item>
+    </string-array>
+    <string-array name="notifications">
+        <item>Disabled (default)</item>
+        <item>Enabled</item>
+        <item>Enabled (sticky)</item>
+    </string-array>
+    <string-array name="notifications_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

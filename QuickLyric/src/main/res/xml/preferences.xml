@@ -37,6 +37,13 @@
             android:title="@string/pref_auto_refresh_title"
             android:summary="@string/pref_auto_refresh_summary"
             android:defaultValue="false" />
+        <ListPreference
+            android:key="pref_notifications"
+            android:title="@string/pref_notifications"
+            android:summary="@string/pref_notifications_sum"
+            android:entries="@array/notifications"
+            android:entryValues="@array/notifications_values"
+            android:defaultValue="0" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_more_category">

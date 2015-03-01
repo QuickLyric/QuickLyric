@@ -422,7 +422,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void registerTempReceiver() {
         receiver = new MusicBroadcastReceiver();
-        receiver.setAutoUpdate(true);
+        receiver.forceAutoUpdate(true);
         IntentFilter intentfilter = new IntentFilter();
         intentfilter.addAction("com.android.music.metachanged");
         intentfilter.addAction("com.htc.music.metachanged");
