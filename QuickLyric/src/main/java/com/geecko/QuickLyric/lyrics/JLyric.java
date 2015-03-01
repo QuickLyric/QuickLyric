@@ -53,10 +53,10 @@ public class JLyric {
             return new Lyrics(Lyrics.ERROR);
         }
 
-        return getLyrics(url, artist, song);
+        return fromURL(url, artist, song);
     }
 
-    public static Lyrics getLyrics(String url, String artist, String song) {
+    public static Lyrics fromURL(String url, String artist, String song) {
         String text;
 
         try {
