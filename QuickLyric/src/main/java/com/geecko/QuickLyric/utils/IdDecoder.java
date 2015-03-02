@@ -5,22 +5,26 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadTask;
 import com.geecko.QuickLyric.tasks.ParseTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 /**
  * This file is part of QuickLyric
  * Created by geecko
- *
+ * <p/>
  * QuickLyric is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * QuickLyric is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -45,13 +49,15 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         if (url.contains("http://www.soundhound.com/")) {
             try {
                 String html = getUrlAsString(url);
-                int preceding = html.indexOf("<title>SoundHound") + 20;
-                int following = html.substring(preceding).indexOf("</title>");
-                String title = html.substring(preceding, preceding + following);
-                track = title.split(" by ")[0];
-                artist = title.split(" by ")[1];
-            } catch (IOException e) {
-                e.printStackTrace();
+                int preceding = html.indexOf("root.App.trackDa") + 19;
+                int following = html.substring(preceding).indexOf(";");
+                String data = html.substring(preceding, preceding + following);
+                JSONObject jsonData = new JSONObject(data);
+                artist = jsonData.getString("artist_display_name");
+                track = jsonData.getString("track_name");
+            } catch (IOException | JSONException e) {
+                e.printStackTrace(); // todo test offline
+                return null;
             }
 
         } else if (url.contains("http://shz.am/")) {
@@ -67,6 +73,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 track = html.substring(preceding, preceding + following);
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         } else
             return new Lyrics(Lyrics.ERROR);
@@ -79,12 +86,15 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
-        if (lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
-            lyricsViewFragment.startRefreshAnimation();
-            if (lyricsViewFragment.currentDownload != null &&
-                    lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
-                lyricsViewFragment.currentDownload.cancel(true);
-            new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
+        if (lyrics != null && lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
+            if (lyricsViewFragment != null) {
+                lyricsViewFragment.startRefreshAnimation();
+                if (lyricsViewFragment.currentDownload != null &&
+                        lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
+                    lyricsViewFragment.currentDownload.cancel(true);
+                new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
+            } else
+                ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
         } else
             new ParseTask().execute();
     }

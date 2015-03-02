@@ -63,7 +63,8 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                         lyricsViewFragment.getView(), true);
             else if (OnlineAccessVerifier.check(mContext)) {
                 lyricsViewFragment.startRefreshAnimation();
-                if (lyricsViewFragment.currentDownload != null && lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED) {
+                if (lyricsViewFragment.currentDownload != null
+                        && lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED) {
                     if (lyricsViewFragment.currentDownload.interruptible)
                         lyricsViewFragment.currentDownload.cancel(true);
                     else

@@ -52,7 +52,8 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         }
         if (this.getTranslationY() != 0)
             this.show();
-        scrollView.setOnScrollChangedListener(null);
+        if (scrollView != null)
+            scrollView.setOnScrollChangedListener(null);
     }
 
     public void stopAnimation() {

@@ -125,6 +125,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
         setHasOptionsMenu(true);
+        View layout = inflater.inflate(R.layout.lyrics_view, container, false);
         if (savedInstanceState != null)
             try {
                 Lyrics l = Lyrics.fromBytes(savedInstanceState.getByteArray("lyrics"));
@@ -144,13 +145,14 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                     if (lyrics.getText() == null) {
                         String artist = lyrics.getArtist();
                         String track = lyrics.getTrack();
-                        fetchLyrics(artist, track);
+                        String url = lyrics.getURL();
+                        fetchLyrics(artist, track, url);
+                        ((RefreshIcon) layout.findViewById(R.id.refresh_fab)).startAnimation();
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
         }
-        View layout = inflater.inflate(R.layout.lyrics_view, container, false);
         if (layout != null) {
             TextSwitcher textSwitcher = (TextSwitcher) layout.findViewById(R.id.switcher);
             textSwitcher.setFactory(new LyricsTextFactory(layout.getContext()));
@@ -182,7 +184,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 fetchCurrentLyrics();
             else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
                 startRefreshAnimation();
-                fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
+                if (mLyrics.getArtist() != null)
+                    fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
                 ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
                 ((TextView) (layout.findViewById(R.id.song))).setText(mLyrics.getTrack());
             } else //Rotation, resume
@@ -228,7 +231,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void startRefreshAnimation() {
-        if (getActivity() != null)
+        if (getActivity() != null && getView() != null)
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).startAnimation();
     }
 
@@ -249,7 +252,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             currentDownload.cancel(true);
         this.currentDownload = new DownloadTask();
         currentDownload.interruptible = false;
-        currentDownload.execute(this.getActivity(), url);
+        if (artist != null)
+            currentDownload.execute(this.getActivity(), artist, song, url);
+        else if (url != null)
+            currentDownload.execute(this.getActivity(), url);
     }
 
     void fetchCurrentLyrics() {

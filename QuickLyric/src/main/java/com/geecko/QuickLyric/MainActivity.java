@@ -62,7 +62,6 @@ import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.tasks.DownloadTask;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IdDecoder;
@@ -154,44 +153,45 @@ public class MainActivity extends ActionBarActivity {
         drawerList.setOnItemClickListener(drawerListener);
         database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
 
-        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        if (lyricsViewFragment == null)
-            lyricsViewFragment = new LyricsViewFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_end);
-        if (!lyricsViewFragment.isAdded()) {
-            fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, LYRICS_FRAGMENT_TAG);
-        }
-
-        Fragment[] activeFragments = getActiveFragments();
-        displayedFragment = getDisplayedFragment(activeFragments);
-
-        for (Fragment fragment : activeFragments)
-            if (fragment != null) {
-                if (fragment != displayedFragment && !fragment.isHidden()) {
-                    fragmentTransaction.hide(fragment);
-                    fragment.onHiddenChanged(true);
-                } else if (fragment == displayedFragment)
-                    fragmentTransaction.show(fragment);
-            }
         Intent intent = getIntent();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
         Lyrics receivedLyrics = getBeamedLyrics(intent);
         if (receivedLyrics != null) {
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
-            fragmentTransaction.commit();
             if (intent.getAction().equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
                     || extra.contains("http://shz.am/"))) {
-                new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
+                new IdDecoder(this, null).execute(getIdUrl(extra));
             } else if (intent.getAction().equals("android.intent.action.VIEW")) {
                 processURL(intent);
             } else if (intent.getAction().equals("com.geecko.QuickLyric.getLyrics")) {
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 String artist = metadata[0];
                 String track = metadata[1];
-                lyricsViewFragment.fetchLyrics(artist, track);
+                updateLyricsFragment(0, artist, track);
+            } else {
+                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                if (lyricsViewFragment == null)
+                    lyricsViewFragment = new LyricsViewFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.animator.slide_in_end, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_end);
+                if (!lyricsViewFragment.isAdded()) {
+                    fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, LYRICS_FRAGMENT_TAG);
+                }
+
+                Fragment[] activeFragments = getActiveFragments();
+                displayedFragment = getDisplayedFragment(activeFragments);
+
+                for (Fragment fragment : activeFragments)
+                    if (fragment != null) {
+                        if (fragment != displayedFragment && !fragment.isHidden()) {
+                            fragmentTransaction.hide(fragment);
+                            fragment.onHiddenChanged(true);
+                        } else if (fragment == displayedFragment)
+                            fragmentTransaction.show(fragment);
+                    }
+                fragmentTransaction.commit();
             }
         }
         intent.setAction("");
@@ -239,9 +239,13 @@ public class MainActivity extends ActionBarActivity {
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPref.getBoolean("pref_auto_refresh", false)) {
-            LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
-                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            new ParseTask().execute(lyricsViewFragment, null);
+            if (getIntent() != null && getIntent().getAction() != null)
+                getIntent().setAction(null);
+            else { // fixme executes twice
+                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                        .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                new ParseTask().execute(lyricsViewFragment, null);
+            }
         }
     }
 
@@ -523,6 +527,7 @@ public class MainActivity extends ActionBarActivity {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
             lyrics.setArtist(artist);
             lyrics.setTitle(song);
+            lyrics.setURL(url);
             Bundle lyricsBundle = new Bundle();
             try {
                 lyricsBundle.putByteArray("lyrics", lyrics.toBytes());
@@ -535,8 +540,11 @@ public class MainActivity extends ActionBarActivity {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, outAnim, R.animator.slide_in_start, outAnim);
             Fragment activeFragment = getDisplayedFragment(getActiveFragments());
-            prepareAnimations(activeFragment);
-            fragmentTransaction.hide(activeFragment).add(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
+            if (activeFragment != null) {
+                prepareAnimations(activeFragment);
+                fragmentTransaction.hide(activeFragment);
+            }
+            fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
             lyricsViewFragment.isActiveFragment = true;
             fragmentTransaction.commit();
         }
