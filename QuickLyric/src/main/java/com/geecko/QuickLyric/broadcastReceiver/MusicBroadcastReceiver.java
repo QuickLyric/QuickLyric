@@ -64,7 +64,10 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         if (extras == null || extras.getInt("state") > 1 //Tracks longer than 20min are presumably not songs
                 || (lengthFilter && (extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000)
                 || (extras.get("duration") instanceof Double && extras.getDouble("duration") > 1200000)
-                || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200)))
+                || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200))
+                || (extras.get("secs") instanceof Long && extras.getLong("secs") > 1200000)
+                || (extras.get("secs") instanceof Double && extras.getDouble("secs") > 1200000)
+                || (extras.get("secs") instanceof Integer && extras.getInt("secs") > 1200))
             return;
 
         String artist = extras.getString("artist");
