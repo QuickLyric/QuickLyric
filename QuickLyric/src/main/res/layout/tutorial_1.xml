@@ -26,7 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:text="@string/apps_desc"
         android:id="@+id/textView3_a"
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -54,8 +54,17 @@
             android:id="@+id/music_apps"
             android:src="@drawable/players"
             android:scaleType="fitCenter"
-            android:layout_centerInParent="true"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/gplay_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Play is a trademark of Google Inc."
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
+            android:gravity="center_horizontal"
+            android:layout_alignBottom="@+id/music_apps"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </RelativeLayout>
