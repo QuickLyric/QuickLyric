@@ -106,7 +106,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
                 lyrics = JLyric.fromMetaData(artist, track);
         }
-        if (givenArtist != null && givenTrack != null) {
+        if (lyrics != null && givenArtist != null && givenTrack != null) {
             lyrics.setOriginalArtist(givenArtist);
             lyrics.setOriginalTitle(givenTrack);
         }
@@ -131,7 +131,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
         if (lyrics.getTrack() == null)
             lyrics.setTitle(givenTrack);
 
-        if (!isCancelled())
+        if (!isCancelled() && !((MainActivity)mContext).isDestroyed())
             ((MainActivity) mContext).updateLyricsFragment(0, 0, false, lyrics);
     }
 }

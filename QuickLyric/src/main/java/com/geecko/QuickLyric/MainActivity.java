@@ -93,6 +93,7 @@ public class MainActivity extends ActionBarActivity {
     private Fragment displayedFragment;
     private MusicBroadcastReceiver receiver;
     private boolean receiverRegistered = false;
+    private boolean destroyed = false;
 
     private static void prepareAnimations(Fragment nextFragment) {
         if (nextFragment != null) {
@@ -353,8 +354,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         App.activityPaused();
-        if (receiver != null && receiverRegistered)
+        if (receiver != null && receiverRegistered) {
+            unregisterReceiver(receiver);
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        }
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null)
             nfcAdapter.disableForegroundDispatch(this);
@@ -362,9 +365,15 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
+        this.destroyed = true;
         if (database != null && database.isOpen())
             database.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return this.destroyed;
     }
 
     @Override
