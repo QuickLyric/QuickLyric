@@ -160,7 +160,7 @@ public class MainActivity extends ActionBarActivity {
         if (receivedLyrics != null) {
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
-            if (intent.getAction().equals("android.intent.action.SEND")
+            if ("android.intent.action.SEND".equals(intent.getAction())
                     && (extra.contains("http://www.soundhound.com/")
                     || extra.contains("http://shz.am/"))) {
                 new IdDecoder(this, null).execute(getIdUrl(extra));
