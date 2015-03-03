@@ -21,6 +21,9 @@ package com.geecko.QuickLyric.lyrics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -55,34 +58,20 @@ public class LyricsWiki {
     }
 
     public static Lyrics fromURL(String url, String artist, String song) {
-        int j;
-        StringBuilder stringBuilder = new StringBuilder();
         if (url.endsWith("action=edit"))
             return new Lyrics(Lyrics.NO_RESULT);
-        String[] encrypted;
+        String text;
         try {
-            String html = getUrlAsString(url);
-            String preceding = html.substring(html.indexOf("<div class='lyricbox'>"));
-            String following = preceding.substring(6 + preceding.indexOf("</div>"));
-            encrypted = following.substring(0, following.indexOf("<!--")).replace("<br />", "\n;").replaceAll("<.*?>", "").split(";");
+            Document lyricsPage = Jsoup.connect(url).get();
+            Element lyricbox = lyricsPage.select("div.lyricBox").get(0);
+            lyricbox.after(lyricbox.childNode(0));
+            String lyricsHtml = lyricbox.html();
+            text = lyricsHtml.substring(0, lyricsHtml.indexOf("<!--"))
+                    .replaceAll("<.*?>", "")
+                    .replaceAll("\n", "<br />");
         } catch (StringIndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
-        }
-        int i = encrypted.length;
-        j = 0;
-        while (j < i) {
-            String s = encrypted[j];
-            if (s.equals("\n"))
-                stringBuilder.append("<br />");
-            else if (s.startsWith("&#"))
-                try {
-                    stringBuilder.append((char) Integer.valueOf(s.replaceAll("&#", "")).intValue());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    return new Lyrics(Lyrics.NEGATIVE_RESULT);
-                }
-            j++;
         }
 
         if (artist == null)
@@ -91,12 +80,11 @@ public class LyricsWiki {
             song = url.substring(24).replace("Gracenote:", "").split(":", 2)[1].replace('_', ' ');
 
         try {
-            artist = URLDecoder.decode(artist,"UTF-8");
-            song = URLDecoder.decode(song,"UTF-8");
-        } catch (UnsupportedEncodingException e){
+            artist = URLDecoder.decode(artist, "UTF-8");
+            song = URLDecoder.decode(song, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String text = stringBuilder.toString();
         if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")) {
             Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
             result.setArtist(artist);

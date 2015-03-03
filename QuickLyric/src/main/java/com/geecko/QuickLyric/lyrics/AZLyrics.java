@@ -19,7 +19,6 @@
 
 package com.geecko.QuickLyric.lyrics;
 
-import com.geecko.QuickLyric.utils.Net;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +49,7 @@ public class AZLyrics {
     public static Lyrics fromURL(String url, String artist, String song) {
         String html;
         try {
-            html = Net.getUrlAsString(new URL(url));
+            html = getUrlAsString(new URL(url));
         } catch (IOException e) {
             return new Lyrics(Lyrics.ERROR);
         }

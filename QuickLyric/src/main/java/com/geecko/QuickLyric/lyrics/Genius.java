@@ -5,6 +5,11 @@ import com.geecko.QuickLyric.utils.Net;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,12 +20,12 @@ import java.util.ArrayList;
 /**
  * This file is part of QuickLyric
  * Created by geecko
- *
+ * <p/>
  * QuickLyric is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * QuickLyric is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -81,21 +86,23 @@ public class Genius {
     }
 
     public static Lyrics fromURL(String url, String artist, String title) {
-        String html;
+        Document lyricsPage;
+        String text;
         try {
-            html = Net.getUrlAsString(url);
-        } catch (IOException e) {
+            lyricsPage = Jsoup.connect(url).get();
+            Elements lyricsDiv = lyricsPage.select("div.lyrics");
+            if (lyricsDiv.isEmpty())
+                throw new StringIndexOutOfBoundsException();
+            else
+                text = Jsoup.clean(lyricsDiv.html(), Whitelist.none().addTags("br")).trim();
+        } catch (IOException | StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
-        String cut = html.substring(html.indexOf("<div class=\"lyrics_container\">"));
-        cut = cut.substring(cut.indexOf("<p>") + 3);
-        cut = cut.substring(0, cut.indexOf("</div>"));
-        String text = cut.substring(0, cut.lastIndexOf("</p>"));
-        text = text.replaceAll("</?a[^>]*>", "").trim();
         if (artist == null) {
-            cut = html.substring(html.indexOf("var TRACKING_DATA = ") + 20);
+            String json = lyricsPage.after("var TRACKING_DATA = ").before("//]]>").text();
             try {
-                JSONObject trackingData = new JSONObject(cut.substring(0, cut.indexOf("//]]>")));
+                JSONObject trackingData = new JSONObject(json);
                 artist = trackingData.getString("Primary Arist");
                 title = trackingData.getString("Title");
             } catch (JSONException e) {
@@ -103,7 +110,7 @@ public class Genius {
             }
         }
         Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
-        if (text.equals("[Instrumental]"))
+        if ("[Instrumental]".equals(text))
             result = new Lyrics(Lyrics.NEGATIVE_RESULT);
         result.setArtist(artist);
         result.setTitle(title);
