@@ -44,8 +44,8 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected Lyrics doInBackground(String... strings) {
         String url = strings[0];
-        String artist = null;
-        String track = null;
+        String artist;
+        String track;
         if (url.contains("http://www.soundhound.com/")) {
             try {
                 String html = getUrlAsString(url);
