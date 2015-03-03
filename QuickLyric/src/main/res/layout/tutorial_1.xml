@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -21,39 +20,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:background="@android:color/holo_red_dark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/music_apps"
-        android:src="@drawable/players"
-        android:scaleType="fitCenter"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:padding="30dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:text="@string/apps_desc"
         android:id="@+id/textView3_a"
-        android:gravity="center_vertical"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_margin="15dp"
         android:layout_alignParentTop="true"
-        android:layout_above="@id/music_apps"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:text="@string/apps_desc_sub"
         android:id="@+id/textView3_b"
-        android:layout_below="@id/music_apps"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_margin="15dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+
+    <RelativeLayout
+        android:layout_below="@id/textView3_a"
+        android:layout_above="@id/textView3_b"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:background="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/music_apps"
+            android:src="@drawable/players"
+            android:scaleType="fitCenter"
+            android:layout_centerInParent="true"
+            android:padding="15dp" />
+
+    </RelativeLayout>
 </RelativeLayout>
