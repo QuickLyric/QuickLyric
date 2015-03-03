@@ -24,9 +24,6 @@ import android.os.AsyncTask;
 import android.os.Process;
 import android.widget.Toast;
 
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
-
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.AZLyrics;
@@ -52,7 +49,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
         mContext = (Context) params[0];
         String artist = null;
         String track = null;
-        URL searchURL = null;
+        String searchURL = null;
         String url = null;
 
         if (params.length == 2)
@@ -67,7 +64,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             givenArtist = artist = (String) params[1];
             givenTrack = track = (String) params[2];
             if (params.length > 3)
-                searchURL = (URL) params[3];
+                searchURL = (String) params[3];
         }
 
         if (url != null) {
@@ -83,7 +80,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             if (!OnlineAccessVerifier.check(mContext))
                 return new Lyrics(Lyrics.ERROR);
             if (searchURL != null)
-                lyrics = Genius.fromURL(searchURL.toExternalForm(), artist, track);
+                lyrics = Genius.fromURL(searchURL, artist, track);
             else {
                 if (correction) {
                     String[] corrections = LastFMCorrection.getCorrection(artist, track);
