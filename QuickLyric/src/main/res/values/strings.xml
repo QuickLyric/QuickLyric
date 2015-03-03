@@ -161,7 +161,7 @@ Terms of service available at:
     <string name="pref_notifications">Notifications</string>
     <string name="defaut_theme">Amber (Default)</string>
     <string name="dark_theme">Dark</string>
-    <string name="pref_notifications_sum">Get a discrete notification when the song changes</string>
+    <string name="pref_notifications_sum">Get a discreet notification when the song changes</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
