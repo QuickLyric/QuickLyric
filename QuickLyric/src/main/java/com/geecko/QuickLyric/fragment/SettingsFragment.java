@@ -22,6 +22,8 @@ package com.geecko.QuickLyric.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -37,7 +39,8 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 
-public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class SettingsFragment extends PreferenceFragment implements
+        Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
 
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
@@ -49,17 +52,27 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         findPreference("pref_about").setOnPreferenceClickListener(this);
-        Preference.OnPreferenceChangeListener prefChangeListener = new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                getActivity().finish();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setAction("android.intent.action.MAIN");
-                startActivity(intent);
+        findPreference("pref_theme").setOnPreferenceChangeListener(this);
+        findPreference("pref_notifications").setOnPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference pref, Object newValue) {
+        switch (pref.getKey()) {
+            case "pref_theme":
+                if (!pref.getSharedPreferences().getString("pref_theme", "0").equals(newValue)) {
+                    getActivity().finish(); //fixme if no change
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setAction("android.intent.action.MAIN");
+                    startActivity(intent);
+                }
                 return true;
-            }
-        };
-        findPreference("pref_theme").setOnPreferenceChangeListener(prefChangeListener);
+            case "pref_notifications":
+                ((NotificationManager) getActivity()
+                        .getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
+                return true;
+        }
+        return false;
     }
 
     @Override
