@@ -180,18 +180,9 @@ Terms of service available at:
         <item>@string/defaut_theme</item>
         <item>@string/dark_theme</item>
     </string-array>
-    <string-array name="themes_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>
         <item>Enabled</item>
         <item>Enabled (sticky)</item>
-    </string-array>
-    <string-array name="notifications_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
 </resources>
