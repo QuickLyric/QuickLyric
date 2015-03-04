@@ -118,7 +118,10 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 notifBuilder.setContentTitle(context.getString(R.string.app_name));
                 notifBuilder.setContentText(String.format("%s - %s", artist, track));
                 notifBuilder.setContentIntent(pendingIntent);
-                notifBuilder.setPriority(-1);
+                if (notificationPref == 2)
+                    notifBuilder.setPriority(-2);
+                else
+                    notifBuilder.setPriority(-1);
                 Notification notif = notifBuilder.build();
                 if (notificationPref == 2)
                     notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
