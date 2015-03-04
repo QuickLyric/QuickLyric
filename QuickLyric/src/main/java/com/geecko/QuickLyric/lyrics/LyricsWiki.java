@@ -69,7 +69,7 @@ public class LyricsWiki {
             text = lyricsHtml.substring(0, lyricsHtml.indexOf("<!--"))
                     .replaceAll("<.*?>", "")
                     .replaceAll("\n", "<br />");
-        } catch (StringIndexOutOfBoundsException | IOException e) {
+        } catch (IndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
