@@ -357,6 +357,7 @@ public class MainActivity extends ActionBarActivity {
         if (receiver != null && receiverRegistered) {
             unregisterReceiver(receiver);
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+            receiverRegistered = false;
         }
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null)
