@@ -57,7 +57,7 @@
     <string name="welcome">Welcome to QuickLyric!</string>
     <string name="welcome2_sub">The lyrics you were looking for…\nRight here, right now.</string>
     <string name="apps_desc">Compatible with most music players</string>
-    <string name="apps_desc_sub">If QuickLyric doesn\'t work with your player (e.g. Poweramp or Spotify), make sure it has \"Scrobbling\" or \"Broadcast Status\" enabled.</string>
+    <string name="apps_desc_sub">If QuickLyric doesn\'t work with your player (e.g. Poweramp, GoneMAD or Spotify), make sure it has \"Scrobbling\" or \"Broadcast Status\" enabled.</string>
     <string name="id_desc">Integration with your favorite MusicID apps.</string>
     <string name="id_desc_sub">1. Identify a song\n2. Share the results to QuickLyric\n3. Enjoy your lyrics</string>
     <string name="refresh_desc">When the song has changed…</string>
