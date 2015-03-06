@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:1.1.0'
     }
 }
 
@@ -27,7 +27,7 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 15
+        versionCode 16
         versionName "1.5.7"
     }
 
@@ -56,7 +56,7 @@ android {
         fdroid {
         }
         play {
-            versionName "1.5.6p"
+            versionName "1.5.7p"
         }
     }
 }
