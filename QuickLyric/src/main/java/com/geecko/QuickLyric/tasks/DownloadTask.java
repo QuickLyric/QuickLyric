@@ -131,7 +131,7 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
         if (lyrics.getTrack() == null)
             lyrics.setTitle(givenTrack);
 
-        if (!isCancelled() && !((MainActivity)mContext).isDestroyed())
+        if (!isCancelled() && !((MainActivity)mContext).hasBeenDestroyed())
             ((MainActivity) mContext).updateLyricsFragment(0, 0, false, lyrics);
     }
 }

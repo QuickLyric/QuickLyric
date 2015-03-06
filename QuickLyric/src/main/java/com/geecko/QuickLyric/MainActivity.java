@@ -372,8 +372,7 @@ public class MainActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
-    @Override
-    public boolean isDestroyed() {
+    public boolean hasBeenDestroyed() {
         return this.destroyed;
     }
 
