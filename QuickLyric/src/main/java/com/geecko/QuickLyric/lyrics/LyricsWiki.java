@@ -19,6 +19,8 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.utils.Net;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -62,6 +64,7 @@ public class LyricsWiki {
             return new Lyrics(Lyrics.NO_RESULT);
         String text;
         try {
+            url = URLDecoder.decode(url, "utf-8");
             Document lyricsPage = Jsoup.connect(url).get();
             Element lyricbox = lyricsPage.select("div.lyricBox").get(0);
             lyricbox.after(lyricbox.childNode(0));
