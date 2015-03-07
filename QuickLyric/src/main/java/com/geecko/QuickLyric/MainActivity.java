@@ -164,9 +164,9 @@ public class MainActivity extends ActionBarActivity {
                     && (extra.contains("http://www.soundhound.com/")
                     || extra.contains("http://shz.am/"))) {
                 new IdDecoder(this, null).execute(getIdUrl(extra));
-            } else if (intent.getAction().equals("android.intent.action.VIEW")) {
+            } else if ("android.intent.action.VIEW".equals(intent.getAction())) {
                 processURL(intent);
-            } else if (intent.getAction().equals("com.geecko.QuickLyric.getLyrics")) {
+            } else if ("com.geecko.QuickLyric.getLyrics".equals(intent.getAction())) {
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 String artist = metadata[0];
                 String track = metadata[1];
