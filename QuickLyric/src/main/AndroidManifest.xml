@@ -111,6 +111,7 @@
             android:name=".broadcastReceiver.MusicBroadcastReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>
+                <action android:name="com.geecko.QuickLyric.SHOW_NOTIFICATION" />
                 <action android:name="com.jrtstudio.music.metachanged" />
                 <action android:name="com.jrtstudio.music.playstatechanged" />
                 <action android:name="com.jrtstudio.AnotherMusicPlayer.metachanged" />

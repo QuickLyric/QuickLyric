@@ -25,6 +25,7 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -68,8 +69,18 @@ public class SettingsFragment extends PreferenceFragment implements
                 }
                 return true;
             case "pref_notifications":
-                ((NotificationManager) getActivity()
-                        .getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
+                if (newValue.equals("0")) {
+                    ((NotificationManager) getActivity()
+                            .getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
+                } else {
+                    SharedPreferences current = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+                    Intent intent = new Intent();
+                    intent.setAction("com.geecko.QuickLyric.SHOW_NOTIFICATION");
+                    intent.putExtra("artist", current.getString("artist", "Michael Jackson"));
+                    intent.putExtra("track", current.getString("track", "Bad"));
+                    intent.putExtra("playing", current.getBoolean("playing", false));
+                    getActivity().sendBroadcast(intent);
+                }
                 return true;
         }
         return false;

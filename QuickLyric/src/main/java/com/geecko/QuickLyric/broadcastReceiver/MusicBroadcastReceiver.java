@@ -85,17 +85,11 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             return;
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
-
-        String currentArtist = current.getString("artist", "Michael Jackson");
-        String currentTrack = current.getString("track", "Bad");
-
-        if (!currentArtist.equals(artist) || !currentTrack.equals(track)) {
-
-            SharedPreferences.Editor editor = current.edit();
-            editor.putString("artist", artist);
-            editor.putString("track", track);
-            editor.apply();
-        }
+        SharedPreferences.Editor editor = current.edit();
+        editor.putString("artist", artist);
+        editor.putString("track", track);
+        editor.putBoolean("playing", isPlaying);
+        editor.apply();
 
         mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
