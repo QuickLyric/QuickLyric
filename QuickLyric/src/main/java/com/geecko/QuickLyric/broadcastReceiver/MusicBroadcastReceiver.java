@@ -72,6 +72,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
+        boolean isPlaying = extras.getBoolean("playing");
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
@@ -94,43 +95,45 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             editor.putString("artist", artist);
             editor.putString("track", track);
             editor.apply();
-
-            mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
-            int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
-
-            if (mAutoUpdate && App.isActivityVisible()) {
-                Intent internalIntent = new Intent("Broadcast");
-                internalIntent.putExtra("artist", artist).putExtra("track", track);
-                LyricsViewFragment.sendIntent(context, internalIntent);
-                forceAutoUpdate(false);
-            }
-
-            if (notificationPref != 0) {
-                Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
-                        .putExtra("TAGS", new String[]{artist, track});
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-                NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
-
-                if (sharedPref.getString("pref_theme", "0").equals("0"))
-                    notifBuilder.setColor(context.getResources().getColor(R.color.primary));
-                notifBuilder.setSmallIcon(R.drawable.ic_notif);
-                notifBuilder.setContentTitle(context.getString(R.string.app_name));
-                notifBuilder.setContentText(String.format("%s - %s", artist, track));
-                notifBuilder.setContentIntent(pendingIntent);
-                notifBuilder.setVisibility(-1); // Notification.VISIBILITY_SECRET
-                if (notificationPref == 2)
-                    notifBuilder.setPriority(-2); // Notification.PRIORITY_MIN
-                else
-                    notifBuilder.setPriority(-1); // Notification.PRIORITY_LOW
-                Notification notif = notifBuilder.build();
-                if (notificationPref == 2)
-                    notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-                else
-                    notif.flags |= Notification.FLAG_AUTO_CANCEL;
-                ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                        .notify(0, notif);
-            }
         }
+
+        mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
+        int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
+
+        if (mAutoUpdate && App.isActivityVisible()) {
+            Intent internalIntent = new Intent("Broadcast");
+            internalIntent.putExtra("artist", artist).putExtra("track", track);
+            LyricsViewFragment.sendIntent(context, internalIntent);
+            forceAutoUpdate(false);
+        }
+
+        if (notificationPref != 0 && isPlaying) {
+            Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
+                    .putExtra("TAGS", new String[]{artist, track});
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
+
+            if (sharedPref.getString("pref_theme", "0").equals("0"))
+                notifBuilder.setColor(context.getResources().getColor(R.color.primary));
+            notifBuilder.setSmallIcon(R.drawable.ic_notif);
+            notifBuilder.setContentTitle(context.getString(R.string.app_name));
+            notifBuilder.setContentText(String.format("%s - %s", artist, track));
+            notifBuilder.setContentIntent(pendingIntent);
+            notifBuilder.setVisibility(-1); // Notification.VISIBILITY_SECRET
+            if (notificationPref == 2)
+                notifBuilder.setPriority(-2); // Notification.PRIORITY_MIN
+            else
+                notifBuilder.setPriority(-1); // Notification.PRIORITY_LOW
+            Notification notif = notifBuilder.build();
+            if (notificationPref == 2)
+                notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+            else
+                notif.flags |= Notification.FLAG_AUTO_CANCEL;
+            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+                    .notify(0, notif);
+        } else
+            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+                    .cancel(0);
     }
 }
