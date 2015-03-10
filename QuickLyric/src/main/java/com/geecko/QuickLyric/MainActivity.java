@@ -268,8 +268,11 @@ public class MainActivity extends ActionBarActivity {
                 LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                         .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                 new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
-            } else if (action.equals("android.intent.action.VIEW"))
+                selectItem(0);
+            } else if (action.equals("android.intent.action.VIEW")) {
                 processURL(intent);
+                selectItem(0);
+            }
             else if (action.equals("com.geecko.QuickLyric.getLyrics")) {
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 if (metadata != null) {
@@ -278,9 +281,9 @@ public class MainActivity extends ActionBarActivity {
                     LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                             .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                     lyricsViewFragment.fetchLyrics(artist, track);
+                    selectItem(0);
                 }
             }
-            selectItem(0);
         }
     }
 
