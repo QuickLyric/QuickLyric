@@ -328,7 +328,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             textSwitcher.setText("");
             bugLayout.setVisibility(View.VISIBLE);
             int message;
-            if (!OnlineAccessVerifier.check(getActivity())) {
+            if (lyrics.getFlag() == Lyrics.ERROR || !OnlineAccessVerifier.check(getActivity())) {
                 message = R.string.connection_error;
             } else {
                 message = R.string.no_results;
