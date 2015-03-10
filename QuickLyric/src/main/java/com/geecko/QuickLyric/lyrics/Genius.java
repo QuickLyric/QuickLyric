@@ -5,6 +5,7 @@ import com.geecko.QuickLyric.utils.Net;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Whitelist;
@@ -94,6 +95,8 @@ public class Genius {
                 throw new StringIndexOutOfBoundsException();
             else
                 text = Jsoup.clean(lyricsDiv.html(), Whitelist.none().addTags("br")).trim();
+        } catch (HttpStatusException e) {
+            return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException | StringIndexOutOfBoundsException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);

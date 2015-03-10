@@ -41,6 +41,8 @@ public class JLyric {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(song, "UTF-8");
             Document searchPage = Jsoup.connect(String.format(baseUrl, encodedArtist, encodedSong)).get();
+            if (!searchPage.location().startsWith("http://search.j-lyric.net/"))
+                throw new IOException("Redirected to wrong domain " + searchPage.location());
             Elements artistBlocks = searchPage.body().select("div#lyricList");
 
             //@todo give all results
@@ -61,6 +63,8 @@ public class JLyric {
 
         try {
             Document lyricsPage = Jsoup.connect(url).get();
+            if (!lyricsPage.location().contains("jlyric"))
+                throw new IOException("Redirected to wrong domain " + lyricsPage.location());
             text = lyricsPage.select("p#lyricBody").html();
             if (artist == null)
                 artist = lyricsPage.select("div.body")

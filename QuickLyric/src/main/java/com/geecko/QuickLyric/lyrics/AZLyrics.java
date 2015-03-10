@@ -20,13 +20,14 @@
 package com.geecko.QuickLyric.lyrics;
 
 
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 public class AZLyrics {
 
@@ -49,7 +50,13 @@ public class AZLyrics {
     public static Lyrics fromURL(String url, String artist, String song) {
         String html;
         try {
-            html = getUrlAsString(new URL(url));
+            Document document = Jsoup.connect(url).get();
+            if (document.location().contains("azlyrics"))
+                html = document.html();
+            else
+                throw new IOException("Redirected to wrong domain " + document.location());
+        } catch (HttpStatusException e) {
+            return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
             return new Lyrics(Lyrics.ERROR);
         }
@@ -63,10 +70,10 @@ public class AZLyrics {
                     "ArtistName = \"(.*)\";\nSongName = \"(.*)\";\n",
                     Pattern.DOTALL);
             Matcher metaMatcher = metaPattern.matcher(html);
-            if (metaMatcher.find()){
+            if (metaMatcher.find()) {
                 artist = metaMatcher.group(1);
                 song = metaMatcher.group(2);
-                song = song.substring(0,song.indexOf('"'));
+                song = song.substring(0, song.indexOf('"'));
             }
         }
 
