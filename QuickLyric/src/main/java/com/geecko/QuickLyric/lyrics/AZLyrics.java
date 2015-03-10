@@ -67,14 +67,15 @@ public class AZLyrics {
 
         if (artist == null || song == null) {
             Pattern metaPattern = Pattern.compile(
-                    "ArtistName = \"(.*)\";\nSongName = \"(.*)\";\n",
+                    "ArtistName = \"(.*)\";\r\nSongName = \"(.*)\";\r\n",
                     Pattern.DOTALL);
             Matcher metaMatcher = metaPattern.matcher(html);
             if (metaMatcher.find()) {
                 artist = metaMatcher.group(1);
                 song = metaMatcher.group(2);
                 song = song.substring(0, song.indexOf('"'));
-            }
+            } else
+                artist = song = "";
         }
 
         if (matcher.find()) {

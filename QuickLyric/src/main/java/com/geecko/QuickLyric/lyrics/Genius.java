@@ -102,14 +102,8 @@ public class Genius {
             return new Lyrics(Lyrics.ERROR);
         }
         if (artist == null) {
-            String json = lyricsPage.after("var TRACKING_DATA = ").before("//]]>").text();
-            try {
-                JSONObject trackingData = new JSONObject(json);
-                artist = trackingData.getString("Primary Arist");
-                title = trackingData.getString("Title");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            title = lyricsPage.getElementsByClass("text_title").get(0).text();
+            artist = lyricsPage.getElementsByClass("text_artist").get(0).text();
         }
         Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
         if ("[Instrumental]".equals(text))
