@@ -59,6 +59,8 @@
   <string name="drawer_desc">Creusons encore un peu !</string>
   <string name="drawer_desc_sub">Pour accéder à d\'autres fonctionnalités, appuyez ici (ou tirez le menu avec votre doigt).</string>
   <string name="pref_more_category">Autre</string>
+  <string name="pref_auto_save">Sauver les paroles automatiquement</string>
+  <string name="pref_auto_save_sum">Toutes les paroles seront sauvées sur votre appareil.</string>
   <string name="share_prompt">Importer depuis Shazam ou SoundHound</string>
   <string name="undo">Annuler</string>
   <string name="skip">Passer</string>

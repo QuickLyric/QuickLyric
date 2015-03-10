@@ -28,12 +28,14 @@ import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
@@ -437,8 +439,17 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
-            saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);
-            saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            if (mLyrics != null
+                    && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
+                    && sharedPref.getBoolean("pref_auto_save", false)
+                    && !lyricsPresentInDB) {
+                lyricsPresentInDB = true;
+                new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
+            } else {
+                saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);
+                saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);
+            }
         }
     }
 

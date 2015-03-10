@@ -22,9 +22,11 @@ package com.geecko.QuickLyric.tasks;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -87,7 +89,10 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
     protected void onPostExecute(Boolean result) {
         int message = result ? R.string.lyrics_saved : R.string.lyrics_removed;
         if (fragment instanceof LyricsViewFragment) {
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPref =
+                    PreferenceManager.getDefaultSharedPreferences(mContext);
+            if (!sharedPref.getBoolean("pref_auto_save", false))
+                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
         } else {
