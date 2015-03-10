@@ -29,7 +29,6 @@ import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
 
 import com.android.volley.toolbox.NetworkImageView;
-
 import com.geecko.QuickLyric.R;
 
 public class FadeInNetworkImageView extends NetworkImageView {

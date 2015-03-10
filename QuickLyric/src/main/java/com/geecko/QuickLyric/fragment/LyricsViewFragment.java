@@ -75,8 +75,6 @@ import com.geecko.QuickLyric.view.RefreshIcon;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;

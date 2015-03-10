@@ -25,12 +25,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
-
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+
+import java.util.ArrayList;
 
 public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> {
     private LocalLyricsFragment localLyricsFragment;

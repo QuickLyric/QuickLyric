@@ -19,8 +19,6 @@
 
 package com.geecko.QuickLyric.lyrics;
 
-import com.geecko.QuickLyric.utils.Net;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;

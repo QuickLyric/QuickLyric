@@ -33,8 +33,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
-
 public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
     private LyricsViewFragment lyricsViewFragment;

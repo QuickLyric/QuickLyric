@@ -42,6 +42,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.geecko.QuickLyric.MainActivity;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.LocalAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -49,9 +51,6 @@ import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 
 import java.util.ArrayList;
-
-import com.geecko.QuickLyric.MainActivity;
-import com.geecko.QuickLyric.R;
 
 public class LocalLyricsFragment extends ListFragment {
 

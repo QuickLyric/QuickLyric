@@ -27,6 +27,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,10 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.support.v7.widget.SearchView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -47,6 +45,8 @@ import com.geecko.QuickLyric.adapter.SearchAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.SearchTask;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+
+import java.util.List;
 
 public class SearchFragment extends ListFragment {
 

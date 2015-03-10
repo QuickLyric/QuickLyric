@@ -26,12 +26,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.view.CheckableLayout;
 
 import java.util.ArrayList;
-
-import com.geecko.QuickLyric.R;
 
 public class LocalAdapter extends ArrayAdapter<Lyrics> {
     private final Context mContext;

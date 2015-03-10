@@ -3,8 +3,6 @@ package com.geecko.QuickLyric.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import java.io.IOException;
-
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -13,6 +11,8 @@ import com.geecko.QuickLyric.tasks.ParseTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 

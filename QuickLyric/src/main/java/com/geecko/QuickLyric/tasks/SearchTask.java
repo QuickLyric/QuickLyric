@@ -25,6 +25,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.geecko.QuickLyric.MainActivity;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.SearchAdapter;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.lyrics.Genius;
@@ -32,9 +34,6 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 import java.util.List;
-
-import com.geecko.QuickLyric.MainActivity;
-import com.geecko.QuickLyric.R;
 
 public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
 
