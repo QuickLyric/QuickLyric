@@ -39,6 +39,7 @@ import android.widget.ListView;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
+import com.geecko.QuickLyric.utils.NightTimeVerifier;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
@@ -54,6 +55,7 @@ public class SettingsFragment extends PreferenceFragment implements
         addPreferencesFromResource(R.xml.preferences);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
+        findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
     }
 
@@ -62,7 +64,7 @@ public class SettingsFragment extends PreferenceFragment implements
         switch (pref.getKey()) {
             case "pref_theme":
                 if (!pref.getSharedPreferences().getString("pref_theme", "0").equals(newValue)) {
-                    getActivity().finish(); //fixme if no change
+                    getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
@@ -80,6 +82,15 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.putExtra("track", current.getString("track", "Bad"));
                     intent.putExtra("playing", current.getBoolean("playing", false));
                     getActivity().sendBroadcast(intent);
+                }
+                return true;
+            case "pref_night_mode":
+                if (NightTimeVerifier.check()
+                        && pref.getSharedPreferences().getBoolean(pref.getKey(), false) != newValue) {
+                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setAction("android.intent.action.MAIN");
+                    startActivity(intent);
                 }
                 return true;
         }

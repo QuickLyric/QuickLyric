@@ -65,6 +65,7 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IdDecoder;
+import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -112,7 +113,11 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
         int theme = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
-        setTheme(themes[theme]);
+        boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
+        if (nightMode && NightTimeVerifier.check())
+            setTheme(R.style.Theme_QuickLyric_Night);
+        else
+            setTheme(themes[theme]);
         setStatusBarColor(null);
         setNavBarColor(null);
         final FragmentManager fragmentManager = getFragmentManager();
@@ -272,8 +277,7 @@ public class MainActivity extends ActionBarActivity {
             } else if (action.equals("android.intent.action.VIEW")) {
                 processURL(intent);
                 selectItem(0);
-            }
-            else if (action.equals("com.geecko.QuickLyric.getLyrics")) {
+            } else if (action.equals("com.geecko.QuickLyric.getLyrics")) {
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 if (metadata != null) {
                     String artist = metadata[0];
