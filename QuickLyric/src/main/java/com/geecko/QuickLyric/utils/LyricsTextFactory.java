@@ -50,7 +50,9 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
             t.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/opendyslexic.otf"));
         else
             t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-        t.setTextColor(Color.parseColor("#222222"));
+        TypedValue colorValue = new TypedValue();
+        mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
+        t.setTextColor(colorValue.data);
         t.setLineSpacing(8, 1);
         setSelectable(t);
         t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.txt_size));

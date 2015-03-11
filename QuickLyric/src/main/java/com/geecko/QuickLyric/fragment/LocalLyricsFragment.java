@@ -33,6 +33,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -151,8 +152,10 @@ public class LocalLyricsFragment extends ListFragment {
         ListView listView = getListView();
         if (listView != null) {
             View fragmentView = getView();
+            TypedValue typedValue = new TypedValue();
+            getActivity().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
             if (fragmentView != null)
-                fragmentView.setBackgroundResource(R.color.fragment_background);
+                fragmentView.setBackgroundColor(typedValue.data);
             listView.setDivider(new ColorDrawable(Color.parseColor("#cccccc")));
             listView.setDividerHeight(0);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)

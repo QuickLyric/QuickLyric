@@ -26,7 +26,7 @@
 
     <com.geecko.QuickLyric.view.ObservableScrollView
         android:id="@+id/scrollview"
-        android:background="@color/fragment_background"
+        android:background="?android:attr/colorBackground"
         android:scrollbarStyle="outsideOverlay"
         android:overScrollMode="never"
         tools:context=".MainActivity"
@@ -80,8 +80,7 @@
                     <View
                         android:id="@+id/separator_vertical"
                         android:layout_toRightOf="@id/cover"
-                        android:background="#bebebe"
-                        android:layout_width="1dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent" />
 
                     <View
@@ -96,7 +95,7 @@
                         android:singleLine="true"
                         android:scrollHorizontally="true"
                         android:ellipsize="end"
-                        android:background="@android:color/white"
+                        android:background="?android:panelColorBackground"
                         android:layout_above="@id/center"
                         android:layout_toRightOf="@id/separator_vertical"
                         android:layout_height="match_parent"
@@ -104,7 +103,7 @@
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:textSize="@dimen/txt_size"
-                        android:textColor="@android:color/black"
+                        android:textColor="?android:textColorPrimary"
                         android:gravity="bottom|left" />
 
                     <TextView
@@ -112,14 +111,14 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:scrollHorizontally="true"
-                        android:background="@android:color/white"
+                        android:background="?android:panelColorBackground"
                         android:layout_below="@id/center"
                         android:layout_toRightOf="@id/separator_vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
-                        android:textColor="#999999"
+                        android:textColor="?android:textColorSecondary"
                         android:textSize="@dimen/small_txt_size"
                         android:gravity="start" />
 

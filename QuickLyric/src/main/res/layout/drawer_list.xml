@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -18,12 +17,12 @@
   ~  */
   -->
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:theme="@style/DrawerListViewAppearance"
+    android:theme="?android:attr/absListViewStyle"
     android:id="@+id/drawer_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/panelColorBackground"
     android:layout_gravity="start"
-    android:background="#F7F7F7"
     android:divider="@null"
     android:entries="@array/nav_items"
     android:overScrollMode="never" />

@@ -28,8 +28,8 @@
     <color name="deep_orange">#DD2C00</color>
     <color name="deep_red">#B40000</color>
     <color name="amber">#FFAB00</color>
-    <color name="selected_drawer">#eeeeee</color>
     <color name="selected">#BDBDBD</color>
+    <color name="selected_night">#222</color>
     <color name="fragment_background">#eeeeee</color>
     <color name="window_background">#bbbbbb</color>
 </resources>

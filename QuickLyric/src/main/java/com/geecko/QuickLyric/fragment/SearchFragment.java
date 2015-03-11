@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,8 +71,10 @@ public class SearchFragment extends ListFragment {
 
         ListView listView = getListView();
         View fragmentView = getView();
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
         if (fragmentView != null)
-            fragmentView.setBackgroundResource(R.color.fragment_background);
+            fragmentView.setBackgroundColor(typedValue.data);
 
         if (searchQuery == null || searchQuery.equals("")) // bug
         {

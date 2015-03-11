@@ -31,6 +31,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -114,8 +115,10 @@ public class SettingsFragment extends PreferenceFragment implements
             return;
         final MainActivity activity = ((MainActivity) this.getActivity());
         View fragmentView = getView();
+        TypedValue typedValue = new TypedValue();
+        view.getContext().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
         if (fragmentView != null)
-            fragmentView.setBackgroundResource(R.color.fragment_background);
+            fragmentView.setBackgroundColor(typedValue.data);
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) activity.findViewById(R.id.drawer_list)).getAdapter());
 
         if (drawerAdapter.getSelectedItem() != 2) {

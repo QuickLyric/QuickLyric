@@ -30,7 +30,7 @@
     android:paddingRight="16.0dip"
     android:fontFamily="roboto-medium"
     android:textSize="14sp"
-    android:textColor="@android:color/black"
+    android:textColor="?android:attr/textColorPrimary"
     android:minHeight="@dimen/drawer_row_height"
     android:singleLine="true"
     android:drawablePadding="32dp" />
