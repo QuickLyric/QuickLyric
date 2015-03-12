@@ -55,7 +55,7 @@
   <string name="welcome">QuickLyricへようこそ !</string>
   <string name="welcome2_sub">探していた歌詞が&#8230;\nいますぐ、ここに&#8230;</string>
   <string name="apps_desc">多くの音楽プレーヤーと互換性があります</string>
-  <string name="apps_desc_sub">QuickLyric があなたのプレーヤー (PowerAMP や Spotify など) で動作しない場合は、\"スクローブル\" や \"ステータスのブロードキャスト\" が有効になっているか確認してください。</string>
+  <string name="apps_desc_sub">QuickLyric がお使いのプレーヤー (Poweramp、GoneMAD や Spotify など) で動作しない場合は、\"スクローブル\" や \"ステータスのブロードキャスト\" が有効になっているか確認してください。</string>
   <string name="id_desc">お気に入りの MusicID アプリと統合します。</string>
   <string name="id_desc_sub">1. 曲を識別します\n2. QuickLyric に結果を共有します\n3. 歌詞を楽しでください</string>
   <string name="refresh_desc">曲が変更されたとき&#8230;</string>
@@ -71,6 +71,10 @@
   <string name="defaut_theme">アンバー (デフォルト)</string>
   <string name="dark_theme">ダーク</string>
   <string name="pref_notifications_sum">歌が変わったときに通知を受け取ります</string>
+  <string name="pref_auto_save">自動的に歌詞を保存</string>
+  <string name="pref_auto_save_sum">すべての歌詞をお使いのデバイスに保存します</string>
+  <string name="pref_night_mode">夜間モード</string>
+  <string name="pref_night_mode_sum">午後9時から午前6時の 間、背景を暗く表示します</string>
   <string-array name="sort_modes">
     <item>アーティスト順&#8230;</item>
     <item>タイトル順&#8230;</item>

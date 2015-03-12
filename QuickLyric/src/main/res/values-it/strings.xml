@@ -28,8 +28,8 @@
   <string name="search_hint">Cerca</string>
   <string name="search_no_result">Nessun risultato</string>
   <string name="beam_txt">Inviare questi testi?</string>
-  <string name="pref_20min_ignore">Ignorare brani lunghi</string>
-  <string name="pref_20min_ignore_sum">Brani dalla durata superiore ai 20 minuti (come i podcasts) non sono considerati canzoni</string>
+  <string name="pref_20min_ignore">Ignora brani lunghi</string>
+  <string name="pref_20min_ignore_sum">Brani dalla durata superiore ai 20 minuti (come i podcast) non sono considerati canzoni</string>
   <string name="pref_about">A proposito</string>
   <string name="pref_about_summary">Di più a proposito di QuickLyric</string>
   <string name="local_title">Testi salvati</string>
@@ -51,7 +51,7 @@
   <string name="welcome">Benvenuto su QuickLyric!</string>
   <string name="welcome2_sub">I testi che stavi cercando&#8230;\nProprio qui, proprio ora.</string>
   <string name="apps_desc">Compatibile con la maggior parte dei lettori musicali</string>
-  <string name="apps_desc_sub">Se QuickLyric non funziona con il tuo lettore (es. Poweramp o Spotify), assicurati di avere lo \"Scrobbling\" o lo \"Stato trasmissione dispositivo\" abilitato.</string>
+  <string name="apps_desc_sub">Se QuickLyric non funziona con il tuo lettore (es. Poweramp, GoneMAD o Spotify), assicurati di avere lo \"Scrobbling\" o lo \"Stato trasmissione dispositivo\" abilitato.</string>
   <string name="id_desc">Integrazione con le tue app preferite per il riconoscimento della musica.</string>
   <string name="id_desc_sub">1. Identifica una canzone\n2. Condividi il risultato su QuickLyric\n3. Goditi i tuoi testi</string>
   <string name="refresh_desc">Quando la canzone è cambiata&#8230;</string>
@@ -67,6 +67,10 @@
   <string name="defaut_theme">Ambra (Predefinito)</string>
   <string name="dark_theme">Scuro</string>
   <string name="pref_notifications_sum">Ricevi una notifica discreta quando la canzone cambia</string>
+  <string name="pref_auto_save">Salva automaticamente i testi</string>
+  <string name="pref_auto_save_sum">Tutti i testi saranno salvati sul tuo dispositivo</string>
+  <string name="pref_night_mode">Modalità notturna</string>
+  <string name="pref_night_mode_sum">Mostra uno sfondo scuro tra le 21 e le 6 del mattino</string>
   <string-array name="sort_modes">
     <item>Per artista&#8230;</item>
     <item>Per titolo&#8230;</item>

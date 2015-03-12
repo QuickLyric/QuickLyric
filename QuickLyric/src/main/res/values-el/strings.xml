@@ -51,7 +51,7 @@
   <string name="welcome">Καλωσορίσατε στο QuickLyric!</string>
   <string name="welcome2_sub">Οι στίχοι που ψάχνετε&#8230;στη στιγμή.</string>
   <string name="apps_desc">Συμβατό με τις περισσότερες εφαρμογές αναπαραγωγής μουσικής</string>
-  <string name="apps_desc_sub">Αν το QuickLyric δεν λειτουργεί με τη εφαρμογή σας (π.χ. Poweramp ή Spotify), βεβαιωθείτε ότι αυτή έχει την επιλογή \"Scrobbling\" ή \"Broadcast Status\" ενεργοποιημένη.</string>
+  <string name="apps_desc_sub">Αν το QuickLyric δεν λειτουργεί με τη εφαρμογή σας (π.χ. Poweramp, GoneMAD ή Spotify), βεβαιωθείτε ότι αυτή έχει την επιλογή \"Scrobbling\" ή \"Broadcast Status\" ενεργοποιημένη.</string>
   <string name="id_desc">Ενσωμάτωση στις αγαπημένες σας εφαρμογές MusicID.</string>
   <string name="id_desc_sub">1. Προσδιορίστε ένα τραγούδι\n2. Μοιραστείτε τα αποτελέσματα με το QuickLyric\n3. Απολαύστε τους στίχους σας</string>
   <string name="refresh_desc">Μετά την αλλαγή του τραγουδιού&#8230;</string>
@@ -67,6 +67,10 @@
   <string name="defaut_theme">Amber (προεπιλογή)</string>
   <string name="dark_theme">Σκοτάδι</string>
   <string name="pref_notifications_sum">Εμφάνιση μιας διακριτικής ειδοποίησης όταν αλλάζει το τραγούδι</string>
+  <string name="pref_auto_save">Αυτόματη αποθήκευση στίχων</string>
+  <string name="pref_auto_save_sum">Όλοι οι στίχοι θα αποθηκευτούν στην συσκευή σας</string>
+  <string name="pref_night_mode">Νυχτερινή λειτουργία</string>
+  <string name="pref_night_mode_sum">Σκούρο φόντο μεταξύ 9 μμ και 6 πμ</string>
   <string-array name="sort_modes">
     <item>Ανά Καλλιτέχνη</item>
     <item>Ανά Τίτλο</item>

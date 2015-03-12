@@ -51,7 +51,7 @@
   <string name="welcome">Willkommen bei QuickLyric!</string>
   <string name="welcome2_sub">Ihr gesuchter Songtext&#8230;\nJetzt sofort verfügbar.</string>
   <string name="apps_desc">Kompatibel mit den meisten Musik-Playern</string>
-  <string name="apps_desc_sub">Falls QuickLyric mit Ihrem Musik-Player nicht funktioniert (z.B. Poweramp oder Spotify), stellen Sie bitte sicher, dass \"Scrobbling\" oder \"Übertragungsstatus\" in den Optionen der Player-App aktiviert ist.</string>
+  <string name="apps_desc_sub">Falls QuickLyric mit Ihrem Musik-Player nicht funktioniert (z.B. Poweramp, GoneMAD oder Spotify), stellen Sie bitte sicher, dass \"Scrobbling\" oder \"Übertragungsstatus\" in den Optionen der Player-App aktiviert ist.</string>
   <string name="id_desc">Integration mit Ihren bevorzugten MusicID-Apps.</string>
   <string name="id_desc_sub">1. Titel identifizieren\n2. Ergebnis mit QuickLyric teilen\n3. Songtext genießen</string>
   <string name="refresh_desc">Wenn sich das Lied geändert hat&#8230;</string>
@@ -67,6 +67,10 @@
   <string name="defaut_theme">Bernstein (Standard)</string>
   <string name="dark_theme">Dunkel</string>
   <string name="pref_notifications_sum">Erhalten Sie eine diskrete Benachrichtigung, wenn der Track sich ändert</string>
+  <string name="pref_auto_save">Songtext automatisch speichern</string>
+  <string name="pref_auto_save_sum">Alle Songtexte werden auf Ihrem Gerät gespeichert</string>
+  <string name="pref_night_mode">Nachtmodus</string>
+  <string name="pref_night_mode_sum">Zwischen 21:00 und 06:00  dunklen Hintergrund verwenden</string>
   <string-array name="sort_modes">
     <item>Nach Künstler&#8230;</item>
     <item>Nach Titel&#8230;</item>

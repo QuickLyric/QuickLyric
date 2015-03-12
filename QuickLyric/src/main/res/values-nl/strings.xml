@@ -19,27 +19,27 @@
   ~  */
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-  <string name="title_lyrics">Teksten</string>
-  <string name="share">Verdelen</string>
+  <string name="title_lyrics">Songteksten</string>
+  <string name="share">Delen</string>
   <string name="refresh">Verversen</string>
-  <string name="no_results">Geen teksten gevonden voor deze track</string>
+  <string name="no_results">Geen songtekst gevonden voor dit nummer</string>
   <string name="connection_error">Kon niet verbinden.</string>
-  <string name="no_refresh">Geen behoefte om te vernieuwen</string>
+  <string name="no_refresh">Er hoeft niet ververst te worden</string>
   <string name="search_hint">Zoeken</string>
   <string name="search_no_result">Geen resultaat</string>
-  <string name="beam_txt">Stuur deze teksten?</string>
-  <string name="pref_20min_ignore">Negeer lange tracks</string>
-  <string name="pref_20min_ignore_sum">Tracks langer dan 20 minuten (zoals podcasts) zullen geblokkeerd worden</string>
+  <string name="beam_txt">Deze songtekst delen?</string>
+  <string name="pref_20min_ignore">Negeer lange liedjes</string>
+  <string name="pref_20min_ignore_sum">Liedjes langer dan 20 minuten (zoals podcasts) zullen genegeerd worden</string>
   <string name="pref_about">Over ons</string>
   <string name="pref_about_summary">Meer informatie over QuickLyric</string>
-  <string name="local_title">Opgeslagen teksten</string>
+  <string name="local_title">Opgeslagen songteksten</string>
   <string name="settings_title">Instellingen</string>
-  <string name="save_action">Opslagen</string>
-  <string name="lyrics_saved">Teksten opgeslagen</string>
-  <string name="lyrics_removed">Teksten verwijderd</string>
-  <string name="remove_action">Weghalen</string>
-  <string name="pref_auto_refresh_title">Teksten automatisch vernieuwen</string>
-  <string name="pref_auto_refresh_summary">Teksten automatisch vernieuwen elke keer de muziek verandert</string>
+  <string name="save_action">Opslaan</string>
+  <string name="lyrics_saved">Songtekst opgeslagen</string>
+  <string name="lyrics_removed">Songtekst verwijderd</string>
+  <string name="remove_action">Verwijderen</string>
+  <string name="pref_auto_refresh_title">Songteksten automatisch vernieuwen</string>
+  <string name="pref_auto_refresh_summary">Teksten automatisch vernieuwen elke keer dat de muziek verandert</string>
   <string name="select_all_action">Alles selecteren</string>
   <string name="unselect_all_action">Alles deselecteren</string>
   <string name="sort_action">Sorteren</string>
@@ -50,13 +50,13 @@
   <string name="pref_look_feel_category">Aspect</string>
   <string name="welcome">Welkom bij QuickLyric !</string>
   <string name="welcome2_sub">De teksten die je zoekt&#8230;\nOnmiddelijk.</string>
-  <string name="apps_desc">Werkt met veel muziekspelers</string>
-  <string name="apps_desc_sub">Als QuickLyric niet met uw speler werkt (Poweramp, Spotify, etc.), zorg ervoor dat \"Scrobbling\" of \"Broadcast Status\" ingeschakeld zijn.</string>
+  <string name="apps_desc">Werkt met meest muziekspelers</string>
+  <string name="apps_desc_sub">Als QuickLyric niet met je muziekspeler werkt (Poweramp, GoneMAD of Spotify), zorg ervoor dat \"Scrobbling\" en \"Broadcast Status\" ingeshakeld zijn.</string>
   <string name="id_desc">Integratie met uw favoriete muziekspelers.</string>
   <string name="id_desc_sub">1. Identificeer een liedje\n2. Deel de resultaten via QuickLyric\n3. Geniet van de songteksten</string>
-  <string name="refresh_desc">Als de song verandert&#8230;</string>
+  <string name="refresh_desc">Als het liedje verandert&#8230;</string>
   <string name="refresh_desc_sub">Druk op deze knop. QuickLyric zal de rest doen.</string>
-  <string name="drawer_desc">Laten we dieper graven !</string>
+  <string name="drawer_desc">Laten we wat dieper graven !</string>
   <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
   <string name="pref_more_category">Meer</string>
   <string name="share_prompt">Importeren vanuit Shazam/Soundhound</string>
@@ -67,6 +67,10 @@
   <string name="defaut_theme">Barnsteen (standaard)</string>
   <string name="dark_theme">Donker</string>
   <string name="pref_notifications_sum">Krijg een discrete notificatie als het liedje verandert</string>
+  <string name="pref_auto_save">Slaat automatisch lyrics op</string>
+  <string name="pref_auto_save_sum">Alle songteksten zullen op je apparaat worden opgeslaan</string>
+  <string name="pref_night_mode">Nachtmodus</string>
+  <string name="pref_night_mode_sum">Schakel naar een donker achtergrond tussen 21u en 6u</string>
   <string-array name="sort_modes">
     <item>Per kunstenaar&#8230;</item>
     <item>Per titel&#8230;</item>

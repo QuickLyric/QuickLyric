@@ -51,7 +51,7 @@
   <string name="welcome">Witaj w QuickLyric!</string>
   <string name="welcome2_sub">Teksty których szukałeś&#8230; Tu i teraz</string>
   <string name="apps_desc">Kompatybilny z większością odtwarzaczy muzyki</string>
-  <string name="apps_desc_sub">Jeśli QuickLyric nie chce zadziałać z Twoim odtwarzaczem (np. Poweramp, Spotify), upewnij się że \"Scrobbling\" lub \"Status transmisji urządzenia\" w Twoim odtwarzaczu jest włączony.</string>
+  <string name="apps_desc_sub">Jeśli QuickLyric nie chce zadziałać z Twoim odtwarzaczem (np. Poweramp, GoneMAD, Spotify), upewnij się że \"Scrobbling\" lub \"Status transmisji urządzenia\" w Twoim odtwarzaczu jest włączony.</string>
   <string name="id_desc">Integracja z Twoimi ulubionymi aplikacjami MusicID.</string>
   <string name="id_desc_sub">1. Rozpoznaj piosenkę\n2. Dodaj wynik do QuickLyric\n3. Ciesz się do woli słowami piosenki</string>
   <string name="refresh_desc">Jeśli piosenka zmieniła się&#8230;</string>
@@ -67,6 +67,10 @@
   <string name="defaut_theme">Bursztynowy (domyślny)</string>
   <string name="dark_theme">Ciemny</string>
   <string name="pref_notifications_sum">Otrzymuj dyskretne powiadomienie przy zmianie piosenki</string>
+  <string name="pref_auto_save">Zapisuj słowa automatycznie</string>
+  <string name="pref_auto_save_sum">Wszystkie teksty będą przechowywane na Twoim urządzeniu</string>
+  <string name="pref_night_mode">Tryb nocny</string>
+  <string name="pref_night_mode_sum">Wyświetlaj ciemne tło między godziną 21:00 a 06:00</string>
   <string-array name="sort_modes">
     <item>&#8230;Według artysty</item>
     <item>&#8230;Według tytułu</item>
