@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -19,17 +18,8 @@
   -->
 
 <resources>
-    <color name="primary">#ffc107</color>
-    <color name="primary_dark">#ffffad00</color>
-    <color name="action">#303030</color>
-    <color name="action_dark">#212121</color>
-    <color name="accent">#ff6e40</color>
-    <color name="accent_light">#FF8A65</color>
-    <color name="deep_orange">#DD2C00</color>
-    <color name="deep_red">#B40000</color>
-    <color name="amber">#FFAB00</color>
-    <color name="selected">#BDBDBD</color>
-    <color name="selected_night">#222</color>
-    <color name="fragment_background">#eeeeee</color>
-    <color name="window_background">#bbbbbb</color>
+    <declare-styleable name="ScrimInsetsView">
+        <attr format="reference|color" name="insetForeground" />
+    </declare-styleable>
+    <attr name="statusBarColor" format="reference|color" />
 </resources>

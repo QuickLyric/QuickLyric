@@ -112,12 +112,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
-        int theme = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
         if (nightMode && NightTimeVerifier.check())
             setTheme(R.style.Theme_QuickLyric_Night);
         else
-            setTheme(themes[theme]);
+            setTheme(themes[themeNum]);
         setStatusBarColor(null);
         setNavBarColor(null);
         final FragmentManager fragmentManager = getFragmentManager();
@@ -152,6 +152,10 @@ public class MainActivity extends ActionBarActivity {
                     MainActivity.this.invalidateOptionsMenu(); // onPrepareOptionsMenu()
                 }
             };
+            Resources.Theme theme = getTheme();
+            TypedValue darkColorValue = new TypedValue();
+            theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
+            ((DrawerLayout) drawer).setStatusBarBackgroundColor(darkColorValue.data);
             ((DrawerLayout) drawer).setDrawerListener(mDrawerToggle);
         }
 

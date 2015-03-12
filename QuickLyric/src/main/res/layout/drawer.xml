@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -17,18 +16,24 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.geecko.QuickLyric.view.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:focusableInTouchMode="true">
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:src="?android:attr/headerBackground"
-        android:adjustViewBounds="true"
+    <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
 
-    <include layout="@layout/drawer_list" />
+        <ImageView
+            android:src="?android:attr/headerBackground"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <include layout="@layout/drawer_list" />
+
+    </LinearLayout>
+</com.geecko.QuickLyric.view.ScrimInsetsFrameLayout>
