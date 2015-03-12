@@ -62,19 +62,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
             l.setArtist(cursor.getString(0));
             l.setTitle(cursor.getString(1));
+            l.setOriginalArtist(cursor.getString(0));
+            l.setOriginalTitle(cursor.getString(1));
             l.setText(cursor.getString(2));
             l.setURL(cursor.getString(3));
             l.setSource(cursor.getString(4));
             l.setCoverURL(cursor.getString(5));
+            cursor.close();
             return l;
-        } else
+        } else {
+            cursor.close();
             return null;
+        }
     }
 
     public static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
         String[] columns = DatabaseHelper.columns;
         Cursor cursor = database.query(TABLE_NAME, null, String.format("%s=? AND %s=?", columns[0], columns[1]), metaData, null, null, null);
         int count = cursor.getCount();
+        cursor.close();
         return (count != 0);
     }
 }
