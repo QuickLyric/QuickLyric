@@ -28,7 +28,6 @@
         android:id="@+id/scrollview"
         android:background="?android:attr/colorBackground"
         android:scrollbarStyle="outsideOverlay"
-        android:overScrollMode="never"
         tools:context=".MainActivity"
         android:fillViewport="true"
         android:layout_width="match_parent"
