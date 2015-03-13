@@ -126,9 +126,6 @@
                 <action android:name="com.miui.player.metachanged" />
                 <action android:name="com.miui.player.playstatechanged" />
                 <action android:name="com.real.IMP.metachanged" />
-                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED" />
-                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PAUSED" />
-                <action android:name="com.sonyericsson.music.metachanged" />
                 <action android:name="com.samsung.MusicPlayer.metachanged" />
                 <action android:name="com.samsung.sec.metachanged" />
                 <action android:name="com.samsung.music.metachanged" />
@@ -160,6 +157,21 @@
                 <action android:name="com.tbig.playerpro.playstatechanged" />
                 <action android:name="com.tbig.playerprotrial.metachanged" />
                 <action android:name="com.tbig.playerprotrial.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.geecko.QuickLyric.broadcastReceiver.XperiaBroadcastReceiver"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PLAY" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE" />
+                <action android:name="com.sonyericsson.music.TRACK_COMPLETED" />
+                <action android:name="com.sonyericsson.music.metachanged" />
+                <action android:name="com.sonyericsson.music.playbackcomplete" />
+                <action android:name="com.sonyericsson.music.playstatechanged" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PAUSED" />
             </intent-filter>
         </receiver>
     </application>
