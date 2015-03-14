@@ -35,6 +35,8 @@ import java.util.ArrayList;
  */
 public class Genius {
 
+    public static final String domain = "genius.com";
+
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
         query = Normalizer.normalize(query, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -55,11 +57,8 @@ public class Genius {
             while (processed < hits.length()) {
                 JSONObject song = hits.getJSONObject(processed).getJSONObject("result");
                 String artist = song.getJSONObject("primary_artist").getString("name");
-                String urlArtist = song.getJSONObject("primary_artist").getString("url");
-                urlArtist = urlArtist.substring(urlArtist.lastIndexOf("/artists/") + 9);
                 String title = song.getString("title");
-                String urlTitle = title.replace(' ', '-');
-                String url = String.format("http://genius.com/%s-%s-lyrics", urlArtist, urlTitle);
+                String url = "http://genius.com/songs/" + song.getInt("id");
                 Lyrics l = new Lyrics(Lyrics.SEARCH_ITEM);
                 l.setArtist(artist);
                 l.setTitle(title);
@@ -79,8 +78,10 @@ public class Genius {
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         String urlTitle = Normalizer.normalize(originalTitle, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        urlArtist = urlArtist.replaceAll("[^a-zA-Z0-9\\s]", "").trim().replaceAll("\\s+", "-");
-        urlTitle = urlTitle.replaceAll("[^a-zA-Z0-9\\s]", "").trim().replaceAll("\\s+", "-");
+        urlArtist = urlArtist.replaceAll("[^a-zA-Z0-9\\s]", "").replaceAll("&", "and")
+                .trim().replaceAll("\\s+", "-");
+        urlTitle = urlTitle.replaceAll("[^a-zA-Z0-9\\s]", "").replaceAll("&", "and")
+                .trim().replaceAll("\\s+", "-");
         String url = String.format("http://genius.com/%s-%s-lyrics", urlArtist, urlTitle);
         return fromURL(url, originalArtist, originalTitle);
     }
