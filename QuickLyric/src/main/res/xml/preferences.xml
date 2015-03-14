@@ -53,8 +53,8 @@
 
     <PreferenceCategory android:title="Downloads">
         <CheckBoxPreference
-            android:key="@string/pref_auto_save"
-            android:title="Automatically save lyrics"
+            android:key="pref_auto_save"
+            android:title="@string/pref_auto_save"
             android:summary="@string/pref_auto_save_sum"
             android:defaultValue="false" />
     </PreferenceCategory>
