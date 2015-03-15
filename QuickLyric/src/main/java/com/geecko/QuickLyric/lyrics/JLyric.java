@@ -19,6 +19,8 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.annotations.Reflection;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -28,9 +30,11 @@ import java.net.URLEncoder;
 
 public class JLyric {
 
+    @Reflection
     public static final String domain = "j-lyric.net";
     private static final String baseUrl = "http://search.j-lyric.net/index.php?ct=0&ca=0&kl=&cl=0&ka=%1s&kt=%1s";
 
+    @Reflection
     public static Lyrics fromMetaData(String artist, String song) {
         if ((artist == null) || (song == null))
             return new Lyrics(Lyrics.ERROR);

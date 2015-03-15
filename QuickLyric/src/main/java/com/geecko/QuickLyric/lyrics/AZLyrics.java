@@ -20,6 +20,8 @@
 package com.geecko.QuickLyric.lyrics;
 
 
+import com.geecko.QuickLyric.annotations.Reflection;
+
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,8 +33,10 @@ import java.util.regex.Pattern;
 
 public class AZLyrics {
 
+    @Reflection
     public static final String domain = "www.azlyrics.com/";
 
+    @Reflection
     public static Lyrics fromMetaData(String artist, String song) {
         String htmlArtist = artist.replaceAll("[\\s'\"-]", "")
                 .replaceAll("&", "and").replaceAll("[^A-Za-z0-9]", "");

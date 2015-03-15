@@ -19,6 +19,8 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.annotations.Reflection;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -34,9 +36,12 @@ import java.net.URLEncoder;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 public class LyricsWiki {
+
+    @Reflection
     public static final String domain = "lyrics.wikia.com";
     private static final String baseUrl = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=json&func=getSong&artist=%1s&song=%1s";
 
+    @Reflection
     public static Lyrics fromMetaData(String artist, String song) {
         if ((artist == null) || (song == null))
             return new Lyrics(Lyrics.ERROR);

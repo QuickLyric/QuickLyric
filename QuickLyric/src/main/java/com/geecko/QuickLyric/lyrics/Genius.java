@@ -1,5 +1,6 @@
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
  */
 public class Genius {
 
+    @Reflection
     public static final String domain = "genius.com";
 
     public static ArrayList<Lyrics> search(String query) {
@@ -73,6 +75,7 @@ public class Genius {
         return results;
     }
 
+    @Reflection
     public static Lyrics fromMetaData(String originalArtist, String originalTitle) {
         String urlArtist = Normalizer.normalize(originalArtist, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
