@@ -44,6 +44,10 @@ public class Lyrics implements Serializable {
     public static final int ERROR = -3;
     public static final int SEARCH_ITEM = 2;
 
+    public static interface Callback {
+        public void onLyricsDownloaded(Lyrics lyrics);
+    }
+
     public Lyrics(int flag) {
         this.mFlag = flag;
     }
@@ -57,7 +61,10 @@ public class Lyrics implements Serializable {
     }
 
     public String getOriginalTrack() {
-        return mOriginalTitle;
+        if (mOriginalTitle != null)
+            return mOriginalTitle;
+        else
+            return mTitle;
     }
 
     public void setOriginalTitle(String originalTitle) {
@@ -73,7 +80,10 @@ public class Lyrics implements Serializable {
     }
 
     public String getOriginalArtist() {
-        return mOriginalArtist;
+        if (mOriginalArtist != null)
+            return mOriginalArtist;
+        else
+            return mArtist;
     }
 
     public void setOriginalArtist(String originalArtist) {

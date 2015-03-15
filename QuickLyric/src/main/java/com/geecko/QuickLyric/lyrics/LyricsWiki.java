@@ -34,6 +34,7 @@ import java.net.URLEncoder;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 public class LyricsWiki {
+    public static final String domain = "lyrics.wikia.com";
     private static final String baseUrl = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=json&func=getSong&artist=%1s&song=%1s";
 
     public static Lyrics fromMetaData(String artist, String song) {
@@ -86,7 +87,8 @@ public class LyricsWiki {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")) {
+        if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")
+                || text.equals("Instrumental <br />")) {
             Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
             result.setArtist(artist);
             result.setTitle(song);

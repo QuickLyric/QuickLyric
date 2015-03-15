@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.tasks.DownloadTask;
 import com.geecko.QuickLyric.tasks.ParseTask;
 
 import org.json.JSONException;
@@ -47,7 +46,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         String artist;
         String track;
         if (url.contains("http://www.soundhound.com/")) {
-            try {
+            try { // todo switch to Jsoup
                 String html = getUrlAsString(url);
                 int preceding = html.indexOf("root.App.trackDa") + 19;
                 int following = html.substring(preceding).indexOf(";");
@@ -61,7 +60,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
             }
 
         } else if (url.contains("http://shz.am/")) {
-            try {
+            try { // ToDo switch to Jsoup
                 String html = getUrlAsString(url);
                 int preceding = html.indexOf("<title>") + 7;
                 int following = html.substring(preceding).indexOf("</title>");
@@ -89,10 +88,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         if (lyrics != null && lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
             if (lyricsViewFragment != null) {
                 lyricsViewFragment.startRefreshAnimation();
-                if (lyricsViewFragment.currentDownload != null &&
-                        lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED)
-                    lyricsViewFragment.currentDownload.cancel(true);
-                new DownloadTask().execute(mContext, lyrics.getArtist(), lyrics.getTrack(), null);
+                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
             } else
                 ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
         } else

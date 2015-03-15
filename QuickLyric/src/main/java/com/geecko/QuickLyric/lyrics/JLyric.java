@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 public class JLyric {
+
+    public static final String domain = "j-lyric.net";
     private static final String baseUrl = "http://search.j-lyric.net/index.php?ct=0&ca=0&kl=&cl=0&ka=%1s&kt=%1s";
 
     public static Lyrics fromMetaData(String artist, String song) {
@@ -46,8 +48,12 @@ public class JLyric {
             Elements artistBlocks = searchPage.body().select("div#lyricList");
 
             //@todo give all results
-            if(artistBlocks.first() == null)
-                return new Lyrics(Lyrics.NO_RESULT);
+            if (artistBlocks.first() == null) {
+                Lyrics lyrics = new Lyrics(Lyrics.NO_RESULT);
+                lyrics.setArtist(artist);
+                lyrics.setTitle(song);
+                return lyrics;
+            }
             url = artistBlocks.first().select("div.title a").attr("href");
 
         } catch (IOException e) {
@@ -59,7 +65,8 @@ public class JLyric {
     }
 
     public static Lyrics fromURL(String url, String artist, String song) {
-        String text;
+        Lyrics lyrics;
+        String text = null;
 
         try {
             Document lyricsPage = Jsoup.connect(url).get();
@@ -73,20 +80,18 @@ public class JLyric {
                 song = lyricsPage.select("div.caption").get(0).child(0).text();
         } catch (IOException e) {
             e.printStackTrace();
-            return new Lyrics(Lyrics.ERROR);
         }
 
-        if(text == null) {
-            return new Lyrics(Lyrics.ERROR);
-        } else {
-            Lyrics lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);
-            lyrics.setArtist(artist);
-            lyrics.setTitle(song);
-            lyrics.setText(text);
-            lyrics.setSource("J-Lyric");
-            lyrics.setURL(url);
-            return lyrics;
-        }
+        if (text == null)
+            lyrics = new Lyrics(Lyrics.ERROR);
+        else
+            lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);
+        lyrics.setArtist(artist);
+        lyrics.setTitle(song);
+        lyrics.setText(text);
+        lyrics.setSource("J-Lyric");
+        lyrics.setURL(url);
+        return lyrics;
 
     }
 

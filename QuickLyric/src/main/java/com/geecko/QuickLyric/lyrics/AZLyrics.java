@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
 
 public class AZLyrics {
 
+    public static final String domain = "www.azlyrics.com/";
+
     public static Lyrics fromMetaData(String artist, String song) {
         String htmlArtist = artist.replaceAll("[\\s'\"-]", "")
                 .replaceAll("&", "and").replaceAll("[^A-Za-z0-9]", "");
@@ -50,7 +52,7 @@ public class AZLyrics {
     public static Lyrics fromURL(String url, String artist, String song) {
         String html;
         try {
-            Document document = Jsoup.connect(url).get();
+            Document document = Jsoup.connect(url).timeout(1000).get();
             if (document.location().contains("azlyrics"))
                 html = document.html();
             else
@@ -58,6 +60,7 @@ public class AZLyrics {
         } catch (HttpStatusException e) {
             return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
+            e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
         Pattern p = Pattern.compile(

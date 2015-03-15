@@ -62,16 +62,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                 lyricsViewFragment.update(DatabaseHelper.get(sqLiteDatabase, metaData),
                         lyricsViewFragment.getView(), true);
             else if (OnlineAccessVerifier.check(mContext)) {
-                lyricsViewFragment.startRefreshAnimation();
-                if (lyricsViewFragment.currentDownload != null
-                        && lyricsViewFragment.currentDownload.getStatus() != Status.FINISHED) {
-                    if (lyricsViewFragment.currentDownload.interruptible)
-                        lyricsViewFragment.currentDownload.cancel(true);
-                    else
-                        return;
-                }
-                lyricsViewFragment.currentDownload = new DownloadTask();
-                lyricsViewFragment.currentDownload.execute(mContext, metaData[0], metaData[1]);
+                lyricsViewFragment.fetchLyrics(metaData[0], metaData[1]);
             } else {
                 Lyrics lyrics = new Lyrics(Lyrics.ERROR);
                 lyrics.setArtist(metaData[0]);

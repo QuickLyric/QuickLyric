@@ -204,7 +204,6 @@ public class MainActivity extends ActionBarActivity {
                 fragmentTransaction.commit();
             }
         }
-        intent.setAction("");
         if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
             registerTempReceiver();
             setupDemoScreen();
@@ -248,14 +247,13 @@ public class MainActivity extends ActionBarActivity {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPref.getBoolean("pref_auto_refresh", false)) {
-            if (getIntent() != null && getIntent().getAction() != null)
-                getIntent().setAction(null);
-            else { // fixme executes twice
-                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
-                        .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-                new ParseTask().execute(lyricsViewFragment, null);
-            }
+        if (sharedPref.getBoolean("pref_auto_refresh", false) &&
+                getIntent() == null || getIntent().getAction() == null ||
+                getIntent().getAction().equals("")) {
+            // fixme executes twice
+            LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+            new ParseTask().execute(lyricsViewFragment, null);
         }
     }
 

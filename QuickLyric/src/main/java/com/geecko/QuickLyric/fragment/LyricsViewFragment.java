@@ -33,7 +33,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -61,7 +60,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
-import com.geecko.QuickLyric.tasks.DownloadTask;
+import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
@@ -79,7 +78,7 @@ import java.io.IOException;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
-public class LyricsViewFragment extends Fragment implements ObservableScrollView.Callbacks {
+public class LyricsViewFragment extends Fragment implements ObservableScrollView.Callbacks, Lyrics.Callback {
 
     private static final int STATE_ONSCREEN = 0;
     private int mState = STATE_ONSCREEN;
@@ -87,7 +86,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private static final int STATE_RETURNING = 2;
     private static BroadcastReceiver broadcastReceiver;
     public boolean lyricsPresentInDB;
-    public DownloadTask currentDownload;
     public boolean isActiveFragment = false;
     public boolean showTransitionAnim = true;
     private Lyrics mLyrics;
@@ -248,14 +246,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (params.length > 2)
             url = params[2];
         this.startRefreshAnimation();
-        if (currentDownload != null && currentDownload.getStatus() != AsyncTask.Status.FINISHED)
-            currentDownload.cancel(true);
-        this.currentDownload = new DownloadTask();
-        currentDownload.interruptible = false;
-        if (artist != null)
-            currentDownload.execute(this.getActivity(), artist, song, url);
-        else if (url != null)
-            currentDownload.execute(this.getActivity(), url);
+        if (url == null)
+            new DownloadThread(this, artist, song).start();
+        else
+            new DownloadThread(this, url, artist, song).start();
     }
 
     void fetchCurrentLyrics() {
@@ -287,6 +281,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 }, activity);
             }
         }
+    }
+
+    @Override
+    public void onLyricsDownloaded(Lyrics lyrics) {
+        update(lyrics, getView(), true);
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
@@ -336,6 +335,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
         }
         stopRefreshAnimation();
+        getActivity().getIntent().setAction("");
     }
 
     @Override
