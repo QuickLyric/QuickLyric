@@ -248,8 +248,8 @@ public class MainActivity extends ActionBarActivity {
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPref.getBoolean("pref_auto_refresh", false) &&
-                getIntent() == null || getIntent().getAction() == null ||
-                getIntent().getAction().equals("")) {
+                (getIntent() == null || getIntent().getAction() == null ||
+                        getIntent().getAction().equals(""))) {
             // fixme executes twice
             LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG);
