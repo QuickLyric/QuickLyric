@@ -285,7 +285,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
     @Override
     public void onLyricsDownloaded(Lyrics lyrics) {
-        update(lyrics, getView(), true);
+        if (!((MainActivity) getActivity()).hasBeenDestroyed())
+            update(lyrics, getView(), true);
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
