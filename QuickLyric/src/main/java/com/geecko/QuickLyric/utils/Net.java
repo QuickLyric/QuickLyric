@@ -9,12 +9,12 @@ import java.net.URL;
 /**
  * This file is part of QuickLyric
  * Created by geecko
- *
+ * <p/>
  * QuickLyric is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * QuickLyric is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,6 +23,9 @@ import java.net.URL;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Net {
+
+    public static String USER_AGENT =
+            "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
 
     public static String getUrlAsString(String paramURL) throws IOException {
         return getUrlAsString(new URL(paramURL));

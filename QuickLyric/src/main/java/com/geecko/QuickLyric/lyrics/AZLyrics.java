@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.lyrics;
 
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -56,7 +57,7 @@ public class AZLyrics {
     public static Lyrics fromURL(String url, String artist, String song) {
         String html;
         try {
-            Document document = Jsoup.connect(url).timeout(1000).get();
+            Document document = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
             if (document.location().contains("azlyrics"))
                 html = document.html();
             else
