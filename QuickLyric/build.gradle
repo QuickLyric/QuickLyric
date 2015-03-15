@@ -20,13 +20,13 @@ android {
             assets.srcDirs = ['assets']
         }
     }
-    compileSdkVersion 21
-    buildToolsVersion '21.1.2'
+    compileSdkVersion 22
+    buildToolsVersion '22'
 
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 22
         versionName "1.6.1"
     }
@@ -61,9 +61,9 @@ android {
     }
 }
 dependencies {
-    compile 'com.android.support:support-v4:21.+'
-    compile 'com.android.support:appcompat-v7:21.+'
-    compile 'com.android.support:cardview-v7:21.+'
+    compile 'com.android.support:support-v4:22.+'
+    compile 'com.android.support:appcompat-v7:22.+'
+    compile 'com.android.support:cardview-v7:22.+'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.melnykov:floatingactionbutton:1.+'
