@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -76,6 +77,8 @@ public class LyricsWiki {
             text = lyricsHtml.substring(0, lyricsHtml.indexOf("<!--"))
                     .replaceAll("<.*?>", "")
                     .replaceAll("\n", "<br />");
+            if (text.contains("&#"))
+                text = Parser.unescapeEntities(text, true);
         } catch (IndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
