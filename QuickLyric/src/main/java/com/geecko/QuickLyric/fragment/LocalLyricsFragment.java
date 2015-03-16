@@ -26,9 +26,12 @@ import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -48,6 +51,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.LocalAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 
@@ -107,9 +111,15 @@ public class LocalLyricsFragment extends ListFragment {
             LocalAdapter adapter = (LocalAdapter) getListAdapter();
             switch (menuItem.getItemId()) {
                 case R.id.action_delete:
+                    ArrayList<Lyrics> delendam = new ArrayList<>();
                     for (int i = 0; i < lyricsArray.size(); i++)
                         if (adapter.isItemChecked(i))
-                            new WriteToDatabaseTask().execute(LocalLyricsFragment.this, null, lyricsArray.get(i));
+                            delendam.add(lyricsArray.get(i));
+                    if (delendam.size() > 0) {
+                        Lyrics[] delendamArray = delendam.toArray(new Lyrics[delendam.size()]);
+                        new WriteToDatabaseTask(LocalLyricsFragment.this)
+                                .execute(LocalLyricsFragment.this, null, delendamArray);
+                    }
                     actionMode.finish();
                     return true;
                 case R.id.action_select_all:
@@ -196,8 +206,6 @@ public class LocalLyricsFragment extends ListFragment {
                     unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
                     mainActivity.mActionMode.invalidate();
                 }
-
-
                 return true;
             }
         });
@@ -251,9 +259,12 @@ public class LocalLyricsFragment extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_scan:
+                showScanDialog();
+                break;
             case R.id.action_sort:
                 final SharedPreferences localSortOrderPreferences = getActivity().getSharedPreferences("local_sort_order", Context.MODE_PRIVATE);
-                final int sortModePref = localSortOrderPreferences.getInt("mode", 0);
+                final int sortModePref = localSortOrderPreferences.getInt("mode", -1);
                 final CharSequence[] sortModesArray = getResources().getStringArray(R.array.sort_modes);
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this.getActivity());
                 builder1.setTitle(R.string.sort_dialog_title);
@@ -264,9 +275,9 @@ public class LocalLyricsFragment extends ListFragment {
                         int sortOrder = 0;
                         items = getResources().getStringArray(R.array.AZ_sort_order);
                         if (mode == 0)
-                            sortOrder = localSortOrderPreferences.getInt("order_artist", 0);
+                            sortOrder = localSortOrderPreferences.getInt("order_artist", -1);
                         else if (mode == 1)
-                            sortOrder = localSortOrderPreferences.getInt("order_title", 0);
+                            sortOrder = localSortOrderPreferences.getInt("order_title", -1);
 
                         dialog1.dismiss();
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(LocalLyricsFragment.this.getActivity());
@@ -301,6 +312,44 @@ public class LocalLyricsFragment extends ListFragment {
         }
 
         return false;
+    }
+
+    public void showScanDialog() {
+        CharSequence[] items = getResources().getStringArray(R.array.URI_labels);
+        AlertDialog.Builder choiceBuilder = new AlertDialog.Builder(getActivity());
+        choiceBuilder
+                .setTitle(R.string.content_providers_title)
+                .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface choiceDialog, int i) {
+                        String[] values = getResources().getStringArray(R.array.URI_values);
+                        final Uri contentProvider = Uri.parse(values[i]);
+                        String[] projection = new String[]{"artist", "title"};
+                        String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
+                        Cursor countCursor = getActivity().getContentResolver()
+                                .query(contentProvider, projection, selection, null, null);
+                        final int count = countCursor.getCount();
+                        final int time = (int) Math.ceil(count / 500f);
+                        countCursor.close();
+                        choiceDialog.dismiss();
+                        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getActivity());
+                        confirmDialog
+                                .setTitle(R.string.warning)
+                                .setMessage(String.format(getString(R.string.scan_dialog), count, time))
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent scanInfo = new Intent(getActivity(),
+                                                BatchDownloaderService.class);
+                                        scanInfo.putExtra("uri", contentProvider);
+                                        getActivity().startService(scanInfo);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .create().show();
+                    }
+                })
+                .create().show();
     }
 
     @Override

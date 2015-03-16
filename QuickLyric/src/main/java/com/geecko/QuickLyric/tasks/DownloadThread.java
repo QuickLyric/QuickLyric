@@ -64,7 +64,11 @@ public class DownloadThread extends Thread {
             };
 
     public DownloadThread(final Lyrics.Callback callback, final String... params) {
-        super(new Runnable() {
+        super(DownloadThread.getRunnable(callback, params));
+    }
+
+    public static Runnable getRunnable(final Lyrics.Callback callback, final String... params) {
+        return new Runnable() {
             private Thread mThread;
 
             public Lyrics download(String url, String artist, String title) {
@@ -168,7 +172,6 @@ public class DownloadThread extends Thread {
                         callback.onLyricsDownloaded(result);
                 }
             };
-
-        });
+        };
     }
 }

@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:text="@string/apps_desc"
-        android:id="@+id/textView3_a"
-        android:layout_margin="20dp"
+        android:id="@+id/textView1_a"
+        android:layout_margin="25dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -35,36 +35,28 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:text="@string/apps_desc_sub"
-        android:id="@+id/textView3_b"
-        android:layout_margin="15dp"
+        android:id="@+id/textView1_b"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp" />
 
     <RelativeLayout
-        android:layout_below="@id/textView3_a"
-        android:layout_above="@id/textView3_b"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_below="@id/textView1_a"
+        android:layout_above="@id/textView1_b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:background="@android:color/holo_red_dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/music_apps"
-            android:src="@drawable/players"
-            android:scaleType="fitCenter"
             android:padding="15dp"
-            android:layout_centerInParent="true"/>
-        <TextView
-            android:id="@+id/gplay_disclaimer"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Google Play is a trademark of Google Inc."
-            android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            android:gravity="center_horizontal"
-            android:layout_alignBottom="@+id/music_apps"
-            android:layout_centerHorizontal="true" />
+            android:src="@drawable/players"
+            android:id="@+id/music_apps"
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 </RelativeLayout>

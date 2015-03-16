@@ -62,6 +62,7 @@ import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IdDecoder;
@@ -289,7 +290,8 @@ public class MainActivity extends ActionBarActivity {
                     lyricsViewFragment.fetchLyrics(artist, track);
                     selectItem(0);
                 }
-            }
+            } else if (action.equals("com.geecko.QuickLyric.updateDBList"))
+                updateDBList();
         }
     }
 
@@ -343,6 +345,15 @@ public class MainActivity extends ActionBarActivity {
                 url.contains("genius.com") ||
                 url.contains("j-lyric.net"))
             updateLyricsFragment(0, null, null, url);
+    }
+
+    private void updateDBList() {
+        LocalLyricsFragment localLyricsFragment =
+                (LocalLyricsFragment) getFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+        if (localLyricsFragment != null && localLyricsFragment.isActiveFragment)
+            new DBContentLister().execute(localLyricsFragment);
+        else
+            selectItem(1);
     }
 
     private String getIdUrl(String extra) {

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
@@ -44,11 +45,34 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
     private Context mContext;
     private MenuItem item;
     private Lyrics[] lyricsArray;
+    private LocalLyricsFragment mLocalLyricsFragment;
+
+    public WriteToDatabaseTask() {
+        super();
+    }
+
+    public WriteToDatabaseTask(LocalLyricsFragment fragment) {
+        super();
+        this.mLocalLyricsFragment = fragment;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mLocalLyricsFragment != null)
+            mLocalLyricsFragment.setListShown(false);
+    }
 
     @Override
     protected Boolean doInBackground(Object... params) {
         lyricsArray = new Lyrics[params.length - 2];
-        fragment = (Fragment) params[0];
+        SQLiteDatabase database;
+        if (params[0] instanceof Fragment) {
+            fragment = (Fragment) params[0];
+            mContext = fragment.getActivity();
+            database = ((MainActivity) mContext).database;
+        } else
+            database = (SQLiteDatabase) params[0];
         item = (MenuItem) params[1];
         if (params[2] instanceof Lyrics[])
             lyricsArray = (Lyrics[]) params[2];
@@ -56,10 +80,8 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             for (int i = 0; i < lyricsArray.length; i++) {
                 lyricsArray[i] = (Lyrics) params[i + 2];
             }
-        mContext = fragment.getActivity();
         String table = "lyrics";
-        SQLiteDatabase database = ((MainActivity) mContext).database;
-        Boolean result = false;
+        boolean result = true;
         String[] columns = DatabaseHelper.columns;
         if (database != null) {
             for (Lyrics lyrics : lyricsArray)
@@ -75,7 +97,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                     if (fragment instanceof LyricsViewFragment)
                         ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
                     result = true;
-                } else {
+                } else if (mContext != null) { // if called from activity, not service
                     database.delete(table, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
                     if (fragment instanceof LyricsViewFragment)
                         ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
@@ -95,7 +117,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                 Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
-        } else {
+        } else if (fragment instanceof LocalLyricsFragment) {
             ActionClickListener actionClickListener = new ActionClickListener() {
                 @Override
                 public void onActionClicked(Snackbar snackbar) {
@@ -109,6 +131,8 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                         .actionColorResource(R.color.accent_light).actionLabelTypeface(roboto)
                         .actionListener(actionClickListener).show((MainActivity) mContext);
             }
+            if (mLocalLyricsFragment != null)
+                mLocalLyricsFragment.setListShown(true);
             new DBContentLister().execute(fragment);
         }
     }
