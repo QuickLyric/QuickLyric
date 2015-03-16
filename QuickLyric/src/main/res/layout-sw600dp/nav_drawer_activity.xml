@@ -62,7 +62,7 @@
 
     <include
         android:id="@+id/left_drawer"
-        android:layout_width="@dimen/drawer_width"
+        android:layout_width="340dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         layout="@layout/drawer" />
