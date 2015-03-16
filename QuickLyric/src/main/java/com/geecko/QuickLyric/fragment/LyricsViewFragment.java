@@ -74,6 +74,8 @@ import com.geecko.QuickLyric.view.RefreshIcon;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Set;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
@@ -246,6 +248,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (params.length > 2)
             url = params[2];
         this.startRefreshAnimation();
+        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getStringSet("pref_providers", Collections.EMPTY_SET);
+        DownloadThread.refreshProviders(providersSet);
+
         if (url == null)
             new DownloadThread(this, artist, song).start();
         else

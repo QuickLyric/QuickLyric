@@ -27,7 +27,6 @@ import android.os.Process;
 
 import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
-import com.geecko.QuickLyric.lyrics.JLyric;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsWiki;
 
@@ -35,6 +34,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
 
 /*
  * *
@@ -73,6 +74,19 @@ public class DownloadThread extends Thread {
     public static void setProviders(Class[] providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
         DownloadThread.providers.addAll(Arrays.asList(providers));
+    }
+
+    public static void refreshProviders(Set<String> set) {
+        Class[] providers = new Class[set.size()];
+        Iterator<String> iterator = set.iterator();
+        for (int i = 0; i < set.size(); i++) {
+            try {
+                providers[i] = Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        DownloadThread.setProviders(providers);
     }
 
     public static Runnable getRunnable(final Lyrics.Callback callback, final String... params) {

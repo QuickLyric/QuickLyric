@@ -25,9 +25,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.geecko.QuickLyric.R;
@@ -36,6 +38,8 @@ import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
+import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +82,9 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
         total = cursor.getCount();
         updateProgress();
+        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
+                .getStringSet("pref_providers", Collections.EMPTY_SET);
+        DownloadThread.refreshProviders(providersSet);
         while (cursor.moveToNext()) {
             String artist = cursor.getString(0);
             String title = cursor.getString(1);

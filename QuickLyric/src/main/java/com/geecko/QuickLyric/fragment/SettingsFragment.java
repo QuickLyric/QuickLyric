@@ -78,19 +78,6 @@ public class SettingsFragment extends PreferenceFragment implements
                     startActivity(intent);
                 }
                 return true;
-            case "pref_providers":
-                Set<String> set = (Set<String>) newValue;
-                Class[] providers = new Class[set.size()];
-                Iterator<String> iterator = set.iterator();
-                for (int i = 0; i < set.size(); i++) {
-                    try {
-                        providers[i] = Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next());
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-                DownloadThread.setProviders(providers);
-                return true;
             case "pref_notifications":
                 if (newValue.equals("0")) {
                     ((NotificationManager) getActivity()
