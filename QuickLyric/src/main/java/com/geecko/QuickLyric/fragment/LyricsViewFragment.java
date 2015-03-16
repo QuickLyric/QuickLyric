@@ -198,7 +198,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
                     startRefreshAnimation();
-                    LyricsViewFragment.this.fetchLyrics(artist, track);
+                    new ParseTask().execute(LyricsViewFragment.this, mLyrics);
                 }
             }
         };
