@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
@@ -40,7 +41,12 @@ import android.widget.ListView;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
+import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
@@ -58,6 +64,7 @@ public class SettingsFragment extends PreferenceFragment implements
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
+        findPreference("pref_providers").setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -70,6 +77,19 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
                 }
+                return true;
+            case "pref_providers":
+                Set<String> set = (Set<String>) newValue;
+                Class[] providers = new Class[set.size()];
+                Iterator<String> iterator = set.iterator();
+                for (int i = 0; i < set.size(); i++) {
+                    try {
+                        providers[i] = Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next());
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                DownloadThread.setProviders(providers);
                 return true;
             case "pref_notifications":
                 if (newValue.equals("0")) {

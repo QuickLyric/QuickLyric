@@ -174,6 +174,8 @@ Terms of service available at:
     <string name="dl_progress" formatted="false">Downloading lyrics… %d/%d</string>
     <string name="dl_finished" formatted="false">Download finished</string>
     <string name="dl_finished_desc" formatted="false">Downloaded the lyrics for %d songs</string>
+    <string name="pref_providers">Additional lyrics sources</string>
+    <string name="pref_providers_sum">The more you select, the longer each download will take</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
@@ -191,6 +193,14 @@ Terms of service available at:
     <string-array name="themes">
         <item>@string/defaut_theme</item>
         <item>@string/dark_theme</item>
+    </string-array>
+    <string-array name="providers">
+        <item>Punk Rock</item>
+        <item>Metal</item>
+        <item>Hip Hop</item>
+        <item>Electronic Dance Music</item>
+        <item>Japanese (ひらがな)</item>
+        <item>Bollywood Music</item>
     </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>

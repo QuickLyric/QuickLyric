@@ -23,12 +23,26 @@
             android:title="@string/pref_theme"
             android:entries="@array/themes"
             android:entryValues="@array/themes_values"
-            android:defaultValue="0" />
+            android:defaultValue="0"/>
         <SwitchPreference
             android:key="pref_night_mode"
             android:title="@string/pref_night_mode"
             android:summary="@string/pref_night_mode_sum"
-            android:defaultValue="false" />
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Downloads">
+        <MultiSelectListPreference
+            android:key="pref_providers"
+            android:title="@string/pref_providers"
+            android:summary="@string/pref_providers_sum"
+            android:entries="@array/providers"
+            android:entryValues="@array/providers_values"/>
+        <CheckBoxPreference
+            android:key="pref_auto_save"
+            android:title="@string/pref_auto_save"
+            android:summary="@string/pref_auto_save_sum"
+            android:defaultValue="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_scrobbling_category">
@@ -36,33 +50,25 @@
             android:key="pref_filter_20min"
             android:title="@string/pref_20min_ignore"
             android:summary="@string/pref_20min_ignore_sum"
-            android:defaultValue="true" />
+            android:defaultValue="true"/>
         <CheckBoxPreference
             android:key="pref_auto_refresh"
             android:title="@string/pref_auto_refresh_title"
             android:summary="@string/pref_auto_refresh_summary"
-            android:defaultValue="false" />
+            android:defaultValue="false"/>
         <ListPreference
             android:key="pref_notifications"
             android:title="@string/pref_notifications"
             android:summary="@string/pref_notifications_sum"
             android:entries="@array/notifications"
             android:entryValues="@array/notifications_values"
-            android:defaultValue="0" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="Downloads">
-        <CheckBoxPreference
-            android:key="pref_auto_save"
-            android:title="@string/pref_auto_save"
-            android:summary="@string/pref_auto_save_sum"
-            android:defaultValue="false" />
+            android:defaultValue="0"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_more_category">
         <Preference
             android:title="@string/pref_about"
             android:key="pref_about"
-            android:summary="@string/pref_about_summary" />
+            android:summary="@string/pref_about_summary"/>
     </PreferenceCategory>
 </PreferenceScreen>

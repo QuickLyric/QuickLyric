@@ -33,6 +33,8 @@ import com.geecko.QuickLyric.lyrics.LyricsWiki;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
  * *
@@ -55,30 +57,35 @@ import java.lang.reflect.Method;
 
 public class DownloadThread extends Thread {
 
-    private static Class[] providers =
+    private static final Class[] mainProviders =
             {
                     LyricsWiki.class,
                     Genius.class,
-                    AZLyrics.class,
-                    JLyric.class
+                    AZLyrics.class
             };
+
+    private static ArrayList<Class> providers = new ArrayList<>(Arrays.asList(mainProviders));
 
     public DownloadThread(final Lyrics.Callback callback, final String... params) {
         super(DownloadThread.getRunnable(callback, params));
     }
 
+    public static void setProviders(Class[] providers) {
+        DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
+        DownloadThread.providers.addAll(Arrays.asList(providers));
+    }
+
     public static Runnable getRunnable(final Lyrics.Callback callback, final String... params) {
         return new Runnable() {
-            private Thread mThread;
 
+            @SuppressWarnings("unchecked")
             public Lyrics download(String url, String artist, String title) {
                 for (Class provider : providers) {
                     try {
-                        if (url.contains((String) provider.getField("domain").get(null))) {
+                        if (url.contains((String) provider.getField("domain").get(null)))
                             return (Lyrics) provider.getMethod("fromURL",
                                     String.class, String.class, String.class)
                                     .invoke(null, url, artist, title);
-                        }
                     } catch (NoSuchFieldException | IllegalAccessException
                             | NoSuchMethodException | InvocationTargetException ignored) {
                     }
@@ -86,6 +93,7 @@ public class DownloadThread extends Thread {
                 return null;
             }
 
+            @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title) {
                 Lyrics result = new Lyrics(Lyrics.NO_RESULT);
                 for (Class provider : providers) {
@@ -115,7 +123,6 @@ public class DownloadThread extends Thread {
 
             public void run() {
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-                this.mThread = Thread.currentThread();
 
                 Lyrics lyrics;
                 String artist = null;
@@ -164,7 +171,6 @@ public class DownloadThread extends Thread {
 
             // Define the Handler that receives messages from the thread and update the progress
             private final Handler handler = new Handler(Looper.getMainLooper()) {
-
                 @Override
                 public void handleMessage(Message msg) {
                     Lyrics result = (Lyrics) msg.getData().getSerializable("lyrics");
