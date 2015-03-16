@@ -26,6 +26,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -35,6 +36,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.geecko.QuickLyric.MainActivity;
@@ -54,6 +56,8 @@ public class SettingsFragment extends PreferenceFragment implements
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        findPreference("pref_contribute").setOnPreferenceClickListener(this);
+        findPreference("pref_issues").setOnPreferenceClickListener(this);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
@@ -102,10 +106,26 @@ public class SettingsFragment extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if ("pref_about".equals(preference.getKey())) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, (android.view.ViewGroup) getView(), false));
-            dialog.create().show();
+        switch (preference.getKey()) {
+            case "pref_about":
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) getView(), false));
+                dialog.create().show();
+                break;
+            case "pref_contribute":
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse("https://github.com/geecko86/QuickLyric"));
+                if (browserIntent.resolveActivity(getActivity().getPackageManager()) != null)
+                    startActivity(browserIntent);
+                break;
+            case "pref_issues":
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"quicklyricapp@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Issues with QuickLyric");
+                if (emailIntent.resolveActivity(getActivity().getPackageManager()) != null)
+                    startActivity(emailIntent);
+                break;
         }
         return true;
     }

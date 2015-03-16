@@ -180,6 +180,9 @@ Terms of service available at:
     <string name="dl_finished_desc" formatted="false">Downloaded the lyrics for %d songs</string>
     <string name="pref_providers">Additional lyrics sources</string>
     <string name="pref_providers_sum">The more you select, the longer each download will take</string>
+    <string name="pref_issues">Report Issues</string>
+    <string name="pref_contribute">Contribute on GitHub</string>
+    <string name="pref_contribute_sum">Improve translations, expand the lyrics catalog,…</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>

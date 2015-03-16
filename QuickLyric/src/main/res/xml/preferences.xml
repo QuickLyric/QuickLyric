@@ -66,6 +66,15 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_more_category">
+        <!-- fixme: make it do something !-->
+        <Preference
+            android:title="@string/pref_contribute"
+            android:key="pref_contribute"
+            android:summary="@string/pref_contribute_sum"/>
+        <Preference
+            android:title="@string/pref_issues"
+            android:key="pref_issues"
+            android:summary="quicklyricapp@gmail.com"/>
         <Preference
             android:title="@string/pref_about"
             android:key="pref_about"
