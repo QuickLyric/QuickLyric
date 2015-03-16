@@ -10,6 +10,8 @@ import com.geecko.QuickLyric.tasks.ParseTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
@@ -60,16 +62,10 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
             }
 
         } else if (url.contains("http://shz.am/")) {
-            try { // ToDo switch to Jsoup
-                String html = getUrlAsString(url);
-                int preceding = html.indexOf("<title>") + 7;
-                int following = html.substring(preceding).indexOf("</title>");
-                String title = html.substring(preceding, preceding + following);
-                artist = title.split(" - ")[0];
-
-                preceding = html.indexOf("\"og:title\"") + 20;
-                following = html.substring(preceding).indexOf("\"");
-                track = html.substring(preceding, preceding + following);
+            try {
+                Document doc = Jsoup.connect(url.trim()).get();
+                track = doc.getElementsByAttribute("data-track-title").text();
+                artist = doc.getElementsByAttribute("data-track-artist").text();
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
