@@ -29,7 +29,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
@@ -41,12 +40,7 @@ import android.widget.ListView;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
-import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
-
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
@@ -101,8 +95,9 @@ public class SettingsFragment extends PreferenceFragment implements
                     startActivity(intent);
                 }
                 return true;
+            default:
+                return true;
         }
-        return false;
     }
 
     @Override
