@@ -43,6 +43,8 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
     protected String[] doInBackground(Object... arg0) {
         lyricsViewFragment = (LyricsViewFragment) arg0[0];
         mContext = lyricsViewFragment.getActivity();
+        if (mContext == null)
+            cancel(true);
         currentLyrics = (Lyrics) arg0[1];
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         SharedPreferences preferences = mContext.getSharedPreferences("current_music", Context.MODE_PRIVATE);
