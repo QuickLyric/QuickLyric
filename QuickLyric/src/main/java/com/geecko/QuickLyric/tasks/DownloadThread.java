@@ -128,6 +128,8 @@ public class DownloadThread extends Thread {
             }
 
             private String[] correctTags(String artist, String title) {
+                if (artist == null || title == null)
+                    return new String[]{"", ""};
                 String correctedArtist = artist.replaceAll("\\(.*\\)", "")
                         .replaceAll(" \\- .*", "").trim();
                 String correctedTrack = title.replaceAll("\\(.*\\)", "")
