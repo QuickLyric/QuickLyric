@@ -172,12 +172,12 @@ Terms of service available at:
     <string name="pref_night_mode_sum">Display a dark background between 9pm and 6am</string>
     <string name="scan_action">Scan Music</string>
     <string name="warning">Warning</string>
-    <string name="scan_dialog" formatted="false">QuickLyric will now download the lyrics for a total of %d songs.\
-    Make sure you have a stable connexion for at least %d minute(s).</string>
+    <string name="scan_dialog">QuickLyric will now download the lyrics for a total of %1$d songs.\   
+    Make sure you have a stable connexion for at least %2$d minute(s).</string>
     <string name="content_providers_title">Scan music from…</string>
-    <string name="dl_progress" formatted="false">Downloading lyrics… %d/%d</string>
-    <string name="dl_finished" formatted="false">Download finished</string>
-    <string name="dl_finished_desc" formatted="false">Downloaded the lyrics for %d songs</string>
+    <string name="dl_progress">Downloading lyrics… %1$d/%2$d</string>
+    <string name="dl_finished">Download finished</string>
+    <string name="dl_finished_desc">Downloaded the lyrics for %1$d songs</string>
     <string name="pref_providers">Additional lyrics sources</string>
     <string name="pref_providers_sum">The more you select, the longer each download will take</string>
     <string name="pref_issues">Report Issues</string>
