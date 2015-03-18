@@ -35,6 +35,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -71,21 +72,20 @@ public class DownloadThread extends Thread {
         super(DownloadThread.getRunnable(callback, params));
     }
 
-    public static void setProviders(Class[] providers) {
+    public static void setProviders(List<Class> providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
-        DownloadThread.providers.addAll(0, Arrays.asList(providers));
+        DownloadThread.providers.addAll(0, providers);
     }
 
     public static void refreshProviders(Set<String> set) {
-        Class[] providers = new Class[set.size()];
+        ArrayList<Class> providers = new ArrayList<>(set.size());
         Iterator<String> iterator = set.iterator();
-        for (int i = 0; i < set.size(); i++) {
+        for (Class ignored : providers)
             try {
-                providers[i] = Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next());
+                providers.add(Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next()));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }
         DownloadThread.setProviders(providers);
     }
 
