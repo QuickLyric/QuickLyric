@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.tasks.ParseTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +57,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 track = jsonData.getString("track_name");
             } catch (IOException | JSONException e) {
                 e.printStackTrace(); // todo test offline
-                return null;
+                return new Lyrics(Lyrics.ERROR);
             }
 
         } else if (url.contains("http://shz.am/")) {
@@ -68,7 +67,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 artist = doc.getElementsByAttribute("data-track-artist").text();
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                return new Lyrics(Lyrics.ERROR);
             }
         } else
             return new Lyrics(Lyrics.ERROR);
@@ -81,13 +80,14 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
-        if (lyrics != null && lyrics.getFlag() == Lyrics.SEARCH_ITEM) {
-            if (lyricsViewFragment != null) {
-                lyricsViewFragment.startRefreshAnimation();
-                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
-            } else
-                ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
+        if (lyricsViewFragment != null) {
+            if (lyrics.getArtist() == null && lyrics.getTrack() == null) {
+                lyricsViewFragment.onLyricsDownloaded(lyrics);
+                return;
+            }
+            lyricsViewFragment.startRefreshAnimation();
+            lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
         } else
-            new ParseTask().execute();
+            ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
     }
 }
