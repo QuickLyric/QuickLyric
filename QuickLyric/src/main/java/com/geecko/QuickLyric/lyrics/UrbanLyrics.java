@@ -88,7 +88,7 @@ public class UrbanLyrics {
             return new Lyrics(Lyrics.ERROR);
         }
         Pattern p = Pattern.compile(
-                "<!-- start of lyrics -->(.*)<!-- end of lyrics -->",
+                "<!-- lyrics start -->(.*)<!-- lyrics end -->",
                 Pattern.DOTALL);
         Matcher matcher = p.matcher(html);
 

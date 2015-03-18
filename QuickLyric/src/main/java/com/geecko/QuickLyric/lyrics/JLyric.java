@@ -28,9 +28,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+@Reflection
 public class JLyric {
 
-    @Reflection
     public static final String domain = "j-lyric.net";
     private static final String baseUrl = "http://search.j-lyric.net/index.php?ct=0&ca=0&kl=&cl=0&ka=%1s&kt=%1s";
 
@@ -74,7 +74,7 @@ public class JLyric {
 
         try {
             Document lyricsPage = Jsoup.connect(url).get();
-            if (!lyricsPage.location().contains("jlyric"))
+            if (!lyricsPage.location().contains(domain))
                 throw new IOException("Redirected to wrong domain " + lyricsPage.location());
             text = lyricsPage.select("p#lyricBody").html();
             if (artist == null)
