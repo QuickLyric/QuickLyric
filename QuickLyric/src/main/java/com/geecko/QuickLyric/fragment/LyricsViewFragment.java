@@ -460,6 +460,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
     public void setCoverArt(String url, FadeInNetworkImageView cover) {
         MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.getActivity();
+        if (mainActivity == null)
+            return;
         if (cover == null)
             cover = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (mLyrics != null) {
