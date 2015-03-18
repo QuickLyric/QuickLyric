@@ -87,6 +87,8 @@ public class Lololyrics {
                     //Log.v(TAG, "Cover found");
                     lyrics.setCoverURL(loloResult.select("cover").text());
                 }
+                String weburl = loloResult.select("url").html();
+                lyrics.setURL(weburl);
                 return lyrics;
             } else {
                 return new Lyrics(Lyrics.NO_RESULT);
