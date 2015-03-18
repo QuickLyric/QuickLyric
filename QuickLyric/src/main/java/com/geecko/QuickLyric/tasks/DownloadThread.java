@@ -73,7 +73,7 @@ public class DownloadThread extends Thread {
 
     public static void setProviders(Class[] providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
-        DownloadThread.providers.addAll(Arrays.asList(providers));
+        DownloadThread.providers.addAll(0, Arrays.asList(providers));
     }
 
     public static void refreshProviders(Set<String> set) {
