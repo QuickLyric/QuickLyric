@@ -31,7 +31,6 @@
     </string-array>
     <string-array name="providers_values">
         <item>PLyrics</item>
-        <item>DarkLyrics</item>
         <item>UrbanLyrics</item>
         <item>Lololyrics</item>
         <item>JLyric</item>
