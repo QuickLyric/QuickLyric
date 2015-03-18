@@ -35,7 +35,7 @@
         <item>UrbanLyrics</item>
         <item>Lololyrics</item>
         <item>JLyric</item>
-        <item>Glamsham</item>
+        <item>Lyricsmint</item>
     </string-array>
     <string-array name="URI_values">
         <item>content://media/external/audio/media</item>
