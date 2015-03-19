@@ -39,6 +39,8 @@ If you're bilingual you can submit translations over at [Crowdin](https://crowdi
 
 ## Open Source Contributors
 
+If you want to expand the lyrics catalog, check out the [wiki](https://github.com/geecko86/QuickLyric/wiki/Expanding-the-catalog).
+
 Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update be.geecko.quicklyric.Keys with your own LastFM key.
 
 ## Credits
