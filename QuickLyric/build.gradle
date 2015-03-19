@@ -27,8 +27,8 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 22
-        versionName "1.6.1"
+        versionCode 23
+        versionName "1.7"
     }
 
     compileOptions {
@@ -58,7 +58,7 @@ android {
         fdroid {
         }
         play {
-            versionName "1.6.1p"
+            versionName "1.7p"
         }
     }
 }
