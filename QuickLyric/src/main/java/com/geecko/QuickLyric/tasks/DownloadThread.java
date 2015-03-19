@@ -78,11 +78,10 @@ public class DownloadThread extends Thread {
     }
 
     public static void refreshProviders(Set<String> set) {
-        ArrayList<Class> providers = new ArrayList<>(set.size());
-        Iterator<String> iterator = set.iterator();
-        for (Class ignored : providers)
+        ArrayList<Class> providers = new ArrayList<>();
+        for (String name : set)
             try {
-                providers.add(Class.forName("com.geecko.QuickLyric.lyrics." + iterator.next()));
+                providers.add(Class.forName("com.geecko.QuickLyric.lyrics." + name));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -110,6 +109,8 @@ public class DownloadThread extends Thread {
             @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title) {
                 Lyrics result = new Lyrics(Lyrics.NO_RESULT);
+                artist = "Arijit Singh, Shreya Ghoshal & Jawad Ahmed";
+                title = "Samjhawan";
                 for (Class provider : providers) {
                     try {
                         Method fromMetaData = provider.getMethod("fromMetaData", String.class, String.class);
