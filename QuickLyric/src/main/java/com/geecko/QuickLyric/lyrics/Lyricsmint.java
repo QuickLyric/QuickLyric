@@ -85,8 +85,8 @@ public class Lyricsmint {
     public static Lyrics fromMetaData(String artist, String title) {
         ArrayList<Lyrics> searchResults = search(artist + " " + title);
         for (Lyrics result : searchResults) {
-            if (result.getArtist().equals(artist) && result.getTrack().equals(title))
-                return fromAPI(result.getURL(), result.getArtist(), result.getTrack());
+            if (artist.contains(result.getArtist()) && title.equals(result.getTrack()))
+                return fromAPI(result.getURL(), artist, result.getTrack());
         }
         return new Lyrics(Lyrics.NO_RESULT);
     }
@@ -98,19 +98,19 @@ public class Lyricsmint {
     }
 
     public static Lyrics fromAPI(String url, String artist, String title) {
-        Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
-        result.setArtist(artist);
-        result.setTitle(title);
+        Lyrics lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);
+        lyrics.setArtist(artist);
+        lyrics.setTitle(title);
         // fixme no public url
         try {
             String jsonText = Net.getUrlAsString(url);
             JSONObject lyricsJSON = new JSONObject(jsonText);
-            result.setText(lyricsJSON.getString("body").trim());
+            lyrics.setText(lyricsJSON.getString("body").trim());
         } catch (IOException | JSONException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
-        result.setSource(domain);
-        return result;
+        lyrics.setSource(domain);
+        return lyrics;
     }
 }
