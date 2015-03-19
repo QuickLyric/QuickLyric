@@ -69,7 +69,7 @@ public class LyricsWiki {
             return new Lyrics(Lyrics.NO_RESULT);
         String text;
         try {
-            url = URLDecoder.decode(url, "utf-8");
+            //url = URLDecoder.decode(url, "utf-8");
             Document lyricsPage = Jsoup.connect(url).get();
             Element lyricbox = lyricsPage.select("div.lyricBox").get(0);
             lyricbox.after(lyricbox.childNode(0));
