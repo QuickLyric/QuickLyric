@@ -109,8 +109,6 @@ public class DownloadThread extends Thread {
             @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title) {
                 Lyrics result = new Lyrics(Lyrics.NO_RESULT);
-                artist = "Arijit Singh, Shreya Ghoshal & Jawad Ahmed";
-                title = "Samjhawan";
                 for (Class provider : providers) {
                     try {
                         Method fromMetaData = provider.getMethod("fromMetaData", String.class, String.class);
