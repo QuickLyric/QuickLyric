@@ -45,6 +45,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -328,6 +329,12 @@ public class LocalLyricsFragment extends ListFragment {
                         String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
                         Cursor countCursor = getActivity().getContentResolver()
                                 .query(contentProvider, projection, selection, null, null);
+                        if (countCursor == null || countCursor.getCount() == 0) {
+                            choiceDialog.cancel();
+                            Toast.makeText(getActivity(), getString(R.string.scan_error_no_content), Toast.LENGTH_LONG)
+                                    .show();
+                            return;
+                        }
                         final int count = countCursor.getCount();
                         final int time = (int) Math.ceil(count / 500f);
                         countCursor.close();

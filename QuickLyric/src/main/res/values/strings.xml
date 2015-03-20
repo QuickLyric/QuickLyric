@@ -183,6 +183,7 @@ Terms of service available at:
     <string name="pref_issues">Report Issues</string>
     <string name="pref_contribute">Contribute on GitHub</string>
     <string name="pref_contribute_sum">Improve translations, expand the lyrics catalog,…</string>
+    <string name="scan_error_no_content">Could not find any music</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
