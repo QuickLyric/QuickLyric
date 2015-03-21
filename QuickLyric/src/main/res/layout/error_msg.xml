@@ -27,25 +27,17 @@
 
     <TextView
         android:id="@+id/bugtext"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:gravity="top|center_horizontal"
-        android:paddingBottom="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="8dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="@string/no_results"
         android:textColor="#42000000"
-        android:textSize="@dimen/large_txt_size" />
-
-    <ImageView
-        android:id="@+id/no_results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bugtext"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/no_results"
-        android:src="@drawable/ic_error" />
+        android:textSize="@dimen/large_txt_size"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/bugtext_why"
@@ -54,13 +46,24 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone"
         android:gravity="bottom|center_horizontal"
-        android:layout_below="@id/no_results"
-        android:paddingTop="20dp"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="8dp"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
         android:onClick="whyPopUp"
         android:text="@string/no_results_why"
         android:textColor="#42000000"
         android:textSize="@dimen/small_txt_size"/>
+
+
+    <ImageView
+        android:id="@+id/no_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bugtext"
+        android:layout_above="@id/bugtext_why"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/no_results"
+        android:src="@drawable/ic_error" />
 
 </RelativeLayout>
