@@ -165,8 +165,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             cover.setErrorImageResId(android.R.drawable.ic_menu_close_clear_cancel);
 
             mFrame = (FrameLayout) layout.findViewById(R.id.frame);
-            final FloatingActionButton refreshFab = (FloatingActionButton) layout.findViewById(R.id.refresh_fab);
-
+            final RefreshIcon refreshFab = (RefreshIcon) layout.findViewById(R.id.refresh_fab);
+            refreshFab.setShadow(layout.findViewById(R.id.fab_shadow));
             refreshFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

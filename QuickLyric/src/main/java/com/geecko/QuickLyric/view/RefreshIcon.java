@@ -21,9 +21,11 @@ package com.geecko.QuickLyric.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
@@ -31,6 +33,7 @@ import com.melnykov.fab.ObservableScrollView;
 public class RefreshIcon extends FloatingActionButton implements Animation.AnimationListener {
 
     private final RotateAnimation rotateAnimation;
+    private ImageView shadow;
     private com.melnykov.fab.ObservableScrollView scrollView;
     private boolean mRunning = false;
     private boolean mEnded = false;
@@ -42,6 +45,27 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         rotateAnimation.setDuration(1100);
         rotateAnimation.setAnimationListener(this);
         rotateAnimation.setInterpolator(new LinearInterpolator());
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        shadow.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                shadow.setVisibility(VISIBLE);
+            }
+        }, 200);
+    }
+
+    @Override
+    public void hide() {
+        shadow.setVisibility(GONE);
+        super.hide();
+    }
+
+    public void setShadow(View shadow) {
+        this.shadow = (ImageView) shadow;
     }
 
     public void startAnimation() {
