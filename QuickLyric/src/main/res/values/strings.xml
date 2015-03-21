@@ -74,7 +74,7 @@ QuickLyric is licensed under the GNU Lesser General Public License Version 3 (GP
 \n
 \n-------------------------------------
 \n
-\nLyrics provided by AZLyrics, LyricsWiki, J-Lyric, Lololyrics, Genius.com, UrbanLyrics and PLyrics.com.
+\nLyrics provided by AZLyrics, LyricsWiki, J-Lyric, Lololyrics, Metal-Archives Genius.com, Lyricsmint, UrbanLyrics and PLyrics.com.
 \nSearch provided by Genius.com.
 \n
 \n
@@ -147,17 +147,20 @@ Terms of service available at:
 \n-------------------------------------
 \n
 \nSincere thanks to the following persons who helped translate the app:
-\nTatiana - Russian
-\nMarius - German
-\nTheophanis - Greek
-\nGiorgia - Italian
+\nTatiana, Maxim - Russian
+\nMarius, Fabian, Kevin - German
+\nTheophanis, Lucretius - Greek
+\nGiorgia, Salvatore - Italian
 \nNaofum on GitHub - Japanese
-\nNathalie - Dutch
+\nNathalie, Kevin and Lisa - Dutch
 \nDominika + Kasia - Polish
 \nYusuf - Turkish
 \nSonia - Arabic
+\nAbde, Erick - Spanish
+\nJordi - Catalan
 \nPolaris - Hungarian
 \nGurshabad - Hindi
+\nSerbian - Mladen
 \nGuy whose name I forgot + Marcos - Portuguese</string>
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
