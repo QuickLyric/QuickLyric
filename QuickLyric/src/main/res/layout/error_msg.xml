@@ -47,4 +47,20 @@
         android:contentDescription="@string/no_results"
         android:src="@drawable/ic_error" />
 
+    <TextView
+        android:id="@+id/bugtext_why"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:gravity="bottom|center_horizontal"
+        android:layout_below="@id/no_results"
+        android:paddingTop="20dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:onClick="whyPopUp"
+        android:text="@string/no_results_why"
+        android:textColor="#42000000"
+        android:textSize="@dimen/small_txt_size"/>
+
 </RelativeLayout>

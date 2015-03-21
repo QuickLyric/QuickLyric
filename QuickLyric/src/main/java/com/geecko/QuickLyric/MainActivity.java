@@ -21,6 +21,7 @@ package com.geecko.QuickLyric;
 
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -46,6 +47,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
@@ -54,6 +56,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
@@ -667,6 +670,10 @@ public class MainActivity extends ActionBarActivity {
         }
         if (drawer instanceof DrawerLayout && (newFragment == activeFragment))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
+    }
+
+    public void whyPopUp(View view) {
+        ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG)).showWhyPopup();
     }
 
 

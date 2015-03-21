@@ -23,12 +23,14 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -334,15 +336,29 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             textSwitcher.setText("");
             bugLayout.setVisibility(View.VISIBLE);
             int message;
+            int whyVisibility;
             if (lyrics.getFlag() == Lyrics.ERROR || !OnlineAccessVerifier.check(getActivity())) {
                 message = R.string.connection_error;
+                whyVisibility = TextView.GONE;
             } else {
                 message = R.string.no_results;
+                whyVisibility = TextView.VISIBLE;
             }
+            TextView whyTextView = ((TextView) bugLayout.findViewById(R.id.bugtext_why));
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
+            whyTextView.setVisibility(whyVisibility);
+            whyTextView.setPaintFlags(whyTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         }
         stopRefreshAnimation();
         getActivity().getIntent().setAction("");
+    }
+
+    public void showWhyPopup() {
+        String title = mLyrics.getTrack();
+        String artist = mLyrics.getArtist();
+        new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.why_popup_title))
+                .setMessage(Html.fromHtml(String.format(getString(R.string.why_popup_text), title, artist)))
+                .show();
     }
 
     @Override
