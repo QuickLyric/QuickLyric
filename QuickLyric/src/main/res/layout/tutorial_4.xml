@@ -47,6 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@id/demo_image"
         android:textAppearance="?android:attr/textAppearanceMediumInverse"
         android:text="@string/drawer_desc_sub"
         android:id="@+id/textView2"

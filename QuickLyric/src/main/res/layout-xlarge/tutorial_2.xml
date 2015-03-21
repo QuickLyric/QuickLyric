@@ -74,7 +74,6 @@
         android:scaleType="fitCenter"
         android:paddingTop="10dp"
         android:layout_below="@id/titles"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
