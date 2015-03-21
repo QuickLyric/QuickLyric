@@ -21,13 +21,13 @@ android {
         }
     }
     compileSdkVersion 22
-    buildToolsVersion '22'
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 23
+        versionCode 27
         versionName "1.7"
     }
 
