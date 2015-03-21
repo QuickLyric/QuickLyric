@@ -31,6 +31,7 @@
     </string-array>
     <string-array name="providers_values">
         <item>PLyrics</item>
+        <item>MetalArchives</item>
         <item>UrbanLyrics</item>
         <item>Lololyrics</item>
         <item>JLyric</item>
