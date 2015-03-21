@@ -25,7 +25,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -59,7 +58,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     private SQLiteDatabase database;
     private int total = 0;
     private int count = 0;
-    private int success = 0;
+    private int successCount = 0;
 
     public BatchDownloaderService() {
         super("Batch Downloader Service");
@@ -99,7 +98,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         updateProgress();
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT && this.database != null) {
             new WriteToDatabaseTask().execute(this.database, null, lyrics);
-            success++;
+            successCount++;
         }
     }
 
@@ -123,11 +122,12 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             Intent refreshIntent = new Intent("com.geecko.QuickLyric.updateDBList");
             PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 4, refreshIntent,
                     PendingIntent.FLAG_ONE_SHOT);
+            String text = getResources().getQuantityString(R.plurals.dl_finished_desc, successCount);
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
             notifBuilder.setSmallIcon(android.R.drawable.stat_sys_download_done);
             notifBuilder.setContentIntent(pendingIntent);
             notifBuilder.setContentTitle(getString(R.string.dl_finished));
-            notifBuilder.setContentText(String.format(getString(R.string.dl_finished_desc), success));
+            notifBuilder.setContentText(String.format(text, successCount > 1 ? 2 : 1));
             Notification notif = notifBuilder.build();
             notif.flags |= Notification.FLAG_AUTO_CANCEL;
             manager.notify(1, notif);

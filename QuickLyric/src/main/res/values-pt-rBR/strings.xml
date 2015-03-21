@@ -48,7 +48,7 @@
   <string name="pref_animations_title">Permitir animações</string>
   <string name="pref_animations_sum">Isto pode causar problemas de desempenho em aparelhos mais antigos</string>
   <string name="pref_look_feel_category">Olhe e sinta</string>
-  <string name="welcome">Bem vindo ao QuickLyric!</string>
+  <string name="welcome">Bem-vindo ao QuickLyric!</string>
   <string name="welcome2_sub">As letras que você está procurando&#8230;\nAqui, e agora.</string>
   <string name="apps_desc">Compatível com a maioria dos reprodutores de música</string>
   <string name="apps_desc_sub">Se o QuickLyric não funcionar com o seu reprodutor (por exemplo, Poweramp ou Spotify), certifique-se que a função \"Scrobbling\" ou \"Transmissão de Status\" está ativada.</string>

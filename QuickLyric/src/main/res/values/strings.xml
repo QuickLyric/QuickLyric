@@ -175,12 +175,9 @@ Terms of service available at:
     <string name="pref_night_mode_sum">Display a dark background between 9pm and 6am</string>
     <string name="scan_action">Scan Music</string>
     <string name="warning">Warning</string>
-    <string name="scan_dialog">QuickLyric will now download the lyrics for a total of %1$d songs.\   
-    Make sure you have a stable connexion for at least %2$d minute(s).</string>
     <string name="content_providers_title">Scan music from…</string>
     <string name="dl_progress">Downloading lyrics… %1$d/%2$d</string>
     <string name="dl_finished">Download finished</string>
-    <string name="dl_finished_desc">Downloaded the lyrics for %1$d songs</string>
     <string name="pref_providers">Additional lyrics sources</string>
     <string name="pref_providers_sum">The more you select, the longer each download will take</string>
     <string name="pref_issues">Report Issues</string>
@@ -199,6 +196,20 @@ A few possible reasons why:&lt;br/>
 • Finally, it\'s also possible that the lyrics for this song aren\'t available. If you have suggestions regarding additions to the catalog, feel free to email me.&lt;br/>
 </string>
     <string name="why_popup_title">Why doesn\'t it work?</string>
+    <string name="download_category">Downloads</string>
+
+    <plurals name="scan_dialog">
+        <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
+        Make sure you have a stable connection for %2$d minute.</item>
+        <item quantity="other">QuickLyric will now download the lyrics for a total of %1$d songs.\
+        Make sure you have a stable connection for at least %2$d minute(s).</item>
+    </plurals>
+
+    <plurals name="dl_finished_desc">
+        <item quantity="one">Downloaded the lyrics for %1$d song</item>
+        <item quantity="other">Downloaded the lyrics for %1$d songs</item>
+    </plurals>
+
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>

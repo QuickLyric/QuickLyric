@@ -331,7 +331,9 @@ public class LocalLyricsFragment extends ListFragment {
                                 .query(contentProvider, projection, selection, null, null);
                         if (countCursor == null || countCursor.getCount() == 0) {
                             choiceDialog.cancel();
-                            Toast.makeText(getActivity(), getString(R.string.scan_error_no_content), Toast.LENGTH_LONG)
+                            Toast.makeText(getActivity(),
+                                    getString(R.string.scan_error_no_content),
+                                    Toast.LENGTH_LONG)
                                     .show();
                             return;
                         }
@@ -339,10 +341,12 @@ public class LocalLyricsFragment extends ListFragment {
                         final int time = (int) Math.ceil(count / 500f);
                         countCursor.close();
                         choiceDialog.dismiss();
+                        String prompt = getResources()
+                                .getQuantityString(R.plurals.scan_dialog, count > 1 ? 2 : 1);
                         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getActivity());
                         confirmDialog
                                 .setTitle(R.string.warning)
-                                .setMessage(String.format(getString(R.string.scan_dialog), count, time))
+                                .setMessage(String.format(prompt, count, time))
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {

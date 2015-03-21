@@ -31,7 +31,7 @@
             android:defaultValue="false"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Downloads">
+    <PreferenceCategory android:title="@string/download_category">
         <MultiSelectListPreference
             android:key="pref_providers"
             android:title="@string/pref_providers"
