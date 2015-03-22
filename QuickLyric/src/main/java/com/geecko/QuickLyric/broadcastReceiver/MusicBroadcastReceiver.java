@@ -80,8 +80,8 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             track = extras.getString("com.amazon.mp3.track");
         }
 
-        if ((artist == null || "".equals(artist) || artist.contains("Unknown"))  //Could be problematic
-                || (track == null || "".equals(track) || track.contains("Unknown")
+        if ((artist == null || "".equals(artist))  //Could be problematic
+                || (track == null || track.contains("Unknown")
                 || track.startsWith("TN2") || track.startsWith("DTNS"))) // Ignore my favorite podcasts
             return;
 
