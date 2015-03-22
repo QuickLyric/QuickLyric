@@ -71,6 +71,40 @@
   <string name="pref_auto_save_sum">Tutti i testi saranno salvati sul tuo dispositivo</string>
   <string name="pref_night_mode">Modalità notturna</string>
   <string name="pref_night_mode_sum">Mostra uno sfondo scuro tra le 21 e le 6 del mattino</string>
+  <string name="scan_action">Cerca musica</string>
+  <string name="warning">Attenzione</string>
+  <string name="content_providers_title">Cerca musica da&#8230;</string>
+  <string name="dl_progress">Scaricamento testo&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Scaricamento terminato</string>
+  <string name="pref_providers">Fonti aggiuntive</string>
+  <string name="pref_providers_sum">Più fonti selezionerai, più lungo sarà il tempo di ricerca</string>
+  <string name="pref_issues">Segnala errori</string>
+  <string name="pref_contribute">Contribuisci su GitHub</string>
+  <string name="pref_contribute_sum">Migliora le traduzioni, espandi il catalogo dei testi,&#8230;</string>
+  <string name="scan_error_no_content">Nessuna canzone trovata</string>
+  <string name="no_results_why"><u>Perché?</u></string>
+  <string name="why_popup_text">
+Stavi cercando il testo di \"%1$s\" eseguito da artista \"%2$s\". Sfortunatamente QuickLyric non è riuscito a trovarlo&#8230; &lt;br/&gt;&lt;br/&gt;
+Alcune cause potrebbero essere:&lt;br/&gt;
+&lt;br/&gt;
+• La tua canzone non è stata &lt;strong&gt;riconosciuta&lt;/strong&gt; correttamente? QuickLyric non può cercare testi di canzoni che non riconosce.&lt;br/&gt;
+• Controlla se la tua connessione sta funzionando.&lt;br/&gt;
+• Forse questa canzone non è parte del catalogo principale. Hai selezionato le &lt;strong&gt;fonti aggiuntive&lt;/strong&gt; nelle impostazioni?&lt;br/&gt;
+• Potresti aver trovato un bug. Se è così inviami una mail.&lt;br/&gt;
+• Infine, è anche possibile che il testo della canzone non sia ancora disponibile. Se hai suggerimenti su dove cercare i testi, fammelo sapere via mail.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Perché non funziona?</string>
+  <string name="download_category">Download</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
+        Assicurati di avere una connessione stabile per %2$d minuto.</item>
+    <item quantity="other">QuickLyric scaricherà ora i testi di %1$d canzoni.\
+        Assicurati di avere una connessione stabile per almeno %2$d minuti.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Testo di %1$d canzone scaricato</item>
+    <item quantity="other">Testo di %1$d canzoni scaricati</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>Per artista&#8230;</item>
     <item>Per titolo&#8230;</item>
@@ -79,9 +113,21 @@
     <item>…alfabetico</item>
     <item>…alfabetico inverso</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk Rock</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Dance Elettronica</item>
+    <item>Giapponese (ひらがな)</item>
+    <item>Bollywood</item>
+  </string-array>
   <string-array name="notifications">
     <item>Disabilitate (predefinito)</item>
     <item>Abilitate</item>
     <item>Abilitate (fissate)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Questo dispositivo</item>
+    <item>La tua libreria del Google Play Music</item>
   </string-array>
 </resources>

@@ -71,6 +71,19 @@
   <string name="pref_auto_save_sum">Все тексты будут храниться на вашем устройстве</string>
   <string name="pref_night_mode">Ночной режим</string>
   <string name="pref_night_mode_sum">Отображать тёмный фон между 6-ю вечера и 9-ю утра</string>
+  <string name="scan_action">Сканировать Фонотеку</string>
+  <string name="warning">Предупреждение</string>
+  <string name="content_providers_title">Сканировать музыку из&#8230;</string>
+  <string name="dl_progress">Скачивание текстов&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Скачивание закончено</string>
+  <string name="pref_providers">Дополнительные источники текстов</string>
+  <string name="pref_providers_sum">Чем больше Вы выберите, тем дольше времени это займёт</string>
+  <string name="pref_issues">Сообщите о проблемах</string>
+  <string name="pref_contribute">Внести свой вклад на GitHub</string>
+  <string name="pref_contribute_sum">Улучшить переводы, увеличить каталог текстов&#8230;</string>
+  <string name="scan_error_no_content">Музыка не найдена</string>
+  <string name="no_results_why"><u>Почему?</u></string>
+  <string name="download_category">Загрузок</string>
   <string-array name="sort_modes">
     <item>По исполнителю&#8230;</item>
     <item>По названию&#8230;</item>

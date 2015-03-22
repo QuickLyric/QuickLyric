@@ -51,6 +51,9 @@
   <string name="welcome">QuickLyric’e Hoşgeldiniz!</string>
   <string name="welcome2_sub">Aradığınız sözler&#8230; hemen\n&#8230;simdi.</string>
   <string name="apps_desc">Çoğu müzik oyuncu ile uyumlu</string>
+  <string name="apps_desc_sub">QuickLyric oyuncunuz (e.g Poweramp, GoneMAD veya Spotify) ile çalışmazsa, \"Skroplama\" nın veya \"Yayın durumu\" nun etkin olmasına emin olun.</string>
+  <string name="id_desc">Favori MusicID uygulaman ile tümleştirme.</string>
+  <string name="id_desc_sub">1. Bir şarkıyı tanımlama\n2. QuickLyric\'a sonuçları paylaşın\n3. şarkı sözlerinin tadını çıkar</string>
   <string name="refresh_desc">Müzik değiştiğinde&#8230;</string>
   <string name="refresh_desc_sub">Bu düğmeye basın, birakin QuickLyric geri kalanini yapsin.</string>
   <string name="drawer_desc">Aramaya devam edelim !</string>
@@ -75,6 +78,6 @@
   <string-array name="notifications">
     <item>Devre dışı (varsayılan)</item>
     <item>Etkin</item>
-    <item>Enabled (sticky)</item>
+    <item>Etkin (Yapışkan)</item>
   </string-array>
 </resources>

@@ -25,17 +25,17 @@
   <string name="no_results">Aucune parole trouvée pour ce morceau</string>
   <string name="connection_error">Connexion impossible.</string>
   <string name="no_refresh">Inutile de rafraîchir</string>
-  <string name="search_hint">Recherche</string>
-  <string name="search_no_result">Aucun résultats</string>
+  <string name="search_hint">Rechercher</string>
+  <string name="search_no_result">Aucun résultat</string>
   <string name="beam_txt">Envoyer ces paroles ?</string>
   <string name="pref_20min_ignore">Ignorer les morceaux longs</string>
   <string name="pref_20min_ignore_sum">Les morceaux plus longs que 20 minutes (comme des podcasts) sont bloqués</string>
   <string name="pref_about">À propos</string>
-  <string name="pref_about_summary">Plus d\'informations à propos de QuickLyric</string>
-  <string name="local_title">Paroles sauvées</string>
+  <string name="pref_about_summary">En savoir plus à propos de QuickLyric</string>
+  <string name="local_title">Paroles sauvegardées</string>
   <string name="settings_title">Paramètres</string>
-  <string name="save_action">Sauver</string>
-  <string name="lyrics_saved">Paroles sauvées</string>
+  <string name="save_action">Sauvegarder</string>
+  <string name="lyrics_saved">Paroles sauvegardées</string>
   <string name="lyrics_removed">Paroles supprimées</string>
   <string name="remove_action">Supprimer</string>
   <string name="pref_auto_refresh_title">Rafraîchissement automatique</string>
@@ -44,15 +44,15 @@
   <string name="unselect_all_action">Tout désélectionner</string>
   <string name="sort_action">Trier</string>
   <string name="sort_dialog_title">Tri&#8230;</string>
-  <string name="local_empty_database">Vous n\'avez pas encore sauvé de paroles</string>
+  <string name="local_empty_database">Vous n\'avez pas encore sauvegardé de paroles</string>
   <string name="pref_animations_title">Activer les animations</string>
   <string name="pref_animations_sum">Ceci peut rendre l\'application moins fluide</string>
-  <string name="pref_look_feel_category">Aspect</string>
+  <string name="pref_look_feel_category">Apparence</string>
   <string name="welcome">Bienvenue dans QuickLyric !</string>
   <string name="welcome2_sub">Les paroles que vous cherchiez&#8230;\nInstantanément.</string>
   <string name="apps_desc">Compatible avec la plupart des lecteurs de musique</string>
   <string name="apps_desc_sub">Si QuickLyric ne fonctionne pas avec votre lecteur (par exemple Poweramp, GoneMAD ou Spotify), assurez-vous que le « Scrobbling » ou « Statut de diffusion » est activé.</string>
-  <string name="id_desc">Liaison avec vous applications d\'idenification musicale préférées.</string>
+  <string name="id_desc">Intégration avec vos applications d’identification musicale préférées.</string>
   <string name="id_desc_sub">1. Identifiez une chanson\n2. Partagez le résultat vers QuickLyric\n3. Profitez des paroles</string>
   <string name="refresh_desc">Quand la chanson a changé&#8230;</string>
   <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric se chargera du reste.</string>
@@ -71,6 +71,40 @@
   <string name="pref_auto_save_sum">Toutes les paroles seront stockées sur votre appareil</string>
   <string name="pref_night_mode">Mode nocturne</string>
   <string name="pref_night_mode_sum">Affiche un fond sombre entre 21h et 6h</string>
+  <string name="scan_action">Scanner ma musique</string>
+  <string name="warning">Avertissement</string>
+  <string name="content_providers_title">Analyse de la musique depuis&#8230;</string>
+  <string name="dl_progress">Téléchargement de paroles&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Téléchargement terminé</string>
+  <string name="pref_providers">Sources supplémentaires de paroles</string>
+  <string name="pref_providers_sum">Plus vous en sélectionnez, plus les téléchargements seront longs</string>
+  <string name="pref_issues">Signaler un problème</string>
+  <string name="pref_contribute">Contribuer sur GitHub</string>
+  <string name="pref_contribute_sum">Améliorer la traduction, étendre le catalogue de paroles,&#8230;</string>
+  <string name="scan_error_no_content">Aucune musique trouvée</string>
+  <string name="no_results_why"><u>Pourquoi ?</u></string>
+  <string name="why_popup_text">
+Vous cherchiez les paroles de \"%1$s\" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver&#8230; &lt;br/&gt;&lt;br/&gt;
+Plusieurs raisons possibles:&lt;br/&gt;
+&lt;br/&gt;
+• Est-ce que votre musique est &lt;strong&gt;taguée&lt;/strong&gt; correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.&lt;br/&gt;
+• Vérifiez votre connexion.&lt;br/&gt;
+• Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les &lt;strong&gt;sources supplémentaires&lt;/strong&gt; dans les options?&lt;br/&gt;
+• Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.&lt;br/&gt;
+• Enfin, il est possible que ces paroles ne soient simplement pas disponibles. Si vous voulez suggérer des ajouts au catalogue, n\'hésitez pas à m\'écrire.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Pourquoi ça ne fonctionne pas ?</string>
+  <string name="download_category">Téléchargements</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
+        Vérifiez que vous avez une connexion stable pour %2$d minute.</item>
+    <item quantity="other">QuickLyric va maintenant télécharger les paroles pour %1$d chansons.\
+        Vérifiez que vous avez une connexion stable pour %2$d minutes.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Les paroles d\'%1$d chanson ont été téléchargées</item>
+    <item quantity="other">Les paroles de %1$d chansons ont été téléchargées</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>Par Artiste&#8230;</item>
     <item>Par Titre&#8230;</item>
@@ -79,9 +113,21 @@
     <item>Alphabétique</item>
     <item>Inverse</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk Rock</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Electronic Dance Music</item>
+    <item>Japonais (ひらがな)</item>
+    <item>Musique de Bollywood</item>
+  </string-array>
   <string-array name="notifications">
     <item>Désactivé (par défaut)</item>
     <item>Activées</item>
     <item>Activées (statiques)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Cet appareil</item>
+    <item>Votre librairie Google Play Music</item>
   </string-array>
 </resources>

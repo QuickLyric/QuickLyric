@@ -71,6 +71,40 @@
   <string name="pref_auto_save_sum">Alle Songtexte werden auf Ihrem Gerät gespeichert</string>
   <string name="pref_night_mode">Nachtmodus</string>
   <string name="pref_night_mode_sum">Zwischen 21:00 und 06:00  dunklen Hintergrund verwenden</string>
+  <string name="scan_action">Musik scannen</string>
+  <string name="warning">Warnung</string>
+  <string name="content_providers_title">Musik scannen von&#8230;</string>
+  <string name="dl_progress">Songtexte werden heruntergeladen... %1$d/%2$d</string>
+  <string name="dl_finished">Donwload abgeschlossen</string>
+  <string name="pref_providers">Zusätzliche Quellen für Songtexte</string>
+  <string name="pref_providers_sum">Je mehr Quellen ausgewählt werden, desto länger wird jeder Download dauern</string>
+  <string name="pref_issues">Probleme melden</string>
+  <string name="pref_contribute">Machen Sie mit auf GitHub</string>
+  <string name="pref_contribute_sum">Verbessern Sie Übersetzungen, vergrößeren Sie den Katalog an Songtexten&#8230;</string>
+  <string name="scan_error_no_content">Konnte keine Musik finden</string>
+  <string name="no_results_why"><u>Warum?</u></string>
+  <string name="why_popup_text">
+Sie haben nach den Songtexten von \"%1$s\" by %2$s gesucht. Leider konnte QuickLyric diese nicht finden&#8230; &lt;br/&gt;&lt;br/&gt;
+Mögliche Ursachen:&lt;br/&gt;
+&lt;br/&gt;
+• Sind Ihre Musikdateien korrekt &lt;strong&gt;getagged&lt;/strong&gt;? QuickLyric erkennt Musik nur, wenn Sie richtig getagged wurde.&lt;br/&gt;
+• Prüfen Sie Ihre Internetverbindung.&lt;br/&gt;
+• Möglicherweise ist der Song nicht im Hauptkalaog zu finden. Haben Sie die &lt;strong&gt;zusätzlichen Quellen&lt;/strong&gt; in den Einstellungen aktiviert?&lt;br/&gt;
+• Vielleicht haben Sie einen Fehler gefunden. In dem Falle senden Sie mir bitte ein E-Mail.&lt;br/&gt;
+• Schließlich könnte es sein, dass die Songtexte für dieses Musikstück nicht verfügbar sind. Sofern Sie Vorschläge für zusätzliche Musikkataloge haben, senden Sie mir bitte ein E-Mail.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Warum funktioniert es nicht?</string>
+  <string name="download_category">Downloads</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric wird nun den Songtext für %1$d Musikdatei herunterladen.\
+        Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minute eine Verbindung zum Internet haben.</item>
+    <item quantity="other">QuickLyric wird nun die Songtexte für %1$d Musikdateien herunterladen.\
+        Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minuten eine Verbindung zum Internet haben.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Songtext für %1$d Musikdatei heruntergeladen</item>
+    <item quantity="other">Songtexte für %1$d Musikdateien heruntergeladen</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>Nach Künstler&#8230;</item>
     <item>Nach Titel&#8230;</item>
@@ -79,9 +113,21 @@
     <item>…alphabetisch</item>
     <item>…umgekehrt</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk Rock</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Elektronische Tanzmusik (EDM)</item>
+    <item>Japanisch (ひらがな)</item>
+    <item>Bollywood Musik</item>
+  </string-array>
   <string-array name="notifications">
     <item>Deaktiviert (Standard)</item>
     <item>Aktiviert</item>
     <item>Aktiviert (bleibend)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Diesem Gerät</item>
+    <item>Ihrer Google Play Musik Bibliothek</item>
   </string-array>
 </resources>

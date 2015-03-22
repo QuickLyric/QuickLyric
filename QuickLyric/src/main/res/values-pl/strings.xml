@@ -24,22 +24,22 @@
   <string name="refresh">Odśwież</string>
   <string name="no_results">Brak wyników</string>
   <string name="connection_error">Nie udało się połączyć.</string>
-  <string name="no_refresh">Nie wymaga odświeżania.</string>
+  <string name="no_refresh">Nie wymaga odświeżenia</string>
   <string name="search_hint">Szukaj</string>
   <string name="search_no_result">Brak wyników</string>
   <string name="beam_txt">Wyślij tekst?</string>
-  <string name="pref_20min_ignore">Ignoruj długie kawałki</string>
-  <string name="pref_20min_ignore_sum">Kawałki dłuższe niż 20 minut (takie jak podcasty) nie są traktowane jako piosenki</string>
+  <string name="pref_20min_ignore">Ignoruj długie nagrania</string>
+  <string name="pref_20min_ignore_sum">Nagrania dłuższe niż 20 minut (takie jak podcasty) nie są traktowane jako piosenki</string>
   <string name="pref_about">Więcej</string>
-  <string name="pref_about_summary">Więcej o QuickLyric</string>
-  <string name="local_title">Zachowane teksty piosenek</string>
+  <string name="pref_about_summary">Dodatkowe informacje o QuickLyric</string>
+  <string name="local_title">Zachowane teksty</string>
   <string name="settings_title">Ustawienia</string>
   <string name="save_action">Zapisz</string>
   <string name="lyrics_saved">Zapisane teksty piosenek</string>
   <string name="lyrics_removed">Teksty piosenek zostały usuniete ze schowka</string>
   <string name="remove_action">Usuń</string>
-  <string name="pref_auto_refresh_title">Automatycznie odświeżaj teksty piosenek</string>
-  <string name="pref_auto_refresh_summary">Tekst będzie odświeżany automatycznie za każdym razem kiedy piosenka ulegnie zmianie</string>
+  <string name="pref_auto_refresh_title">Automatycznie odświeżaj teksty</string>
+  <string name="pref_auto_refresh_summary">Tekst będzie odświeżany automatycznie po zmianie piosenki</string>
   <string name="select_all_action">Zaznacz wszystko</string>
   <string name="unselect_all_action">Odznacz wszystko</string>
   <string name="sort_action">Sortuj</string>
@@ -58,11 +58,11 @@
   <string name="refresh_desc_sub">Kliknij tutaj, QuickLyric zrobi resztę.</string>
   <string name="drawer_desc">Poznaj więcej możliwości!</string>
   <string name="drawer_desc_sub">By mieć dostęp do pozostałych opcji, kliknij tutaj (albo przesuń palcem od krawędzi ekranu).</string>
-  <string name="pref_more_category">Drugi</string>
+  <string name="pref_more_category">Więcej opcji</string>
   <string name="share_prompt">Importuj z Shazam/Soundhound</string>
   <string name="undo">Anuluj</string>
   <string name="skip">Pomiń</string>
-  <string name="pref_theme">Wygląd</string>
+  <string name="pref_theme">Kolorystyka</string>
   <string name="pref_notifications">Powiadomienia</string>
   <string name="defaut_theme">Bursztynowy (domyślny)</string>
   <string name="dark_theme">Ciemny</string>
@@ -71,6 +71,43 @@
   <string name="pref_auto_save_sum">Wszystkie teksty będą przechowywane na Twoim urządzeniu</string>
   <string name="pref_night_mode">Tryb nocny</string>
   <string name="pref_night_mode_sum">Wyświetlaj ciemne tło między godziną 21:00 a 06:00</string>
+  <string name="scan_action">Przeszukaj całą muzykę</string>
+  <string name="warning">Ostrzeżenie</string>
+  <string name="content_providers_title">Przeszukaj muzykę z&#8230;</string>
+  <string name="dl_progress">Trwa pobieranie tekstów&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Pobieranie zakończone</string>
+  <string name="pref_providers">Dodatkowe źródła tekstów</string>
+  <string name="pref_providers_sum">Im więcej spośród nich wybierzesz, tym dłużej potrwa każde pobieranie</string>
+  <string name="pref_issues">Zgłoś błędy</string>
+  <string name="pref_contribute">Pomóż rozwijać aplikację na GitHub</string>
+  <string name="pref_contribute_sum">Popraw tłumaczenie, rozwijaj katalog tekstów&#8230;</string>
+  <string name="scan_error_no_content">Nie znaleziono muzyki</string>
+  <string name="no_results_why"><u>Dlaczego?</u></string>
+  <string name="why_popup_text">
+Szukasz tekstu piosenki \"%1$s\" autorstwa %2$s. Niestety QuickLyric nie mógł go znaleźć&#8230; &lt;br/&gt;&lt;br/&gt;
+Jest kilka możliwych przyczyn:&lt;br/&gt;
+&lt;br/&gt;
+• Czy Twoje piosenki są prawidłowo &lt;strong&gt;otagowane&lt;/strong&gt;? Jeśli nie, QuickLyric nie może ich rozpoznać.&lt;br/&gt;
+• Sprawdź czy masz połączenie z internetem.&lt;br/&gt;
+• Możliwe, że poszukiwana przez Ciebie piosenka nie znajduje się w głównym katalogu. Czy uaktywniłeś &lt;strong&gt;dodatkowe źródła&lt;/strong&gt; w ustawieniach?&lt;br/&gt;
+• Być może natrafiłeś na błąd aplikacji. Jeśli tak, proszę o kontakt mailowy.&lt;br/&gt;
+• Jeśli powyższe przyczyny wydają się mało prawdopodobne, poszukiwany przez Ciebie tekst może po prostu być niedostępny. Jeśli masz sugestie dotyczące poszerzenia katalogu, śmiało możesz zgłosić mi to mailem.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Dlaczego nie działa?</string>
+  <string name="download_category">Pobrania</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
+        Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>
+    <item quantity="few">QuickLyric pobierze teraz teksty %1$d piosenek.\
+        Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>
+    <item quantity="many">QuickLyric pobierze teraz teksty %1$d piosenek.\
+        Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Pobrano tekst %1$d piosenki</item>
+    <item quantity="few">Pobrano teksty %1$d piosenek</item>
+    <item quantity="many">Pobrano teksty %1$d piosenek</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>&#8230;Według artysty</item>
     <item>&#8230;Według tytułu</item>
@@ -79,9 +116,21 @@
     <item>Od A do Z</item>
     <item>Od Z do A</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Dance</item>
+    <item>Muzyka japońska (ひらがな)</item>
+    <item>Muzyka z Bollywood</item>
+  </string-array>
   <string-array name="notifications">
     <item>Wyłączone (domyślnie)</item>
     <item>Włączone</item>
     <item>Włączone (Przyklejone)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Tego urządzenia</item>
+    <item>Twojej biblioteki Google Play Music</item>
   </string-array>
 </resources>

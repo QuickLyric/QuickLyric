@@ -71,6 +71,17 @@
   <string name="pref_auto_save_sum">Стихови ће бити сачувани на вашем уређају</string>
   <string name="pref_night_mode">Ноћни режим</string>
   <string name="pref_night_mode_sum">Приказ тамне позадине између 9 навече и 6 ујутру</string>
+  <string name="scan_action">Потражи музику</string>
+  <string name="warning">Упозорење</string>
+  <string name="content_providers_title">Потражи музику са&#8230;</string>
+  <string name="dl_progress">Преузимам стихове&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Преузимање завршено</string>
+  <string name="pref_providers">Додатни извори стихова</string>
+  <string name="pref_issues">Пријава грешака</string>
+  <string name="pref_contribute">Доприноси на Гитхабу</string>
+  <string name="no_results_why"><u>Зашто?</u></string>
+  <string name="why_popup_title">Зашто не ради?</string>
+  <string name="download_category">Преузимања</string>
   <string-array name="sort_modes">
     <item>по извођачу&#8230;</item>
     <item>по наслову&#8230;</item>
@@ -79,9 +90,21 @@
     <item>растуће</item>
     <item>опадајуће</item>
   </string-array>
+  <string-array name="providers">
+    <item>Панк рок</item>
+    <item>Метал</item>
+    <item>Хип хоп</item>
+    <item>Електронска денс музика</item>
+    <item>Јапанска (ひらがな)</item>
+    <item>Боливудска музика</item>
+  </string-array>
   <string-array name="notifications">
     <item>Онемогућена (подразумевано)</item>
     <item>Омогућена</item>
     <item>Омогућена (лепљива)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>овог уређаја</item>
+    <item>ваше Гугл Плеј музичке библиотеке</item>
   </string-array>
 </resources>
