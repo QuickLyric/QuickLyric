@@ -50,6 +50,7 @@
         android:paddingTop="8dp"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
+        android:clickable="true"
         android:onClick="whyPopUp"
         android:text="@string/no_results_why"
         android:textColor="#42000000"
