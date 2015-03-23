@@ -38,6 +38,8 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> 
     @Override
     protected ArrayList<Lyrics> doInBackground(Object... params) {
         localLyricsFragment = (LocalLyricsFragment) params[0];
+        if (localLyricsFragment == null || localLyricsFragment.getActivity() == null)
+            return new ArrayList<>(0);
         SharedPreferences sharedPreferences = localLyricsFragment.getActivity().getSharedPreferences("local_sort_order", Context.MODE_PRIVATE);
         int orderColumn = sharedPreferences.getInt("mode", 0);
         boolean descending;
@@ -45,11 +47,11 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> 
         switch (orderColumn) {
             default:
                 descending = (sharedPreferences.getInt("order_artist", 1) == 1);
-                columns = new String[]{DatabaseHelper.columns[0],DatabaseHelper.columns[1]};
+                columns = new String[]{DatabaseHelper.columns[0], DatabaseHelper.columns[1]};
                 break;
             case 1:
                 descending = (sharedPreferences.getInt("order_title", 1) == 1);
-                columns = new String[]{DatabaseHelper.columns[1],DatabaseHelper.columns[0]};
+                columns = new String[]{DatabaseHelper.columns[1], DatabaseHelper.columns[0]};
                 break;
         }
         String orderBy = String.format("LTRIM(Replace(%s, 'The ', '')) %s,%s ASC", columns[0], (descending ? "DESC" : "ASC"), columns[1]);
