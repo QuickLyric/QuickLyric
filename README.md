@@ -22,8 +22,10 @@ The build system relies on Gradle and Android Studio is therefore recommended.
 
 * **Lyrics** - Shows the lyrics of the song you are listening to at the moment. The Refresh button allows your to update the lyrics when the next song has started playing. In the action bar, you can to download the lyrics on your device (for offline usage), search and share the URL with a friend.
 * **Local Storage** - Each lyrics can be stored on your device.
-* **Search** - Search for Lyrics on LyricsNMusic.
-* **System Integration** - Access the lyrics you want after you've identified a song with Shazam or Soundhound via the share button. Open URLs from AZLyrics, LyricsNMusic and LyricWikia directly with the app.
+* **Search** - Search for Lyrics on Genius.
+* **Batch Download** - Download the lyrics for all your music in a few minutes.
+* **Material Design**
+* **System Integration** - Access the lyrics you want after you've identified a song with Shazam or Soundhound via the share button. Open URLs from AZLyrics, Genius.com and LyricWikia directly with the app.
 * **NFC** - Share lyrics with your friends via Android Beam.
 * **More than 10 languages supported** - Including German, Greek, Spanish, French, Italian, Japanese, Dutch, Polish, Russian, Turkish and English.
 
