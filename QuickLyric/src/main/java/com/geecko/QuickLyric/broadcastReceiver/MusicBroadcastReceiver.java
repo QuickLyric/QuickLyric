@@ -81,8 +81,8 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         }
 
         if ((artist == null || "".equals(artist))  //Could be problematic
-                || (track == null || track.contains("Unknown")
-                || track.startsWith("TN2") || track.startsWith("DTNS"))) // Ignore my favorite podcasts
+                || (track == null || "".equals(track)
+                || track.startsWith("DTNS"))) // Ignore one of my favorite podcasts
             return;
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
