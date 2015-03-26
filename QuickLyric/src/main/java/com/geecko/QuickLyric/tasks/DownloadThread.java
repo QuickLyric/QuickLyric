@@ -28,13 +28,13 @@ import android.os.Process;
 import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.lyrics.LyricsMania;
 import com.geecko.QuickLyric.lyrics.LyricsWiki;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +63,8 @@ public class DownloadThread extends Thread {
             {
                     LyricsWiki.class,
                     Genius.class,
-                    AZLyrics.class
+                    AZLyrics.class,
+                    LyricsMania.class
             };
 
     private static ArrayList<Class> providers = new ArrayList<>(Arrays.asList(mainProviders));
