@@ -44,17 +44,14 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class BatchDownloaderService extends IntentService implements Lyrics.Callback {
-    private final ThreadPoolExecutor mDownloadThreadPool;
     // Sets the amount of time an idle thread will wait for a task before terminating
     private static final int KEEP_ALIVE_TIME = 1;
-
     // Sets the Time Unit to seconds
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
-
     // Sets the threadpool size to 8
     private static final int CORE_POOL_SIZE = 8;
     private static final int MAXIMUM_POOL_SIZE = 8;
-
+    private final ThreadPoolExecutor mDownloadThreadPool;
     private SQLiteDatabase database;
     private int total = 0;
     private int count = 0;
@@ -82,7 +79,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         total = cursor.getCount();
         updateProgress();
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
-                .getStringSet("pref_providers", Collections.EMPTY_SET);
+                .getStringSet("pref_providers", Collections.<String>emptySet());
         DownloadThread.refreshProviders(providersSet);
         while (cursor.moveToNext()) {
             String artist = cursor.getString(0);
@@ -122,12 +119,13 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             Intent refreshIntent = new Intent("com.geecko.QuickLyric.updateDBList");
             PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 4, refreshIntent,
                     PendingIntent.FLAG_ONE_SHOT);
-            String text = getResources().getQuantityString(R.plurals.dl_finished_desc, successCount);
+            String text = getResources()
+                    .getQuantityString(R.plurals.dl_finished_desc, successCount, successCount);
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
             notifBuilder.setSmallIcon(android.R.drawable.stat_sys_download_done);
             notifBuilder.setContentIntent(pendingIntent);
             notifBuilder.setContentTitle(getString(R.string.dl_finished));
-            notifBuilder.setContentText(String.format(text, successCount > 1 ? 2 : 1));
+            notifBuilder.setContentText(text);
             Notification notif = notifBuilder.build();
             notif.flags |= Notification.FLAG_AUTO_CANCEL;
             manager.notify(1, notif);
