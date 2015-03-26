@@ -251,7 +251,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             url = params[2];
         this.startRefreshAnimation();
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getStringSet("pref_providers", Collections.EMPTY_SET);
+                .getStringSet("pref_providers", Collections.<String>emptySet());
         DownloadThread.refreshProviders(providersSet);
 
         if (url == null)
@@ -357,7 +357,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         String title = mLyrics.getTrack();
         String artist = mLyrics.getArtist();
         new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.why_popup_title))
-                .setMessage(Html.fromHtml(String.format(getString(R.string.why_popup_text), title, artist)))
+                .setMessage(String.format(String.valueOf(Html.fromHtml(getString(R.string.why_popup_text))),
+                        title, artist))
                 .show();
     }
 
