@@ -134,6 +134,8 @@ public class DownloadThread extends Thread {
                         .replaceAll(" \\- .*", "").trim();
                 String correctedTrack = title.replaceAll("\\(.*\\)", "")
                         .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
+                String[] separatedArtists = correctedArtist.split(", ");
+                correctedArtist = separatedArtists[separatedArtists.length-1];
                 return new String[]{correctedArtist, correctedTrack};
             }
 
