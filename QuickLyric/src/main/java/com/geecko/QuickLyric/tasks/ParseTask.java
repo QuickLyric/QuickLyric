@@ -35,17 +35,22 @@ import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
+    private final boolean showMsg;
     private Lyrics currentLyrics;
     private LyricsViewFragment lyricsViewFragment;
     private Context mContext;
 
+    public ParseTask(LyricsViewFragment fragment, boolean showMsg) {
+        this.lyricsViewFragment = fragment;
+        this.showMsg = showMsg;
+    }
+
     @Override
     protected String[] doInBackground(Object... arg0) {
-        lyricsViewFragment = (LyricsViewFragment) arg0[0];
         mContext = lyricsViewFragment.getActivity();
         if (mContext == null)
             cancel(true);
-        currentLyrics = (Lyrics) arg0[1];
+        currentLyrics = (Lyrics) arg0[0];
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         SharedPreferences preferences = mContext.getSharedPreferences("current_music", Context.MODE_PRIVATE);
         String[] music = new String[2];
@@ -56,9 +61,10 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
     @Override
     protected void onPostExecute(String[] metaData) {
-        if (currentLyrics != null && metaData[0].equals(currentLyrics.getOriginalArtist()) && metaData[1].equals(currentLyrics.getOriginalTrack()) && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
-            Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
-        else {
+        if (currentLyrics != null && metaData[0].equals(currentLyrics.getOriginalArtist()) && metaData[1].equals(currentLyrics.getOriginalTrack()) && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
+            if (showMsg)
+                Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
+        } else {
             SQLiteDatabase sqLiteDatabase = ((MainActivity) lyricsViewFragment.getActivity()).database;
             if (DatabaseHelper.presenceCheck(sqLiteDatabase, metaData))
                 lyricsViewFragment.update(DatabaseHelper.get(sqLiteDatabase, metaData),

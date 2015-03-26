@@ -172,7 +172,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             refreshFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fetchCurrentLyrics();
+                    fetchCurrentLyrics(true);
                 }
             });
 
@@ -183,7 +183,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
 
             if (mLyrics == null)
-                fetchCurrentLyrics();
+                fetchCurrentLyrics(false);
             else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
                 startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
@@ -200,7 +200,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
                     startRefreshAnimation();
-                    new ParseTask().execute(LyricsViewFragment.this, mLyrics);
+                    new ParseTask(LyricsViewFragment.this, false).execute(mLyrics);
                 }
             }
         };
@@ -260,11 +260,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             new DownloadThread(this, url, artist, song).start();
     }
 
-    void fetchCurrentLyrics() {
+    public void fetchCurrentLyrics(boolean showMsg) {
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
-            new ParseTask().execute(this, mLyrics);
+            new ParseTask(this, showMsg).execute(mLyrics);
         else
-            new ParseTask().execute(this, null);
+            new ParseTask(this, showMsg).execute((Object) null);
     }
 
     @TargetApi(16)

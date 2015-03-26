@@ -254,10 +254,10 @@ public class MainActivity extends ActionBarActivity {
         if (sharedPref.getBoolean("pref_auto_refresh", false) &&
                 (getIntent() == null || getIntent().getAction() == null ||
                         getIntent().getAction().equals(""))) {
-            // fixme executes twice
+            // fixme executes twice?
             LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            new ParseTask().execute(lyricsViewFragment, null);
+            lyricsViewFragment.fetchCurrentLyrics(false);
         }
     }
 
