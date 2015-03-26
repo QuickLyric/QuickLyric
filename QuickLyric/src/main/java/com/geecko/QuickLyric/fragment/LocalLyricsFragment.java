@@ -117,7 +117,8 @@ public class LocalLyricsFragment extends ListFragment {
                         if (adapter.isItemChecked(i))
                             delendam.add(lyricsArray.get(i));
                     if (delendam.size() > 0) {
-                        Lyrics[] delendamArray = delendam.toArray(new Lyrics[delendam.size()]);
+                        Lyrics[] delendamArray = new Lyrics[delendam.size()];
+                        delendamArray = delendam.toArray(delendamArray);
                         new WriteToDatabaseTask(LocalLyricsFragment.this)
                                 .execute(LocalLyricsFragment.this, null, delendamArray);
                     }
