@@ -22,6 +22,7 @@ package com.geecko.QuickLyric.lyrics;
 import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Net;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,6 +32,7 @@ import java.text.Normalizer;
 import java.util.Locale;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
+import static com.geecko.QuickLyric.lyrics.Lyrics.NEGATIVE_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
 @Reflection
@@ -55,7 +57,7 @@ public class LyricsMania {
     }
 
     @Reflection
-    public static Lyrics fromURL(String url, String artist, String title){
+    public static Lyrics fromURL(String url, String artist, String title) {
         String text;
         try {
             Document document = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
@@ -67,9 +69,13 @@ public class LyricsMania {
                         .getElementsByTag("a").get(0).text();
             if (title == null)
                 title = document.getElementsByClass("active").text();
+        } catch (HttpStatusException e) {
+            return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
             return new Lyrics(ERROR);
         }
+        if (text.startsWith("Instrumental"))
+            return new Lyrics(NEGATIVE_RESULT);
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
         lyrics.setArtist(artist);
         lyrics.setTitle(title);
