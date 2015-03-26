@@ -33,6 +33,7 @@ import android.support.v4.app.NotificationCompat;
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
@@ -102,7 +103,11 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             forceAutoUpdate(false);
         }
 
-        if (notificationPref != 0 && isPlaying && OnlineAccessVerifier.check(context)) {
+        boolean inDatabase = DatabaseHelper.presenceCheck(new DatabaseHelper(context)
+                .getReadableDatabase(), new String[]{artist, track});
+
+        if (notificationPref != 0 && isPlaying
+                && (inDatabase || OnlineAccessVerifier.check(context))) {
             Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
                     .putExtra("TAGS", new String[]{artist, track});
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
