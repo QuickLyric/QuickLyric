@@ -74,7 +74,7 @@
   <string name="scan_action">Musik scannen</string>
   <string name="warning">Warnung</string>
   <string name="content_providers_title">Musik scannen von&#8230;</string>
-  <string name="dl_progress">Songtexte werden heruntergeladen... %1$d/%2$d</string>
+  <string name="dl_progress">Songtexte werden heruntergeladen… %1$d/%2$d</string>
   <string name="dl_finished">Donwload abgeschlossen</string>
   <string name="pref_providers">Zusätzliche Quellen für Songtexte</string>
   <string name="pref_providers_sum">Je mehr Quellen ausgewählt werden, desto länger wird jeder Download dauern</string>
