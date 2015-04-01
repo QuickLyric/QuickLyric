@@ -119,6 +119,15 @@
             android:label="@string/app_name"/>
 
         <receiver
+            android:name=".broadcastReceiver.WearableRequestReceiver"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.geecko.QuickLyric.SEND_TO_WEARABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".broadcastReceiver.MusicBroadcastReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>

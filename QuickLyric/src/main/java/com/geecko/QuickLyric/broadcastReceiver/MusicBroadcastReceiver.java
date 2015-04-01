@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
@@ -110,30 +111,58 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 && (inDatabase || OnlineAccessVerifier.check(context))) {
             Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
                     .putExtra("TAGS", new String[]{artist, track});
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
+            Intent wearableIntent = new Intent("com.geecko.QuickLyric.SEND_TO_WEARABLE")
+                    .putExtra("artist", artist).putExtra("track", track);
+            PendingIntent openAppPending = PendingIntent.getActivity(context, 0, activityIntent,
                     PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent wearablePending =
+                    PendingIntent.getBroadcast(context, 8, wearableIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            NotificationCompat.Action wearableAction =
+                    new NotificationCompat.Action.Builder(R.drawable.ic_watch,
+                            "Open on wearable", wearablePending)
+                            .build();
+
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
+            NotificationCompat.Builder wearableNotifBuilder = new NotificationCompat.Builder(context);
 
             if (sharedPref.getString("pref_theme", "0").equals("0"))
                 notifBuilder.setColor(context.getResources().getColor(R.color.primary));
-            notifBuilder.setSmallIcon(R.drawable.ic_notif);
-            notifBuilder.setContentTitle(context.getString(R.string.app_name));
-            notifBuilder.setContentText(String.format("%s - %s", artist, track));
-            notifBuilder.setContentIntent(pendingIntent);
-            notifBuilder.setVisibility(-1); // Notification.VISIBILITY_SECRET
-            if (notificationPref == 2)
-                notifBuilder.setPriority(-2); // Notification.PRIORITY_MIN
-            else
+
+            notifBuilder.setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle(context.getString(R.string.app_name))
+                    .setContentText(String.format("%s - %s", artist, track))
+                    .setContentIntent(openAppPending)
+                    .setVisibility(-1) // Notification.VISIBILITY_SECRET
+                    .setGroup("Lyrics_Notification")
+                    .setGroupSummary(true);
+
+            wearableNotifBuilder.setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle(context.getString(R.string.app_name))
+                    .setContentText(String.format("%s - %s", artist, track))
+                    .setContentIntent(openAppPending)
+                    .setVisibility(-1) // Notification.VISIBILITY_SECRET
+                    .setGroup("Lyrics_Notification")
+                    .setOngoing(false)
+                    .setGroupSummary(false)
+                    .extend(new NotificationCompat.WearableExtender().addAction(wearableAction));
+
+            if (notificationPref == 2) {
+                notifBuilder.setOngoing(true).setPriority(-2); // Notification.PRIORITY_MIN
+            } else
                 notifBuilder.setPriority(-1); // Notification.PRIORITY_LOW
+
             Notification notif = notifBuilder.build();
+            Notification wearableNotif = wearableNotifBuilder.build();
+
             if (notificationPref == 2)
                 notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
             else
                 notif.flags |= Notification.FLAG_AUTO_CANCEL;
-            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                    .notify(0, notif);
+
+            NotificationManagerCompat.from(context).notify(0, notif);
+            NotificationManagerCompat.from(context).notify(8, wearableNotif);
         } else
-            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                    .cancel(0);
+            NotificationManagerCompat.from(context).cancel(0);
     }
 }
