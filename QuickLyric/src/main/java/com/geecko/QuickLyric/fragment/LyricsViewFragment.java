@@ -68,6 +68,7 @@ import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.CoverCache;
 import com.geecko.QuickLyric.utils.CustomSelectionCallback;
+import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
@@ -250,14 +251,21 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         if (params.length > 2)
             url = params[2];
         this.startRefreshAnimation();
-        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getStringSet("pref_providers", Collections.<String>emptySet());
-        DownloadThread.refreshProviders(providersSet);
 
-        if (url == null)
-            new DownloadThread(this, artist, song).start();
-        else
-            new DownloadThread(this, url, artist, song).start();
+        Lyrics lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, song});
+
+        if (lyrics != null)
+            update(lyrics, getView(), false);
+        else {
+            Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                    .getStringSet("pref_providers", Collections.<String>emptySet());
+            DownloadThread.refreshProviders(providersSet);
+
+            if (url == null)
+                new DownloadThread(this, artist, song).start();
+            else
+                new DownloadThread(this, url, artist, song).start();
+        }
     }
 
     public void fetchCurrentLyrics(boolean showMsg) {
