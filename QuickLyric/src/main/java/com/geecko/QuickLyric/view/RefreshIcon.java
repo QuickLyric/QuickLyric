@@ -53,7 +53,8 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         shadow.postDelayed(new Runnable() {
             @Override
             public void run() {
-                shadow.setVisibility(VISIBLE);
+                if (isVisible())
+                    shadow.setVisibility(VISIBLE);
             }
         }, 200);
     }
