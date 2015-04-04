@@ -255,7 +255,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         Lyrics lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, song});
 
         if (lyrics != null)
-            update(lyrics, getView(), false);
+            onLyricsDownloaded(lyrics);
         else {
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getStringSet("pref_providers", Collections.<String>emptySet());
@@ -303,6 +303,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     public void onLyricsDownloaded(Lyrics lyrics) {
         if (getActivity() != null && !((MainActivity) getActivity()).hasBeenDestroyed())
             update(lyrics, getView(), true);
+        else
+            mLyrics = lyrics;
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
