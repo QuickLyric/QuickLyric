@@ -178,29 +178,8 @@ public class SearchFragment extends ListFragment {
             errorView.setVisibility(View.INVISIBLE);
             errorVisibility = View.INVISIBLE;
         }
-        if (!OnlineAccessVerifier.check(this.getActivity())) {
-            LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
-            errorView = (ViewGroup) inflater.inflate(R.layout.error_msg, this.getListView(), false);
-            Toast.makeText(this.getActivity(), this.getString(R.string.connection_error), Toast.LENGTH_LONG).show();
-            ViewGroup layout = null;
-            if (this.getView() != null) {
-                layout = (ViewGroup) getListView().getParent();
-            }
-            if (layout != null && errorView != null) {
-                errorVisibility = View.VISIBLE;
-                errorView.setVisibility(errorVisibility);
-                if (errorView.getParent() == null)
-                    layout.addView(errorView);
-            }
-            setListShown(true);
-            if (results != null && results.size() > 0) {
-                results.clear();
-                ((SearchAdapter) getListAdapter()).notifyDataSetChanged();
-            }
-        } else {
-            searchTask = new SearchTask();
-            searchTask.execute(searchQuery, this);
-        }
+        searchTask = new SearchTask();
+        searchTask.execute(searchQuery, this);
     }
 
     @Override

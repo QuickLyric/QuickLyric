@@ -26,6 +26,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.geecko.QuickLyric.lyrics.Lyrics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
@@ -53,17 +57,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
+    public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
+        List<Lyrics> results;
+        String[] keywords = searchQuery.split(" ");
+        String query = "";
+        for (int i = 0; i < keywords.length; ++i) {
+            query = query + "(artist LIKE %" + String.valueOf(i + 1) +
+                    "$s OR track LIKE %" + String.valueOf(i + 1) + "$s) AND ";
+            keywords[i] = "'%" + keywords[i] + "%'";
+        }
+
+        query = query.substring(0, query.length() - 5);
+        Cursor cursor = database.query(TABLE_NAME, null, String.format(query,
+                keywords), null, null, null, null);
+        results = new ArrayList<>(cursor.getCount());
+        while (cursor.moveToNext()) {
+            Lyrics l = new Lyrics(Lyrics.SEARCH_ITEM);
+            l.setArtist(cursor.getString(0));
+            l.setTitle(cursor.getString(1));
+            l.setText(cursor.getString(2));
+            l.setURL(cursor.getString(3));
+            l.setSource(cursor.getString(4));
+            l.setCoverURL(cursor.getString(5));
+            results.add(l);
+        }
+        cursor.close();
+        return results;
+    }
+
     public static Lyrics get(SQLiteDatabase database, String[] metaData) {
         String[] columns = DatabaseHelper.columns;
-        Cursor cursor = database.query(TABLE_NAME, null, String.format("%s=? AND %s=?", columns[0], columns[1]), metaData, null, null, null);
+        Cursor cursor = database.query(TABLE_NAME, null, String.format("%s=? AND %s=?", columns[0], columns[1]),
+                metaData, null, null, null);
         int count = cursor.getCount();
         if (count > 0) {
             cursor.moveToFirst();
             Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
             l.setArtist(cursor.getString(0));
             l.setTitle(cursor.getString(1));
-            l.setOriginalArtist(cursor.getString(0));
-            l.setOriginalTitle(cursor.getString(1));
             l.setText(cursor.getString(2));
             l.setURL(cursor.getString(3));
             l.setSource(cursor.getString(4));

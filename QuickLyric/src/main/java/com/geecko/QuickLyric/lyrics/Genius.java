@@ -52,7 +52,7 @@ public class Genius {
 
         try {
             if (response == null || response.getJSONObject("meta").getInt("status") != 200)
-                return null;
+                return results;
             JSONArray hits = response.getJSONObject("response").getJSONArray("hits");
 
             int processed = 0;
