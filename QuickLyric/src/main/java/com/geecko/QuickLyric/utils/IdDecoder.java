@@ -11,9 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
+import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 /**
@@ -46,7 +48,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         String url = strings[0];
         String artist;
         String track;
-        if (url.contains("http://www.soundhound.com/")) {
+        if (url.contains("//www.soundhound.com/")) {
             try { // todo switch to Jsoup
                 String html = getUrlAsString(url);
                 int preceding = html.indexOf("root.App.trackDa") + 19;
@@ -57,20 +59,33 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 track = jsonData.getString("track_name");
             } catch (IOException | JSONException e) {
                 e.printStackTrace(); // todo test offline
-                return new Lyrics(Lyrics.ERROR);
+                return new Lyrics(ERROR);
             }
 
-        } else if (url.contains("http://shz.am/")) {
+        } else if (url.contains("//shz.am/")) {
             try {
                 Document doc = Jsoup.connect(url.trim()).get();
                 track = doc.getElementsByAttribute("data-track-title").text();
                 artist = doc.getElementsByAttribute("data-track-artist").text();
             } catch (IOException e) {
                 e.printStackTrace();
-                return new Lyrics(Lyrics.ERROR);
+                return new Lyrics(ERROR);
+            }
+        } else if (url.contains("//play.google.com/store/music/")) {
+            String docID = url.substring(url.indexOf("&tid=") + 5);
+            try {
+                Document doc = Jsoup.connect(url).get();
+                Element playCell =
+                        doc.getElementsByAttributeValue("data-track-docid", docID)
+                                .get(0);
+                artist = doc.getElementsByClass("primary").text();
+                track = playCell.parent().parent().child(1).getElementsByClass("title").text();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new Lyrics(ERROR);
             }
         } else
-            return new Lyrics(Lyrics.ERROR);
+            return new Lyrics(ERROR);
         Lyrics res = new Lyrics(Lyrics.SEARCH_ITEM);
         res.setArtist(artist);
         res.setTitle(track);
@@ -81,8 +96,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
         if (lyricsViewFragment != null) {
-            if (lyrics.getArtist() == null && lyrics.getTrack() == null) {
-                lyricsViewFragment.onLyricsDownloaded(lyrics);
+            if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTrack() == null)) {
                 return;
             }
             lyricsViewFragment.startRefreshAnimation();

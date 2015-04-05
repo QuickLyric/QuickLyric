@@ -174,8 +174,9 @@ public class MainActivity extends ActionBarActivity {
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
             if ("android.intent.action.SEND".equals(intent.getAction())
-                    && (extra.contains("http://www.soundhound.com/")
-                    || extra.contains("http://shz.am/"))) {
+                    && (extra.contains("www.soundhound.com")
+                    || extra.contains("//shz.am/")
+                    || extra.contains("//play.google.com/store/music/"))) {
                 new IdDecoder(this, null).execute(getIdUrl(extra));
             } else if ("android.intent.action.VIEW".equals(intent.getAction())) {
                 processURL(intent);
@@ -275,7 +276,8 @@ public class MainActivity extends ActionBarActivity {
                 search(intent.getStringExtra(SearchManager.QUERY));
             else if (action.equals("android.intent.action.SEND")
                     && (extra.contains("http://www.soundhound.com/")
-                    || extra.contains("http://shz.am/"))) {
+                    || extra.contains("http://shz.am/")
+                    || extra.contains("//play.google.com/store/music/"))) {
                 LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                         .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                 new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
@@ -543,7 +545,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment
+    public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder
         String artist = params[0];
         String song = params[1];
         String url = null;
@@ -562,7 +564,8 @@ public class MainActivity extends ActionBarActivity {
             lyrics.setURL(url);
             Bundle lyricsBundle = new Bundle();
             try {
-                lyricsBundle.putByteArray("lyrics", lyrics.toBytes());
+                if (artist != null && song != null)
+                    lyricsBundle.putByteArray("lyrics", lyrics.toBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }

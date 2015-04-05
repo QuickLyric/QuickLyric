@@ -145,7 +145,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 try {
                     Lyrics lyrics = Lyrics.fromBytes(args.getByteArray("lyrics"));
                     this.mLyrics = lyrics;
-                    if (lyrics.getText() == null) {
+                    if (lyrics != null && lyrics.getText() == null && lyrics.getArtist() != null) {
                         String artist = lyrics.getArtist();
                         String track = lyrics.getTrack();
                         String url = lyrics.getURL();

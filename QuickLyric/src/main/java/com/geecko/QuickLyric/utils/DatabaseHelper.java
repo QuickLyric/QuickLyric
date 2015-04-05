@@ -27,7 +27,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
