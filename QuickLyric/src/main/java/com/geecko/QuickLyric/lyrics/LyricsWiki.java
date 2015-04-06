@@ -48,20 +48,20 @@ public class LyricsWiki {
             return new Lyrics(Lyrics.ERROR);
         String encodedArtist;
         String encodedSong;
-        URL url;
+        String url;
         try {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(song, "UTF-8");
             JSONObject json = new JSONObject(getUrlAsString(new URL(
                     String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
-            url = new URL(json.getString("url"));
+            url = URLDecoder.decode(json.getString("url"), "UTF-8");
             artist = json.getString("artist");
             song = json.getString("song");
         } catch (JSONException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
-        return fromURL(url.toExternalForm(), artist, song);
+        return fromURL(url, artist, song);
     }
 
     public static Lyrics fromURL(String url, String artist, String song) {
