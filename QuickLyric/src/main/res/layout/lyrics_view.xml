@@ -136,9 +136,7 @@
         android:src="@drawable/ic_refresh"
         android:translationZ="8dp"
         fab:fab_shadow="false"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_light"
-        fab:fab_colorRipple="@null"/>
+        fab:fab_colorNormal="@color/accent"/>
 
     <include layout="@layout/fab_shadow"/>
 

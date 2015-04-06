@@ -21,7 +21,7 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fab_shadow"
-    android:src="@drawable/shadow"
+    android:src="@drawable/fab_shadow"
     android:layout_marginRight="9dp"
     android:layout_marginBottom="9dp"
     android:layout_gravity="bottom|right"
