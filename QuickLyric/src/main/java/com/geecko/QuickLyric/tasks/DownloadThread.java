@@ -100,8 +100,7 @@ public class DownloadThread extends Thread {
                             return (Lyrics) provider.getMethod("fromURL",
                                     String.class, String.class, String.class)
                                     .invoke(null, url, artist, title);
-                    } catch (NoSuchFieldException | IllegalAccessException
-                            | NoSuchMethodException | InvocationTargetException ignored) {
+                    } catch (Exception ignored) {
                     }
                 }
                 return null;
@@ -114,13 +113,12 @@ public class DownloadThread extends Thread {
                     try {
                         Method fromMetaData = provider.getMethod("fromMetaData", String.class, String.class);
                         result = (Lyrics) fromMetaData.invoke(null, artist, title);
-                    } catch (IllegalAccessException | NoSuchMethodException |
-                            InvocationTargetException ignored) {
+                    } catch (Exception ignored) {
                     }
                     if (result != null && result.getFlag() == Lyrics.POSITIVE_RESULT)
                         return result;
                 }
-                if (result == null || result.getFlag() != Lyrics.POSITIVE_RESULT) {
+                if (result != null && result.getFlag() != Lyrics.POSITIVE_RESULT) {
                     result.setArtist(artist);
                     result.setTitle(title);
                 }
