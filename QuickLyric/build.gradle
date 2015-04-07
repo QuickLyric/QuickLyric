@@ -28,7 +28,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 32
-        versionName "1.7.2"
+        versionName "1.7.3"
     }
 
     compileOptions {
@@ -58,7 +58,7 @@ android {
         fdroid {
         }
         play {
-            versionName "1.7.2p"
+            versionName "1.7.3p"
         }
     }
 }
