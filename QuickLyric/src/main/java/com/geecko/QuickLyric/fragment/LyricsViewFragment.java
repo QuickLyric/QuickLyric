@@ -252,7 +252,9 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             url = params[2];
         this.startRefreshAnimation();
 
-        Lyrics lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, song});
+        Lyrics lyrics = null;
+        if (artist != null && song != null)
+            lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, song});
 
         if (lyrics != null)
             onLyricsDownloaded(lyrics);
