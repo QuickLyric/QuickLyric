@@ -63,10 +63,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < keywords.length; ++i) {
             query = query + "(artist LIKE %" + String.valueOf(i + 1) +
                     "$s OR track LIKE %" + String.valueOf(i + 1) + "$s) AND ";
-            keywords[i] = "'%" + keywords[i] + "%'";
+            keywords[i] = "'%" + keywords[i].replaceAll("'", "''") + "%'";
         }
 
         query = query.substring(0, query.length() - 5);
+
         Cursor cursor = database.query(TABLE_NAME, null, String.format(query,
                 keywords), null, null, null, null);
         results = new ArrayList<>(cursor.getCount());
