@@ -58,12 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
         List<Lyrics> results;
-        String[] keywords = searchQuery.split(" ");
+        Object[] keywords = searchQuery.split(" ");
         String query = "";
         for (int i = 0; i < keywords.length; ++i) {
             query = query + "(artist LIKE %" + String.valueOf(i + 1) +
                     "$s OR track LIKE %" + String.valueOf(i + 1) + "$s) AND ";
-            keywords[i] = "'%" + keywords[i].replaceAll("'", "''") + "%'";
+            keywords[i] = "'%" + ((String) keywords[i]).replaceAll("'", "''") + "%'";
         }
 
         query = query.substring(0, query.length() - 5);
