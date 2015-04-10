@@ -52,14 +52,15 @@
   <string name="welcome2_sub">Οι στίχοι που ψάχνετε&#8230;στη στιγμή.</string>
   <string name="apps_desc">Συμβατό με τις περισσότερες εφαρμογές αναπαραγωγής μουσικής</string>
   <string name="apps_desc_sub">Αν το QuickLyric δεν λειτουργεί με τη εφαρμογή σας (π.χ. Poweramp, GoneMAD ή Spotify), βεβαιωθείτε ότι αυτή έχει την επιλογή \"Scrobbling\" ή \"Broadcast Status\" ενεργοποιημένη.</string>
-  <string name="id_desc">Ενσωμάτωση στις αγαπημένες σας εφαρμογές MusicID.</string>
+  <string name="id_desc">Ενοποίηση  με τις αγαπημένες σας εφαρμογές MusicID.
+        \n(Shazam ™, SoundHound ™ ή Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Προσδιορίστε ένα τραγούδι\n2. Μοιραστείτε τα αποτελέσματα με το QuickLyric\n3. Απολαύστε τους στίχους σας</string>
   <string name="refresh_desc">Μετά την αλλαγή του τραγουδιού&#8230;</string>
   <string name="refresh_desc_sub">Πατήστε αυτό το κουμπί και το QuickLyric θα κάνει τα υπολοιπα!</string>
   <string name="drawer_desc">Ας βουτήξουμε βαθύτερα!</string>
   <string name="drawer_desc_sub">Για επιπλέον λειτουργίες, πατήστε εδώ (ή τραβήξτε το μενού με το δάχτυλό σας).</string>
   <string name="pref_more_category">Aλλες</string>
-  <string name="share_prompt">Εισαγωγή από Shazam/Soundhound</string>
+  <string name="share_prompt">Εισαγωγή από MusicID</string>
   <string name="undo">Αναίρεση</string>
   <string name="skip">Παράλειψη</string>
   <string name="pref_theme">Θέμα</string>
@@ -71,6 +72,40 @@
   <string name="pref_auto_save_sum">Όλοι οι στίχοι θα αποθηκευτούν στην συσκευή σας</string>
   <string name="pref_night_mode">Νυχτερινή λειτουργία</string>
   <string name="pref_night_mode_sum">Σκούρο φόντο μεταξύ 9 μμ και 6 πμ</string>
+  <string name="scan_action">Σάρωση μουσικής</string>
+  <string name="warning">Προειδοποίηση</string>
+  <string name="content_providers_title">Σάρωση μουσικής από...</string>
+  <string name="dl_progress">Λήψη στίχων... %1$d/%2$d</string>
+  <string name="dl_finished">Η λήψη ολοκληρώθηκε</string>
+  <string name="pref_providers">Πρόσθετες πηγές στίχων</string>
+  <string name="pref_providers_sum">Όσο περισσότερες επιλέγετε, τόσο περισσότερος χρόνος θα χρειαστεί για κάθε λήψη</string>
+  <string name="pref_issues">Αναφορά προβλημάτων</string>
+  <string name="pref_contribute">Συμβάλετε στο GitHub</string>
+  <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων...</string>
+  <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
+  <string name="no_results_why"><u>Γιατί;</u></string>
+  <string name="why_popup_text">
+Ψάχνατε για τους στίχους του \"%1$s\" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει... &lt; br/&gt;&lt;br/&gt;
+Μερικές πιθανές αιτίες: &lt;br/&gt;
+&lt;br/&gt;
+• Έχει η μουσική σας σωστές &lt; strong &gt; ετικέτες &lt;/strong&gt; Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.&lt;br/&gt;
+• Ελέγξτε αν η σύνδεσή σας λειτουργεί.&lt;br/&gt;
+• Ίσως αυτό το τραγούδι δεν αποτελεί μέρος του κύριου καταλόγου. Έχετε ελέγξει τις &lt;strong&gt; πρόσθετες υπηρεσίες παροχής &lt;/strong&gt; στις ρυθμίσεις;&lt;br/&gt;
+• Ίσως βρήκατε ένα bug. Αν ναι, παρακαλώ στείλτε μου email.&lt;br/&gt;
+• Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Γιατί δεν λειτουργεί;</string>
+  <string name="download_category">Λήψεις</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
+        Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>
+    <item quantity="other">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδια.\
+        Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτά.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Λήψη στίχων για %1$d τραγούδι</item>
+    <item quantity="other">Λήψη στίχων για %1$d τραγούδια</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>Ανά Καλλιτέχνη</item>
     <item>Ανά Τίτλο</item>
@@ -79,9 +114,21 @@
     <item>Αλφαβητικά</item>
     <item>Ανεστραμμένη</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk Rock</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Electronic Dance Music</item>
+    <item>Ιαπωνική (ひらがな)</item>
+    <item>Μουσική Bollywood</item>
+  </string-array>
   <string-array name="notifications">
     <item>Απενεργοποιημένη (προεπιλογή)</item>
     <item>Ενεργοποιημένη</item>
     <item>Ενεργοποιημένη (μόνιμη)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Αυτή τη συσκευή</item>
+    <item>Τη  βιβλιοθήκη σας στο Google Play Music</item>
   </string-array>
 </resources>

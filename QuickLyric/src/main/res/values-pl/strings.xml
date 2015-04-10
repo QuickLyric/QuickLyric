@@ -52,14 +52,15 @@
   <string name="welcome2_sub">Teksty których szukałeś&#8230; Tu i teraz</string>
   <string name="apps_desc">Kompatybilny z większością odtwarzaczy muzyki</string>
   <string name="apps_desc_sub">Jeśli QuickLyric nie chce zadziałać z Twoim odtwarzaczem (np. Poweramp, GoneMAD, Spotify), upewnij się że \"Scrobbling\" lub \"Status transmisji urządzenia\" w Twoim odtwarzaczu jest włączony.</string>
-  <string name="id_desc">Integracja z Twoimi ulubionymi aplikacjami MusicID.</string>
+  <string name="id_desc">Integracja z Twoimi ulubionymi aplikacjami Music ID.
+        \n(Shazam™, SoundHound™ lub Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Rozpoznaj piosenkę\n2. Dodaj wynik do QuickLyric\n3. Ciesz się do woli słowami piosenki</string>
   <string name="refresh_desc">Jeśli piosenka zmieniła się&#8230;</string>
   <string name="refresh_desc_sub">Kliknij tutaj, QuickLyric zrobi resztę.</string>
   <string name="drawer_desc">Poznaj więcej możliwości!</string>
   <string name="drawer_desc_sub">By mieć dostęp do pozostałych opcji, kliknij tutaj (albo przesuń palcem od krawędzi ekranu).</string>
   <string name="pref_more_category">Więcej opcji</string>
-  <string name="share_prompt">Importuj z Shazam/Soundhound</string>
+  <string name="share_prompt">Importuj z MusicID</string>
   <string name="undo">Anuluj</string>
   <string name="skip">Pomiń</string>
   <string name="pref_theme">Kolorystyka</string>

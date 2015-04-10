@@ -52,14 +52,15 @@
   <string name="welcome2_sub">As letras que você está procurando&#8230;\nAqui, e agora.</string>
   <string name="apps_desc">Compatível com a maioria dos reprodutores de música</string>
   <string name="apps_desc_sub">Se o QuickLyric não funcionar com o seu reprodutor (por exemplo, Poweramp ou Spotify), certifique-se que a função \"Scrobbling\" ou \"Transmissão de Status\" está ativada.</string>
-  <string name="id_desc">Integração com os seus aplicativos favoritos do MusicID.</string>
+  <string name="id_desc">Integração com os seus aplicativos de identificação de música favoritos.
+        \n(Shazam™, SoundHound™ ou Google Play Sound Search™)</string>
   <string name="id_desc_sub">Identifique uma música\n2. Divulgue os resultados ao QuickLyric\n3. Aproveite suas letras</string>
   <string name="refresh_desc">Quando a música mudar&#8230;</string>
   <string name="refresh_desc_sub">Clique no botão. QuickLyric fará o resto.</string>
   <string name="drawer_desc">Vamos cavar mais fundo!</string>
   <string name="drawer_desc_sub">Para acessar mais funções, clique aqui (ou arraste a tela pelo canto).</string>
   <string name="pref_more_category">Mais</string>
-  <string name="share_prompt">Importar do Shazam/Soundhound</string>
+  <string name="share_prompt">Importar de identificador de música</string>
   <string name="undo">Desfazer</string>
   <string name="skip">Pular</string>
   <string name="pref_theme">Tema</string>
@@ -84,7 +85,7 @@
   <string name="scan_error_no_content">Não foi possível achar uma música</string>
   <string name="no_results_why"><u>Por quê?</u></string>
   <string name="why_popup_text">
-Você estava procurando pela letra da música \"%1$s\", da %2$s. Infelizmente, o QuickLyric não conseguiu achá-la&#8230; &lt;br/&gt;&lt;br/&gt;
+Você estava procurando pela letra da música \"%1$s\", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la&#8230; &lt;br/&gt;&lt;br/&gt;
 Algumas possíveis razões:&lt;br/&gt;
 &lt;br/&gt;
 • A sua música está &lt;strong&gt;marcada&lt;/strong&gt; corretamente? o QuickLyric não reconhece músicas que não estão marcadas.&lt;br/&gt;

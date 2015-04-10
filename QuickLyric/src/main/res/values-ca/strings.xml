@@ -50,15 +50,13 @@
   <string name="welcome">Benvingut a QuickLyric!</string>
   <string name="welcome2_sub">Les lletres que estaves buscant&#8230;\nAqui, ara.</string>
   <string name="apps_desc">Compatible amb molts reproductors de música</string>
-  <string name="apps_desc_sub">Si QuickLyric no funciona amb el teu reproductor (per exemple Poweramp o Spotify), asegura\'t de que té \"Scrobbling\" o \"Broadcast Status\" activat.</string>
-  <string name="id_desc">Integració amb les teves aplicacions MusicID preferides.</string>
+  <string name="apps_desc_sub">Si QuickLyric no funciona amb el teu reproductor (per exemple Poweramp, GoneMAD o Spotify), asegura\'t de que té \"Scrobbling\" o \"Broadcast Status\" activat.</string>
   <string name="id_desc_sub">1. Identifica una cançó\n2. Comparteix els resultats a QuickLyric\n3. Disfruta de les teves lletres</string>
   <string name="refresh_desc">Quan la cançó ha canviat&#8230;</string>
   <string name="refresh_desc_sub">Toca aquest botó. QuickLyric farà la resta.</string>
   <string name="drawer_desc">Aprofunditzar més!</string>
   <string name="drawer_desc_sub">Per accedir a altres característiques, premeu aquí (o llisqueu la pantalla des de la vora).</string>
   <string name="pref_more_category">Més</string>
-  <string name="share_prompt">Importar de Shazam/Soundhound</string>
   <string name="undo">Desfés</string>
   <string name="skip">Omet</string>
   <string name="pref_theme">Tema</string>
@@ -66,6 +64,44 @@
   <string name="defaut_theme">Amber (per defecte)</string>
   <string name="dark_theme">Fosc</string>
   <string name="pref_notifications_sum">Rebre una notificació discreta quan la canço canvii</string>
+  <string name="pref_auto_save">Guardar lletres automàticament</string>
+  <string name="pref_auto_save_sum">Totes les lletres es guardaran al seu dispositiu</string>
+  <string name="pref_night_mode">Mode de nit</string>
+  <string name="pref_night_mode_sum">Mostrar un fons fosc entre les 21:00 i les 06:00</string>
+  <string name="scan_action">Escannejar musica</string>
+  <string name="warning">Avís</string>
+  <string name="content_providers_title">Escannejar musica de&#8230;</string>
+  <string name="dl_progress">Descarregant lletres&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Descarga finalitzada</string>
+  <string name="pref_providers">Fonts de lletres addicionals</string>
+  <string name="pref_providers_sum">La descàrrega trigarà més a quantes més seleccionis</string>
+  <string name="pref_issues">Reportar falles</string>
+  <string name="pref_contribute">Contribueix a GitHub</string>
+  <string name="pref_contribute_sum">Millora les traduccions, expandeix el catàlog de lletres&#8230;</string>
+  <string name="scan_error_no_content">No es va poder trobar música</string>
+  <string name="no_results_why"><u>Perquè?</u></string>
+  <string name="why_popup_text">
+Estaves buscant les lletres per \"%1$s\" de %2$s. Malauradament QuickLyric no va poder trobar-les&#8230; &lt;br/&gt;&lt;br/&gt;
+Possibles raons:&lt;br/&gt;
+&lt;br/&gt;
+• Està la teva música &lt;strong&gt;etiquetada&lt;/strong&gt; correctament? QuickLyric no reconeixerà les cançons que no estiguin etiquejades.&lt;br/&gt;
+• Comprova que la teva connexió funciona.&lt;br/&gt;
+• A lo millor aquesta cançó no es troba al catàlog principal. Has comprovat els &lt;strong&gt;proveïdors adicionals&lt;/strong&gt; als ajustos?&lt;br/&gt;
+• Pots haver trobat un bug. Si es així, envia\'m un email.&lt;br/&gt;
+• Finalment, es possible que les lletres per aquesta cançó no estiguin disponibles. Si tens alguna sugerencia per adicions al catalog, envia\'m un email.&lt;br/&gt;
+</string>
+  <string name="why_popup_title">Perquè no funciona?</string>
+  <string name="download_category">Descargues</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric descarregarà ara les lletres per a un total de %1$d cançó.\
+        Assegurat de que tens una connexió estable per %2$d minut.</item>
+    <item quantity="other">QuickLyric descarregarà ara les lletres per a un total de %1$d cançons.\
+        Assegurat de que tens una connexió estable per %2$d minut(s).</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Descarregades les lletres per %1$d cançó</item>
+    <item quantity="other">Descarregades les lletres per %1$d cançons</item>
+  </plurals>
   <string-array name="sort_modes">
     <item>Per artista&#8230;</item>
     <item>Per títol&#8230;</item>
@@ -74,9 +110,21 @@
     <item>Alfabèticament</item>
     <item>Reversat</item>
   </string-array>
+  <string-array name="providers">
+    <item>Punk Rock</item>
+    <item>Metal</item>
+    <item>Hip Hop</item>
+    <item>Electronic Dance Music</item>
+    <item>Japonesa (ひらがな)</item>
+    <item>Bollywood Music</item>
+  </string-array>
   <string-array name="notifications">
     <item>Desactivat (per defecte)</item>
     <item>Activat</item>
     <item>Activat (permanent)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Aquest dispositiu</item>
+    <item>La teva llibreria de Google Play Music</item>
   </string-array>
 </resources>

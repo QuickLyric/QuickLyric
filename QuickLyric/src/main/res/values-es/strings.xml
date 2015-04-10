@@ -52,14 +52,15 @@
   <string name="welcome2_sub">Las letras que estabas buscando&#8230; aquí, ahora.</string>
   <string name="apps_desc">Compatible con la mayoría de reproductores de música</string>
   <string name="apps_desc_sub">Si QuickLyric no funciona con su reproductor (p.e. Poweramp, GoneMAD o Spotify), asegúrese de que las opciones \"Scrobbling\" o \"Estado de Transmisión\" están activados.</string>
-  <string name="id_desc">Integración con tus apps MusicID favoritas.</string>
+  <string name="id_desc">Integración con sus aplicaciones MusicID favoritas.
+        \n(Shazam™, SoundHound™ o Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Identifique una canción\n2. Comparta los resultados a QuickLyric\n3. Disfrute de su letra</string>
   <string name="refresh_desc">Cuando la canción ha cambiado&#8230;</string>
   <string name="refresh_desc_sub">Presiona este botón, QuickLyric hará el resto.</string>
   <string name="drawer_desc">Vayamos mas profundo !</string>
   <string name="drawer_desc_sub">Para acceder a otras funciones, presione aquí (o deslice desde el borde izquierdo).</string>
   <string name="pref_more_category">Más</string>
-  <string name="share_prompt">Importar de Shazam/Soundhound</string>
+  <string name="share_prompt">Importar desde MusicID</string>
   <string name="undo">Deshacer</string>
   <string name="skip">Omitir</string>
   <string name="pref_theme">Estilo</string>

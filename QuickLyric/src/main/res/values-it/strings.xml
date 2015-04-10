@@ -52,14 +52,15 @@
   <string name="welcome2_sub">I testi che stavi cercando&#8230;\nProprio qui, proprio ora.</string>
   <string name="apps_desc">Compatibile con la maggior parte dei lettori musicali</string>
   <string name="apps_desc_sub">Se QuickLyric non funziona con il tuo lettore (es. Poweramp, GoneMAD o Spotify), assicurati di avere lo \"Scrobbling\" o lo \"Stato trasmissione dispositivo\" abilitato.</string>
-  <string name="id_desc">Integrazione con le tue app preferite per il riconoscimento della musica.</string>
+  <string name="id_desc">Integrazione con le tue app per il riconoscimento musicale preferite.
+        \n(Shazam™, SoundHound™ o il Sound Search di Google Play™)</string>
   <string name="id_desc_sub">1. Identifica una canzone\n2. Condividi il risultato su QuickLyric\n3. Goditi i tuoi testi</string>
   <string name="refresh_desc">Quando la canzone è cambiata&#8230;</string>
   <string name="refresh_desc_sub">Tocca questo pulsante. QuickLyrics farà il resto.</string>
   <string name="drawer_desc">Andiamo più a fondo!</string>
   <string name="drawer_desc_sub">Per avere accesso alle altre caratteristiche, premi qui (oppure trascina il bordo sinistro).</string>
   <string name="pref_more_category">Altro</string>
-  <string name="share_prompt">Importa da Shazam/Soundhound</string>
+  <string name="share_prompt">Importa da MusicID</string>
   <string name="undo">Annulla</string>
   <string name="skip">Salta</string>
   <string name="pref_theme">Tema</string>
@@ -84,7 +85,7 @@
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
   <string name="why_popup_text">
-Stavi cercando il testo di \"%1$s\" eseguito da artista \"%2$s\". Sfortunatamente QuickLyric non è riuscito a trovarlo&#8230; &lt;br/&gt;&lt;br/&gt;
+Stavi cercando il testo di \"%1$s\" dell\'artista %2$s . Sfortunatamente QuickLyric non è riuscito a trovarlo&#8230; &lt;br/&gt;&lt;br/&gt;
 Alcune cause potrebbero essere:&lt;br/&gt;
 &lt;br/&gt;
 • La tua canzone non è stata &lt;strong&gt;riconosciuta&lt;/strong&gt; correttamente? QuickLyric non può cercare testi di canzoni che non riconosce.&lt;br/&gt;

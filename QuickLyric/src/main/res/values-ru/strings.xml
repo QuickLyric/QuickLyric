@@ -52,14 +52,14 @@
   <string name="welcome2_sub">Текст слов которые вы разыскиваете&#8230;\nМгновенно.</string>
   <string name="apps_desc">Совместим с большинством музыкальных проигрывателей</string>
   <string name="apps_desc_sub">Если QuickLyric не работает с вашим проигрывателя (например, Poweramp, GoneMAD или Spotify), убедитесь, что он имеет включённой опцию «Скробблинг» или «Широковещание».</string>
-  <string name="id_desc">Интеграция с вашими любимыми музыкальными приложениями.</string>
+  <string name="id_desc">Интеграция с вашими любимыми распознавателями песен.        \n(Shazam™, SoundHound™ или Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Поставьте воспроизводиться песню\n2. Поделитесь результатами с QuickLyric\n3. Наслаждайтесь текстом данной песни</string>
   <string name="refresh_desc">Когда песня поменялась&#8230;</string>
   <string name="refresh_desc_sub">Нажмите, Quicklyric сделает все остальное.</string>
   <string name="drawer_desc">Углубляем ещё немного !</string>
   <string name="drawer_desc_sub">Для доступа к другим функциям,  нажмите здесь (или тянуть меню вашем пальцем).</string>
   <string name="pref_more_category">Другое</string>
-  <string name="share_prompt">Импорт из Shazam/Soundhound</string>
+  <string name="share_prompt">Импортировать из MusicID</string>
   <string name="undo">Отменить</string>
   <string name="skip">Пропустить</string>
   <string name="pref_theme">Тема</string>

@@ -56,14 +56,15 @@
   <string name="welcome2_sub">探していた歌詞が&#8230;\nいますぐ、ここに&#8230;</string>
   <string name="apps_desc">多くの音楽プレーヤーと互換性があります</string>
   <string name="apps_desc_sub">QuickLyric がお使いのプレーヤー (Poweramp、GoneMAD や Spotify など) で動作しない場合は、\"スクローブル\" や \"ステータスのブロードキャスト\" が有効になっているか確認してください。</string>
-  <string name="id_desc">お気に入りの MusicID アプリと統合します。</string>
+  <string name="id_desc">お気に入りの MusicID アプリと統合。
+\n(Shazam™、SoundHound™ または Google Play サウンド検索™)</string>
   <string name="id_desc_sub">1. 曲を識別します\n2. QuickLyric に結果を共有します\n3. 歌詞を楽しでください</string>
   <string name="refresh_desc">曲が変更されたとき&#8230;</string>
   <string name="refresh_desc_sub">このボタンを押してください、あとはQuickLyricが行います。</string>
   <string name="drawer_desc">深く掘る！</string>
   <string name="drawer_desc_sub">他の機能にアクセスするには、こちらをクリック（または、ここに指をスライドさせ）。.</string>
   <string name="pref_more_category">その他</string>
-  <string name="share_prompt">Shazam/Soundhound からインポート</string>
+  <string name="share_prompt">MusicID からインポート</string>
   <string name="undo">元に戻す</string>
   <string name="skip">スキップ</string>
   <string name="pref_theme">テーマ</string>

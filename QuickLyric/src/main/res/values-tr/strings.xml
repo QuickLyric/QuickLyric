@@ -52,14 +52,12 @@
   <string name="welcome2_sub">Aradığınız sözler&#8230; hemen\n&#8230;simdi.</string>
   <string name="apps_desc">Çoğu müzik oyuncu ile uyumlu</string>
   <string name="apps_desc_sub">QuickLyric oyuncunuz (e.g Poweramp, GoneMAD veya Spotify) ile çalışmazsa, \"Skroplama\" nın veya \"Yayın durumu\" nun etkin olmasına emin olun.</string>
-  <string name="id_desc">Favori MusicID uygulaman ile tümleştirme.</string>
   <string name="id_desc_sub">1. Bir şarkıyı tanımlama\n2. QuickLyric\'a sonuçları paylaşın\n3. şarkı sözlerinin tadını çıkar</string>
   <string name="refresh_desc">Müzik değiştiğinde&#8230;</string>
   <string name="refresh_desc_sub">Bu düğmeye basın, birakin QuickLyric geri kalanini yapsin.</string>
   <string name="drawer_desc">Aramaya devam edelim !</string>
   <string name="drawer_desc_sub">Diğer özelliklere erişmek için buraya tıklayın (veya parmağınızla menüyü çekin).</string>
   <string name="pref_more_category">Diğer</string>
-  <string name="share_prompt">Shazam/Soundhound\'dan aktar</string>
   <string name="undo">Geri al</string>
   <string name="skip">Atlamak</string>
   <string name="pref_theme">Tema</string>
