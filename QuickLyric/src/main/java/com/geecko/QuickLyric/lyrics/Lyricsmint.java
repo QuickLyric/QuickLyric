@@ -67,7 +67,7 @@ public class Lyricsmint {
                 lyrics.setTitle(lyricsResult.getString("name"));
                 for (int j = 0; i < tags.length(); ++j) {
                     JSONObject tag = tags.getJSONObject(j);
-                    if (tag.getString("tag_type").equals("Music Director")) {
+                    if (tag.getString("tag_type").equals("Singer")) {
                         lyrics.setArtist(tag.getString("name").trim());
                         break;
                     }
@@ -85,7 +85,7 @@ public class Lyricsmint {
     public static Lyrics fromMetaData(String artist, String title) {
         ArrayList<Lyrics> searchResults = search(artist + " " + title);
         for (Lyrics result : searchResults) {
-            if (artist.contains(result.getArtist()) && title.equals(result.getTrack()))
+            if (artist.contains(result.getArtist()) && title.equalsIgnoreCase(result.getTrack()))
                 return fromAPI(result.getURL(), artist, result.getTrack());
         }
         return new Lyrics(Lyrics.NO_RESULT);
