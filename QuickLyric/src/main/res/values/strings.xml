@@ -115,6 +115,7 @@ Terms of service available at:
 \n- Android support libraries (AOSP)
 \n- Volley networking library (AOSP)
 \n- ViewPager Indicator (Jake Wharton)
+\n- Material DateTimePicker (Wouter Dullaert)
 \n
 \n/*
 \n *
@@ -133,11 +134,13 @@ Terms of service available at:
 \n
 \n-------------------------------------
 \n
-\n - github.com/makovkastar/FloatingActionButton/
+\n - FloatingActionButton (Oleksandr Melnykov)
+\n - Snackbar (William Mora)
+\n - JSoup (Jonathan Hedley)
 \n
 \n The MIT License (MIT)
 \n
-\nCopyright © 2014 Oleksandr Melnykov
+\nCopyright © 2015
 \n
 \nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 \n
@@ -149,20 +152,24 @@ Terms of service available at:
 \n
 \nSincere thanks to the following persons who helped translate the app:
 \nTatiana, Maxim - Russian
-\nMarius, Fabian, Kevin - German
+\nPespulacek, Jan - Czech
+\nPatrik - Slovenian
+\nMyself + Mickael - French
+\nMarius, Fabian, Kevin, Friedger - German
 \nTheophanis, Lucretius - Greek
 \nGiorgia, Salvatore - Italian
-\nNaofum on GitHub - Japanese
+\nNaofum - Japanese
 \nNathalie, Kevin and Lisa - Dutch
 \nDominika + Kasia - Polish
 \nYusuf - Turkish
 \nSonia - Arabic
-\nAbde, Erick - Spanish
+\nAbde, Erick, Gerson - Spanish
+\nSimon - Swedish
 \nJordi - Catalan
 \nPolaris - Hungarian
 \nGurshabad - Hindi
 \nSerbian - Mladen
-\nGuy whose name I forgot + Marcos - Portuguese</string>
+\nRodax + Marcos + (?) - Portuguese</string>
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
     <string name="pref_theme">Theme</string>
