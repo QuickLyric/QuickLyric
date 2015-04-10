@@ -238,7 +238,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).startAnimation();
     }
 
-    void stopRefreshAnimation() {
+    public void stopRefreshAnimation() {
         RefreshIcon refreshIcon = (RefreshIcon) getActivity().findViewById(R.id.refresh_fab);
         if (refreshIcon != null)
             refreshIcon.stopAnimation();

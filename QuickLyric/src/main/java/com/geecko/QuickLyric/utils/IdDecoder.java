@@ -44,6 +44,13 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (lyricsViewFragment != null)
+            lyricsViewFragment.startRefreshAnimation();
+    }
+
+    @Override
     protected Lyrics doInBackground(String... strings) {
         String url = strings[0];
         String artist;
@@ -97,9 +104,9 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         super.onPostExecute(lyrics);
         if (lyricsViewFragment != null) {
             if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTrack() == null)) {
+                lyricsViewFragment.stopRefreshAnimation();
                 return;
             }
-            lyricsViewFragment.startRefreshAnimation();
             lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
         } else
             ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
