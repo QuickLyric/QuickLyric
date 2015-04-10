@@ -21,7 +21,6 @@ package com.geecko.QuickLyric;
 
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -47,7 +46,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.Html;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
@@ -56,7 +54,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
@@ -66,7 +63,6 @@ import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
-import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IdDecoder;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
@@ -118,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
-        if (nightMode && NightTimeVerifier.check())
+        if (nightMode && NightTimeVerifier.check(this))
             setTheme(R.style.Theme_QuickLyric_Night);
         else
             setTheme(themes[themeNum]);

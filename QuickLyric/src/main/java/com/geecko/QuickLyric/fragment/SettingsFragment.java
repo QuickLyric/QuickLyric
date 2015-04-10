@@ -32,6 +32,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,10 +44,17 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 public class SettingsFragment extends PreferenceFragment implements
-        Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
+        Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
+        TimePickerDialog.OnTimeSetListener {
 
+    private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
+    private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
+
+    private int[] nightTimeStart = new int[]{42, 0};
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
 
@@ -69,7 +77,7 @@ public class SettingsFragment extends PreferenceFragment implements
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case "pref_theme":
-                if (!pref.getSharedPreferences().getString("pref_theme", "0").equals(newValue)) {
+                if (!newValue.equals(pref.getSharedPreferences().getString("pref_theme", "0"))) {
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
@@ -91,8 +99,13 @@ public class SettingsFragment extends PreferenceFragment implements
                 }
                 return true;
             case "pref_night_mode":
-                if (NightTimeVerifier.check()
-                        && pref.getSharedPreferences().getBoolean(pref.getKey(), false) != newValue) {
+                if ((Boolean) newValue) {
+                    boolean twentyFourHourStyle = DateFormat.is24HourFormat(getActivity());
+                    TimePickerDialog tpd = TimePickerDialog
+                            .newInstance(this, 21, 0, twentyFourHourStyle);
+                    tpd.setCancelable(false);
+                    tpd.show(getFragmentManager(), NIGHT_START_TIME_DIALOG_TAG);
+                } else if (NightTimeVerifier.check(getActivity())) {
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
@@ -148,6 +161,34 @@ public class SettingsFragment extends PreferenceFragment implements
             drawerAdapter.notifyDataSetChanged();
         }
         this.isActiveFragment = true;
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int h, int min) {
+        if (nightTimeStart[0] >= 25) {
+            nightTimeStart = new int[]{h, min};
+            boolean twentyFourHourStyle = DateFormat.is24HourFormat(getActivity());
+            TimePickerDialog tpd = TimePickerDialog
+                    .newInstance(this, 6, 0, twentyFourHourStyle);
+            tpd.setCancelable(false);
+            tpd.show(getFragmentManager(), NIGHT_END_TIME_DIALOG_TAG);
+        } else {
+            SharedPreferences current = getActivity().getSharedPreferences("night_time", Context.MODE_PRIVATE);
+            current.edit().putInt("startHour", nightTimeStart[0])
+                    .putInt("startMinute", nightTimeStart[1])
+                    .putInt("endHour", h)
+                    .putInt("endMinute", min)
+                    .apply();
+
+            nightTimeStart[0] = 42;
+
+            if (NightTimeVerifier.check(getActivity())) {
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setAction("android.intent.action.MAIN");
+                startActivity(intent);
+            }
+        }
     }
 
     @Override

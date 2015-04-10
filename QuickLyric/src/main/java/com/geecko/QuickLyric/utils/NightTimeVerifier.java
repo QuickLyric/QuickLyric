@@ -19,6 +19,9 @@
 
 package com.geecko.QuickLyric.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.Calendar;
 
 /**
@@ -38,10 +41,21 @@ import java.util.Calendar;
  */
 public class NightTimeVerifier {
 
-    public static boolean check() {
+    public static boolean check(Context context) {
         Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        return hour < 6 || hour >= 21;
+        int currentHour = c.get(Calendar.HOUR_OF_DAY);
+        int currentMin = c.get(Calendar.MINUTE);
+
+        SharedPreferences pref = context.getSharedPreferences("night_time", Context.MODE_PRIVATE);
+        int startHour = pref.getInt("startHour", 42);
+        int startMinute = pref.getInt("startMinute", 0);
+        int endHour = pref.getInt("endHour", 0);
+        int endMinute = pref.getInt("endMinute", 0);
+
+        boolean beforeEnd = currentHour < endHour || (currentHour == endHour && currentMin < endMinute);
+        boolean afterStart = currentHour > startHour || (currentHour == startHour && currentMin >= startMinute);
+
+        return beforeEnd || afterStart;
     }
 
 }

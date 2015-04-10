@@ -32,4 +32,7 @@
     <color name="selected_night">#222</color>
     <color name="fragment_background">#eeeeee</color>
     <color name="window_background">#bbbbbb</color>
+
+    <color name="mdtp_accent_color">@color/accent</color>
+
 </resources>
