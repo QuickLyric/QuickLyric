@@ -45,7 +45,8 @@ public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
     protected void onPostExecute(Boolean present) {
         if (lyricsViewFragment != null && lyricsViewFragment.lyricsPresentInDB != present) {
             lyricsViewFragment.lyricsPresentInDB = present;
-            lyricsViewFragment.getActivity().invalidateOptionsMenu();
+            if (lyricsViewFragment.getActivity() != null)
+                lyricsViewFragment.getActivity().invalidateOptionsMenu();
         }
     }
 }
