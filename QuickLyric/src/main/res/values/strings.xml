@@ -180,7 +180,7 @@ Terms of service available at:
     <string name="pref_auto_save">Automatically save lyrics</string>
     <string name="pref_auto_save_sum">All lyrics will be stored on your device</string>
     <string name="pref_night_mode">Night Mode</string>
-    <string name="pref_night_mode_sum">Display a dark background between 9pm and 6am</string>
+    <string name="pref_night_mode_sum">Display a dark background at night</string>
     <string name="scan_action">Scan Music</string>
     <string name="warning">Warning</string>
     <string name="content_providers_title">Scan music from…</string>
