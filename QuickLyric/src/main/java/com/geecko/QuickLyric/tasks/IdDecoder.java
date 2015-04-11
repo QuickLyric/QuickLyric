@@ -1,4 +1,4 @@
-package com.geecko.QuickLyric.utils;
+package com.geecko.QuickLyric.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;

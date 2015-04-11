@@ -64,7 +64,7 @@ import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
-import com.geecko.QuickLyric.utils.IdDecoder;
+import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.viewpagerindicator.CirclePageIndicator;
