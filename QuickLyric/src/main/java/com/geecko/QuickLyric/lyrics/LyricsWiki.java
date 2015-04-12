@@ -43,25 +43,30 @@ public class LyricsWiki {
     private static final String baseUrl = "http://lyrics.wikia.com/api.php?action=lyrics&fmt=json&func=getSong&artist=%1s&song=%1s";
 
     @Reflection
-    public static Lyrics fromMetaData(String artist, String song) {
-        if ((artist == null) || (song == null))
+    public static Lyrics fromMetaData(String artist, String title) {
+        if ((artist == null) || (title == null))
             return new Lyrics(Lyrics.ERROR);
         String encodedArtist;
         String encodedSong;
         String url;
+        String originalArtist = artist;
+        String originalTitle = title;
         try {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
-            encodedSong = URLEncoder.encode(song, "UTF-8");
+            encodedSong = URLEncoder.encode(title, "UTF-8");
             JSONObject json = new JSONObject(getUrlAsString(new URL(
                     String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
             url = URLDecoder.decode(json.getString("url"), "UTF-8");
             artist = json.getString("artist");
-            song = json.getString("song");
+            title = json.getString("song");
         } catch (JSONException | IOException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }
-        return fromURL(url, artist, song);
+        Lyrics lyrics = fromURL(url, artist, title);
+        lyrics.setOriginalArtist(originalArtist);
+        lyrics.setOriginalTitle(originalTitle);
+        return lyrics;
     }
 
     public static Lyrics fromURL(String url, String artist, String song) {
