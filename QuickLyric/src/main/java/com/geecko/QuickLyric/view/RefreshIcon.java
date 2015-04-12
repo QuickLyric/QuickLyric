@@ -49,6 +49,7 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
 
     @Override
     public void show() {
+        // The shadow reappears after the end of the animation
         super.show();
         shadow.postDelayed(new Runnable() {
             @Override
@@ -61,8 +62,10 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
 
     @Override
     public void hide() {
-        shadow.setVisibility(GONE);
-        super.hide();
+        if (!mRunning) {
+            shadow.setVisibility(GONE);
+            super.hide();
+        }
     }
 
     public void setShadow(View shadow) {
@@ -70,6 +73,8 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
     }
 
     public void startAnimation() {
+        if (scrollView != null)
+            scrollView.setOnScrollChangedListener(null);
         if (!mRunning) {
             startAnimation(rotateAnimation);
             mRunning = true;
@@ -77,8 +82,6 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         }
         if (this.getTranslationY() != 0)
             this.show();
-        if (scrollView != null)
-            scrollView.setOnScrollChangedListener(null);
     }
 
     public void stopAnimation() {
