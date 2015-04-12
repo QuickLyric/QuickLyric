@@ -30,6 +30,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -63,6 +64,7 @@ import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.tasks.DownloadThread;
+import com.geecko.QuickLyric.tasks.Id3LyricsReader;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
@@ -246,27 +248,34 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
     public void fetchLyrics(String... params) {
         String artist = params[0];
-        String song = params[1];
+        String title = params[1];
         String url = null;
         if (params.length > 2)
             url = params[2];
         this.startRefreshAnimation();
 
         Lyrics lyrics = null;
-        if (artist != null && song != null)
-            lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, song});
-
+        if (artist != null && title != null) {
+            lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+            if (lyrics == null)
+                lyrics = Id3LyricsReader.getLyrics(getActivity(), artist, title);
+        }
         if (lyrics != null)
             onLyricsDownloaded(lyrics);
-        else {
+        else if (OnlineAccessVerifier.check(getActivity())) {
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getStringSet("pref_providers", Collections.<String>emptySet());
             DownloadThread.refreshProviders(providersSet);
 
             if (url == null)
-                new DownloadThread(this, artist, song).start();
+                new DownloadThread(this, artist, title).start();
             else
-                new DownloadThread(this, url, artist, song).start();
+                new DownloadThread(this, url, artist, title).start();
+        } else {
+            lyrics = new Lyrics(Lyrics.ERROR);
+            lyrics.setArtist(artist);
+            lyrics.setTitle(title);
+            onLyricsDownloaded(lyrics);
         }
     }
 
@@ -310,7 +319,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
-        new CoverArtLoader().execute(lyrics, this);
+        Bitmap cover = Id3LyricsReader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+        if (cover == null)
+            new CoverArtLoader().execute(lyrics, this);
+        else
+            setCoverArt(cover, null);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
         TextView songTV = (TextView) layout.findViewById(R.id.song);
@@ -502,6 +515,16 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             cover.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
         }
+    }
+
+    public void setCoverArt(Bitmap cover, FadeInNetworkImageView coverView) {
+        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.getActivity();
+        if (mainActivity == null)
+            return;
+        if (coverView == null)
+            coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
+        if (coverView != null)
+            coverView.setLocalImageBitmap(cover);
     }
 
     @Override

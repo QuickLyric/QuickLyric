@@ -61,6 +61,10 @@ android {
             versionName "1.7.4p"
         }
     }
+    
+    lintOptions {
+		disable 'InvalidPackage'    
+    }
 }
 dependencies {
     compile 'com.android.support:support-v4:22.+'
@@ -71,6 +75,7 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:1.+'
     compile 'com.wdullaer:materialdatetimepicker:1.+'
     compile 'com.nispok:snackbar:2.9.+'
+    compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.+'
     playCompile 'com.android.support:palette-v7:21.0.0'
 }
