@@ -65,7 +65,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 artist = jsonData.getString("artist_display_name");
                 track = jsonData.getString("track_name");
             } catch (IOException | JSONException e) {
-                e.printStackTrace(); // todo test offline
+                e.printStackTrace();
                 return new Lyrics(ERROR);
             }
 
@@ -103,11 +103,10 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
         if (lyricsViewFragment != null) {
-            if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTrack() == null)) {
+            if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTrack() == null))
                 lyricsViewFragment.stopRefreshAnimation();
-                return;
-            }
-            lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
+            else
+                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
         } else
             ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
     }
