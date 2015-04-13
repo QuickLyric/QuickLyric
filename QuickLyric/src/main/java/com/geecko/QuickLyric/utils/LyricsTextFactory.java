@@ -22,7 +22,6 @@ package com.geecko.QuickLyric.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.TypedValue;

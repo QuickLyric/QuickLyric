@@ -30,7 +30,9 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.*;
+import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
+import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
+import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
 @Reflection
 public class MetalArchives {

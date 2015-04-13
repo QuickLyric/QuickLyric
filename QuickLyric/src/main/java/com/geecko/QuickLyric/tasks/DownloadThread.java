@@ -31,7 +31,6 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
 import com.geecko.QuickLyric.lyrics.LyricsWiki;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;

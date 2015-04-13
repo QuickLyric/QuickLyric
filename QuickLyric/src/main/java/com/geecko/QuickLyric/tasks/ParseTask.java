@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
