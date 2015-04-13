@@ -31,14 +31,14 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 @Reflection
-public class Lyricsmint {
+public class Bollywood {
 
     @Reflection
-    public static final String domain = "lyricsmint.com";
+    public static final String domain = "quicklyric.netii.net/bollywood/";
 
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
-        String searchUrl = "http://quicklyric.netii.net/search.php?q=%s";
+        String searchUrl = "http://quicklyric.netii.net/bollywood/search.php?q=%s";
         try {
             String jsonText;
             jsonText = Net.getUrlAsString(String.format(searchUrl, URLEncoder.encode(query, "utf-8")));
@@ -56,7 +56,7 @@ public class Lyricsmint {
                         break;
                     }
                 }
-                lyrics.setURL("http://quicklyric.netii.net/get.php?id=" + lyricsResult.getInt("id"));
+                lyrics.setURL("http://quicklyric.netii.net/bollywood/get.php?id=" + lyricsResult.getInt("id"));
                 results.add(lyrics);
             }
         } catch (IOException | JSONException e) {
@@ -75,7 +75,7 @@ public class Lyricsmint {
         return new Lyrics(Lyrics.NO_RESULT);
     }
 
-    // TODO handle lyricsmint urls
+    // TODO handle urls
     @Reflection
     public static Lyrics fromURL(String url, String artist, String song) {
         return new Lyrics(Lyrics.NO_RESULT);
