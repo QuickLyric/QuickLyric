@@ -216,6 +216,8 @@ public class LocalLyricsFragment extends ListFragment {
     }
 
     public void update(final ArrayList<Lyrics> results) {
+        if (getView() == null)
+            return;
         int scrollY = getListView().getScrollY();
         lyricsArray = results;
         ViewGroup container = ((ViewGroup) getListView().getParent());
