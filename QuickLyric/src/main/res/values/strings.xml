@@ -205,6 +205,7 @@ A few possible reasons why:&lt;br/>
 </string>
     <string name="why_popup_title">Why doesn\'t it work?</string>
     <string name="download_category">Downloads</string>
+    <string name="wearable_prompt">Open on wearable</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

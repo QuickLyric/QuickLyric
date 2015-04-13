@@ -20,7 +20,6 @@
 package com.geecko.QuickLyric.broadcastReceiver;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -120,13 +119,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
             NotificationCompat.Action wearableAction =
                     new NotificationCompat.Action.Builder(R.drawable.ic_watch,
-                            "Open on wearable", wearablePending)
+                            context.getString(R.string.wearable_prompt), wearablePending)
                             .build();
 
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
             NotificationCompat.Builder wearableNotifBuilder = new NotificationCompat.Builder(context);
 
-            if (sharedPref.getString("pref_theme", "0").equals("0"))
+            if ("0".equals(sharedPref.getString("pref_theme", "0")))
                 notifBuilder.setColor(context.getResources().getColor(R.color.primary));
 
             notifBuilder.setSmallIcon(R.drawable.ic_notif)
