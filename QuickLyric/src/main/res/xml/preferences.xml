@@ -29,6 +29,11 @@
             android:title="@string/pref_night_mode"
             android:summary="@string/pref_night_mode_sum"
             android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="pref_opendyslexic"
+            android:title="@string/pref_opendyslexic"
+            android:summary="@string/pref_opendyslexic_sum"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/download_category">

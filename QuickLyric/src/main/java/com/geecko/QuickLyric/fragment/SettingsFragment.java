@@ -68,6 +68,7 @@ public class SettingsFragment extends PreferenceFragment implements
         findPreference("pref_issues").setOnPreferenceClickListener(this);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
+        findPreference("pref_opendyslexic").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
         findPreference("pref_providers").setOnPreferenceChangeListener(this);
@@ -78,6 +79,14 @@ public class SettingsFragment extends PreferenceFragment implements
         switch (pref.getKey()) {
             case "pref_theme":
                 if (!newValue.equals(pref.getSharedPreferences().getString("pref_theme", "0"))) {
+                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setAction("android.intent.action.MAIN");
+                    startActivity(intent);
+                }
+                return true;
+            case "pref_opendyslexic":
+                if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_opendyslexic", false))) {
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
