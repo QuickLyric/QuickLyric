@@ -44,8 +44,8 @@ public class Lyrics implements Serializable {
     public static final int ERROR = -3;
     public static final int SEARCH_ITEM = 2;
 
-    public static interface Callback {
-        public void onLyricsDownloaded(Lyrics lyrics);
+    public interface Callback {
+        void onLyricsDownloaded(Lyrics lyrics);
     }
 
     public Lyrics(int flag) {
@@ -148,6 +148,19 @@ public class Lyrics implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        return object instanceof Lyrics && this.getURL().equals(((Lyrics) object).getURL());
+        boolean isLyrics = object instanceof Lyrics;
+        if (isLyrics && (this.getURL() != null) && ((Lyrics) object).getURL() != null)
+            return this.getURL().equals(((Lyrics) object).getURL());
+        else if (isLyrics) {
+            Lyrics other = (Lyrics) object;
+            boolean result = this.getText().equals(other.getText());
+            result &= this.getFlag() == other.getFlag();
+            result &= this.getSource().equals(other.getSource());
+            result &= this.getArtist().equals(other.getArtist());
+            result &= this.getTrack().equals(other.getTrack());
+            return result;
+        }
+        else
+            return false;
     }
 }
