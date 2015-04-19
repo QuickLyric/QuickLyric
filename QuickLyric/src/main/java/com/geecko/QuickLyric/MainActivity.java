@@ -169,10 +169,7 @@ public class MainActivity extends ActionBarActivity {
         if (receivedLyrics != null) {
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
-            if ("android.intent.action.SEND".equals(intent.getAction())
-                    && (extra.contains("www.soundhound.com")
-                    || extra.contains("//shz.am/")
-                    || extra.contains("//play.google.com/store/music/"))) {
+            if ("android.intent.action.SEND".equals(intent.getAction())) {
                 new IdDecoder(this, null).execute(getIdUrl(extra));
             } else if ("android.intent.action.VIEW".equals(intent.getAction())) {
                 processURL(intent);
@@ -264,35 +261,40 @@ public class MainActivity extends ActionBarActivity {
         String action = intent.getAction();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (action != null) {
-            if (action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
-                Lyrics receivedLyrics = getBeamedLyrics(intent);
-                if (receivedLyrics != null)
-                    updateLyricsFragment(0, 0, false, receivedLyrics);
-            } else if (action.equals("android.intent.action.SEARCH"))
-                search(intent.getStringExtra(SearchManager.QUERY));
-            else if (action.equals("android.intent.action.SEND")
-                    && (extra.contains("http://www.soundhound.com/")
-                    || extra.contains("http://shz.am/")
-                    || extra.contains("//play.google.com/store/music/"))) {
-                LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
-                        .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-                new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
-                selectItem(0);
-            } else if (action.equals("android.intent.action.VIEW")) {
-                processURL(intent);
-                selectItem(0);
-            } else if (action.equals("com.geecko.QuickLyric.getLyrics")) {
-                String[] metadata = intent.getStringArrayExtra("TAGS");
-                if (metadata != null) {
-                    String artist = metadata[0];
-                    String track = metadata[1];
+            switch (action) {
+                case NfcAdapter.ACTION_NDEF_DISCOVERED:
+                    Lyrics receivedLyrics = getBeamedLyrics(intent);
+                    if (receivedLyrics != null)
+                        updateLyricsFragment(0, 0, false, receivedLyrics);
+                    break;
+                case "android.intent.action.SEARCH":
+                    search(intent.getStringExtra(SearchManager.QUERY));
+                    break;
+                case "android.intent.action.SEND":
                     LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                             .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-                    lyricsViewFragment.fetchLyrics(artist, track);
+                    new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
                     selectItem(0);
-                }
-            } else if (action.equals("com.geecko.QuickLyric.updateDBList"))
-                updateDBList();
+                    break;
+                case "android.intent.action.VIEW":
+                    processURL(intent);
+                    selectItem(0);
+                    break;
+                case "com.geecko.QuickLyric.getLyrics":
+                    String[] metadata = intent.getStringArrayExtra("TAGS");
+                    if (metadata != null) {
+                        String artist = metadata[0];
+                        String track = metadata[1];
+                        LyricsViewFragment lyricsFragment = (LyricsViewFragment) getFragmentManager()
+                                .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                        lyricsFragment.fetchLyrics(artist, track);
+                        selectItem(0);
+                    }
+                    break;
+                case "com.geecko.QuickLyric.updateDBList":
+                    updateDBList();
+                    break;
+            }
         }
     }
 

@@ -2,8 +2,10 @@ package com.geecko.QuickLyric.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 
@@ -109,5 +111,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
         } else
             ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
+        if (lyrics.getFlag() == ERROR)
+            Toast.makeText(mContext, R.string.wrong_musicID, Toast.LENGTH_LONG).show();
     }
 }
