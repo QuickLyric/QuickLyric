@@ -46,6 +46,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
@@ -169,16 +170,17 @@ public class MainActivity extends ActionBarActivity {
         if (receivedLyrics != null) {
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
-            if ("android.intent.action.SEND".equals(intent.getAction())) {
+            if ("android.intent.action.SEND".equals(intent.getAction())) { // MusicID
                 new IdDecoder(this, null).execute(getIdUrl(extra));
-            } else if ("android.intent.action.VIEW".equals(intent.getAction())) {
+            } else if ("android.intent.action.VIEW".equals(intent.getAction())) { // URL
                 processURL(intent);
-            } else if ("com.geecko.QuickLyric.getLyrics".equals(intent.getAction())) {
+            } else if ("com.geecko.QuickLyric.getLyrics".equals(intent.getAction())) { // External App
+                Log.v("geecko", "breadcrumb");
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 String artist = metadata[0];
                 String track = metadata[1];
                 updateLyricsFragment(0, artist, track);
-            } else {
+            } else { // Default
                 LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
                 if (lyricsViewFragment == null)
                     lyricsViewFragment = new LyricsViewFragment();
