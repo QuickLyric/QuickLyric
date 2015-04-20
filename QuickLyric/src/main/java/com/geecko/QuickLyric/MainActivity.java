@@ -55,6 +55,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
@@ -253,7 +254,8 @@ public class MainActivity extends ActionBarActivity {
             // fixme executes twice?
             LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            lyricsViewFragment.fetchCurrentLyrics(false);
+            if (lyricsViewFragment != null && !"Storage".equals(lyricsViewFragment.getSource()))
+                lyricsViewFragment.fetchCurrentLyrics(false);
         }
     }
 
@@ -679,6 +681,9 @@ public class MainActivity extends ActionBarActivity {
         ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG)).showWhyPopup();
     }
 
+    public void id3PopUp(View view) {
+        Toast.makeText(this, string.ignore_id3_toast, Toast.LENGTH_LONG).show();
+    }
 
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {

@@ -210,6 +210,8 @@ A few possible reasons why:&lt;br/>
     <string name="pref_opendyslexic_sum">Use a special font created for readers with a reading disability</string>
     <string name="wrong_musicID">Unsupported MusicID service</string>
     <string name="pref_issues_sum">quicklyricapp@gmail.com (English only)</string>
+    <string name="ignore_id3_toast">Tap the Refresh button to force a download</string>
+    <string name="from_id3">(Lyrics extracted from audio file)</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

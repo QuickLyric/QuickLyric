@@ -259,7 +259,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         Lyrics lyrics = null;
         if (artist != null && title != null) {
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
-            if (lyrics == null)
+            if (lyrics == null && (mLyrics == null || !("Storage".equals(mLyrics.getSource())
+                    && mLyrics.getArtist().equalsIgnoreCase(artist)
+                    && mLyrics.getTrack().equalsIgnoreCase(title))
+            ))
                 lyrics = Id3LyricsReader.getLyrics(getActivity(), artist, title);
         }
         if (lyrics != null)
@@ -329,6 +332,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
         TextView songTV = (TextView) layout.findViewById(R.id.song);
+        TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
         RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
         this.mLyrics = lyrics;
         if (SDK_INT >= ICE_CREAM_SANDWICH)
@@ -352,6 +356,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
 
             bugLayout.setVisibility(View.INVISIBLE);
+            if ("Storage".equals(lyrics.getSource()))
+                id3TV.setVisibility(View.VISIBLE);
+            else
+                id3TV.setVisibility(View.GONE);
             mObservableScrollView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -375,6 +383,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
             whyTextView.setVisibility(whyVisibility);
             whyTextView.setPaintFlags(whyTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            id3TV.setVisibility(View.GONE);
         }
         stopRefreshAnimation();
         getActivity().getIntent().setAction("");
@@ -387,6 +396,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 .setMessage(String.format(String.valueOf(Html.fromHtml(getString(R.string.why_popup_text))),
                         title, artist))
                 .show();
+    }
+
+    public String getSource() {
+        return mLyrics.getSource();
     }
 
     @Override
