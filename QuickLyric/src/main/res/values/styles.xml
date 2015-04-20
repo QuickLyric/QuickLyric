@@ -37,7 +37,8 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">#1a000000</item>
         <item name="android:actionMenuTextAppearance">@style/menuItemTextAppearance</item>
-        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextColor">?android:textColorPrimary</item>
+        <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:scrollViewStyle">@style/ScrollViewQuicklyric</item>
         <item name="drawerArrowStyle">@style/DrawerArrowQuickLyric</item>
