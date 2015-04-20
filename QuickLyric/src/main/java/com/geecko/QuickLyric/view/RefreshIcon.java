@@ -36,7 +36,7 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
     private ImageView shadow;
     private com.melnykov.fab.ObservableScrollView scrollView;
     private boolean mRunning = false;
-    private boolean mEnded = false;
+    public static boolean mEnded = false;
 
     public RefreshIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -85,9 +85,8 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
     }
 
     public void stopAnimation() {
-        if (mRunning) {
+        if (mRunning)
             mEnded = true;
-        }
         attachToScrollView(scrollView);
     }
 
