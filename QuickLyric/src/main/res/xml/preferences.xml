@@ -78,7 +78,7 @@
         <Preference
             android:title="@string/pref_issues"
             android:key="pref_issues"
-            android:summary="quicklyricapp@gmail.com"/>
+            android:summary="@string/pref_issues_sum"/>
         <Preference
             android:title="@string/pref_about"
             android:key="pref_about"
