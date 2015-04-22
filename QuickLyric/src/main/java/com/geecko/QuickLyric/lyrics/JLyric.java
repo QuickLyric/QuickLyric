@@ -23,16 +23,47 @@ import com.geecko.QuickLyric.annotations.Reflection;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 @Reflection
 public class JLyric {
 
     public static final String domain = "j-lyric.net";
     private static final String baseUrl = "http://search.j-lyric.net/index.php?ct=0&ca=0&kl=&cl=0&ka=%1s&kt=%1s";
+
+    public static ArrayList<Lyrics> search(String query) {
+        ArrayList<Lyrics> results = new ArrayList<>();
+        Elements artistBlocks = null;
+
+        try {
+            Document searchPage = Jsoup.connect(String.format("http://search.j-lyric.net/index.php?ct=0&ka=&ca=0&kl=&cl=0&kt=%s", URLEncoder.encode(query, "UTF-8"))).get();
+            artistBlocks = searchPage.body().select("div#lyricList .body");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (artistBlocks == null || artistBlocks.first() == null)
+            return results;
+
+
+        for(Element result: artistBlocks) {
+            Lyrics l = new Lyrics(Lyrics.SEARCH_ITEM);
+            String title = result.select("div.title > a").text();
+            String artist = result.select("div.status > a").text();
+            String url = result.select("div.title > a").attr("href");
+            l.setTitle(title);
+            l.setArtist(artist);
+            l.setURL(url);
+            l.setSource("J-Lyric");
+            results.add(l);
+        }
+        return results;
+    }
 
     @Reflection
     public static Lyrics fromMetaData(String artist, String song) {

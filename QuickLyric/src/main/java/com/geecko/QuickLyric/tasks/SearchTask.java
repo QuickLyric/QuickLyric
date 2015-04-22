@@ -34,6 +34,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.SearchAdapter;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.lyrics.Genius;
+import com.geecko.QuickLyric.lyrics.JLyric;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
@@ -52,17 +53,27 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
         if (searchFragment == null)
             return null;
 
-        List<Lyrics> results;
+        List<Lyrics> resultsGenuis;
+        List<Lyrics> resultsJLyric;
         do
-            results = Genius.search(keyword);
-        while (results == null && !isCancelled()
+            resultsGenuis = Genius.search(keyword);
+        while (resultsGenuis == null && !isCancelled()
+                && searchFragment.isActiveFragment
+                && OnlineAccessVerifier.check(searchFragment.getActivity()));
+
+        do
+            resultsJLyric = JLyric.search(keyword);
+        while (resultsJLyric == null && !isCancelled()
                 && searchFragment.isActiveFragment
                 && OnlineAccessVerifier.check(searchFragment.getActivity()));
 
         SQLiteDatabase db = ((MainActivity) searchFragment.getActivity()).database;
-        List<Lyrics> results2 = DatabaseHelper.search(db, keyword);
-        results2.addAll(results);
-        return results2;
+        List<Lyrics> results = DatabaseHelper.search(db, keyword);
+
+        results.addAll(resultsGenuis);
+        results.addAll(resultsJLyric);
+
+        return results;
     }
 
     protected void onPostExecute(final List<Lyrics> results) {
