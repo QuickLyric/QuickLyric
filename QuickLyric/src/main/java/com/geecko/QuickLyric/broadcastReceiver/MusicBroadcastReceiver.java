@@ -25,6 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -62,6 +63,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean lengthFilter = sharedPref.getBoolean("filter_20min", true);
+
+        if (extras != null)
+            try {
+                extras.getInt("state");
+            } catch (BadParcelableException e) {
+                return;
+            }
 
         if (extras == null || extras.getInt("state") > 1 //Tracks longer than 20min are presumably not songs
                 || (lengthFilter && (extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000)
