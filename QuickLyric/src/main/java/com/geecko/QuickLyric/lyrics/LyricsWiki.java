@@ -83,9 +83,43 @@ public class LyricsWiki {
         return results;
     }
 
+    @Reflection
+    public static Lyrics fromMetaData(String artist, String title) {
+        if ((artist == null) || (title == null))
+            return new Lyrics(ERROR);
+        String originalArtist = artist;
+        String originalTitle = title;
+        try {
+            String encodedArtist = URLEncoder.encode(artist, "UTF-8");
+            String encodedSong = URLEncoder.encode(title, "UTF-8");
+            JSONObject json = new JSONObject(getUrlAsString(new URL(
+                    String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
+            String url = URLDecoder.decode(json.getString("url"), "UTF-8");
+            artist = json.getString("artist");
+            title = json.getString("song");
+            encodedArtist = URLEncoder.encode(artist, "UTF-8");
+            encodedSong = URLEncoder.encode(title, "UTF-8");
+            json = new JSONObject(getUrlAsString
+                    (new URL(String.format(baseAPIUrl, encodedArtist, encodedSong)))
+            ).getJSONObject("result");
+            Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
+            lyrics.setArtist(artist);
+            lyrics.setTitle(title);
+            lyrics.setText(json.getString("lyrics").replaceAll("\n", "<br />"));
+            lyrics.setURL(url);
+            lyrics.setOriginalArtist(originalArtist);
+            lyrics.setOriginalTitle(originalTitle);
+            return lyrics;
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+            return new Lyrics(ERROR);
+        }
+    }
+
     public static Lyrics fromURL(String url, String artist, String song) {
-        if (url.endsWith("action=edit"))
-            return new Lyrics(Lyrics.NO_RESULT);
+        if (url.endsWith("action=edit")) {
+            return new Lyrics(NO_RESULT);
+        }
         String text;
         try {
             //url = URLDecoder.decode(url, "utf-8");
@@ -100,7 +134,7 @@ public class LyricsWiki {
                 text = Parser.unescapeEntities(text, true);
         } catch (IndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
-            return new Lyrics(Lyrics.ERROR);
+            return new Lyrics(ERROR);
         }
 
         if (artist == null)
@@ -116,14 +150,14 @@ public class LyricsWiki {
         }
         if (text.contains("Unfortunately, we are not licensed to display the full lyrics for this song at the moment.")
                 || text.equals("Instrumental <br />")) {
-            Lyrics result = new Lyrics(Lyrics.NEGATIVE_RESULT);
+            Lyrics result = new Lyrics(NEGATIVE_RESULT);
             result.setArtist(artist);
             result.setTitle(song);
             return result;
         } else if (text.equals("") || text.length() < 3)
-            return new Lyrics(Lyrics.NO_RESULT);
+            return new Lyrics(NO_RESULT);
         else {
-            Lyrics lyrics = new Lyrics(Lyrics.POSITIVE_RESULT);
+            Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
             lyrics.setArtist(artist);
             lyrics.setTitle(song);
             lyrics.setText(text);
