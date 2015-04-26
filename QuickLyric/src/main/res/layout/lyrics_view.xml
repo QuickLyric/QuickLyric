@@ -87,10 +87,10 @@
 
                     <com.geecko.QuickLyric.view.FadeInNetworkImageView
                         android:id="@+id/cover"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/frame_height"
                         android:layout_height="match_parent"
                         android:minWidth="@dimen/cover_width"
-                        android:scaleType="centerInside"
+                        android:scaleType="fitStart"
                         android:contentDescription="@string/cover_art_desc"
                         android:layout_alignParentLeft="true"/>
 
