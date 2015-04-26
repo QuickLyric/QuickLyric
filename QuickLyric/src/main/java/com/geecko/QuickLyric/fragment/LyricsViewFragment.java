@@ -101,6 +101,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private int minFrameRawY = 0;
     private FrameLayout mFrame;
     private ObservableScrollView mObservableScrollView;
+    private Activity mActivity;
 
     public LyricsViewFragment() {
     }
@@ -460,7 +461,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MainActivity mainActivity = (MainActivity) this.getActivity();
+        MainActivity mainActivity = (MainActivity) this.mActivity;
         ActionBar actionBar = mainActivity.getSupportActionBar();
         actionBar.setTitle(R.string.app_name);
 
@@ -469,13 +470,13 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
         inflater.inflate(R.menu.lyrics, menu);
         // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getActivity()
+        SearchManager searchManager = (SearchManager) this.mActivity
                 .getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.search_view);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getActivity().getComponentName()));
+                .getSearchableInfo(this.mActivity.getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -484,7 +485,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 searchView.post(new Runnable() {
                     @Override
                     public void run() {
-                        ((InputMethodManager) getActivity()
+                        ((InputMethodManager) mActivity
                                 .getSystemService(Context.INPUT_METHOD_SERVICE))
                                 .toggleSoftInput(InputMethodManager.SHOW_FORCED,
                                         InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -501,7 +502,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mActivity);
             if (mLyrics != null
                     && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
                     && sharedPref.getBoolean("pref_auto_save", false)
@@ -515,8 +516,20 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
     public void setCoverArt(String url, FadeInNetworkImageView cover) {
-        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.getActivity();
+        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
         if (mainActivity == null)
             return;
         if (cover == null)
@@ -533,7 +546,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void setCoverArt(Bitmap cover, FadeInNetworkImageView coverView) {
-        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.getActivity();
+        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
         if (mainActivity == null)
             return;
         if (coverView == null)
