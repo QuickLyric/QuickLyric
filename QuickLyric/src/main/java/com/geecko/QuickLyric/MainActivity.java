@@ -41,9 +41,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
@@ -132,8 +134,7 @@ public class MainActivity extends AppCompatActivity {
         drawerView = this.findViewById(id.left_drawer);
         drawer = this.findViewById(id.drawer_layout);
         if (drawer instanceof DrawerLayout) { // if phone
-            if (getSupportActionBar() != null)
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, string.drawer_open_desc, string.drawer_closed_desc) {
 
                 /**
@@ -232,6 +233,11 @@ public class MainActivity extends AppCompatActivity {
         fragments[2] = fragmentManager.findFragmentByTag(SETTINGS_FRAGMENT);
         fragments[3] = fragmentManager.findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
         return fragments;
+    }
+
+    @NonNull
+    public ActionBar getSupportActionBar() {
+        return super.getSupportActionBar();
     }
 
     @Override
@@ -495,7 +501,6 @@ public class MainActivity extends AppCompatActivity {
         });
         if (mDrawerToggle != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(false);
-            if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
         focusOnFragment = false;
