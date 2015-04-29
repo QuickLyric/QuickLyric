@@ -58,6 +58,7 @@ public class LyricWiki {
     @Reflection
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
+        query = query + " song";
         query = Normalizer.normalize(query, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         try {
             URL queryURL = new URL(String.format(baseSearchUrl, URLEncoder.encode(query, "UTF-8")));
