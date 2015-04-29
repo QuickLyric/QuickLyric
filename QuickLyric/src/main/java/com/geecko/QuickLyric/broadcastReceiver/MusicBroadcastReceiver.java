@@ -25,6 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -168,7 +169,11 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 notif.flags |= Notification.FLAG_AUTO_CANCEL;
 
             NotificationManagerCompat.from(context).notify(0, notif);
-            NotificationManagerCompat.from(context).notify(8, wearableNotif);
+            try {
+                context.getPackageManager().getPackageInfo("com.google.android.wearable.app", PackageManager.GET_META_DATA);
+                NotificationManagerCompat.from(context).notify(8, wearableNotif);
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
         } else
             NotificationManagerCompat.from(context).cancel(0);
     }
