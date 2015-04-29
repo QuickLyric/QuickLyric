@@ -102,6 +102,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private FrameLayout mFrame;
     private ObservableScrollView mObservableScrollView;
     private Activity mActivity;
+    private MenuItem searchItem;
 
     public LyricsViewFragment() {
     }
@@ -379,6 +380,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             } else {
                 message = R.string.no_results;
                 whyVisibility = TextView.VISIBLE;
+                SearchView searchView = (SearchView) searchItem.getActionView();
+                if (!searchItem.isActionViewExpanded())
+                    searchItem.expandActionView();
+                searchView.setQuery(lyrics.getTrack(), false);
+                searchView.clearFocus();
             }
             TextView whyTextView = ((TextView) bugLayout.findViewById(R.id.bugtext_why));
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
@@ -472,7 +478,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) this.mActivity
                 .getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.search_view);
+        searchItem = menu.findItem(R.id.search_view);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager
