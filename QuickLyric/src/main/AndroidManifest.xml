@@ -113,6 +113,25 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/search_hint"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateUnchanged|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".MainActivity"/>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+        </activity>
+
         <service
             android:name=".services.BatchDownloaderService"
             android:icon="@mipmap/ic_launcher"

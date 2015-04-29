@@ -29,7 +29,7 @@ import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
-import com.geecko.QuickLyric.lyrics.LyricsWiki;
+import com.geecko.QuickLyric.lyrics.LyricWiki;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class DownloadThread extends Thread {
 
     private static final Class[] mainProviders =
             {
-                    LyricsWiki.class,
+                    LyricWiki.class,
                     Genius.class,
                     AZLyrics.class,
                     LyricsMania.class

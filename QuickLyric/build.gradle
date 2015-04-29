@@ -27,8 +27,8 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 35
-        versionName "1.7.4"
+        versionCode 39
+        versionName "1.8"
     }
 
     compileOptions {
@@ -58,7 +58,6 @@ android {
         fdroid {
         }
         play {
-            versionName "1.7.4p"
         }
     }
     
@@ -68,8 +67,9 @@ android {
 }
 dependencies {
     compile 'com.android.support:support-v4:22.+'
-    compile 'com.android.support:appcompat-v7:22.+'
+    compile 'com.android.support:appcompat-v7:22.1.+'
     compile 'com.android.support:cardview-v7:22.+'
+    compile 'com.android.support:support-v13:22.+'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.melnykov:floatingactionbutton:1.+'

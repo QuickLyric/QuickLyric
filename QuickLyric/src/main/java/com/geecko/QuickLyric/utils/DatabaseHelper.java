@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_COVER_URL = "cover";
     public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE, KEY_COVER_URL};
     private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT);";
+    private static SQLiteDatabase database = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,6 +55,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    public static void setDatabase(SQLiteDatabase database) {
+        DatabaseHelper.database = database;
     }
 
     public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
@@ -83,6 +88,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return results;
+    }
+
+    public static List<Lyrics> search(String query) {
+        return search(database, query);
     }
 
     public static Lyrics get(SQLiteDatabase database, String[] metaData) {

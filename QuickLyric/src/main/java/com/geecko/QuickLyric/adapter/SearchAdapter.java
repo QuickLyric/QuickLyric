@@ -63,5 +63,4 @@ public class SearchAdapter extends ArrayAdapter<String> {
         private TextView title;
         private TextView artist;
     }
-
 }

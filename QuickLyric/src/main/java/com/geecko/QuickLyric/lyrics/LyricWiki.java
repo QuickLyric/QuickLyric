@@ -44,7 +44,7 @@ import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.SEARCH_ITEM;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
-public class LyricsWiki {
+public class LyricWiki {
 
     @Reflection
     public static final String domain = "lyrics.wikia.com";
