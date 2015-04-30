@@ -70,7 +70,6 @@
   <string name="pref_auto_save">Automaticky ukládat texty písní</string>
   <string name="pref_auto_save_sum">Všechny texty písní budou uloženy ve vašem zařízení</string>
   <string name="pref_night_mode">Noční režim</string>
-  <string name="pref_night_mode_sum">V době od 18:00 večer do 6:00 ráno použít tmavé téma</string>
   <string name="scan_action">Prohledat hudbu</string>
   <string name="warning">Varování</string>
   <string name="content_providers_title">Vyhledat texty k hudbě&#8230;</string>
@@ -80,7 +79,7 @@
   <string name="pref_providers_sum">Čím více zdrojů vyberete, tím déle bude trvat stažení každého textu písně</string>
   <string name="pref_issues">Hlášení chyb v aplikaci</string>
   <string name="pref_contribute">Pomozte při vývoji aplikace na GitHubu</string>
-  <string name="pref_contribute_sum">Vylepšit překlad rozhraní aplikace, rozšířit katalog textů písní...</string>
+  <string name="pref_contribute_sum">Vylepšit překlad rozhraní aplikace, rozšířit katalog textů písní…</string>
   <string name="scan_error_no_content">Nebyly nalezeny žádné hudební soubory</string>
   <string name="no_results_why"><u>Proč?</u></string>
   <string name="why_popup_text">
@@ -106,8 +105,8 @@ Existuje několik důvodů, proč k tom mohlo dojít:&lt;br/&gt;
     <item quantity="other">Byl staženy texty %1$d písní</item>
   </plurals>
   <string-array name="sort_modes">
-    <item>Podle jména interpreta...</item>
-    <item>Podle názvu skladby...</item>
+    <item>Podle jména interpreta…</item>
+    <item>Podle názvu skladby…</item>
   </string-array>
   <string-array name="AZ_sort_order">
     <item>Abecedně (A-Z)</item>
@@ -118,7 +117,7 @@ Existuje několik důvodů, proč k tom mohlo dojít:&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Elektronická taneční hudba</item>
-    <item>Texty s japonskými znaky (ひらがな)</item>
+    <item>Texty s japonskými znaky</item>
     <item>Písně z Bollywoodských filmů</item>
   </string-array>
   <string-array name="notifications">

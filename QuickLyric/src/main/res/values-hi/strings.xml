@@ -50,8 +50,6 @@
   <string name="welcome">QuickLyric पे स्वागत है</string>
   <string name="welcome2_sub">जो बोल आप ढूंड रहे थे… \nअभी इस वक़्त</string>
   <string name="apps_desc">काफ़ी सारे प्लेयर्स के साथ संगत</string>
-  <string name="apps_desc_sub">यदि QuickLyric आपके प्लेयर (जैसे Poweramp या Spotify) के साथ काम नहीं करता है, तो सुनिश्चित करें कि \"Scrobbling\" या \"Broadcast Status\" माजूद है।</string>
-  <string name="id_desc">अपने पसंदीदा MusicID  के साथ एकीकरण।</string>
   <string name="id_desc_sub">1. गाने को पहचानें
 2. QuickLyric के साथ परिणाम शेर करें। 
 3. अपने बोल का आनंद लें</string>
@@ -60,7 +58,6 @@
   <string name="drawer_desc">चलो और खोदें</string>
   <string name="drawer_desc_sub">अन्य सुविधाओं का उपयोग करने के लिए यहाँ दबायें (या स्क्रीन को स्वाइप करें)।</string>
   <string name="pref_more_category">ज़्यादा</string>
-  <string name="share_prompt">Shazam/Sounhound से लायें</string>
   <string name="undo">वापिस करें</string>
   <string name="skip">अगला ना लायें</string>
   <string name="pref_theme">पसंदीदार थीम</string>

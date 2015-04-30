@@ -71,7 +71,6 @@
   <string name="pref_auto_save">Salva automaticamente i testi</string>
   <string name="pref_auto_save_sum">Tutti i testi saranno salvati sul tuo dispositivo</string>
   <string name="pref_night_mode">Modalità notturna</string>
-  <string name="pref_night_mode_sum">Mostra uno sfondo scuro tra le 21 e le 6 del mattino</string>
   <string name="scan_action">Cerca musica</string>
   <string name="warning">Attenzione</string>
   <string name="content_providers_title">Cerca musica da&#8230;</string>
@@ -119,7 +118,7 @@ Alcune cause potrebbero essere:&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Dance Elettronica</item>
-    <item>Giapponese (ひらがな)</item>
+    <item>Giapponese</item>
     <item>Bollywood</item>
   </string-array>
   <string-array name="notifications">

@@ -71,21 +71,20 @@
   <string name="pref_auto_save">Αυτόματη αποθήκευση στίχων</string>
   <string name="pref_auto_save_sum">Όλοι οι στίχοι θα αποθηκευτούν στην συσκευή σας</string>
   <string name="pref_night_mode">Νυχτερινή λειτουργία</string>
-  <string name="pref_night_mode_sum">Σκούρο φόντο μεταξύ 9 μμ και 6 πμ</string>
   <string name="scan_action">Σάρωση μουσικής</string>
   <string name="warning">Προειδοποίηση</string>
-  <string name="content_providers_title">Σάρωση μουσικής από...</string>
-  <string name="dl_progress">Λήψη στίχων... %1$d/%2$d</string>
+  <string name="content_providers_title">Σάρωση μουσικής από…</string>
+  <string name="dl_progress">Λήψη στίχων… %1$d/%2$d</string>
   <string name="dl_finished">Η λήψη ολοκληρώθηκε</string>
   <string name="pref_providers">Πρόσθετες πηγές στίχων</string>
   <string name="pref_providers_sum">Όσο περισσότερες επιλέγετε, τόσο περισσότερος χρόνος θα χρειαστεί για κάθε λήψη</string>
   <string name="pref_issues">Αναφορά προβλημάτων</string>
   <string name="pref_contribute">Συμβάλετε στο GitHub</string>
-  <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων...</string>
+  <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων…</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
   <string name="why_popup_text">
-Ψάχνατε για τους στίχους του \"%1$s\" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει... &lt; br/&gt;&lt;br/&gt;
+Ψάχνατε για τους στίχους του \"%1$s\" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… &lt; br/&gt;&lt;br/&gt;
 Μερικές πιθανές αιτίες: &lt;br/&gt;
 &lt;br/&gt;
 • Έχει η μουσική σας σωστές &lt; strong &gt; ετικέτες &lt;/strong&gt; Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.&lt;br/&gt;
@@ -119,7 +118,7 @@
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Electronic Dance Music</item>
-    <item>Ιαπωνική (ひらがな)</item>
+    <item>Ιαπωνική</item>
     <item>Μουσική Bollywood</item>
   </string-array>
   <string-array name="notifications">

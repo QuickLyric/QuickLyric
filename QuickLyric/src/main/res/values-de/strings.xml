@@ -52,14 +52,15 @@
   <string name="welcome2_sub">Ihr gesuchter Songtext&#8230;\nJetzt sofort verfügbar.</string>
   <string name="apps_desc">Kompatibel mit den meisten Musik-Playern</string>
   <string name="apps_desc_sub">Falls QuickLyric mit Ihrem Musik-Player nicht funktioniert (z.B. Poweramp, GoneMAD oder Spotify), stellen Sie bitte sicher, dass \"Scrobbling\" oder \"Übertragungsstatus\" in den Optionen der Player-App aktiviert ist.</string>
-  <string name="id_desc">Integration mit Ihren bevorzugten MusicID-Apps.</string>
+  <string name="id_desc">Zusammenspiel mit Ihren favorisierten MusicID Apps.
+        \n(Shazam™, SoundHound™ oder Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Titel identifizieren\n2. Ergebnis mit QuickLyric teilen\n3. Songtext genießen</string>
   <string name="refresh_desc">Wenn sich das Lied geändert hat&#8230;</string>
   <string name="refresh_desc_sub">Drücken Sie auf diese Schaltfläche, QuickLyric erledigt den Rest.</string>
   <string name="drawer_desc">Entdecken Sie noch mehr!</string>
   <string name="drawer_desc_sub">Um auf andere Funktionen zuzugreifen, tippen Sie hier (oder wischen Sie vom Rand des Bildschirmes).</string>
   <string name="pref_more_category">Andere</string>
-  <string name="share_prompt">Importieren von Shazam/Soundhound</string>
+  <string name="share_prompt">Import aus MusicID</string>
   <string name="undo">Rückgängig machen</string>
   <string name="skip">Überspringen</string>
   <string name="pref_theme">Thema</string>
@@ -70,11 +71,11 @@
   <string name="pref_auto_save">Songtext automatisch speichern</string>
   <string name="pref_auto_save_sum">Alle Songtexte werden auf Ihrem Gerät gespeichert</string>
   <string name="pref_night_mode">Nachtmodus</string>
-  <string name="pref_night_mode_sum">Zwischen 21:00 und 06:00  dunklen Hintergrund verwenden</string>
+  <string name="pref_night_mode_sum">Nachts einen dunklen Hintergrund verwenden</string>
   <string name="scan_action">Musik scannen</string>
   <string name="warning">Warnung</string>
   <string name="content_providers_title">Musik scannen von&#8230;</string>
-  <string name="dl_progress">Songtexte werden heruntergeladen… %1$d/%2$d</string>
+  <string name="dl_progress">Songtexte werden heruntergeladen&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Donwload abgeschlossen</string>
   <string name="pref_providers">Zusätzliche Quellen für Songtexte</string>
   <string name="pref_providers_sum">Je mehr Quellen ausgewählt werden, desto länger wird jeder Download dauern</string>
@@ -118,7 +119,7 @@ Mögliche Ursachen:&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Elektronische Tanzmusik (EDM)</item>
-    <item>Japanisch (ひらがな)</item>
+    <item>Japanisch</item>
     <item>Bollywood Musik</item>
   </string-array>
   <string-array name="notifications">

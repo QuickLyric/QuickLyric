@@ -52,16 +52,17 @@
   <string name="welcome2_sub">Les paroles que vous cherchiez&#8230;\nInstantanément.</string>
   <string name="apps_desc">Compatible avec la plupart des lecteurs de musique</string>
   <string name="apps_desc_sub">Si QuickLyric ne fonctionne pas avec votre lecteur (par exemple Poweramp, GoneMAD ou Spotify), assurez-vous que le « Scrobbling » ou « Statut de diffusion » est activé.</string>
-  <string name="id_desc">Intégration avec vos applications d’identification musicale préférées.</string>
+  <string name="id_desc">Intégration avec vos applications d’identification musicale préférées.
+        \n(Shazam™, SoundHound™ ou Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Identifiez une chanson\n2. Partagez le résultat vers QuickLyric\n3. Profitez des paroles</string>
   <string name="refresh_desc">Quand la chanson a changé&#8230;</string>
   <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric se chargera du reste.</string>
   <string name="drawer_desc">Creusons encore un peu !</string>
   <string name="drawer_desc_sub">Pour accéder à d\'autres fonctionnalités, appuyez ici (ou tirez le menu avec votre doigt).</string>
   <string name="pref_more_category">Autre</string>
-  <string name="share_prompt">Importer depuis Shazam ou SoundHound</string>
+  <string name="share_prompt">Importer depuis une identification musicale</string>
   <string name="undo">Annuler</string>
-  <string name="skip">Passer</string>
+  <string name="skip">Ignorer</string>
   <string name="pref_theme">Thème</string>
   <string name="pref_notifications">Notifications</string>
   <string name="defaut_theme">Ambre (par défaut)</string>
@@ -70,7 +71,7 @@
   <string name="pref_auto_save">Sauvegarder automatiquement les paroles</string>
   <string name="pref_auto_save_sum">Toutes les paroles seront stockées sur votre appareil</string>
   <string name="pref_night_mode">Mode nocturne</string>
-  <string name="pref_night_mode_sum">Affiche un fond sombre entre 21h et 6h</string>
+  <string name="pref_night_mode_sum">Affiche un fond sombre pendant la nuit</string>
   <string name="scan_action">Scanner ma musique</string>
   <string name="warning">Avertissement</string>
   <string name="content_providers_title">Analyse de la musique depuis&#8230;</string>
@@ -118,16 +119,16 @@ Plusieurs raisons possibles:&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Electronic Dance Music</item>
-    <item>Japonais (ひらがな)</item>
+    <item>Japonais</item>
     <item>Musique de Bollywood</item>
   </string-array>
   <string-array name="notifications">
-    <item>Désactivé (par défaut)</item>
+    <item>Désactivées (par défaut)</item>
     <item>Activées</item>
     <item>Activées (statiques)</item>
   </string-array>
   <string-array name="URI_labels">
     <item>Cet appareil</item>
-    <item>Votre librairie Google Play Music</item>
+    <item>Votre bibliothèque Play Musique</item>
   </string-array>
 </resources>

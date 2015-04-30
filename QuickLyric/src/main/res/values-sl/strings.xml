@@ -51,12 +51,15 @@
   <string name="welcome2_sub">Besedila ki ste jih iskali&#8230;\nTukaj, zdaj.</string>
   <string name="apps_desc">Združljivo z večinoma glasbenimi predvajalci</string>
   <string name="apps_desc_sub">Če QuickLyric ne deluje z Vašim predvajalcem (Poweramp, Shuttle, GoneMAD), se prepričajte da ima omogočeno \"Scrobbling\" in\"Broadcast status\".</string>
+  <string name="id_desc">Integracija z vašimi najljubšimi MusicID aplikacijami.
+        \n(Shazam™, SoundHound™ ali Google Play Zvočno Iskanje™)</string>
   <string name="id_desc_sub">1. Identificirajte pesem\n2. Delite rezultate v QuickLyric\n3. Uživanje v besedilu</string>
   <string name="refresh_desc">Ob spremembi skladbe&#8230;</string>
   <string name="refresh_desc_sub">Pritisnite ta gumb. QuickLyric bo naredil ostalo.</string>
   <string name="drawer_desc">Gremo globje!</string>
   <string name="drawer_desc_sub">Tapnite tukaj za dostop do vseh funkcij (ali potegnite meni iz leve strani).</string>
   <string name="pref_more_category">Več</string>
+  <string name="share_prompt">Uvozi iz MusicID</string>
   <string name="undo">Razveljavi</string>
   <string name="skip">Preskoči</string>
   <string name="pref_theme">Tema</string>
@@ -67,11 +70,11 @@
   <string name="pref_auto_save">Samodejno shrani besedilo</string>
   <string name="pref_auto_save_sum">Vsa besedila bodo shranjena v napravo</string>
   <string name="pref_night_mode">Nočni način</string>
-  <string name="pref_night_mode_sum">Prikaži temno ozadje med 21:00 in 06:00 uro</string>
+  <string name="pref_night_mode_sum">Ponoči prikaži temno ozadje</string>
   <string name="scan_action">Poišči glasbo</string>
   <string name="warning">Opozorilo</string>
   <string name="content_providers_title">Poišči glasbo iz&#8230;</string>
-  <string name="dl_progress">Prenašanje besedila&#8230;%1$d%2$d</string>
+  <string name="dl_progress">Prenašanje besedil&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Prenos končan</string>
   <string name="pref_providers">Dodatni besedilni viri</string>
   <string name="pref_providers_sum">Več kot izberete, dlje bo vsak prenos trajal</string>
@@ -121,7 +124,7 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Elektronska plesna glasba</item>
-    <item>Japonščina (ひらがな)</item>
+    <item>Japonščina</item>
     <item>Bollywood glasba</item>
   </string-array>
   <string-array name="notifications">
@@ -130,7 +133,7 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.&lt;br/&gt;
     <item>Omogočeno (pripeto)</item>
   </string-array>
   <string-array name="URI_labels">
-    <item>Ta naprava</item>
-    <item>Vaša Google Play glasbena knjižnica</item>
+    <item>Te naprave</item>
+    <item>Vaše Google Play glasbene knjižnice</item>
   </string-array>
 </resources>

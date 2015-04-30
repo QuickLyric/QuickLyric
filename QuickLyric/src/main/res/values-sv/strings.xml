@@ -48,11 +48,11 @@
   <string name="pref_animations_title">Aktivera animationer</string>
   <string name="pref_look_feel_category">Utseende</string>
   <string name="welcome">Välkommen till QuickLyric!</string>
-  <string name="welcome2_sub">Texten du söker...\nHär och nu.</string>
+  <string name="welcome2_sub">Texten du söker…\nHär och nu.</string>
   <string name="apps_desc">Kompatibel med de flesta musikspelare</string>
   <string name="apps_desc_sub">Om QuickLyric inte fungerar med din spelare (e.g. Poweramp, GoneMAD eller Spotify), se till att den har \"Scrobbling\" eller \"Broadcast Status\" aktiverat.</string>
   <string name="id_desc">Integreras med dina MusicID-appar.
-        \n(Shazam™, SoundHound™ or Google Play Sound Search™)</string>
+        \n(Shazam™, SoundHound™ eller Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. identifiera en song\n2. Dela resultatet till QuickLyric\n3. Få tillbaka låttexten</string>
   <string name="refresh_desc">När låten har ändrats&#8230;</string>
   <string name="refresh_desc_sub">Tryck på knappen. QuickLyric kommer att göra resten.</string>
@@ -70,7 +70,6 @@
   <string name="pref_auto_save">Spara låttexter automatiskt</string>
   <string name="pref_auto_save_sum">Alla texter kommer att lagras på enheten</string>
   <string name="pref_night_mode">Nattläge</string>
-  <string name="pref_night_mode_sum">Visa en mörk bakgrund mellan 21:00 och 06:00</string>
   <string name="scan_action">Skanna musik</string>
   <string name="warning">Varning</string>
   <string name="content_providers_title">Skanna musik från&#8230;</string>
@@ -109,7 +108,7 @@ Kontrollera att du har en stabil anslutning för minst %2$d minuter.</item>
     <item>Metall</item>
     <item>Hip Hop</item>
     <item>Elektronisk dansmusik</item>
-    <item>Japansk (ひらがな)</item>
+    <item>Japansk</item>
     <item>Bollywoodmusik</item>
   </string-array>
   <string-array name="notifications">

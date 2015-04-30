@@ -67,7 +67,6 @@
   <string name="pref_auto_save">Guardar lletres automàticament</string>
   <string name="pref_auto_save_sum">Totes les lletres es guardaran al seu dispositiu</string>
   <string name="pref_night_mode">Mode de nit</string>
-  <string name="pref_night_mode_sum">Mostrar un fons fosc entre les 21:00 i les 06:00</string>
   <string name="scan_action">Escannejar musica</string>
   <string name="warning">Avís</string>
   <string name="content_providers_title">Escannejar musica de&#8230;</string>
@@ -115,7 +114,7 @@ Possibles raons:&lt;br/&gt;
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Electronic Dance Music</item>
-    <item>Japonesa (ひらがな)</item>
+    <item>Japonesa</item>
     <item>Bollywood Music</item>
   </string-array>
   <string-array name="notifications">

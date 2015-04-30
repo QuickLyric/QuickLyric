@@ -68,7 +68,6 @@
   <string name="pref_auto_save">Аутоматски сачувај стихове</string>
   <string name="pref_auto_save_sum">Стихови ће бити сачувани на вашем уређају</string>
   <string name="pref_night_mode">Ноћни режим</string>
-  <string name="pref_night_mode_sum">Приказ тамне позадине између 9 навече и 6 ујутру</string>
   <string name="scan_action">Потражи музику</string>
   <string name="warning">Упозорење</string>
   <string name="content_providers_title">Потражи музику са&#8230;</string>
@@ -122,7 +121,7 @@
     <item>Метал</item>
     <item>Хип хоп</item>
     <item>Електронска денс музика</item>
-    <item>Јапанска (ひらがな)</item>
+    <item>Јапанска</item>
     <item>Боливудска музика</item>
   </string-array>
   <string-array name="notifications">

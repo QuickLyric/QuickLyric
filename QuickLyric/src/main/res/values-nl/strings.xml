@@ -52,14 +52,15 @@
   <string name="welcome2_sub">De teksten die je zoekt&#8230;\nOnmiddelijk.</string>
   <string name="apps_desc">Werkt met meest muziekspelers</string>
   <string name="apps_desc_sub">Als QuickLyric niet met je muziekspeler werkt (Poweramp, GoneMAD of Spotify), zorg ervoor dat \"Scrobbling\" en \"Broadcast Status\" ingeshakeld zijn.</string>
-  <string name="id_desc">Integratie met uw favoriete muziekspelers.</string>
+  <string name="id_desc">Integratie met uw favoriete MusicID apps.
+        \n(Shazam™, SoundHound™ of Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Identificeer een liedje\n2. Deel de resultaten via QuickLyric\n3. Geniet van de songteksten</string>
   <string name="refresh_desc">Als het liedje verandert&#8230;</string>
   <string name="refresh_desc_sub">Druk op deze knop. QuickLyric zal de rest doen.</string>
   <string name="drawer_desc">Laten we wat dieper graven !</string>
   <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
   <string name="pref_more_category">Meer</string>
-  <string name="share_prompt">Importeren vanuit Shazam/Soundhound</string>
+  <string name="share_prompt">Importeren van MusicID</string>
   <string name="undo">Annuleren</string>
   <string name="skip">Overslaan</string>
   <string name="pref_theme">Thema</string>
@@ -70,17 +71,16 @@
   <string name="pref_auto_save">Slaat automatisch lyrics op</string>
   <string name="pref_auto_save_sum">Alle songteksten zullen op je apparaat worden opgeslaan</string>
   <string name="pref_night_mode">Nachtmodus</string>
-  <string name="pref_night_mode_sum">Schakel naar een donker achtergrond tussen 21u en 6u</string>
   <string name="scan_action">Muziek scannen</string>
   <string name="warning">Waarschuwing</string>
-  <string name="content_providers_title">Muziek scannen van…</string>
+  <string name="content_providers_title">Muziek scannen van&#8230;</string>
   <string name="dl_progress">Lyrics aan het downloaden&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Downloaden gedaan</string>
   <string name="pref_providers">Extra bronnen</string>
   <string name="pref_providers_sum">Hoe meer er wordt geselecteerd, hoe langer het downloaden zal duren</string>
   <string name="pref_issues">Problemen melden</string>
   <string name="pref_contribute">Aan het project bijdragen op GitHub</string>
-  <string name="pref_contribute_sum">Verbeter vertalingen, breid de lyrics catalogus uit…</string>
+  <string name="pref_contribute_sum">Verbeter vertalingen, breid de lyrics catalogus uit&#8230;</string>
   <string name="scan_error_no_content">Geen muziek gevonden</string>
   <string name="no_results_why"><u>Waarom?</u></string>
   <string name="why_popup_title">Waarom werkt het niet?</string>
@@ -104,7 +104,7 @@
     <item>Metal</item>
     <item>Hip Hop</item>
     <item>Electronic Dance Music</item>
-    <item>Japans (ひらがな)</item>
+    <item>Japans</item>
     <item>Bollywood muziek</item>
   </string-array>
   <string-array name="notifications">
@@ -114,6 +114,6 @@
   </string-array>
   <string-array name="URI_labels">
     <item>Dit apparaat</item>
-    <item>Uw Google Play Music bibliotheek</item>
+    <item>Uw Google Play Muziek bibliotheek</item>
   </string-array>
 </resources>
