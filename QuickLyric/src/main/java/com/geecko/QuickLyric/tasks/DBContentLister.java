@@ -54,10 +54,10 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> 
                 columns = new String[]{DatabaseHelper.columns[1], DatabaseHelper.columns[0]};
                 break;
         }
-        String orderBy = String.format("LTRIM(Replace(%s, 'The ', '')) %s,%s ASC", columns[0], (descending ? "DESC" : "ASC"), columns[1]);
+        String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE %s,%s COLLATE NOCASE ASC", columns[0], (descending ? "DESC" : "ASC"), columns[1]);
         SQLiteDatabase database = ((MainActivity) localLyricsFragment.getActivity()).database;
         if (database != null) {
-            Cursor cursor = database.query("lyrics", null, null, null, null, null, orderBy);
+            Cursor cursor = database.query("lyrics", null, null, null, null, null, query);
             cursor.moveToFirst();
             ArrayList<Lyrics> results = new ArrayList<>(cursor.getCount());
             if (cursor.moveToFirst())
