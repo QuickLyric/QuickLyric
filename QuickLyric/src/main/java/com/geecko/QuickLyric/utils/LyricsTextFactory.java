@@ -32,6 +32,8 @@ import android.widget.ViewSwitcher;
 
 import com.geecko.QuickLyric.R;
 
+import java.util.Hashtable;
+
 public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
 
     private final Context mContext;
@@ -45,9 +47,9 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
         TextView t = new TextView(mContext);
         t.setGravity(Gravity.CENTER_HORIZONTAL);
         if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("pref_opendyslexic", false))
-            t.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/opendyslexic.otf"));
+            t.setTypeface(FontCache.get("opendyslexic", mContext));
         else
-            t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            t.setTypeface(FontCache.get("normal", mContext));
         TypedValue colorValue = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
         t.setTextColor(colorValue.data);
@@ -63,4 +65,24 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
             t.setTextIsSelectable(true);
     }
 
+    private static class FontCache {
+
+        private static Hashtable<String, Typeface> fontCache = new Hashtable<>();
+
+        public static Typeface get(String name, Context context) {
+            Typeface tf = fontCache.get(name);
+            if (tf == null) {
+                try {
+                    if (name.contains("dyslexic"))
+                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/opendyslexic.otf");
+                    else
+                        tf = Typeface.create("sans-serif-light", Typeface.NORMAL);
+                } catch (Exception e) {
+                    return null;
+                }
+                fontCache.put(name, tf);
+            }
+            return tf;
+        }
+    }
 }
