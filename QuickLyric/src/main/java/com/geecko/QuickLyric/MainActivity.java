@@ -380,6 +380,7 @@ public class MainActivity extends AppCompatActivity {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
         }
+        invalidateOptionsMenu();
     }
 
     @Override
