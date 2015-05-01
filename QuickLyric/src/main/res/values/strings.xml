@@ -68,6 +68,10 @@
     <string name="pref_more_category">More</string>
     <string name="share_prompt">Import from MusicID</string>
     <string name="undo">Undo</string>
+    <string name="beta_dialog_content">
+1) Join the Google+ Community: \nhttps://plus.google.com/communities/115504114424315189412
+\n2) Sign up for the Beta: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric
+    </string>
     <string name="about_dialog_content">
 QuickLyric is licensed under the GNU Lesser General Public License Version 3 (GPLv3)
 \n A full copy of the license is available here: https://github.com/geecko86/QuickLyric/blob/master/LICENSE
@@ -191,6 +195,8 @@ Terms of service available at:
     <string name="pref_issues">Report Issues</string>
     <string name="pref_contribute">Contribute on GitHub</string>
     <string name="pref_contribute_sum">Improve translations, expand the lyrics catalog,…</string>
+    <string name="pref_beta">Become a beta tester</string>
+    <string name="pref_beta_sum">Get updates (new features, bug fixes, …) faster and report back via email</string>
     <string name="scan_error_no_content">Could not find any music</string>
     <string name="no_results_why"><u>Why?</u></string>
     <string name="why_popup_text">

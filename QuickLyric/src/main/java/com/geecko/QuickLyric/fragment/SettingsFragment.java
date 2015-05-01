@@ -65,6 +65,7 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         findPreference("pref_contribute").setOnPreferenceClickListener(this);
+        findPreference("pref_beta").setOnPreferenceClickListener(this);
         findPreference("pref_issues").setOnPreferenceClickListener(this);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
@@ -128,9 +129,10 @@ public class SettingsFragment extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
+        AlertDialog.Builder dialog;
         switch (preference.getKey()) {
             case "pref_about":
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog = new AlertDialog.Builder(getActivity());
                 dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) getView(), false));
                 dialog.create().show();
                 break;
@@ -139,6 +141,11 @@ public class SettingsFragment extends PreferenceFragment implements
                 browserIntent.setData(Uri.parse("https://github.com/geecko86/QuickLyric"));
                 if (browserIntent.resolveActivity(getActivity().getPackageManager()) != null)
                     startActivity(browserIntent);
+                break;
+            case "pref_beta":
+                dialog = new AlertDialog.Builder(getActivity());
+                dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.beta_dialog, (ViewGroup) getView(), false));
+                dialog.create().show();
                 break;
             case "pref_issues":
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
@@ -214,7 +221,7 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
         ActionBar actionBar = (mainActivity).getSupportActionBar();
-        if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
+        if (mainActivity.focusOnFragment) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title)))
                 actionBar.setTitle(R.string.settings_title);
