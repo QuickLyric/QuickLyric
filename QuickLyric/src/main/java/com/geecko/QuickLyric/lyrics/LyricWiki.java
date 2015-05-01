@@ -90,12 +90,13 @@ public class LyricWiki {
             return new Lyrics(ERROR);
         String originalArtist = artist;
         String originalTitle = title;
+        String url = null;
         try {
             String encodedArtist = URLEncoder.encode(artist, "UTF-8");
             String encodedSong = URLEncoder.encode(title, "UTF-8");
             JSONObject json = new JSONObject(getUrlAsString(new URL(
                     String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
-            String url = URLDecoder.decode(json.getString("url"), "UTF-8");
+            url = URLDecoder.decode(json.getString("url"), "UTF-8");
             artist = json.getString("artist");
             title = json.getString("song");
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
@@ -111,9 +112,10 @@ public class LyricWiki {
             lyrics.setOriginalArtist(originalArtist);
             lyrics.setOriginalTitle(originalTitle);
             return lyrics;
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-            return new Lyrics(ERROR);
+        } catch (JSONException e) {
+            return new Lyrics(NO_RESULT);
+        } catch (IOException e) {
+            return url == null ? new Lyrics(ERROR) : fromURL(url, originalArtist, originalTitle);
         }
     }
 

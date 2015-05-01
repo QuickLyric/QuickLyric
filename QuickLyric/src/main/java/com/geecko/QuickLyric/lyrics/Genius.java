@@ -81,10 +81,10 @@ public class Genius {
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         String urlTitle = Normalizer.normalize(originalTitle, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        urlArtist = urlArtist.replaceAll("[^a-zA-Z0-9\\s]", "").replaceAll("&", "and")
-                .trim().replaceAll("\\s+", "-");
-        urlTitle = urlTitle.replaceAll("[^a-zA-Z0-9\\s]", "").replaceAll("&", "and")
-                .trim().replaceAll("\\s+", "-");
+        urlArtist = urlArtist.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("&", "and")
+                .trim().replaceAll("[\\s+]", "-");
+        urlTitle = urlTitle.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("&", "and")
+                .trim().replaceAll("[\\s+]", "-");
         String url = String.format("http://genius.com/%s-%s-lyrics", urlArtist, urlTitle);
         return fromURL(url, originalArtist, originalTitle);
     }
