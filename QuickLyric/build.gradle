@@ -2,11 +2,13 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
@@ -71,6 +73,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.+'
     compile 'com.android.support:support-v13:22.+'
     compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'org.jraf:android-switch-backport:2.0.1'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.melnykov:floatingactionbutton:1.+'
     compile 'com.wdullaer:materialdatetimepicker:1.+'

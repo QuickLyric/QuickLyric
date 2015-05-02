@@ -49,6 +49,7 @@
         <item name="android:itemBackground">#eeeeee</item>
         <item name="android:listSelector">@drawable/listview_row_selector</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color</item>
+        <item name="asb_switchPreferenceStyle">@style/asb_Preference.SwitchPreference</item>
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">

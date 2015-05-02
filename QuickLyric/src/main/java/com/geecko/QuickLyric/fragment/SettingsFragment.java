@@ -21,7 +21,6 @@ package com.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +31,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.Menu;
