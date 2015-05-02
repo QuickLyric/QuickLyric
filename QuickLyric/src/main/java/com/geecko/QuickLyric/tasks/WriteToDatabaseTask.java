@@ -70,6 +70,8 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         if (params[0] instanceof Fragment) {
             fragment = (Fragment) params[0];
             mContext = fragment.getActivity();
+            if (mContext == null || !(mContext instanceof MainActivity))
+                cancel(true);
             database = ((MainActivity) mContext).database;
         } else
             database = (SQLiteDatabase) params[0];
