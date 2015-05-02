@@ -199,16 +199,16 @@ Terms of service available at:
     <string name="pref_beta_sum">Get updates (new features, bug fixes, …) faster and report back via email</string>
     <string name="scan_error_no_content">Could not find any music</string>
     <string name="no_results_why"><u>Why?</u></string>
-    <string name="why_popup_text">
-You were looking for the lyrics of \"%1$s\" by %2$s. Unfortunately QuickLyric couldn\'t find them… &lt;br/>&lt;br/>
-A few possible reasons why:&lt;br/>
-&lt;br/>
-• Is your music &lt;strong>tagged&lt;/strong> properly? QuickLyric cannot recognize tracks that aren\'t tagged.&lt;br/>
-• Check if your connection is working.&lt;br/>
-• Perhaps this song isn\'t part of the main catalog. Have you checked the &lt;strong>additional providers&lt;/strong> in the settings?&lt;br/>
-• You might have found a bug. If so, please email me.&lt;br/>
-• Finally, it\'s also possible that the lyrics for this song aren\'t available. If you have suggestions regarding additions to the catalog, feel free to email me.&lt;br/>
-</string>
+    <string name="why_popup_text"><![CDATA[
+You were looking for the lyrics of \"%1$s\" by %2$s. Unfortunately QuickLyric couldn\'t find them… <br/><br/>
+A few possible reasons why:<br/>
+<br/>
+• Is your music <strong>tagged</strong> properly? QuickLyric cannot recognize tracks that aren\'t tagged.<br/>
+• Check if your connection is working.<br/>
+• Perhaps this song isn\'t part of the main catalog. Have you checked the <strong>additional providers</strong> in the settings?<br/>
+• You might have found a bug. If so, please email me.<br/>
+• Finally, it\'s also possible that the lyrics for this song aren\'t available. If you have suggestions regarding additions to the catalog, feel free to email me.<br/>
+]]></string>
     <string name="why_popup_title">Why doesn\'t it work?</string>
     <string name="download_category">Downloads</string>
     <string name="wearable_prompt">Open on wearable</string>
