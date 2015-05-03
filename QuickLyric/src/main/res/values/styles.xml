@@ -23,6 +23,7 @@
         <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
+        <item name="android:dropDownItemStyle">@style/searchSuggestionItemStyle</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -39,6 +40,7 @@
         <item name="android:actionMenuTextAppearance">@style/menuItemTextAppearance</item>
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
+        <item name="android:autoCompleteTextViewStyle">@style/searchSuggestionsStyle</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:scrollViewStyle">@style/ScrollViewQuicklyric</item>
         <item name="drawerArrowStyle">@style/DrawerArrowQuickLyric</item>
@@ -58,6 +60,8 @@
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/black</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color_dark</item>
+        <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
+        <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
 
     <style name="Theme.QuickLyric.Night" parent="Theme.QuickLyric.Dark">
@@ -121,6 +125,14 @@
     <style name="DrawerListViewAppearance.Night" parent="Theme.QuickLyric.Night">
         <item name="colorControlHighlight">#555</item>
         <item name="android:background">?android:attr/panelColorBackground</item>
+    </style>
+
+    <style name="searchSuggestionsStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>
+    </style>
+
+    <style name="searchSuggestionItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">#222</item>
     </style>
 
     <style name="PagerTabStripText">

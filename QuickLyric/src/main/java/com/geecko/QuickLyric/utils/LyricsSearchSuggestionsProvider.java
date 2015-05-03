@@ -19,13 +19,40 @@
 
 package com.geecko.QuickLyric.utils;
 
+import android.app.SearchManager;
 import android.content.SearchRecentSuggestionsProvider;
+import android.database.Cursor;
+import android.database.CursorWrapper;
+import android.net.Uri;
+import android.provider.SearchRecentSuggestions;
+
+import com.geecko.QuickLyric.BuildConfig;
 
 public class LyricsSearchSuggestionsProvider extends SearchRecentSuggestionsProvider {
     public final static String AUTHORITY = "QuickLyric.LyricsSearchSuggestionsProvider";
     public final static int MODE = DATABASE_MODE_QUERIES;
+    private final String mIconUri; // a drawable ID as a String will also do!
 
     public LyricsSearchSuggestionsProvider() {
         setupSuggestions(AUTHORITY, MODE);
+        mIconUri = "android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/ic_history";
+    }
+
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+
+        class Wrapper extends CursorWrapper {
+            Wrapper(Cursor c) {
+                super(c);
+            }
+
+            public String getString(int columnIndex) {
+                if (columnIndex != -1 && columnIndex == getColumnIndex(SearchManager.SUGGEST_COLUMN_ICON_1))
+                    return mIconUri;
+                return super.getString(columnIndex);
+            }
+        }
+
+        return new Wrapper(super.query(uri, projection, selection, selectionArgs, sortOrder));
     }
 }
