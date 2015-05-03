@@ -142,12 +142,14 @@ public class DownloadThread extends Thread {
                 Lyrics lyrics;
                 String artist = null;
                 String title = null;
+                String url = null;
                 switch (params.length) {
                     case 3: // URL + tags
                         artist = params[1];
                         title = params[2];
                     case 1: // URL
-                        lyrics = download(params[0], artist, title);
+                        url = params[0];
+                        lyrics = download(url, artist, title);
                         break;
                     default: // just tags
                         lyrics = download(params[0], params[1]);
@@ -156,7 +158,7 @@ public class DownloadThread extends Thread {
                     artist = lyrics.getArtist();
                     title = lyrics.getTrack();
                     String[] correction = correctTags(artist, title);
-                    if (!(correction[0].equals(artist) && correction[1].equals(title))) {
+                    if (!(correction[0].equals(artist) && correction[1].equals(title)) || url != null) {
                         lyrics = download(correction[0], correction[1]);
                         lyrics.setOriginalArtist(artist);
                         lyrics.setOriginalTitle(title);
