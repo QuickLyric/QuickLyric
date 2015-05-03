@@ -18,6 +18,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
+import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 /**

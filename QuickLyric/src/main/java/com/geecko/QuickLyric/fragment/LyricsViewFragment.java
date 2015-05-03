@@ -103,6 +103,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private ObservableScrollView mObservableScrollView;
     private Activity mActivity;
     private MenuItem searchItem;
+    private boolean startEmtpy = false;
 
     public LyricsViewFragment() {
     }
@@ -187,9 +188,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ((FloatingActionButton) layout.findViewById(R.id.refresh_fab)).attachToScrollView(mObservableScrollView);
 
 
-            if (mLyrics == null)
-                fetchCurrentLyrics(false);
-            else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
+            if (mLyrics == null) {
+                if (!startEmtpy)
+                    fetchCurrentLyrics(false);
+            } else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
                 startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
@@ -612,5 +614,9 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             frameTranslationY = 0;
         }
         mFrame.setTranslationY(frameTranslationY);
+    }
+
+    public void startEmpty(boolean startEmpty) {
+        this.startEmtpy = startEmpty;
     }
 }
