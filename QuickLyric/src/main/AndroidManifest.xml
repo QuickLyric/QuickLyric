@@ -137,6 +137,11 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"/>
 
+        <provider
+            android:name=".utils.LyricsSearchSuggestionsProvider"
+            android:authorities="QuickLyric.LyricsSearchSuggestionsProvider"
+            android:exported="false"/>
+
         <receiver
             android:name=".broadcastReceiver.WearableRequestReceiver"
             tools:ignore="ExportedReceiver">

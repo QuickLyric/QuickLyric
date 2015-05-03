@@ -28,6 +28,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -41,6 +42,7 @@ import android.view.MenuItem;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.SearchPagerAdapter;
@@ -110,6 +112,9 @@ public class SearchActivity extends AppCompatActivity {
             switch (action) {
                 case "android.intent.action.SEARCH":
                     this.searchQuery = intent.getStringExtra(SearchManager.QUERY);
+                    SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                            LyricsSearchSuggestionsProvider.AUTHORITY, LyricsSearchSuggestionsProvider.MODE);
+                    suggestions.saveRecentQuery(searchQuery, null);
                     this.refresh();
                     break;
             }

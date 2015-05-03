@@ -41,6 +41,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -68,6 +69,7 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -341,6 +343,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void search(String searchQuery) {
         android.os.SystemClock.sleep(75); // fixme, keyboard animation slows down the transition
+        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                LyricsSearchSuggestionsProvider.AUTHORITY, LyricsSearchSuggestionsProvider.MODE);
+        suggestions.saveRecentQuery(searchQuery, null);
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchIntent.putExtra("query", searchQuery);
         startActivityForResult(searchIntent, 55);
