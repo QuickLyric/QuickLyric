@@ -115,6 +115,12 @@ public class SearchActivity extends AppCompatActivity {
             }
     }
 
+    @Override
+    protected void onPause(){
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_end);
+        super.onPause();
+    }
+
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
         if (viewPager != null)
