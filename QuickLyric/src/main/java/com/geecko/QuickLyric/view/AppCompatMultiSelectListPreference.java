@@ -64,7 +64,8 @@ public class AppCompatMultiSelectListPreference extends MultiSelectListPreferenc
         boolean[] preselect = new boolean[getEntryValues().length];
         for (String s : getValues()) {
             int index = findIndexOfValue(s);
-            preselect[index] = true;
+            if (index != -1)
+                preselect[index] = true;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
