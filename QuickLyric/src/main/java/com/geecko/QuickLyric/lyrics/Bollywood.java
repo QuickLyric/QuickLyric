@@ -77,8 +77,8 @@ public class Bollywood {
 
     // TODO handle urls
     @Reflection
-    public static Lyrics fromURL(String url, String artist, String song) {
-        return new Lyrics(Lyrics.NO_RESULT);
+    public static Lyrics fromURL(String url, String artist, String title) {
+        return fromAPI(url, artist, title);
     }
 
     public static Lyrics fromAPI(String url, String artist, String title) {
