@@ -104,6 +104,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private Activity mActivity;
     private MenuItem searchItem;
     private boolean startEmtpy = false;
+    public boolean searchResultLock;
 
     public LyricsViewFragment() {
     }
@@ -203,6 +204,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                searchResultLock = false;
                 String artist = intent.getStringExtra("artist");
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
@@ -289,6 +291,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     }
 
     public void fetchCurrentLyrics(boolean showMsg) {
+        searchResultLock = false;
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
             new ParseTask(this, showMsg).execute(mLyrics);
         else

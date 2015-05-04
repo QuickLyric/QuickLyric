@@ -274,7 +274,8 @@ public class MainActivity extends AppCompatActivity {
             // fixme executes twice?
             LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                     .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            if (lyricsViewFragment != null && !"Storage".equals(lyricsViewFragment.getSource()))
+            if (lyricsViewFragment != null && !"Storage".equals(lyricsViewFragment.getSource())
+                    && !lyricsViewFragment.searchResultLock)
                 lyricsViewFragment.fetchCurrentLyrics(false);
         }
     }
@@ -390,9 +391,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
+            LyricsViewFragment lyricsViewFragment =
+                    (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+            lyricsViewFragment.searchResultLock = true;
         }
         invalidateOptionsMenu();
     }
