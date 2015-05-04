@@ -33,6 +33,7 @@ import android.graphics.drawable.TransitionDrawable;
 import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.geecko.QuickLyric.R;
 
@@ -41,8 +42,25 @@ import static android.graphics.PorterDuff.Mode.OVERLAY;
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
 
+    private Bitmap  mLocalBitmap;
+    private boolean mShowLocal;
+
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public void setLocalImageBitmap(Bitmap bitmap) {
+        if (bitmap != null) {
+            mShowLocal = true;
+        }
+        this.mLocalBitmap = bitmap;
+        requestLayout();
+    }
+
+    @Override
+    public void setImageUrl(String url, ImageLoader imageLoader) {
+        mShowLocal = false;
+        super.setImageUrl(url, imageLoader);
     }
 
     @Override
@@ -83,4 +101,12 @@ public class FadeInNetworkImageView extends NetworkImageView {
         }
     }
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+
+        super.onLayout(changed, left, top, right, bottom);
+        if (mShowLocal) {
+            setImageBitmap(mLocalBitmap);
+        }
+    }
 }
