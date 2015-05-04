@@ -70,6 +70,7 @@
   <string name="pref_auto_save">Автоматически сохранять тексты</string>
   <string name="pref_auto_save_sum">Все тексты будут храниться на вашем устройстве</string>
   <string name="pref_night_mode">Ночной режим</string>
+  <string name="pref_night_mode_sum">Отображать тёмный фон ночью</string>
   <string name="scan_action">Сканировать Фонотеку</string>
   <string name="warning">Предупреждение</string>
   <string name="content_providers_title">Сканировать музыку из&#8230;</string>
@@ -80,9 +81,28 @@
   <string name="pref_issues">Сообщите о проблемах</string>
   <string name="pref_contribute">Внести свой вклад на GitHub</string>
   <string name="pref_contribute_sum">Улучшить переводы, увеличить каталог текстов&#8230;</string>
+  <string name="pref_beta">Стать бета-тестером</string>
+  <string name="pref_beta_sum">Получить обновления (новые возможности, исправления ошибок...) быстрее и сообщать по электронной почте</string>
   <string name="scan_error_no_content">Музыка не найдена</string>
   <string name="no_results_why"><u>Почему?</u></string>
+  <string name="why_popup_text"><![CDATA[Вы искали текст "%1$s" исполнителя %2$s. К сожалению QuickLyric не смог его найти… <br/><br/>
+Возможные причины:<br/>
+<br/>
+• У Вашей музыки правильно установлены <strong>теги</strong>? QuickLyric не распознаёт песни без тегов.<br/>
+• Проверьте подключение к интернету.<br/>
+• Возможно, песни нет в популярных каталогах. Попробуйте включить <strong>дополнительные источники</strong> в настройках.<br/>
+• Возможно, вы столкнулись с ошибкой. Пожалуйста, напишите об этом на почту.<br/>
+• Наконец, текст данной песни может быть недоступен. Если у Вас есть предложения насчёт пополнения каталога текстов, напишите на почту. <br/>]]></string>
+  <string name="why_popup_title">Почему не работает?</string>
   <string name="download_category">Загрузок</string>
+  <string name="wearable_prompt">Открыть на носимых устройствах</string>
+  <string name="pref_opendyslexic">Использовать шрифт OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Используйте специальный шрифт для читателей с ограниченными возможностями чтения</string>
+  <string name="wrong_musicID">Неподдерживаемый сервис MusicID</string>
+  <string name="pref_issues_sum">quicklyricapp@Gmail.com (только на английском языке)</string>
+  <string name="ignore_id3_toast">Нажмите на «Обновить», чтобы загрузить</string>
+  <string name="from_id3">(Текст, извлеченный из аудио файла)</string>
+  <string name="pandora_warning">Предупреждение: радио сервисы как Pandora® не считаются музыкальными проигрывателями и не работают с QuickLyric</string>
   <string-array name="sort_modes">
     <item>По исполнителю&#8230;</item>
     <item>По названию&#8230;</item>
@@ -91,9 +111,21 @@
     <item>Aлфавитный</item>
     <item>Наоборот</item>
   </string-array>
+  <string-array name="providers">
+    <item>Панк-рок</item>
+    <item>Металл</item>
+    <item>Хип-хоп</item>
+    <item>Электронная танцевальная музыка</item>
+    <item>Японская музыка</item>
+    <item>Музыка Болливуда</item>
+  </string-array>
   <string-array name="notifications">
     <item>Отключено (По умолчанию)</item>
     <item>Включено</item>
     <item>Включено (Липкий)</item>
+  </string-array>
+  <string-array name="URI_labels">
+    <item>Это устройство</item>
+    <item>Ваша библиотека Google Play Music</item>
   </string-array>
 </resources>

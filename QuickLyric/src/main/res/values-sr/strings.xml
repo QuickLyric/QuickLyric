@@ -52,12 +52,15 @@
   <string name="welcome2_sub">Стихови које сте тражили&#8230;\nОвде, сада.</string>
   <string name="apps_desc">Компатибилан са већином музичких плејера</string>
   <string name="apps_desc_sub">Ако Квик лирик не ради са вашим омиљеним плејером (нпр. Poweramp, GoneMAD или Spotify), проверите да ли је „скробловање“ или „стање одашиљања“ омогућено.</string>
+  <string name="id_desc">Интеграција у ваше омиљене апликације музичког ИД-а.
+        \n(Shazam™, SoundHound™ или Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Препознајте песму\n2. Поделите резултат са Квик лириком\n3. Уживајте у стиховима</string>
   <string name="refresh_desc">Кад се промени песма&#8230;</string>
   <string name="refresh_desc_sub">Тапните ово дугме. Квик лирик ће да уради остало.</string>
   <string name="drawer_desc">Истражимо даље!</string>
   <string name="drawer_desc_sub">Да приступите осталим функцијама, тапните овде (или превуците екран са ивице).</string>
   <string name="pref_more_category">Још</string>
+  <string name="share_prompt">Увези из музичког ИД-а</string>
   <string name="undo">Врати</string>
   <string name="skip">Прескочи</string>
   <string name="pref_theme">Тема</string>
@@ -68,6 +71,7 @@
   <string name="pref_auto_save">Аутоматски сачувај стихове</string>
   <string name="pref_auto_save_sum">Стихови ће бити сачувани на вашем уређају</string>
   <string name="pref_night_mode">Ноћни режим</string>
+  <string name="pref_night_mode_sum">Приказ тамне позадине ноћу</string>
   <string name="scan_action">Потражи музику</string>
   <string name="warning">Упозорење</string>
   <string name="content_providers_title">Потражи музику са&#8230;</string>
@@ -78,20 +82,28 @@
   <string name="pref_issues">Пријава грешака</string>
   <string name="pref_contribute">Доприноси на Гитхабу</string>
   <string name="pref_contribute_sum">Побољшајте превод, проширите каталог стихова&#8230;</string>
+  <string name="pref_beta">Постаните бета тестер</string>
+  <string name="pref_beta_sum">Добијајте надоградње (нове функције и исправке грешака) брже и јављајте нам се е-поштом</string>
   <string name="scan_error_no_content">Нисам нашао музику</string>
   <string name="no_results_why"><u>Зашто?</u></string>
-  <string name="why_popup_text">
-Тражили сте стихове песме „%1$s“ од %2$s. Нажалост Квик лирик није могао да их нађе&#8230; &lt;br/&gt;&lt;br/&gt;
-Неки од могућих разлога за то:&lt;br/&gt;
-&lt;br/&gt;
-• Да ли је ваша музика &lt;strong&gt;означена&lt;/strong&gt; исправно? Квик лирик не може да препозна нумере које нису означене.&lt;br/&gt;
-• Проверите вашу везу на интернет.&lt;br/&gt;
-• Можда ове песме нема у главном каталогу. Да ли сте одредили &lt;strong&gt;додатне изворе стихова&lt;/strong&gt; у поставкама?&lt;br/&gt;
-• Можда сте наишлина грешку. Ако је тако, пошаљите е-поруку аутору.&lt;br/&gt;
-• Коначно, могуће је да нема стихова ове песме. Ако имате предлоге у вези додавања у каталог, слободно пошаљите е-поруку аутору.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Тражили сте стихове песме „%1$s“ од %2$s. Нажалост Квик лирик није могао да их нађе… <br/><br/>
+Неки од могућих разлога за то:<br/>
+<br/>
+• Да ли је ваша музика <strong>означена</strong> исправно? Квик лирик не може да препозна нумере које нису означене.<br/>
+• Проверите вашу везу на интернет.<br/>
+• Можда ове песме нема у главном каталогу. Да ли сте одредили <strong>додатне изворе стихова</strong> у поставкама?<br/>
+• Можда сте наишлина грешку. Ако је тако, пошаљите е-поруку аутору.<br/>
+• Коначно, могуће је да нема стихова ове песме. Ако имате предлоге у вези додавања у каталог, слободно пошаљите е-поруку аутору.<br/>]]></string>
   <string name="why_popup_title">Зашто не ради?</string>
   <string name="download_category">Преузимања</string>
+  <string name="wearable_prompt">Отвори на носивим уређајима</string>
+  <string name="pref_opendyslexic">Користи фонт „OpenDyslexic“</string>
+  <string name="pref_opendyslexic_sum">Користи посебни фонт направљен за кориснике са дислексијом</string>
+  <string name="wrong_musicID">Неподржан сервис музичког ИД-а</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (само на енглеском)</string>
+  <string name="ignore_id3_toast">Тапните „Освежи“ да бисте присилили преузимање</string>
+  <string name="from_id3">(Стихови извучени из фајла)</string>
+  <string name="pandora_warning">Упозорење: Радио сервиси као што је Пандора® радио нису музички плејери и не раде са Квик лириком.</string>
   <plurals name="scan_dialog">
     <item quantity="one">Квик лирик ће да преузме стихове за укупно %1$d песму.\
         Побрините се да имате стабилну везу %2$d минута.</item>

@@ -48,7 +48,7 @@
   <string name="pref_animations_title">Aktivera animationer</string>
   <string name="pref_look_feel_category">Utseende</string>
   <string name="welcome">Välkommen till QuickLyric!</string>
-  <string name="welcome2_sub">Texten du söker…\nHär och nu.</string>
+  <string name="welcome2_sub">Texten du söker&#8230;\nHär och nu.</string>
   <string name="apps_desc">Kompatibel med de flesta musikspelare</string>
   <string name="apps_desc_sub">Om QuickLyric inte fungerar med din spelare (e.g. Poweramp, GoneMAD eller Spotify), se till att den har \"Scrobbling\" eller \"Broadcast Status\" aktiverat.</string>
   <string name="id_desc">Integreras med dina MusicID-appar.
@@ -70,6 +70,7 @@
   <string name="pref_auto_save">Spara låttexter automatiskt</string>
   <string name="pref_auto_save_sum">Alla texter kommer att lagras på enheten</string>
   <string name="pref_night_mode">Nattläge</string>
+  <string name="pref_night_mode_sum">Visa en mörk bakgrund på natten</string>
   <string name="scan_action">Skanna musik</string>
   <string name="warning">Varning</string>
   <string name="content_providers_title">Skanna musik från&#8230;</string>
@@ -80,11 +81,27 @@
   <string name="pref_issues">Rapportera Problem</string>
   <string name="pref_contribute">Bidra på GitHub</string>
   <string name="pref_contribute_sum">Förbättra översättningar, expandera textkatalogen&#8230;</string>
+  <string name="pref_beta">Bli betatestare</string>
+  <string name="pref_beta_sum">Få uppdateringar (nya funktioner, buggfixar, och så vidare) snabbare via email</string>
   <string name="scan_error_no_content">Kunde inte hitta någon musik</string>
   <string name="no_results_why"><u>Varför?</u></string>
-  <string name="why_popup_text">Du efter sökte texten till \"%1$s\" av %2$s. Tyvärr kunde QuickLyric inte hitta den&#8230; &lt; br / &gt;&lt; br / &gt; Några möjliga orsaker varför: &lt; br / &gt;&lt; br / &gt; • Är din musik &lt; strong &gt; taggad &lt; / strong &gt; ordentligt? QuickLyric kan inte känna igen spår som inte är taggade. &lt; br / &gt; • Kontrollera om din anslutning fungerar. &lt; br / &gt; • Kanske saknas låten i huvudkatalogen. Har du kollat de &lt; stark &gt; ytterligare källorna &lt; / strong &gt; i inställningarna? &lt; br / &gt; • Du kanske har hittat en bugg. Om så är fallet, vänligen maila mig &lt; br / &gt; • Slutligen är det också möjligt att texten till den här låten är inte tillgänglig. Om du har förslag om tillägg till katalogen, maila mig. &lt; br / &gt; </string>
+  <string name="why_popup_text"><![CDATA[Du efter sökte texten till "%1$s" av %2$s. Tyvärr kunde QuickLyric inte hitta den… <br/>< br/>
+Några möjliga orsaker varför: <br/><br/>
+• Är din musik <strong>taggad</strong> ordentligt? QuickLyric kan inte känna igen spår som inte är taggade. <br/>
+• Kontrollera om din anslutning fungerar. <br/>
+• Kanske saknas låten i huvudkatalogen. Har du kollat de <stark> ytterligare källorna </strong> i inställningarna? <br/>
+• Du kanske har hittat en bugg. Om så är fallet, vänligen maila mig <br/>
+• Slutligen är det också möjligt att texten till den här låten är inte tillgänglig. Om du har förslag om tillägg till katalogen, maila mig. <br/>]]></string>
   <string name="why_popup_title">Varför fungerar det inte?</string>
   <string name="download_category">Hämtade filer</string>
+  <string name="wearable_prompt">Öppna på wearable</string>
+  <string name="pref_opendyslexic">Använd OpenDyslexic typsnitt</string>
+  <string name="pref_opendyslexic_sum">Använd ett särskilt teckensnitt skapat för läsare med lässvårigheter</string>
+  <string name="wrong_musicID">Saknar stöd för MusicID-tjänsten</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (endast engelska)</string>
+  <string name="ignore_id3_toast">Tryck på uppdateringsknappen för att tvinga fram en nedladdning</string>
+  <string name="from_id3">(Text extraherad från ljudfil)</string>
+  <string name="pandora_warning">Varning: Radiotjänster som Pandora ® Radio räknas inte som musikspelare och fungerar inte med QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>

@@ -79,19 +79,17 @@
   <string name="pref_providers_sum">Čím více zdrojů vyberete, tím déle bude trvat stažení každého textu písně</string>
   <string name="pref_issues">Hlášení chyb v aplikaci</string>
   <string name="pref_contribute">Pomozte při vývoji aplikace na GitHubu</string>
-  <string name="pref_contribute_sum">Vylepšit překlad rozhraní aplikace, rozšířit katalog textů písní…</string>
+  <string name="pref_contribute_sum">Vylepšit překlad rozhraní aplikace, rozšířit katalog textů písní&#8230;</string>
   <string name="scan_error_no_content">Nebyly nalezeny žádné hudební soubory</string>
   <string name="no_results_why"><u>Proč?</u></string>
-  <string name="why_popup_text">
-Pokoušeli jste se nalézt text písně \"%1$s\" od interpreta %2$s. Omlováme se, ale aplikace QuickLyrics ho nebyla schopna nalézt&#8230; &lt;br/&gt;&lt;br/&gt;
-Existuje několik důvodů, proč k tom mohlo dojít:&lt;br/&gt;
-&lt;br/&gt;
-• Máte vaši hudební sbírku správně &lt;strong&gt;otagovanou&lt;/strong&gt; ? V případě že ne, QuickLyric není dané skladby schopen rozpoznat.&lt;br/&gt;
-• Ověřte, že máte dostupné připojení k internetu.&lt;br/&gt;
-• Je možné, že tato píseň není součástí hlavní databáze. Podívali jste se na možnost přidání &lt;strong&gt;dalších zdrojů&lt;/strong&gt; textů písní v nastavení?&lt;br/&gt;
-• Možná, že jste objevili chybu v aplikaci. Pokud se vám zdá, že by to mohla být pravda, tak mi prosím napište e-mail.&lt;br/&gt;
-• Také je možné, že text této písně prostě není dostupný. Ohledně přidání do katalogu mne můžete také kontaktovat přes email. &lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Pokoušeli jste se nalézt text písně "%1$s" od interpreta %2$s. Omlováme se, ale aplikace QuickLyrics ho nebyla schopna nalézt… <br/><br/>
+Existuje několik důvodů, proč k tom mohlo dojít:<br/>
+<br/>
+• Máte vaši hudební sbírku správně <strong>otagovanou</strong> ? V případě že ne, QuickLyric není dané skladby schopen rozpoznat.<br/>
+• Ověřte, že máte dostupné připojení k internetu.<br/>
+• Je možné, že tato píseň není součástí hlavní databáze. Podívali jste se na možnost přidání <strong>dalších zdrojů</strong> textů písní v nastavení?<br/>
+• Možná, že jste objevili chybu v aplikaci. Pokud se vám zdá, že by to mohla být pravda, tak mi prosím napište e-mail.<br/>
+• Také je možné, že text této písně prostě není dostupný. Ohledně přidání do katalogu mne můžete také kontaktovat přes email. <br/>]]></string>
   <string name="why_popup_title">Proč nebyly nalzeny žádné texty písní?</string>
   <string name="download_category">Stahování</string>
   <plurals name="scan_dialog">
@@ -105,8 +103,8 @@ Existuje několik důvodů, proč k tom mohlo dojít:&lt;br/&gt;
     <item quantity="other">Byl staženy texty %1$d písní</item>
   </plurals>
   <string-array name="sort_modes">
-    <item>Podle jména interpreta…</item>
-    <item>Podle názvu skladby…</item>
+    <item>Podle jména interpreta&#8230;</item>
+    <item>Podle názvu skladby&#8230;</item>
   </string-array>
   <string-array name="AZ_sort_order">
     <item>Abecedně (A-Z)</item>

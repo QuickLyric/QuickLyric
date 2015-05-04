@@ -82,20 +82,28 @@
   <string name="pref_issues">Reportar Problemas</string>
   <string name="pref_contribute">Contribuir en GitHub</string>
   <string name="pref_contribute_sum">Mejorar traducciones, expandir el catálogo de letras&#8230;</string>
+  <string name="pref_beta">Hazte Beta tester</string>
+  <string name="pref_beta_sum">Obten novedades más rápido (nuevas características, corrección de errores, …) y danos tu opinión por correo electrónico</string>
   <string name="scan_error_no_content">No se encontró música</string>
   <string name="no_results_why"><u>¿Por qué?</u></string>
-  <string name="why_popup_text">
-Buscó la letra de \"%1$s\" por %2$s. Desafortunadamente, QuickLyric no pudo encontrarla&#8230; &lt;br/&gt;&lt;br/&gt;
-Las posibles razones son:&lt;br/&gt;
-&lt;br/&gt;
-• Está su música &lt;strong&gt;etiquedata&lt;/strong&gt; correctamente? QuickLyric no puede reconocer canciones que no están etiquedas.&lt;br/&gt;
-• Comprobar que su conexión funcione correctamente.&lt;br/&gt;
-• Tal vez esta canción no es parte del catálogo principal. Ha revisado los &lt;strong&gt;proveedores adicionales&lt;/strong&gt; en las opciones?&lt;br/&gt;
-• Pudo haber encontrado un error. Si es así, por favor envíeme un correo electrónico.&lt;br/&gt;
-• Finalmente, es posible que la letra de esta canción no esté disponible. Si tiene sugerencias sobre adiciones al catálogo, no dude en enviarme un correo electrónico.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Buscó la letra de "%1$s" por %2$s. Desafortunadamente, QuickLyric no pudo encontrarla… <br/><br/>
+Las posibles razones son:<br/>
+<br/>
+• Está su música <strong>etiquedata</strong> correctamente? QuickLyric no puede reconocer canciones que no están etiquedas.<br/>
+• Comprobar que su conexión funcione correctamente.<br/>
+• Tal vez esta canción no es parte del catálogo principal. Ha revisado los <strong>proveedores adicionales</strong> en las opciones?<br/>
+• Pudo haber encontrado un error. Si es así, por favor envíeme un correo electrónico.<br/>
+• Finalmente, es posible que la letra de esta canción no esté disponible. Si tiene sugerencias sobre adiciones al catálogo, no dude en enviarme un correo electrónico.<br/>]]></string>
   <string name="why_popup_title">¿Por qué no funciona?</string>
   <string name="download_category">Descargas</string>
+  <string name="wearable_prompt">Abrir en el reloj</string>
+  <string name="pref_opendyslexic">Usar fuente \"OpenDyslexic\"</string>
+  <string name="pref_opendyslexic_sum">Usa una fuente creada especialmente para lectores con dificultades para leer</string>
+  <string name="wrong_musicID">Servicio de identificación de música no admitido</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (Solo inglés, por favor)</string>
+  <string name="ignore_id3_toast">Pulse el botón \"refrescar\" para forzar una descarga</string>
+  <string name="from_id3">(Letra extraída del archivo de audio)</string>
+  <string name="pandora_warning">ADVERTENCIA: Los servicios de Radio tales que Radio Pandora ® no están cualificados como reproductores de música  y no funcionan con QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>

@@ -82,20 +82,28 @@
   <string name="pref_issues">Probleme melden</string>
   <string name="pref_contribute">Machen Sie mit auf GitHub</string>
   <string name="pref_contribute_sum">Verbessern Sie Übersetzungen, vergrößeren Sie den Katalog an Songtexten&#8230;</string>
+  <string name="pref_beta">Werden Sie Beta-Tester</string>
+  <string name="pref_beta_sum">Erhalten Sie Updates (neue Features, Fehlerbehebungen,…)  schneller und melden Sie sich zurück per E-Mail</string>
   <string name="scan_error_no_content">Konnte keine Musik finden</string>
   <string name="no_results_why"><u>Warum?</u></string>
-  <string name="why_popup_text">
-Sie haben nach den Songtexten von \"%1$s\" by %2$s gesucht. Leider konnte QuickLyric diese nicht finden&#8230; &lt;br/&gt;&lt;br/&gt;
-Mögliche Ursachen:&lt;br/&gt;
-&lt;br/&gt;
-• Sind Ihre Musikdateien korrekt &lt;strong&gt;getagged&lt;/strong&gt;? QuickLyric erkennt Musik nur, wenn Sie richtig getagged wurde.&lt;br/&gt;
-• Prüfen Sie Ihre Internetverbindung.&lt;br/&gt;
-• Möglicherweise ist der Song nicht im Hauptkalaog zu finden. Haben Sie die &lt;strong&gt;zusätzlichen Quellen&lt;/strong&gt; in den Einstellungen aktiviert?&lt;br/&gt;
-• Vielleicht haben Sie einen Fehler gefunden. In dem Falle senden Sie mir bitte ein E-Mail.&lt;br/&gt;
-• Schließlich könnte es sein, dass die Songtexte für dieses Musikstück nicht verfügbar sind. Sofern Sie Vorschläge für zusätzliche Musikkataloge haben, senden Sie mir bitte ein E-Mail.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Sie haben nach den Songtexten von "%1$s" by %2$s gesucht. Leider konnte QuickLyric diese nicht finden… <br/><br/>
+Mögliche Ursachen:<br/>
+<br/>
+• Sind Ihre Musikdateien korrekt <strong>getagged</strong>? QuickLyric erkennt Musik nur, wenn Sie richtig getagged wurde.<br/>
+• Prüfen Sie Ihre Internetverbindung.<br/>
+• Möglicherweise ist der Song nicht im Hauptkalaog zu finden. Haben Sie die <strong>zusätzlichen Quellen</strong> in den Einstellungen aktiviert?<br/>
+• Vielleicht haben Sie einen Fehler gefunden. In dem Falle senden Sie mir bitte ein E-Mail.<br/>
+• Schließlich könnte es sein, dass die Songtexte für dieses Musikstück nicht verfügbar sind. Sofern Sie Vorschläge für zusätzliche Musikkataloge haben, senden Sie mir bitte ein E-Mail.<br/>]]></string>
   <string name="why_popup_title">Warum funktioniert es nicht?</string>
   <string name="download_category">Downloads</string>
+  <string name="wearable_prompt">Auf Smartwatch öffnen</string>
+  <string name="pref_opendyslexic">OpenDyslexis-Schriftart verwenden</string>
+  <string name="pref_opendyslexic_sum">Eine spezielle Schriftart für lesebehinderte Personen verwenden</string>
+  <string name="wrong_musicID">Nicht unterstützter MusicID-Dienst</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (nur Englisch)</string>
+  <string name="ignore_id3_toast">Tippen Sie auf die Schaltfläche \"Aktualisieren\", um einen Download zu erzwingen</string>
+  <string name="from_id3">(Songtext aus Audiodatei extrahiert)</string>
+  <string name="pandora_warning">Warnung: Radiodienste wie Pandora® Radio gelten nicht als Musikspieler und werden nicht mit QuickLyric funktionieren.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric wird nun den Songtext für %1$d Musikdatei herunterladen.\
         Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minute eine Verbindung zum Internet haben.</item>

@@ -82,20 +82,29 @@
   <string name="pref_issues">Reportar problemas</string>
   <string name="pref_contribute">Contribua com o GitHub</string>
   <string name="pref_contribute_sum">Melhore as traduções, expanda o catálogo de letras,&#8230;</string>
+  <string name="pref_beta">Seja um beta tester</string>
+  <string name="pref_beta_sum">Receba atualizações (novas funções, correção de bugs, &#8230;) mais rapidamente e nos envie sua opinião via email</string>
   <string name="scan_error_no_content">Não foi possível achar uma música</string>
   <string name="no_results_why"><u>Por quê?</u></string>
-  <string name="why_popup_text">
-Você estava procurando pela letra da música \"%1$s\", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la&#8230; &lt;br/&gt;&lt;br/&gt;
-Algumas possíveis razões:&lt;br/&gt;
-&lt;br/&gt;
-• A sua música está &lt;strong&gt;marcada&lt;/strong&gt; corretamente? o QuickLyric não reconhece músicas que não estão marcadas.&lt;br/&gt;
-• Verifique se sua conexão com a internet está funcionando.&lt;br/&gt;
-• Talvez essa música não faz parte do catálogo principal. Você marcou a opção the &lt;strong&gt;provedores adicionais&lt;/strong&gt; nas configurações??&lt;br/&gt;
-• Você pode ter encontrado um bug. Se sim, por favor, mande-me um e-mail.&lt;br/&gt;
-• Finalmente,  é possível que as letras para essa música não estejam disponíveis. Se você tiver sugestões sobre adições ao catálogo, sinta-se livre para me enviar um e-mail.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Você estava procurando pela letra da música "%1$s", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la… <br/><br/>
+Algumas possíveis razões:<br/>
+<br/>
+• A sua música está <strong>marcada</strong> corretamente? o QuickLyric não reconhece músicas que não estão marcadas.<br/>
+• Verifique se sua conexão com a internet está funcionando.<br/>
+• Talvez essa música não faz parte do catálogo principal. Você marcou a opção the <strong>provedores adicionais</strong> nas configurações??<br/>
+• Você pode ter encontrado um bug. Se sim, por favor, mande-me um e-mail.<br/>
+• Finalmente,  é possível que as letras para essa música não estejam disponíveis. Se você tiver sugestões sobre adições ao catálogo, sinta-se livre para me enviar um e-mail.<br/>
+]]></string>
   <string name="why_popup_title">Por que não está funcionando?</string>
   <string name="download_category">Downloads</string>
+  <string name="wearable_prompt">Utilizável em Smartwatches</string>
+  <string name="pref_opendyslexic">Use a fonte OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Use uma fonte especial criada para usuários com dificuldades de leitura</string>
+  <string name="wrong_musicID">Serviço de identificação de música sem suporte</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (somente inglês)</string>
+  <string name="ignore_id3_toast">Pressione o botão Refresh para forçar um download</string>
+  <string name="from_id3">(Letra extraída do arquivo de áudio)</string>
+  <string name="pandora_warning">Aviso: Serviços de rádio, como Pandora® Radio, não são qualificados como tocadores de música e não funcionam com o QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric irá agora baixar a letra para um total de %1$d música.\
 Certifique-se de manter uma conexão estável por %2$d minuto.</item>

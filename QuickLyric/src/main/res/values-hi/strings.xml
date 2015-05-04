@@ -43,12 +43,12 @@
   <string name="select_all_action">सारें चुने</string>
   <string name="unselect_all_action">सारे ना चुनें</string>
   <string name="sort_action">क्रम में लगायें</string>
-  <string name="sort_dialog_title">क्रम में लगायें…</string>
+  <string name="sort_dialog_title">क्रम में लगायें&#8230;</string>
   <string name="local_empty_database">आपने अभी तक कोई गाने नहीं बचाए</string>
   <string name="pref_animations_title">एनिमेशन सक्षम</string>
   <string name="pref_look_feel_category">दिखावा</string>
   <string name="welcome">QuickLyric पे स्वागत है</string>
-  <string name="welcome2_sub">जो बोल आप ढूंड रहे थे… \nअभी इस वक़्त</string>
+  <string name="welcome2_sub">जो बोल आप ढूंड रहे थे&#8230; \nअभी इस वक़्त</string>
   <string name="apps_desc">काफ़ी सारे प्लेयर्स के साथ संगत</string>
   <string name="id_desc_sub">1. गाने को पहचानें
 2. QuickLyric के साथ परिणाम शेर करें। 

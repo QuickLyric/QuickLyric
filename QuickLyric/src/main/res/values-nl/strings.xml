@@ -71,6 +71,7 @@
   <string name="pref_auto_save">Slaat automatisch lyrics op</string>
   <string name="pref_auto_save_sum">Alle songteksten zullen op je apparaat worden opgeslaan</string>
   <string name="pref_night_mode">Nachtmodus</string>
+  <string name="pref_night_mode_sum">Toon een donkere achtergrond in de nacht</string>
   <string name="scan_action">Muziek scannen</string>
   <string name="warning">Waarschuwing</string>
   <string name="content_providers_title">Muziek scannen van&#8230;</string>
@@ -81,15 +82,40 @@
   <string name="pref_issues">Problemen melden</string>
   <string name="pref_contribute">Aan het project bijdragen op GitHub</string>
   <string name="pref_contribute_sum">Verbeter vertalingen, breid de lyrics catalogus uit&#8230;</string>
+  <string name="pref_beta">Word een betatester</string>
+  <string name="pref_beta_sum">Krijg updates (nieuwe features, bug fixes, &#8230;) sneller en geef feedback via email</string>
   <string name="scan_error_no_content">Geen muziek gevonden</string>
   <string name="no_results_why"><u>Waarom?</u></string>
+  <string name="why_popup_text"><![CDATA[
+    Je was songteksten aan het zoeken voor \"%1$s\" van %2$s. QuickLyric kon deze jammer genoeg niet vinden… <br/><br/>
+    Dit zou kunnen zijn omdat:<br/>
+    <br/>
+    • Je muziek niet <strong>getagd</strong> is. QuickLyric kan liedjes die niet getagd zijn niet vinden.<br/>
+    • Je internet verbinding niet werkt.<br/>
+    • Jouw liedjes geen deel uitmaakt van de hoofdbibliotheek. Heb je al gekeken naar <strong>aanvullende providers</strong> in de instellingen?<br/>
+    • Je misschien wel een bug gevonden hebt. Als dit zo blijkt te zien, email me alsjeblieft.<br/>
+    Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer niet beschikbaar is. als je een suggestie hebt voor een provider kun je mij altijd via email contacteren.<br/>
+  ]]>
+  </string>
   <string name="why_popup_title">Waarom werkt het niet?</string>
   <string name="download_category">Downloads</string>
+  <string name="wearable_prompt">Open op smartwatch</string>
+  <string name="pref_opendyslexic">Gebruik het OpenDyslexic lettertype</string>
+  <string name="pref_opendyslexic_sum">Gebruik een speciaal lettertype gemaakt voor mensen met een leeshandicap</string>
+  <string name="wrong_musicID">Niet-ondersteunde MusicID dienst</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com</string>
+  <string name="ignore_id3_toast">Tik op de refresh-knop om een download te forceren</string>
+  <string name="from_id3">(Songteksten gehaald uit audiobestand)</string>
+  <string name="pandora_warning">Waarschuwing: Radiodiensten zoals Pandora® Radio worden niet gezien als muziekspelers en werken daarom niet met QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric zal nu de songteksten downloaden voor een totaal van %1$d liedje.\
         Zorg ervoor dat u een vaste verbinding hebt voor ten minste %2$d minuut.</item>
     <item quantity="other">QuickLyric zal nu de songteksten downloaden voor een totaal van %1$d liedjes.\
         Zorg ervoor dat u een vaste verbinding hebt voor ten minste %2$d minuten.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">Songtekst gedownload voor %1$d nummer</item>
+    <item quantity="other">Songteksten gedownload voor %1$d nummers</item>
   </plurals>
   <string-array name="sort_modes">
     <item>Per kunstenaar&#8230;</item>

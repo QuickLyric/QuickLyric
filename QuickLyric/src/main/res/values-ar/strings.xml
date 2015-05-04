@@ -51,8 +51,8 @@
   <string name="undo">تراجع</string>
   <string name="skip">تخطى</string>
   <string-array name="sort_modes">
-    <item>حسب المزيد…</item>
-    <item>حسب العنوان…</item>
+    <item>حسب المزيد&#8230;</item>
+    <item>حسب العنوان&#8230;</item>
   </string-array>
   <string-array name="AZ_sort_order">
     <item>أبجديا</item>

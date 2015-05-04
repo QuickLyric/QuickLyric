@@ -71,6 +71,7 @@
   <string name="pref_auto_save">Salva automaticamente i testi</string>
   <string name="pref_auto_save_sum">Tutti i testi saranno salvati sul tuo dispositivo</string>
   <string name="pref_night_mode">Modalità notturna</string>
+  <string name="pref_night_mode_sum">Mostra uno sfondo scuro la notte</string>
   <string name="scan_action">Cerca musica</string>
   <string name="warning">Attenzione</string>
   <string name="content_providers_title">Cerca musica da&#8230;</string>
@@ -81,20 +82,30 @@
   <string name="pref_issues">Segnala errori</string>
   <string name="pref_contribute">Contribuisci su GitHub</string>
   <string name="pref_contribute_sum">Migliora le traduzioni, espandi il catalogo dei testi,&#8230;</string>
+  <string name="pref_beta">Diventa un beta tester</string>
+  <string name="pref_beta_sum">Ricevi aggiornamenti (nuove funzionalità, bugfix,…) più velocemente e informami via mail su eventuali errori</string>
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
-  <string name="why_popup_text">
-Stavi cercando il testo di \"%1$s\" dell\'artista %2$s . Sfortunatamente QuickLyric non è riuscito a trovarlo&#8230; &lt;br/&gt;&lt;br/&gt;
-Alcune cause potrebbero essere:&lt;br/&gt;
-&lt;br/&gt;
-• La tua canzone non è stata &lt;strong&gt;riconosciuta&lt;/strong&gt; correttamente? QuickLyric non può cercare testi di canzoni che non riconosce.&lt;br/&gt;
-• Controlla se la tua connessione sta funzionando.&lt;br/&gt;
-• Forse questa canzone non è parte del catalogo principale. Hai selezionato le &lt;strong&gt;fonti aggiuntive&lt;/strong&gt; nelle impostazioni?&lt;br/&gt;
-• Potresti aver trovato un bug. Se è così inviami una mail.&lt;br/&gt;
-• Infine, è anche possibile che il testo della canzone non sia ancora disponibile. Se hai suggerimenti su dove cercare i testi, fammelo sapere via mail.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[
+Stavi cercando il testo di \"%1$s\" dell\'artista %2$s . Sfortunatamente QuickLyric non è riuscito a trovarlo… <br/><br/>
+Alcune cause potrebbero essere:<br/>
+<br/>
+• La tua canzone non è stata <strong>riconosciuta</strong> correttamente? QuickLyric non può cercare testi di canzoni che non riconosce.<br/>
+• Controlla se la tua connessione sta funzionando.<br/>
+• Forse questa canzone non è parte del catalogo principale. Hai selezionato le <strong>fonti aggiuntive</strong> nelle impostazioni?<br/>
+• Potresti aver trovato un bug. Se è così inviami una mail.<br/>
+• Infine, è anche possibile che il testo della canzone non sia ancora disponibile. Se hai suggerimenti su dove cercare i testi, fammelo sapere via mail.<br/>
+]]></string>
   <string name="why_popup_title">Perché non funziona?</string>
   <string name="download_category">Download</string>
+  <string name="wearable_prompt">Apri su Android Wear</string>
+  <string name="pref_opendyslexic">Usa il carattere OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Utilizza un carattere speciale creato per lettori con dislessia</string>
+  <string name="wrong_musicID">Servizio di riconoscimento musicale non supportato</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (solo in Inglese)</string>
+  <string name="ignore_id3_toast">Tocca il pulsante di Ricarica per forzare il download</string>
+  <string name="from_id3">(Testi estratti dal file audio)</string>
+  <string name="pandora_warning">Attenzione: Servizi radio come Pandora® non sono dei lettori musicali quindi non funzioneranno con QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>

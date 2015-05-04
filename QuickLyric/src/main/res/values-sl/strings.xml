@@ -81,20 +81,29 @@
   <string name="pref_issues">Prijavi napake</string>
   <string name="pref_contribute">Prispevaj na GitHub-u</string>
   <string name="pref_contribute_sum">Izboljšaj prevod, razširi katalog besedil&#8230;</string>
+  <string name="pref_beta">Postani testni uporabnik</string>
+  <string name="pref_beta_sum">Dobi posodobitve (nove funkcije, popravki, &#8230;) hitreje in poročaj preko emaila</string>
   <string name="scan_error_no_content">Ni najdenih skladb</string>
   <string name="no_results_why"><u>Zakaj?</u></string>
-  <string name="why_popup_text">Iskali ste besedilo \"%1$s\" od %2$s. QuickLyric ni našel besedila&#8230; &lt;br/&gt;&lt;br/&gt;
-Nekaj možnih razlogov:&lt;br/&gt;
-&lt;br/&gt;
-• Je vaša glasba primerno &lt;strong&gt;označena&lt;/strong&gt; ?
-QuickLyric ne mora prepoznati skladb, ki niso označene.&lt;br/&gt;
-• Preverite, ali imate delujočo povezavo.&lt;br/&gt;
-• Pesem morda ni v glavnem katalogu. Ste preverili &lt;strong&gt; dodatne kataloge&lt;/strong&gt; v nastavitvah?&lt;br/&gt;
-• Morda ste našli napako. Ob tem mi prosim pišite po e-pošti.&lt;br/&gt;
-• Mogoče je tudi, da besedilo za skladbo ni na voljo. Če imate predloge za dodatne kataloge, jih posredujte po e-pošti.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Iskali ste besedilo "%1$s" od %2$s. QuickLyric ni našel besedila… <br/><br/>
+Nekaj možnih razlogov:<br/>
+<br/>
+• Je vaša glasba primerno <strong>označena</strong> ?
+QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
+• Preverite, ali imate delujočo povezavo.<br/>
+• Pesem morda ni v glavnem katalogu. Ste preverili <strong> dodatne kataloge</strong> v nastavitvah?<br/>
+• Morda ste našli napako. Ob tem mi prosim pišite po e-pošti.<br/>
+• Mogoče je tudi, da besedilo za skladbo ni na voljo. Če imate predloge za dodatne kataloge, jih posredujte po e-pošti.<br/>]]></string>
   <string name="why_popup_title">Zakaj ne deluje?</string>
   <string name="download_category">Prenosi</string>
+  <string name="wearable_prompt">Odpri na nosljivi</string>
+  <string name="pref_opendyslexic">Uporaba OpenDyslexic pisavo</string>
+  <string name="pref_opendyslexic_sum">Uporabi pisavo ustvarjeno za bralce s težavami pri branju</string>
+  <string name="wrong_musicID">Nepodprta MusicID storitev</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com (samo v angleščini)</string>
+  <string name="ignore_id3_toast">Tapni gumb Osveži za vsiljen prenos</string>
+  <string name="from_id3">(Besedila izpisana iz zvočne datoteke)</string>
+  <string name="pandora_warning">Opozorilo: Radio storitve kot Pandora ® Radio se ne upoštevajo kot predvajalniki glasbe in ne delujejo s QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>

@@ -79,16 +79,15 @@
   <string name="pref_contribute_sum">Millora les traduccions, expandeix el catàlog de lletres&#8230;</string>
   <string name="scan_error_no_content">No es va poder trobar música</string>
   <string name="no_results_why"><u>Perquè?</u></string>
-  <string name="why_popup_text">
-Estaves buscant les lletres per \"%1$s\" de %2$s. Malauradament QuickLyric no va poder trobar-les&#8230; &lt;br/&gt;&lt;br/&gt;
-Possibles raons:&lt;br/&gt;
-&lt;br/&gt;
-• Està la teva música &lt;strong&gt;etiquetada&lt;/strong&gt; correctament? QuickLyric no reconeixerà les cançons que no estiguin etiquejades.&lt;br/&gt;
-• Comprova que la teva connexió funciona.&lt;br/&gt;
-• A lo millor aquesta cançó no es troba al catàlog principal. Has comprovat els &lt;strong&gt;proveïdors adicionals&lt;/strong&gt; als ajustos?&lt;br/&gt;
-• Pots haver trobat un bug. Si es així, envia\'m un email.&lt;br/&gt;
-• Finalment, es possible que les lletres per aquesta cançó no estiguin disponibles. Si tens alguna sugerencia per adicions al catalog, envia\'m un email.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Estaves buscant les lletres per "%1$s" de %2$s. Malauradament QuickLyric no va poder trobar-les… <br/><br/>
+Possibles raons:<br/>
+<br/>
+• Està la teva música <strong>etiquetada</strong> correctament? QuickLyric no reconeixerà les cançons que no estiguin etiquejades.<br/>
+• Comprova que la teva connexió funciona.<br/>
+• A lo millor aquesta cançó no es troba al catàlog principal. Has comprovat els <strong>proveïdors adicionals</strong> als ajustos?<br/>
+• Pots haver trobat un bug. Si es així, envia\'m un email.<br/>
+• Finalment, es possible que les lletres per aquesta cançó no estiguin disponibles. Si tens alguna sugerencia per adicions al catalog, envia\'m un email.<br/>
+  ]]></string>
   <string name="why_popup_title">Perquè no funciona?</string>
   <string name="download_category">Descargues</string>
   <plurals name="scan_dialog">

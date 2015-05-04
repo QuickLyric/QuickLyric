@@ -82,20 +82,28 @@
   <string name="pref_issues">Signaler un problème</string>
   <string name="pref_contribute">Contribuer sur GitHub</string>
   <string name="pref_contribute_sum">Améliorer la traduction, étendre le catalogue de paroles,&#8230;</string>
+  <string name="pref_beta">Devenir un bêta-testeur</string>
+  <string name="pref_beta_sum">Recevez les mises à jour (nouvelles fonctionnalités, corrections de bugs,&#8230;) plus vite et donnez vos impressions par e-mail</string>
   <string name="scan_error_no_content">Aucune musique trouvée</string>
   <string name="no_results_why"><u>Pourquoi ?</u></string>
-  <string name="why_popup_text">
-Vous cherchiez les paroles de \"%1$s\" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver&#8230; &lt;br/&gt;&lt;br/&gt;
-Plusieurs raisons possibles:&lt;br/&gt;
-&lt;br/&gt;
-• Est-ce que votre musique est &lt;strong&gt;taguée&lt;/strong&gt; correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.&lt;br/&gt;
-• Vérifiez votre connexion.&lt;br/&gt;
-• Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les &lt;strong&gt;sources supplémentaires&lt;/strong&gt; dans les options?&lt;br/&gt;
-• Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.&lt;br/&gt;
-• Enfin, il est possible que ces paroles ne soient simplement pas disponibles. Si vous voulez suggérer des ajouts au catalogue, n\'hésitez pas à m\'écrire.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Vous cherchiez les paroles de "%1$s" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
+Plusieurs raisons possibles:<br/>
+<br/>
+• Est-ce que votre musique est <strong>taguée</strong> correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.<br/>
+• Vérifiez votre connexion.<br/>
+• Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les <strong>sources supplémentaires</strong> dans les options?<br/>
+• Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.<br/>
+• Enfin, il est possible que ces paroles ne soient simplement pas disponibles. Si vous voulez suggérer des ajouts au catalogue, n\'hésitez pas à m\'écrire.<br/>]]></string>
   <string name="why_popup_title">Pourquoi ça ne fonctionne pas ?</string>
   <string name="download_category">Téléchargements</string>
+  <string name="wearable_prompt">Ouvrir sur la montre</string>
+  <string name="pref_opendyslexic">Utiliser la police OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Utiliser une police spéciale pour les personnes atteint d\'un trouble de la lecture</string>
+  <string name="wrong_musicID">Service d\'identification musicale non supporté</string>
+  <string name="pref_issues_sum">quicklyricapp@gmail.com</string>
+  <string name="ignore_id3_toast">Appuyez sur le bouton Actualiser pour forcer un téléchargement</string>
+  <string name="from_id3">(Paroles extraites du fichier audio)</string>
+  <string name="pandora_warning">Attention : Les services de Radio tels que TuneIn ne sont pas considérés comme des lecteurs de musique et ne fonctionnent pas avec QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
         Vérifiez que vous avez une connexion stable pour %2$d minute.</item>

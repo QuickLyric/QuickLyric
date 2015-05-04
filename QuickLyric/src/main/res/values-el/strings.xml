@@ -73,26 +73,24 @@
   <string name="pref_night_mode">Νυχτερινή λειτουργία</string>
   <string name="scan_action">Σάρωση μουσικής</string>
   <string name="warning">Προειδοποίηση</string>
-  <string name="content_providers_title">Σάρωση μουσικής από…</string>
-  <string name="dl_progress">Λήψη στίχων… %1$d/%2$d</string>
+  <string name="content_providers_title">Σάρωση μουσικής από&#8230;</string>
+  <string name="dl_progress">Λήψη στίχων&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Η λήψη ολοκληρώθηκε</string>
   <string name="pref_providers">Πρόσθετες πηγές στίχων</string>
   <string name="pref_providers_sum">Όσο περισσότερες επιλέγετε, τόσο περισσότερος χρόνος θα χρειαστεί για κάθε λήψη</string>
   <string name="pref_issues">Αναφορά προβλημάτων</string>
   <string name="pref_contribute">Συμβάλετε στο GitHub</string>
-  <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων…</string>
+  <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων&#8230;</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
-  <string name="why_popup_text">
-Ψάχνατε για τους στίχους του \"%1$s\" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… &lt; br/&gt;&lt;br/&gt;
-Μερικές πιθανές αιτίες: &lt;br/&gt;
-&lt;br/&gt;
-• Έχει η μουσική σας σωστές &lt; strong &gt; ετικέτες &lt;/strong&gt; Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.&lt;br/&gt;
-• Ελέγξτε αν η σύνδεσή σας λειτουργεί.&lt;br/&gt;
-• Ίσως αυτό το τραγούδι δεν αποτελεί μέρος του κύριου καταλόγου. Έχετε ελέγξει τις &lt;strong&gt; πρόσθετες υπηρεσίες παροχής &lt;/strong&gt; στις ρυθμίσεις;&lt;br/&gt;
-• Ίσως βρήκατε ένα bug. Αν ναι, παρακαλώ στείλτε μου email.&lt;br/&gt;
-• Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.&lt;br/&gt;
-</string>
+  <string name="why_popup_text"><![CDATA[Ψάχνατε για τους στίχους του "%1$s" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… < br/><br/>
+Μερικές πιθανές αιτίες: <br/>
+<br/>
+• Έχει η μουσική σας σωστές < strong > ετικέτες </strong> Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.<br/>
+• Ελέγξτε αν η σύνδεσή σας λειτουργεί.<br/>
+• Ίσως αυτό το τραγούδι δεν αποτελεί μέρος του κύριου καταλόγου. Έχετε ελέγξει τις <strong> πρόσθετες υπηρεσίες παροχής </strong> στις ρυθμίσεις;<br/>
+• Ίσως βρήκατε ένα bug. Αν ναι, παρακαλώ στείλτε μου email.<br/>
+• Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.<br/>]]></string>
   <string name="why_popup_title">Γιατί δεν λειτουργεί;</string>
   <string name="download_category">Λήψεις</string>
   <plurals name="scan_dialog">
