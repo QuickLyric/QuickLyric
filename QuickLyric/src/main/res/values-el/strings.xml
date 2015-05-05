@@ -71,6 +71,7 @@
   <string name="pref_auto_save">Αυτόματη αποθήκευση στίχων</string>
   <string name="pref_auto_save_sum">Όλοι οι στίχοι θα αποθηκευτούν στην συσκευή σας</string>
   <string name="pref_night_mode">Νυχτερινή λειτουργία</string>
+  <string name="pref_night_mode_sum">Εμφάνιση σκούρου φόντου τη νύχτα</string>
   <string name="scan_action">Σάρωση μουσικής</string>
   <string name="warning">Προειδοποίηση</string>
   <string name="content_providers_title">Σάρωση μουσικής από&#8230;</string>
@@ -81,6 +82,8 @@
   <string name="pref_issues">Αναφορά προβλημάτων</string>
   <string name="pref_contribute">Συμβάλετε στο GitHub</string>
   <string name="pref_contribute_sum">Βελτιώστε τις μεταφράσεις, επεκτείνετε τον κατάλογο στίχων&#8230;</string>
+  <string name="pref_beta">Γίνετε δοκιμαστής beta</string>
+  <string name="pref_beta_sum">Λάβετε ενημερώσεις (νέα χαρακτηριστικά, διορθώσεις σφαλμάτων,...) γρηγορότερα και στείλτε τις εντυπώσεις σας μέσω ηλεκτρονικού ταχυδρομείου</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
   <string name="why_popup_text"><![CDATA[Ψάχνατε για τους στίχους του "%1$s" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… < br/><br/>
@@ -93,6 +96,14 @@
 • Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.<br/>]]></string>
   <string name="why_popup_title">Γιατί δεν λειτουργεί;</string>
   <string name="download_category">Λήψεις</string>
+  <string name="wearable_prompt">Άνοιγμα σε έξυπνο ρολόι</string>
+  <string name="pref_opendyslexic">Χρήση γραμματοσειράς OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Χρήση μιας ειδικής γραμματοσειράς που δημιουργήθηκε για τους χρήστες με προβλήματα στην ανάγνωση</string>
+  <string name="wrong_musicID">Μη υποστηριζόμενη υπηρεσία MusicID</string>
+  <string name="pref_issues_sum">quicklyricapp@Gmail.com (μόνο Αγγλικά)</string>
+  <string name="ignore_id3_toast">Πατήστε το κουμπί \"Ανανέωση\" για εξαναγκασμό μιας λήψης</string>
+  <string name="from_id3">(Στίχοι προερχόμενοι από αρχείο ήχου)</string>
+  <string name="pandora_warning">Προσοχή: Ραδιοφωνικές υπηρεσίες όπως η Pandora® Radio δεν ανήκουν στις εφαρμογές αναπαραγωγής μουσικής και δεν λειτουργούν με το QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
         Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>
