@@ -39,17 +39,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextSwitcher
-                android:layout_gravity="top"
-                android:id="@+id/switcher"
-                android:focusable="false"
-                android:measureAllChildren="false"
-                android:padding="5dp"
-                android:layout_marginTop="@dimen/lyrics_top_margin"
-                android:inAnimation="@android:anim/fade_in"
-                android:outAnimation="@android:anim/fade_out"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextSwitcher
+                    android:layout_gravity="top"
+                    android:id="@+id/switcher"
+                    android:focusable="false"
+                    android:measureAllChildren="false"
+                    android:padding="5dp"
+                    android:layout_marginTop="@dimen/lyrics_top_margin"
+                    android:inAnimation="@android:anim/fade_in"
+                    android:outAnimation="@android:anim/fade_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/id3_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:textColor="?android:textColorSecondary"
+                    android:text="@string/from_id3"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:onClick="id3PopUp"/>
+            </LinearLayout>
 
             <include
                 android:layout_height="match_parent"
@@ -138,9 +156,7 @@
         android:src="@drawable/ic_refresh"
         android:translationZ="8dp"
         fab:fab_shadow="false"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_light"
-        fab:fab_colorRipple="@null"/>
+        fab:fab_colorNormal="@color/accent"/>
 
     <include layout="@layout/fab_shadow"/>
 

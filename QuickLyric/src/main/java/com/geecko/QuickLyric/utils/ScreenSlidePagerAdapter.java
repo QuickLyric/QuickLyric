@@ -2,13 +2,15 @@ package com.geecko.QuickLyric.utils;
 
 import android.animation.ArgbEvaluator;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,11 @@ import android.widget.RelativeLayout;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * This file is part of QuickLyric
@@ -38,12 +45,20 @@ import com.geecko.QuickLyric.R;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
-    private int[] colors = new int[]{
+    public boolean rightToLeft = false;
+    private Integer[] colors = new Integer[]{
             android.R.color.holo_orange_dark,
             android.R.color.holo_red_light,
             R.color.deep_red,
             android.R.color.holo_orange_light,
             android.R.color.holo_red_dark
+    };
+    private Class[] tutorialScreens = new Class[]{
+            Tutorial_0.class,
+            Tutorial_1.class,
+            Tutorial_2.class,
+            Tutorial_3.class,
+            Tutorial_4.class
     };
     private Activity mActivity;
     private ViewPager mPager;
@@ -53,21 +68,24 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
         super(fm);
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
+        if (Build.VERSION.SDK_INT >= 17)
+            rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
+        if (rightToLeft) {
+            List<Integer> list = Arrays.asList(colors);
+            Collections.reverse(list);
+            colors = (Integer[]) list.toArray();
+        }
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            default:
-                return new Tutorial_0();
-            case 1:
-                return new Tutorial_1();
-            case 2:
-                return new Tutorial_2();
-            case 3:
-                return new Tutorial_3();
-            case 4:
-                return new Tutorial_4();
+        if (rightToLeft)
+            position = getCount() - position - 1;
+        try {
+            return (Fragment) tutorialScreens[position].newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Fragment();
         }
     }
 
@@ -97,16 +115,16 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     public void onPageSelected(int position) {
         Button pagerButton = ((Button) mActivity.findViewById(R.id.pager_button));
         Button pagerArrow = ((Button) mActivity.findViewById(R.id.pager_arrow));
-        if (position < getCount() - 1) {
-            pagerButton.setText(R.string.skip);
-            pagerButton.setEnabled(true);
-            pagerArrow.setText(R.string.pager_arrow);
-            pagerArrow.setOnClickListener(nextClickListener);
-        } else {
+        if ((rightToLeft && position == 0) || (!rightToLeft && position >= getCount() - 1)) {
             pagerButton.setText("");
             pagerButton.setEnabled(false);
             pagerArrow.setText(android.R.string.ok);
             pagerArrow.setOnClickListener(exitClickListener);
+        } else {
+            pagerButton.setText(R.string.skip);
+            pagerButton.setEnabled(true);
+            pagerArrow.setText(R.string.pager_arrow);
+            pagerArrow.setOnClickListener(nextClickListener);
         }
     }
 
@@ -115,7 +133,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     }
 
     public void nextAction() {
-        mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+        mPager.setCurrentItem(mPager.getCurrentItem() + (rightToLeft ? -1 : 1), true);
     }
 
     public void exitAction() {

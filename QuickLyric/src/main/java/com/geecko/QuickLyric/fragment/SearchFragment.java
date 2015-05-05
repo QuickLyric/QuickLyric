@@ -122,11 +122,12 @@ public class SearchFragment extends ListFragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Lyrics lyrics = SearchFragment.this.results.get(position);
-                    Intent activityResult = new Intent();
+                    Intent activityResult = getActivity().getIntent();
+                    activityResult = activityResult == null ? new Intent() : activityResult;
                     activityResult.putExtra("lyrics", lyrics);
                     getActivity().setResult(Activity.RESULT_OK, activityResult);
-                    getActivity().finish();
                     getActivity().overridePendingTransition(R.anim.fade_in, R.anim.slide_out_end);
+                    getActivity().finish();
                 }
             });
             ViewGroup parent = ((ViewGroup) getListView().getParent());
@@ -150,7 +151,7 @@ public class SearchFragment extends ListFragment {
             }
             setListAdapter(new SearchAdapter(searchTabs, songsArray, artistsArray));
         }
-        ((SearchPagerAdapter)searchTabs.viewPager.getAdapter()).registerFragment(position, this);
+        ((SearchPagerAdapter) searchTabs.viewPager.getAdapter()).registerFragment(position, this);
     }
 
     protected void search(String searchQuery) {

@@ -499,10 +499,11 @@ public class MainActivity extends AppCompatActivity {
         getLayoutInflater().inflate(layout.tutorial_view, rootView);
         ViewPager pager = (ViewPager) findViewById(id.pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
-        final ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), this);
+        final ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), this);
         pager.setAdapter(pagerAdapter);
         pager.setOnPageChangeListener(pagerAdapter);
         indicator.setViewPager(pager);
+        pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
         indicator.setOnPageChangeListener(pagerAdapter);
         Button skipButton = (Button) rootView.findViewById(id.pager_button);
         Button arrowButton = (Button) rootView.findViewById(id.pager_arrow);
