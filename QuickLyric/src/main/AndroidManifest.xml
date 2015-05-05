@@ -116,7 +116,7 @@
         <activity
             android:name=".SearchActivity"
             android:label="@string/search_hint"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateUnchanged|adjustPan">
 
             <intent-filter>
