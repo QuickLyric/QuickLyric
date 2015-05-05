@@ -385,11 +385,13 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             } else {
                 message = R.string.no_results;
                 whyVisibility = TextView.VISIBLE;
-                SearchView searchView = (SearchView) searchItem.getActionView();
-                if (!searchItem.isActionViewExpanded())
-                    searchItem.expandActionView();
-                searchView.setQuery(lyrics.getTrack(), false);
-                searchView.clearFocus();
+                if (searchItem != null) {
+                    SearchView searchView = (SearchView) searchItem.getActionView();
+                    if (!searchItem.isActionViewExpanded())
+                        searchItem.expandActionView();
+                    searchView.setQuery(lyrics.getTrack(), false);
+                    searchView.clearFocus();
+                }
             }
             TextView whyTextView = ((TextView) bugLayout.findViewById(R.id.bugtext_why));
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
