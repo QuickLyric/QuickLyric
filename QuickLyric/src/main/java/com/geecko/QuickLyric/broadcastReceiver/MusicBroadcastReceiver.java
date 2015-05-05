@@ -41,6 +41,7 @@ import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 public class MusicBroadcastReceiver extends BroadcastReceiver {
 
     private boolean mAutoUpdate = false;
+    static boolean spotifyPlaying = false;
 
     public void forceAutoUpdate(boolean force) {
         this.mAutoUpdate = force;
@@ -88,7 +89,10 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
             track = extras.getString("com.amazon.mp3.track");
-        }
+        } else if (intent.getAction().equals("com.spotify.music.metadatachanged"))
+            isPlaying = spotifyPlaying;
+        else if (intent.getAction().equals("com.spotify.music.playbackstatechanged"))
+            spotifyPlaying = isPlaying;
 
         if ((artist == null || "".equals(artist))  //Could be problematic
                 || (track == null || "".equals(track)
