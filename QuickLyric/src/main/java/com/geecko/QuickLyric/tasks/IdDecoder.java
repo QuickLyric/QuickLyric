@@ -18,7 +18,6 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
-import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 /**
@@ -58,6 +57,8 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
         String url = strings[0];
         String artist;
         String track;
+        if (url == null)
+            return new Lyrics(ERROR);
         if (url.contains("//www.soundhound.com/")) {
             try { // todo switch to Jsoup
                 String html = getUrlAsString(url);
