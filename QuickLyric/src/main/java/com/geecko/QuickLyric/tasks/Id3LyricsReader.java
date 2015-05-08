@@ -88,6 +88,7 @@ public class Id3LyricsReader {
             text = tag.getFirst(FieldKey.LYRICS);
             if (text.isEmpty())
                 throw new NoSuchFieldException();
+            text = text.replaceAll("\n", "<br/>");
         } catch (Exception e) {
             return null;
         }
