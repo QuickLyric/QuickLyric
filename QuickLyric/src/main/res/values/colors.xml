@@ -30,6 +30,8 @@
     <color name="amber">#FFAB00</color>
     <color name="selected">#BDBDBD</color>
     <color name="selected_night">#222</color>
+    <color name="navigation_drawer_selected_night">#555</color>
+    <color name="navigation_drawer_selected">#eee</color>
     <color name="fragment_background">#eeeeee</color>
     <color name="window_background">#bbbbbb</color>
     <color name="pager_title_strip_color">#ffffd557</color>

@@ -37,7 +37,6 @@
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">#1a000000</item>
-        <item name="android:actionMenuTextAppearance">@style/menuItemTextAppearance</item>
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:autoCompleteTextViewStyle">@style/searchSuggestionsStyle</item>
@@ -48,10 +47,11 @@
         <item name="android:textColorSecondary">#888</item>
         <item name="android:textColorPrimary">#222</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance</item>
-        <item name="android:itemBackground">#eeeeee</item>
+        <item name="android:galleryItemBackground">@color/navigation_drawer_selected</item>
         <item name="android:listSelector">@drawable/listview_row_selector</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color</item>
         <item name="asb_switchPreferenceStyle">@style/asb_Preference.SwitchPreference</item>
+        <item name="android:panelColorForeground">#000</item>
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
@@ -69,13 +69,12 @@
         <item name="android:panelColorBackground">#333</item>
         <item name="android:textColorSecondary">#BBB</item>
         <item name="android:textColorPrimary">#EEE</item>
+        <item name="android:panelColorForeground">#EEE</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
-        <item name="android:itemBackground">#555</item>
         <item name="android:listSelector">@drawable/listview_row_selector_night</item>
-    </style>
-
-    <style name="menuItemTextAppearance" parent="Widget.AppCompat.Light.ActionBar.TabText.Inverse">
-        <item name="android:textColor">#fff</item>
+        <item name="actionOverflowMenuStyle">@style/overflowMenuStyle</item>
+        <item name="android:galleryItemBackground">@color/navigation_drawer_selected_night</item>
+        <item name="textAppearanceLargePopupMenu">@style/overflowMenuTextAppearanceNight</item>
     </style>
 
     <style name="actionBar.QuickLyric" parent="Base.ThemeOverlay.AppCompat.ActionBar">
@@ -132,7 +131,14 @@
     </style>
 
     <style name="searchSuggestionItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:textColor">@color/abc_secondary_text_material_light</item>
+    </style>
+
+    <style name="overflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">#444</item>
+    </style>
+
+    <style name="overflowMenuTextAppearanceNight" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">#EEE</item>
     </style>
 
     <style name="PagerTabStripText">

@@ -24,4 +24,8 @@
     <style name="actionBarItemStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
+
+    <style name="searchSuggestionItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">@color/abc_secondary_text_material_light</item>
+    </style>
 </resources>

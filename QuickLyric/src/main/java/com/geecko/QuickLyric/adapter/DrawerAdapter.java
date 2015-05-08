@@ -79,13 +79,13 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                         primaryDark,
                         PorterDuff.Mode.SRC_IN);
                 TypedValue backgroundValue = new TypedValue();
-                getContext().getTheme().resolveAttribute(android.R.attr.itemBackground, backgroundValue, true);
+                getContext().getTheme().resolveAttribute(android.R.attr.galleryItemBackground, backgroundValue, true);
                 convertView.setBackgroundColor(backgroundValue.data);
             } else {
                 TypedValue colorValue = new TypedValue();
                 getContext().getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
                 textView.setTextColor(colorValue.data);
-                convertView.setBackgroundResource(android.R.color.transparent);
+                convertView.setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
                 textView.getCompoundDrawables()[0].clearColorFilter();
             }
             return convertView;
