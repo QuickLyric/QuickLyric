@@ -80,12 +80,15 @@ public class SettingsFragment extends PreferenceFragment implements
         switch (pref.getKey()) {
             case "pref_theme":
                 if (!newValue.equals(pref.getSharedPreferences().getString("pref_theme", "0"))) {
+                    if (NightTimeVerifier.check(getActivity())
+                            && pref.getSharedPreferences().getBoolean("pref_night_mode", false))
+                        break;
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
                 }
-                return true;
+                break;
             case "pref_opendyslexic":
                 if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_opendyslexic", false))) {
                     getActivity().finish();
@@ -93,7 +96,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
                 }
-                return true;
+                break;
             case "pref_notifications":
                 if (newValue.equals("0")) {
                     ((NotificationManager) getActivity()
@@ -107,7 +110,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.putExtra("playing", current.getBoolean("playing", false));
                     getActivity().sendBroadcast(intent);
                 }
-                return true;
+                break;
             case "pref_night_mode":
                 if ((Boolean) newValue) {
                     boolean twentyFourHourStyle = DateFormat.is24HourFormat(getActivity());
@@ -121,10 +124,9 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
                 }
-                return true;
-            default:
-                return true;
+                break;
         }
+        return true;
     }
 
     @Override
