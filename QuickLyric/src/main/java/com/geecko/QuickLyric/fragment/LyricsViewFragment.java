@@ -178,7 +178,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
             FadeInNetworkImageView cover = (FadeInNetworkImageView) layout.findViewById(R.id.cover);
             cover.setDefaultImageResId(R.drawable.no_cover);
-            cover.setErrorImageResId(android.R.drawable.ic_menu_close_clear_cancel);
+            cover.setErrorImageResId(R.drawable.no_cover);
 
             mFrame = (FrameLayout) layout.findViewById(R.id.frame);
             final RefreshIcon refreshFab = (RefreshIcon) layout.findViewById(R.id.refresh_fab);
