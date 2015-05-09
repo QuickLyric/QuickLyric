@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
 
 /**
  * This file is part of QuickLyric
@@ -145,10 +148,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
             public void onAnimationEnd(Animation animation) {
                 ((RelativeLayout) mPager.getParent()).setVisibility(View.GONE);
                 ((MainActivity) mActivity).focusOnFragment = true;
-                if (((MainActivity) mActivity).mDrawerToggle != null) {
-                    ((MainActivity) mActivity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    ((MainActivity) mActivity).mDrawerToggle.setDrawerIndicatorEnabled(true);
-                }
+                if (((MainActivity) mActivity).mDrawerToggle != null)
+                    ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
                 mActivity.invalidateOptionsMenu();
                 SharedPreferences.Editor editor =
                         mActivity.getSharedPreferences("tutorial", Context.MODE_PRIVATE).edit();

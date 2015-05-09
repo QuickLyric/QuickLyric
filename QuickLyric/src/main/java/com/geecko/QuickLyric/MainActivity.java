@@ -519,10 +519,8 @@ public class MainActivity extends AppCompatActivity {
                 pagerAdapter.nextAction();
             }
         });
-        if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
+        if (mDrawerToggle != null)
+            ((DrawerLayout) drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         focusOnFragment = false;
         invalidateOptionsMenu();
     }
