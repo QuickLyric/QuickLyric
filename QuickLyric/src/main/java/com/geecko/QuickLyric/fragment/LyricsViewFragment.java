@@ -42,6 +42,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -168,6 +170,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             ActionMode.Callback callback = new CustomSelectionCallback(getActivity());
             ((TextView) textSwitcher.getChildAt(0)).setCustomSelectionActionModeCallback(callback);
             ((TextView) textSwitcher.getChildAt(1)).setCustomSelectionActionModeCallback(callback);
+
+            TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
+            SpannableString text = new SpannableString(id3TV.getText());
+            text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
+            id3TV.setText(text);
 
             FadeInNetworkImageView cover = (FadeInNetworkImageView) layout.findViewById(R.id.cover);
             cover.setDefaultImageResId(R.drawable.no_cover);
