@@ -108,7 +108,7 @@ public class DownloadThread extends Thread {
                     } catch (Exception ignored) {
                     }
                 }
-                return null;
+                return new Lyrics(Lyrics.NO_RESULT);
             }
 
             @SuppressWarnings("unchecked")
