@@ -104,7 +104,8 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         editor.putString("artist", artist);
         editor.putString("track", track);
         editor.putBoolean("playing", isPlaying);
-        editor.apply();
+        if (isPlaying)
+            editor.apply();
 
         mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
@@ -178,7 +179,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 NotificationManagerCompat.from(context).notify(8, wearableNotif);
             } catch (PackageManager.NameNotFoundException ignored) {
             }
-        } else
+        } else if (track.equals(current.getString("track", "")))
             NotificationManagerCompat.from(context).cancel(0);
     }
 }
