@@ -29,7 +29,7 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 46
+        versionCode 47
         versionName "1.8c"
     }
 
