@@ -124,6 +124,8 @@ public class LyricWiki {
             return new Lyrics(NO_RESULT);
         }
         String text;
+        String originalArtist = artist;
+        String originalTitle = song;
         try {
             //url = URLDecoder.decode(url, "utf-8");
             Document lyricsPage = Jsoup.connect(url).get();
@@ -163,6 +165,8 @@ public class LyricWiki {
             Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
             lyrics.setArtist(artist);
             lyrics.setTitle(song);
+            lyrics.setOriginalArtist(originalArtist);
+            lyrics.setOriginalTitle(originalTitle);
             lyrics.setText(text);
             lyrics.setSource("LyricsWiki");
             lyrics.setURL(url);
