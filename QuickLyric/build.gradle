@@ -30,7 +30,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 47
-        versionName "1.8c"
+        versionName "1.8d"
     }
 
     compileOptions {
