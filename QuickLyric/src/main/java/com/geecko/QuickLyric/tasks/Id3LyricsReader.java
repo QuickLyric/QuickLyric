@@ -46,8 +46,9 @@ public class Id3LyricsReader {
         String[] args = new String[]{artist, title};
 
         Cursor cursor = context.getContentResolver().query(uri, columns, "artist=? AND title=?", args, null);
-        if (cursor.getCount() == 0) {
-            cursor.close();
+        if (cursor == null || cursor.getCount() == 0) {
+            if (cursor != null)
+                cursor.close();
             return null;
         }
         cursor.moveToFirst();
