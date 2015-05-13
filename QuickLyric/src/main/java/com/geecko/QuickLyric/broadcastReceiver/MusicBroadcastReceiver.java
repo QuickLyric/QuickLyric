@@ -64,7 +64,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         Bundle extras = intent.getExtras();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean lengthFilter = sharedPref.getBoolean("filter_20min", true);
+        boolean lengthFilter = sharedPref.getBoolean("pref_filter_20min", true);
 
         if (extras != null)
             try {
