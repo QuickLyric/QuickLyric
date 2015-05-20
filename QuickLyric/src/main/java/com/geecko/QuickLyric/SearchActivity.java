@@ -154,6 +154,7 @@ public class SearchActivity extends AppCompatActivity {
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setQuery(searchQuery, false);
         searchView.setMaxWidth(99999); //fixme?
         return true;
