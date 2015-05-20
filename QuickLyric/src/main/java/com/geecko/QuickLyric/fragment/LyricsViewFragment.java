@@ -498,6 +498,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(this.mActivity.getComponentName()));
         searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint(getString(R.string.search_hint));
         searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem searchItem) {
