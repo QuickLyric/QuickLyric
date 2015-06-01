@@ -61,8 +61,7 @@ public class LyricsMania {
         String text;
         try {
             Document document = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
-            Element lyricsBody = document.getElementsByClass("lyrics-body").get(0);
-            lyricsBody.select("div").remove().select("strong").remove();
+            Element lyricsBody = document.getElementsByClass("lyrics-body").select("div[class$=premium").get(0);
             text = lyricsBody.html();
             if (artist == null)
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
