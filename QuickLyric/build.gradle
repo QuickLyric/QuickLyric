@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.2'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
@@ -69,7 +69,7 @@ android {
 }
 dependencies {
     compile 'com.android.support:support-v4:22.+'
-    compile 'com.android.support:appcompat-v7:22.1.+'
+    compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support:cardview-v7:22.+'
     compile 'com.android.support:support-v13:22.+'
     compile 'com.mcxiaoke.volley:library:1.0.+'
