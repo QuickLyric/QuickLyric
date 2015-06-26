@@ -65,7 +65,7 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         findPreference("pref_contribute").setOnPreferenceClickListener(this);
-        findPreference("pref_beta").setOnPreferenceClickListener(this);
+        // findPreference("pref_beta").setOnPreferenceClickListener(this);
         findPreference("pref_issues").setOnPreferenceClickListener(this);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);

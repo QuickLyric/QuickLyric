@@ -75,10 +75,12 @@
             android:title="@string/pref_contribute"
             android:key="pref_contribute"
             android:summary="@string/pref_contribute_sum"/>
+        <!--
         <Preference
             android:title="@string/pref_beta"
             android:key="pref_beta"
             android:summary="@string/pref_beta_sum"/>
+        !-->
         <Preference
             android:title="@string/pref_issues"
             android:key="pref_issues"
