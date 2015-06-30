@@ -12,7 +12,7 @@ The app is no longer available on Google Play following a takedown request from 
 
 If you want to support my work as a developer (not for this app specifically), you may make a donation [here](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RSJZUSUHBBKTJ&lc=US&item_name=geecko&item_number=00&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted).
 
-![alt text](http://i.imgur.com/dFjxzpT.png "Banner Logo")
+![alt text](https://raw.githubusercontent.com/geecko86/QuickLyric/master/banner.png "Banner Logo")
 
 QuickLyric is of course written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
 The build system relies on Gradle and Android Studio is therefore recommended.
