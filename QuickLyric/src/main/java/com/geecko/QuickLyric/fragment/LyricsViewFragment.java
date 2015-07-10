@@ -37,13 +37,17 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,7 +56,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
@@ -76,9 +79,7 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
-import com.geecko.QuickLyric.view.ObservableScrollView;
 import com.geecko.QuickLyric.view.RefreshIcon;
-import com.melnykov.fab.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -87,12 +88,8 @@ import java.util.Set;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
-public class LyricsViewFragment extends Fragment implements ObservableScrollView.Callbacks, Lyrics.Callback {
+public class LyricsViewFragment extends Fragment implements Lyrics.Callback, SwipeRefreshLayout.OnRefreshListener {
 
-    private static final int STATE_ONSCREEN = 0;
-    private int mState = STATE_ONSCREEN;
-    private static final int STATE_OFFSCREEN = 1;
-    private static final int STATE_RETURNING = 2;
     private static BroadcastReceiver broadcastReceiver;
     public boolean lyricsPresentInDB;
     public boolean isActiveFragment = false;
@@ -100,13 +97,12 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
     private Lyrics mLyrics;
     private String mSearchQuery;
     private boolean mSearchFocused;
-    private int minFrameRawY = 0;
-    private FrameLayout mFrame;
-    private ObservableScrollView mObservableScrollView;
+    private NestedScrollView mScrollView;
     private Activity mActivity;
     private MenuItem searchItem;
     private boolean startEmtpy = false;
     public boolean searchResultLock;
+    private SwipeRefreshLayout mRefreshLayout;
 
     public LyricsViewFragment() {
     }
@@ -176,13 +172,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
             id3TV.setText(text);
 
-            FadeInNetworkImageView cover = (FadeInNetworkImageView) layout.findViewById(R.id.cover);
-            cover.setDefaultImageResId(R.drawable.no_cover);
-            cover.setErrorImageResId(R.drawable.no_cover);
-
-            mFrame = (FrameLayout) layout.findViewById(R.id.frame);
-            final RefreshIcon refreshFab = (RefreshIcon) layout.findViewById(R.id.refresh_fab);
-            refreshFab.setShadow(layout.findViewById(R.id.fab_shadow));
+            final RefreshIcon refreshFab = (RefreshIcon) getActivity().findViewById(R.id.refresh_fab);
             refreshFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -190,17 +180,18 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 }
             });
 
-            mObservableScrollView = (ObservableScrollView) layout.findViewById(R.id.scrollview);
-            mObservableScrollView.setCallbacks(this);
-
-            ((FloatingActionButton) layout.findViewById(R.id.refresh_fab)).attachToScrollView(mObservableScrollView);
-
+            mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
+            mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
+            TypedValue primaryColor = new TypedValue();
+            getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
+            mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, R.color.accent);
+            mRefreshLayout.setOnRefreshListener(this);
 
             if (mLyrics == null) {
                 if (!startEmtpy)
                     fetchCurrentLyrics(false);
             } else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
-                startRefreshAnimation();
+                startRefreshFABAnimation();
                 if (mLyrics.getArtist() != null)
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
                 ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
@@ -215,7 +206,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 String artist = intent.getStringExtra("artist");
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
-                    startRefreshAnimation();
+                    startRefreshFABAnimation();
                     new ParseTask(LyricsViewFragment.this, false).execute(mLyrics);
                 }
             }
@@ -248,7 +239,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             this.isActiveFragment = false;
     }
 
-    public void startRefreshAnimation() {
+    public void startRefreshFABAnimation() {
         if (getActivity() != null && getView() != null)
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).startAnimation();
     }
@@ -259,6 +250,7 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             refreshIcon.stopAnimation();
         else
             RefreshIcon.mEnded = true;
+        mRefreshLayout.setRefreshing(false);
     }
 
     public void fetchLyrics(String... params) {
@@ -267,7 +259,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         String url = null;
         if (params.length > 2)
             url = params[2];
-        this.startRefreshAnimation();
+        if (!mRefreshLayout.isRefreshing())
+            this.startRefreshFABAnimation();
 
         Lyrics lyrics = null;
         if (artist != null && title != null) {
@@ -339,13 +332,12 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
         Bitmap cover = Id3LyricsReader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+        setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
-        else
-            setCoverArt(cover, null);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
-        TextView artistTV = ((TextView) layout.findViewById(R.id.artist));
-        TextView songTV = (TextView) layout.findViewById(R.id.song);
+        TextView artistTV = ((TextView) getActivity().findViewById(R.id.artist));
+        TextView songTV = (TextView) getActivity().findViewById(R.id.song);
         TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
         RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
         this.mLyrics = lyrics;
@@ -361,7 +353,8 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             songTV.setText(lyrics.getTrack());
         else
             songTV.setText("");
-        ((FloatingActionButton) layout.findViewById(R.id.refresh_fab)).show();
+        if (isActiveFragment)
+            ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (animation)
@@ -374,11 +367,11 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 id3TV.setVisibility(View.VISIBLE);
             else
                 id3TV.setVisibility(View.GONE);
-            mObservableScrollView.post(new Runnable() {
+            mScrollView.post(new Runnable() {
                 @Override
                 public void run() {
-                    mObservableScrollView.scrollTo(0, 0); //only useful when coming from localLyricsFragment
-                    mObservableScrollView.smoothScrollTo(0, 0);
+                    mScrollView.scrollTo(0, 0); //only useful when coming from localLyricsFragment
+                    mScrollView.smoothScrollTo(0, 0);
                 }
             });
         } else {
@@ -406,7 +399,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             whyTextView.setPaintFlags(whyTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             id3TV.setVisibility(View.GONE);
         }
-        stopRefreshAnimation();
+        if (mRefreshLayout.isRefreshing())
+            mRefreshLayout.setRefreshing(false);
+        else
+            stopRefreshAnimation();
         getActivity().getIntent().setAction("");
     }
 
@@ -417,6 +413,15 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
                 .setMessage(String.format(String.valueOf(Html.fromHtml(getString(R.string.why_popup_text))),
                         title, artist))
                 .show();
+    }
+
+    public void enablePullToRefresh(boolean enabled) {
+        mRefreshLayout.setEnabled(enabled);
+    }
+
+    @Override
+    public void onRefresh() {
+        fetchCurrentLyrics(true);
     }
 
     public String getSource() {
@@ -483,7 +488,10 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.mActivity;
         ActionBar actionBar = mainActivity.getSupportActionBar();
-        actionBar.setTitle(R.string.app_name);
+        CollapsingToolbarLayout toolbarLayout =
+                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
+        if (actionBar != null)
+            toolbarLayout.setTitle(getString(R.string.app_name));
 
         if (!mainActivity.focusOnFragment) // focus is on Fragment
             return;
@@ -576,58 +584,6 @@ public class LyricsViewFragment extends Fragment implements ObservableScrollView
             coverView.setLocalImageBitmap(cover);
     }
 
-    @Override
-    public void onScrollChanged() {
-        int cachedVerticalScrollRange = mObservableScrollView.computeVerticalScrollRange();
-        int quickReturnHeight = mFrame.getMeasuredHeight();
-        int rawFrameY = mFrame.getTop() - Math.min(
-                cachedVerticalScrollRange - mObservableScrollView.getHeight(),
-                mObservableScrollView.getScrollY());
-        int frameTranslationY = 0;
-
-        switch (mState) {
-            case STATE_OFFSCREEN:
-                if (rawFrameY <= minFrameRawY) {
-                    minFrameRawY = rawFrameY;
-                } else {
-                    mState = STATE_RETURNING;
-                }
-                frameTranslationY = rawFrameY;
-                break;
-
-            case STATE_ONSCREEN:
-                if (rawFrameY < -quickReturnHeight) {
-                    mState = STATE_OFFSCREEN;
-                    minFrameRawY = rawFrameY;
-                }
-                frameTranslationY = rawFrameY;
-                break;
-
-            case STATE_RETURNING:
-                frameTranslationY = (rawFrameY - minFrameRawY) - quickReturnHeight;
-                if (frameTranslationY > 0) {
-                    frameTranslationY = 0;
-                    minFrameRawY = rawFrameY - quickReturnHeight;
-                }
-
-                if (rawFrameY > 0) {
-                    mState = STATE_ONSCREEN;
-                    frameTranslationY = rawFrameY;
-                }
-
-                if (frameTranslationY < -quickReturnHeight) {
-                    mState = STATE_OFFSCREEN;
-                    minFrameRawY = rawFrameY;
-                }
-                break;
-        }
-        if (mObservableScrollView.getScrollY() != 0) {
-            frameTranslationY += mObservableScrollView.getScrollY();
-        } else {
-            frameTranslationY = 0;
-        }
-        mFrame.setTranslationY(frameTranslationY);
-    }
 
     public void startEmpty(boolean startEmpty) {
         this.startEmtpy = startEmpty;

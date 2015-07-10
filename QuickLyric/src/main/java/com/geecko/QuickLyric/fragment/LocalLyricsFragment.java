@@ -33,6 +33,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -251,10 +252,12 @@ public class LocalLyricsFragment extends ListFragment {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
         ActionBar actionBar = (mainActivity).getSupportActionBar();
+        CollapsingToolbarLayout toolbarLayout =
+                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
         if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
-                actionBar.setTitle(R.string.local_title);
+                toolbarLayout.setTitle(getString(R.string.app_name));
             inflater.inflate(R.menu.local, menu);
         } else
             menu.clear();

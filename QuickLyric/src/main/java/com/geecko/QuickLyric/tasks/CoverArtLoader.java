@@ -52,7 +52,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
                         URLEncoder.encode(lyrics.getTrack(), "UTF-8"))));
                 JSONObject json = new JSONObject(html);
                 url = json.getJSONObject("track").getJSONObject("album").getJSONArray("image")
-                        .getJSONObject(2).getString("#text");
+                        .getJSONObject(3).getString("#text");
                 if (url.contains("noimage"))
                     url = null;
             } catch (JSONException | IOException e) {

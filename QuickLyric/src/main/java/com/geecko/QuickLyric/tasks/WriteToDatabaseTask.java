@@ -24,10 +24,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
@@ -36,8 +37,6 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.listeners.ActionClickListener;
 
 public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
@@ -120,18 +119,16 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
         } else if (fragment instanceof LocalLyricsFragment) {
-            ActionClickListener actionClickListener = new ActionClickListener() {
+            View.OnClickListener actionClickListener = new View.OnClickListener() {
                 @Override
-                public void onActionClicked(Snackbar snackbar) {
+                public void onClick(View snackbar) {
                     new WriteToDatabaseTask().execute(fragment, null, lyricsArray);
                 }
             };
             if (!result) {
-                final Typeface roboto = Typeface
-                        .createFromAsset(mContext.getAssets(), "fonts/Roboto-Bold.ttf");
-                Snackbar.with(mContext).text(message).actionLabel(R.string.undo)
-                        .actionColorResource(R.color.accent_light).actionLabelTypeface(roboto)
-                        .actionListener(actionClickListener).show((MainActivity) mContext);
+                Snackbar.make(fragment.getView(), message, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.undo, actionClickListener)
+                        .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
             }
             if (mLocalLyricsFragment != null)
                 mLocalLyricsFragment.setListShown(true);

@@ -1,16 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto">
 
-    <!--
-    <item
-        android:id="@+id/refresh_action"
-        support:actionLayout="@layout/refresh_action_view"
-        android:orderInCategory="0"
-        support:showAsAction="always"
-        android:icon="@drawable/ic_refresh"
-        android:title="@string/refresh" />
-    !-->
-
     <item
         android:title="@string/search_hint"
         android:id="@+id/search_view"

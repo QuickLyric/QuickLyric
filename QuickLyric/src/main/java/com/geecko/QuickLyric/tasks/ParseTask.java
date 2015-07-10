@@ -63,6 +63,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                 && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (showMsg)
                 Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
+            lyricsViewFragment.stopRefreshAnimation();
         } else {
             lyricsViewFragment.fetchLyrics(metaData[0], metaData[1]);
         }

@@ -29,6 +29,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -223,10 +224,12 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.getActivity();
         ActionBar actionBar = (mainActivity).getSupportActionBar();
+        CollapsingToolbarLayout toolbarLayout =
+                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
         if (mainActivity.focusOnFragment) // focus is on Fragment
         {
-            if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title)))
-                actionBar.setTitle(R.string.settings_title);
+            if (actionBar != null && (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title))))
+                toolbarLayout.setTitle(getString(R.string.app_name));
         } else
             menu.clear();
     }

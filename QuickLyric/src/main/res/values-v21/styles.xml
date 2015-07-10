@@ -19,10 +19,7 @@
   -->
 <resources>
     <style name="actionBar.QuickLyric" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
-    </style>
-
-    <style name="actionBarItemStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
-        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:actionBarItemBackground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="searchSuggestionItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">

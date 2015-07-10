@@ -29,6 +29,7 @@
     <color name="deep_red">#B40000</color>
     <color name="amber">#FFAB00</color>
     <color name="selected">#BDBDBD</color>
+    <color name="cover_bg">#ccc</color>
     <color name="selected_night">#222</color>
     <color name="navigation_drawer_selected_night">#555</color>
     <color name="navigation_drawer_selected">#eee</color>

@@ -20,21 +20,19 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
+import android.os.Parcelable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ObservableScrollView;
+import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 
 public class RefreshIcon extends FloatingActionButton implements Animation.AnimationListener {
 
     private final RotateAnimation rotateAnimation;
-    private ImageView shadow;
-    private com.melnykov.fab.ObservableScrollView scrollView;
     private boolean mRunning = false;
     public static boolean mEnded = false;
 
@@ -47,47 +45,31 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         rotateAnimation.setInterpolator(new LinearInterpolator());
     }
 
-    @Override
     public void show() {
-        // The shadow reappears after the end of the animation
-        super.show();
-        shadow.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (isVisible())
-                    shadow.setVisibility(VISIBLE);
-            }
-        }, 200);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+        RefreshButtonBehavior behavior = (RefreshButtonBehavior) params.getBehavior();
+        if (behavior != null)
+            behavior.animateIn(this);
     }
 
-    @Override
     public void hide() {
-        if (!mRunning) {
-            shadow.setVisibility(GONE);
-            super.hide();
-        }
-    }
-
-    public void setShadow(View shadow) {
-        this.shadow = (ImageView) shadow;
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+        RefreshButtonBehavior behavior = (RefreshButtonBehavior) params.getBehavior();
+        if (behavior != null)
+            behavior.animateOut(this);
     }
 
     public void startAnimation() {
-        if (scrollView != null)
-            scrollView.setOnScrollChangedListener(null);
         if (!mRunning) {
             startAnimation(rotateAnimation);
             mRunning = true;
             mEnded = false;
         }
-        if (this.getTranslationY() != 0)
-            this.show();
     }
 
     public void stopAnimation() {
         if (mRunning)
             mEnded = true;
-        attachToScrollView(scrollView);
     }
 
     @Override
@@ -104,11 +86,5 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
             this.clearAnimation();
             mRunning = false;
         }
-    }
-
-    @Override
-    public void attachToScrollView(ObservableScrollView scrollView) {
-        this.scrollView = scrollView;
-        super.attachToScrollView(scrollView);
     }
 }

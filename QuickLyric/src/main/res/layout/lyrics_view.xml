@@ -17,21 +17,25 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:fab="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             xmlns:android.support.v7.cardview="http://schemas.android.com/apk/res-auto"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.geecko.QuickLyric.view.ObservableScrollView
-        android:id="@+id/scrollview"
-        android:background="?android:attr/colorBackground"
-        android:scrollbarStyle="outsideOverlay"
-        tools:context=".MainActivity"
-        android:fillViewport="true"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+    <com.geecko.QuickLyric.view.NonFocusableNestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay"
+        tools:context=".MainActivity">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -42,120 +46,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--
+                    Fixme minHeight trick
+                !-->
                 <TextSwitcher
-                    android:layout_gravity="top"
                     android:id="@+id/switcher"
-                    android:focusable="false"
-                    android:measureAllChildren="false"
-                    android:padding="5dp"
-                    android:layout_marginTop="@dimen/lyrics_top_margin"
-                    android:inAnimation="@android:anim/fade_in"
-                    android:outAnimation="@android:anim/fade_out"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:minHeight="530dp"
+                    android:layout_gravity="top"
+                    android:focusable="false"
+                    android:inAnimation="@android:anim/fade_in"
+                    android:measureAllChildren="false"
+                    android:outAnimation="@android:anim/fade_out"
+                    android:padding="5dp"/>
 
                 <TextView
                     android:id="@+id/id3_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:textColor="?android:textColorSecondary"
-                    android:text="@string/from_id3"
-                    android:visibility="gone"
                     android:clickable="true"
-                    android:onClick="id3PopUp"/>
+                    android:gravity="center"
+                    android:onClick="id3PopUp"
+                    android:text="@string/from_id3"
+                    android:textColor="?android:textColorSecondary"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <include
-                android:layout_height="match_parent"
+                layout="@layout/error_msg"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/frame_height"
-                layout="@layout/error_msg"/>
+                android:layout_height="match_parent"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/frame"
-                android.support.v7.cardview:cardPreventCornerOverlap="false"
-                android.support.v7.cardview:cardElevation="3dp"
-                android:layout_margin="8dp"
-                android:layout_height="@dimen/frame_height"
-                android:layout_width="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.geecko.QuickLyric.view.FadeInNetworkImageView
-                        android:id="@+id/cover"
-                        android:layout_width="@dimen/frame_height"
-                        android:layout_height="match_parent"
-                        android:minWidth="@dimen/cover_width"
-                        android:scaleType="fitStart"
-                        android:contentDescription="@string/cover_art_desc"
-                        android:layout_alignParentLeft="true"/>
-
-                    <View
-                        android:id="@+id/separator_vertical"
-                        android:layout_toRightOf="@id/cover"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-
-                    <View
-                        android:id="@+id/center"
-                        android:layout_toRightOf="@id/separator_vertical"
-                        android:layout_centerInParent="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"/>
-
-                    <TextView
-                        android:id="@+id/song"
-                        android:singleLine="true"
-                        android:scrollHorizontally="true"
-                        android:ellipsize="end"
-                        android:background="?android:panelColorBackground"
-                        android:layout_above="@id/center"
-                        android:layout_toRightOf="@id/separator_vertical"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:textSize="@dimen/txt_size"
-                        android:textColor="?android:textColorPrimary"
-                        android:gravity="bottom|left"/>
-
-                    <TextView
-                        android:id="@+id/artist"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:scrollHorizontally="true"
-                        android:background="?android:panelColorBackground"
-                        android:layout_below="@id/center"
-                        android:layout_toRightOf="@id/separator_vertical"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:textColor="?android:textColorSecondary"
-                        android:textSize="@dimen/small_txt_size"
-                        android:gravity="start"/>
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
         </FrameLayout>
-    </com.geecko.QuickLyric.view.ObservableScrollView>
+    </com.geecko.QuickLyric.view.NonFocusableNestedScrollView>
 
-    <com.geecko.QuickLyric.view.RefreshIcon
-        android:id="@+id/refresh_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_refresh"
-        android:translationZ="8dp"
-        fab:fab_shadow="false"
-        fab:fab_colorNormal="@color/accent"/>
-
-    <include layout="@layout/fab_shadow"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

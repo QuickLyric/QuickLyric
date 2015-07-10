@@ -43,12 +43,15 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -71,7 +74,9 @@ import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
+import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.IOException;
@@ -83,7 +88,18 @@ import static com.geecko.QuickLyric.R.id;
 import static com.geecko.QuickLyric.R.layout;
 import static com.geecko.QuickLyric.R.string;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+
+    // Fixme: custom times night mode
+    // Todo: screen always on
+    // Todo: Edit Tags (only show button if file exists?)
+
+    // fixme: Fix spotify
+    // Fixme: Genius search API
+    // Fixme: update lyrics sources
+
+    // Todo: Get Rid of Michael Jackson & fix "empty screen"
+    // Todo: Saved Lyrics (removal animation, don't scroll back to the top, arrange by artists)
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
@@ -135,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         drawerList.setAdapter(drawerAdapter);
         drawerView = this.findViewById(id.left_drawer);
         drawer = this.findViewById(id.drawer_layout);
-        if (drawer instanceof DrawerLayout) { // if phone
+        if (drawer instanceof DrawerLayout && getSupportActionBar() != null) { // if phone
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, string.drawer_open_desc, string.drawer_closed_desc) {
 
@@ -278,6 +294,8 @@ public class MainActivity extends AppCompatActivity {
                     && !lyricsViewFragment.searchResultLock)
                 lyricsViewFragment.fetchCurrentLyrics(false);
         }
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
@@ -413,6 +431,8 @@ public class MainActivity extends AppCompatActivity {
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null)
             nfcAdapter.disableForegroundDispatch(this);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        appBarLayout.removeOnOffsetChangedListener(this);
     }
 
     @Override
@@ -438,6 +458,8 @@ public class MainActivity extends AppCompatActivity {
                 drawerAdapter.notifyDataSetChanged();
             }
         }
+        if (!RefreshButtonBehavior.visible)
+            findViewById(id.refresh_fab).setVisibility(View.GONE);
     }
 
     @Override
@@ -461,6 +483,12 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         if (mDrawerToggle != null)
             mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG))
+                .enablePullToRefresh(i == 0);
     }
 
     public void setDrawerListener(boolean bool) {
@@ -501,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
         final ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), this);
         pager.setAdapter(pagerAdapter);
-        pager.setOnPageChangeListener(pagerAdapter);
+        pager.addOnPageChangeListener(pagerAdapter);
         indicator.setViewPager(pager);
         pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
         indicator.setOnPageChangeListener(pagerAdapter);
@@ -622,6 +650,24 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    private void collapseToolbar() {
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        if (behavior != null) {
+            behavior.onNestedFling((CoordinatorLayout) (findViewById(id.coordinator_layout)),
+                    appBarLayout, null, 0, 10000, true);
+        }
+    }
+
+    private void showRefreshFab(boolean show) {
+        RefreshIcon refreshFAB = (RefreshIcon) findViewById(id.refresh_fab);
+        if (show)
+            refreshFAB.show();
+        else
+            refreshFAB.hide();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle != null)
@@ -674,6 +720,12 @@ public class MainActivity extends AppCompatActivity {
             else
                 fragmentTransaction.add(id.main_fragment_container, newFragment, tag);
             fragmentTransaction.commit();
+
+            if (activeFragment instanceof LyricsViewFragment) {
+                showRefreshFab(false);
+                collapseToolbar();
+            } else if (newFragment instanceof LyricsViewFragment)
+                showRefreshFab(true);
         }
         if (drawer instanceof DrawerLayout && (newFragment == activeFragment))
             ((DrawerLayout) drawer).closeDrawer(drawerView);

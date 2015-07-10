@@ -61,8 +61,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
         Context context = getContext();
         if (context != null) {
             Resources resources = context.getResources();
+            setScaleType(ScaleType.CENTER_CROP);
             if (bm == null) {
-                BitmapDrawable bd = ((BitmapDrawable) resources.getDrawable(R.drawable.base_cover));
+                setScaleType(ScaleType.CENTER);
+                BitmapDrawable bd = ((BitmapDrawable) resources.getDrawable(R.drawable.no_cover));
                 if (bd != null)
                     bm = bd.getBitmap();
             }
