@@ -219,6 +219,9 @@ A few possible reasons why:<br/>
     <string name="ignore_id3_toast">Tap the Refresh button to force a download</string>
     <string name="from_id3">(Lyrics extracted from audio file)</string>
     <string name="pandora_warning">Warning: Radio services such as Pandora® Radio do not qualify as music players and do not work with QuickLyric.</string>
+    <string name="no_results_edit_tags">Edit song metadata</string>
+    <string name="nighttime_start_dialog_title">Nighttime start</string>
+    <string name="nighttime_end_dialog_title">Nighttime end</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

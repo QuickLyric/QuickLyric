@@ -118,6 +118,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     TimePickerDialog tpd = TimePickerDialog
                             .newInstance(this, 21, 0, twentyFourHourStyle);
                     tpd.setCancelable(false);
+                    tpd.setTitle(getActivity().getString(R.string.nighttime_start_dialog_title));
                     tpd.show(getFragmentManager(), NIGHT_START_TIME_DIALOG_TAG);
                 } else if (NightTimeVerifier.check(getActivity())) {
                     getActivity().finish();
@@ -190,6 +191,7 @@ public class SettingsFragment extends PreferenceFragment implements
             TimePickerDialog tpd = TimePickerDialog
                     .newInstance(this, 6, 0, twentyFourHourStyle);
             tpd.setCancelable(false);
+            tpd.setTitle(getActivity().getString(R.string.nighttime_end_dialog_title));
             tpd.show(getFragmentManager(), NIGHT_END_TIME_DIALOG_TAG);
         } else {
             SharedPreferences current = getActivity().getSharedPreferences("night_time", Context.MODE_PRIVATE);
