@@ -18,9 +18,21 @@
   ~  */
   -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:drawable="@drawable/ic_edit_svg" >
+    <target
+        android:animation="@anim/fade_out"
+        android:name="eraser"/>
 
-    <translate android:fromYDelta="140%"
-               android:toYDelta="0%" />
+    <target
+        android:animation="@anim/fade_out"
+        android:name="pen"/>
 
-</set>
+    <target
+        android:name="pen_left"
+        android:animation="@anim/edit_to_done_left" />
+  
+    <target
+        android:name="pen_right"
+        android:animation="@anim/edit_to_done_right" />
+</animated-vector>

@@ -31,4 +31,5 @@
     <dimen name="drawer_width">-1dp</dimen> <!-- match_parent !-->
     <dimen name="drawer_row_height">48dp</dimen>
     <dimen name="row_height">72dp</dimen>
+    <dimen name="line_spacing">3dp</dimen>
 </resources>

@@ -47,8 +47,8 @@ public class SearchAdapter extends ArrayAdapter<String> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_row, parent, false);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.artist = (TextView) convertView.findViewById(R.id.artist);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.row_title);
+            viewHolder.artist = (TextView) convertView.findViewById(R.id.row_artist);
             convertView.setTag(viewHolder);
         } else
             viewHolder = (ViewHolder) convertView.getTag();

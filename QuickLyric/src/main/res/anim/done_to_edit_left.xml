@@ -18,9 +18,10 @@
   ~  */
   -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <translate android:fromYDelta="140%"
-               android:toYDelta="0%" />
-
-</set>
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="800"
+    android:propertyName="pathData"
+    android:valueTo="M3 21.1L9 18 14 12.5l-0.2-5.8L9 12z"
+    android:valueFrom="M9 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+    android:valueType="pathType"/>

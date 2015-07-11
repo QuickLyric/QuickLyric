@@ -48,7 +48,7 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
     public void show() {
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
         RefreshButtonBehavior behavior = (RefreshButtonBehavior) params.getBehavior();
-        if (behavior != null)
+        if (behavior != null && isEnabled())
             behavior.animateIn(this);
     }
 

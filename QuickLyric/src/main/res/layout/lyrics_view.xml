@@ -53,13 +53,29 @@
                     android:id="@+id/switcher"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:minHeight="530dp"
                     android:layout_gravity="top"
                     android:focusable="false"
                     android:inAnimation="@android:anim/fade_in"
                     android:measureAllChildren="false"
                     android:outAnimation="@android:anim/fade_out"
                     android:padding="5dp"/>
+
+                <EditText
+                    android:id="@+id/edit_lyrics"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-light"
+                    android:visibility="gone"
+                    android:freezesText="true"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="?android:textColorPrimary"
+                    android:gravity="center_horizontal"
+                    android:minHeight="530dp"
+                    android:layout_gravity="top"
+                    android:measureAllChildren="false"
+                    android:padding="5dp"
+                    android:inputType="textMultiLine"/>
 
                 <TextView
                     android:id="@+id/id3_tv"
@@ -77,7 +93,7 @@
             <include
                 layout="@layout/error_msg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
         </FrameLayout>
     </com.geecko.QuickLyric.view.NonFocusableNestedScrollView>

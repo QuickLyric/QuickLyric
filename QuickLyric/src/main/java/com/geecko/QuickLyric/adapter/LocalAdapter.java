@@ -54,8 +54,8 @@ public class LocalAdapter extends ArrayAdapter<Lyrics> {
             if (convertView == null)
                 return null;
         }
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView artist = (TextView) convertView.findViewById(R.id.artist);
+        TextView title = (TextView) convertView.findViewById(R.id.row_title);
+        TextView artist = (TextView) convertView.findViewById(R.id.row_artist);
         title.setText(savedLyrics.get(position).getTrack());
         artist.setText(savedLyrics.get(position).getArtist());
         CheckableLayout row = (CheckableLayout) convertView;

@@ -30,11 +30,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -44,7 +48,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
@@ -56,6 +62,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
@@ -69,7 +78,8 @@ import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.tasks.DownloadThread;
-import com.geecko.QuickLyric.tasks.Id3LyricsReader;
+import com.geecko.QuickLyric.tasks.Id3Reader;
+import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
@@ -81,6 +91,7 @@ import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
@@ -126,6 +137,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             outState.putString("searchQuery", ((SearchView) searchView).getQuery().toString());
             outState.putBoolean("searchFocused", searchView.hasFocus());
         }
+
+        outState.putBoolean("refreshFabEnabled", getActivity().findViewById(R.id.refresh_fab).isEnabled());
+
+        EditText editedLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
+        if (editedLyrics.getVisibility() == View.VISIBLE) {
+            EditText editedTitle = (EditText) getActivity().findViewById(R.id.song);
+            EditText editedArtist = (EditText) getActivity().findViewById(R.id.artist);
+            outState.putCharSequence("editedLyrics", editedLyrics.getText());
+            outState.putCharSequence("editedTitle", editedTitle.getText());
+            outState.putCharSequence("editedArtist", editedArtist.getText());
+        }
     }
 
     @Override
@@ -161,11 +183,28 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
         }
         if (layout != null) {
+            Bundle args = savedInstanceState != null ? savedInstanceState : getArguments();
+
             TextSwitcher textSwitcher = (TextSwitcher) layout.findViewById(R.id.switcher);
             textSwitcher.setFactory(new LyricsTextFactory(layout.getContext()));
             ActionMode.Callback callback = new CustomSelectionCallback(getActivity());
             ((TextView) textSwitcher.getChildAt(0)).setCustomSelectionActionModeCallback(callback);
             ((TextView) textSwitcher.getChildAt(1)).setCustomSelectionActionModeCallback(callback);
+
+            if (args != null && args.containsKey("editedLyrics")) {
+                EditText editedLyrics = (EditText) layout.findViewById(R.id.edit_lyrics);
+                EditText artistTV = (EditText) getActivity().findViewById(R.id.artist);
+                EditText songTV = (EditText) getActivity().findViewById(R.id.song);
+                textSwitcher.setVisibility(View.GONE);
+                editedLyrics.setVisibility(View.VISIBLE);
+                songTV.setInputType(InputType.TYPE_CLASS_TEXT);
+                artistTV.setInputType(InputType.TYPE_CLASS_TEXT);
+                songTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
+                artistTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
+                editedLyrics.setText(args.getCharSequence("editedLyrics"), TextView.BufferType.EDITABLE);
+                songTV.setText(args.getCharSequence("editedTitle"), TextView.BufferType.EDITABLE);
+                artistTV.setText(args.getCharSequence("editedArtist"), TextView.BufferType.EDITABLE);
+            }
 
             TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
             SpannableString text = new SpannableString(id3TV.getText());
@@ -179,6 +218,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     fetchCurrentLyrics(true);
                 }
             });
+            if (args != null)
+                refreshFab.setEnabled(args.getBoolean("refreshFabEnabled"));
 
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
@@ -186,6 +227,24 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
             mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, R.color.accent);
             mRefreshLayout.setOnRefreshListener(this);
+
+            final ImageButton editTagsButton = (ImageButton) getActivity().findViewById(R.id.edit_tags_btn);
+
+            View.OnClickListener startEditClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startEditTagsMode();
+                    final View.OnClickListener startEditClickListener = this;
+                    editTagsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            exitEditTagsMode();
+                            editTagsButton.setOnClickListener(startEditClickListener);
+                        }
+                    });
+                }
+            };
+            editTagsButton.setOnClickListener(startEditClickListener);
 
             if (mLyrics == null) {
                 if (!startEmtpy)
@@ -212,6 +271,81 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             }
         };
         return layout;
+    }
+
+    private void startEditTagsMode() {
+        ImageButton editButton = (ImageButton) getActivity().findViewById(R.id.edit_tags_btn);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            editButton.setImageResource(R.drawable.ic_edit_anim);
+            ((Animatable) editButton.getDrawable()).start();
+        } else
+            editButton.setImageResource(R.drawable.ic_done);
+
+        ((DrawerLayout) ((MainActivity) getActivity()).drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mRefreshLayout.setEnabled(false);
+        getActivity().findViewById(R.id.refresh_fab).setEnabled(false);
+        ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).hide();
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).getMenu().clear();
+
+        TextSwitcher textSwitcher = ((TextSwitcher) getActivity().findViewById(R.id.switcher));
+        EditText songTV = (EditText) getActivity().findViewById(R.id.song);
+        TextView artistTV = ((TextView) getActivity().findViewById(R.id.artist));
+
+        EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
+        newLyrics.setText(((TextView) textSwitcher.getCurrentView()).getText(), TextView.BufferType.EDITABLE);
+
+        textSwitcher.setVisibility(View.GONE);
+        newLyrics.setVisibility(View.VISIBLE);
+
+        songTV.setInputType(InputType.TYPE_CLASS_TEXT);
+        artistTV.setInputType(InputType.TYPE_CLASS_TEXT);
+        songTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
+        artistTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
+
+
+        if (songTV.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    private void exitEditTagsMode() {
+        // todo: save changes. AsyncTask with I/O
+        // Todo: warn to refresh player & library
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_done_anim);
+            Drawable editIcon = ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).getDrawable();
+            ((Animatable) editIcon).start();
+        } else
+            ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_edit);
+
+        if (getActivity().getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isAcceptingText())
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
+
+        EditText songTV = (EditText) getActivity().findViewById(R.id.song);
+        EditText artistTV = ((EditText) getActivity().findViewById(R.id.artist));
+        EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
+
+        songTV.setInputType(InputType.TYPE_NULL);
+        artistTV.setInputType(InputType.TYPE_NULL);
+        songTV.setBackgroundColor(Color.TRANSPARENT);
+        artistTV.setBackgroundColor(Color.TRANSPARENT);
+
+        File musicFile = Id3Reader.getFile(getActivity(), mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack());
+
+        if (!mLyrics.getArtist().equals(artistTV.getText().toString())
+                || !mLyrics.getTrack().equals(songTV.getText().toString())
+                || !mLyrics.getText().equals(newLyrics.getText().toString().replaceAll("\n", "<br/>"))) {
+            mLyrics.setArtist(artistTV.getText().toString());
+            mLyrics.setTitle(songTV.getText().toString());
+            mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
+            new Id3Writer(this).execute(mLyrics, musicFile);
+        }
     }
 
     @Override
@@ -265,11 +399,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         Lyrics lyrics = null;
         if (artist != null && title != null) {
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+
             if (lyrics == null && (mLyrics == null || !("Storage".equals(mLyrics.getSource())
                     && mLyrics.getArtist().equalsIgnoreCase(artist)
                     && mLyrics.getTrack().equalsIgnoreCase(title))
             ))
-                lyrics = Id3LyricsReader.getLyrics(getActivity(), artist, title);
+                lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
         }
         if (lyrics != null)
             onLyricsDownloaded(lyrics);
@@ -292,6 +427,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     public void fetchCurrentLyrics(boolean showMsg) {
         searchResultLock = false;
+        getActivity().findViewById(R.id.edit_tags_btn).setVisibility(View.GONE);
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
             new ParseTask(this, showMsg).execute(mLyrics);
         else
@@ -331,12 +467,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
-        Bitmap cover = Id3LyricsReader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+        File musicFile = Id3Reader.getFile(getActivity(), lyrics.getOriginalArtist(), lyrics.getOriginalTrack());
+        Bitmap cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
         setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
+        getActivity().findViewById(R.id.edit_tags_btn).setVisibility(musicFile == null ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
-        TextView artistTV = ((TextView) getActivity().findViewById(R.id.artist));
+        TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
         TextView songTV = (TextView) getActivity().findViewById(R.id.song);
         TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
         RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
@@ -416,7 +554,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void enablePullToRefresh(boolean enabled) {
-        mRefreshLayout.setEnabled(enabled);
+        mRefreshLayout.setEnabled(enabled && !isInEditMode());
+    }
+
+    public boolean isInEditMode() {
+        return getActivity().findViewById(R.id.edit_lyrics).getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -493,7 +635,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (actionBar != null)
             toolbarLayout.setTitle(getString(R.string.app_name));
 
-        if (!mainActivity.focusOnFragment) // focus is on Fragment
+        if (((DrawerLayout) mainActivity.drawer) // drawer is locked
+                .getDrawerLockMode(mainActivity.drawerView) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             return;
 
         inflater.inflate(R.menu.lyrics, menu);
@@ -557,19 +700,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         mActivity = null;
     }
 
-    public void setCoverArt(String url, FadeInNetworkImageView cover) {
+    public void setCoverArt(String url, FadeInNetworkImageView coverView) {
         MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
         if (mainActivity == null)
             return;
-        if (cover == null)
-            cover = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
+        if (coverView == null)
+            coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (mLyrics != null) {
-            if (url != null && !url.equals(cover.getImageURL()))
-                cover.setImageResource(R.drawable.no_cover);
             mLyrics.setCoverURL(url);
             if (url == null)
                 url = "";
-            cover.setImageUrl(url,
+            coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
         }
     }

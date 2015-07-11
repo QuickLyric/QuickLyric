@@ -53,7 +53,7 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
         TypedValue colorValue = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
         t.setTextColor(colorValue.data);
-        t.setLineSpacing(8, 1);
+        t.setLineSpacing(mContext.getResources().getDimensionPixelSize(R.dimen.line_spacing), 1);
         setSelectable(t);
         t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.txt_size));
         return t;

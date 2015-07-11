@@ -92,6 +92,8 @@ public class RefreshButtonBehavior extends FloatingActionButton.Behavior {
     // Same animation that FloatingActionButton.Behavior
     // uses to show the FAB when the AppBarLayout enters
     public void animateIn(FloatingActionButton button) {
+        if (!button.isEnabled())
+            return;
         button.setVisibility(View.VISIBLE);
         visible = true;
         if (Build.VERSION.SDK_INT >= 14) {

@@ -35,7 +35,7 @@ import com.geecko.QuickLyric.R;
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
 
-    private Bitmap  mLocalBitmap;
+    private Bitmap mLocalBitmap;
     private boolean mShowLocal;
 
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
@@ -61,18 +61,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
         Context context = getContext();
         if (context != null) {
             Resources resources = context.getResources();
-            setScaleType(ScaleType.CENTER_CROP);
-            if (bm == null) {
-                setScaleType(ScaleType.CENTER);
-                BitmapDrawable bd = ((BitmapDrawable) resources.getDrawable(R.drawable.no_cover));
-                if (bd != null)
-                    bm = bd.getBitmap();
-            }
             TransitionDrawable td = new TransitionDrawable(new Drawable[]{
                     new ColorDrawable(resources.getColor(android.R.color.transparent)),
                     new BitmapDrawable(context.getResources(), bm)
             });
-
             setImageDrawable(td);
             td.startTransition(FADE_IN_TIME_MS);
         }
@@ -80,11 +72,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-
-        super.onLayout(changed, left, top, right, bottom);
-        if (mShowLocal) {
+        if (changed)
+            super.onLayout(true, left, top, right, bottom);
+        Bitmap bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
+        if (mShowLocal && (bitmap == null || !(bitmap).equals(mLocalBitmap)))
             setImageBitmap(mLocalBitmap);
-        }
     }
-
 }

@@ -22,11 +22,13 @@
     android:id="@+id/appbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:fitsSystemWindows="true"
     android:theme="@style/actionBar.QuickLyric"
-    app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior">
+    app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"
+    tools:ignore="RtlSymmetry">
 
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/toolbar_layout"
@@ -43,9 +45,9 @@
             android:id="@+id/cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/empty_layer"
             android:contentDescription="@string/cover_art_desc"
             android:scaleType="centerCrop"
-            android:background="@color/cover_bg"
             app:layout_collapseMode="parallax"
             app:layout_collapseParallaxMultiplier="0.5"/>
 
@@ -63,28 +65,34 @@
             android:layout_gravity="bottom"
             android:src="@drawable/gradient_overlay"/>
 
-        <TextView
+        <EditText
             android:id="@+id/song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="27dp"
+            android:layout_marginLeft="12dp"
+            android:background="@android:color/transparent"
+            android:editable="false"
             android:ellipsize="end"
-            android:paddingLeft="12dp"
+            android:inputType="none"
             android:paddingRight="26dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="?android:textColorPrimary"/>
 
-        <TextView
+        <EditText
             android:id="@+id/artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="12dp"
+            android:background="@android:color/transparent"
+            android:editable="false"
             android:ellipsize="end"
-            android:paddingLeft="12dp"
+            android:inputType="none"
             android:paddingRight="26dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
@@ -92,6 +100,7 @@
             android:textColor="?android:textColorSecondary"/>
 
         <ImageButton
+            android:id="@+id/edit_tags_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"

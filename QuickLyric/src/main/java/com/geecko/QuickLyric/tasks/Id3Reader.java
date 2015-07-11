@@ -38,25 +38,11 @@ import java.io.File;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
-public class Id3LyricsReader {
+public class Id3Reader {
 
     public static Bitmap getCover(Context context, String artist, String title) {
-        Uri uri = Uri.parse("content://media/external/audio/media");
-        String[] columns = new String[]{"artist", "title", "_data"};
-        String[] args = new String[]{artist, title};
-
-        Cursor cursor = context.getContentResolver().query(uri, columns, "artist=? AND title=?", args, null);
-        if (cursor == null || cursor.getCount() == 0) {
-            if (cursor != null)
-                cursor.close();
-            return null;
-        }
-        cursor.moveToFirst();
-
-        String path = cursor.getString(2);
-        cursor.close();
         try {
-            AudioFile af = AudioFileIO.read(new File(path));
+            AudioFile af = AudioFileIO.read(getFile(context, artist, title));
             TagOptionSingleton.getInstance().setAndroid(true);
             Tag tag = af.getTag();
             byte[] byteArray = tag.getFirstArtwork().getBinaryData();
@@ -68,23 +54,9 @@ public class Id3LyricsReader {
     }
 
     public static Lyrics getLyrics(Context context, String artist, String title) {
-        Uri uri = Uri.parse("content://media/external/audio/media");
-        String[] columns = new String[]{"artist", "title", "_data"};
-        String[] args = new String[]{artist, title};
-
-        Cursor cursor = context.getContentResolver().query(uri, columns, "artist=? AND title=?", args, null);
-        if (cursor == null || cursor.getCount() == 0) {
-            if (cursor != null)
-                cursor.close();
-            return null;
-        }
-        cursor.moveToFirst();
-
-        String path = cursor.getString(2);
         String text;
-        cursor.close();
         try {
-            AudioFile af = AudioFileIO.read(new File(path));
+            AudioFile af = AudioFileIO.read(getFile(context, artist, title));
             TagOptionSingleton.getInstance().setAndroid(true);
             Tag tag = af.getTag();
             text = tag.getFirst(FieldKey.LYRICS);
@@ -100,5 +72,23 @@ public class Id3LyricsReader {
         lyrics.setText(text);
         lyrics.setSource("Storage");
         return lyrics;
+    }
+
+    public static File getFile(Context context, String artist, String title) {
+        Uri uri = Uri.parse("content://media/external/audio/media");
+        String[] columns = new String[]{"artist", "title", "_data"};
+        String[] args = new String[]{artist, title};
+
+        Cursor cursor = context.getContentResolver().query(uri, columns, "artist=? AND title=?", args, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            if (cursor != null)
+                cursor.close();
+            return null;
+        }
+        cursor.moveToFirst(); // TODO handle more than one file
+
+        String path = cursor.getString(2);
+        cursor.close();
+        return new File(path);
     }
 }

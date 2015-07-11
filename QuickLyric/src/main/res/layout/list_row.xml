@@ -33,7 +33,7 @@
 
         <TextView
             tools:text="Bad"
-            android:id="@+id/title"
+            android:id="@+id/row_title"
             android:singleLine="true"
             android:scrollHorizontally="true"
             android:ellipsize="end"
@@ -48,7 +48,7 @@
 
         <TextView
             tools:text="Michael Jackson"
-            android:id="@+id/artist"
+            android:id="@+id/row_artist"
             android:singleLine="true"
             android:ellipsize="end"
             android:scrollHorizontally="true"

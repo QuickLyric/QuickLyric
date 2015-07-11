@@ -82,25 +82,28 @@
             android:layout_gravity="bottom"
             android:src="@drawable/gradient_overlay"/>
 
-        <TextView
+        <EditText
             android:id="@+id/song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
-            android:layout_marginBottom="25dp"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="27dp"
             android:ellipsize="end"
             android:paddingLeft="26dp"
             android:paddingRight="12dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="?android:textColorPrimary"
+            android:inputType="none"/>
 
-        <TextView
+        <EditText
             android:id="@+id/artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
+            android:background="@android:color/transparent"
             android:layout_marginBottom="5dp"
             android:ellipsize="end"
             android:paddingLeft="26dp"
@@ -108,9 +111,11 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?android:textColorSecondary"/>
+            android:textColor="?android:textColorSecondary"
+            android:inputType="none"/>
 
         <ImageButton
+            android:id="@+id/edit_tags_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
