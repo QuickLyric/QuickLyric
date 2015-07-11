@@ -48,7 +48,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -89,17 +88,7 @@ import static com.geecko.QuickLyric.R.layout;
 import static com.geecko.QuickLyric.R.string;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
-
-    // Fixme: custom times night mode
-    // Todo: screen always on
-    // Todo: Edit Tags (only show button if file exists?)
-
-    // fixme: Fix spotify
-    // Fixme: Genius search API
-    // Fixme: update lyrics sources
-
-    // Todo: Get Rid of Michael Jackson & fix "empty screen"
-    // Todo: Saved Lyrics (removal animation, don't scroll back to the top, arrange by artists)
+    
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
