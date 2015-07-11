@@ -2,17 +2,18 @@
 
 QuickLyric is an android app that fetches your lyrics for you almost instantly. Its main perks is that it's very fast, doesn't have ads, features a search engine, the downloading of lyrics on your device and some handy settings. While most lyrics app require you to type the name of the song you're searching for or annoy you with tedious notifications every time the song has changed, QuickLyric automatically detects what song is playing on your device and instantly delivers the lyrics to you. QuickLyric makes use of Google's Material Design.
 
-## Download
+<!--
+## Download (free, no ads)
 
 [![Download from F-Droid](https://camo.githubusercontent.com/7df0eafa4433fa4919a56f87c3d99cf81b68d01c/68747470733a2f2f662d64726f69642e6f72672f77696b692f696d616765732f632f63342f462d44726f69642d627574746f6e5f617661696c61626c652d6f6e2e706e67 "Download from F-Droid")](https://fossdroid.com/a/quicklyric-2.html) or [the original F-Droid page](https://f-droid.org/repository/browse/?fdid=com.geecko.QuickLyric).
 
-The app is no longer available on Google Play following a takedown request from the NMPA.
+The app is no longer available on Google Play following a takedown request from the NMPA. !-->
 
 ## Donate
 
 If you want to support my work as a developer (not for this app specifically), you may make a donation [here](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RSJZUSUHBBKTJ&lc=US&item_name=geecko&item_number=00&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted).
 
-![alt text](http://i.imgur.com/dFjxzpT.png "Banner Logo")
+![alt text](https://raw.githubusercontent.com/geecko86/QuickLyric/master/banner.png "Banner Logo")
 
 QuickLyric is of course written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
 The build system relies on Gradle and Android Studio is therefore recommended.
