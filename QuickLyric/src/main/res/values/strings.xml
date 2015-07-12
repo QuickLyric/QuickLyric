@@ -222,6 +222,8 @@ A few possible reasons why:<br/>
     <string name="no_results_edit_tags">Edit song metadata</string>
     <string name="nighttime_start_dialog_title">Nighttime start</string>
     <string name="nighttime_end_dialog_title">Nighttime end</string>
+    <string name="pref_force_screen_sum">Prevent the screen from turning off while reading lyrics.</string>
+    <string name="pref_force_screen_on">Force screen on</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

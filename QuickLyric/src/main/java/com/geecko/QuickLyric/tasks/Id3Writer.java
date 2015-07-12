@@ -64,7 +64,7 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
     }
 
     @Override
-    protected void onPreExecute() {
+    public void onPreExecute() {
         MainActivity activity = (MainActivity) mContext;
 
         ((DrawerLayout) activity.drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -99,7 +99,7 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
                 | TagException | InvalidAudioFrameException e) {
             e.printStackTrace();
         } catch (CannotWriteException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // TODO: check Android 4.4 Kitkat
         }
 
         return null;

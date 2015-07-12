@@ -312,9 +312,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     private void exitEditTagsMode() {
-        // todo: save changes. AsyncTask with I/O
-        // Todo: warn to refresh player & library
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_done_anim);
             Drawable editIcon = ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).getDrawable();
@@ -341,12 +338,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         if (!mLyrics.getArtist().equals(artistTV.getText().toString())
                 || !mLyrics.getTrack().equals(songTV.getText().toString())
-                || !mLyrics.getText().equals(newLyrics.getText().toString().replaceAll("\n", "<br/>"))) {
+                || !Html.fromHtml(mLyrics.getText()).toString().equals(newLyrics.getText().toString())) {
             mLyrics.setArtist(artistTV.getText().toString());
             mLyrics.setTitle(songTV.getText().toString());
             mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
             new Id3Writer(this).execute(mLyrics, musicFile);
         }
+        else
+            new Id3Writer(this).onPreExecute();
     }
 
     @Override

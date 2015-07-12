@@ -65,14 +65,13 @@ public class SearchActivity extends AppCompatActivity {
 
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(context)
                 .getStringSet("pref_providers", Collections.<String>emptySet());
-        if (providersSet != null)
-            for (String name : providersSet)
-                try {
-                    Class provider = Class.forName("com.geecko.QuickLyric.lyrics." + name);
-                    if (provider.getMethod("search", String.class) != null)
-                        searchProviders.add(provider);
-                } catch (Exception ignored) {
-                }
+        for (String name : providersSet)
+            try {
+                Class provider = Class.forName("com.geecko.QuickLyric.lyrics." + name);
+                if (provider.getMethod("search", String.class) != null)
+                    searchProviders.add(provider);
+            } catch (Exception ignored) {
+            }
     }
 
     @Override
@@ -138,6 +137,7 @@ public class SearchActivity extends AppCompatActivity {
             searchPagerAdapter.setSearchQuery(searchQuery);
             searchPagerAdapter.notifyDataSetChanged();
         }
+        invalidateOptionsMenu();
     }
 
     @Override
