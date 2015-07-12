@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -19,62 +20,67 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/pref_look_feel_category">
         <com.geecko.QuickLyric.view.AppCompatListPreference
-            android:key="pref_theme"
-            android:title="@string/pref_theme"
+            android:defaultValue="0"
             android:entries="@array/themes"
             android:entryValues="@array/themes_values"
-            android:defaultValue="0"/>
+            android:key="pref_theme"
+            android:title="@string/pref_theme"/>
         <org.jraf.android.backport.switchwidget.SwitchPreference
+            android:defaultValue="false"
             android:key="pref_night_mode"
-            android:title="@string/pref_night_mode"
             android:summary="@string/pref_night_mode_sum"
-            android:defaultValue="false"/>
+            android:title="@string/pref_night_mode"/>
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_force_screen_on"
+            android:summary="Prevent the screen from turning off while reading lyrics."
+            android:title="Force screen on"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pref_opendyslexic"
-            android:title="@string/pref_opendyslexic"
             android:summary="@string/pref_opendyslexic_sum"
-            android:defaultValue="false" />
+            android:title="@string/pref_opendyslexic"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/download_category">
         <com.geecko.QuickLyric.view.AppCompatMultiSelectListPreference
-            android:key="pref_providers"
-            android:title="@string/pref_providers"
-            android:summary="@string/pref_providers_sum"
             android:entries="@array/providers"
-            android:entryValues="@array/providers_values"/>
+            android:entryValues="@array/providers_values"
+            android:key="pref_providers"
+            android:summary="@string/pref_providers_sum"
+            android:title="@string/pref_providers"/>
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pref_auto_save"
-            android:title="@string/pref_auto_save"
             android:summary="@string/pref_auto_save_sum"
-            android:defaultValue="false"/>
+            android:title="@string/pref_auto_save"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_scrobbling_category">
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_filter_20min"
-            android:title="@string/pref_20min_ignore"
             android:summary="@string/pref_20min_ignore_sum"
-            android:defaultValue="true"/>
+            android:title="@string/pref_20min_ignore"/>
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pref_auto_refresh"
-            android:title="@string/pref_auto_refresh_title"
             android:summary="@string/pref_auto_refresh_summary"
-            android:defaultValue="false"/>
+            android:title="@string/pref_auto_refresh_title"/>
         <com.geecko.QuickLyric.view.AppCompatListPreference
-            android:key="pref_notifications"
-            android:title="@string/pref_notifications"
-            android:summary="@string/pref_notifications_sum"
+            android:defaultValue="0"
             android:entries="@array/notifications"
             android:entryValues="@array/notifications_values"
-            android:defaultValue="0"/>
+            android:key="pref_notifications"
+            android:summary="@string/pref_notifications_sum"
+            android:title="@string/pref_notifications"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_more_category">
         <Preference
-            android:title="@string/pref_contribute"
             android:key="pref_contribute"
-            android:summary="@string/pref_contribute_sum"/>
+            android:summary="@string/pref_contribute_sum"
+            android:title="@string/pref_contribute"/>
         <!--
         <Preference
             android:title="@string/pref_beta"
@@ -82,12 +88,12 @@
             android:summary="@string/pref_beta_sum"/>
         !-->
         <Preference
-            android:title="@string/pref_issues"
             android:key="pref_issues"
-            android:summary="@string/pref_issues_sum"/>
+            android:summary="@string/pref_issues_sum"
+            android:title="@string/pref_issues"/>
         <Preference
-            android:title="@string/pref_about"
             android:key="pref_about"
-            android:summary="@string/pref_about_summary"/>
+            android:summary="@string/pref_about_summary"
+            android:title="@string/pref_about"/>
     </PreferenceCategory>
 </PreferenceScreen>

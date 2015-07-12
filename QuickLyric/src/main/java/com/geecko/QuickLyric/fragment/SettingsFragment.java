@@ -70,6 +70,7 @@ public class SettingsFragment extends PreferenceFragment implements
         findPreference("pref_issues").setOnPreferenceClickListener(this);
         findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
+        findPreference("pref_force_screen_on").setOnPreferenceChangeListener(this);
         findPreference("pref_opendyslexic").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
@@ -88,6 +89,12 @@ public class SettingsFragment extends PreferenceFragment implements
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
                     startActivity(intent);
+                }
+                break;
+            case "pref_force_screen_on":
+                if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_force_screen_on", false))) {
+                    View switcher = getActivity().findViewById(R.id.switcher);
+                    switcher.setKeepScreenOn((Boolean) newValue);
                 }
                 break;
             case "pref_opendyslexic":

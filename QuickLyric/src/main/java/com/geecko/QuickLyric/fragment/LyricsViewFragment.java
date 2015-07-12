@@ -64,7 +64,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
@@ -190,6 +189,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             ActionMode.Callback callback = new CustomSelectionCallback(getActivity());
             ((TextView) textSwitcher.getChildAt(0)).setCustomSelectionActionModeCallback(callback);
             ((TextView) textSwitcher.getChildAt(1)).setCustomSelectionActionModeCallback(callback);
+            textSwitcher.setKeepScreenOn(PreferenceManager
+                    .getDefaultSharedPreferences(getActivity()).getBoolean("pref_force_screen_on", false));
 
             if (args != null && args.containsKey("editedLyrics")) {
                 EditText editedLyrics = (EditText) layout.findViewById(R.id.edit_lyrics);
@@ -495,6 +496,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
+            textSwitcher.setVisibility(View.VISIBLE);
             if (animation)
                 textSwitcher.setText(Html.fromHtml(lyrics.getText()));
             else
@@ -514,6 +516,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             });
         } else {
             textSwitcher.setText("");
+            textSwitcher.setVisibility(View.INVISIBLE);
             bugLayout.setVisibility(View.VISIBLE);
             int message;
             int whyVisibility;
