@@ -18,4 +18,5 @@ package com.geecko.QuickLyric;
  */
 public class Keys {
     public static final String lastFM = "402bdca12feff2668e36a9aa3c675273";
+    public static final String GENIUS = "5eDKEfmGtQulq_eFxVB2v-bhf_hIgb9fT14IY_LYUsgHx9KjN_H6Tid7yO6jc_Xa";
 }

@@ -1,5 +1,6 @@
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Net;
 
@@ -45,7 +46,11 @@ public class Genius {
         JSONObject response = null;
         try {
             URL queryURL = new URL(String.format("http://api.genius.com/search?q=%s", URLEncoder.encode(query, "UTF-8")));
-            response = new JSONObject(Net.getUrlAsString(queryURL));
+            String jsonInput = Jsoup.connect(queryURL.toExternalForm())
+                    .header("Authorization", "Bearer " + Keys.GENIUS)
+                    .ignoreContentType(true)
+                    .get().text();
+            response = new JSONObject(jsonInput);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
