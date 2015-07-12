@@ -61,7 +61,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="96dp"
             android:layout_gravity="bottom"
             android:src="@drawable/gradient_overlay"/>
 
