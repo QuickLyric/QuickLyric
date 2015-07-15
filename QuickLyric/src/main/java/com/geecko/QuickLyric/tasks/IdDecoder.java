@@ -49,7 +49,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     protected void onPreExecute() {
         super.onPreExecute();
         if (lyricsViewFragment != null)
-            lyricsViewFragment.startRefreshFABAnimation();
+            lyricsViewFragment.startRefreshAnimation();
     }
 
     @Override

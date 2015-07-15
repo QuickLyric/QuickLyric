@@ -227,6 +227,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             TypedValue primaryColor = new TypedValue();
             getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
             mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, R.color.accent);
+            float offset = getResources().getDisplayMetrics().density * 64;
+            mRefreshLayout.setProgressViewEndTarget(true, (int) offset);
             mRefreshLayout.setOnRefreshListener(this);
 
             final ImageButton editTagsButton = (ImageButton) getActivity().findViewById(R.id.edit_tags_btn);
@@ -251,7 +253,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 if (!startEmtpy)
                     fetchCurrentLyrics(false);
             } else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
-                startRefreshFABAnimation();
+                startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
                 ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
@@ -266,7 +268,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 String artist = intent.getStringExtra("artist");
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
-                    startRefreshFABAnimation();
+                    startRefreshAnimation();
                     new ParseTask(LyricsViewFragment.this, false).execute(mLyrics);
                 }
             }
@@ -373,9 +375,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             this.isActiveFragment = false;
     }
 
-    public void startRefreshFABAnimation() {
+    public void startRefreshAnimation() {
         if (getActivity() != null && getView() != null)
-            ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).startAnimation();
+            ((SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout)).setRefreshing(true);
     }
 
     public void stopRefreshAnimation() {
@@ -394,7 +396,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (params.length > 2)
             url = params[2];
         if (!mRefreshLayout.isRefreshing())
-            this.startRefreshFABAnimation();
+            mRefreshLayout.setRefreshing(true);
 
         Lyrics lyrics = null;
         if (artist != null && title != null) {
@@ -541,8 +543,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
         if (mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(false);
-        else
-            stopRefreshAnimation();
         getActivity().getIntent().setAction("");
     }
 
