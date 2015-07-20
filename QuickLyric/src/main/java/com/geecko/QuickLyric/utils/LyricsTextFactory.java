@@ -65,7 +65,7 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
             t.setTextIsSelectable(true);
     }
 
-    private static class FontCache {
+    public static class FontCache {
 
         private static Hashtable<String, Typeface> fontCache = new Hashtable<>();
 
@@ -75,6 +75,8 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
                 try {
                     if (name.contains("dyslexic"))
                         tf = Typeface.createFromAsset(context.getAssets(), "fonts/opendyslexic.otf");
+                    else if (name.equals("bold"))
+                        tf = Typeface.create("sans-serif", Typeface.BOLD);
                     else
                         tf = Typeface.create("sans-serif-light", Typeface.NORMAL);
                 } catch (Exception e) {

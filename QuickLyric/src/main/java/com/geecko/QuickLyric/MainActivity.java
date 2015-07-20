@@ -88,7 +88,9 @@ import static com.geecko.QuickLyric.R.layout;
 import static com.geecko.QuickLyric.R.string;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
-    
+
+    // Todo: Get Rid of Michael Jackson & fix "empty screen"
+    // Todo: Saved Lyrics (removal animation, don't scroll back to the top, arrange by artists)
 
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";

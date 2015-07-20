@@ -33,6 +33,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.lyrics.ViewLyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
@@ -80,6 +81,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         updateProgress();
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
                 .getStringSet("pref_providers", Collections.<String>emptySet());
+        if (providersSet.contains("ViewLyrics"))
+            providersSet.remove("ViewLyrics");
         DownloadThread.refreshProviders(providersSet);
         while (cursor.moveToNext()) {
             String artist = cursor.getString(0);

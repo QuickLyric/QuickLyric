@@ -104,8 +104,19 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         editor.putString("artist", artist);
         editor.putString("track", track);
         editor.putBoolean("playing", isPlaying);
-        if (isPlaying)
-            editor.apply();
+        if (isPlaying) {
+            long currentTime = System.currentTimeMillis();
+            long lastPause = current.getLong("pauseTime", 0);
+            long pauseDuration = lastPause == 0 ? 0 : currentTime - lastPause;
+            if (lastPause == 0)
+                editor.putLong("startTime", currentTime);
+            else
+                editor.putLong("startTime", current.getLong("startTime", currentTime) + pauseDuration);
+            editor.putLong("pauseTime", 0);
+        } else {
+            editor.putLong("pauseTime", System.currentTimeMillis());
+        }
+        editor.apply();
 
         mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));

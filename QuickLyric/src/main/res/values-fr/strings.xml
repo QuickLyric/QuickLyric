@@ -123,6 +123,7 @@ Plusieurs raisons possibles:<br/>
     <item>Inverse</item>
   </string-array>
   <string-array name="providers">
+    <item>Paroles synchronisées</item>
     <item>Punk Rock</item>
     <item>Metal</item>
     <item>Hip Hop</item>

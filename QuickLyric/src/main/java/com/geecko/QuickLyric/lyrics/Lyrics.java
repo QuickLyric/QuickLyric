@@ -37,6 +37,7 @@ public class Lyrics implements Serializable {
     private String mCoverURL;
     private String mLyrics;
     private String mSource;
+    private boolean mLRC = false;
     private final int mFlag;
     public static final int NO_RESULT = -2;
     public static final int NEGATIVE_RESULT = -1;
@@ -124,6 +125,14 @@ public class Lyrics implements Serializable {
 
     public void setSource(String mSource) {
         this.mSource = mSource;
+    }
+
+    public void setLRC(boolean LRC) {
+        this.mLRC = LRC;
+    }
+
+    public boolean isLRC() {
+        return this.mLRC;
     }
 
     public byte[] toBytes() throws IOException {

@@ -19,6 +19,7 @@
   -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,75 +29,90 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.geecko.QuickLyric.view.NonFocusableNestedScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground"
-        android:fillViewport="true"
-        android:scrollbarStyle="outsideOverlay"
-        tools:context=".MainActivity">
-
-        <FrameLayout
+        <com.geecko.QuickLyric.view.NonFocusableNestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="?android:attr/colorBackground"
+            android:fillViewport="true"
+            android:scrollbarStyle="outsideOverlay"
+            tools:context=".MainActivity">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <!--
-                    Fixme minHeight trick
-                !-->
-                <TextSwitcher
-                    android:id="@+id/switcher"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="top"
-                    android:focusable="false"
-                    android:inAnimation="@android:anim/fade_in"
-                    android:measureAllChildren="false"
-                    android:outAnimation="@android:anim/fade_out"
-                    android:padding="5dp"/>
-
-                <EditText
-                    android:id="@+id/edit_lyrics"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="sans-serif-light"
-                    android:visibility="gone"
-                    android:freezesText="true"
-                    android:lineSpacingExtra="3dp"
-                    android:textColor="?android:textColorPrimary"
-                    android:gravity="center_horizontal"
-                    android:minHeight="530dp"
-                    android:layout_gravity="top"
-                    android:measureAllChildren="false"
-                    android:padding="5dp"
-                    android:inputType="textMultiLine"/>
-
-                <TextView
-                    android:id="@+id/id3_tv"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:onClick="id3PopUp"
-                    android:text="@string/from_id3"
-                    android:textColor="?android:textColorSecondary"
-                    android:visibility="gone"/>
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <include
-                layout="@layout/error_msg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                    <!--
+                        Fixme minHeight trick
+                    !-->
+                    <TextSwitcher
+                        android:id="@+id/switcher"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:focusable="false"
+                        android:minHeight="530dp"
+                        android:inAnimation="@android:anim/fade_in"
+                        android:measureAllChildren="false"
+                        android:outAnimation="@android:anim/fade_out"
+                        android:padding="5dp"/>
 
-        </FrameLayout>
-    </com.geecko.QuickLyric.view.NonFocusableNestedScrollView>
+                    <com.geecko.QuickLyric.view.LrcView
+                        android:id="@+id/lrc_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:focusable="false"
+                        android:visibility="gone"
+                        android:padding="5dp"
+                        app:currentTextColor="@android:color/holo_orange_light"
+                        app:dividerHeight="10dip"
+                        app:normalTextColor="?android:textColorPrimary"
+                        app:rows="9"
+                        app:textSize="18sp"/>
+
+                    <EditText
+                        android:id="@+id/edit_lyrics"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="sans-serif-light"
+                        android:freezesText="true"
+                        android:gravity="center_horizontal"
+                        android:inputType="textMultiLine"
+                        android:lineSpacingExtra="3dp"
+                        android:measureAllChildren="false"
+                        android:minHeight="530dp"
+                        android:padding="5dp"
+                        android:textColor="?android:textColorPrimary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/id3_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="id3PopUp"
+                        android:text="@string/from_id3"
+                        android:textColor="?android:textColorSecondary"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+                <include
+                    layout="@layout/error_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+        </com.geecko.QuickLyric.view.NonFocusableNestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

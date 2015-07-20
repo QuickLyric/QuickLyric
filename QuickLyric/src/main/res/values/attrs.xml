@@ -22,4 +22,12 @@
         <attr format="reference|color" name="insetFG" />
     </declare-styleable>
     <attr name="statusBarColor" format="reference|color" />
+
+  <declare-styleable name="Lrc">
+    <attr name="textSize" format="dimension" />
+    <attr name="normalTextColor" format="reference|color" />
+    <attr name="currentTextColor" format="reference|color" />
+    <attr name="dividerHeight" format="dimension" />
+    <attr name="rows" format="integer" />
+  </declare-styleable>
 </resources>

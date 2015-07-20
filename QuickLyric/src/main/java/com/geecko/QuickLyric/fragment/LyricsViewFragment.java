@@ -88,6 +88,7 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
+import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 
 import java.io.File;
@@ -345,8 +346,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mLyrics.setTitle(songTV.getText().toString());
             mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
             new Id3Writer(this).execute(mLyrics, musicFile);
-        }
-        else
+        } else
             new Id3Writer(this).onPreExecute();
     }
 
@@ -474,8 +474,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
-        getActivity().findViewById(R.id.edit_tags_btn).setVisibility(musicFile == null ? View.GONE : View.VISIBLE);
+        if (!lyrics.isLRC())
+            getActivity().findViewById(R.id.edit_tags_btn).setVisibility(musicFile == null ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
+        LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
         TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
         TextView songTV = (TextView) getActivity().findViewById(R.id.song);
         TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
@@ -497,11 +499,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-            textSwitcher.setVisibility(View.VISIBLE);
-            if (animation)
-                textSwitcher.setText(Html.fromHtml(lyrics.getText()));
-            else
-                textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
+            if (!lyrics.isLRC()) {
+                textSwitcher.setVisibility(View.VISIBLE);
+                lrcView.setVisibility(View.GONE);
+                if (animation)
+                    textSwitcher.setText(Html.fromHtml(lyrics.getText()));
+                else
+                    textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
+            } else {
+                textSwitcher.setVisibility(View.GONE);
+                lrcView.setVisibility(View.VISIBLE);
+                lrcView.setSourceLrc(lyrics.getText());
+                new Thread(lrcUpdater).start();
+            }
 
             bugLayout.setVisibility(View.INVISIBLE);
             if ("Storage".equals(lyrics.getSource()))
@@ -518,6 +528,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         } else {
             textSwitcher.setText("");
             textSwitcher.setVisibility(View.INVISIBLE);
+            lrcView.setVisibility(View.INVISIBLE);
             bugLayout.setVisibility(View.VISIBLE);
             int message;
             int whyVisibility;
@@ -586,7 +597,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return true;
             case R.id.save_action:
                 if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
-                    new WriteToDatabaseTask().execute(this, item, this.mLyrics);
+                    if (!mLyrics.isLRC())
+                        new WriteToDatabaseTask().execute(this, item, this.mLyrics);
                 break;
         }
         return false;
@@ -682,7 +694,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     && sharedPref.getBoolean("pref_auto_save", false)
                     && !lyricsPresentInDB) {
                 lyricsPresentInDB = true;
-                new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
+                if (!mLyrics.isLRC())
+                    new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
             } else {
                 saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);
                 saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);
@@ -727,8 +740,26 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView.setLocalImageBitmap(cover);
     }
 
-
     public void startEmpty(boolean startEmpty) {
         this.startEmtpy = startEmpty;
     }
+
+    private Runnable lrcUpdater = new Runnable() {
+        @Override
+        public void run() {
+            LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+            while (!lrcView.isFinished()) {
+                SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+                long startTime = preferences.getLong("startTime", System.currentTimeMillis());
+                long timeSpent = System.currentTimeMillis() - startTime;
+                if (preferences.getLong("pauseTime", 0) == 0)
+                    lrcView.changeCurrent(timeSpent);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 }

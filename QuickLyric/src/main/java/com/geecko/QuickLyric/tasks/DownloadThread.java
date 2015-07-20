@@ -25,12 +25,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 
-import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
+import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
-import com.geecko.QuickLyric.lyrics.LyricWiki;
+import com.geecko.QuickLyric.lyrics.ViewLyrics;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -63,7 +63,6 @@ public class DownloadThread extends Thread {
             {
                     LyricWiki.class,
                     Genius.class,
-                    AZLyrics.class,
                     LyricsMania.class
             };
 
@@ -80,7 +79,6 @@ public class DownloadThread extends Thread {
             DownloadThread.providers.remove(Bollywood.class);
             DownloadThread.providers.add(Bollywood.class);
         }
-
     }
 
     public static void refreshProviders(Set<String> set) {

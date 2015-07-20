@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static Lyrics get(SQLiteDatabase database, String[] metaData) {
         String[] columns = DatabaseHelper.columns;
-        Cursor cursor = database.query(TABLE_NAME, null, String.format("%s=? AND %s=?", columns[0], columns[1]),
+        Cursor cursor = database.query(TABLE_NAME, null, String.format("upper(%s) = upper(?) AND upper(%s) = upper(?)", columns[0], columns[1]),
                 metaData, null, null, null);
         int count = cursor.getCount();
         if (count > 0) {

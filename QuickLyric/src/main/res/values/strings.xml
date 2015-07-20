@@ -255,6 +255,7 @@ A few possible reasons why:<br/>
         <item>@string/dark_theme</item>
     </string-array>
     <string-array name="providers">
+        <item>Synchronized Lyrics</item>
         <item>Punk Rock</item>
         <item>Metal</item>
         <item>Hip Hop</item>

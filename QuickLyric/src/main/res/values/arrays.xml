@@ -30,6 +30,7 @@
         <item>1</item>
     </string-array>
     <string-array name="providers_values">
+        <item>ViewLyrics</item>
         <item>PLyrics</item>
         <item>MetalArchives</item>
         <item>UrbanLyrics</item>

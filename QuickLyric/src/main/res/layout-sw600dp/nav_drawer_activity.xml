@@ -18,56 +18,65 @@
   -->
 
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
+    <!-- The main content view -->
     <FrameLayout
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                app:theme="@style/actionBar.QuickLyric"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent"
-                android:focusable="false"/>
-
-            <!-- The main content view -->
             <FrameLayout
                 android:id="@+id/main_fragment_container"
-                android:layout_marginTop="?actionBarSize"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <include
+                layout="@layout/toolbar_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:layout_marginTop="?actionBarSize"
-                layout="@layout/toolbar_shadow"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        </FrameLayout>
+            <include
+                layout="@layout/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="192dp"
+                app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"/>
+
+            <com.geecko.QuickLyric.view.RefreshIcon
+                android:id="@+id/refresh_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_refresh"
+                android:translationZ="8dp"
+                app:borderWidth="0dp"
+                app:layout_behavior="com.geecko.QuickLyric.utils.RefreshButtonBehavior"/>
+
+        </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
     <!-- The navigation drawer -->
 
     <include
         android:id="@+id/left_drawer"
-        android:layout_width="340dp"
+        layout="@layout/drawer"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        layout="@layout/drawer"/>
+        android:layout_gravity="start"/>
 
 </android.support.v4.widget.DrawerLayout>
