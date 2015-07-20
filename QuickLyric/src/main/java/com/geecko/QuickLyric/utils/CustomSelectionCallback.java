@@ -2,10 +2,16 @@ package com.geecko.QuickLyric.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.ShareCompat;
 import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ShareActionProvider;
+import android.widget.TextView;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -46,6 +52,25 @@ public class CustomSelectionCallback implements ActionMode.Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         changeThemeColors(true);
+        menu.add(0, 9876, 9, R.string.share);
+        menu.findItem(9876).setIcon(R.drawable.ic_menu_share);
+        menu.findItem(9876).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                View focus = mActivity.getCurrentFocus();
+                if (focus instanceof TextView) {
+                    CharSequence selection = ((TextView) focus).getText().subSequence(((TextView) focus)
+                            .getSelectionStart(), ((TextView) focus).getSelectionEnd());
+                    final Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, selection.toString());
+                    mActivity.startActivity(Intent.createChooser(sendIntent, mActivity.getString(R.string.share)));
+                    return true;
+                }
+                return false;
+            }
+        });
         return true;
     }
 
