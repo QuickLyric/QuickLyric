@@ -50,8 +50,8 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         SharedPreferences preferences = mContext.getSharedPreferences("current_music", Context.MODE_PRIVATE);
         String[] music = new String[2];
-        music[0] = preferences.getString("artist", "Michael Jackson");
-        music[1] = preferences.getString("track", "Bad");
+        music[0] = preferences.getString("artist", null);
+        music[1] = preferences.getString("track", null);
         return music;
     }
 

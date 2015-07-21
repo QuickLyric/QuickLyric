@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<RelativeLayout
+    android:id="@+id/tracks_msg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:text="@string/welcome"
+        android:textColor="#5000"
+        android:textSize="@dimen/large_txt_size"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_below="@id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/no_results"
+        android:src="@drawable/no_cover"/>
+
+    <TextView
+        android:id="@+id/first_launch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:gravity="top|center_horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:text="@string/first_launch"
+        android:textColor="#5000"
+        android:textSize="@dimen/large_txt_size"/>
+
+</RelativeLayout>

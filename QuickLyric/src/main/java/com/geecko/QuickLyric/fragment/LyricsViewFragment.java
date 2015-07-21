@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -400,6 +401,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         Lyrics lyrics = null;
         if (artist != null && title != null) {
+            View v = getActivity().findViewById(R.id.tracks_msg);
+            if (v != null)
+                ((ViewGroup) v.getParent()).removeView(v);
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
 
             if (lyrics == null && (mLyrics == null || !("Storage".equals(mLyrics.getSource())
@@ -407,6 +411,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     && mLyrics.getTrack().equalsIgnoreCase(title))
             ))
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
+        } else {
+            showFirstStart();
+            return;
         }
         if (lyrics != null)
             onLyricsDownloaded(lyrics);
@@ -555,6 +562,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(false);
         getActivity().getIntent().setAction("");
+    }
+
+    private void showFirstStart() {
+        stopRefreshAnimation();
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        ViewGroup parent = (ViewGroup) ((ViewGroup) getActivity().findViewById(R.id.scrollview)).getChildAt(0);
+        if (parent.findViewById(R.id.tracks_msg) == null)
+            inflater.inflate(R.layout.no_tracks, parent);
+
+        BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(R.drawable.first_launch_cover));
+        setCoverArt(bd.getBitmap(), null);
+        getActivity().findViewById(R.id.top_gradient).setVisibility(View.INVISIBLE);
+        getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.INVISIBLE);
     }
 
     public void showWhyPopup() {
@@ -719,6 +739,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
         if (mainActivity == null)
             return;
+        mainActivity.findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
+        mainActivity.findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
         if (coverView == null)
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (mLyrics != null) {
@@ -738,6 +760,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (coverView != null)
             coverView.setLocalImageBitmap(cover);
+        getActivity().findViewById(R.id.top_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
+        getActivity().findViewById(R.id.bottom_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
     }
 
     public void startEmpty(boolean startEmpty) {

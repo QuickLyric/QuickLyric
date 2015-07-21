@@ -66,6 +66,7 @@
     <string name="drawer_desc">Let\'s dig deeper!</string>
     <string name="drawer_desc_sub">To access other features, tap here (or swipe the screen from the edge).</string>
     <string name="pref_more_category">More</string>
+    <string name="first_launch">Start playing music on your device and hit refresh.</string>
     <string name="share_prompt">Import from MusicID</string>
     <string name="undo">Undo</string>
     <string name="beta_dialog_content">
