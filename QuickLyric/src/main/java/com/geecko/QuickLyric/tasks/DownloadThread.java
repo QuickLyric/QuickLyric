@@ -128,17 +128,7 @@ public class DownloadThread extends Thread {
                 return result;
             }
 
-            private String[] correctTags(String artist, String title) {
-                if (artist == null || title == null)
-                    return new String[]{"", ""};
-                String correctedArtist = artist.replaceAll("\\(.*\\)", "")
-                        .replaceAll(" \\- .*", "").trim();
-                String correctedTrack = title.replaceAll("\\(.*\\)", "")
-                        .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
-                String[] separatedArtists = correctedArtist.split(", ");
-                correctedArtist = separatedArtists[separatedArtists.length - 1];
-                return new String[]{correctedArtist, correctedTrack};
-            }
+
 
             public void run() {
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -200,5 +190,17 @@ public class DownloadThread extends Thread {
                 }
             };
         };
+    }
+
+    public static String[] correctTags(String artist, String title) {
+        if (artist == null || title == null)
+            return new String[]{"", ""};
+        String correctedArtist = artist.replaceAll("\\(.*\\)", "")
+                .replaceAll(" \\- .*", "").trim();
+        String correctedTrack = title.replaceAll("\\(.*\\)", "")
+                .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
+        String[] separatedArtists = correctedArtist.split(", ");
+        correctedArtist = separatedArtists[separatedArtists.length - 1];
+        return new String[]{correctedArtist, correctedTrack};
     }
 }

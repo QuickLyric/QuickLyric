@@ -405,6 +405,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (v != null)
                 ((ViewGroup) v.getParent()).removeView(v);
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+            if (lyrics == null)
+                lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
 
             if (lyrics == null && (mLyrics == null || !("Storage".equals(mLyrics.getSource())
                     && mLyrics.getArtist().equalsIgnoreCase(artist)
