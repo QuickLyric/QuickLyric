@@ -31,13 +31,23 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
-public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> {
+public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList<Lyrics>>> {
     private LocalLyricsFragment localLyricsFragment;
 
+    public DBContentLister(LocalLyricsFragment localLyricsFragment) {
+        this.localLyricsFragment = localLyricsFragment;
+    }
+
     @Override
-    protected ArrayList<Lyrics> doInBackground(Object... params) {
-        localLyricsFragment = (LocalLyricsFragment) params[0];
+    protected void onPreExecute() {
+        localLyricsFragment.setListShown(false);
+    }
+
+    @Override
+    protected ArrayList<ArrayList<Lyrics>> doInBackground(Object... params) {
         if (localLyricsFragment == null || localLyricsFragment.getActivity() == null)
             return new ArrayList<>(0);
         SharedPreferences sharedPreferences = localLyricsFragment.getActivity().getSharedPreferences("local_sort_order", Context.MODE_PRIVATE);
@@ -59,7 +69,8 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> 
         if (database != null) {
             Cursor cursor = database.query("lyrics", null, null, null, null, null, query);
             cursor.moveToFirst();
-            ArrayList<Lyrics> results = new ArrayList<>(cursor.getCount());
+            ArrayList<ArrayList<Lyrics>> results = new ArrayList<>(cursor.getCount());
+            HashMap<String, ArrayList<Lyrics>> map = new HashMap<>();
             if (cursor.moveToFirst())
                 do {
                     Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
@@ -69,16 +80,27 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<Lyrics>> 
                     l.setURL(cursor.getString(3));
                     l.setSource(cursor.getString(4));
                     l.setCoverURL(cursor.getString(5));
-                    results.add(cursor.getPosition(), l);
+                    if (map.get(l.getArtist()) == null)
+                        map.put(l.getArtist(), new ArrayList<Lyrics>());
+                    ArrayList<Lyrics> artistSubGroup = map.get(l.getArtist());
+                    artistSubGroup.add(l);
                 } while (cursor.moveToNext());
+            ArrayList<String> keys = new ArrayList<>(map.keySet());
+            Collections.sort(keys);
+            for (String key : keys)
+                results.add(map.get(key));
             cursor.close();
             return results;
         } else
             return new ArrayList<>(0);
     }
 
-    protected void onPostExecute(final ArrayList<Lyrics> results) {
+    protected void onPostExecute(final ArrayList<ArrayList<Lyrics>> results) {
         if (!results.equals(localLyricsFragment.lyricsArray) || results.size() == 0)
             localLyricsFragment.update(results);
+        else {
+            localLyricsFragment.setListShown(true);
+            localLyricsFragment.scrollUp();
+        }
     }
 }

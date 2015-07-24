@@ -26,10 +26,4 @@
         android:orderInCategory="0"
         android:title="@string/scan_action"
         android:icon="@drawable/ic_cloud_download"/>
-    <item
-        android:id="@+id/action_sort"
-        android:orderInCategory="1"
-        support:showAsAction="ifRoom"
-        android:title="@string/sort_action"
-        android:icon="@drawable/ic_sort"/>
 </menu>

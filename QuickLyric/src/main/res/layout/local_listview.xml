@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <View
+        android:background="?android:colorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/expandable_listview"
+        android:background="?android:colorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/list_progress"
+        android:indeterminate="true"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"/>
+
+</FrameLayout>

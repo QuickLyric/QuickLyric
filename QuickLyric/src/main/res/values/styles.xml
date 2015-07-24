@@ -34,6 +34,7 @@
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
         <item name="android:actionModeBackground">@drawable/cab_background</item>
         <item name="actionModeBackground">@drawable/cab_background</item>
+        <item name="android:divider">@color/divider</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="vpiCirclePageIndicatorStyle">@style/materialCirclePageIndicator</item>
@@ -47,6 +48,7 @@
         <item name="android:panelColorBackground">@android:color/white</item>
         <item name="android:textColorSecondary">#888</item>
         <item name="android:textColorPrimary">#222</item>
+        <item name="android:colorBackground">#fafafa</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance</item>
         <item name="android:galleryItemBackground">@color/navigation_drawer_selected</item>
         <item name="android:listSelector">@drawable/listview_row_selector</item>
@@ -72,6 +74,7 @@
         <item name="android:textColorPrimary">#EEE</item>
         <item name="android:panelColorForeground">#EEE</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
+        <item name="android:divider">@color/divider_night</item>
         <item name="android:listSelector">@drawable/listview_row_selector_night</item>
         <item name="actionOverflowMenuStyle">@style/overflowMenuStyle</item>
         <item name="android:galleryItemBackground">@color/navigation_drawer_selected_night</item>

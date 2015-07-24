@@ -30,12 +30,15 @@
     <color name="deep_red">#B40000</color>
     <color name="amber">#FFAB00</color>
     <color name="selected">#BDBDBD</color>
+    <color name="expanded">#f2f2f2</color>
     <color name="cover_bg">#cecece</color>
     <color name="selected_night">#222</color>
     <color name="navigation_drawer_selected_night">#555</color>
     <color name="navigation_drawer_selected">#eee</color>
     <color name="fragment_background">#eeeeee</color>
     <color name="window_background">#bbbbbb</color>
+    <color name="divider">#1e000000</color>
+    <color name="divider_night">#1effffff</color>
     <color name="pager_title_strip_color">#ffffd557</color>
     <color name="pager_title_strip_color_dark">#aa000000</color>
     <color name="mdtp_accent_color">@color/accent</color>

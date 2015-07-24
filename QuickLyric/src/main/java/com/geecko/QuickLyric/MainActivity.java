@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         LocalLyricsFragment localLyricsFragment =
                 (LocalLyricsFragment) getFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
         if (localLyricsFragment != null && localLyricsFragment.isActiveFragment)
-            new DBContentLister().execute(localLyricsFragment);
+            new DBContentLister(localLyricsFragment).execute();
         else
             selectItem(1);
     }

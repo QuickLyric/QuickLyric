@@ -132,7 +132,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             }
             if (mLocalLyricsFragment != null)
                 mLocalLyricsFragment.setListShown(true);
-            new DBContentLister().execute(fragment);
+            new DBContentLister((LocalLyricsFragment) fragment).execute();
         }
     }
 }

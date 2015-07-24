@@ -22,13 +22,14 @@ package com.geecko.QuickLyric.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.annotation.TargetApi;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -39,13 +40,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.ActionMode;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
@@ -56,32 +63,48 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
+import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 
 import java.util.ArrayList;
 
-public class LocalLyricsFragment extends ListFragment {
+public class LocalLyricsFragment extends Fragment {
 
-    private final AdapterView.OnItemClickListener standardOnClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            final MainActivity mainActivity = (MainActivity) getActivity();
-            getListView().setOnItemClickListener(null); // prevents bug on double tap
-            mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start, true, lyricsArray.get(position));
-        }
-    };
+    // TODO: maybe replace the AnimatedExpandableListView with a RecyclerView
+    // This would potentially make it easier for thumbnails
+    // Replace action mode with swipe to remove
+    // TODO: Move back to ListFragment https://stackoverflow.com/questions/4274519/android-how-to-avoid-header-from-scrolling-in-listview-android
+    // TODO: Animate group indicator (with AnimatedStateListDrawable <animated-selector>)
+    // TODO cleanup
+    // TODO: Test batch download
+
+    private final ExpandableListView.OnChildClickListener standardOnClickListener =
+            new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                    final MainActivity mainActivity = (MainActivity) getActivity();
+                    megaListView.setOnItemClickListener(null); // prevents bug on double tap
+                    mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
+                            true, lyricsArray.get(groupPosition).get(childPosition));
+                    return true;
+                }
+            };
+
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
-    public ArrayList<Lyrics> lyricsArray = null;
+    public ArrayList<ArrayList<Lyrics>> lyricsArray = null;
     private boolean unselectMode;
-    private final AdapterView.OnItemClickListener actionOnClickListener = new AdapterView.OnItemClickListener() {
+    private AnimatedExpandableListView megaListView;
+    private ProgressBar progressBar;
+    private final ExpandableListView.OnChildClickListener actionOnClickListener = new ExpandableListView.OnChildClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            LocalAdapter adapter = ((LocalAdapter) getListAdapter());
-            adapter.toggle(position);
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            LocalAdapter adapter = ((LocalAdapter) megaListView.getAdapter());
+            adapter.toggle(0);
             if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
                 unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
                 ((MainActivity) getActivity()).mActionMode.invalidate();
             }
+            return true;
         }
     };
     private boolean actionModeInitialized = false;
@@ -96,7 +119,7 @@ public class LocalLyricsFragment extends ListFragment {
 
         @Override
         public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            getListView().setOnItemClickListener(actionOnClickListener);
+            megaListView.setOnChildClickListener(actionOnClickListener);
             MenuItem selectAllItem = menu.findItem(R.id.action_select_all);
             if (selectAllItem != null) {
                 if (unselectMode)
@@ -110,19 +133,20 @@ public class LocalLyricsFragment extends ListFragment {
 
         @Override
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            LocalAdapter adapter = (LocalAdapter) getListAdapter();
+            LocalAdapter adapter = (LocalAdapter) megaListView.getAdapter();
             switch (menuItem.getItemId()) {
                 case R.id.action_delete:
                     ArrayList<Lyrics> delendam = new ArrayList<>();
-                    for (int i = 0; i < lyricsArray.size(); i++)
-                        if (adapter.isItemChecked(i))
+                    for (int i = 0; i < lyricsArray.size(); i++) /*
+                        if (adapter.isItemChecked(i)) fixme
                             delendam.add(lyricsArray.get(i));
-                    if (delendam.size() > 0) {
-                        Lyrics[] delendamArray = new Lyrics[delendam.size()];
-                        delendamArray = delendam.toArray(delendamArray);
-                        new WriteToDatabaseTask(LocalLyricsFragment.this)
-                                .execute(LocalLyricsFragment.this, null, delendamArray);
-                    }
+                            */
+                        if (delendam.size() > 0) {
+                            Lyrics[] delendamArray = new Lyrics[delendam.size()];
+                            delendamArray = delendam.toArray(delendamArray);
+                            new WriteToDatabaseTask(LocalLyricsFragment.this)
+                                    .execute(LocalLyricsFragment.this, null, delendamArray);
+                        }
                     actionMode.finish();
                     return true;
                 case R.id.action_select_all:
@@ -136,9 +160,9 @@ public class LocalLyricsFragment extends ListFragment {
         @Override
         public void onDestroyActionMode(ActionMode actionMode) {
             if (actionModeInitialized) {
-                ((LocalAdapter) getListAdapter()).checkAll(false);
+                ((LocalAdapter) megaListView.getAdapter()).checkAll(false);
                 ((MainActivity) getActivity()).mActionMode = null;
-                getListView().setOnItemClickListener(standardOnClickListener);
+                megaListView.setOnChildClickListener(standardOnClickListener);
                 actionModeInitialized = false;
             }
             actionModeStatusBar(false);
@@ -157,24 +181,30 @@ public class LocalLyricsFragment extends ListFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle onSavedInstanceState) {
-        super.onActivityCreated(onSavedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
         setHasOptionsMenu(true);
-        setListShown(true);
-        ListView listView = getListView();
-        if (listView != null) {
+        FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.local_listview, container, false);
+        megaListView = (AnimatedExpandableListView) layout.findViewById(R.id.expandable_listview);
+        progressBar = (ProgressBar) layout.findViewById(R.id.list_progress);
+        return layout;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle onSavedInstanceState) {
+        super.onActivityCreated(onSavedInstanceState);
+        if (megaListView != null) {
             View fragmentView = getView();
             TypedValue typedValue = new TypedValue();
             getActivity().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
             if (fragmentView != null)
                 fragmentView.setBackgroundColor(typedValue.data);
-            listView.setDivider(new ColorDrawable(Color.parseColor("#cccccc")));
-            listView.setDividerHeight(0);
+            megaListView.setDivider(new ColorDrawable(Color.parseColor("#cccccc")));
+            megaListView.setDividerHeight(0);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-                listView.setSelector(R.drawable.abc_list_selector_disabled_holo_dark);
-            listView.setFastScrollEnabled(true);
-            listView.setDrawSelectorOnTop(true);
+                megaListView.setSelector(R.drawable.abc_list_selector_disabled_holo_dark);
+            megaListView.setFastScrollEnabled(true);
+            megaListView.setDrawSelectorOnTop(true);
         }
     }
 
@@ -191,16 +221,40 @@ public class LocalLyricsFragment extends ListFragment {
             drawerAdapter.notifyDataSetChanged();
         }
 
+        megaListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (megaListView.isGroupExpanded(groupPosition))
+                    megaListView.collapseGroupWithAnimation(groupPosition);
+                else
+                    megaListView.expandGroupWithAnimation(groupPosition);
+                return true;
+            }
+        });
+
+        final float scale = getResources().getDisplayMetrics().density;
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int left = size.x - Math.round(90 * scale);
+        int right = size.x - Math.round(50 * scale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+            megaListView.setIndicatorBoundsRelative(left, right);
+        megaListView.setIndicatorBounds(left, right);
+
         if (actionModeInitialized && mainActivity.mActionMode == null) {
-            getListView().setOnItemClickListener(actionOnClickListener);
+            megaListView.setOnChildClickListener(actionOnClickListener);
             mainActivity.mActionMode = mainActivity.startActionMode(LocalLyricsFragment.this.callback);
         } else
-            getListView().setOnItemClickListener(standardOnClickListener);
+            megaListView.setOnChildClickListener(standardOnClickListener);
 
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        megaListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            // fixme
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                LocalAdapter adapter = ((LocalAdapter) getListAdapter());
+                LocalAdapter adapter = ((LocalAdapter) megaListView.getAdapter());
                 adapter.toggle(position);
                 if (mainActivity.mActionMode == null) {
                     actionModeInitialized = true;
@@ -213,29 +267,30 @@ public class LocalLyricsFragment extends ListFragment {
             }
         });
         this.isActiveFragment = true;
-        new DBContentLister().execute(this);
+        new DBContentLister(this).execute();
     }
 
-    public void update(final ArrayList<Lyrics> results) {
+    public void update(final ArrayList<ArrayList<Lyrics>> results) {
         if (getView() == null)
             return;
-        int scrollY = getListView().getScrollY();
+        int scrollY = megaListView.getScrollY();
         lyricsArray = results;
-        ViewGroup container = ((ViewGroup) getListView().getParent());
+        ViewGroup container = ((ViewGroup) megaListView.getParent());
 
         if (container != null)
             if (results.size() == 0 && container.findViewById(R.id.local_empty_database_textview) == null)
                 container.addView(View.inflate(getActivity(), R.layout.local_empty_database_textview, null));
             else if (results.size() != 0)
                 container.removeView(container.findViewById(R.id.local_empty_database_textview));
-        setListAdapter(new LocalAdapter(getActivity(), R.layout.list_row, results));
+        megaListView.setAdapter(new LocalAdapter(getActivity(), results));
 
         if (((MainActivity) getActivity()).mActionMode != null) {
-            ((LocalAdapter) getListAdapter()).checkAll(false);
-            if (getListAdapter().getCount() == 0)
+            ((LocalAdapter) megaListView.getAdapter()).checkAll(false);
+            if (megaListView.getAdapter().getCount() == 0)
                 ((MainActivity) getActivity()).mActionMode.finish();
         }
-        getListView().scrollTo(0, scrollY);
+        megaListView.scrollTo(0, scrollY);
+        setListShown(true);
     }
 
     @Override
@@ -245,6 +300,14 @@ public class LocalLyricsFragment extends ListFragment {
             this.onViewCreated(getView(), null);
         else
             this.isActiveFragment = false;
+    }
+
+    public void scrollUp() {
+        int size = (megaListView.getExpandableListAdapter()).getGroupCount();
+        for (int i = 0; i < size; i++)
+            if (megaListView.isGroupExpanded(i))
+                megaListView.collapseGroup(i);
+        megaListView.setSelection(0);
     }
 
     @Override
@@ -304,7 +367,7 @@ public class LocalLyricsFragment extends ListFragment {
                                         }
                                         editor.apply();
                                         dialog2.dismiss();
-                                        new DBContentLister().execute(LocalLyricsFragment.this);
+                                        new DBContentLister(LocalLyricsFragment.this).execute();
                                     }
                                 }
 
@@ -367,6 +430,17 @@ public class LocalLyricsFragment extends ListFragment {
                     }
                 })
                 .create().show();
+    }
+
+    public void setListShown(boolean visible) {
+        if (megaListView != null) {
+            progressBar.startAnimation(AnimationUtils.loadAnimation(
+                    getActivity(), visible ? android.R.anim.fade_out : android.R.anim.fade_in));
+            megaListView.startAnimation(AnimationUtils.loadAnimation(
+                    getActivity(), visible ? android.R.anim.fade_out : android.R.anim.fade_in));
+            progressBar.setVisibility(visible ? View.GONE : View.VISIBLE);
+            megaListView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
