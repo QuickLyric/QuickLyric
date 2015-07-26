@@ -574,7 +574,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             inflater.inflate(R.layout.no_tracks, parent);
 
         BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(R.drawable.first_launch_cover));
-        setCoverArt(bd.getBitmap(), null);
+        setCoverArt(bd != null ? bd.getBitmap() : null, null);
+        ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
         getActivity().findViewById(R.id.top_gradient).setVisibility(View.INVISIBLE);
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.INVISIBLE);
     }
