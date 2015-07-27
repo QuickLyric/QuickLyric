@@ -46,7 +46,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -399,12 +398,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (!mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(true);
 
-        Lyrics lyrics = null;
+        Lyrics lyrics;
         if (artist != null && title != null) {
-            View v = getActivity().findViewById(R.id.tracks_msg);
-            if (v != null)
-                ((ViewGroup) v.getParent()).removeView(v);
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+            if (lyrics == null)
+                lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
             if (lyrics == null)
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
 
@@ -487,6 +485,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             getActivity().findViewById(R.id.edit_tags_btn).setVisibility(musicFile == null ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
+        View v = getActivity().findViewById(R.id.tracks_msg);
+        if (v != null)
+            ((ViewGroup) v.getParent()).removeView(v);
         TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
         TextView songTV = (TextView) getActivity().findViewById(R.id.song);
         TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
@@ -573,7 +574,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (parent.findViewById(R.id.tracks_msg) == null)
             inflater.inflate(R.layout.no_tracks, parent);
 
+        @SuppressWarnings("deprecation")
         BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(R.drawable.first_launch_cover));
+
         setCoverArt(bd != null ? bd.getBitmap() : null, null);
         ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
         getActivity().findViewById(R.id.top_gradient).setVisibility(View.INVISIBLE);
@@ -666,11 +669,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) this.mActivity;
-        ActionBar actionBar = mainActivity.getSupportActionBar();
         CollapsingToolbarLayout toolbarLayout =
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
-        if (actionBar != null)
-            toolbarLayout.setTitle(getString(R.string.app_name));
+        toolbarLayout.setTitle(getString(R.string.app_name));
 
         if (((DrawerLayout) mainActivity.drawer) // drawer is locked
                 .getDrawerLockMode(mainActivity.drawerView) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
