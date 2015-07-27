@@ -22,14 +22,15 @@ package com.geecko.QuickLyric.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class NightTimeVerifier {
 
     public static boolean check(Context context) {
-        Calendar cal = Calendar.getInstance();
-        int currentHour = cal.get(Calendar.HOUR_OF_DAY);
-        int currentMin = cal.get(Calendar.MINUTE);
+        Calendar currentTime = Calendar.getInstance();
 
         SharedPreferences pref = context.getSharedPreferences("night_time", Context.MODE_PRIVATE);
         int startHour = pref.getInt("startHour", 42);
@@ -37,11 +38,22 @@ public class NightTimeVerifier {
         int endHour = pref.getInt("endHour", 0);
         int endMinute = pref.getInt("endMinute", 0);
 
-        boolean beforeEnd = currentHour < endHour || (currentHour == endHour && currentMin < endMinute);
-        boolean afterStart = currentHour > startHour || (currentHour == startHour && currentMin >= startMinute);
-        boolean afterEnd = currentHour > endHour || (currentHour == endHour && currentMin > endMinute);
+        //Start Time
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, startHour);
+        startTime.set(Calendar.MINUTE, startMinute);
+        //Stop Time
+        Calendar stopTime = Calendar.getInstance();
+        stopTime.set(Calendar.HOUR_OF_DAY, endHour);
+        stopTime.set(Calendar.MINUTE, endMinute);
 
-        return beforeEnd || (afterStart && !afterEnd);
+        if (stopTime.compareTo(startTime) < 0) {
+            if (currentTime.compareTo(stopTime) < 0) {
+                currentTime.add(Calendar.DATE, 1);
+            }
+            stopTime.add(Calendar.DATE, 1);
+        }
+        return currentTime.compareTo(startTime) >= 0 && currentTime.compareTo(stopTime) < 0;
     }
 
 }
