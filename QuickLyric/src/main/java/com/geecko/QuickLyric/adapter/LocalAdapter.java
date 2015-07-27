@@ -20,11 +20,7 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,87 +28,59 @@ import android.widget.TextView;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LocalAdapter extends AnimatedExpandableListAdapter {
-    private final Context mContext;
+    private final AnimatedExpandableListView megaListView;
     private ArrayList<ArrayList<Lyrics>> savedLyrics = null;
-    static private boolean[] checkedItems;
-    static private int checkedItemCount = 0;
+    private LayoutInflater inflater;
+    private HashMap<String, Long> mIDs = new HashMap<>();
+    private View.OnTouchListener mTouchListener;
 
-    public LocalAdapter(Context context, ArrayList<ArrayList<Lyrics>> lyrics) {
-        mContext = context;
+    public LocalAdapter(Context context, ArrayList<ArrayList<Lyrics>> lyrics,
+                        View.OnTouchListener touchListener, AnimatedExpandableListView listView) {
         savedLyrics = lyrics;
-        if (checkedItems == null || checkedItems.length != lyrics.size())
-            checkedItems = new boolean[lyrics.size()];
-    }
-
-    void setItemChecked(int position, boolean checked) {
-        if (checked && !checkedItems[position])
-            checkedItemCount++;
-        else if (!checked && checkedItems[position])
-            checkedItemCount--;
-        if (checkedItems[position] != checked) {
-            checkedItems[position] = checked;
-            notifyDataSetChanged();
-        }
-    }
-
-    public void checkAll(boolean checked) {
-        for (int i = 0; i < savedLyrics.size(); i++)
-            checkedItems[i] = checked;
-        checkedItemCount = checked ? savedLyrics.size() : 0;
-        notifyDataSetChanged();
-    }
-
-    public void toggle(int position) {
-        setItemChecked(position, !checkedItems[position]);
-    }
-
-    public boolean isItemChecked(int position) {
-        return checkedItems[position];
-    }
-
-    public int getCheckedItemCount() {
-        return checkedItemCount;
+        inflater = LayoutInflater.from(context);
+        mTouchListener = touchListener;
+        megaListView = listView;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupViewHolder holder;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.group_card, parent, false);
-            if (convertView == null)
-                return null;
-        }
-        AppCompatTextView artist = (AppCompatTextView) convertView.findViewById(android.R.id.text1);
-        artist.setTextColor(isExpanded ? parent.getResources().getColor(R.color.accent) : Color.BLACK);
-        artist.setText(savedLyrics.get(groupPosition).get(0).getArtist());
-        artist.setTypeface(null, isExpanded ? Typeface.BOLD : Typeface.NORMAL);
-        ((CardView) convertView).setCardElevation(8f);
-        if (Build.VERSION.SDK_INT >= 21)
-            convertView.setElevation(8f);
+            holder = new GroupViewHolder();
+            holder.artist = (TextView) convertView.findViewById(android.R.id.text1);
+            holder.textColor = holder.artist.getCurrentTextColor();
+            convertView.setTag(holder);
+        } else
+            holder = (GroupViewHolder) convertView.getTag();
+        holder.artist.setTextColor(isExpanded ? parent.getResources().getColor(R.color.accent) : holder.textColor);
+        holder.artist.setText(getChild(groupPosition, 0).getArtist());
+        holder.artist.setTypeface(null, isExpanded ? Typeface.BOLD : Typeface.NORMAL);
         return convertView;
     }
 
     @Override
     public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        ChildViewHolder holder;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.local_child_item, parent, false);
-            if (convertView == null)
-                return null;
-        }
-        TextView title = (TextView) convertView.findViewById(R.id.child_title);
-        title.setText(savedLyrics.get(groupPosition).get(childPosition).getTrack());
-        ((CardView) convertView).setCardBackgroundColor(parent.getResources().getColor(R.color.expanded));
+            holder = new ChildViewHolder();
+            holder.title = (TextView) convertView.findViewById(R.id.child_title);
+            convertView.setTag(holder);
+        } else
+            holder = (ChildViewHolder) convertView.getTag();
+        holder.title.setText(getChild(groupPosition, childPosition).getTrack());
+        convertView.setOnTouchListener(mTouchListener);
+        holder.groupPosition = groupPosition;
+        holder.lyrics = getChild(groupPosition, childPosition);
         return convertView;
-    }
-
-    public int getCount() {
-        return savedLyrics.size();
     }
 
     @Override
@@ -126,32 +94,71 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
-        return savedLyrics.get(groupPosition);
+    public ArrayList<Lyrics> getGroup(int groupPosition) {
+        ArrayList<Lyrics> group = savedLyrics.size() > 0 ? savedLyrics.get(groupPosition) : null;
+        if (group != null && group.size() > 0)
+            mIDs.put(group.get(0).getArtist(), (long) group.get(0).getArtist().hashCode());
+        return group;
     }
 
     @Override
     public Lyrics getChild(int groupPosition, int childPosition) {
-        return savedLyrics.get(groupPosition).get(childPosition);
+        Lyrics child = getGroup(groupPosition).get(childPosition);
+        if (child != null && !mIDs.containsKey(child.getURL()))
+            mIDs.put(child.getURL(), (long) child.getURL().hashCode());
+        return child;
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        return savedLyrics.get(groupPosition).hashCode();
+        String artist = getChild(groupPosition, 0).getArtist();
+        return mIDs.get(artist);
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return savedLyrics.get(groupPosition).get(childPosition).hashCode();
+        String url = getChild(groupPosition, childPosition).getURL();
+        return mIDs.get(url);
     }
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    public boolean remove(int groupPosition, View viewToRemove) {
+        int childPosition = getGroup(groupPosition).indexOf(((ChildViewHolder) viewToRemove.getTag()).lyrics);
+        boolean result = getGroup(groupPosition).remove(childPosition) != null;
+        if (result) {
+            if (getGroup(groupPosition).size() != 0 || !remove(groupPosition))
+                notifyDataSetInvalidated();
+        }
+        return result;
+    }
+
+    public boolean remove(int groupPosition) {
+        boolean result = savedLyrics.remove(groupPosition) != null;
+        if (result) {
+            if (getGroupCount() > groupPosition)
+                megaListView.collapseGroup(groupPosition);
+            notifyDataSetChanged();
+        }
+        return result;
+    }
+
+    public class ChildViewHolder {
+        TextView title;
+        public int groupPosition;
+        public Lyrics lyrics;
+    }
+
+    public class GroupViewHolder {
+        TextView artist;
+        int textColor;
     }
 }

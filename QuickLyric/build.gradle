@@ -73,7 +73,7 @@ dependencies {
     compile 'com.android.support:support-v13:22.+'
     compile 'com.android.support:design:22.+'
     compile 'com.android.support:cardview-v7:22.+'
-    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.7.2'
+    compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'org.jraf:android-switch-backport:2.0.1'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'

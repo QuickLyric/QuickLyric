@@ -89,9 +89,6 @@ import static com.geecko.QuickLyric.R.string;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    // Todo: Get Rid of Michael Jackson & fix "empty screen"
-    // Todo: Saved Lyrics (removal animation, don't scroll back to the top, arrange by artists)
-
     private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         drawerList.setAdapter(drawerAdapter);
         drawerView = this.findViewById(id.left_drawer);
         drawer = this.findViewById(id.drawer_layout);
-        if (drawer instanceof DrawerLayout && getSupportActionBar() != null) { // if phone
+        if (drawer instanceof DrawerLayout) { // if phone
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mDrawerToggle = new ActionBarDrawerToggle(this, (DrawerLayout) drawer, string.drawer_open_desc, string.drawer_closed_desc) {
 
@@ -253,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         return fragments;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NonNull
     public ActionBar getSupportActionBar() {
         return super.getSupportActionBar();
@@ -728,6 +726,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.showWhyPopup();
     }
 
+    @SuppressWarnings("unused")
     public void id3PopUp(View view) {
         Toast.makeText(this, string.ignore_id3_toast, Toast.LENGTH_LONG).show();
     }

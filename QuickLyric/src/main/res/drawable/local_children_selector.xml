@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Created by geecko
@@ -17,19 +18,12 @@
   ~  */
   -->
 
-<resources>
-    <declare-styleable name="ScrimInsetsView">
-        <attr name="insetFG" format="reference|color"/>
-    </declare-styleable>
-    <attr name="statusBarColor" format="reference|color"/>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          android:exitFadeDuration="200">
+    <item android:state_window_focused="false" android:drawable="@android:color/transparent"/>
 
-    <declare-styleable name="Lrc">
-        <attr name="textSize" format="dimension"/>
-        <attr name="normalTextColor" format="reference|color"/>
-        <attr name="currentTextColor" format="reference|color"/>
-        <attr name="dividerHeight" format="dimension"/>
-        <attr name="rows" format="integer"/>
-    </declare-styleable>
+    <item android:state_pressed="true" android:state_enabled="false" android:drawable="@android:color/transparent"/>
+    <item                               android:state_enabled="false"  android:drawable="@android:color/transparent"/>
+    <item android:state_pressed="true" android:state_enabled="true"   android:drawable="@color/selector"/>
 
-    <attr name="rippleBackGroundColor" format="reference|color"/>
-</resources>
+</selector>

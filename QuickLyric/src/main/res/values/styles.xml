@@ -17,7 +17,8 @@
   ~  */
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:headerBackground">@drawable/drawer_header</item>
@@ -54,7 +55,8 @@
         <item name="android:listSelector">@drawable/listview_row_selector</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color</item>
         <item name="asb_switchPreferenceStyle">@style/asb_Preference.SwitchPreference</item>
-        <item name="android:panelColorForeground">#000</item>
+        <item name="android:panelColorForeground">@color/expanded</item>
+        <item name="rippleBackGroundColor">#585858</item>
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
@@ -72,7 +74,8 @@
         <item name="android:panelColorBackground">#333</item>
         <item name="android:textColorSecondary">#BBB</item>
         <item name="android:textColorPrimary">#EEE</item>
-        <item name="android:panelColorForeground">#EEE</item>
+        <item name="rippleBackGroundColor">#191919</item>
+        <item name="android:panelColorForeground">@color/expanded_night</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
         <item name="android:divider">@color/divider_night</item>
         <item name="android:listSelector">@drawable/listview_row_selector_night</item>

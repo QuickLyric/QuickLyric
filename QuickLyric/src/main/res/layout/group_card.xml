@@ -20,10 +20,32 @@
 
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="?android:panelColorBackground"
+    app:cardElevation="4dp">
 
-    <include
-        layout="@android:layout/simple_expandable_list_item_1"/>
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:gravity="center_vertical"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:textColorPrimary"
+        />
+
+    <ImageView
+        android:id="@+id/group_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:src="@drawable/ic_collapsed_indicator"
+        />
 
 </android.support.v7.widget.CardView>

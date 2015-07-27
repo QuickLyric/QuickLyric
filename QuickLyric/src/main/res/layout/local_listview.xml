@@ -18,27 +18,31 @@
   ~  */
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <View
-        android:background="?android:colorBackground"
+    <view
+        android:id="@+id/listViewBackground"
+        class="com.geecko.QuickLyric.view.BackgroundContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/expandable_listview"
-        android:background="?android:colorBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <com.geecko.QuickLyric.view.AnimatedExpandableListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:groupIndicator="@null"
+            android:visibility="gone"/>
+    </view>
 
     <ProgressBar
         android:id="@+id/list_progress"
-        android:indeterminate="true"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"/>
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"/>
 
-</FrameLayout>
+    <include layout="@layout/local_empty_database_textview"/>
+
+</RelativeLayout>

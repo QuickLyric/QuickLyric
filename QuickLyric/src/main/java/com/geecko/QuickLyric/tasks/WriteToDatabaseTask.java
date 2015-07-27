@@ -56,13 +56,6 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        if (mLocalLyricsFragment != null)
-            mLocalLyricsFragment.setListShown(false);
-    }
-
-    @Override
     protected Boolean doInBackground(Object... params) {
         lyricsArray = new Lyrics[params.length - 2];
         SQLiteDatabase database;
@@ -122,17 +115,15 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             View.OnClickListener actionClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View snackbar) {
-                    new WriteToDatabaseTask().execute(fragment, null, lyricsArray);
+                    new WriteToDatabaseTask(mLocalLyricsFragment).execute(fragment, null, lyricsArray);
                 }
             };
-            if (!result) {
+            if (!result && fragment.getView() != null) {
                 Snackbar.make(fragment.getView(), message, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, actionClickListener)
                         .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
-            }
-            if (mLocalLyricsFragment != null)
-                mLocalLyricsFragment.setListShown(true);
-            new DBContentLister((LocalLyricsFragment) fragment).execute();
+            } else
+                new DBContentLister(mLocalLyricsFragment).execute();
         }
     }
 }

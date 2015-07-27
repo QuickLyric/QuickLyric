@@ -96,11 +96,6 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
     }
 
     protected void onPostExecute(final ArrayList<ArrayList<Lyrics>> results) {
-        if (!results.equals(localLyricsFragment.lyricsArray) || results.size() == 0)
             localLyricsFragment.update(results);
-        else {
-            localLyricsFragment.setListShown(true);
-            localLyricsFragment.scrollUp();
-        }
     }
 }

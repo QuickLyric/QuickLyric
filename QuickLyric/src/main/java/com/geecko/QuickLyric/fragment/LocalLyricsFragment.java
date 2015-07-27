@@ -21,36 +21,36 @@ package com.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.annotation.TargetApi;
-import android.app.Fragment;
-import android.content.Context;
+import android.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
-import android.view.ActionMode;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -63,129 +63,222 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
+import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
+import com.geecko.QuickLyric.view.BackgroundContainer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class LocalLyricsFragment extends Fragment {
+public class LocalLyricsFragment extends ListFragment {
 
-    // TODO: maybe replace the AnimatedExpandableListView with a RecyclerView
-    // This would potentially make it easier for thumbnails
-    // Replace action mode with swipe to remove
-    // TODO: Move back to ListFragment https://stackoverflow.com/questions/4274519/android-how-to-avoid-header-from-scrolling-in-listview-android
-    // TODO: Animate group indicator (with AnimatedStateListDrawable <animated-selector>)
-    // TODO cleanup
-    // TODO: Test batch download
-
-    private final ExpandableListView.OnChildClickListener standardOnClickListener =
-            new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                    final MainActivity mainActivity = (MainActivity) getActivity();
-                    megaListView.setOnItemClickListener(null); // prevents bug on double tap
-                    mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
-                            true, lyricsArray.get(groupPosition).get(childPosition));
-                    return true;
-                }
-            };
 
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
     public ArrayList<ArrayList<Lyrics>> lyricsArray = null;
-    private boolean unselectMode;
     private AnimatedExpandableListView megaListView;
     private ProgressBar progressBar;
-    private final ExpandableListView.OnChildClickListener actionOnClickListener = new ExpandableListView.OnChildClickListener() {
+    private BackgroundContainer mBackgroundContainer;
+    private boolean mSwiping;
+
+    private final View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+        float mDownX;
+        private int mSwipeSlop = -1;
+        private boolean mItemPressed;
+        private VelocityTracker mVelocityTracker = null;
+        private HashMap<Long, Integer> mItemIdTopMap = new HashMap<>();
+
         @Override
-        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            LocalAdapter adapter = ((LocalAdapter) megaListView.getAdapter());
-            adapter.toggle(0);
-            if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
-                unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
-                ((MainActivity) getActivity()).mActionMode.invalidate();
+        public boolean onTouch(final View v, MotionEvent event) {
+            int index = event.getActionIndex();
+            int pointerId = event.getPointerId(index);
+
+            if (mSwipeSlop < 0) {
+                mSwipeSlop = ViewConfiguration.get(getActivity())
+                        .getScaledTouchSlop();
             }
-            return true;
-        }
-    };
-    private boolean actionModeInitialized = false;
-    private final ActionMode.Callback callback = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            MenuInflater inflater = actionMode.getMenuInflater();
-            inflater.inflate(R.menu.local_action_mode, menu);
-            actionModeStatusBar(true);
-            return true;
-        }
 
-        @Override
-        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            megaListView.setOnChildClickListener(actionOnClickListener);
-            MenuItem selectAllItem = menu.findItem(R.id.action_select_all);
-            if (selectAllItem != null) {
-                if (unselectMode)
-                    selectAllItem.setTitle(R.string.unselect_all_action);
-                else
-                    selectAllItem.setTitle(R.string.select_all_action);
-                return true;
-            } else
-                return false;
-        }
+            v.onTouchEvent(event);
 
-        @Override
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            LocalAdapter adapter = (LocalAdapter) megaListView.getAdapter();
-            switch (menuItem.getItemId()) {
-                case R.id.action_delete:
-                    ArrayList<Lyrics> delendam = new ArrayList<>();
-                    for (int i = 0; i < lyricsArray.size(); i++) /*
-                        if (adapter.isItemChecked(i)) fixme
-                            delendam.add(lyricsArray.get(i));
-                            */
-                        if (delendam.size() > 0) {
-                            Lyrics[] delendamArray = new Lyrics[delendam.size()];
-                            delendamArray = delendam.toArray(delendamArray);
-                            new WriteToDatabaseTask(LocalLyricsFragment.this)
-                                    .execute(LocalLyricsFragment.this, null, delendamArray);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mItemPressed) {
+                        // Multi-item swipes not handled
+                        return false;
+                    }
+                    mItemPressed = true;
+                    mDownX = event.getX();
+                    if (mVelocityTracker == null) {
+                        // Retrieve a new VelocityTracker object to watch the velocity of a motion.
+                        mVelocityTracker = VelocityTracker.obtain();
+                    } else {
+                        // Reset the velocity tracker back to its initial state.
+                        mVelocityTracker.clear();
+                    }
+                    mVelocityTracker.addMovement(event);
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    v.setAlpha(1);
+                    v.setTranslationX(0);
+                    mItemPressed = false;
+                    mVelocityTracker.recycle();
+                    mVelocityTracker = null;
+                    break;
+                case MotionEvent.ACTION_MOVE: {
+                    mVelocityTracker.addMovement(event);
+                    float x = event.getX() + v.getTranslationX();
+                    float deltaX = x - mDownX;
+                    float deltaXAbs = Math.abs(deltaX);
+                    if (!mSwiping) {
+                        if (deltaXAbs > mSwipeSlop) {
+                            mSwiping = true;
+                            getListView().requestDisallowInterceptTouchEvent(true);
+                            mBackgroundContainer.showBackground(v.getTop(), v.getHeight());
                         }
-                    actionMode.finish();
-                    return true;
-                case R.id.action_select_all:
-                    adapter.checkAll(!unselectMode);
-                    unselectMode = !unselectMode;
-                    actionMode.invalidate();
+                    }
+                    if (mSwiping) {
+                        v.setTranslationX((x - mDownX));
+                        v.setAlpha(1 - deltaXAbs / v.getWidth());
+                    }
+                }
+                break;
+                case MotionEvent.ACTION_UP: {
+                    // User let go - figure out whether to animate the view out, or back into place
+                    if (mSwiping) {
+                        float x = event.getX() + v.getTranslationX();
+                        float deltaX = x - mDownX;
+                        float deltaXAbs = Math.abs(deltaX);
+                        float fractionCovered;
+                        float endX;
+                        float endAlpha;
+                        final boolean remove;
+                        mVelocityTracker.computeCurrentVelocity(1000);
+                        float velocityX = Math.abs(VelocityTrackerCompat.getXVelocity(mVelocityTracker, pointerId));
+                        if (velocityX > 700 || deltaXAbs > v.getWidth() / 4) {
+                            fractionCovered = deltaXAbs / v.getWidth();
+                            endX = deltaX < 0 ? -v.getWidth() : v.getWidth();
+                            endAlpha = 0;
+                            remove = true;
+                        } else {
+                            // Not far enough - animate it back
+                            fractionCovered = 1 - (deltaXAbs / v.getWidth());
+                            endX = 0;
+                            endAlpha = 1;
+                            remove = false;
+                        }
+                        mVelocityTracker.clear();
+                        int SWIPE_DURATION = 600;
+                        long duration = (int) ((1 - fractionCovered) * SWIPE_DURATION);
+                        getListView().setEnabled(false);
+                        v.animate().setDuration(Math.abs(duration)).
+                                alpha(endAlpha).translationX(endX)
+                                .setListener(new AnimatorActionListener(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Restore animated values
+                                        v.setAlpha(1);
+                                        v.setTranslationX(0);
+                                        if (remove) {
+                                            animateRemoval(getListView(), v);
+                                        } else {
+                                            mBackgroundContainer.hideBackground();
+                                            getListView().setEnabled(true);
+                                        }
+                                    }
+                                }, AnimatorActionListener.ActionType.END));
+                    }
+                }
+                mItemPressed = false;
+                break;
+                default:
+                    return false;
             }
-            return false;
+            return true;
         }
 
-        @Override
-        public void onDestroyActionMode(ActionMode actionMode) {
-            if (actionModeInitialized) {
-                ((LocalAdapter) megaListView.getAdapter()).checkAll(false);
-                ((MainActivity) getActivity()).mActionMode = null;
-                megaListView.setOnChildClickListener(standardOnClickListener);
-                actionModeInitialized = false;
+        private void animateRemoval(final ListView listview, View viewToRemove) {
+            int firstVisiblePosition = listview.getFirstVisiblePosition();
+            for (int i = 0; i < listview.getChildCount(); ++i) {
+                View child = listview.getChildAt(i);
+                if (child != viewToRemove) {
+                    int position = firstVisiblePosition + i;
+                    long itemId = listview.getAdapter().getItemId(position);
+                    mItemIdTopMap.put(itemId, child.getTop());
+                }
             }
-            actionModeStatusBar(false);
+            // Delete the item from the adapter
+            LocalAdapter.ChildViewHolder childViewHolder = (LocalAdapter.ChildViewHolder) viewToRemove.getTag();
+            ((LocalAdapter) getExpandableListAdapter())
+                    .remove(childViewHolder.groupPosition, viewToRemove);
+            new WriteToDatabaseTask(LocalLyricsFragment.this)
+                    .execute(LocalLyricsFragment.this, null, childViewHolder.lyrics);
+
+            final ViewTreeObserver observer = listview.getViewTreeObserver();
+            observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                public boolean onPreDraw() {
+                    observer.removeOnPreDrawListener(this);
+                    boolean firstAnimation = true;
+                    int firstVisiblePosition = listview.getFirstVisiblePosition();
+                    for (int i = 0; i < listview.getChildCount(); ++i) {
+                        final View child = listview.getChildAt(i);
+                        int position = firstVisiblePosition + i;
+                        long itemId = getListView().getAdapter().getItemId(position);
+                        Integer formerTop = mItemIdTopMap.get(itemId);
+                        int newTop = child.getTop();
+                        if (formerTop != null) {
+                            if (formerTop != newTop) {
+                                int delta = formerTop - newTop;
+                                child.setTranslationY(delta);
+                                int MOVE_DURATION = 500;
+                                child.animate().setDuration(MOVE_DURATION).translationY(0);
+                                if (firstAnimation) {
+                                    child.animate().setListener(new AnimatorActionListener(new Runnable() {
+                                        public void run() {
+                                            mBackgroundContainer.hideBackground();
+                                            mSwiping = false;
+                                            getListView().setEnabled(true);
+                                        }
+                                    }, AnimatorActionListener.ActionType.END));
+                                    firstAnimation = false;
+                                }
+                            }
+                        } else {
+                            // Animate new views along with the others. The catch is that they did not
+                            // exist in the start state, so we must calculate their starting position
+                            // based on neighboring views.
+                            int childHeight = child.getHeight() + listview.getDividerHeight();
+                            formerTop = newTop + (i > 0 ? childHeight : -childHeight);
+                            int delta = formerTop - newTop;
+                            child.setTranslationY(delta);
+                            int MOVE_DURATION = 500;
+                            child.animate().setDuration(MOVE_DURATION).translationY(0);
+                            if (firstAnimation) {
+                                child.animate().setListener(new AnimatorActionListener(new Runnable() {
+                                    public void run() {
+                                        mBackgroundContainer.hideBackground();
+                                        mSwiping = false;
+                                        getListView().setEnabled(true);
+                                    }
+                                }, AnimatorActionListener.ActionType.END));
+                                firstAnimation = false;
+                            }
+                        }
+                    }
+                    mBackgroundContainer.hideBackground();
+                    mItemIdTopMap.clear();
+                    return true;
+                }
+            });
         }
     };
-
-    @TargetApi(21)
-    private void actionModeStatusBar(boolean actionMode) {
-        MainActivity activity = (MainActivity) getActivity();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.setStatusBarColor(actionMode ? activity.getResources()
-                    .getColor(R.color.action_dark) : null);
-            activity.setNavBarColor(actionMode ? activity.getResources()
-                    .getColor(R.color.action) : null);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
         setHasOptionsMenu(true);
-        FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.local_listview, container, false);
-        megaListView = (AnimatedExpandableListView) layout.findViewById(R.id.expandable_listview);
+        View layout = inflater.inflate(R.layout.local_listview, container, false);
+        megaListView = (AnimatedExpandableListView) layout.findViewById(android.R.id.list);
+        mBackgroundContainer = (BackgroundContainer) layout.findViewById(R.id.listViewBackground);
         progressBar = (ProgressBar) layout.findViewById(R.id.list_progress);
         return layout;
     }
@@ -199,7 +292,6 @@ public class LocalLyricsFragment extends Fragment {
             getActivity().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
             if (fragmentView != null)
                 fragmentView.setBackgroundColor(typedValue.data);
-            megaListView.setDivider(new ColorDrawable(Color.parseColor("#cccccc")));
             megaListView.setDividerHeight(0);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 megaListView.setSelector(R.drawable.abc_list_selector_disabled_holo_dark);
@@ -225,47 +317,47 @@ public class LocalLyricsFragment extends Fragment {
 
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (megaListView.isGroupExpanded(groupPosition))
+                final ImageView indicator = (ImageView) v.findViewById(R.id.group_indicator);
+                RotateAnimation anim;
+                if (megaListView.isGroupExpanded(groupPosition)) {
                     megaListView.collapseGroupWithAnimation(groupPosition);
-                else
+                    if (indicator != null) {
+                        anim = new RotateAnimation(180f, 360f, indicator.getWidth() / 2, indicator.getHeight() / 2);
+                        anim.setInterpolator(new DecelerateInterpolator(3));
+                        anim.setDuration(500);
+                        anim.setFillAfter(true);
+                        indicator.startAnimation(anim);
+                    }
+                } else {
                     megaListView.expandGroupWithAnimation(groupPosition);
-                return true;
-            }
-        });
-
-        final float scale = getResources().getDisplayMetrics().density;
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int left = size.x - Math.round(90 * scale);
-        int right = size.x - Math.round(50 * scale);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            megaListView.setIndicatorBoundsRelative(left, right);
-        megaListView.setIndicatorBounds(left, right);
-
-        if (actionModeInitialized && mainActivity.mActionMode == null) {
-            megaListView.setOnChildClickListener(actionOnClickListener);
-            mainActivity.mActionMode = mainActivity.startActionMode(LocalLyricsFragment.this.callback);
-        } else
-            megaListView.setOnChildClickListener(standardOnClickListener);
-
-        megaListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            // fixme
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                LocalAdapter adapter = ((LocalAdapter) megaListView.getAdapter());
-                adapter.toggle(position);
-                if (mainActivity.mActionMode == null) {
-                    actionModeInitialized = true;
-                    mainActivity.mActionMode = mainActivity.startActionMode(LocalLyricsFragment.this.callback);
-                } else if (unselectMode != (adapter.getCheckedItemCount() == adapter.getCount())) {
-                    unselectMode = (adapter.getCheckedItemCount() == adapter.getCount());
-                    mainActivity.mActionMode.invalidate();
+                    if (indicator != null) {
+                        anim = new RotateAnimation(0f, 180f, indicator.getWidth() / 2, indicator.getHeight() / 2);
+                        anim.setInterpolator(new DecelerateInterpolator(2));
+                        anim.setDuration(500);
+                        anim.setFillAfter(true);
+                        indicator.startAnimation(anim);
+                    }
                 }
                 return true;
             }
         });
+
+        megaListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                if (mSwiping) {
+                    mSwiping = false;
+                    return false;
+                }
+                final MainActivity mainActivity = (MainActivity) getActivity();
+                megaListView.setOnChildClickListener(null); // prevents bug on double tap
+                mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
+                        true, lyricsArray.get(groupPosition).get(childPosition));
+                return true;
+            }
+        });
+
         this.isActiveFragment = true;
         new DBContentLister(this).execute();
     }
@@ -273,23 +365,14 @@ public class LocalLyricsFragment extends Fragment {
     public void update(final ArrayList<ArrayList<Lyrics>> results) {
         if (getView() == null)
             return;
-        int scrollY = megaListView.getScrollY();
+        int index = megaListView.getFirstVisiblePosition();
+        View v = megaListView.getChildAt(0);
+        int top = (v == null) ? 0 : (v.getTop() - megaListView.getPaddingTop());
         lyricsArray = results;
-        ViewGroup container = ((ViewGroup) megaListView.getParent());
 
-        if (container != null)
-            if (results.size() == 0 && container.findViewById(R.id.local_empty_database_textview) == null)
-                container.addView(View.inflate(getActivity(), R.layout.local_empty_database_textview, null));
-            else if (results.size() != 0)
-                container.removeView(container.findViewById(R.id.local_empty_database_textview));
-        megaListView.setAdapter(new LocalAdapter(getActivity(), results));
-
-        if (((MainActivity) getActivity()).mActionMode != null) {
-            ((LocalAdapter) megaListView.getAdapter()).checkAll(false);
-            if (megaListView.getAdapter().getCount() == 0)
-                ((MainActivity) getActivity()).mActionMode.finish();
-        }
-        megaListView.scrollTo(0, scrollY);
+        megaListView.setAdapter(new LocalAdapter(getActivity(), results, mTouchListener, megaListView));
+        megaListView.setEmptyView(getView().findViewById(R.id.local_empty_database_textview));
+        getListView().setSelectionFromTop(index, top);
         setListShown(true);
     }
 
@@ -302,14 +385,6 @@ public class LocalLyricsFragment extends Fragment {
             this.isActiveFragment = false;
     }
 
-    public void scrollUp() {
-        int size = (megaListView.getExpandableListAdapter()).getGroupCount();
-        for (int i = 0; i < size; i++)
-            if (megaListView.isGroupExpanded(i))
-                megaListView.collapseGroup(i);
-        megaListView.setSelection(0);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -317,7 +392,7 @@ public class LocalLyricsFragment extends Fragment {
         ActionBar actionBar = (mainActivity).getSupportActionBar();
         CollapsingToolbarLayout toolbarLayout =
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
-        if (mainActivity.focusOnFragment && actionBar != null) // focus is on Fragment
+        if (mainActivity.focusOnFragment) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
                 toolbarLayout.setTitle(getString(R.string.app_name));
@@ -331,54 +406,6 @@ public class LocalLyricsFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_scan:
                 showScanDialog();
-                break;
-            case R.id.action_sort:
-                final SharedPreferences localSortOrderPreferences = getActivity().getSharedPreferences("local_sort_order", Context.MODE_PRIVATE);
-                final int sortModePref = localSortOrderPreferences.getInt("mode", -1);
-                final CharSequence[] sortModesArray = getResources().getStringArray(R.array.sort_modes);
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(this.getActivity());
-                builder1.setTitle(R.string.sort_dialog_title);
-                builder1.setSingleChoiceItems(sortModesArray, sortModePref, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog1, final int mode) {
-                        CharSequence[] items;
-                        int sortOrder = 0;
-                        items = getResources().getStringArray(R.array.AZ_sort_order);
-                        if (mode == 0)
-                            sortOrder = localSortOrderPreferences.getInt("order_artist", -1);
-                        else if (mode == 1)
-                            sortOrder = localSortOrderPreferences.getInt("order_title", -1);
-
-                        dialog1.dismiss();
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(LocalLyricsFragment.this.getActivity());
-                        builder2.setTitle(R.string.sort_dialog_title);
-                        builder2.setSingleChoiceItems(items, sortOrder, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog2, int order) {
-                                        SharedPreferences.Editor editor = localSortOrderPreferences.edit();
-                                        editor.putInt("mode", mode);
-                                        switch (mode) {
-                                            default:
-                                                editor.putInt("order_artist", order);
-                                                break;
-                                            case 1:
-                                                editor.putInt("order_title", order);
-                                                break;
-                                        }
-                                        editor.apply();
-                                        dialog2.dismiss();
-                                        new DBContentLister(LocalLyricsFragment.this).execute();
-                                    }
-                                }
-
-                        );
-                        AlertDialog alert2 = builder2.create();
-                        alert2.show();
-                    }
-                });
-                AlertDialog alert1 = builder1.create();
-                alert1.show();
-                return true;
         }
 
         return false;
@@ -432,15 +459,32 @@ public class LocalLyricsFragment extends Fragment {
                 .create().show();
     }
 
-    public void setListShown(boolean visible) {
-        if (megaListView != null) {
-            progressBar.startAnimation(AnimationUtils.loadAnimation(
-                    getActivity(), visible ? android.R.anim.fade_out : android.R.anim.fade_in));
-            megaListView.startAnimation(AnimationUtils.loadAnimation(
-                    getActivity(), visible ? android.R.anim.fade_out : android.R.anim.fade_in));
-            progressBar.setVisibility(visible ? View.GONE : View.VISIBLE);
-            megaListView.setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
+    public void setListShown(final boolean visible) {
+        final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
+        final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
+        Animation.AnimationListener listener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                progressBar.setVisibility(visible ? View.GONE : View.VISIBLE);
+                megaListView.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        };
+        fadeIn.setAnimationListener(listener);
+        fadeOut.setAnimationListener(listener);
+        progressBar.startAnimation(visible ? fadeOut : fadeIn);
+        megaListView.startAnimation(visible ? fadeIn : fadeOut);
+    }
+
+    public ExpandableListAdapter getExpandableListAdapter() {
+        return megaListView.getExpandableListAdapter();
     }
 
     @Override
