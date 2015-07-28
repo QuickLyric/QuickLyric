@@ -121,8 +121,8 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
-        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_end);
         super.onPause();
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
     }
 
     public void setSearchQuery(String searchQuery) {
@@ -160,6 +160,7 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NonNull
     public ActionBar getSupportActionBar() {
         return super.getSupportActionBar();

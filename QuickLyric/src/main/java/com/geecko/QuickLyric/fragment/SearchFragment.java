@@ -126,8 +126,8 @@ public class SearchFragment extends ListFragment {
                     activityResult = activityResult == null ? new Intent() : activityResult;
                     activityResult.putExtra("lyrics", lyrics);
                     getActivity().setResult(Activity.RESULT_OK, activityResult);
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.slide_out_end);
                     getActivity().finish();
+                    getActivity().overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
                 }
             });
             ViewGroup parent = ((ViewGroup) getListView().getParent());

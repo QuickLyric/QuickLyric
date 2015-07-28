@@ -30,7 +30,6 @@ import android.util.AttributeSet;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.geecko.QuickLyric.R;
 
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
