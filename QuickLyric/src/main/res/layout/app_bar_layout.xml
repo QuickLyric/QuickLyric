@@ -22,13 +22,11 @@
     android:id="@+id/appbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:fitsSystemWindows="true"
     android:theme="@style/actionBar.QuickLyric"
-    app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"
-    tools:ignore="RtlSymmetry">
+    app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior">
 
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/toolbar_layout"
@@ -80,6 +78,7 @@
             android:editable="false"
             android:ellipsize="end"
             android:inputType="none"
+            android:paddingEnd="26dp"
             android:paddingRight="26dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
@@ -97,6 +96,7 @@
             android:editable="false"
             android:ellipsize="end"
             android:inputType="none"
+            android:paddingEnd="26dp"
             android:paddingRight="26dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
