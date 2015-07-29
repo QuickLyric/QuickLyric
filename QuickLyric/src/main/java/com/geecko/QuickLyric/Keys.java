@@ -19,4 +19,7 @@ package com.geecko.QuickLyric;
 public class Keys {
     public static final String lastFM = "402bdca12feff2668e36a9aa3c675273";
     public static final String GENIUS = "5eDKEfmGtQulq_eFxVB2v-bhf_hIgb9fT14IY_LYUsgHx9KjN_H6Tid7yO6jc_Xa";
+    public static final String ACRA_LOGIN = "hercesedsizeboutionferea";
+    public static final String ACRA_PASSWORD = "KDwir5taV6EunCnrSVOMaeBM";
+    public static final String ACRA_URL = "https://geecko.cloudant.com/acra-quicklyric/_design/acra-storage/_update/report";
 }
