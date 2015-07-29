@@ -31,6 +31,7 @@ public class AnimatorActionListener extends AnimatorListenerAdapter {
 
     final private ActionType type;
     final private Runnable action;
+    private boolean mFinished = false;
 
     public AnimatorActionListener(Runnable action, ActionType type) {
         this.action = action;
@@ -39,8 +40,9 @@ public class AnimatorActionListener extends AnimatorListenerAdapter {
 
     @Override
     public void onAnimationEnd(Animator animation) {
-        if (type == ActionType.END) {
+        if (type == ActionType.END && action != null && !mFinished) {
             action.run();
+            mFinished = true;
         }
     }
 
