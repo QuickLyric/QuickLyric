@@ -256,13 +256,13 @@ A few possible reasons why:<br/>
         <item>@string/dark_theme</item>
     </string-array>
     <string-array name="providers">
-        <item>Synchronized Lyrics</item>
         <item>Punk Rock</item>
         <item>Metal</item>
         <item>Hip Hop</item>
         <item>Electronic Dance Music</item>
         <item>Japanese</item>
         <item>Bollywood Music</item>
+        <item>Synchronized Lyrics</item>
     </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>
