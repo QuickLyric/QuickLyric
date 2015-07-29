@@ -176,7 +176,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         String track = lyrics.getTrack();
                         String url = lyrics.getURL();
                         fetchLyrics(artist, track, url);
-                        ((RefreshIcon) layout.findViewById(R.id.refresh_fab)).startAnimation();
+                        ((SwipeRefreshLayout)layout.findViewById(R.id.refresh_layout)).setRefreshing(true);
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -257,8 +257,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
-                ((TextView) (layout.findViewById(R.id.artist))).setText(mLyrics.getArtist());
-                ((TextView) (layout.findViewById(R.id.song))).setText(mLyrics.getTrack());
+                ((TextView) (getActivity().findViewById(R.id.artist))).setText(mLyrics.getArtist());
+                ((TextView) (getActivity().findViewById(R.id.song))).setText(mLyrics.getTrack());
             } else //Rotation, resume
                 update(mLyrics, layout, false);
         }
@@ -395,7 +395,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         String url = null;
         if (params.length > 2)
             url = params[2];
-        if (!mRefreshLayout.isRefreshing())
+        if (mRefreshLayout != null && !mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(true);
 
         Lyrics lyrics;
@@ -776,7 +776,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         @Override
         public void run() {
             LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            while (!lrcView.isFinished()) {
+            while (!lrcView.isFinished() && getActivity() != null) {
                 SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long timeSpent = System.currentTimeMillis() - startTime;
