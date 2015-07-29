@@ -105,7 +105,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     public Lyrics getChild(int groupPosition, int childPosition) {
         Lyrics child = getGroup(groupPosition).get(childPosition);
         if (child != null && !mIDs.containsKey(child.getURL()))
-            mIDs.put(child.getURL(), (long) child.getURL().hashCode());
+            mIDs.put(child.getURL(), (long) child.hashCode());
         return child;
     }
 
