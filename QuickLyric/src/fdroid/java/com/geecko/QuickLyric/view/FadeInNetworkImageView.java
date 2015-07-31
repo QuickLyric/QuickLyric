@@ -73,7 +73,9 @@ public class FadeInNetworkImageView extends NetworkImageView {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         if (changed)
             super.onLayout(true, left, top, right, bottom);
-        Bitmap bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
+        Bitmap bitmap = null;
+        if (getDrawable() != null)
+            bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
         if (mShowLocal && (bitmap == null || !(bitmap).equals(mLocalBitmap)))
             setImageBitmap(mLocalBitmap);
     }
