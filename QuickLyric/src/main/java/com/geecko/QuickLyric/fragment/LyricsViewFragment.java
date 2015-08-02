@@ -185,13 +185,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (layout != null) {
             Bundle args = savedInstanceState != null ? savedInstanceState : getArguments();
 
+            boolean screenOn = PreferenceManager
+                    .getDefaultSharedPreferences(getActivity()).getBoolean("pref_force_screen_on", false);
+
             TextSwitcher textSwitcher = (TextSwitcher) layout.findViewById(R.id.switcher);
             textSwitcher.setFactory(new LyricsTextFactory(layout.getContext()));
             ActionMode.Callback callback = new CustomSelectionCallback(getActivity());
             ((TextView) textSwitcher.getChildAt(0)).setCustomSelectionActionModeCallback(callback);
             ((TextView) textSwitcher.getChildAt(1)).setCustomSelectionActionModeCallback(callback);
-            textSwitcher.setKeepScreenOn(PreferenceManager
-                    .getDefaultSharedPreferences(getActivity()).getBoolean("pref_force_screen_on", false));
+            textSwitcher.setKeepScreenOn(screenOn);
+            layout.findViewById(R.id.lrc_view).setKeepScreenOn(screenOn);
 
             if (args != null && args.containsKey("editedLyrics")) {
                 EditText editedLyrics = (EditText) layout.findViewById(R.id.edit_lyrics);
