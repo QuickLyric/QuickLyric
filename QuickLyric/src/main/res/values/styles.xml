@@ -29,7 +29,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorPrimary</item>
         <item name="android:actionBarSize">@dimen/abc_action_bar_default_height_material</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
@@ -63,7 +62,6 @@
         <item name="android:headerBackground">@drawable/drawer_header_dark</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/black</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color_dark</item>
         <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
