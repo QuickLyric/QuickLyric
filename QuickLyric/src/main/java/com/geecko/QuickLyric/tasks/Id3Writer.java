@@ -96,7 +96,7 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
             af.setTag(tags);
             AudioFileIO.write(af);
         } catch (CannotReadException | IOException | ReadOnlyFileException
-                | TagException | InvalidAudioFrameException e) {
+                | TagException | InvalidAudioFrameException | NullPointerException e) {
             e.printStackTrace();
         } catch (CannotWriteException e) {
             e.printStackTrace(); // TODO: check Android 4.4 Kitkat
