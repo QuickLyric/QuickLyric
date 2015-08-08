@@ -38,7 +38,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     private final AnimatedExpandableListView megaListView;
     private ArrayList<ArrayList<Lyrics>> savedLyrics = null;
     private LayoutInflater inflater;
-    private HashMap<String, Long> mIDs = new HashMap<>();
+    private HashMap<String, Long> mGroupIDs = new HashMap<>();
     private View.OnTouchListener mTouchListener;
 
     public LocalAdapter(Context context, ArrayList<ArrayList<Lyrics>> lyrics,
@@ -97,28 +97,24 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     public ArrayList<Lyrics> getGroup(int groupPosition) {
         ArrayList<Lyrics> group = savedLyrics.size() > 0 ? savedLyrics.get(groupPosition) : null;
         if (group != null && group.size() > 0)
-            mIDs.put(group.get(0).getArtist(), (long) group.get(0).getArtist().hashCode());
+            mGroupIDs.put(group.get(0).getArtist(), (long) group.get(0).getArtist().hashCode());
         return group;
     }
 
     @Override
     public Lyrics getChild(int groupPosition, int childPosition) {
-        Lyrics child = getGroup(groupPosition).get(childPosition);
-        if (child != null && !mIDs.containsKey(child.getURL()))
-            mIDs.put(child.getURL(), (long) child.hashCode());
-        return child;
+        return getGroup(groupPosition).get(childPosition);
     }
 
     @Override
     public long getGroupId(int groupPosition) {
         String artist = getChild(groupPosition, 0).getArtist();
-        return mIDs.get(artist);
+        return mGroupIDs.get(artist);
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        String url = getChild(groupPosition, childPosition).getURL();
-        return mIDs.get(url);
+        return getChild(groupPosition, childPosition).hashCode();
     }
 
     @Override
