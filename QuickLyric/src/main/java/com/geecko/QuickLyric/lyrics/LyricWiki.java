@@ -27,6 +27,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -131,12 +132,13 @@ public class LyricWiki {
             Document lyricsPage = Jsoup.connect(url).get();
             Element lyricbox = lyricsPage.select("div.lyricBox").get(0);
             lyricbox.after(lyricbox.childNode(0));
+            lyricbox.getElementsByClass("references").remove();
             String lyricsHtml = lyricbox.html();
-            text = lyricsHtml.substring(0, lyricsHtml.indexOf("<!--"))
-                    .replaceAll("<.*?>", "")
-                    .replaceAll("\n", "<br />");
+            final Document.OutputSettings outputSettings = new Document.OutputSettings().prettyPrint(false);
+            text = Jsoup.clean(lyricsHtml, "", new Whitelist().addTags("br"), outputSettings);
             if (text.contains("&#"))
                 text = Parser.unescapeEntities(text, true);
+            text = text.replaceAll("\\[\\d\\]", "").trim();
         } catch (IndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
             return new Lyrics(ERROR);
