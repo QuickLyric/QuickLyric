@@ -20,17 +20,10 @@
 package com.geecko.QuickLyric.tasks;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
-import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextSwitcher;
 
 import com.geecko.QuickLyric.MainActivity;
@@ -86,21 +79,22 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
         Lyrics editedLyrics = (Lyrics) params[0];
         File musicFile = (File) params[1];
 
-        try {
-            AudioFile af = AudioFileIO.read(musicFile);
-            TagOptionSingleton.getInstance().setAndroid(true);
-            Tag tags = af.getTag();
-            tags.setField(FieldKey.ARTIST, editedLyrics.getArtist());
-            tags.setField(FieldKey.TITLE, editedLyrics.getTrack());
-            tags.setField(FieldKey.LYRICS, editedLyrics.getText());
-            af.setTag(tags);
-            AudioFileIO.write(af);
-        } catch (CannotReadException | IOException | ReadOnlyFileException
-                | TagException | InvalidAudioFrameException | NullPointerException e) {
-            e.printStackTrace();
-        } catch (CannotWriteException e) {
-            e.printStackTrace(); // TODO: check Android 4.4 Kitkat
-        }
+        if (musicFile != null)
+            try {
+                AudioFile af = AudioFileIO.read(musicFile);
+                TagOptionSingleton.getInstance().setAndroid(true);
+                Tag tags = af.getTag();
+                tags.setField(FieldKey.ARTIST, editedLyrics.getArtist());
+                tags.setField(FieldKey.TITLE, editedLyrics.getTrack());
+                tags.setField(FieldKey.LYRICS, editedLyrics.getText());
+                af.setTag(tags);
+                AudioFileIO.write(af);
+            } catch (CannotReadException | IOException | ReadOnlyFileException
+                    | TagException | InvalidAudioFrameException | NullPointerException e) {
+                e.printStackTrace();
+            } catch (CannotWriteException e) {
+                e.printStackTrace(); // TODO: check Android 4.4 Kitkat
+            }
 
         return null;
     }

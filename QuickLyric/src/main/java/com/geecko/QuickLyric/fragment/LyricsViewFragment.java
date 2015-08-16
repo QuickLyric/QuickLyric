@@ -176,7 +176,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         String track = lyrics.getTrack();
                         String url = lyrics.getURL();
                         fetchLyrics(artist, track, url);
-                        ((SwipeRefreshLayout)layout.findViewById(R.id.refresh_layout)).setRefreshing(true);
+                        ((SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout)).setRefreshing(true);
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -340,11 +340,15 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         songTV.setBackgroundColor(Color.TRANSPARENT);
         artistTV.setBackgroundColor(Color.TRANSPARENT);
 
+        String txt = mLyrics.getText();
+        if (txt == null)
+            txt = "";
+
         File musicFile = Id3Reader.getFile(getActivity(), mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack());
 
         if (!mLyrics.getArtist().equals(artistTV.getText().toString())
                 || !mLyrics.getTrack().equals(songTV.getText().toString())
-                || !Html.fromHtml(mLyrics.getText()).toString().equals(newLyrics.getText().toString())) {
+                || !Html.fromHtml(txt).toString().equals(newLyrics.getText().toString())) {
             mLyrics.setArtist(artistTV.getText().toString());
             mLyrics.setTitle(songTV.getText().toString());
             mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
@@ -389,7 +393,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             refreshIcon.stopAnimation();
         else
             RefreshIcon.mEnded = true;
-        mRefreshLayout.setRefreshing(false);
+        if (mRefreshLayout != null)
+            mRefreshLayout.setRefreshing(false);
     }
 
     public void fetchLyrics(String... params) {
@@ -779,7 +784,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         @Override
         public void run() {
             LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            while (!lrcView.isFinished() && getActivity() != null) {
+            while (lrcView != null && !lrcView.isFinished() && getActivity() != null) {
                 SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long timeSpent = System.currentTimeMillis() - startTime;
