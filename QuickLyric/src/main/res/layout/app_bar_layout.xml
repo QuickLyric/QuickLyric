@@ -18,7 +18,7 @@
   ~  */
   -->
 
-<android.support.design.widget.AppBarLayout
+<com.geecko.QuickLyric.view.ControllableAppBarLayout
     android:id="@+id/appbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -123,4 +123,4 @@
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </android.support.design.widget.CollapsingToolbarLayout>
-</android.support.design.widget.AppBarLayout>
+</com.geecko.QuickLyric.view.ControllableAppBarLayout>

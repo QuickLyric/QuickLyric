@@ -43,6 +43,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -87,6 +88,7 @@ import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
@@ -528,6 +530,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 textSwitcher.setVisibility(View.GONE);
                 lrcView.setVisibility(View.VISIBLE);
                 lrcView.setSourceLrc(lyrics.getText());
+                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
                 new Thread(lrcUpdater).start();
             }
 
@@ -712,6 +715,22 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return true;
             }
         });
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+                ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
+                        .setCollapsedTitleTextColor(Color.TRANSPARENT);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
+                        .setCollapsedTitleTextColor(Color.WHITE);
+                return true;
+            }
+        });
         if (mSearchQuery != null) {
             searchItem.expandActionView();
             searchView.setQuery(mSearchQuery, false);
@@ -784,7 +803,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         @Override
         public void run() {
             LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            while (lrcView != null && !lrcView.isFinished() && getActivity() != null) {
+            if (lrcView == null || getActivity() == null)
+                return;
+            while (!lrcView.isFinished()) {
                 SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long timeSpent = System.currentTimeMillis() - startTime;
@@ -796,6 +817,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     e.printStackTrace();
                 }
             }
+            lrcView.changeCurrent(0);
         }
     };
 }

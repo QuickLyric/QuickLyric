@@ -35,6 +35,8 @@ public class AppBarBehavior extends AppBarLayout.Behavior {
 
     @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean consumed) {
+        if (target == null)
+            return super.onNestedFling(coordinatorLayout, child, null, velocityX, velocityY, consumed);
         consumed = (velocityY < 0 && velocityY > -9000.0f) && target.getScrollY() > 2000 && consumed;
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
     }

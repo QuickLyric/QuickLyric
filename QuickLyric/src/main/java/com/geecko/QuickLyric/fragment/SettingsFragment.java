@@ -237,7 +237,7 @@ public class SettingsFragment extends PreferenceFragment implements
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
         if (mainActivity.focusOnFragment) // focus is on Fragment
         {
-            if (actionBar != null && (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title))))
+            if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title)))
                 toolbarLayout.setTitle(getString(R.string.app_name));
         } else
             menu.clear();

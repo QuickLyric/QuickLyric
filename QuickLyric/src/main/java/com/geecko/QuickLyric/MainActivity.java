@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -44,6 +45,7 @@ import android.preference.PreferenceManager;
 import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -132,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         final FragmentManager fragmentManager = getFragmentManager();
         setContentView(layout.nav_drawer_activity);
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(id.toolbar));
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(string.app_name);
 
         /** Drawer setup */
         final ListView drawerList = (ListView) findViewById(id.drawer_list);
@@ -708,6 +712,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 fragmentTransaction.show(newFragment);
             else
                 fragmentTransaction.add(id.main_fragment_container, newFragment, tag);
+            ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setCollapsedTitleTextColor(Color.WHITE);
             fragmentTransaction.commit();
 
             if (activeFragment instanceof LyricsViewFragment) {

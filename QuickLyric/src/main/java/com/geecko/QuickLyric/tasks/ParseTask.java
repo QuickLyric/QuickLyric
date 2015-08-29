@@ -61,7 +61,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
     protected void onPostExecute(String[] metaData) {
         if (currentLyrics != null && currentLyrics.getOriginalArtist().equalsIgnoreCase(metaData[0])
                 && currentLyrics.getOriginalTrack().equalsIgnoreCase(metaData[1])
-                && !("Storage".equals(currentLyrics.getSource()) ^ (noDoubleBroadcast))
+                && (!"Storage".equals(currentLyrics.getSource()) || ("Storage".equals(currentLyrics.getSource()) && noDoubleBroadcast))
                 && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (showMsg)
                 Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
