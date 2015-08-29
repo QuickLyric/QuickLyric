@@ -18,7 +18,22 @@
   ~  */
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/local_empty_database_textview"
-    android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/local_empty_database">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
-</TextView>
+    <ImageView
+        android:scaleType="fitCenter"
+        android:src="@drawable/empty_db"
+        android:layout_width="144dp"
+        android:layout_height="144dp"/>
+
+    <TextView
+        android:id="@+id/local_empty_database_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/local_empty_database"/>
+
+</LinearLayout>

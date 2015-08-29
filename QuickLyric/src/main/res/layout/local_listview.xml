@@ -43,6 +43,10 @@
         android:layout_centerInParent="true"
         android:indeterminate="true"/>
 
-    <include layout="@layout/local_empty_database_textview"/>
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        layout="@layout/local_empty_database_textview"/>
 
 </RelativeLayout>

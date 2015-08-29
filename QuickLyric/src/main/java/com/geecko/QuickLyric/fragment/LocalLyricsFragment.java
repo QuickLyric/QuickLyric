@@ -371,7 +371,7 @@ public class LocalLyricsFragment extends ListFragment {
         lyricsArray = results;
 
         megaListView.setAdapter(new LocalAdapter(getActivity(), results, mTouchListener, megaListView));
-        megaListView.setEmptyView(getView().findViewById(R.id.local_empty_database_textview));
+        megaListView.setEmptyView(((ViewGroup) getView().findViewById(R.id.local_empty_database_textview).getParent()));
         getListView().setSelectionFromTop(index, top);
         setListShown(true);
     }
