@@ -273,7 +273,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 String track = intent.getStringExtra("track");
                 if (artist != null && track != null) {
                     startRefreshAnimation();
-                    new ParseTask(LyricsViewFragment.this, false).execute(mLyrics);
+                    new ParseTask(LyricsViewFragment.this, false, true).execute(mLyrics);
                 }
             }
         };
@@ -446,9 +446,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         searchResultLock = false;
         getActivity().findViewById(R.id.edit_tags_btn).setVisibility(View.GONE);
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
-            new ParseTask(this, showMsg).execute(mLyrics);
+            new ParseTask(this, showMsg, false).execute(mLyrics);
         else
-            new ParseTask(this, showMsg).execute((Object) null);
+            new ParseTask(this, showMsg, false).execute((Object) null);
     }
 
     @TargetApi(16)

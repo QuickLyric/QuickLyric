@@ -32,13 +32,15 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
     private final boolean showMsg;
+    private final boolean noDoubleBroadcast;
     private Lyrics currentLyrics;
     private LyricsViewFragment lyricsViewFragment;
     private Context mContext;
 
-    public ParseTask(LyricsViewFragment fragment, boolean showMsg) {
+    public ParseTask(LyricsViewFragment fragment, boolean showMsg, boolean noDoubleBroadcast) {
         this.lyricsViewFragment = fragment;
         this.showMsg = showMsg;
+        this.noDoubleBroadcast = noDoubleBroadcast;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
     protected void onPostExecute(String[] metaData) {
         if (currentLyrics != null && currentLyrics.getOriginalArtist().equalsIgnoreCase(metaData[0])
                 && currentLyrics.getOriginalTrack().equalsIgnoreCase(metaData[1])
-                && !"Storage".equals(currentLyrics.getSource())
+                && !("Storage".equals(currentLyrics.getSource()) ^ (noDoubleBroadcast))
                 && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (showMsg)
                 Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
