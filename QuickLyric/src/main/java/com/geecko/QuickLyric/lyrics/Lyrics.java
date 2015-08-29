@@ -177,6 +177,6 @@ public class Lyrics implements Serializable {
     public int hashCode() {
         // Potential issue with the Birthday Paradox when we hash over 50k lyrics
         return this.getURL() != null ? this.getURL().hashCode() :
-                (this.getOriginalArtist()+this.getOriginalTrack()+this.getSource()).hashCode();
+                (""+this.getOriginalArtist()+this.getOriginalTrack()+this.getSource()).hashCode();
     }
 }
