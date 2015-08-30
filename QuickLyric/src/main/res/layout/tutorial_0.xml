@@ -42,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
         android:text="@string/welcome2_sub"
         android:id="@+id/textView2"
         android:paddingRight="10dp"

@@ -48,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
         android:text="@string/apps_desc_sub"
         android:id="@+id/textView1_b"
         android:layout_above="@id/textView1_c"
