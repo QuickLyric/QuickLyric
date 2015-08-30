@@ -29,6 +29,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -585,8 +586,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (parent.findViewById(R.id.tracks_msg) == null)
             inflater.inflate(R.layout.no_tracks, parent);
 
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.firstLaunchCoverDrawable, typedValue, true);
+        int firstLaunchBGid = typedValue.resourceId;
         @SuppressWarnings("deprecation")
-        BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(R.drawable.first_launch_cover));
+        BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(firstLaunchBGid));
 
         setCoverArt(bd != null ? bd.getBitmap() : null, null);
         ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");

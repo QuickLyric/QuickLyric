@@ -45,7 +45,7 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
-import com.geecko.QuickLyric.utils.SearchPagerAdapter;
+import com.geecko.QuickLyric.fragment.SearchPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -17,7 +17,7 @@
  *
  */
 
-package com.geecko.QuickLyric.utils;
+package com.geecko.QuickLyric.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -27,6 +27,7 @@ import android.support.v4.view.ViewPager;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.SearchActivity;
+import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 public class SearchPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
 

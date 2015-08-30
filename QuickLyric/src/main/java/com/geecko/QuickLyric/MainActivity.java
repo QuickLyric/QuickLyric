@@ -68,7 +68,6 @@ import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.IdDecoder;
@@ -237,7 +236,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             if (fragment == null)
                 continue;
             if ((fragment instanceof LyricsViewFragment && ((LyricsViewFragment) fragment).isActiveFragment)
-                    || (fragment instanceof SettingsFragment && ((SettingsFragment) fragment).isActiveFragment)
                     || (fragment instanceof LocalLyricsFragment && ((LocalLyricsFragment) fragment).isActiveFragment))
                 return fragment;
         }
@@ -690,12 +688,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 ((LocalLyricsFragment) newFragment).showTransitionAnim = true;
                 break;
             case 2:
-                tag = SETTINGS_FRAGMENT;
-                newFragment = fragmentManager.findFragmentByTag(tag);
-                if (newFragment == null || !(newFragment instanceof SettingsFragment))
-                    newFragment = new SettingsFragment();
-                ((SettingsFragment) newFragment).showTransitionAnim = true;
-                break;
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return;
         }
 
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());

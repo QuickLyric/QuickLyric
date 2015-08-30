@@ -32,4 +32,6 @@
     </declare-styleable>
 
     <attr name="rippleBackGroundColor" format="reference|color"/>
+
+    <attr name="firstLaunchCoverDrawable" format="reference" />
 </resources>

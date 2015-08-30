@@ -36,7 +36,6 @@ import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.adapter.SearchAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.SearchTask;
-import com.geecko.QuickLyric.utils.SearchPagerAdapter;
 
 import java.util.List;
 

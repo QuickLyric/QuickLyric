@@ -30,7 +30,7 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 50
+        versionCode 51
         versionName "2.0 Beta"
     }
 
@@ -69,9 +69,9 @@ android {
     }
 }
 dependencies {
-    compile 'com.android.support:support-v4:23.+'
-    compile 'com.android.support:appcompat-v7:23.+'
-    compile 'com.android.support:support-v13:23.+'
+    compile 'com.android.support:support-v4:22.+'
+    compile 'com.android.support:appcompat-v7:22.+'
+    compile 'com.android.support:support-v13:22.+'
     compile 'com.android.support:design:22.+'
     compile 'com.android.support:cardview-v7:23.+'
     compile 'com.balysv:material-ripple:1.0.2'

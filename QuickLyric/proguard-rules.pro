@@ -18,6 +18,8 @@
 
 -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 -dontwarn org.jaudiotagger.**
+-dontwarn com.viewpagerindicator.**
+-dontwarn org.acra.**
 -dontoptimize
 
 -keep class !android.support.v7.internal.view.menu.**,!android.support.v7.app.**, ** {*;}

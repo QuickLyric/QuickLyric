@@ -19,8 +19,6 @@
 
 package com.geecko.QuickLyric.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -29,21 +27,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -56,8 +47,6 @@ public class SettingsFragment extends PreferenceFragment implements
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
 
     private int[] nightTimeStart = new int[]{42, 0};
-    public boolean showTransitionAnim = true;
-    public boolean isActiveFragment = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +77,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 break;
@@ -102,6 +92,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 break;
@@ -131,6 +122,7 @@ public class SettingsFragment extends PreferenceFragment implements
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setAction("android.intent.action.MAIN");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 break;
@@ -175,19 +167,11 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onViewCreated(view, savedInstanceState);
         if (this.isHidden())
             return;
-        final MainActivity activity = ((MainActivity) this.getActivity());
         View fragmentView = getView();
         TypedValue typedValue = new TypedValue();
         view.getContext().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
         if (fragmentView != null)
             fragmentView.setBackgroundColor(typedValue.data);
-        DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) activity.findViewById(R.id.drawer_list)).getAdapter());
-
-        if (drawerAdapter.getSelectedItem() != 2) {
-            drawerAdapter.setSelectedItem(2);
-            drawerAdapter.notifyDataSetChanged();
-        }
-        this.isActiveFragment = true;
     }
 
     @Override
@@ -214,6 +198,7 @@ public class SettingsFragment extends PreferenceFragment implements
                 getActivity().finish();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setAction("android.intent.action.MAIN");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         }
@@ -224,57 +209,5 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onHiddenChanged(hidden);
         if (!hidden)
             this.onViewCreated(getView(), null);
-        else
-            this.isActiveFragment = false;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        MainActivity mainActivity = (MainActivity) this.getActivity();
-        ActionBar actionBar = (mainActivity).getSupportActionBar();
-        CollapsingToolbarLayout toolbarLayout =
-                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
-        if (mainActivity.focusOnFragment) // focus is on Fragment
-        {
-            if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.settings_title)))
-                toolbarLayout.setTitle(getString(R.string.app_name));
-        } else
-            menu.clear();
-    }
-
-    @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        final MainActivity mainActivity = (MainActivity) getActivity();
-        Animator anim = null;
-        if (showTransitionAnim) {
-            if (nextAnim != 0)
-                anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-            showTransitionAnim = false;
-            if (anim != null)
-                anim.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if (mainActivity.drawer instanceof DrawerLayout)
-                            ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
-                        mainActivity.setDrawerListener(true);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-                    }
-
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        mainActivity.setDrawerListener(false);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-                    }
-                });
-        } else
-            anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
-        return anim;
     }
 }
