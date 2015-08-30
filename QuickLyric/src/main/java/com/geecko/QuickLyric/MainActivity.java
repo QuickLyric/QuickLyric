@@ -400,14 +400,14 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LyricsViewFragment lyricsViewFragment =
+                (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
-            LyricsViewFragment lyricsViewFragment =
-                    (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
             lyricsViewFragment.searchResultLock = true;
         }
-        invalidateOptionsMenu();
+        lyricsViewFragment.collapseSearchView();
     }
 
     @Override

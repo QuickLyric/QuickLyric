@@ -594,6 +594,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         setCoverArt(bd != null ? bd.getBitmap() : null, null);
         ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
+        getActivity().findViewById(R.id.error_msg).setVisibility(View.INVISIBLE);
+        ((TextView) getActivity().findViewById(R.id.artist)).setText("");
+        ((TextView) getActivity().findViewById(R.id.song)).setText("");
         getActivity().findViewById(R.id.top_gradient).setVisibility(View.INVISIBLE);
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.INVISIBLE);
     }
@@ -824,4 +827,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             lrcView.changeCurrent(0);
         }
     };
+
+    public void collapseSearchView() {
+        searchItem.collapseActionView();
+    }
 }
