@@ -64,6 +64,7 @@ import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.BackgroundContainer;
 
@@ -73,6 +74,7 @@ import java.util.HashMap;
 public class LocalLyricsFragment extends ListFragment {
 
 
+    public static final int REQUEST_CODE = 0;
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
     public ArrayList<ArrayList<Lyrics>> lyricsArray = null;
@@ -395,7 +397,7 @@ public class LocalLyricsFragment extends ListFragment {
         if (mainActivity.focusOnFragment) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
-                toolbarLayout.setTitle(getString(R.string.app_name));
+                toolbarLayout.setTitle(getString(R.string.local_title));
             inflater.inflate(R.menu.local, menu);
         } else
             menu.clear();
