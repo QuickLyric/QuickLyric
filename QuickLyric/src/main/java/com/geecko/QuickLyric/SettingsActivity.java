@@ -57,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (color == null) {
                 TypedValue typedValue = new TypedValue();
                 Resources.Theme theme = getTheme();
-                theme.resolveAttribute(android.R.attr.statusBarColor, typedValue, true);
+                theme.resolveAttribute(android.R.attr.colorPrimaryDark, typedValue, true);
                 color = typedValue.data;
             }
             getWindow().setStatusBarColor(color);
