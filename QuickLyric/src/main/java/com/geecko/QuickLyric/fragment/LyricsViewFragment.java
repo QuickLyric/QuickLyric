@@ -587,6 +587,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(false);
         getActivity().getIntent().setAction("");
+        getActivity().invalidateOptionsMenu();
     }
 
     private void showFirstStart() {
@@ -769,6 +770,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);
             }
         }
+        MenuItem shareMenuItem = menu.findItem(R.id.share_action);
+        if (shareMenuItem != null)
+            shareMenuItem.setVisible(mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && mLyrics.getURL() != null);
     }
 
     @Override
