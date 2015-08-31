@@ -75,25 +75,4 @@
             android:summary="@string/pref_notifications_sum"
             android:title="@string/pref_notifications"/>
     </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_more_category">
-        <Preference
-            android:key="pref_contribute"
-            android:summary="@string/pref_contribute_sum"
-            android:title="@string/pref_contribute"/>
-        <!--
-        <Preference
-            android:title="@string/pref_beta"
-            android:key="pref_beta"
-            android:summary="@string/pref_beta_sum"/>
-        !-->
-        <Preference
-            android:key="pref_issues"
-            android:summary="@string/pref_issues_sum"
-            android:title="@string/pref_issues"/>
-        <Preference
-            android:key="pref_about"
-            android:summary="@string/pref_about_summary"
-            android:title="@string/pref_about"/>
-    </PreferenceCategory>
 </PreferenceScreen>

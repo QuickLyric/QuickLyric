@@ -53,6 +53,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -71,7 +72,6 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
-import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
@@ -82,7 +82,6 @@ import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private MusicBroadcastReceiver receiver;
     private boolean receiverRegistered = false;
     private boolean destroyed = false;
+    private AlertDialog mLinksDialog;
 
     private static void prepareAnimations(Fragment nextFragment) {
         if (nextFragment != null) {
@@ -700,6 +700,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         String tag;
         switch (position) {
             default:
+                // Lyrics
                 tag = LYRICS_FRAGMENT_TAG;
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof LyricsViewFragment))
@@ -707,6 +708,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 ((LyricsViewFragment) newFragment).showTransitionAnim = true;
                 break;
             case 1:
+                // Saved Lyrics
                 tag = LOCAL_LYRICS_FRAGMENT_TAG;
                 newFragment = fragmentManager.findFragmentByTag(tag);
                 if (newFragment == null || !(newFragment instanceof LocalLyricsFragment))
@@ -714,8 +716,35 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 ((LocalLyricsFragment) newFragment).showTransitionAnim = true;
                 break;
             case 2:
+                // Separator
+                return;
+            case 3:
+                // Settings
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
+                return;
+            case 4:
+                // Feedback
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"quicklyricapp@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Issues with QuickLyric");
+                if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                    Toast.makeText(this, R.string.pref_issues_sum, Toast.LENGTH_LONG).show();
+                    startActivity(emailIntent);
+                }
+                if (drawer instanceof DrawerLayout)
+                    ((DrawerLayout) drawer).closeDrawer(drawerView);
+                return;
+            case 5:
+                // About Dialog
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setView(getLayoutInflater().inflate(layout.links_dialog, (ViewGroup) drawerView.getRootView(), false));
+                dialog.setCancelable(true);
+                mLinksDialog = dialog.create();
+                mLinksDialog.show();
+                if (drawer instanceof DrawerLayout)
+                    ((DrawerLayout) drawer).closeDrawer(drawerView);
                 return;
         }
 
@@ -755,6 +784,38 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @SuppressWarnings("unused")
     public void id3PopUp(View view) {
         Toast.makeText(this, string.ignore_id3_toast, Toast.LENGTH_LONG).show();
+    }
+
+    public void facebookLink(View view) {
+        openLink("https://www.facebook.com/QuickLyric");
+        mLinksDialog.dismiss();
+    }
+
+    public void twitterLink(View view) {
+        openLink("https://www.twitter.com/QuickLyric");
+        mLinksDialog.dismiss();
+    }
+
+    public void googleLink(View view) {
+        openLink("https://plus.google.com/communities/115504114424315189412");
+        mLinksDialog.dismiss();
+    }
+
+    public void githubLink(View view) {
+        openLink("https://github.com/geecko86/QuickLyric");
+        mLinksDialog.dismiss();
+    }
+
+    private void openLink(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    public void aboutApp(View view) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setView(getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) drawerView.getRootView(), false));
+        dialog.create().show();
     }
 
     private class DrawerItemClickListener implements

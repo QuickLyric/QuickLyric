@@ -37,6 +37,7 @@
     <string name="pref_20min_ignore_sum">Tracks longer than 20 minutes (like podcasts) are not considered songs</string>
     <string name="pref_scrobbling_category">Scrobbling</string>
     <string name="pref_about">About</string>
+    <string name="send_feedback">Send feedback</string>
     <string name="pref_about_summary">More about QuickLyric</string>
     <string name="local_title">Saved Lyrics</string>
     <string name="settings_title">Settings</string>
@@ -244,10 +245,13 @@ A few possible reasons why:<br/>
     </plurals>
 
 
-    <string-array name="nav_items">
+    <string-array xmlns:tools="http://schemas.android.com/tools" name="nav_items">
         <item>@string/title_lyrics</item>
         <item>@string/local_title</item>
+        <item>-</item>
         <item>@string/settings_title</item>
+        <item>@string/send_feedback</item>
+        <item>@string/pref_about</item>
     </string-array>
     <string-array name="sort_modes">
         <item>By artist…</item>

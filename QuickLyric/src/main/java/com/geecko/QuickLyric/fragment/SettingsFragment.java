@@ -41,8 +41,7 @@ import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 public class SettingsFragment extends PreferenceFragment implements
-        Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
-        TimePickerDialog.OnTimeSetListener {
+        Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
@@ -60,10 +59,6 @@ public class SettingsFragment extends PreferenceFragment implements
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
 
         findPreference("pref_theme").setSummary(themes[themeNum]);
-        findPreference("pref_contribute").setOnPreferenceClickListener(this);
-        // findPreference("pref_beta").setOnPreferenceClickListener(this);
-        findPreference("pref_issues").setOnPreferenceClickListener(this);
-        findPreference("pref_about").setOnPreferenceClickListener(this);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
         findPreference("pref_force_screen_on").setOnPreferenceChangeListener(this);
         findPreference("pref_opendyslexic").setOnPreferenceChangeListener(this);
@@ -131,38 +126,6 @@ public class SettingsFragment extends PreferenceFragment implements
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        AlertDialog.Builder dialog;
-        switch (preference.getKey()) {
-            case "pref_about":
-                dialog = new AlertDialog.Builder(getActivity());
-                dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) getView(), false));
-                dialog.create().show();
-                break;
-            case "pref_contribute":
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-                browserIntent.setData(Uri.parse("https://github.com/geecko86/QuickLyric"));
-                if (browserIntent.resolveActivity(getActivity().getPackageManager()) != null)
-                    startActivity(browserIntent);
-                break;
-            case "pref_beta":
-                dialog = new AlertDialog.Builder(getActivity());
-                dialog.setView(getActivity().getLayoutInflater().inflate(R.layout.beta_dialog, (ViewGroup) getView(), false));
-                dialog.create().show();
-                break;
-            case "pref_issues":
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"quicklyricapp@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Issues with QuickLyric");
-                if (emailIntent.resolveActivity(getActivity().getPackageManager()) != null)
-                    startActivity(emailIntent);
                 break;
         }
         return true;

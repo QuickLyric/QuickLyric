@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -45,52 +46,60 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         this.stringArray = strings;
         Drawable drawable1 = context.getResources().getDrawable(R.drawable.ic_lyrics);
         Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
-        Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
-        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3};
+        Drawable drawable4 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
+        Drawable drawable5 = context.getResources().getDrawable(R.drawable.ic_send_feedback);
+        Drawable drawable6 = context.getResources().getDrawable(R.drawable.ic_info);
+        this.drawableArray = new Drawable[]{drawable1, drawable2, null, drawable4, drawable5, drawable6};
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null || convertView.getId() != position) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.drawer_row, null);
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (position == 2) {
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.drawer_separator, null);
+            }
+        } else {
+            if (convertView == null || convertView.getId() != position) {
+                convertView = inflater.inflate(R.layout.drawer_row, null);
+                if (convertView != null) {
+                    TextView textView = (TextView) convertView;
+                    convertView.setId(position);
+                    textView.setText(stringArray[position]);
+                    textView.setCompoundDrawablesWithIntrinsicBounds
+                            (drawableArray[position], null, null, null);
+                }
+            }
             if (convertView != null) {
                 TextView textView = (TextView) convertView;
-                convertView.setId(position);
-                textView.setText(stringArray[position]);
-                textView.setCompoundDrawablesWithIntrinsicBounds
-                        (drawableArray[position], null, null, null);
-            }
+                Typeface roboto = Typeface
+                        .createFromAsset(getContext().getAssets(), "fonts/Roboto-Medium.ttf");
+                textView.setTypeface(roboto);
+                if (position == selectedItem) {
+                    TypedValue typedValue = new TypedValue();
+                    Resources.Theme theme = getContext().getTheme();
+                    theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+                    int primaryDark = typedValue.data;
+                    ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
+                    textView.setTextColor(primaryDark);
+                    textView.getCompoundDrawables()[0].setColorFilter(
+                            primaryDark,
+                            PorterDuff.Mode.SRC_IN);
+                    TypedValue backgroundValue = new TypedValue();
+                    getContext().getTheme().resolveAttribute(android.R.attr.galleryItemBackground, backgroundValue, true);
+                    convertView.setBackgroundColor(backgroundValue.data);
+                } else {
+                    TypedValue colorValue = new TypedValue();
+                    getContext().getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
+                    textView.setTextColor(colorValue.data);
+                    convertView.setBackgroundColor(Color.TRANSPARENT);
+                    textView.getCompoundDrawables()[0].clearColorFilter();
+                }
+            } else
+                return null;
         }
-        if (convertView != null) {
-            TextView textView = (TextView) convertView;
-            Typeface roboto = Typeface
-                    .createFromAsset(getContext().getAssets(), "fonts/Roboto-Medium.ttf");
-            textView.setTypeface(roboto);
-            if (position == selectedItem) {
-                TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = getContext().getTheme();
-                theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-                int primaryDark = typedValue.data;
-                ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
-                textView.setTextColor(primaryDark);
-                textView.getCompoundDrawables()[0].setColorFilter(
-                        primaryDark,
-                        PorterDuff.Mode.SRC_IN);
-                TypedValue backgroundValue = new TypedValue();
-                getContext().getTheme().resolveAttribute(android.R.attr.galleryItemBackground, backgroundValue, true);
-                convertView.setBackgroundColor(backgroundValue.data);
-            } else {
-                TypedValue colorValue = new TypedValue();
-                getContext().getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
-                textView.setTextColor(colorValue.data);
-                convertView.setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
-                textView.getCompoundDrawables()[0].clearColorFilter();
-            }
-            return convertView;
-        } else
-            return null;
+        return convertView;
     }
 
     public void setSelectedItem(int position) {
