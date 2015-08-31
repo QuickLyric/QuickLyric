@@ -41,7 +41,7 @@ public class CustomSelectionCallback implements ActionMode.Callback {
 
     @TargetApi(21)
     private void changeThemeColors(boolean actionMode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mActivity.setStatusBarColor(actionMode ? mActivity.getResources()
                             .getColor(R.color.action_dark) : null);
             mActivity.setNavBarColor(actionMode ? mActivity.getResources()

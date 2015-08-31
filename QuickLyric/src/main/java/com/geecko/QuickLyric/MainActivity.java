@@ -500,12 +500,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 break;
             case Id3Writer.REQUEST_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
-                            getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
-                    File musicFile = Id3Reader.getFile(this,
-                            lyricsViewFragment.mLyrics.getOriginalArtist(),
-                            lyricsViewFragment.mLyrics.getOriginalTrack());
-                    new Id3Writer(lyricsViewFragment).execute(lyricsViewFragment.mLyrics, musicFile);
+                    Toast.makeText(this, string.id3_write_permission_error, Toast.LENGTH_LONG).show();
                 } else {
                     String message = getString(string.id3_write_error)+ " " + getString(string.permission_denied);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
