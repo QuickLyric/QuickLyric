@@ -416,7 +416,7 @@ public class LocalLyricsFragment extends ListFragment {
     public void showScanDialog() {
         CharSequence[] items = getResources().getStringArray(R.array.URI_labels);
         AlertDialog.Builder choiceBuilder = new AlertDialog.Builder(getActivity());
-        choiceBuilder
+        AlertDialog choiceDialog = choiceBuilder
                 .setTitle(R.string.content_providers_title)
                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -458,7 +458,13 @@ public class LocalLyricsFragment extends ListFragment {
                                 .create().show();
                     }
                 })
-                .create().show();
+                .create();
+        choiceDialog.show();
+        if (!PermissionsChecker.requestPermission(getActivity(),
+                "android.permission.READ_EXTERNAL_STORAGE",
+                0,
+                LocalLyricsFragment.REQUEST_CODE))
+            choiceDialog.dismiss();
     }
 
     public void setListShown(final boolean visible) {

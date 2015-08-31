@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -70,6 +71,8 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
+import com.geecko.QuickLyric.tasks.Id3Reader;
+import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
@@ -79,6 +82,7 @@ import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -482,6 +486,33 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 .enablePullToRefresh(i == 0);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case LocalLyricsFragment.REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    LocalLyricsFragment localLyricsFragment = (LocalLyricsFragment)
+                            getFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+                    localLyricsFragment.showScanDialog();
+                } else {
+                    Toast.makeText(this, string.scan_error_permission_denied, Toast.LENGTH_LONG).show();
+                }
+                break;
+            case Id3Writer.REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
+                            getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                    File musicFile = Id3Reader.getFile(this,
+                            lyricsViewFragment.mLyrics.getOriginalArtist(),
+                            lyricsViewFragment.mLyrics.getOriginalTrack());
+                    new Id3Writer(lyricsViewFragment).execute(lyricsViewFragment.mLyrics, musicFile);
+                } else {
+                    String message = getString(string.id3_write_error)+ " " + getString(string.permission_denied);
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+        }
+    }
+
     public void setDrawerListener(boolean bool) {
         ((ListView) findViewById(id.drawer_list))
                 .setOnItemClickListener(bool ? drawerListener : null);
@@ -577,7 +608,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         if (params.length > 2)
             url = params[2];
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
-                getFragmentManager().findFragmentByTag("LyricsViewFragment");
+                getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null)
             lyricsViewFragment.fetchLyrics(artist, song, url);
         else {
@@ -602,7 +633,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 prepareAnimations(activeFragment);
                 fragmentTransaction.hide(activeFragment);
             }
-            fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, "LyricsViewFragment");
+            fragmentTransaction.add(id.main_fragment_container, lyricsViewFragment, LYRICS_FRAGMENT_TAG);
             lyricsViewFragment.isActiveFragment = true;
             fragmentTransaction.commit();
         }

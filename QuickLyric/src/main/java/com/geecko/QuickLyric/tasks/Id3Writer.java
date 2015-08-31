@@ -19,17 +19,22 @@
 
 package com.geecko.QuickLyric.tasks;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextSwitcher;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.view.RefreshIcon;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -46,8 +51,9 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 import java.io.File;
 import java.io.IOException;
 
-public class Id3Writer extends AsyncTask<Object, Object, Object> {
+public class Id3Writer extends AsyncTask<Object, Object, Boolean> {
 
+    public static final int REQUEST_CODE = 1;
     private final Context mContext;
     private final LyricsViewFragment fragment;
 
@@ -75,9 +81,10 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
     }
 
     @Override
-    protected Object doInBackground(Object... params) {
+    protected Boolean doInBackground(Object... params) {
         Lyrics editedLyrics = (Lyrics) params[0];
         File musicFile = (File) params[1];
+        boolean failed = false;
 
         if (musicFile != null)
             try {
@@ -89,13 +96,23 @@ public class Id3Writer extends AsyncTask<Object, Object, Object> {
                 tags.setField(FieldKey.LYRICS, editedLyrics.getText());
                 af.setTag(tags);
                 AudioFileIO.write(af);
-            } catch (CannotReadException | IOException | ReadOnlyFileException
-                    | TagException | InvalidAudioFrameException | NullPointerException e) {
+            } catch (CannotReadException | IOException | ReadOnlyFileException | TagException
+                    | InvalidAudioFrameException | NullPointerException | CannotWriteException e) {
                 e.printStackTrace();
-            } catch (CannotWriteException e) {
-                e.printStackTrace(); // TODO: check Android 4.4 Kitkat
+                failed = true;
             }
 
-        return null;
+        return failed;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean failed) {
+        if (failed) {
+            Toast.makeText(mContext, R.string.id3_write_error, Toast.LENGTH_LONG).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && PermissionsChecker.hasPermission((Activity) mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                Toast.makeText(mContext, R.string.id3_write_permission_error, Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(mContext, R.string.id3_write_success, Toast.LENGTH_LONG).show();
     }
 }

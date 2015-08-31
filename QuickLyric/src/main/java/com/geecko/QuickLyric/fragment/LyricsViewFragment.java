@@ -29,7 +29,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -89,6 +88,7 @@ import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
@@ -355,7 +355,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mLyrics.setArtist(artistTV.getText().toString());
             mLyrics.setTitle(songTV.getText().toString());
             mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
-            new Id3Writer(this).execute(mLyrics, musicFile);
+            if (PermissionsChecker.requestPermission(getActivity(),
+                    "android.permission.WRITE_EXTERNAL_STORAGE", 0, Id3Writer.REQUEST_CODE))
+                new Id3Writer(this).execute(mLyrics, musicFile);
         } else
             new Id3Writer(this).onPreExecute();
     }
@@ -417,9 +419,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (lyrics == null)
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
 
-            if (lyrics == null && (mLyrics == null || !("Storage".equals(mLyrics.getSource())
-                    && mLyrics.getArtist().equalsIgnoreCase(artist)
-                    && mLyrics.getTrack().equalsIgnoreCase(title))
+            if (lyrics == null && url == null &&
+                    (getActivity().getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false))
+                    && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
+                    !("Storage".equals(mLyrics.getSource())
+                            && mLyrics.getArtist().equalsIgnoreCase(artist)
+                            && mLyrics.getTrack().equalsIgnoreCase(title))
             ))
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
         } else {
@@ -487,8 +492,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
-        File musicFile = Id3Reader.getFile(getActivity(), lyrics.getOriginalArtist(), lyrics.getOriginalTrack());
-        Bitmap cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+        File musicFile = null;
+        Bitmap cover = null;
+        if (PermissionsChecker.hasPermission(getActivity(), "android.permission.READ_EXTERNAL_STORAGE")) {
+            musicFile = Id3Reader.getFile(getActivity(), lyrics.getOriginalArtist(), lyrics.getOriginalTrack());
+            cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+        }
         setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
@@ -531,7 +540,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 textSwitcher.setVisibility(View.GONE);
                 lrcView.setVisibility(View.VISIBLE);
                 lrcView.setSourceLrc(lyrics.getText());
-                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+                if (isActiveFragment)
+                    ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
                 new Thread(lrcUpdater).start();
             }
 
@@ -812,9 +822,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
             if (lrcView == null || getActivity() == null)
                 return;
+            SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+            long startTime = preferences.getLong("startTime", System.currentTimeMillis());
             while (!lrcView.isFinished()) {
-                SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-                long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long timeSpent = System.currentTimeMillis() - startTime;
                 if (preferences.getLong("pauseTime", 0) == 0)
                     lrcView.changeCurrent(timeSpent);

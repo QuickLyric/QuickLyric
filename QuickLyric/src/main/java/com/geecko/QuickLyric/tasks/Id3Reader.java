@@ -19,13 +19,16 @@
 
 package com.geecko.QuickLyric.tasks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -36,9 +39,13 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
+import com.geecko.QuickLyric.R;
+
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
 public class Id3Reader {
+
+    public static final int REQUEST_CODE = 2;
 
     public static Bitmap getCover(Context context, String artist, String title) {
         try {
@@ -64,6 +71,7 @@ public class Id3Reader {
                 throw new NoSuchFieldException();
             text = text.replaceAll("\n", "<br/>");
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
@@ -75,6 +83,11 @@ public class Id3Reader {
     }
 
     public static File getFile(Context context, String artist, String title) {
+        if (!PermissionsChecker.requestPermission((Activity) context,
+                "android.permission.READ_EXTERNAL_STORAGE",
+                R.string.id3_read_rationale,
+                Id3Reader.REQUEST_CODE))
+            return null;
         Uri uri = Uri.parse("content://media/external/audio/media");
         String[] columns = new String[]{"artist", "title", "_data"};
         String[] args = new String[]{artist, title};
