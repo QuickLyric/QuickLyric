@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -54,6 +55,11 @@ public class SettingsFragment extends PreferenceFragment implements
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        int[] themes = new int[]{R.string.defaut_theme, R.string.dark_theme};
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+
+        findPreference("pref_theme").setSummary(themes[themeNum]);
         findPreference("pref_contribute").setOnPreferenceClickListener(this);
         // findPreference("pref_beta").setOnPreferenceClickListener(this);
         findPreference("pref_issues").setOnPreferenceClickListener(this);
