@@ -69,7 +69,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -828,8 +827,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (coverView != null)
             coverView.setLocalImageBitmap(cover);
-        // getActivity().findViewById(R.id.top_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
-        // getActivity().findViewById(R.id.bottom_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
+        getActivity().findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
     }
 
     public void startEmpty(boolean startEmpty) {
@@ -843,8 +842,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (lrcView == null || getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            long startTime = preferences.getLong("startTime", System.currentTimeMillis());
             while (!lrcView.isFinished()) {
+                long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long timeSpent = System.currentTimeMillis() - startTime;
                 if (preferences.getLong("pauseTime", 0) == 0)
                     lrcView.changeCurrent(timeSpent);

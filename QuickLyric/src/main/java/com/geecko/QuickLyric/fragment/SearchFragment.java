@@ -45,7 +45,6 @@ public class SearchFragment extends ListFragment {
     public List<Lyrics> results;
     private boolean refresh = false;
     private ViewGroup errorView;
-    private static int errorVisibility = View.INVISIBLE;
     public SearchTask searchTask;
     public SearchActivity searchTabs;
     private int searchProvider;
@@ -135,10 +134,8 @@ public class SearchFragment extends ListFragment {
             if (errorView != null) {
                 if (results.size() == 0) {
                     errorView.setVisibility(View.VISIBLE);
-                    errorVisibility = View.VISIBLE;
                 } else {
-                    errorVisibility = View.INVISIBLE;
-                    errorView.setVisibility(errorVisibility);
+                    errorView.setVisibility(View.INVISIBLE);
                 }
             }
             String[] songsArray = new String[results.size()];
@@ -158,7 +155,6 @@ public class SearchFragment extends ListFragment {
             this.setListShown(false);
         if (errorView != null) {
             errorView.setVisibility(View.INVISIBLE);
-            errorVisibility = View.INVISIBLE;
         }
         searchTask = new SearchTask();
         searchTask.execute(searchQuery, this, searchProvider);

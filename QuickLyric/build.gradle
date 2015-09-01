@@ -30,8 +30,8 @@ android {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 51
-        versionName "2.0 Beta"
+        versionCode 52
+        versionName "2.0 RC0"
     }
 
     compileOptions {
@@ -68,10 +68,15 @@ android {
 		disable 'InvalidPackage'    
     }
 }
+
 dependencies {
+    //noinspection GradleCompatible
     compile 'com.android.support:support-v4:22.+'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:22.+'
+    //noinspection GradleCompatible
     compile 'com.android.support:support-v13:22.+'
+    //noinspection GradleCompatible
     compile 'com.android.support:design:22.+'
     compile 'com.android.support:cardview-v7:23.+'
     compile 'com.balysv:material-ripple:1.0.2'
