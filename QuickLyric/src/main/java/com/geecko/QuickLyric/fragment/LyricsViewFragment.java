@@ -388,18 +388,29 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void startRefreshAnimation() {
-        if (getActivity() != null && getView() != null)
-            ((SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout)).setRefreshing(true);
+        if (mRefreshLayout == null)
+            if (getActivity() != null && getView() != null)
+                mRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout);
+        if (mRefreshLayout != null)
+            mRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshLayout.setRefreshing(true);
+                }
+            });
     }
 
     public void stopRefreshAnimation() {
-        RefreshIcon refreshIcon = (RefreshIcon) getActivity().findViewById(R.id.refresh_fab);
-        if (refreshIcon != null)
-            refreshIcon.stopAnimation();
-        else
-            RefreshIcon.mEnded = true;
+        if (mRefreshLayout == null)
+            if (getActivity() != null && getView() != null)
+                mRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout);
         if (mRefreshLayout != null)
-            mRefreshLayout.setRefreshing(false);
+            mRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshLayout.setRefreshing(false);
+                }
+            });
     }
 
     public void fetchLyrics(String... params) {
@@ -408,14 +419,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         String url = null;
         if (params.length > 2)
             url = params[2];
-        if (mRefreshLayout != null && !mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    mRefreshLayout.setRefreshing(true);
-                }
-            });
-        }
+        startRefreshAnimation();
 
         Lyrics lyrics;
         if (artist != null && title != null) {
@@ -598,7 +602,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             id3TV.setVisibility(View.GONE);
         }
         if (mRefreshLayout.isRefreshing())
-            mRefreshLayout.setRefreshing(false);
+            stopRefreshAnimation();
         getActivity().getIntent().setAction("");
         getActivity().invalidateOptionsMenu();
     }

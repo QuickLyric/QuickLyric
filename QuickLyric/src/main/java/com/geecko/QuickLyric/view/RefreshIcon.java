@@ -30,19 +30,13 @@ import android.view.animation.RotateAnimation;
 
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 
-public class RefreshIcon extends FloatingActionButton implements Animation.AnimationListener {
+public class RefreshIcon extends FloatingActionButton {
 
-    private final RotateAnimation rotateAnimation;
     private boolean mRunning = false;
     public static boolean mEnded = false;
 
     public RefreshIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
-        rotateAnimation = new RotateAnimation(1, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setRepeatCount(Animation.INFINITE);
-        rotateAnimation.setDuration(1100);
-        rotateAnimation.setAnimationListener(this);
-        rotateAnimation.setInterpolator(new LinearInterpolator());
     }
 
     public void show() {
@@ -57,34 +51,5 @@ public class RefreshIcon extends FloatingActionButton implements Animation.Anima
         RefreshButtonBehavior behavior = (RefreshButtonBehavior) params.getBehavior();
         if (behavior != null)
             behavior.animateOut(this);
-    }
-
-    public void startAnimation() {
-        if (!mRunning) {
-            startAnimation(rotateAnimation);
-            mRunning = true;
-            mEnded = false;
-        }
-    }
-
-    public void stopAnimation() {
-        if (mRunning)
-            mEnded = true;
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-        if (mEnded || !mRunning) {
-            this.clearAnimation();
-            mRunning = false;
-        }
     }
 }
