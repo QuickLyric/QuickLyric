@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextSwitcher;
@@ -93,7 +94,7 @@ public class Id3Writer extends AsyncTask<Object, Object, Boolean> {
                 Tag tags = af.getTag();
                 tags.setField(FieldKey.ARTIST, editedLyrics.getArtist());
                 tags.setField(FieldKey.TITLE, editedLyrics.getTrack());
-                tags.setField(FieldKey.LYRICS, editedLyrics.getText());
+                tags.setField(FieldKey.LYRICS, Html.fromHtml(editedLyrics.getText()).toString());
                 af.setTag(tags);
                 AudioFileIO.write(af);
             } catch (CannotReadException | IOException | ReadOnlyFileException | TagException
