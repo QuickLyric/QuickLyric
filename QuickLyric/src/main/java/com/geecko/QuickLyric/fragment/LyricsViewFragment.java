@@ -274,7 +274,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 searchResultLock = false;
                 String artist = intent.getStringExtra("artist");
                 String track = intent.getStringExtra("track");
-                if (artist != null && track != null) {
+                if (artist != null && track != null && mRefreshLayout.isEnabled()) {
                     startRefreshAnimation();
                     new ParseTask(LyricsViewFragment.this, false, true).execute(mLyrics);
                 }
@@ -544,6 +544,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             songTV.setText("");
         if (isActiveFragment)
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
+        EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
+        if (newLyrics != null)
+            newLyrics.setText("");
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (!lyrics.isLRC()) {
@@ -601,8 +604,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             whyTextView.setPaintFlags(whyTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             id3TV.setVisibility(View.GONE);
         }
-        if (mRefreshLayout.isRefreshing())
-            stopRefreshAnimation();
+        stopRefreshAnimation();
         getActivity().getIntent().setAction("");
         getActivity().invalidateOptionsMenu();
     }
