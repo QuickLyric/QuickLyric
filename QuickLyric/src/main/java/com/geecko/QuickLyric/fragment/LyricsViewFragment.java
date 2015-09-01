@@ -69,6 +69,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -408,8 +409,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         String url = null;
         if (params.length > 2)
             url = params[2];
-        if (mRefreshLayout != null && !mRefreshLayout.isRefreshing())
-            mRefreshLayout.setRefreshing(true);
+        if (mRefreshLayout != null && !mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshLayout.setRefreshing(true);
+                }
+            });
+        }
 
         Lyrics lyrics;
         if (artist != null && title != null) {
@@ -437,6 +444,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getStringSet("pref_providers", Collections.<String>emptySet());
             DownloadThread.refreshProviders(providersSet);
+
+            if (mLyrics == null) {
+                TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
+                TextView songTV = (TextView) getActivity().findViewById(R.id.song);
+                artistTV.setText(artist);
+                songTV.setText(title);
+            }
 
             if (url == null)
                 new DownloadThread(this, artist, title).start();
@@ -814,8 +828,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (coverView != null)
             coverView.setLocalImageBitmap(cover);
-        getActivity().findViewById(R.id.top_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
-        getActivity().findViewById(R.id.bottom_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
+        // getActivity().findViewById(R.id.top_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
+        // getActivity().findViewById(R.id.bottom_gradient).setVisibility(cover == null ? View.INVISIBLE : View.VISIBLE);
     }
 
     public void startEmpty(boolean startEmpty) {

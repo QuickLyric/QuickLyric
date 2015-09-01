@@ -51,7 +51,6 @@
 
         <ImageView
             android:id="@+id/top_gradient"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_gravity="top"
@@ -61,7 +60,6 @@
 
         <ImageView
             android:id="@+id/bottom_gradient"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_gravity="bottom"
