@@ -243,7 +243,7 @@ public class LrcView extends View {
     }
 
     public boolean isFinished() {
-        return mTimes.size() == 0 || mTimes.get(mTimes.size() - 1) <= mCurrentTime;
+        return mTimes.isEmpty() || mTimes.get(mTimes.size() - 1) <= mCurrentTime;
     }
 
     public void setSourceLrc(String lrc) {
