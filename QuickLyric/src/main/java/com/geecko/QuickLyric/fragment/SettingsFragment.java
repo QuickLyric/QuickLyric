@@ -84,8 +84,12 @@ public class SettingsFragment extends PreferenceFragment implements
                 break;
             case "pref_force_screen_on":
                 if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_force_screen_on", false))) {
-                    getActivity().findViewById(R.id.switcher).setKeepScreenOn((Boolean) newValue);
-                    getActivity().findViewById(R.id.lrc_view).setKeepScreenOn((Boolean) newValue);
+                    View switcher = getActivity().findViewById(R.id.switcher);
+                    if (switcher != null)
+                        switcher.setKeepScreenOn((Boolean) newValue);
+                    View lrcView = getActivity().findViewById(R.id.lrc_view);
+                    if (lrcView != null)
+                        lrcView.setKeepScreenOn((Boolean) newValue);
                 }
                 break;
             case "pref_opendyslexic":
