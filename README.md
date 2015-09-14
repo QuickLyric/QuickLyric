@@ -46,23 +46,15 @@ If you're bilingual you can submit translations over at [Crowdin](https://crowdi
 
 If you want to expand the lyrics catalog, check out the [wiki](https://github.com/geecko86/QuickLyric/wiki/Expanding-the-catalog).
 
-Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update be.geecko.quicklyric.Keys with your own LastFM key.
+Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update com.geecko.quicklyric.Keys with your own LastFM key.
 
 ## Credits
 
 Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley, Jake Wharton for his ViewPagerIndicator and makovkastar for the FloatingActionButton library.
 
 ## Screenshots
-![Imgur](https://i.imgur.com/Dq6DNoT.png)
-![Imgur](https://i.imgur.com/fQd6Gmz.png)
-![Imgur](https://i.imgur.com/gULWBIs.png)
+![Imgur](https://i.imgur.com/IPy7VBv.png)
+![Imgur](https://i.imgur.com/6iyLW0m.png)
 ![Imgur](https://i.imgur.com/ITCmin4.png)
-![Imgur](https://i.imgur.com/i8vgnX9.png)
-![Imgur](https://i.imgur.com/S3tgiHn.png)
-![Imgur](https://i.imgur.com/3llqmPA.png)
-
-Old screenshots:
-![Imgur](http://i.imgur.com/bKq0GLW.png)
-![Imgur](https://i.imgur.com/bEdjfIn.png)
-![Imgur](http://i.imgur.com/RtIdK24.png)
-![Imgur](http://i.imgur.com/dXlxpmJ.png)
+![Imgur](https://i.imgur.com/QkUIvEw.png)
+![Imgur](https://i.imgur.com/P1ezQjY.png)
