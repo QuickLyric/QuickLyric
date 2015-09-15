@@ -75,6 +75,7 @@ import com.android.volley.toolbox.Volley;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
+import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.tasks.DownloadThread;
@@ -657,6 +658,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         return mLyrics.getSource();
     }
 
+    public boolean isLRC() {
+        return mLyrics.isLRC();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -849,17 +854,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             while (!lrcView.isFinished()) {
+                long position = preferences.getLong("position", 0);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
-                long timeSpent = System.currentTimeMillis() - startTime;
-                if (preferences.getLong("pauseTime", 0) == 0)
-                    lrcView.changeCurrent(timeSpent);
+                long distance = System.currentTimeMillis() - startTime;
+                if (preferences.getBoolean("playing", true))
+                    position += distance;
+                lrcView.changeCurrent(position);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            lrcView.changeCurrent(0);
+            MusicBroadcastReceiver.forceAutoUpdate(true);
         }
     };
 

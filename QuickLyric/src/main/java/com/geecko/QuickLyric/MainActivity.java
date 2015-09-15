@@ -279,16 +279,17 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPref.getBoolean("pref_auto_refresh", false) &&
-                (getIntent() == null || getIntent().getAction() == null ||
-                        getIntent().getAction().equals(""))) {
-            // fixme executes twice?
-            LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
-                    .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-            if (lyricsViewFragment != null && !"Storage".equals(lyricsViewFragment.getSource())
-                    && !lyricsViewFragment.searchResultLock)
-                lyricsViewFragment.fetchCurrentLyrics(false);
-        }
+        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                .findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        if (lyricsViewFragment != null)
+            if ((sharedPref.getBoolean("pref_auto_refresh", false) || lyricsViewFragment.isLRC()) &&
+                    (getIntent() == null || getIntent().getAction() == null ||
+                            getIntent().getAction().equals(""))) {
+                // fixme executes twice?
+                if (!"Storage".equals(lyricsViewFragment.getSource())
+                        && !lyricsViewFragment.searchResultLock)
+                    lyricsViewFragment.fetchCurrentLyrics(false);
+            }
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
         appBarLayout.addOnOffsetChangedListener(this);
     }
@@ -502,7 +503,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, string.id3_write_permission_error, Toast.LENGTH_LONG).show();
                 } else {
-                    String message = getString(string.id3_write_error)+ " " + getString(string.permission_denied);
+                    String message = getString(string.id3_write_error) + " " + getString(string.permission_denied);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                 }
         }

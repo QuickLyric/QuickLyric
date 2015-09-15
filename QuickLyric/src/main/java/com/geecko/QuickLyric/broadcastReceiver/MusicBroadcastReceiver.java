@@ -40,11 +40,11 @@ import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
 
-    private boolean mAutoUpdate = false;
+    static boolean autoUpdate = false;
     static boolean spotifyPlaying = false;
 
-    public void forceAutoUpdate(boolean force) {
-        this.mAutoUpdate = force;
+    public static void forceAutoUpdate(boolean force) {
+        autoUpdate = force;
     }
 
     @Override
@@ -84,6 +84,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
+        long position = extras.getLong("position");
         boolean isPlaying = extras.getBoolean("playing", true);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
@@ -100,28 +101,24 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             return;
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        String currentArtist = current.getString("artist", "");
+        String currentTrack = current.getString("track", "");
+
         SharedPreferences.Editor editor = current.edit();
         editor.putString("artist", artist);
         editor.putString("track", track);
+        editor.putLong("position", position);
         editor.putBoolean("playing", isPlaying);
         if (isPlaying) {
             long currentTime = System.currentTimeMillis();
-            long lastPause = current.getLong("pauseTime", 0);
-            long pauseDuration = lastPause == 0 ? 0 : currentTime - lastPause;
-            if (lastPause == 0)
-                editor.putLong("startTime", currentTime);
-            else
-                editor.putLong("startTime", current.getLong("startTime", currentTime) + pauseDuration);
-            editor.putLong("pauseTime", 0);
-        } else {
-            editor.putLong("pauseTime", System.currentTimeMillis());
+            editor.putLong("startTime", currentTime);
         }
         editor.apply();
 
-        mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
+        autoUpdate = autoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
 
-        if (mAutoUpdate && App.isActivityVisible()) {
+        if (autoUpdate && App.isActivityVisible() && !(artist.equals(currentArtist) && track.equals(currentTrack))) {
             Intent internalIntent = new Intent("Broadcast");
             internalIntent.putExtra("artist", artist).putExtra("track", track);
             LyricsViewFragment.sendIntent(context, internalIntent);
