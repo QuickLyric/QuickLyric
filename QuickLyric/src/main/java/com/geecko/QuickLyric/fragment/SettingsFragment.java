@@ -82,25 +82,6 @@ public class SettingsFragment extends PreferenceFragment implements
                     startActivity(intent);
                 }
                 break;
-            case "pref_force_screen_on":
-                if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_force_screen_on", false))) {
-                    View switcher = getActivity().findViewById(R.id.switcher);
-                    if (switcher != null)
-                        switcher.setKeepScreenOn((Boolean) newValue);
-                    View lrcView = getActivity().findViewById(R.id.lrc_view);
-                    if (lrcView != null)
-                        lrcView.setKeepScreenOn((Boolean) newValue);
-                }
-                break;
-            case "pref_opendyslexic":
-                if (!newValue.equals(pref.getSharedPreferences().getBoolean("pref_opendyslexic", false))) {
-                    getActivity().finish();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.setAction("android.intent.action.MAIN");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-                break;
             case "pref_notifications":
                 if (newValue.equals("0")) {
                     ((NotificationManager) getActivity()

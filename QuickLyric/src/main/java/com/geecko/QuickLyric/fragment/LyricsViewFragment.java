@@ -632,6 +632,32 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.INVISIBLE);
     }
 
+    public void checkPreferencesChanges() {
+        boolean screenOn = PreferenceManager
+                .getDefaultSharedPreferences(getActivity()).getBoolean("pref_force_screen_on", false);
+        boolean dyslexic = PreferenceManager
+                .getDefaultSharedPreferences(getActivity()).getBoolean("pref_opendyslexic", false);
+
+        TextSwitcher switcher = (TextSwitcher) getActivity().findViewById(R.id.switcher);
+        View lrcView = getActivity().findViewById(R.id.lrc_view);
+
+        if (switcher != null) {
+            switcher.setKeepScreenOn(screenOn);
+            if (switcher.getCurrentView() != null)
+                ((TextView) switcher.getCurrentView()).setTypeface(
+                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "normal", getActivity())
+                );
+            View nextView = switcher.getNextView();
+            if (nextView != null) {
+                ((TextView) nextView).setTypeface(
+                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "normal", getActivity())
+                );
+            }
+        }
+        if (lrcView != null)
+            lrcView.setKeepScreenOn(screenOn);
+    }
+
     public void showWhyPopup() {
         String title = mLyrics.getTrack();
         String artist = mLyrics.getArtist();

@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -88,9 +89,13 @@ public class LrcView extends View {
         mNormalPaint.setTextSize(mTextSize);
         mNormalPaint.setTypeface(LyricsTextFactory.FontCache.get("normal", null));
         mNormalPaint.setColor(normalTextColor);
+        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_opendyslexic", false))
+            mNormalPaint.setTypeface(LyricsTextFactory.FontCache.get("dyslexic", getContext()));
         mCurrentPaint.setTextSize(mTextSize);
         mCurrentPaint.setTypeface(LyricsTextFactory.FontCache.get("bold", null));
         mCurrentPaint.setColor(currentTextColor);
+        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_opendyslexic", false))
+            mCurrentPaint.setTypeface(LyricsTextFactory.FontCache.get("dyslexic", getContext()));
     }
 
     @Override

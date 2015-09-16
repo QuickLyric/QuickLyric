@@ -407,6 +407,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         super.onActivityResult(requestCode, resultCode, data);
         LyricsViewFragment lyricsViewFragment =
                 (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        if (requestCode == 77)
+            lyricsViewFragment.checkPreferencesChanges();
         if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
@@ -722,7 +724,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             case 3:
                 // Settings
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
+                startActivityForResult(settingsIntent, 77);
                 return;
             case 4:
                 // Feedback
