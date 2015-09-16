@@ -35,20 +35,24 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/actionBar.QuickLyric"/>
 
+    <com.viewpagerindicator.TitlePageIndicator
+        android:id="@+id/pager_title_strip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="?android:detailsElementBackground"
+        android:textColor="@color/accent"
+        android:elevation="4dp"
+        app:topPadding="3dp"
+        app:footerPadding="5dp"
+        app:selectedColor="@color/accent"
+        app:footerColor="@android:color/transparent"
+        app:footerIndicatorStyle="none"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/search_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/pager_title_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="?android:detailsElementBackground"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp"
-            android:textAppearance="@style/PagerTabStripText"/>
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

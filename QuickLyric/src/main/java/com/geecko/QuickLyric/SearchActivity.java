@@ -46,6 +46,7 @@ import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.fragment.SearchPagerAdapter;
+import com.viewpagerindicator.TitlePageIndicator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,6 +101,8 @@ public class SearchActivity extends AppCompatActivity {
                 this.getFragmentManager(), this, searchQuery));
         boolean online = OnlineAccessVerifier.check(this);
         viewPager.setCurrentItem(online ? 1 : 0);
+        TitlePageIndicator titleIndicator = (TitlePageIndicator) findViewById(R.id.pager_title_strip);
+        titleIndicator.setViewPager(viewPager, online ? 1 : 0);
         setSearchQuery(getIntent().getStringExtra("query"));
     }
 

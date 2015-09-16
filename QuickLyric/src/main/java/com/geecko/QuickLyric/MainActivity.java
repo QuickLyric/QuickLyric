@@ -140,6 +140,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(string.app_name);
 
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        appBarLayout.addOnOffsetChangedListener(this);
+
         /** Drawer setup */
         final ListView drawerList = (ListView) findViewById(id.drawer_list);
         DrawerAdapter drawerAdapter = new DrawerAdapter(this, this.getResources().getStringArray(array.nav_items));
@@ -291,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     lyricsViewFragment.fetchCurrentLyrics(false);
             }
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        appBarLayout.removeOnOffsetChangedListener(this);
         appBarLayout.addOnOffsetChangedListener(this);
     }
 
