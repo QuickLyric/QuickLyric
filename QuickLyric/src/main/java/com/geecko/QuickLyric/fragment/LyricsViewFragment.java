@@ -54,6 +54,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -228,8 +229,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
             });
             if (args != null)
-                refreshFab.setEnabled(args.getBoolean("refreshFabEnabled"));
+                refreshFab.setEnabled(args.getBoolean("refreshFabEnabled", true));
 
+            Log.v("isEnabled", String.valueOf(refreshFab.isEnabled()));
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
             TypedValue primaryColor = new TypedValue();
@@ -519,8 +521,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
-        if (!lyrics.isLRC())
-            getActivity().findViewById(R.id.edit_tags_btn).setVisibility(musicFile == null ? View.GONE : View.VISIBLE);
+        getActivity().findViewById(R.id.edit_tags_btn)
+                .setVisibility(musicFile == null || lyrics.isLRC() ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
         View v = getActivity().findViewById(R.id.tracks_msg);
