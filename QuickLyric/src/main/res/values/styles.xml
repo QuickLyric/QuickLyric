@@ -21,6 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="themeName">Amber</item>
         <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
@@ -61,6 +62,7 @@
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
+        <item name="themeName">Dark</item>
         <item name="android:headerBackground">@drawable/drawer_header_dark</item>
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
@@ -71,6 +73,7 @@
     </style>
 
     <style name="Theme.QuickLyric.Night" parent="Theme.QuickLyric.Dark">
+        <item name="themeName">Night</item>
         <item name="android:colorBackground">#555</item>
         <item name="android:panelColorBackground">#333</item>
         <item name="android:textColorSecondary">#BBB</item>

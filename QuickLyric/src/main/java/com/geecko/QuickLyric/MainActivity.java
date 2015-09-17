@@ -412,9 +412,20 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         super.onActivityResult(requestCode, resultCode, data);
         LyricsViewFragment lyricsViewFragment =
                 (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        if (requestCode == 77)
+        if (requestCode == 77) {
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             lyricsViewFragment.checkPreferencesChanges();
-        if (resultCode == RESULT_OK && requestCode == 55) {
+            TypedValue outValue = new TypedValue();
+            getTheme().resolveAttribute(R.attr.themeName, outValue, false);
+            if (!"Night".equals(outValue.string) == NightTimeVerifier.check(this) ||
+                    "Dark".equals(outValue.string) == sharedPrefs.getString("pref_theme", "0").equals("0")) {
+                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setAction("android.intent.action.MAIN");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
             lyricsViewFragment.searchResultLock = true;
@@ -728,8 +739,15 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 return;
             case 3:
                 // Settings
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(settingsIntent, 77);
+                if (drawer instanceof DrawerLayout)
+                    ((DrawerLayout) drawer).closeDrawer(drawerView);
+                drawer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivityForResult(settingsIntent, 77);
+                    }
+                }, 250);
                 return;
             case 4:
                 // Feedback

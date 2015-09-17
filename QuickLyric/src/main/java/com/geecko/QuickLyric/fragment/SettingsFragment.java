@@ -23,20 +23,15 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -45,6 +40,7 @@ public class SettingsFragment extends PreferenceFragment implements
 
     private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
+    int[] themes = new int[]{R.string.defaut_theme, R.string.dark_theme};
 
     private int[] nightTimeStart = new int[]{42, 0};
 
@@ -55,7 +51,6 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        int[] themes = new int[]{R.string.defaut_theme, R.string.dark_theme};
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
 
         findPreference("pref_theme").setSummary(themes[themeNum]);
@@ -71,16 +66,7 @@ public class SettingsFragment extends PreferenceFragment implements
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case "pref_theme":
-                if (!newValue.equals(pref.getSharedPreferences().getString("pref_theme", "0"))) {
-                    if (NightTimeVerifier.check(getActivity())
-                            && pref.getSharedPreferences().getBoolean("pref_night_mode", false))
-                        break;
-                    getActivity().finish();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.setAction("android.intent.action.MAIN");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
+                findPreference("pref_theme").setSummary(themes[Integer.valueOf((String) newValue)]);
                 break;
             case "pref_notifications":
                 if (newValue.equals("0")) {
@@ -104,12 +90,6 @@ public class SettingsFragment extends PreferenceFragment implements
                     tpd.setCancelable(false);
                     tpd.setTitle(getActivity().getString(R.string.nighttime_start_dialog_title));
                     tpd.show(getFragmentManager(), NIGHT_START_TIME_DIALOG_TAG);
-                } else if (NightTimeVerifier.check(getActivity())) {
-                    getActivity().finish();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.setAction("android.intent.action.MAIN");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
                 }
                 break;
         }
@@ -147,14 +127,6 @@ public class SettingsFragment extends PreferenceFragment implements
                     .apply();
 
             nightTimeStart[0] = 42;
-
-            if (NightTimeVerifier.check(getActivity())) {
-                getActivity().finish();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setAction("android.intent.action.MAIN");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
         }
     }
 
