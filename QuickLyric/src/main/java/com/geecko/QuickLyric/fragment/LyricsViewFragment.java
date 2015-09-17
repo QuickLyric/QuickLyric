@@ -218,8 +218,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 artistTV.setText(args.getCharSequence("editedArtist"), TextView.BufferType.EDITABLE);
             }
 
-            artistTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf"));
-            songTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf"));
+            artistTV.setTypeface(LyricsTextFactory.FontCache.get("regular", getActivity()));
+            songTV.setTypeface(LyricsTextFactory.FontCache.get("medium", getActivity()));
 
             TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
             SpannableString text = new SpannableString(id3TV.getText());
@@ -479,7 +479,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     public void fetchCurrentLyrics(boolean showMsg) {
         searchResultLock = false;
-        getActivity().findViewById(R.id.edit_tags_btn).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.edit_tags_btn).setEnabled(false);
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
             new ParseTask(this, showMsg, false).execute(mLyrics);
         else
@@ -528,6 +528,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         setCoverArt(cover, null);
         if (cover == null)
             new CoverArtLoader().execute(lyrics, this);
+        getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
                 .setVisibility(musicFile == null || lyrics.isLRC() ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
@@ -654,12 +655,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             switcher.setKeepScreenOn(screenOn);
             if (switcher.getCurrentView() != null)
                 ((TextView) switcher.getCurrentView()).setTypeface(
-                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "normal", getActivity())
+                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "light", getActivity())
                 );
             View nextView = switcher.getNextView();
             if (nextView != null) {
                 ((TextView) nextView).setTypeface(
-                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "normal", getActivity())
+                        LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "light", getActivity())
                 );
             }
         }

@@ -66,6 +66,7 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
             if (showMsg)
                 Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
             lyricsViewFragment.stopRefreshAnimation();
+            lyricsViewFragment.getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         } else {
             lyricsViewFragment.fetchLyrics(metaData[0], metaData[1]);
         }

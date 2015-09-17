@@ -49,7 +49,7 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
         if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("pref_opendyslexic", false))
             t.setTypeface(FontCache.get("opendyslexic", mContext));
         else
-            t.setTypeface(FontCache.get("normal", mContext));
+            t.setTypeface(FontCache.get("light", mContext));
         TypedValue colorValue = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
         t.setTextColor(colorValue.data);
@@ -76,9 +76,13 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
                     if (name.contains("dyslexic"))
                         tf = Typeface.createFromAsset(context.getAssets(), "fonts/opendyslexic.otf");
                     else if (name.equals("bold"))
-                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
-                    else
+                        tf = Typeface.create("sans-serif", Typeface.BOLD);
+                    else if (name.equals("light"))
                         tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
+                    else if (name.equals("medium"))
+                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+                    else
+                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
                 } catch (Exception e) {
                     return null;
                 }
