@@ -22,6 +22,7 @@ package com.geecko.QuickLyric.view;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.geecko.QuickLyric.R;
@@ -43,8 +44,13 @@ public class SwipeRefreshLayout extends android.support.v4.widget.SwipeRefreshLa
             CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getParent().getParent().getParent();
             coordinatorLayout.onNestedScroll(coordinatorLayout.findViewById(R.id.toolbar_layout),
                     dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
-            if (coordinatorLayout.getScrollY() == 0)
-                super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed/2);
+            if (coordinatorLayout.getScrollY() == 0 && !isRefreshing())
+                super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed / 2);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return !isRefreshing() && super.onTouchEvent(ev);
     }
 }

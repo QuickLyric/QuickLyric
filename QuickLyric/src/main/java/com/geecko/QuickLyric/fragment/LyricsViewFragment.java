@@ -225,7 +225,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             refreshFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fetchCurrentLyrics(true);
+                    if (!mRefreshLayout.isRefreshing())
+                        fetchCurrentLyrics(true);
                 }
             });
             if (args != null)
@@ -398,7 +399,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mRefreshLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    mRefreshLayout.setRefreshing(true);
+                    if (!mRefreshLayout.isRefreshing())
+                        mRefreshLayout.setRefreshing(true);
                 }
             });
     }
