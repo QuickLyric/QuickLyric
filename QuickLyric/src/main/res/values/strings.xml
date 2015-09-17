@@ -231,6 +231,7 @@ A few possible reasons why:<br/>
     <string name="id3_read_rationale">QuickLyric needs this permission to read the lyrics and artworks available on this device</string>
     <string name="permission_denied">(permission denied)</string>
     <string name="id3_write_permission_error">App needs to be restarted to gain write permission</string>
+    <string name="resync_action">Resync</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

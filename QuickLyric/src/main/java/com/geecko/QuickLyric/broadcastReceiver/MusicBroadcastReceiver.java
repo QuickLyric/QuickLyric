@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
@@ -85,6 +86,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         String artist = extras.getString("artist");
         String track = extras.getString("track");
         long position = extras.getLong("position");
+        Log.v("Position:", String.valueOf(position));
         boolean isPlaying = extras.getBoolean("playing", true);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {

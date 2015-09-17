@@ -58,6 +58,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -823,6 +824,21 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setView(getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) drawerView.getRootView(), false));
         dialog.create().show();
+    }
+
+    public void resync(MenuItem item) {
+        Intent i = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE));
+        sendOrderedBroadcast(i, null);
+
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PAUSE));
+        sendOrderedBroadcast(i, null);
+
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY));
+        sendOrderedBroadcast(i, null);
+
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY));
+        sendOrderedBroadcast(i, null);
     }
 
     private class DrawerItemClickListener implements

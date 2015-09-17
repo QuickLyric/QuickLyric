@@ -1,25 +1,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:support="http://schemas.android.com/apk/res-auto">
+      xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="@string/search_hint"
         android:id="@+id/search_view"
         android:icon="@drawable/ic_menu_search"
         android:orderInCategory="0"
-        support:showAsAction="collapseActionView|ifRoom"
-        support:actionViewClass="android.support.v7.widget.SearchView" />
+        android:title="@string/search_hint"
+        support:actionViewClass="android.support.v7.widget.SearchView"
+        support:showAsAction="collapseActionView|ifRoom"/>
 
     <item
         android:id="@+id/save_action"
-        android:orderInCategory="1"
-        support:showAsAction="ifRoom"
         android:icon="@drawable/ic_save"
-        android:title="@string/save_action" />
+        android:orderInCategory="1"
+        android:title="@string/save_action"
+        support:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/resync_action"
+        android:orderInCategory="2"
+        android:title="@string/resync_action"
+        android:onClick="resync"
+        support:showAsAction="never"/>
 
     <item
         android:id="@+id/share_action"
-        android:orderInCategory="2"
-        support:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_share"
-        android:title="@string/share" />
+        android:orderInCategory="3"
+        android:title="@string/share"
+        support:showAsAction="ifRoom"/>
 </menu>

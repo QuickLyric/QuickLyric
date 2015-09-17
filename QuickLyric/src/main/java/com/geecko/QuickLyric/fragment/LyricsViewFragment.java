@@ -826,6 +826,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (mLyrics != null)
                 saveMenuItem.setVisible(!mLyrics.isLRC());
         }
+        MenuItem resyncMenuItem = menu.findItem(R.id.resync_action);
+        if (mLyrics != null)
+            resyncMenuItem.setVisible(mLyrics.isLRC());
         MenuItem shareMenuItem = menu.findItem(R.id.share_action);
         if (shareMenuItem != null)
             shareMenuItem.setVisible(mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && mLyrics.getURL() != null);
