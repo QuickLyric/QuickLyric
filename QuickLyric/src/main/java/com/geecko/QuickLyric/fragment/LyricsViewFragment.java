@@ -32,6 +32,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -201,10 +202,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             textSwitcher.setKeepScreenOn(screenOn);
             layout.findViewById(R.id.lrc_view).setKeepScreenOn(screenOn);
 
+            EditText artistTV = (EditText) getActivity().findViewById(R.id.artist);
+            EditText songTV = (EditText) getActivity().findViewById(R.id.song);
+
             if (args != null && args.containsKey("editedLyrics")) {
                 EditText editedLyrics = (EditText) layout.findViewById(R.id.edit_lyrics);
-                EditText artistTV = (EditText) getActivity().findViewById(R.id.artist);
-                EditText songTV = (EditText) getActivity().findViewById(R.id.song);
                 textSwitcher.setVisibility(View.GONE);
                 editedLyrics.setVisibility(View.VISIBLE);
                 songTV.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -215,6 +217,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 songTV.setText(args.getCharSequence("editedTitle"), TextView.BufferType.EDITABLE);
                 artistTV.setText(args.getCharSequence("editedArtist"), TextView.BufferType.EDITABLE);
             }
+
+            artistTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf"));
+            songTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf"));
 
             TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
             SpannableString text = new SpannableString(id3TV.getText());

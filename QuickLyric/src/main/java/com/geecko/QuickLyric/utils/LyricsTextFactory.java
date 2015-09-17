@@ -76,9 +76,9 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
                     if (name.contains("dyslexic"))
                         tf = Typeface.createFromAsset(context.getAssets(), "fonts/opendyslexic.otf");
                     else if (name.equals("bold"))
-                        tf = Typeface.create("sans-serif", Typeface.BOLD);
+                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
                     else
-                        tf = Typeface.create("sans-serif-light", Typeface.NORMAL);
+                        tf = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
                 } catch (Exception e) {
                     return null;
                 }
