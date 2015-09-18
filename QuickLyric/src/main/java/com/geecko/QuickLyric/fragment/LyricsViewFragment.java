@@ -695,7 +695,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public boolean isLRC() {
-        return mLyrics.isLRC();
+        return mLyrics != null && mLyrics.isLRC();
     }
 
     @Override
