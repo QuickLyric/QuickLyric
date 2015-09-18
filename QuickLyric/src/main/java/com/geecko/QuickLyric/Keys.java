@@ -1,5 +1,11 @@
 package com.geecko.QuickLyric;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+
+import java.io.IOException;
+
 /**
  * This file is part of QuickLyric
  * Created by geecko
@@ -22,4 +28,10 @@ public class Keys {
     public static final String ACRA_LOGIN = "hercesedsizeboutionferea";
     public static final String ACRA_PASSWORD = "KDwir5taV6EunCnrSVOMaeBM";
     public static final String ACRA_URL = "https://geecko.cloudant.com/acra-quicklyric/_design/acra-storage/_update/report";
+
+    // Put your Spotify Key here
+    public static final String SPOTIFY_PUBLIC = "0abc29261dc74426b72c3c44bde9a4d5";
+    // Put your Spotify Secret here
+    public static String SPOTIFY_SECRET = "";
+
 }

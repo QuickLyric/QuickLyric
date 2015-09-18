@@ -71,7 +71,6 @@ public class Id3Reader {
                 throw new NoSuchFieldException();
             text = text.replaceAll("\n", "<br/>");
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);

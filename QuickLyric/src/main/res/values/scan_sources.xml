@@ -18,24 +18,9 @@
   ~  */
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <!-- Order must match labels in strings.xml !-->
-    <string-array name="notifications_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="themes_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="providers_values">
-        <item>PLyrics</item>
-        <item>MetalArchives</item>
-        <item>UrbanLyrics</item>
-        <item>Lololyrics</item>
-        <item>JLyric</item>
-        <item>Bollywood</item>
-        <item>ViewLyrics</item>
+<resources>
+    <string-array name="URI_values">
+        <item>content://media/external/audio/media</item>
+        <item>content://com.google.android.music.MusicContent/audio</item>
     </string-array>
 </resources>

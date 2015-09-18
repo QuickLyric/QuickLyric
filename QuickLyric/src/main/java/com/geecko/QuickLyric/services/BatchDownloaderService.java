@@ -33,11 +33,11 @@ import android.support.v4.app.NotificationCompat;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.lyrics.ViewLyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -74,22 +74,33 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     protected void onHandleIntent(Intent intent) {
         this.database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
         Uri content = intent.getExtras().getParcelable("uri");
-        String[] projection = new String[]{"artist", "title"};
-        String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
-        Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
-        total = cursor.getCount();
-        updateProgress();
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
                 .getStringSet("pref_providers", Collections.<String>emptySet());
         if (providersSet.contains("ViewLyrics"))
             providersSet.remove("ViewLyrics");
         DownloadThread.refreshProviders(providersSet);
-        while (cursor.moveToNext()) {
-            String artist = cursor.getString(0);
-            String title = cursor.getString(1);
-            mDownloadThreadPool.execute(DownloadThread.getRunnable(this, artist, title));
+        if (content != null) {
+            String[] projection = new String[]{"artist", "title"};
+            String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
+            Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
+            total = cursor.getCount();
+            updateProgress();
+            while (cursor.moveToNext()) {
+                String artist = cursor.getString(0);
+                String title = cursor.getString(1);
+                mDownloadThreadPool.execute(DownloadThread.getRunnable(this, artist, title));
+            }
+            cursor.close();
+        } else {
+            ArrayList<String[]> savedTracks = (ArrayList<String[]>) intent.getExtras().get("spotifyTracks");
+            if (savedTracks != null) {
+                total = savedTracks.size();
+                updateProgress();
+                for (String[] track : savedTracks) {
+                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, track[0], track[1]));
+                }
+            }
         }
-        cursor.close();
     }
 
     @Override

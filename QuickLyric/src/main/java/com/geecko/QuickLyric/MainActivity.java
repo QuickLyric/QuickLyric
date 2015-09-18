@@ -80,6 +80,7 @@ import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
+import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -321,8 +322,12 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     selectItem(0);
                     break;
                 case "android.intent.action.VIEW":
-                    processURL(intent);
-                    selectItem(0);
+                    if (intent.getDataString().contains("spotify"))
+                        Spotify.onCallback(intent, this);
+                    else {
+                        processURL(intent);
+                        selectItem(0);
+                    }
                     break;
                 case "com.geecko.QuickLyric.getLyrics":
                     String[] metadata = intent.getStringArrayExtra("TAGS");

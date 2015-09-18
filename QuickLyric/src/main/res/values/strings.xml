@@ -232,6 +232,7 @@ A few possible reasons why:<br/>
     <string name="permission_denied">(permission denied)</string>
     <string name="id3_write_permission_error">App needs to be restarted to gain write permission</string>
     <string name="resync_action">Resync</string>
+    <string name="spotify_connection">Connecting to Spotify…</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
@@ -283,5 +284,6 @@ A few possible reasons why:<br/>
     <string-array name="URI_labels">
         <item>This device</item>
         <item>Your Google Play Music library</item>
+        <item>Your Spotify library</item>
     </string-array>
 </resources>

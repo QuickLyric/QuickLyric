@@ -55,6 +55,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.drivemode.spotify.ClientConfig;
+import com.drivemode.spotify.SpotifyApi;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
@@ -65,10 +67,12 @@ import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.BackgroundContainer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class LocalLyricsFragment extends ListFragment {
@@ -409,19 +413,24 @@ public class LocalLyricsFragment extends ListFragment {
             case R.id.action_scan:
                 showScanDialog();
         }
-
         return false;
     }
 
     public void showScanDialog() {
-        CharSequence[] items = getResources().getStringArray(R.array.URI_labels);
+        final String[] values = getResources().getStringArray(R.array.URI_values);
+        CharSequence[] items = Arrays
+                .copyOfRange(getResources().getStringArray(R.array.URI_labels), 0, values.length);
         AlertDialog.Builder choiceBuilder = new AlertDialog.Builder(getActivity());
         AlertDialog choiceDialog = choiceBuilder
                 .setTitle(R.string.content_providers_title)
                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface choiceDialog, int i) {
-                        String[] values = getResources().getStringArray(R.array.URI_values);
+                        if (values[i].equals("Spotify")) {
+                            Spotify.getTracks(getActivity());
+                            choiceDialog.dismiss();
+                            return;
+                        }
                         final Uri contentProvider = Uri.parse(values[i]);
                         String[] projection = new String[]{"artist", "title"};
                         String selection = "artist IS NOT NULL AND artist <> '<unknown>'";

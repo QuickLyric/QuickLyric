@@ -95,6 +95,7 @@ public class ViewLyrics {
         result.setOriginalArtist(artist);
         result.setLRC(url.endsWith("lrc"));
         result.setText(Net.getUrlAsString(url));
+        result.setSource(clientUserAgent);
 
         return result;
     }
