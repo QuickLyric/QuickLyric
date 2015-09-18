@@ -19,7 +19,9 @@
 
 package com.geecko.QuickLyric.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -36,10 +38,12 @@ public class SwipeRefreshLayout extends android.support.v4.widget.SwipeRefreshLa
         super(context, attrs);
     }
 
+    @TargetApi(23)
     @Override
     public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
                                int dyUnconsumed) {
-        dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dxConsumed, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dxConsumed, null);
         if (dyUnconsumed < 0) {
             CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getParent().getParent().getParent();
             coordinatorLayout.onNestedScroll(coordinatorLayout.findViewById(R.id.toolbar_layout),

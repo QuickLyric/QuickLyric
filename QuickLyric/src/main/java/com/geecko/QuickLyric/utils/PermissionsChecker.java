@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 public class PermissionsChecker {
 
+    @TargetApi(23)
     public static boolean requestPermission(Activity activity, String permission, int rationale, int requestCode) {
         if (hasPermission(activity, permission))
             return true;
@@ -36,6 +38,7 @@ public class PermissionsChecker {
         return false;
     }
 
+    @TargetApi(23)
     public static boolean hasPermission(Activity activity, String permission) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M
                 || activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
