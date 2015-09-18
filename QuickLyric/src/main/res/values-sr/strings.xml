@@ -86,6 +86,14 @@
   <string name="pref_beta_sum">Добијајте надоградње (нове функције и исправке грешака) брже и јављајте нам се е-поштом</string>
   <string name="scan_error_no_content">Нисам нашао музику</string>
   <string name="no_results_why"><u>Зашто?</u></string>
+  <string name="uri_storage">овог уређаја</string>
+  <string name="uri_gmusic">ваше Гугл Плеј музичке библиотеке</string>
+  <string name="source_punk">Панк рок</string>
+  <string name="source_metal">Метал</string>
+  <string name="source_hip_hop">Хип хоп</string>
+  <string name="source_EDM">Електронска денс музика</string>
+  <string name="source_japanese">Јапанска</string>
+  <string name="source_bollywood">Боливудска музика</string>
   <string name="why_popup_text"><![CDATA[Тражили сте стихове песме „%1$s“ од %2$s. Нажалост Квик лирик није могао да их нађе… <br/><br/>
 Неки од могућих разлога за то:<br/>
 <br/>
@@ -128,21 +136,9 @@
     <item>растуће</item>
     <item>опадајуће</item>
   </string-array>
-  <string-array name="providers">
-    <item>Панк рок</item>
-    <item>Метал</item>
-    <item>Хип хоп</item>
-    <item>Електронска денс музика</item>
-    <item>Јапанска</item>
-    <item>Боливудска музика</item>
-  </string-array>
   <string-array name="notifications">
     <item>Онемогућена (подразумевано)</item>
     <item>Омогућена</item>
     <item>Омогућена (лепљива)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>овог уређаја</item>
-    <item>ваше Гугл Плеј музичке библиотеке</item>
   </string-array>
 </resources>

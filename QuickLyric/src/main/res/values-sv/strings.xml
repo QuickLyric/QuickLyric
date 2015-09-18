@@ -85,6 +85,12 @@
   <string name="pref_beta_sum">Få uppdateringar (nya funktioner, buggfixar, och så vidare) snabbare via email</string>
   <string name="scan_error_no_content">Kunde inte hitta någon musik</string>
   <string name="no_results_why"><u>Varför?</u></string>
+  <string name="uri_storage">Denna enhet</string>
+  <string name="uri_gmusic">Ditt Google Play Music-bibliotek</string>
+  <string name="source_metal">Metall</string>
+  <string name="source_EDM">Elektronisk dansmusik</string>
+  <string name="source_japanese">Japansk</string>
+  <string name="source_bollywood">Bollywoodmusik</string>
   <string name="why_popup_text"><![CDATA[Du efter sökte texten till "%1$s" av %2$s. Tyvärr kunde QuickLyric inte hitta den… <br/>< br/>
 Några möjliga orsaker varför: <br/><br/>
 • Är din musik <strong>taggad</strong> ordentligt? QuickLyric kan inte känna igen spår som inte är taggade. <br/>
@@ -120,21 +126,9 @@ Kontrollera att du har en stabil anslutning för minst %2$d minuter.</item>
     <item>Alfabetiskt</item>
     <item>Omvänd</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk</item>
-    <item>Metall</item>
-    <item>Hip Hop</item>
-    <item>Elektronisk dansmusik</item>
-    <item>Japansk</item>
-    <item>Bollywoodmusik</item>
-  </string-array>
   <string-array name="notifications">
     <item>Inaktiverad (standard)</item>
     <item>Aktiverad</item>
     <item>Aktiverad (klistrad)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Denna enhet</item>
-    <item>Ditt Google Play Music-bibliotek</item>
   </string-array>
 </resources>

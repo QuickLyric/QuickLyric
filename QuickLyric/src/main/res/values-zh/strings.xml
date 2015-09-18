@@ -85,6 +85,13 @@
   <string name="pref_beta_sum">通过邮件取得反馈并及时获取更新(新功能，BUG修复等)</string>
   <string name="scan_error_no_content">没有找到任何音乐</string>
   <string name="no_results_why"><u>发生了什么?</u></string>
+  <string name="uri_storage">本地</string>
+  <string name="uri_gmusic">你的Google Play音乐库</string>
+  <string name="source_punk">朋克</string>
+  <string name="source_metal">金属</string>
+  <string name="source_hip_hop">嘻哈</string>
+  <string name="source_EDM">电子</string>
+  <string name="source_bollywood">宝莱坞</string>
   <string name="why_popup_text">
     <![CDATA[
 您正在搜索 %2$s 的 \"%1$s\" 。很不幸，QuickLyric没有找到任何结果…<br/><br/>
@@ -121,21 +128,9 @@
     <item>按字母顺序</item>
     <item>倒序</item>
   </string-array>
-  <string-array name="providers">
-    <item>朋克</item>
-    <item>金属</item>
-    <item>嘻哈</item>
-    <item>电子</item>
-    <item>Japanese</item>
-    <item>宝莱坞</item>
-  </string-array>
   <string-array name="notifications">
     <item>关闭(默认)</item>
     <item>开启</item>
     <item>启用(永久)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>本地</item>
-    <item>你的Google Play音乐库</item>
   </string-array>
 </resources>

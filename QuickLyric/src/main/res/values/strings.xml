@@ -232,6 +232,16 @@ A few possible reasons why:<br/>
     <string name="permission_denied">(permission denied)</string>
     <string name="id3_write_permission_error">App needs to be restarted to gain write permission</string>
     <string name="resync_action">Resync</string>
+    <string name="uri_storage">This device</string>
+    <string name="uri_gmusic">Your Google Play Music library</string>
+    <string name="uri_spotify">Your Spotify Library</string>
+    <string name="source_punk">Punk Rock</string>
+    <string name="source_metal">Metal</string>
+    <string name="source_hip_hop">Hip Hop</string>
+    <string name="source_EDM">Electronic Dance Music</string>
+    <string name="source_japanese">Japanese</string>
+    <string name="source_bollywood">Bollywood Music</string>
+    <string name="source_sync">Synchronized Lyrics</string>
     <string name="spotify_connection">Connecting to Spotify…</string>
 
     <plurals name="scan_dialog">
@@ -268,13 +278,13 @@ A few possible reasons why:<br/>
         <item>@string/dark_theme</item>
     </string-array>
     <string-array name="providers">
-        <item>Punk Rock</item>
-        <item>Metal</item>
-        <item>Hip Hop</item>
-        <item>Electronic Dance Music</item>
-        <item>Japanese</item>
-        <item>Bollywood Music</item>
-        <item>Synchronized Lyrics</item>
+        <item>@string/source_punk</item>
+        <item>@string/source_metal</item>
+        <item>@string/source_hip_hop</item>
+        <item>@string/source_EDM</item>
+        <item>@string/source_japanese</item>
+        <item>@string/source_bollywood</item>
+        <item>@string/source_sync</item>
     </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>
@@ -282,8 +292,8 @@ A few possible reasons why:<br/>
         <item>Enabled (sticky)</item>
     </string-array>
     <string-array name="URI_labels">
-        <item>This device</item>
-        <item>Your Google Play Music library</item>
-        <item>Your Spotify library</item>
+        <item>@string/uri_storage</item>
+        <item>@string/uri_gmusic</item>
+        <item>@string/uri_spotify</item>
     </string-array>
 </resources>

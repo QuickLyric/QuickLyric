@@ -86,6 +86,10 @@
   <string name="pref_beta_sum">Λάβετε ενημερώσεις (νέα χαρακτηριστικά, διορθώσεις σφαλμάτων,...) γρηγορότερα και στείλτε τις εντυπώσεις σας μέσω ηλεκτρονικού ταχυδρομείου</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
+  <string name="uri_storage">Αυτή τη συσκευή</string>
+  <string name="uri_gmusic">Τη  βιβλιοθήκη σας στο Google Play Music</string>
+  <string name="source_japanese">Ιαπωνική</string>
+  <string name="source_bollywood">Μουσική Bollywood</string>
   <string name="why_popup_text"><![CDATA[Ψάχνατε για τους στίχους του "%1$s" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… < br/><br/>
 Μερικές πιθανές αιτίες: <br/>
 <br/>
@@ -122,21 +126,9 @@
     <item>Αλφαβητικά</item>
     <item>Ανεστραμμένη</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Electronic Dance Music</item>
-    <item>Ιαπωνική</item>
-    <item>Μουσική Bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Απενεργοποιημένη (προεπιλογή)</item>
     <item>Ενεργοποιημένη</item>
     <item>Ενεργοποιημένη (μόνιμη)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Αυτή τη συσκευή</item>
-    <item>Τη  βιβλιοθήκη σας στο Google Play Music</item>
   </string-array>
 </resources>

@@ -79,6 +79,9 @@
   <string name="pref_contribute_sum">Millora les traduccions, expandeix el catàlog de lletres&#8230;</string>
   <string name="scan_error_no_content">No es va poder trobar música</string>
   <string name="no_results_why"><u>Perquè?</u></string>
+  <string name="uri_storage">Aquest dispositiu</string>
+  <string name="uri_gmusic">La teva llibreria de Google Play Music</string>
+  <string name="source_japanese">Japonesa</string>
   <string name="why_popup_text"><![CDATA[Estaves buscant les lletres per "%1$s" de %2$s. Malauradament QuickLyric no va poder trobar-les… <br/><br/>
 Possibles raons:<br/>
 <br/>
@@ -108,21 +111,9 @@ Possibles raons:<br/>
     <item>Alfabèticament</item>
     <item>Reversat</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Electronic Dance Music</item>
-    <item>Japonesa</item>
-    <item>Bollywood Music</item>
-  </string-array>
   <string-array name="notifications">
     <item>Desactivat (per defecte)</item>
     <item>Activat</item>
     <item>Activat (permanent)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Aquest dispositiu</item>
-    <item>La teva llibreria de Google Play Music</item>
   </string-array>
 </resources>

@@ -86,6 +86,12 @@
   <string name="pref_beta_sum">Ricevi aggiornamenti (nuove funzionalità, bugfix,…) più velocemente e informami via mail su eventuali errori</string>
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
+  <string name="uri_storage">Questo dispositivo</string>
+  <string name="uri_gmusic">La tua libreria del Google Play Music</string>
+  <string name="uri_spotify">La tua libreria del Spotify</string>
+  <string name="source_EDM">Dance Elettronica</string>
+  <string name="source_japanese">Giapponese</string>
+  <string name="source_bollywood">Bollywood</string>
   <string name="why_popup_text"><![CDATA[
 Stavi cercando il testo di \"%1$s\" dell\'artista %2$s . Sfortunatamente QuickLyric non è riuscito a trovarlo… <br/><br/>
 Alcune cause potrebbero essere:<br/>
@@ -124,21 +130,9 @@ Alcune cause potrebbero essere:<br/>
     <item>…alfabetico</item>
     <item>…alfabetico inverso</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Dance Elettronica</item>
-    <item>Giapponese</item>
-    <item>Bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Disabilitate (predefinito)</item>
     <item>Abilitate</item>
     <item>Abilitate (fissate)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Questo dispositivo</item>
-    <item>La tua libreria del Google Play Music</item>
   </string-array>
 </resources>

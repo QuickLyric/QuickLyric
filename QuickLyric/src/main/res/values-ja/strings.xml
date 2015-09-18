@@ -90,6 +90,14 @@
   <string name="pref_beta_sum">アップデート (新機能、バグ修正、...) を早く入手して、メールでレポートしてください</string>
   <string name="scan_error_no_content">音楽が見つかりませんでした</string>
   <string name="no_results_why"><u>なぜ?</u></string>
+  <string name="uri_storage">このデバイス</string>
+  <string name="uri_gmusic">ご利用の Google Play 音楽ライブラリ</string>
+  <string name="source_punk">パンクロック</string>
+  <string name="source_metal">メタル</string>
+  <string name="source_hip_hop">ヒップ ホップ</string>
+  <string name="source_EDM">エレクトロニック ダンス ミュージック</string>
+  <string name="source_japanese">邦楽</string>
+  <string name="source_bollywood">ボリウッド音楽</string>
   <string name="why_popup_text"><![CDATA[%2$s で"%1$s" の歌詞を検索しました。残念ながら QuickLyric は見つけることができませんでした… <br/><br/>
 次の可能性があります: <br/>
 <br/>
@@ -123,21 +131,9 @@
     <item>アルファベット順</item>
     <item>逆順</item>
   </string-array>
-  <string-array name="providers">
-    <item>パンクロック</item>
-    <item>メタル</item>
-    <item>ヒップ ホップ</item>
-    <item>エレクトロニック ダンス ミュージック</item>
-    <item>邦楽</item>
-    <item>ボリウッド音楽</item>
-  </string-array>
   <string-array name="notifications">
     <item>無効 (デフォルト)</item>
     <item>有効</item>
     <item>有効 (固定)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>このデバイス</item>
-    <item>ご利用の Google Play 音楽ライブラリ</item>
   </string-array>
 </resources>

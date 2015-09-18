@@ -86,6 +86,10 @@
   <string name="pref_beta_sum">Krijg updates (nieuwe features, bug fixes, &#8230;) sneller en geef feedback via email</string>
   <string name="scan_error_no_content">Geen muziek gevonden</string>
   <string name="no_results_why"><u>Waarom?</u></string>
+  <string name="uri_storage">Dit apparaat</string>
+  <string name="uri_gmusic">Uw Google Play Muziek bibliotheek</string>
+  <string name="source_japanese">Japans</string>
+  <string name="source_bollywood">Bollywood muziek</string>
   <string name="why_popup_text"><![CDATA[
     Je was songteksten aan het zoeken voor \"%1$s\" van %2$s. QuickLyric kon deze jammer genoeg niet vinden… <br/><br/>
     Dit zou kunnen zijn omdat:<br/>
@@ -125,21 +129,9 @@
     <item>Alfabetisch</item>
     <item>Omgekeerd</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Electronic Dance Music</item>
-    <item>Japans</item>
-    <item>Bollywood muziek</item>
-  </string-array>
   <string-array name="notifications">
     <item>Uitgeschakeld (standaard)</item>
     <item>Ingeschakeld</item>
     <item>Ingeschakeld (statisch)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Dit apparaat</item>
-    <item>Uw Google Play Muziek bibliotheek</item>
   </string-array>
 </resources>

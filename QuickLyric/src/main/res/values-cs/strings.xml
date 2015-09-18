@@ -82,6 +82,11 @@
   <string name="pref_contribute_sum">Vylepšit překlad rozhraní aplikace, rozšířit katalog textů písní&#8230;</string>
   <string name="scan_error_no_content">Nebyly nalezeny žádné hudební soubory</string>
   <string name="no_results_why"><u>Proč?</u></string>
+  <string name="uri_storage">V tomto zařízení</string>
+  <string name="uri_gmusic">Ve vaší knihovně Hudba Google Play</string>
+  <string name="source_EDM">Elektronická taneční hudba</string>
+  <string name="source_japanese">Texty s japonskými znaky</string>
+  <string name="source_bollywood">Písně z Bollywoodských filmů</string>
   <string name="why_popup_text"><![CDATA[Pokoušeli jste se nalézt text písně "%1$s" od interpreta %2$s. Omlováme se, ale aplikace QuickLyrics ho nebyla schopna nalézt… <br/><br/>
 Existuje několik důvodů, proč k tom mohlo dojít:<br/>
 <br/>
@@ -110,21 +115,9 @@ Existuje několik důvodů, proč k tom mohlo dojít:<br/>
     <item>Abecedně (A-Z)</item>
     <item>Abecedně (Z-A)</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Elektronická taneční hudba</item>
-    <item>Texty s japonskými znaky</item>
-    <item>Písně z Bollywoodských filmů</item>
-  </string-array>
   <string-array name="notifications">
     <item>Zakázány (výchozí)</item>
     <item>Povoleny</item>
     <item>Povoleny (vždy zobrazit)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>V tomto zařízení</item>
-    <item>Ve vaší knihovně Hudba Google Play</item>
   </string-array>
 </resources>

@@ -88,6 +88,11 @@
   <string name="pref_beta_sum">Otrzymuj aktualizacje (nowe funkcje, poprawki błędów, &#8230;) szybciej i zgłaszaj uwagi mailem</string>
   <string name="scan_error_no_content">Nie znaleziono muzyki</string>
   <string name="no_results_why"><u>Dlaczego?</u></string>
+  <string name="uri_storage">Tego urządzenia</string>
+  <string name="uri_gmusic">Twojej biblioteki Google Play Music</string>
+  <string name="source_EDM">Dance</string>
+  <string name="source_japanese">Muzyka japońska</string>
+  <string name="source_bollywood">Muzyka z Bollywood</string>
   <string name="why_popup_text"><![CDATA[Szukasz tekstu piosenki "%1$s" autorstwa %2$s. Niestety QuickLyric nie mógł go znaleźć… <br/><br/>
 Jest kilka możliwych przyczyn:<br/>
 <br/>
@@ -127,21 +132,9 @@ Jest kilka możliwych przyczyn:<br/>
     <item>Od A do Z</item>
     <item>Od Z do A</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Dance</item>
-    <item>Muzyka japońska</item>
-    <item>Muzyka z Bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Wyłączone (domyślnie)</item>
     <item>Włączone</item>
     <item>Włączone (Przyklejone)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Tego urządzenia</item>
-    <item>Twojej biblioteki Google Play Music</item>
   </string-array>
 </resources>

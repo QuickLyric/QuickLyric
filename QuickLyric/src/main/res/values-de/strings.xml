@@ -86,6 +86,11 @@
   <string name="pref_beta_sum">Erhalten Sie Updates (neue Features, Fehlerbehebungen,…)  schneller und melden Sie sich zurück per E-Mail</string>
   <string name="scan_error_no_content">Konnte keine Musik finden</string>
   <string name="no_results_why"><u>Warum?</u></string>
+  <string name="uri_storage">Diesem Gerät</string>
+  <string name="uri_gmusic">Ihrer Google Play Musik Bibliothek</string>
+  <string name="source_EDM">Elektronische Tanzmusik (EDM)</string>
+  <string name="source_japanese">Japanisch</string>
+  <string name="source_bollywood">Bollywood Musik</string>
   <string name="why_popup_text"><![CDATA[Sie haben nach den Songtexten von "%1$s" by %2$s gesucht. Leider konnte QuickLyric diese nicht finden… <br/><br/>
 Mögliche Ursachen:<br/>
 <br/>
@@ -122,21 +127,9 @@ Mögliche Ursachen:<br/>
     <item>…alphabetisch</item>
     <item>…umgekehrt</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Elektronische Tanzmusik (EDM)</item>
-    <item>Japanisch</item>
-    <item>Bollywood Musik</item>
-  </string-array>
   <string-array name="notifications">
     <item>Deaktiviert (Standard)</item>
     <item>Aktiviert</item>
     <item>Aktiviert (bleibend)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Diesem Gerät</item>
-    <item>Ihrer Google Play Musik Bibliothek</item>
   </string-array>
 </resources>

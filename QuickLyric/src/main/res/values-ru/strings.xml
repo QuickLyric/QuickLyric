@@ -85,6 +85,14 @@
   <string name="pref_beta_sum">Получить обновления (новые возможности, исправления ошибок...) быстрее и сообщать по электронной почте</string>
   <string name="scan_error_no_content">Музыка не найдена</string>
   <string name="no_results_why"><u>Почему?</u></string>
+  <string name="uri_storage">Это устройство</string>
+  <string name="uri_gmusic">Ваша библиотека Google Play Music</string>
+  <string name="source_punk">Панк-рок</string>
+  <string name="source_metal">Металл</string>
+  <string name="source_hip_hop">Хип-хоп</string>
+  <string name="source_EDM">Электронная танцевальная музыка</string>
+  <string name="source_japanese">Японская музыка</string>
+  <string name="source_bollywood">Музыка Болливуда</string>
   <string name="why_popup_text"><![CDATA[Вы искали текст "%1$s" исполнителя %2$s. К сожалению QuickLyric не смог его найти… <br/><br/>
 Возможные причины:<br/>
 <br/>
@@ -111,21 +119,9 @@
     <item>Aлфавитный</item>
     <item>Наоборот</item>
   </string-array>
-  <string-array name="providers">
-    <item>Панк-рок</item>
-    <item>Металл</item>
-    <item>Хип-хоп</item>
-    <item>Электронная танцевальная музыка</item>
-    <item>Японская музыка</item>
-    <item>Музыка Болливуда</item>
-  </string-array>
   <string-array name="notifications">
     <item>Отключено (По умолчанию)</item>
     <item>Включено</item>
     <item>Включено (Липкий)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Это устройство</item>
-    <item>Ваша библиотека Google Play Music</item>
   </string-array>
 </resources>

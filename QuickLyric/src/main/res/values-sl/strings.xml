@@ -85,6 +85,11 @@
   <string name="pref_beta_sum">Dobi posodobitve (nove funkcije, popravki, &#8230;) hitreje in poročaj preko emaila</string>
   <string name="scan_error_no_content">Ni najdenih skladb</string>
   <string name="no_results_why"><u>Zakaj?</u></string>
+  <string name="uri_storage">Te naprave</string>
+  <string name="uri_gmusic">Vaše Google Play glasbene knjižnice</string>
+  <string name="source_EDM">Elektronska plesna glasba</string>
+  <string name="source_japanese">Japonščina</string>
+  <string name="source_bollywood">Bollywood glasba</string>
   <string name="why_popup_text"><![CDATA[Iskali ste besedilo "%1$s" od %2$s. QuickLyric ni našel besedila… <br/><br/>
 Nekaj možnih razlogov:<br/>
 <br/>
@@ -128,21 +133,9 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
     <item>Abecedno</item>
     <item>Obratno</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Elektronska plesna glasba</item>
-    <item>Japonščina</item>
-    <item>Bollywood glasba</item>
-  </string-array>
   <string-array name="notifications">
     <item>Onemogočeno (privzeto)</item>
     <item>Omogočeno</item>
     <item>Omogočeno (pripeto)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Te naprave</item>
-    <item>Vaše Google Play glasbene knjižnice</item>
   </string-array>
 </resources>

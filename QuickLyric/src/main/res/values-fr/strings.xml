@@ -86,6 +86,12 @@
   <string name="pref_beta_sum">Recevez les mises à jour (nouvelles fonctionnalités, corrections de bugs,&#8230;) plus vite et donnez vos impressions par e-mail</string>
   <string name="scan_error_no_content">Aucune musique trouvée</string>
   <string name="no_results_why"><u>Pourquoi ?</u></string>
+  <string name="uri_storage">Cet appareil</string>
+  <string name="uri_gmusic">Votre bibliothèque Google Play Musique</string>
+  <string name="uri_spotify">Votre bibliothèque Spotify</string>
+  <string name="source_japanese">Japonais</string>
+  <string name="source_bollywood">Musique de Bollywood</string>
+  <string name="source_sync">Paroles synchronisées</string>
   <string name="why_popup_text"><![CDATA[Vous cherchiez les paroles de "%1$s" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
 Plusieurs raisons possibles:<br/>
 <br/>
@@ -122,22 +128,9 @@ Plusieurs raisons possibles:<br/>
     <item>Alphabétique</item>
     <item>Inverse</item>
   </string-array>
-  <string-array name="providers">
-    <item>Paroles synchronisées</item>
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Electronic Dance Music</item>
-    <item>Japonais</item>
-    <item>Musique de Bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Désactivées (par défaut)</item>
     <item>Activées</item>
     <item>Activées (statiques)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Cet appareil</item>
-    <item>Votre bibliothèque Play Musique</item>
   </string-array>
 </resources>

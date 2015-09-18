@@ -86,6 +86,11 @@
   <string name="pref_beta_sum">Receba atualizações (novas funções, correção de bugs, &#8230;) mais rapidamente e nos envie sua opinião via email</string>
   <string name="scan_error_no_content">Não foi possível achar uma música</string>
   <string name="no_results_why"><u>Por quê?</u></string>
+  <string name="uri_storage">Deste dispositivo</string>
+  <string name="uri_gmusic">Sua biblioteca de músicas do Google Play</string>
+  <string name="source_EDM">Música eletrônica</string>
+  <string name="source_japanese">Japonês</string>
+  <string name="source_bollywood">Música de Bollywood</string>
   <string name="why_popup_text"><![CDATA[Você estava procurando pela letra da música "%1$s", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la… <br/><br/>
 Algumas possíveis razões:<br/>
 <br/>
@@ -123,21 +128,9 @@ Certifique-se de manter uma conexão estável por pelo menos %2$d minuto(s).</it
     <item>Alfabeticamente</item>
     <item>Invertido</item>
   </string-array>
-  <string-array name="providers">
-    <item>Punk Rock</item>
-    <item>Metal</item>
-    <item>Hip Hop</item>
-    <item>Música eletrônica</item>
-    <item>Japonês</item>
-    <item>Música de Bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Desativado (padrão)</item>
     <item>Ativado</item>
     <item>Ativado (afixado)</item>
-  </string-array>
-  <string-array name="URI_labels">
-    <item>Deste dispositivo</item>
-    <item>Sua biblioteca de músicas do Google Play</item>
   </string-array>
 </resources>
