@@ -22,19 +22,27 @@ package com.geecko.QuickLyric.view;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.geecko.QuickLyric.R;
+
+import static android.graphics.PorterDuff.Mode.OVERLAY;
 
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
 
-    private Bitmap mLocalBitmap;
+    private Bitmap  mLocalBitmap;
     private boolean mShowLocal;
 
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
@@ -60,10 +68,34 @@ public class FadeInNetworkImageView extends NetworkImageView {
         Context context = getContext();
         if (context != null) {
             Resources resources = context.getResources();
+            Bitmap diskBitmap =
+                    ((BitmapDrawable) resources.getDrawable(R.drawable.base_cover)).getBitmap();
+            int overlayColor = 0xFFF;
+            if (bm != null) {
+                Palette coverPalette = Palette.generate(bm);
+//              int muted = coverPalette.getLightMutedColor(resources.getColor(R.color.selected));
+                Palette.Swatch swatch = coverPalette.getVibrantSwatch();
+                if (swatch == null || swatch.getPopulation() < 200) {
+                    swatch = coverPalette.getLightMutedSwatch();
+                    if (swatch == null || swatch.getPopulation() < 200)
+                        swatch = coverPalette.getMutedSwatch();
+                    if (swatch == null)
+                        return;
+                }
+                // DST = Disk, SRC = Artwork
+                overlayColor = swatch.getRgb();
+                ColorFilter filter = new PorterDuffColorFilter(overlayColor, OVERLAY);
+                diskBitmap = diskBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                Canvas diskCanvas = new Canvas(diskBitmap);
+                Paint paint = new Paint();
+                paint.setColorFilter(filter);
+                diskCanvas.drawBitmap(diskBitmap, 0f, 0f, paint);
+            }
             TransitionDrawable td = new TransitionDrawable(new Drawable[]{
-                    new ColorDrawable(resources.getColor(android.R.color.transparent)),
-                    new BitmapDrawable(context.getResources(), bm)
+                    new ColorDrawable(overlayColor),
+                    new BitmapDrawable(context.getResources(), diskBitmap)
             });
+
             setImageDrawable(td);
             td.startTransition(FADE_IN_TIME_MS);
         }
@@ -71,12 +103,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        if (changed)
-            super.onLayout(true, left, top, right, bottom);
-        Bitmap bitmap = null;
-        if (getDrawable() != null)
-            bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
-        if (mShowLocal && (bitmap == null || !(bitmap).equals(mLocalBitmap)))
+
+        super.onLayout(changed, left, top, right, bottom);
+        if (mShowLocal) {
             setImageBitmap(mLocalBitmap);
+        }
     }
 }
