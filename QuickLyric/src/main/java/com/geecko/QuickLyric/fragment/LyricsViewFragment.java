@@ -311,6 +311,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         TextView artistTV = ((TextView) getActivity().findViewById(R.id.artist));
 
         EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
+        newLyrics.setTypeface(LyricsTextFactory.FontCache.get("light", getActivity()));
         newLyrics.setText(((TextView) textSwitcher.getCurrentView()).getText(), TextView.BufferType.EDITABLE);
 
         textSwitcher.setVisibility(View.GONE);
