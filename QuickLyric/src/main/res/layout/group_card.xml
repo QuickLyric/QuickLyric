@@ -18,34 +18,48 @@
   ~  */
   -->
 
-<android.support.v7.widget.CardView
+<com.balysv.materialripple.MaterialRippleLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardBackgroundColor="?android:panelColorBackground"
-    app:cardElevation="4dp">
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="4dp"
+    android:clickable="false"
+    app:mrl_rippleAlpha="0.2"
+    app:mrl_rippleColor="?rippleBackGroundColor"
+    app:mrl_rippleFadeDuration="250"
+    app:mrl_rippleHover="true"
+    app:mrl_rippleOverlay="true">
 
-    <TextView
-        android:id="@android:id/text1"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:gravity="center_vertical"
-        android:paddingLeft="45dp"
-        android:paddingRight="45dp"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:textColor="?android:textColorPrimary"
-        />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        app:cardBackgroundColor="?android:panelColorBackground"
+        app:cardElevation="4dp">
 
-    <ImageView
-        android:id="@+id/group_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
-        android:src="@drawable/ic_collapsed_indicator"
-        />
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:gravity="center_vertical"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:textColor="?android:textColorPrimary"
+            />
 
-</android.support.v7.widget.CardView>
+        <ImageView
+            android:id="@+id/group_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:src="@drawable/ic_collapsed_indicator"
+            />
+
+    </android.support.v7.widget.CardView>
+</com.balysv.materialripple.MaterialRippleLayout>
