@@ -29,6 +29,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 
 import java.io.BufferedReader;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -57,6 +59,7 @@ public class LrcView extends View {
     private Paint mNormalPaint;
     private Paint mCurrentPaint;
     private List<Long> mTimes;
+    private Lyrics lyrics;
 
     public LrcView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -141,7 +144,7 @@ public class LrcView extends View {
                     (mTextSize + mDividerHeight) + breakOffset, mNormalPaint);
             if (overflow > 0) {
                 if (previousLrc.contains(" "))
-                    previousLrc = previousLrc.substring(previousLrc.substring(0, contained).lastIndexOf(" ") +1);
+                    previousLrc = previousLrc.substring(previousLrc.substring(0, contained).lastIndexOf(" ") + 1);
                 else
                     previousLrc = previousLrc.substring(contained);
                 previousX = (mViewWidth - mNormalPaint.measureText(previousLrc)) / 2;
@@ -291,5 +294,23 @@ public class LrcView extends View {
             dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
+    }
+
+    public Lyrics getStaticLyrics() {
+        Lyrics result = this.lyrics;
+        StringBuilder text = new StringBuilder();
+        Iterator<String> iterator = dictionnary.values().iterator();
+        while (iterator.hasNext()) {
+            text.append(iterator.next());
+            if (iterator.hasNext())
+                text.append("<br/>\n");
+        }
+        result.setText(text.toString());
+        result.setLRC(false);
+        return result;
+    }
+
+    public void setOriginalLyrics(Lyrics lyrics) {
+        this.lyrics = lyrics;
     }
 }

@@ -243,6 +243,7 @@ A few possible reasons why:<br/>
     <string name="source_bollywood">Bollywood Music</string>
     <string name="source_sync">Synchronized Lyrics</string>
     <string name="spotify_connection">Connecting to Spotify…</string>
+    <string name="full_text_action">Show full text</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

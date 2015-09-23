@@ -32,7 +32,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -571,6 +570,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             } else {
                 textSwitcher.setVisibility(View.GONE);
                 lrcView.setVisibility(View.VISIBLE);
+                lrcView.setOriginalLyrics(lyrics);
                 lrcView.setSourceLrc(lyrics.getText());
                 if (isActiveFragment)
                     ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
@@ -716,6 +716,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     if (!mLyrics.isLRC())
                         new WriteToDatabaseTask().execute(this, item, this.mLyrics);
                 break;
+            case R.id.convert_action:
+                LrcView lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
+                if (lrcView != null)
+                    update(lrcView.getStaticLyrics(), getView(), true);
         }
         return false;
     }
@@ -834,8 +838,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 saveMenuItem.setVisible(!mLyrics.isLRC());
         }
         MenuItem resyncMenuItem = menu.findItem(R.id.resync_action);
-        if (mLyrics != null)
+        MenuItem convertMenuItem = menu.findItem(R.id.convert_action);
+        if (mLyrics != null) {
             resyncMenuItem.setVisible(mLyrics.isLRC());
+            convertMenuItem.setVisible(mLyrics.isLRC());
+        }
         MenuItem shareMenuItem = menu.findItem(R.id.share_action);
         if (shareMenuItem != null)
             shareMenuItem.setVisible(mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && mLyrics.getURL() != null);
