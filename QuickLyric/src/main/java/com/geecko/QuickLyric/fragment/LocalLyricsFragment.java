@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.VelocityTrackerCompat;
@@ -55,8 +54,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.drivemode.spotify.ClientConfig;
-import com.drivemode.spotify.SpotifyApi;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
@@ -299,8 +296,6 @@ public class LocalLyricsFragment extends ListFragment {
             if (fragmentView != null)
                 fragmentView.setBackgroundColor(typedValue.data);
             megaListView.setDividerHeight(0);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-                megaListView.setSelector(R.drawable.abc_list_selector_disabled_holo_dark);
             megaListView.setFastScrollEnabled(true);
             megaListView.setDrawSelectorOnTop(true);
         }
