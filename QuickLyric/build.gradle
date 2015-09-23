@@ -19,6 +19,7 @@ buildscript {
     }
 }
 
+//noinspection GroovyAssignabilityCheck
 android {
     useLibrary 'org.apache.http.legacy'
     sourceSets {
@@ -60,6 +61,7 @@ android {
         }
     }
 
+    //noinspection GroovyMissingReturnStatement
     productFlavors {
         fdroid {
         }
@@ -79,7 +81,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.android.support:support-v13:23.+'
     //noinspection GradleCompatible
-    compile 'com.android.support:design:22.+'
+    compile 'com.android.support:design:22.+' // Design Library v23 is broken
     compile 'com.android.support:cardview-v7:23.+'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.mcxiaoke.volley:library:1.0.+'
@@ -91,6 +93,8 @@ dependencies {
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.+'
     compile 'ch.acra:acra:4.+'
+
+    //Available here: https://github.com/geecko86/SpotifyApi
     fdroidCompile(name: 'SpotifyApi', ext: 'aar')
     promoCompile 'com.android.support:palette-v7:23.+'
 }
