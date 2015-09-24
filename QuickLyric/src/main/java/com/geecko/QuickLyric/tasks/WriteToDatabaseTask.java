@@ -115,15 +115,14 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             View.OnClickListener actionClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View snackbar) {
-                    new WriteToDatabaseTask(mLocalLyricsFragment).execute(fragment, null, lyricsArray);
+                    mLocalLyricsFragment.animateUndo(lyricsArray);
                 }
             };
             if (!result && fragment.getView() != null) {
                 Snackbar.make(fragment.getView(), message, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, actionClickListener)
                         .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
-            } else
-                new DBContentLister(mLocalLyricsFragment).execute();
+            }
         }
     }
 }

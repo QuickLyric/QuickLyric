@@ -20,7 +20,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
@@ -111,7 +110,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
      */
 
     @SuppressWarnings("unused")
-        private static final String TAG = AnimatedExpandableListAdapter.class.getSimpleName();
+    private static final String TAG = AnimatedExpandableListAdapter.class.getSimpleName();
 
     /**
      * The duration of the expand/collapse animations
@@ -157,9 +156,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
     @SuppressLint("NewApi")
     public boolean expandGroupWithAnimation(int groupPos) {
         boolean lastGroup = groupPos == adapter.getGroupCount() - 1;
-        if (lastGroup && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (lastGroup && getChildAt(getChildCount() - 1).getBottom() == getBottom())
             return expandGroup(groupPos, true);
-        }
 
         int groupFlatPos = getFlatListPosition(getPackedPositionForGroup(groupPos));
         if (groupFlatPos != -1) {

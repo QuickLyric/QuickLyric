@@ -127,6 +127,32 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         return true;
     }
 
+    public int add(Lyrics lyricsToAdd) {
+        int index = 0;
+        for (ArrayList<Lyrics> sublist : savedLyrics) {
+            if (sublist.get(0).getArtist().equals(lyricsToAdd.getArtist())) {
+                int innerIndex = 0;
+                for (Lyrics item : sublist)
+                    if (lyricsToAdd.getTrack().compareToIgnoreCase(item.getTrack()) > 0)
+                        innerIndex++;
+                    else
+                        break;
+                sublist.add(innerIndex, lyricsToAdd);
+                notifyDataSetChanged();
+                return index;
+            } else if (lyricsToAdd.getArtist().compareToIgnoreCase(sublist.get(0).getArtist()) > 0)
+                index++;
+            else
+                break;
+        }
+        // Add group:
+        ArrayList<Lyrics> sublist = new ArrayList<>();
+        sublist.add(lyricsToAdd);
+        savedLyrics.add(index, sublist);
+        notifyDataSetChanged();
+        return index;
+    }
+
     public boolean remove(int groupPosition, View viewToRemove) {
         int childPosition = getGroup(groupPosition).indexOf(((ChildViewHolder) viewToRemove.getTag()).lyrics);
         boolean result = getGroup(groupPosition).remove(childPosition) != null;
