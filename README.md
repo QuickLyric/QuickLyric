@@ -14,7 +14,7 @@ The build system relies on Gradle and Android Studio is therefore recommended.
 
 or on [the original F-Droid page](https://f-droid.org/repository/browse/?fdid=com.geecko.QuickLyric).
 
-*Note: This is the old 1.8 release of QuickLyric. A beta for QuickLyric 2.0 is available on [the Google+ page](plus.google.com/communities/115504114424315189412).*
+*Note: This is the old 1.8 release of QuickLyric. A beta for QuickLyric 2.0 is available on [the Google+ page](http://plus.google.com/communities/115504114424315189412).*
 
 ## Donate
 
