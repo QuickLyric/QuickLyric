@@ -56,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
     public ArrayList<Class> searchProviders = new ArrayList<>();
     public ViewPager viewPager;
     private String searchQuery;
+    public boolean leaving;
 
     @SuppressWarnings("unchecked")
     private void updateSearchProviders(Context context) {
@@ -123,9 +124,25 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause(){
-        super.onPause();
+    public void onBackPressed() {
+        super.onBackPressed();
+        leaving = true;
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (leaving)
+            leaving = false;
+        else
+            overridePendingTransition(android.R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    public void finish() {
+        leaving = true;
+        super.finish();
     }
 
     public void setSearchQuery(String searchQuery) {

@@ -539,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     private void registerTempReceiver() {
         receiver = new MusicBroadcastReceiver();
-        receiver.forceAutoUpdate(true);
+        MusicBroadcastReceiver.forceAutoUpdate(true);
         IntentFilter intentfilter = new IntentFilter();
         intentfilter.addAction("com.android.music.metachanged");
         intentfilter.addAction("com.htc.music.metachanged");
