@@ -801,9 +801,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
-                ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
-                        .setCollapsedTitleTextColor(Color.TRANSPARENT);
+                if (isActiveFragment) {
+                    ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+                    ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
+                            .setCollapsedTitleTextColor(Color.TRANSPARENT);
+                }
                 return true;
             }
 
