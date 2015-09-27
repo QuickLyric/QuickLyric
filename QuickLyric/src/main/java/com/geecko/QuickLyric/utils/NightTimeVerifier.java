@@ -22,10 +22,7 @@ package com.geecko.QuickLyric.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class NightTimeVerifier {
 
@@ -37,6 +34,9 @@ public class NightTimeVerifier {
         int startMinute = pref.getInt("startMinute", 0);
         int endHour = pref.getInt("endHour", 0);
         int endMinute = pref.getInt("endMinute", 0);
+
+        if (startHour >= 25)
+            return false;
 
         //Start Time
         Calendar startTime = Calendar.getInstance();

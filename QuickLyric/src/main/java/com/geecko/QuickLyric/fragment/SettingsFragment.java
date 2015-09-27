@@ -90,6 +90,11 @@ public class SettingsFragment extends PreferenceFragment implements
                     tpd.setCancelable(false);
                     tpd.setTitle(getActivity().getString(R.string.nighttime_start_dialog_title));
                     tpd.show(getFragmentManager(), NIGHT_START_TIME_DIALOG_TAG);
+                } else {
+                    SharedPreferences current = getActivity().getSharedPreferences("night_time", Context.MODE_PRIVATE);
+                    current.edit().putInt("startHour", 42)
+                            .putInt("endHour", 45)
+                            .apply();
                 }
                 break;
         }
