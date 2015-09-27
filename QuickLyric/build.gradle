@@ -89,7 +89,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'org.jraf:android-switch-backport:2.0.1'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
-    compile 'com.wdullaer:materialdatetimepicker:1.+'
+    compile 'com.wdullaer:materialdatetimepicker:1.4.2'
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.+'
     compile 'ch.acra:acra:4.+'
