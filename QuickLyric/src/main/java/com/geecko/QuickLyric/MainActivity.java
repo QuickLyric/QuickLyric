@@ -422,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.checkPreferencesChanges();
             TypedValue outValue = new TypedValue();
             getTheme().resolveAttribute(R.attr.themeName, outValue, false);
-            if (!"Night".equals(outValue.string) == NightTimeVerifier.check(this) ||
+            if ("Night".equals(outValue.string) != NightTimeVerifier.check(this) ||
                     "Dark".equals(outValue.string) == sharedPrefs.getString("pref_theme", "0").equals("0")) {
                 finish();
                 Intent intent = new Intent(this, MainActivity.class);
