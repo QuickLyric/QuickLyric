@@ -133,25 +133,27 @@ public class LrcView extends View {
 
         int breakOffset = 0;
 
-        long previousTime = mTimes.get(currentLine - 1);
-        String previousLrc = dictionnary.get(previousTime);
-        if (currentLine - 1 >= 0 && previousLrc != null) {
-            overflow = previousLrc.length() - mNormalPaint.breakText(previousLrc, true, mViewWidth, null);
-            contained = previousLrc.length() - overflow;
-            String cutPrevious = previousLrc.substring(0, contained);
-            cutPrevious = cutPrevious.substring(0, overflow > 0 && cutPrevious.contains(" ") ? cutPrevious.lastIndexOf(" ") : contained);
-            float previousX = (mViewWidth - mNormalPaint.measureText(cutPrevious)) / 2;
-            canvas.drawText(cutPrevious, previousX,
-                    (mTextSize + mDividerHeight) + breakOffset, mNormalPaint);
-            if (overflow > 0) {
-                if (previousLrc.contains(" "))
-                    previousLrc = previousLrc.substring(previousLrc.substring(0, contained).lastIndexOf(" ") + 1);
-                else
-                    previousLrc = previousLrc.substring(contained);
-                previousX = (mViewWidth - mNormalPaint.measureText(previousLrc)) / 2;
-                canvas.drawText(previousLrc, previousX,
-                        (mTextSize + mDividerHeight) * 2 + breakOffset, mNormalPaint);
-                breakOffset += mTextSize + mDividerHeight;
+        if (currentLine - 1 >= 0) {
+            long previousTime = mTimes.get(currentLine - 1);
+            String previousLrc = dictionnary.get(previousTime);
+            if (previousLrc != null) {
+                overflow = previousLrc.length() - mNormalPaint.breakText(previousLrc, true, mViewWidth, null);
+                contained = previousLrc.length() - overflow;
+                String cutPrevious = previousLrc.substring(0, contained);
+                cutPrevious = cutPrevious.substring(0, overflow > 0 && cutPrevious.contains(" ") ? cutPrevious.lastIndexOf(" ") : contained);
+                float previousX = (mViewWidth - mNormalPaint.measureText(cutPrevious)) / 2;
+                canvas.drawText(cutPrevious, previousX,
+                        (mTextSize + mDividerHeight) + breakOffset, mNormalPaint);
+                if (overflow > 0) {
+                    if (previousLrc.contains(" "))
+                        previousLrc = previousLrc.substring(previousLrc.substring(0, contained).lastIndexOf(" ") + 1);
+                    else
+                        previousLrc = previousLrc.substring(contained);
+                    previousX = (mViewWidth - mNormalPaint.measureText(previousLrc)) / 2;
+                    canvas.drawText(previousLrc, previousX,
+                            (mTextSize + mDividerHeight) * 2 + breakOffset, mNormalPaint);
+                    breakOffset += mTextSize + mDividerHeight;
+                }
             }
         }
 
@@ -180,6 +182,8 @@ public class LrcView extends View {
 
         for (int i = currentLine + 1; i < Math.min(currentLine + mRows - 2, dictionnary.size()); i++) {
             String lrc = dictionnary.get(mTimes.get(i));
+            if (lrc == null)
+                continue;
             overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth, null);
             contained = lrc.length() - overflow;
             cutLrc = lrc.substring(0, contained);
@@ -225,7 +229,7 @@ public class LrcView extends View {
 
     private String[] parseLine(String line) {
         Matcher matcher = Pattern.compile("\\[.+\\].+").matcher(line);
-        if (!matcher.matches()) {
+        if (!matcher.matches() || line.contains("By:")) {
             if (line.contains("[by:"))
                 this.uploader = line.substring(5, line.length() - 1);
             return null;

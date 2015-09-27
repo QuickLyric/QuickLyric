@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
@@ -85,8 +84,9 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
-        long position = extras.getLong("position");
-        Log.v("Position:", String.valueOf(position));
+        long position = 0;
+        if (!intent.getAction().endsWith("metachanged"))
+            position = extras.getLong("position");
         boolean isPlaying = extras.getBoolean("playing", true);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
@@ -120,7 +120,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         autoUpdate = autoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
 
-        if (autoUpdate && App.isActivityVisible() && !(artist.equals(currentArtist) && track.equals(currentTrack))) {
+        if (autoUpdate && App.isActivityVisible()) {
             Intent internalIntent = new Intent("Broadcast");
             internalIntent.putExtra("artist", artist).putExtra("track", track);
             LyricsViewFragment.sendIntent(context, internalIntent);

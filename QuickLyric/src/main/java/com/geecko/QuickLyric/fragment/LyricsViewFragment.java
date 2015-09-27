@@ -119,6 +119,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private boolean startEmtpy = false;
     public boolean searchResultLock;
     private SwipeRefreshLayout mRefreshLayout;
+    private Thread mLrcThread;
 
     public LyricsViewFragment() {
     }
@@ -574,7 +575,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 lrcView.setSourceLrc(lyrics.getText());
                 if (isActiveFragment)
                     ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
-                new Thread(lrcUpdater).start();
+                updateLRC();
             }
 
             bugLayout.setVisibility(View.INVISIBLE);
@@ -891,6 +892,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
     }
 
+    public void updateLRC() {
+        if (mLrcThread == null || !mLrcThread.isAlive()) {
+            mLrcThread = new Thread(lrcUpdater);
+            mLrcThread.start();
+        }
+    }
+
     public void startEmpty(boolean startEmpty) {
         this.startEmtpy = startEmpty;
     }
@@ -898,11 +906,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private Runnable lrcUpdater = new Runnable() {
         @Override
         public void run() {
+            boolean ran = false;
             LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
             if (lrcView == null || getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            while (!lrcView.isFinished()) {
+            MusicBroadcastReceiver.forceAutoUpdate(true);
+            while (preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
+                    preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
+                    preferences.getBoolean("playing", true)) {
+                ran = true;
                 long position = preferences.getLong("position", 0);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long distance = System.currentTimeMillis() - startTime;
@@ -916,6 +929,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
             }
             MusicBroadcastReceiver.forceAutoUpdate(true);
+            if (preferences.getBoolean("playing", true) && ran)
+                fetchCurrentLyrics(false);
         }
     };
 
