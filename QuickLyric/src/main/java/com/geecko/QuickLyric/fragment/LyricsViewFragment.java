@@ -935,6 +935,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     };
 
     public void collapseSearchView() {
-        searchItem.collapseActionView();
+        if (searchItem != null)
+            searchItem.collapseActionView();
     }
 }
