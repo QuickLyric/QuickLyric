@@ -60,6 +60,7 @@ public class LrcView extends View {
     private Paint mCurrentPaint;
     private List<Long> mTimes;
     private Lyrics lyrics;
+    private String uploader;
 
     public LrcView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -132,9 +133,9 @@ public class LrcView extends View {
 
         int breakOffset = 0;
 
-        if (currentLine - 1 >= 0) {
-            long previousTime = mTimes.get(currentLine - 1);
-            String previousLrc = dictionnary.get(previousTime);
+        long previousTime = mTimes.get(currentLine - 1);
+        String previousLrc = dictionnary.get(previousTime);
+        if (currentLine - 1 >= 0 && previousLrc != null) {
             overflow = previousLrc.length() - mNormalPaint.breakText(previousLrc, true, mViewWidth, null);
             contained = previousLrc.length() - overflow;
             String cutPrevious = previousLrc.substring(0, contained);
@@ -225,6 +226,8 @@ public class LrcView extends View {
     private String[] parseLine(String line) {
         Matcher matcher = Pattern.compile("\\[.+\\].+").matcher(line);
         if (!matcher.matches()) {
+            if (line.contains("[by:"))
+                this.uploader = line.substring(5, line.length() - 1);
             return null;
         }
 
@@ -291,7 +294,9 @@ public class LrcView extends View {
         // Collections.sort(mTimes);
         dictionnary = new TreeMap<>();
         for (int i = 0; i < mTimes.size(); i++) {
-            dictionnary.put(mTimes.get(i), texts.get(i));
+            if (mTimes.get(i) >= 15000 || (!texts.get(i).contains(lyrics.getArtist()) &&
+                    !texts.get(i).contains(lyrics.getTrack()) && !texts.get(i).equalsIgnoreCase(uploader)))
+                dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
     }

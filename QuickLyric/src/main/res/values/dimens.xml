@@ -18,7 +18,7 @@
   ~  */
   -->
 <resources>
-    <dimen name="frame_height">90dp</dimen>
+    <dimen name="app_bar_layout_height">192dp</dimen>
     <dimen name="cover_width">90dp</dimen>
     <dimen name="fab_top_margin">75dp</dimen>
     <dimen name="lyrics_top_margin">100dp</dimen>
