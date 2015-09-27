@@ -47,6 +47,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 
+import org.acra.ACRA;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -121,7 +123,11 @@ public class Spotify {
     }
 
     public static void onCallback(Intent intent, Activity activity) {
-        SpotifyApi.getInstance().onCallback(intent.getData(), new AuthListener(activity, 0));
+        try {
+            SpotifyApi.getInstance().onCallback(intent.getData(), new AuthListener(activity, 0));
+        } catch (IllegalStateException e) {
+            Toast.makeText(activity, R.string.connection_error, Toast.LENGTH_LONG).show();
+        }
     }
 
     private static class SpotifyKeyCallback implements com.squareup.okhttp.Callback {
