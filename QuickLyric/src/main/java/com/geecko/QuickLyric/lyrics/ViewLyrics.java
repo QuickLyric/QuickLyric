@@ -89,10 +89,14 @@ public class ViewLyrics {
         if (url.endsWith("txt"))
             return new Lyrics(NEGATIVE_RESULT);
         Lyrics result = new Lyrics(POSITIVE_RESULT);
-        result.setTitle(results.get(0).getTrack());
         result.setOriginalTitle(title);
-        result.setArtist(results.get(0).getArtist());
         result.setOriginalArtist(artist);
+        result.setTitle(results.get(0).getTrack());
+        result.setArtist(results.get(0).getArtist());
+        if (result.getTrack().equalsIgnoreCase(title))
+            result.setTitle(title);
+        if (result.getArtist().equalsIgnoreCase(artist))
+            result.setArtist(artist);
         result.setLRC(url.endsWith("lrc"));
         result.setText(Net.getUrlAsString(url));
         result.setSource(clientUserAgent);
