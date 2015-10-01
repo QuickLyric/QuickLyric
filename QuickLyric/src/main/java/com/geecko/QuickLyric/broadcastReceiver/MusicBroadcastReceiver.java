@@ -128,7 +128,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         }
 
         boolean inDatabase = DatabaseHelper.presenceCheck(new DatabaseHelper(context)
-                .getReadableDatabase(), new String[]{artist, track});
+                .getReadableDatabase(), new String[]{artist, track, artist, track});
 
         if (notificationPref != 0 && isPlaying
                 && (inDatabase || OnlineAccessVerifier.check(context))) {

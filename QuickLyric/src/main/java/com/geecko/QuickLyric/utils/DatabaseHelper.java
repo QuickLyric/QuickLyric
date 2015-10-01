@@ -33,15 +33,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "QuickLyric";
-    private static final String TABLE_NAME = "lyrics";
+    public static final String TABLE_NAME = "lyrics";
     private static final String KEY_ARTIST = "artist";
     private static final String KEY_TRACK = "track";
+    private static final String KEY_ORIGINAL_ARTIST = "original_artist";
+    private static final String KEY_ORIGINAL_TRACK = "original_track";
     private static final String KEY_LYRICS = "lyrics";
     private static final String KEY_URL = "url";
+    private static final String KEY_LRC = "isLRC";
     private static final String KEY_SOURCE = "source";
     private static final String KEY_COVER_URL = "cover";
-    public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE, KEY_COVER_URL};
-    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT);";
+    public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE,
+            KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC};
+    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT,"  + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, "  + KEY_LRC + " BIT);";
     private static SQLiteDatabase database = null;
 
     public DatabaseHelper(Context context) {
@@ -95,32 +99,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static Lyrics get(SQLiteDatabase database, String[] metaData) {
+        String[] args = new String[4];
+        System.arraycopy(metaData, 0, args, 0, metaData.length);
+        System.arraycopy(metaData, 0, args, 2, metaData.length);
         String[] columns = DatabaseHelper.columns;
-        Cursor cursor = database.query(TABLE_NAME, null, String.format("upper(%s) = upper(?) AND upper(%s) = upper(?)", columns[0], columns[1]),
-                metaData, null, null, null);
+        Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s) = upper(?) AND upper(%s) = upper(?)) OR (upper(%s)=upper(?) AND upper(%s) = upper(?))",
+                columns[0], columns[1], columns[6], columns[3]), args, null, null, null);
         int count = cursor.getCount();
+        Lyrics result = null;
         if (count > 0) {
             cursor.moveToFirst();
-            Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
-            l.setArtist(cursor.getString(0));
-            l.setTitle(cursor.getString(1));
-            l.setText(cursor.getString(2));
-            l.setURL(cursor.getString(3));
-            l.setSource(cursor.getString(4));
-            l.setCoverURL(cursor.getString(5));
-            cursor.close();
-            return l;
-        } else {
-            cursor.close();
-            return null;
+            result = new Lyrics(Lyrics.POSITIVE_RESULT);
+            result.setArtist(cursor.getString(0));
+            result.setTitle(cursor.getString(1));
+            result.setText(cursor.getString(2));
+            result.setURL(cursor.getString(3));
+            result.setSource(cursor.getString(4));
+            result.setCoverURL(cursor.getString(5));
+            result.setOriginalArtist(cursor.getString(6));
+            result.setOriginalTitle(cursor.getString(7));
+            result.setLRC(cursor.getInt(8) > 0);
         }
+        cursor.close();
+        return result;
+    }
+
+    public static int getColumnsCount(SQLiteDatabase database) {
+        return database.query(TABLE_NAME, null, null, null, null, null, null).getColumnCount();
     }
 
     public static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
-        String[] columns = DatabaseHelper.columns;
-        Cursor cursor = database.query(TABLE_NAME, null, String.format("%s=? AND %s=?", columns[0], columns[1]), metaData, null, null, null);
+        Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s)=upper(?) AND upper(%s)=upper(?)) OR (upper(%s)=upper(?) AND upper(%s)=upper(?))",
+                columns[0], columns[1], columns[6], columns[7]), metaData, null, null, null);
         int count = cursor.getCount();
         cursor.close();
         return (count != 0);
+    }
+
+    public static void addMissingColumns(SQLiteDatabase database) {
+        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
+        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
+        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
     }
 }

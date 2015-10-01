@@ -74,12 +74,12 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             for (int i = 0; i < lyricsArray.length; i++) {
                 lyricsArray[i] = (Lyrics) params[i + 2];
             }
-        String table = "lyrics";
         boolean result = true;
         String[] columns = DatabaseHelper.columns;
         if (database != null) {
             for (Lyrics lyrics : lyricsArray)
-                if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack()})) {
+                if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),
+                        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})) {
                     ContentValues values = new ContentValues(2);
                     values.put(columns[0], lyrics.getArtist());
                     values.put(columns[1], lyrics.getTrack());
@@ -87,12 +87,15 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                     values.put(columns[3], lyrics.getURL());
                     values.put(columns[4], lyrics.getSource());
                     values.put(columns[5], lyrics.getCoverURL());
-                    database.insert(table, null, values);
+                    values.put(columns[6], lyrics.getOriginalArtist());
+                    values.put(columns[7], lyrics.getOriginalTrack());
+                    values.put(columns[8], lyrics.isLRC() ? 1 : 0);
+                    database.insert(DatabaseHelper.TABLE_NAME, null, values);
                     if (fragment instanceof LyricsViewFragment)
                         ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
                     result = true;
                 } else if (mContext != null) { // if called from activity, not service
-                    database.delete(table, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
+                    database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
                     if (fragment instanceof LyricsViewFragment)
                         ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
                     result = false;

@@ -81,6 +81,7 @@ import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.Spotify;
+import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -92,6 +93,7 @@ import static com.geecko.QuickLyric.R.array;
 import static com.geecko.QuickLyric.R.id;
 import static com.geecko.QuickLyric.R.layout;
 import static com.geecko.QuickLyric.R.string;
+import static com.geecko.QuickLyric.view.LrcView.*;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
@@ -184,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         drawerList.setOnItemClickListener(drawerListener);
         database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
         DatabaseHelper.setDatabase(database);
+        if (database != null && DatabaseHelper.getColumnsCount(database) <= 6)
+            DatabaseHelper.addMissingColumns(database);
 
         Intent intent = getIntent();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -668,6 +672,15 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
         if (lyricsViewFragment != null && lyricsViewFragment.getView() != null) {
+            SharedPreferences preferences = getSharedPreferences("current_music", Context.MODE_PRIVATE);
+            String artist = preferences.getString("artist", null);
+            String track = preferences.getString("track", null);
+            if (lyrics.isLRC() && !(lyrics.getOriginalArtist().equals(artist) && lyrics.getOriginalTrack().equals(track))) {
+                LrcView parser = new LrcView(this, null);
+                parser.setOriginalLyrics(lyrics);
+                parser.setSourceLrc(lyrics.getText());
+                lyrics = parser.getStaticLyrics();
+            }
             lyricsViewFragment.update(lyrics, lyricsViewFragment.getView(), true);
             if (transition) {
                 fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);

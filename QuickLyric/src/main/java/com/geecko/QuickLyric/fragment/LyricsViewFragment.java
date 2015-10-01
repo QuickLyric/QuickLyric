@@ -392,7 +392,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (!hidden) {
             this.onViewCreated(getView(), null);
             if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB)
-                new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTrack()});
+                new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
+                mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
         } else
             this.isActiveFragment = false;
     }
@@ -435,8 +436,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         Lyrics lyrics;
         if (artist != null && title != null) {
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
-            if (lyrics == null)
-                lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
             if (lyrics == null)
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
 
@@ -544,7 +543,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         this.mLyrics = lyrics;
         if (SDK_INT >= ICE_CREAM_SANDWICH)
             beamLyrics(lyrics, this.getActivity());
-        new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack()});
+        new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack(),
+        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
 
         if (lyrics.getArtist() != null)
             artistTV.setText(lyrics.getArtist());
@@ -714,8 +714,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return true;
             case R.id.save_action:
                 if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
-                    if (!mLyrics.isLRC())
-                        new WriteToDatabaseTask().execute(this, item, this.mLyrics);
+                    new WriteToDatabaseTask().execute(this, item, this.mLyrics);
                 break;
             case R.id.convert_action:
                 LrcView lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
@@ -831,14 +830,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     && sharedPref.getBoolean("pref_auto_save", false)
                     && !lyricsPresentInDB) {
                 lyricsPresentInDB = true;
-                if (!mLyrics.isLRC())
-                    new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
+                new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
             } else {
                 saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);
                 saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);
             }
-            if (mLyrics != null)
-                saveMenuItem.setVisible(!mLyrics.isLRC());
         }
         MenuItem resyncMenuItem = menu.findItem(R.id.resync_action);
         MenuItem convertMenuItem = menu.findItem(R.id.convert_action);
@@ -929,7 +925,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
             }
             MusicBroadcastReceiver.forceAutoUpdate(true);
-            if (preferences.getBoolean("playing", true) && ran)
+            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC())
                 fetchCurrentLyrics(false);
         }
     };

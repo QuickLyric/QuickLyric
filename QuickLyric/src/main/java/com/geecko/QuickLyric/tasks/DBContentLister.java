@@ -67,7 +67,7 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
         String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE %s,%s COLLATE NOCASE ASC", columns[0], (descending ? "DESC" : "ASC"), columns[1]);
         SQLiteDatabase database = ((MainActivity) localLyricsFragment.getActivity()).database;
         if (database != null) {
-            Cursor cursor = database.query("lyrics", null, null, null, null, null, query);
+            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, query);
             cursor.moveToFirst();
             ArrayList<ArrayList<Lyrics>> results = new ArrayList<>(cursor.getCount());
             HashMap<String, ArrayList<Lyrics>> map = new HashMap<>();
@@ -80,6 +80,9 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
                     l.setURL(cursor.getString(3));
                     l.setSource(cursor.getString(4));
                     l.setCoverURL(cursor.getString(5));
+                    l.setOriginalArtist(cursor.getString(6));
+                    l.setOriginalTitle(cursor.getString(7));
+                    l.setLRC(cursor.getInt(8) == 1);
                     if (map.get(l.getArtist()) == null)
                         map.put(l.getArtist(), new ArrayList<Lyrics>());
                     ArrayList<Lyrics> artistSubGroup = map.get(l.getArtist());
