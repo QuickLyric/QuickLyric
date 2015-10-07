@@ -762,6 +762,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (mActivity == null)
+            mActivity = getActivity();
         MainActivity mainActivity = (MainActivity) this.mActivity;
         CollapsingToolbarLayout toolbarLayout =
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
