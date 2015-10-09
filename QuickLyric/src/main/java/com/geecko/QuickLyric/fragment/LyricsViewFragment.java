@@ -829,10 +829,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mActivity);
             if (mLyrics != null
                     && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
-                    && sharedPref.getBoolean("pref_auto_save", false)
-                    && !lyricsPresentInDB) {
-                lyricsPresentInDB = true;
-                new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
+                    && sharedPref.getBoolean("pref_auto_save", false)) {
+                if (!lyricsPresentInDB) {
+                    lyricsPresentInDB = true;
+                    new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
+                }
+                saveMenuItem.setVisible(false);
             } else {
                 saveMenuItem.setIcon(lyricsPresentInDB ? R.drawable.ic_trash : R.drawable.ic_save);
                 saveMenuItem.setTitle(lyricsPresentInDB ? R.string.remove_action : R.string.save_action);

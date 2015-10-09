@@ -419,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        invalidateOptionsMenu();
         LyricsViewFragment lyricsViewFragment =
                 (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (requestCode == 77) {
