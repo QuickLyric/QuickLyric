@@ -75,7 +75,7 @@
                         app:dividerHeight="10dip"
                         app:normalTextColor="?android:textColorPrimary"
                         app:rows="9"
-                        app:textSize="18sp"/>
+                        app:textSize="@dimen/txt_size"/>
 
                     <EditText
                         android:id="@+id/edit_lyrics"
