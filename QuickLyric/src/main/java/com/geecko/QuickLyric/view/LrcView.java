@@ -230,7 +230,7 @@ public class LrcView extends View {
     private String[] parseLine(String line) {
         Matcher matcher = Pattern.compile("\\[.+\\].+").matcher(line);
         if (!matcher.matches() || line.contains("By:")) {
-            if (line.contains("[by:"))
+            if (line.contains("[by:") && line.length() > 6)
                 this.uploader = line.substring(5, line.length() - 1);
             return null;
         }
@@ -299,7 +299,7 @@ public class LrcView extends View {
         dictionnary = new TreeMap<>();
         for (int i = 0; i < mTimes.size(); i++) {
             if (mTimes.get(i) >= 15000 || (!texts.get(i).contains(lyrics.getArtist()) &&
-                    !texts.get(i).contains(lyrics.getTrack()) && !texts.get(i).contains(uploader)))
+                    !texts.get(i).contains(lyrics.getTrack()) && (uploader == null || !texts.get(i).contains(uploader))))
                 dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
