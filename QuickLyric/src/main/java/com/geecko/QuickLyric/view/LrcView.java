@@ -298,8 +298,10 @@ public class LrcView extends View {
         // Collections.sort(mTimes);
         dictionnary = new TreeMap<>();
         for (int i = 0; i < mTimes.size(); i++) {
-            if (mTimes.get(i) >= 15000 || (!texts.get(i).contains(lyrics.getArtist()) &&
-                    !texts.get(i).contains(lyrics.getTrack()) && (uploader == null || !texts.get(i).contains(uploader))))
+            if (i > 2 || (!texts.get(i).contains(lyrics.getArtist()) &&
+                    !texts.get(i).contains(lyrics.getTrack()) &&
+                    (uploader == null || !texts.get(i).contains(uploader)) &&
+                    !texts.get(i).startsWith("Album:")))
                 dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
