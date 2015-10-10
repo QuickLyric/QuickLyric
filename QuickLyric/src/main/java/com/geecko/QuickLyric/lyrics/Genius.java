@@ -2,7 +2,6 @@ package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.annotations.Reflection;
-import com.geecko.QuickLyric.utils.Net;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +17,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * This file is part of QuickLyric
@@ -117,9 +117,16 @@ public class Genius {
         Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
         if ("[Instrumental]".equals(text))
             result = new Lyrics(Lyrics.NEGATIVE_RESULT);
+        Pattern pattern = Pattern.compile("\\[.+\\]");
+        StringBuilder builder = new StringBuilder();
+        for (String line : text.split("<br> ")) {
+            if (!pattern.matcher(line.replaceAll("\\s","")).matches())
+                builder.append(line).append("<br/>");
+        }
+        builder.delete(builder.length() - 5, builder.length());
         result.setArtist(artist);
         result.setTitle(title);
-        result.setText(text);
+        result.setText(builder.toString());
         result.setURL(url);
         result.setSource("Genius");
         return result;
