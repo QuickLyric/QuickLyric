@@ -55,7 +55,6 @@ public class SettingsFragment extends PreferenceFragment implements
 
         findPreference("pref_theme").setSummary(themes[themeNum]);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);
-        findPreference("pref_force_screen_on").setOnPreferenceChangeListener(this);
         findPreference("pref_opendyslexic").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);

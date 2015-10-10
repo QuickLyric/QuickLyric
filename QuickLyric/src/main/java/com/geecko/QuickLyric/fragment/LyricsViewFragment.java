@@ -829,7 +829,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mActivity);
             if (mLyrics != null
                     && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
-                    && sharedPref.getBoolean("pref_auto_save", false)) {
+                    && sharedPref.getBoolean("pref_auto_save", true)) {
                 if (!lyricsPresentInDB) {
                     lyricsPresentInDB = true;
                     new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
@@ -911,6 +911,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (lrcView == null || getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+            if (preferences.getLong("position", 0) == -1)
+                update(lrcView.getStaticLyrics(), getView(), true);
+
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
                     preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
@@ -922,6 +925,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 if (preferences.getBoolean("playing", true))
                     position += distance;
                 lrcView.changeCurrent(position);
+                String time = String.valueOf((position / 1000) % 60) + " sec";
+                Log.d("geecko", time); // fixme: remove
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

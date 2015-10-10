@@ -93,7 +93,6 @@ import static com.geecko.QuickLyric.R.array;
 import static com.geecko.QuickLyric.R.id;
 import static com.geecko.QuickLyric.R.layout;
 import static com.geecko.QuickLyric.R.string;
-import static com.geecko.QuickLyric.view.LrcView.*;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 

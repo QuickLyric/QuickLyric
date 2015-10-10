@@ -110,7 +110,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         if (fragment instanceof LyricsViewFragment) {
             SharedPreferences sharedPref =
                     PreferenceManager.getDefaultSharedPreferences(mContext);
-            if (!sharedPref.getBoolean("pref_auto_save", false))
+            if (!sharedPref.getBoolean("pref_auto_save", true))
                 Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
