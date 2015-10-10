@@ -57,7 +57,7 @@ public class ViewLyrics {
     //ACTUAL: http://search.crintsoft.com/searchlyrics.htm
     //CLASSIC: http://www.viewlyrics.com:1212/searchlyrics.htm
 
-    private static final String clientUserAgent = "MiniLyrics";
+    private static final String clientUserAgent = "MiniLyrics4Android";
     //NORMAL: MiniLyrics <version> for <player>
     //EXAMPLE: MiniLyrics 7.6.44 for Windows Media Player
     //MOBILE: MiniLyrics4Android
@@ -86,17 +86,12 @@ public class ViewLyrics {
             return new Lyrics(NEGATIVE_RESULT);
         String url = results.get(0).getURL();
 
-        if (url.endsWith("txt"))
+        if (url.endsWith("txt") || (!results.get(0).getTrack().equalsIgnoreCase(title) &&
+                !results.get(0).getArtist().equalsIgnoreCase(artist)))
             return new Lyrics(NEGATIVE_RESULT);
         Lyrics result = new Lyrics(POSITIVE_RESULT);
-        result.setOriginalTitle(title);
-        result.setOriginalArtist(artist);
-        result.setTitle(results.get(0).getTrack());
-        result.setArtist(results.get(0).getArtist());
-        if (result.getTrack().equalsIgnoreCase(title))
-            result.setTitle(title);
-        if (result.getArtist().equalsIgnoreCase(artist))
-            result.setArtist(artist);
+        result.setTitle(title);
+        result.setArtist(artist);
         result.setLRC(url.endsWith("lrc"));
         result.setText(Net.getUrlAsString(url));
         result.setSource(clientUserAgent);
