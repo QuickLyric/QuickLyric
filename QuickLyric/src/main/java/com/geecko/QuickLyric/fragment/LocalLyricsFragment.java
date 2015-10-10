@@ -233,6 +233,7 @@ public class LocalLyricsFragment extends ListFragment {
                         }
                     }
                 }
+                mSwiping = false;
                 mItemPressed = false;
                 break;
                 default:
