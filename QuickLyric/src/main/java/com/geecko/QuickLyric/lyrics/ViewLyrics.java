@@ -86,7 +86,7 @@ public class ViewLyrics {
             return new Lyrics(NEGATIVE_RESULT);
         String url = results.get(0).getURL();
 
-        if (url.endsWith("txt") || (!results.get(0).getTrack().equalsIgnoreCase(title) &&
+        if (url.endsWith("txt") || (!results.get(0).getTrack().equalsIgnoreCase(title) ||
                 !results.get(0).getArtist().equalsIgnoreCase(artist)))
             return new Lyrics(NEGATIVE_RESULT);
         Lyrics result = new Lyrics(POSITIVE_RESULT);
