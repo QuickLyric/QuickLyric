@@ -58,6 +58,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
@@ -71,6 +72,7 @@ import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.BackgroundContainer;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -668,5 +670,12 @@ public class LocalLyricsFragment extends ListFragment {
         } else
             anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
         return anim;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

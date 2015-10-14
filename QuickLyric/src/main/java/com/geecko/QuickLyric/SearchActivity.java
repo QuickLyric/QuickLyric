@@ -39,13 +39,13 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
-import com.geecko.QuickLyric.fragment.SearchPagerAdapter;
 import com.viewpagerindicator.TitlePageIndicator;
 
 import java.util.ArrayList;

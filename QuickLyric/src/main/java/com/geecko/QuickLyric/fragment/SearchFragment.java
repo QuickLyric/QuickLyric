@@ -30,12 +30,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.adapter.SearchAdapter;
+import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.SearchTask;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
@@ -158,5 +161,13 @@ public class SearchFragment extends ListFragment {
         }
         searchTask = new SearchTask();
         searchTask.execute(searchQuery, this, searchProvider);
+    }
+
+    @Override
+    public void onDestroy() {
+        ((SearchPagerAdapter) searchTabs.viewPager.getAdapter()).removeFragment(this);
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

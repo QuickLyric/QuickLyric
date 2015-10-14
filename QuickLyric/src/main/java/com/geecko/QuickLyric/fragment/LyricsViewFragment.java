@@ -73,6 +73,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
@@ -95,6 +96,7 @@ import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -277,18 +279,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             } else //Rotation, resume
                 update(mLyrics, layout, false);
         }
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                searchResultLock = false;
-                String artist = intent.getStringExtra("artist");
-                String track = intent.getStringExtra("track");
-                if (artist != null && track != null && mRefreshLayout.isEnabled()) {
-                    startRefreshAnimation();
-                    new ParseTask(LyricsViewFragment.this, false, true).execute(mLyrics);
+        if (broadcastReceiver == null)
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    searchResultLock = false;
+                    String artist = intent.getStringExtra("artist");
+                    String track = intent.getStringExtra("track");
+                    if (artist != null && track != null && mRefreshLayout.isEnabled()) {
+                        startRefreshAnimation();
+                        new ParseTask(LyricsViewFragment.this, false, true).execute(mLyrics);
+                    }
                 }
-            }
-        };
+            };
         return layout;
     }
 
@@ -393,7 +396,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             this.onViewCreated(getView(), null);
             if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB)
                 new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
-                mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
+                        mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
         } else
             this.isActiveFragment = false;
     }
@@ -544,7 +547,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (SDK_INT >= ICE_CREAM_SANDWICH)
             beamLyrics(lyrics, this.getActivity());
         new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack(),
-        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
+                lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
 
         if (lyrics.getArtist() != null)
             artistTV.setText(lyrics.getArtist());
@@ -861,6 +864,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void onDetach() {
         super.onDetach();
         mActivity = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        broadcastReceiver = null;
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 
     public void setCoverArt(String url, FadeInNetworkImageView coverView) {

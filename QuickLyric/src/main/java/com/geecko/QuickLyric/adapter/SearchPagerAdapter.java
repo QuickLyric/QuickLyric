@@ -17,7 +17,7 @@
  *
  */
 
-package com.geecko.QuickLyric.fragment;
+package com.geecko.QuickLyric.adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -93,6 +93,16 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter implements Vie
         } catch (Exception e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public void removeFragment(SearchFragment deletedFragment) {
+        for (int i = 0; i < fragments.length; i++) {
+            SearchFragment fragment = fragments[i];
+            if (fragment != null && fragment.equals(deletedFragment)) {
+                fragments[i] = null;
+                break;
+            }
         }
     }
 

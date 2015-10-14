@@ -31,7 +31,9 @@ import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
+import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -139,5 +141,12 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onHiddenChanged(hidden);
         if (!hidden)
             this.onViewCreated(getView(), null);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

@@ -19,6 +19,12 @@
 
 package com.geecko.QuickLyric;
 
+import android.app.Application;
+import android.content.Context;
+
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
@@ -46,6 +52,13 @@ import org.acra.sender.HttpSender;
 )
 public class App extends android.app.Application {
 
+    public static RefWatcher getRefWatcher(Context context) {
+        App app = (App) context.getApplicationContext();
+        return app.refWatcher;
+    }
+
+    private RefWatcher refWatcher;
+
     private static boolean activityVisible;
 
     public static boolean isActivityVisible() {
@@ -63,7 +76,7 @@ public class App extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // The following line triggers the initialization of ACRA
+        refWatcher = LeakCanary.install(this);
         ACRA.init(this);
     }
 }
