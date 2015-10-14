@@ -21,7 +21,6 @@ buildscript {
 
 //noinspection GroovyAssignabilityCheck
 android {
-    useLibrary 'org.apache.http.legacy'
     sourceSets {
         main {
             assets.srcDirs = ['assets']
@@ -86,7 +85,7 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'com.squareup.okhttp:okhttp:2.+'
     compile 'org.jraf:android-switch-backport:2.0.1'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.wdullaer:materialdatetimepicker:1.4.2'

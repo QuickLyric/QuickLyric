@@ -22,12 +22,12 @@ package com.geecko.QuickLyric.lyrics;
 import android.text.TextUtils;
 
 import com.geecko.QuickLyric.utils.Net;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -78,7 +78,7 @@ public class ViewLyrics {
 
     public static Lyrics fromMetaData(String artist, String title) throws IOException, NoSuchAlgorithmException, SAXException, ParserConfigurationException {
         ArrayList<Lyrics> results =
-                searchQuery(
+                search(
                         String.format(searchQueryBase, artist, title, clientTag +
                                 String.format(searchQueryPage, 0)) // Create XMLQuery String
                 );
@@ -99,26 +99,21 @@ public class ViewLyrics {
         return result;
     }
 
-    @SuppressWarnings("resource")
-    private static ArrayList<Lyrics> searchQuery(String searchQuery) throws ClientProtocolException, IOException, NoSuchAlgorithmException, SAXException, ParserConfigurationException {
-        // Create Client
-        DefaultHttpClient client = new DefaultHttpClient();
-        HttpPost request = new HttpPost(url);
+    private static ArrayList<Lyrics> search(String searchQuery) throws IOException, ParserConfigurationException, SAXException, NoSuchAlgorithmException {
+        OkHttpClient client = new OkHttpClient();
 
-        // Define HEADER
-        request.setHeader("User-Agent", clientUserAgent);
-        client.getParams().setBooleanParameter("http.protocol.expect-continue", true);
+        RequestBody body = RequestBody.create(MediaType.parse("application/text"), assembleQuery(searchQuery.getBytes("UTF-8")));
 
-        // Define POST Entity as a magic encoded version of XMLQuery
-        request.setEntity(new ByteArrayEntity(assembleQuery(searchQuery.getBytes("UTF-8"))));
+        Request request = new Request.Builder()
+                .header("User-Agent", clientUserAgent)
+                .post(body)
+                .url(url)
+                .build();
 
+        Response response = client.newCall(request).execute();
 
-        // Send Request
-        HttpResponse response = client.execute(request);
-
-        // Get the response
         BufferedReader rd = new BufferedReader
-                (new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
+                (new InputStreamReader(response.body().byteStream(), "ISO_8859_1"));
 
         // Get full result
         StringBuilder builder = new StringBuilder();
@@ -182,7 +177,7 @@ public class ViewLyrics {
     }
 
 	/*
-	 * Decrypts only the XML from the entire result
+     * Decrypts only the XML from the entire result
 	 */
 
     public static String decryptResultXML(String value) {
