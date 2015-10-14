@@ -8,6 +8,10 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +40,7 @@ import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
  * You should have received a copy of the GNU General Public License
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     private Context mContext;
     private LyricsViewFragment lyricsViewFragment;
@@ -65,10 +70,10 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 int preceding = html.indexOf("root.App.trackDa") + 19;
                 int following = html.substring(preceding).indexOf(";");
                 String data = html.substring(preceding, preceding + following);
-                JSONObject jsonData = new JSONObject(data);
-                artist = jsonData.getString("artist_display_name");
-                track = jsonData.getString("track_name");
-            } catch (IOException | JSONException e) {
+                JsonObject jsonData = new JsonParser().parse(data).getAsJsonObject();
+                artist = jsonData.get("artist_display_name").getAsString();
+                track = jsonData.get("track_name").getAsString();
+            } catch (IOException e) {
                 e.printStackTrace();
                 return new Lyrics(ERROR);
             }

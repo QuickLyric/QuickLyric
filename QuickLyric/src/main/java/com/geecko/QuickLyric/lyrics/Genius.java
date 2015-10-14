@@ -6,6 +6,7 @@ import com.geecko.QuickLyric.annotations.Reflection;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -46,11 +47,11 @@ public class Genius {
         JSONObject response = null;
         try {
             URL queryURL = new URL(String.format("http://api.genius.com/search?q=%s", URLEncoder.encode(query, "UTF-8")));
-            String jsonInput = Jsoup.connect(queryURL.toExternalForm())
+            Connection connection = Jsoup.connect(queryURL.toExternalForm())
                     .header("Authorization", "Bearer " + Keys.GENIUS)
-                    .ignoreContentType(true)
-                    .get().text();
-            response = new JSONObject(jsonInput);
+                    .ignoreContentType(true);
+            Document document = connection.get();
+            response = new JSONObject(document.text());
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }

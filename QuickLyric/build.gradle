@@ -94,7 +94,12 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.+'
     compile 'ch.acra:acra:4.+'
 
+    /* The pure GPLv3 build */
     //Available here: https://github.com/geecko86/SpotifyApi
     fdroidCompile(name: 'SpotifyApi', ext: 'aar')
+
+    /* Use for promotional screenshots and screen recording */
     promoCompile 'com.android.support:palette-v7:23.+'
+
+    testCompile 'junit:junit:4.12'
 }
