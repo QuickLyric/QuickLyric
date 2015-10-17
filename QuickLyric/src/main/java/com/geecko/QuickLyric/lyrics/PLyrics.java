@@ -91,9 +91,6 @@ public class PLyrics {
             l.setArtist(artist);
             String text = matcher.group(1);
             text = text.replaceAll("\\[[^\\[]*\\]", "");
-            text = android.text.Html.fromHtml(text).toString().trim()
-                    .replaceAll("(\r\n|\n)", "<br />")
-                    .replaceAll("<br /><br /><br />", "<br /><br />");
             l.setText(text);
             l.setTitle(song);
             l.setURL(url);

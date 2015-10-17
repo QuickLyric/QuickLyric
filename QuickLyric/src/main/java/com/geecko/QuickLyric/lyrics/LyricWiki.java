@@ -20,9 +20,10 @@
 package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -95,25 +96,25 @@ public class LyricWiki {
         try {
             String encodedArtist = URLEncoder.encode(artist, "UTF-8");
             String encodedSong = URLEncoder.encode(title, "UTF-8");
-            JSONObject json = new JSONObject(getUrlAsString(new URL(
-                    String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", ""));
-            url = URLDecoder.decode(json.getString("url"), "UTF-8");
-            artist = json.getString("artist");
-            title = json.getString("song");
+            JsonObject json = new JsonParser().parse(getUrlAsString(new URL(
+                    String.format(baseUrl, encodedArtist, encodedSong))).replace("song = ", "")).getAsJsonObject();
+            url = URLDecoder.decode(json.get("url").getAsString(), "UTF-8");
+            artist = json.get("artist").getAsString();
+            title = json.get("song").getAsString();
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(title, "UTF-8");
-            json = new JSONObject(getUrlAsString
+            json = new JsonParser().parse(getUrlAsString
                     (new URL(String.format(baseAPIUrl, encodedArtist, encodedSong)))
-            ).getJSONObject("result");
+            ).getAsJsonObject().get("result").getAsJsonObject();
             Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
             lyrics.setArtist(artist);
             lyrics.setTitle(title);
-            lyrics.setText(json.getString("lyrics").replaceAll("\n", "<br />"));
+            lyrics.setText(json.get("lyrics").getAsString().replaceAll("\n", "<br />"));
             lyrics.setURL(url);
             lyrics.setOriginalArtist(originalArtist);
             lyrics.setOriginalTitle(originalTitle);
             return lyrics;
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             return new Lyrics(NO_RESULT);
         } catch (IOException e) {
             return url == null ? new Lyrics(ERROR) : fromURL(url, originalArtist, originalTitle);

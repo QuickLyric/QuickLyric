@@ -19,8 +19,6 @@
 
 package com.geecko.QuickLyric.lyrics;
 
-import android.text.TextUtils;
-
 import com.geecko.QuickLyric.utils.Net;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -202,7 +200,7 @@ public class ViewLyrics {
     private static String readStrFromAttr(Element elem, String attr, String def) {
         String data = elem.getAttribute(attr);
         try {
-            if (!TextUtils.isEmpty(data))
+            if (data != null && data.length() > 0)
                 return data;
         } catch (NumberFormatException e) {
             e.printStackTrace();

@@ -21,10 +21,10 @@ package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Net;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -34,32 +34,32 @@ import java.util.ArrayList;
 public class Bollywood {
 
     @Reflection
-    public static final String domain = "quicklyric.netii.net/bollywood/";
+    public static final String domain = "quicklyric.cf/bollywood/";
 
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
-        String searchUrl = "http://quicklyric.netii.net/bollywood/search.php?q=%s";
+        String searchUrl = "http://www.quicklyric.cf/bollywood/search.php?q=%s";
         try {
             String jsonText;
             jsonText = Net.getUrlAsString(String.format(searchUrl, URLEncoder.encode(query, "utf-8")));
-            JSONObject jsonResponse = new JSONObject(jsonText);
-            JSONArray lyricsResults = jsonResponse.getJSONArray("lyrics");
-            for (int i = 0; i < lyricsResults.length(); ++i) {
-                JSONObject lyricsResult = lyricsResults.getJSONObject(i);
-                JSONArray tags = lyricsResult.getJSONArray("tags");
+            JsonObject jsonResponse = new JsonParser().parse(jsonText).getAsJsonObject();
+            JsonArray lyricsResults = jsonResponse.getAsJsonArray("lyrics");
+            for (int i = 0; i < lyricsResults.size(); ++i) {
+                JsonObject lyricsResult = lyricsResults.get(i).getAsJsonObject();
+                JsonArray tags = lyricsResult.get("tags").getAsJsonArray();
                 Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
-                lyrics.setTitle(lyricsResult.getString("name"));
-                for (int j = 0; i < tags.length(); ++j) {
-                    JSONObject tag = tags.getJSONObject(j);
-                    if (tag.getString("tag_type").equals("Singer")) {
-                        lyrics.setArtist(tag.getString("name").trim());
+                lyrics.setTitle(lyricsResult.get("name").getAsString());
+                for (int j = 0; i < tags.size(); ++j) {
+                    JsonObject tag = tags.get(j).getAsJsonObject();
+                    if (tag.get("tag_type").getAsString().equals("Singer")) {
+                        lyrics.setArtist(tag.get("name").getAsString().trim());
                         break;
                     }
                 }
-                lyrics.setURL("http://quicklyric.netii.net/bollywood/get.php?id=" + lyricsResult.getInt("id"));
+                lyrics.setURL("http://www.quicklyric.cf/bollywood/get.php?id=" + lyricsResult.get("id").getAsInt());
                 results.add(lyrics);
             }
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JsonParseException e) {
             e.printStackTrace();
         }
         return results;
@@ -88,9 +88,9 @@ public class Bollywood {
         // fixme no public url
         try {
             String jsonText = Net.getUrlAsString(url);
-            JSONObject lyricsJSON = new JSONObject(jsonText);
-            lyrics.setText(lyricsJSON.getString("body").trim());
-        } catch (IOException | JSONException e) {
+            JsonObject lyricsJSON = new JsonParser().parse(jsonText).getAsJsonObject();
+            lyrics.setText(lyricsJSON.get("body").getAsString().trim());
+        } catch (IOException | JsonParseException e) {
             e.printStackTrace();
             return new Lyrics(Lyrics.ERROR);
         }

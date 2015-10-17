@@ -19,36 +19,100 @@
 
 package com.geecko.QuickLyric.lyrics;
 
-import com.geecko.QuickLyric.Keys;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class LyricsProviderTest {
 
     @Test
-    public void testGeniusKey() {
-        int statusCode = 0;
-        try {
-            URL queryURL = new URL(String.format("http://api.genius.com/search?q=%s", URLEncoder.encode("eminem superman", "UTF-8")));
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(queryURL)
-                    .header("Authorization", "Bearer " + Keys.GENIUS)
-                    .build();
-            Response response = client.newCall(request).execute();
-            statusCode = response.code();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(200, statusCode);
+    public void testGenius() {
+        Assert.assertTrue(Genius.search("Eminem").size() > 2);
+        Lyrics lyrics = Genius.fromMetaData("Red Hot Chili Peppers", "Can't stop");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().startsWith("Can't stop"));
+        Assert.assertTrue(lyrics.getText().endsWith("more than just a read through"));
+    }
+
+    @Test
+    public void testLyricsWiki() {
+        Assert.assertTrue(LyricWiki.search("Eminem").size() > 2);
+        Lyrics lyrics = LyricWiki.fromMetaData("Red Hot Chili Peppers", "Can't stop");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().startsWith("Can't stop"));
+        Assert.assertTrue(lyrics.getText().endsWith("more than just a read through"));
+    }
+
+    @Test
+    public void testLyricsMania() {
+        Lyrics lyrics = LyricsMania.fromMetaData("Red Hot Chili Peppers", "Can't stop");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().startsWith("Can't stop"));
+        Assert.assertTrue(lyrics.getText().contains("life is more than just"));
+    }
+
+    @Test
+    public void testBollywood() {
+        Assert.assertTrue(Bollywood.search("Birthday Bash").size() > 0);
+        Lyrics lyrics = Bollywood.fromMetaData("Alfaaz", "Birthday Bash");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().contains("Manne suna hai"));
+        Assert.assertTrue(lyrics.getText().contains("Oh baby oh baby ek baat toh bataa"));
+    }
+
+    @Test
+    public void testJLyric() {
+        Assert.assertTrue(JLyric.search("Shake It Off").size() > 0);
+        Lyrics lyrics = JLyric.fromMetaData("Taylor Swift", "Shake It Off");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().startsWith("I stay out too late"));
+        Assert.assertTrue(lyrics.getText().contains("Baby we can shake shake shake.."));
+    }
+
+    @Test
+    public void testLoloLyrics() {
+        Lyrics lyrics = Lololyrics.fromMetaData("Basshunter", "DotA");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().contains("Det är"));
+        Assert.assertTrue(lyrics.getText().contains("I feel you man"));
+    }
+
+    @Test
+    public void testMetalArchives() {
+        Lyrics lyrics = MetalArchives.fromMetaData("Iron Maiden", "Fear of the dark");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().startsWith("I am a man who walks alone"));
+        Assert.assertTrue(lyrics.getText().endsWith("I am a man who walks alone"));
+    }
+
+    @Test
+    public void testPLyrics() {
+        Lyrics lyrics = PLyrics.fromMetaData("Blink 182", "I Miss You");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().trim().startsWith("(I miss you"));
+        Assert.assertTrue(lyrics.getText().contains("The voice inside my head"));
+    }
+
+    @Test
+    public void testUrbanLyrics() {
+        Lyrics lyrics = UrbanLyrics.fromMetaData("Nicki Minaj", "Starships");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertTrue(lyrics.getText().contains("Let's go get away"));
+        Assert.assertTrue(lyrics.getText().contains("Starships were meant to fly"));
+        Assert.assertTrue(lyrics.getText().contains("Jump in my hoopty"));
+    }
+
+    @Test
+    public void testViewLyrics() throws SAXException, NoSuchAlgorithmException, ParserConfigurationException, IOException {
+        Lyrics lyrics = ViewLyrics.fromMetaData("Silversun Pickups", "The Royal We");
+        Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
+        Assert.assertNotNull(lyrics.getText());
+        Assert.assertTrue(lyrics.isLRC());
     }
 }

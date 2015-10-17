@@ -2,10 +2,11 @@ package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.utils.Net;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -44,39 +45,35 @@ public class Genius {
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
         query = Normalizer.normalize(query, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        JSONObject response = null;
+        JsonObject response = null;
         try {
             URL queryURL = new URL(String.format("http://api.genius.com/search?q=%s", URLEncoder.encode(query, "UTF-8")));
             Connection connection = Jsoup.connect(queryURL.toExternalForm())
                     .header("Authorization", "Bearer " + Keys.GENIUS)
                     .ignoreContentType(true);
-            Document document = connection.get();
-            response = new JSONObject(document.text());
-        } catch (JSONException | IOException e) {
+            Document document = connection.userAgent(Net.USER_AGENT).get();
+            response = new JsonParser().parse(document.text()).getAsJsonObject();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try {
-            if (response == null || response.getJSONObject("meta").getInt("status") != 200)
-                return results;
-            JSONArray hits = response.getJSONObject("response").getJSONArray("hits");
+        if (response == null || response.getAsJsonObject("meta").get("status").getAsInt() != 200)
+            return results;
+        JsonArray hits = response.getAsJsonObject("response").getAsJsonArray("hits");
 
-            int processed = 0;
-            while (processed < hits.length()) {
-                JSONObject song = hits.getJSONObject(processed).getJSONObject("result");
-                String artist = song.getJSONObject("primary_artist").getString("name");
-                String title = song.getString("title");
-                String url = "http://genius.com/songs/" + song.getInt("id");
-                Lyrics l = new Lyrics(Lyrics.SEARCH_ITEM);
-                l.setArtist(artist);
-                l.setTitle(title);
-                l.setURL(url);
-                l.setSource("Genius");
-                results.add(l);
-                processed++;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        int processed = 0;
+        while (processed < hits.size()) {
+            JsonObject song = hits.get(processed).getAsJsonObject().getAsJsonObject("result");
+            String artist = song.getAsJsonObject("primary_artist").get("name").getAsString();
+            String title = song.get("title").getAsString();
+            String url = "http://genius.com/songs/" + song.get("id").getAsString();
+            Lyrics l = new Lyrics(Lyrics.SEARCH_ITEM);
+            l.setArtist(artist);
+            l.setTitle(title);
+            l.setURL(url);
+            l.setSource("Genius");
+            results.add(l);
+            processed++;
         }
         return results;
     }
@@ -99,7 +96,7 @@ public class Genius {
         Document lyricsPage;
         String text;
         try {
-            lyricsPage = Jsoup.connect(url).get();
+            lyricsPage = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
             Elements lyricsDiv = lyricsPage.select("div.lyrics");
             if (lyricsDiv.isEmpty())
                 throw new StringIndexOutOfBoundsException();

@@ -21,10 +21,11 @@ package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Net;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -48,11 +49,11 @@ public class MetalArchives {
         String text;
         try {
             String response = Net.getUrlAsString(String.format(baseURL, urlArtist, urlTitle));
-            JSONObject jsonResponse = new JSONObject(response);
-            JSONArray track = jsonResponse.getJSONArray("aaData").getJSONArray(0);
+            JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
+            JsonArray track = jsonResponse.getAsJsonArray("aaData").get(0).getAsJsonArray();
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < track.length(); i++)
-                builder.append(track.getString(i));
+            for (int i = 0; i < track.size(); i++)
+                builder.append(track.get(i).getAsString());
             Document trackDocument = Jsoup.parse(builder.toString());
             url = trackDocument.getElementsByTag("a").get(1).attr("href");
             String id = trackDocument.getElementsByClass("viewLyrics").get(0).id().substring(11);
@@ -60,7 +61,7 @@ public class MetalArchives {
                     .get().body().html();
         } catch (IOException e) {
             return new Lyrics(ERROR);
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             return new Lyrics(NO_RESULT);
         }
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);

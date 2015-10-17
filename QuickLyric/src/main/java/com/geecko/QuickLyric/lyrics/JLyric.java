@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric.lyrics;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -41,7 +42,8 @@ public class JLyric {
         Elements artistBlocks = null;
 
         try {
-            Document searchPage = Jsoup.connect(String.format("http://search.j-lyric.net/index.php?ct=0&ka=&ca=0&kl=&cl=0&kt=%s", URLEncoder.encode(query, "UTF-8"))).get();
+            Document searchPage = Jsoup.connect(String.format("http://search.j-lyric.net/index.php?ct=0&ka=&ca=0&kl=&cl=0&kt=%s", URLEncoder.encode(query, "UTF-8")))
+                    .userAgent(Net.USER_AGENT).get();
             artistBlocks = searchPage.body().select("div#lyricList .body");
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +79,8 @@ public class JLyric {
         try {
             encodedArtist = URLEncoder.encode(artist, "UTF-8");
             encodedSong = URLEncoder.encode(song, "UTF-8");
-            Document searchPage = Jsoup.connect(String.format(baseUrl, encodedArtist, encodedSong)).get();
+            Document searchPage = Jsoup.connect(String.format(baseUrl, encodedArtist, encodedSong))
+                    .userAgent(Net.USER_AGENT).get();
             if (!searchPage.location().startsWith("http://search.j-lyric.net/"))
                 throw new IOException("Redirected to wrong domain " + searchPage.location());
             Elements artistBlocks = searchPage.body().select("div#lyricList");
@@ -104,7 +107,7 @@ public class JLyric {
         String text = null;
 
         try {
-            Document lyricsPage = Jsoup.connect(url).get();
+            Document lyricsPage = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
             if (!lyricsPage.location().contains(domain))
                 throw new IOException("Redirected to wrong domain " + lyricsPage.location());
             text = lyricsPage.select("p#lyricBody").html();

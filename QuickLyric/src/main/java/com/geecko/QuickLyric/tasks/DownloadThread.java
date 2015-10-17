@@ -30,7 +30,6 @@ import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
-import com.geecko.QuickLyric.lyrics.ViewLyrics;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
