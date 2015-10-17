@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class GeniusTest {
+public class LyricsProviderTest {
 
     @Test
     public void testGeniusKey() {

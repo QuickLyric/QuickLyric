@@ -26,6 +26,8 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.safety.Whitelist;
 
 import java.io.IOException;
 import java.text.Normalizer;
@@ -61,8 +63,10 @@ public class LyricsMania {
         String text;
         try {
             Document document = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
-            Element lyricsBody = document.getElementsByClass("lyrics-body").select("div[class$=premium").get(0);
-            text = lyricsBody.html();
+            Element lyricsBody = document.getElementsByClass("lyrics-body").get(0);
+            lyricsBody.select("div").last().remove();
+            text = Jsoup.clean(lyricsBody.html(), "", Whitelist.basic().addTags("div"));
+            text = text.substring(text.indexOf("</strong>")+10);
             if (artist == null)
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
                         .getElementsByTag("a").get(0).text();
