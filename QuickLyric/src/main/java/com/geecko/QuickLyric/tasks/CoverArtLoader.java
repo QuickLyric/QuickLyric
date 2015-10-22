@@ -55,8 +55,9 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
                         .getJSONObject(3).getString("#text");
                 if (url.contains("noimage"))
                     url = null;
-            } catch (JSONException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException ignored) {
             }
         }
         return url;
