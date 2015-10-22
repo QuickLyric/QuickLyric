@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.fragment;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,8 +38,10 @@ import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.jraf.android.backport.switchwidget.SwitchPreference;
+
 public class SettingsFragment extends PreferenceFragment implements
-        Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
+        Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener, DialogInterface.OnCancelListener {
 
     private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
@@ -88,14 +91,11 @@ public class SettingsFragment extends PreferenceFragment implements
                     boolean twentyFourHourStyle = DateFormat.is24HourFormat(getActivity());
                     TimePickerDialog tpd = TimePickerDialog
                             .newInstance(this, 21, 0, twentyFourHourStyle);
-                    tpd.setCancelable(false);
+                    tpd.setOnCancelListener(this);
                     tpd.setTitle(getActivity().getString(R.string.nighttime_start_dialog_title));
                     tpd.show(getFragmentManager(), NIGHT_START_TIME_DIALOG_TAG);
                 } else {
-                    SharedPreferences current = getActivity().getSharedPreferences("night_time", Context.MODE_PRIVATE);
-                    current.edit().putInt("startHour", 42)
-                            .putInt("endHour", 45)
-                            .apply();
+                    this.onCancel(null);
                 }
                 break;
         }
@@ -121,7 +121,7 @@ public class SettingsFragment extends PreferenceFragment implements
             boolean twentyFourHourStyle = DateFormat.is24HourFormat(getActivity());
             TimePickerDialog tpd = TimePickerDialog
                     .newInstance(this, 6, 0, twentyFourHourStyle);
-            tpd.setCancelable(false);
+            tpd.setOnCancelListener(this);
             tpd.setTitle(getActivity().getString(R.string.nighttime_end_dialog_title));
             tpd.show(getFragmentManager(), NIGHT_END_TIME_DIALOG_TAG);
         } else {
@@ -148,5 +148,14 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onDestroy();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(this);
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        SharedPreferences current = getActivity().getSharedPreferences("night_time", Context.MODE_PRIVATE);
+        current.edit().putInt("startHour", 42)
+                .putInt("endHour", 45)
+                .apply();
+        ((SwitchPreference)findPreference("pref_night_mode")).setChecked(false);
     }
 }
