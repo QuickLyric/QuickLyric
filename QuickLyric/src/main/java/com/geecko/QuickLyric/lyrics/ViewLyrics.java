@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.utils.Levenshtein;
 import com.geecko.QuickLyric.utils.Net;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -84,8 +85,10 @@ public class ViewLyrics {
             return new Lyrics(NEGATIVE_RESULT);
         String url = results.get(0).getURL();
 
-        if (url.endsWith("txt") || (!results.get(0).getTrack().equalsIgnoreCase(title) ||
-                !results.get(0).getArtist().equalsIgnoreCase(artist)))
+        int artistDistance = Levenshtein.distance(results.get(0).getArtist(), artist);
+        int titleDistance = Levenshtein.distance(results.get(0).getTrack(), title);
+
+        if (url.endsWith("txt") || artistDistance > 6 || titleDistance > 6)
             return new Lyrics(NEGATIVE_RESULT);
         Lyrics result = new Lyrics(POSITIVE_RESULT);
         result.setTitle(title);
@@ -130,13 +133,13 @@ public class ViewLyrics {
      * Add MD5 and Encrypts Search Query
 	 */
 
-    public static byte[] assembleQuery(byte[] value) throws NoSuchAlgorithmException, IOException {
+    public static byte[] assembleQuery(byte[] valueBytes) throws NoSuchAlgorithmException, IOException {
         // Create the variable POG to be used in a dirt code
-        byte[] pog = new byte[value.length + magickey.length]; //TODO Give a better name then POG
+        byte[] pog = new byte[valueBytes.length + magickey.length]; //TODO Give a better name then POG
 
         // POG = XMLQuery + Magic Key
-        System.arraycopy(value, 0, pog, 0, value.length);
-        System.arraycopy(magickey, 0, pog, value.length, magickey.length);
+        System.arraycopy(valueBytes, 0, pog, 0, valueBytes.length);
+        System.arraycopy(magickey, 0, pog, valueBytes.length, magickey.length);
 
         // POG is hashed using MD5
         byte[] pog_md5 = MessageDigest.getInstance("MD5").digest(pog);
@@ -144,14 +147,14 @@ public class ViewLyrics {
         //TODO Thing about using encryption or k as 0...
         // Prepare encryption key
         int j = 0;
-        for (int i = 0; i < value.length; i++) {
-            j += value[i];
+        for (byte octet : valueBytes) {
+            j += octet;
         }
-        int k = (byte) (j / value.length);
+        int k = (byte) (j / valueBytes.length);
 
         // Value is encrypted
-        for (int m = 0; m < value.length; m++)
-            value[m] = (byte) (k ^ value[m]);
+        for (int m = 0; m < valueBytes.length; m++)
+            valueBytes[m] = (byte) (k ^ valueBytes[m]);
 
         // Prepare result code
         ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -168,7 +171,7 @@ public class ViewLyrics {
         result.write(pog_md5);
 
         // Write encrypted value
-        result.write(value);
+        result.write(valueBytes);
 
         // Return magic encoded query
         return result.toByteArray();
@@ -210,7 +213,7 @@ public class ViewLyrics {
 
     public static ArrayList<Lyrics> parseResultXML(String resultXML) throws SAXException, IOException, ParserConfigurationException {
         // Create array for storing the results
-        ArrayList<Lyrics> availableLyrics = new ArrayList<Lyrics>();
+        ArrayList<Lyrics> availableLyrics = new ArrayList<>();
 
         // Parse XML
         ByteArrayInputStream resultBA = new ByteArrayInputStream(resultXML.getBytes("UTF-8"));
