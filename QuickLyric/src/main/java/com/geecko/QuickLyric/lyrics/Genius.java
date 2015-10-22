@@ -118,7 +118,8 @@ public class Genius {
         Pattern pattern = Pattern.compile("\\[.+\\]");
         StringBuilder builder = new StringBuilder();
         for (String line : text.split("<br> ")) {
-            if (!pattern.matcher(line.replaceAll("\\s","")).matches())
+            String strippedLine = line.replaceAll("\\s","");
+            if (!pattern.matcher(strippedLine).matches() && !(strippedLine.isEmpty() && builder.length() == 0))
                 builder.append(line).append("<br/>");
         }
         builder.delete(builder.length() - 5, builder.length());
