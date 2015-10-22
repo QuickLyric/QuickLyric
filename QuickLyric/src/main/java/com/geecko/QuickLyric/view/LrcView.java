@@ -302,9 +302,9 @@ public class LrcView extends View {
                     || texts.get(i).startsWith("Artist:"))
                     && (i > 2 || (!texts.get(i).contains(lyrics.getArtist()) &&
                     !texts.get(i).contains(lyrics.getTrack()) &&
-                    (uploader == null || !texts.get(i).contains(uploader)) &&
-                    !texts.get(i).replaceAll("\\s", "").isEmpty())))
-                dictionnary.put(mTimes.get(i), texts.get(i));
+                    (uploader == null || !texts.get(i).contains(uploader)))))
+                if (!(dictionnary.isEmpty() && texts.get(i).replaceAll("\\s", "").isEmpty()))
+                    dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
     }

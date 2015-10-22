@@ -958,6 +958,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 if (preferences.getBoolean("playing", true))
                     position += distance;
                 final long finalPosition = position;
+                if (getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
