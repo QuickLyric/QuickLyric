@@ -117,7 +117,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private String mSearchQuery;
     private boolean mSearchFocused;
     private NestedScrollView mScrollView;
-    private Activity mActivity;
     private MenuItem searchItem;
     private boolean startEmtpy = false;
     public boolean searchResultLock;
@@ -777,9 +776,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (mActivity == null)
-            mActivity = getActivity();
-        MainActivity mainActivity = (MainActivity) this.mActivity;
+        MainActivity mainActivity = (MainActivity) getActivity();
         CollapsingToolbarLayout toolbarLayout =
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
         toolbarLayout.setTitle(getString(R.string.app_name));
@@ -790,13 +787,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         inflater.inflate(R.menu.lyrics, menu);
         // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) this.mActivity
+        SearchManager searchManager = (SearchManager) getActivity()
                 .getSystemService(Context.SEARCH_SERVICE);
         searchItem = menu.findItem(R.id.search_view);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(this.mActivity.getComponentName()));
+                .getSearchableInfo(getActivity().getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(getString(R.string.search_hint));
         searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -806,7 +803,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 searchView.post(new Runnable() {
                     @Override
                     public void run() {
-                        ((InputMethodManager) mActivity
+                        ((InputMethodManager) getActivity()
                                 .getSystemService(Context.INPUT_METHOD_SERVICE))
                                 .toggleSoftInput(InputMethodManager.SHOW_FORCED,
                                         InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -841,7 +838,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mActivity);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             if (mLyrics != null
                     && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
                     && sharedPref.getBoolean("pref_auto_save", true)) {
@@ -867,18 +864,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mActivity = activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mActivity = null;
-    }
-
-    @Override
     public void onDestroy() {
         broadcastReceiver = null;
         super.onDestroy();
@@ -887,7 +872,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void setCoverArt(String url, FadeInNetworkImageView coverView) {
-        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
+        MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity == null)
             return;
         mainActivity.findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
@@ -904,7 +889,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void setCoverArt(Bitmap cover, FadeInNetworkImageView coverView) {
-        MainActivity mainActivity = (MainActivity) LyricsViewFragment.this.mActivity;
+        MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity == null)
             return;
         if (coverView == null)
@@ -958,8 +943,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 if (preferences.getBoolean("playing", true))
                     position += distance;
                 final long finalPosition = position;
-                if (getActivity() == null)
-                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -967,7 +950,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     }
                 });
                 String time = String.valueOf((position / 1000) % 60) + " sec";
-                // Log.d("geecko", time); // fixme: remove
+                Log.d("geecko", time); // fixme: remove
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

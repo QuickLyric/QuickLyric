@@ -502,8 +502,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG))
-                .enablePullToRefresh(i == 0);
+        LyricsViewFragment lyricsViewFragment =
+                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+        if (lyricsViewFragment != null)
+            lyricsViewFragment.enablePullToRefresh(i == 0);
     }
 
     @Override
