@@ -918,24 +918,40 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         @Override
         public void run() {
             boolean ran = false;
-            LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+            final LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
             if (lrcView == null || getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            if (preferences.getLong("position", 0) == -1)
-                update(lrcView.getStaticLyrics(), getView(), true);
+            long position = preferences.getLong("position", 0);
+            if (position == -1) {
+                final Lyrics staticLyrics = lrcView.getStaticLyrics();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        update(staticLyrics, getView(), true);
+                    }
+                });
+                return;
+            } else
+                lrcView.changeCurrent(position);
 
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
                     preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
                     preferences.getBoolean("playing", true)) {
                 ran = true;
-                long position = preferences.getLong("position", 0);
+                position = preferences.getLong("position", 0);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long distance = System.currentTimeMillis() - startTime;
                 if (preferences.getBoolean("playing", true))
                     position += distance;
-                lrcView.changeCurrent(position);
+                final long finalPosition = position;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lrcView.changeCurrent(finalPosition);
+                    }
+                });
                 String time = String.valueOf((position / 1000) % 60) + " sec";
                 Log.d("geecko", time); // fixme: remove
                 try {

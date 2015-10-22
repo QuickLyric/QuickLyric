@@ -85,9 +85,9 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
-        long position = 0;
-        if (!intent.getAction().endsWith("metachanged"))
-            position = extras.getLong("position");
+        long position = extras.containsKey("position") ? extras.getLong("position") : -1;
+        if (extras.get("position") instanceof Double)
+            position = Double.valueOf(extras.getDouble("position")).longValue();
         boolean isPlaying = extras.getBoolean("playing", true);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
@@ -130,7 +130,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
 
         SQLiteDatabase db = new DatabaseHelper(context).getReadableDatabase();
-        boolean inDatabase = DatabaseHelper.presenceCheck(db , new String[]{artist, track, artist, track});
+        boolean inDatabase = DatabaseHelper.presenceCheck(db, new String[]{artist, track, artist, track});
         db.close();
 
         if (notificationPref != 0 && isPlaying

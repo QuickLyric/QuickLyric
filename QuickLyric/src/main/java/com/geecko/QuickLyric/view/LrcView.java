@@ -315,6 +315,8 @@ public class LrcView extends View {
         Iterator<String> iterator = dictionnary.values().iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
+            if (text.length() == 0 && next.replaceAll("\\s", "").isEmpty())
+                continue;
             text.append(next);
             if (iterator.hasNext())
                 text.append("<br/>\n");
