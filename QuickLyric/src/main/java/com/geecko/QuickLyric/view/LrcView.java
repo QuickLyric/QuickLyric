@@ -180,7 +180,7 @@ public class LrcView extends View {
             breakOffset += mTextSize + mDividerHeight;
         }
 
-        for (int i = currentLine + 1; i < Math.min(currentLine + mRows - 2, dictionnary.size()); i++) {
+        for (int i = currentLine + 1; i < Math.min(currentLine + mRows - 2, mTimes.size()); i++) {
             String lrc = dictionnary.get(mTimes.get(i));
             if (lrc == null)
                 continue;
