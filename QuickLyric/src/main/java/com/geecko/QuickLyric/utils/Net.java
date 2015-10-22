@@ -1,9 +1,10 @@
 package com.geecko.QuickLyric.utils;
 
-import java.io.BufferedReader;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
@@ -31,24 +32,11 @@ public class Net {
         return getUrlAsString(new URL(paramURL));
     }
 
-    public static String getUrlAsString(URL paramURL)
-            throws IOException {
+    public static String getUrlAsString(URL paramURL) throws IOException {
+        Request request = new Request.Builder().header("User-Agent", USER_AGENT).url(paramURL).build();
+        OkHttpClient client = new OkHttpClient();
+        Response response = client.newCall(request).execute();
 
-        HttpURLConnection localHttpURLConnection = (HttpURLConnection) paramURL.openConnection();
-        localHttpURLConnection.setRequestMethod("GET");
-        localHttpURLConnection.setReadTimeout(15000);
-        localHttpURLConnection.setUseCaches(false);
-        localHttpURLConnection.connect();
-        InputStreamReader localInputStreamReader = new InputStreamReader(localHttpURLConnection.getInputStream());
-        BufferedReader localBufferedReader = new BufferedReader(localInputStreamReader);
-        StringBuilder localStringBuilder = new StringBuilder();
-        while (true) {
-            String str = localBufferedReader.readLine();
-            if (str == null)
-                break;
-            localStringBuilder.append(str).append("\n");
-        }
-        localInputStreamReader.close();
-        return localStringBuilder.toString();
+        return response.body().string();
     }
 }
