@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -35,6 +36,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -58,7 +60,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -862,19 +863,15 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         dialog.create().show();
     }
 
+    @SuppressLint("InlinedApi")
     public void resync(MenuItem item) {
-        Intent i = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE));
-        sendOrderedBroadcast(i, null);
-
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PAUSE));
-        sendOrderedBroadcast(i, null);
-
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY));
-        sendOrderedBroadcast(i, null);
-
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY));
-        sendOrderedBroadcast(i, null);
+        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        am.requestAudioFocus(null,
+                // Use the music stream.
+                AudioManager.STREAM_SYSTEM,
+                // Request permanent focus.
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        am.abandonAudioFocus(null);
     }
 
     private class DrawerItemClickListener implements
