@@ -19,8 +19,8 @@
 
 package com.geecko.QuickLyric;
 
-import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -75,8 +75,19 @@ public class App extends android.app.Application {
 
     @Override
     public void onCreate() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .penaltyFlashScreen()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        } else
+            ACRA.init(this);
         super.onCreate();
         refWatcher = LeakCanary.install(this);
-        ACRA.init(this);
     }
 }
