@@ -90,6 +90,7 @@ import com.geecko.QuickLyric.utils.CoverCache;
 import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
+import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
@@ -671,6 +672,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
         if (lrcView != null)
             lrcView.setKeepScreenOn(screenOn);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        TypedValue outValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.themeName, outValue, false);
+        if ("Night".equals(outValue.string) != NightTimeVerifier.check(getActivity()) ||
+                "Dark".equals(outValue.string) == sharedPrefs.getString("pref_theme", "0").equals("0")) {
+            getActivity().finish();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setAction("android.intent.action.MAIN");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     public void showWhyPopup() {
@@ -953,7 +965,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     }
                 });
                 String time = String.valueOf((position / 1000) % 60) + " sec";
-                Log.d("geecko", time); // fixme: remove
+                // Log.d("geecko", time); // fixme: remove
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

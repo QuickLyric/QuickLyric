@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        if (lyricsViewFragment != null)
+        if (lyricsViewFragment != null) {
             if ((sharedPref.getBoolean("pref_auto_refresh", false) || lyricsViewFragment.isLRC()) &&
                     (getIntent() == null || getIntent().getAction() == null ||
                             getIntent().getAction().equals(""))) {
@@ -298,7 +298,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 if (!"Storage".equals(lyricsViewFragment.getSource())
                         && !lyricsViewFragment.searchResultLock)
                     lyricsViewFragment.fetchCurrentLyrics(false);
+                lyricsViewFragment.checkPreferencesChanges();
             }
+        }
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
         appBarLayout.removeOnOffsetChangedListener(this);
         appBarLayout.addOnOffsetChangedListener(this);
@@ -423,18 +425,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         LyricsViewFragment lyricsViewFragment =
                 (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (requestCode == 77) {
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             lyricsViewFragment.checkPreferencesChanges();
-            TypedValue outValue = new TypedValue();
-            getTheme().resolveAttribute(R.attr.themeName, outValue, false);
-            if ("Night".equals(outValue.string) != NightTimeVerifier.check(this) ||
-                    "Dark".equals(outValue.string) == sharedPrefs.getString("pref_theme", "0").equals("0")) {
-                finish();
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.setAction("android.intent.action.MAIN");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
         } else if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
