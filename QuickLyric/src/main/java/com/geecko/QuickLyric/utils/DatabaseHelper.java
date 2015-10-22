@@ -70,8 +70,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Object[] keywords = searchQuery.split(" ");
         String query = "";
         for (int i = 0; i < keywords.length; ++i) {
-            query = query + "(artist LIKE %" + String.valueOf(i + 1) +
-                    "$s OR track LIKE %" + String.valueOf(i + 1) + "$s) AND ";
+            String keyword = String.valueOf(i + 1);
+            query = query + "(artist LIKE %" + keyword +
+                    "$s OR track LIKE %" + keyword +
+                    "$s OR original_artist LIKE %" + keyword +
+                    "$s OR original_track LIKE %" + keyword + "$s) AND ";
             keywords[i] = "'%" + ((String) keywords[i]).replaceAll("'", "''") + "%'";
         }
 
@@ -88,6 +91,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             l.setURL(cursor.getString(3));
             l.setSource(cursor.getString(4));
             l.setCoverURL(cursor.getString(5));
+            l.setOriginalArtist(cursor.getString(6));
+            l.setOriginalTitle(cursor.getString(7));
             results.add(l);
         }
         cursor.close();
