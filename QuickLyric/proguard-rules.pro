@@ -24,9 +24,12 @@
 -dontwarn java.nio.file.Path
 -dontwarn java.nio.file.OpenOption
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
--dontwarn retrofit.appengine.**
+-dontwarn retrofit.**
 -dontwarn com.google.appengine.**
 -dontwarn rx.**
+-dontwarn org.apache.**
+-dontwarn android.net.http.**
+-dontwarn com.android.volley.**
 -dontoptimize
 
 -keep class !android.support.v7.internal.view.menu.**,!android.support.v7.app.**, ** {*;}
