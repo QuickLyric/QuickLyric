@@ -17,29 +17,47 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
+
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                xmlns:app="http://schemas.android.com/apk/res-auto"
                                                android:layout_width="match_parent"
                                                android:layout_height="match_parent">
 
     <RelativeLayout
-        app:layout_heightPercent="30%"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingBottom="30dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        app:layout_marginBottomPercent="3%"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        app:layout_widthPercent="40%">
 
         <TextView
             android:id="@+id/textView2"
-            android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/welcome_tv"
+            android:layout_centerVertical="true"
             android:text="@string/welcome2_sub"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"
@@ -52,7 +70,6 @@
             android:layout_above="@id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
-            android:gravity="center"
             android:text="@string/welcome"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textSize="30sp"/>
@@ -61,10 +78,13 @@
     <ImageView
         android:id="@+id/demo_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:scaleType="fitCenter"
+        android:layout_centerVertical="true"
         android:src="@drawable/icon"
-        app:layout_heightPercent="70%"/>
+        android:layout_marginBottom="10dp"
+        app:layout_widthPercent="60%"/>
 
 </android.support.percent.PercentRelativeLayout>

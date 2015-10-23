@@ -20,4 +20,5 @@
 
 <resources>
     <dimen name="child_card_padding">0dp</dimen>
+    <dimen name="intro_fab_elevation">24dp</dimen>
 </resources>

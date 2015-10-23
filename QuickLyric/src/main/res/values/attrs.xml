@@ -31,9 +31,17 @@
         <attr name="rows" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="Bubble">
+        <attr name="radiusLength" format="dimension"/>
+        <attr name="icon1" format="reference"/>
+        <attr name="icon2" format="reference"/>
+        <attr name="icon3" format="reference"/>
+        <attr name="screen" format="reference"/>
+    </declare-styleable>
+
     <attr name="rippleBackGroundColor" format="reference|color"/>
 
     <attr name="firstLaunchCoverDrawable" format="reference"/>
 
-    <attr name="themeName" format="string" />
+    <attr name="themeName" format="string"/>
 </resources>

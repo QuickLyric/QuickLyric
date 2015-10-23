@@ -18,36 +18,66 @@
   ~  */
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/id_desc_sub"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        tools:ignore="RtlCompat,RtlSymmetry"/>
+
+    <TextView
+        android:id="@+id/textView3_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView3_b"
+        android:layout_alignLeft="@id/textView3_b"
+        android:layout_alignStart="@id/textView3_b"
+        android:text="@string/id_desc"
+        android:maxWidth="375dp"
+        android:textSize="24sp"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"/>
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_alignParentTop="true"
+    android:layout_above="@id/textView3_a"
+    android:layout_centerHorizontal="true"
     android:layout_width="match_parent"
+    android:layoutDirection="ltr"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:text="@string/id_desc"
-        android:id="@+id/textView3_a"
-        android:layout_margin="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:text="@string/id_desc_sub"
-        android:id="@+id/textView3_b"
-        android:layout_margin="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:id="@+id/musicid_demo_hand_image"
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:rotation="-10"
+        android:scaleType="fitCenter"
+        android:src="@drawable/intro_3_hand"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/demo_id"
-        android:id="@+id/imageView"
-        android:layout_below="@id/textView3_a"
-        android:layout_above="@id/textView3_b"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/musicid_demo_sound_image"
+        android:scaleType="centerInside"
+        android:gravity="end"
+        android:padding="20dp"
+        android:translationY="-20dp"
+        android:src="@drawable/intro_3_sound"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
 
 </RelativeLayout>

@@ -34,4 +34,5 @@
     <dimen name="row_height">72dp</dimen>
     <dimen name="line_spacing">3dp</dimen>
     <dimen name="expanded_title_margin_bottom">162dp</dimen>
+    <dimen name="intro_fab_elevation">0dp</dimen>
 </resources>

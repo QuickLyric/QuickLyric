@@ -65,6 +65,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -573,7 +574,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
         indicator.setOnPageChangeListener(pagerAdapter);
         Button skipButton = (Button) rootView.findViewById(id.pager_button);
-        Button arrowButton = (Button) rootView.findViewById(id.pager_arrow);
+        ImageButton arrowButton = (ImageButton) rootView.findViewById(id.pager_arrow);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

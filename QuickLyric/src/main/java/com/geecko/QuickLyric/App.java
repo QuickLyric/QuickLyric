@@ -52,6 +52,8 @@ import org.acra.sender.HttpSender;
 )
 public class App extends android.app.Application {
 
+    public static boolean playStoreVariant;
+
     public static RefWatcher getRefWatcher(Context context) {
         App app = (App) context.getApplicationContext();
         return app.refWatcher;
@@ -87,6 +89,7 @@ public class App extends android.app.Application {
                     .build());
         } else
             ACRA.init(this);
+        playStoreVariant = BuildConfig.FLAVOR.equals("play");
         super.onCreate();
         refWatcher = LeakCanary.install(this);
     }

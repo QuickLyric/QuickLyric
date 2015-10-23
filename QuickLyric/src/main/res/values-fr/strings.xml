@@ -52,8 +52,7 @@
   <string name="welcome2_sub">Les paroles que vous cherchiez&#8230;\nInstantanément.</string>
   <string name="apps_desc">Compatible avec la plupart des lecteurs de musique</string>
   <string name="apps_desc_sub">Si QuickLyric ne fonctionne pas avec votre lecteur (par exemple Poweramp, GoneMAD ou Spotify), assurez-vous que le « Scrobbling » ou « Statut de diffusion » est activé.</string>
-  <string name="id_desc">Intégration avec vos applications d’identification musicale préférées.
-        \n(Shazam™, SoundHound™ ou Google Play Sound Search™)</string>
+  <string name="id_desc">Intégration avec vos applications d’identification musicale préférées.\n(Shazam™, SoundHound™ ou Google Play Sound Search™)</string>
   <string name="id_desc_sub">1. Identifiez une chanson\n2. Partagez le résultat vers QuickLyric\n3. Profitez des paroles</string>
   <string name="refresh_desc">Quand la chanson a changé&#8230;</string>
   <string name="refresh_desc_sub">Appuyez sur ce bouton, QuickLyric se chargera du reste.</string>

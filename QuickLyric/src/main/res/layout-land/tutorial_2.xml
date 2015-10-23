@@ -17,54 +17,67 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent">
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/big_fab"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:src="@drawable/demo_refresh"
-        app:elevation="@dimen/intro_fab_elevation"
-        app:borderWidth="0dp"
-        app:layout_marginLeftPercent="12%"
-        app:layout_marginRightPercent="12%"
-        app:rippleColor="@color/accent"/>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <RelativeLayout
-        app:layout_marginTopPercent="6%"
-        android:layout_below="@id/big_fab"
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        app:layout_marginLeftPercent="3%"
+        app:layout_marginRightPercent="6%"
+        app:layout_widthPercent="45%">
 
         <TextView
             android:id="@+id/textView2_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/refresh_desc"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textSize="24sp"/>
 
         <TextView
-            android:layout_below="@id/textView2_a"
             android:id="@+id/textView2_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/textView2_a"
             android:layout_alignRight="@id/textView2_a"
+            android:layout_below="@id/textView2_a"
             android:text="@string/refresh_desc_sub"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"/>
-
     </RelativeLayout>
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/big_fab_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        app:layout_widthPercent="35%">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/big_fab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/demo_refresh"
+            app:borderWidth="0dp"
+            app:elevation="@dimen/intro_fab_elevation"
+            app:rippleColor="@color/accent"/>
+    </android.support.percent.PercentRelativeLayout>
 
 </android.support.percent.PercentRelativeLayout>

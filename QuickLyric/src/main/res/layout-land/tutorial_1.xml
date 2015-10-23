@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <com.geecko.QuickLyric.view.BubblePopImageView
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/intro_1_table"
+        app:icon1="@drawable/google_music"
+        app:icon2="@drawable/spotify"
+        app:icon3="@drawable/shuttle"
+        app:layout_widthPercent="60%"
+        app:screen="@drawable/intro_1_screen"/>
+
+    <TextView
+        android:id="@+id/textView1_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:maxWidth="300dp"
+        android:layout_marginRight="20dp"
+        android:layout_toEndOf="@id/table"
+        android:layout_toRightOf="@id/table"
+        android:text="@string/apps_desc_sub"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textView1_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1_b"
+        android:layout_alignStart="@id/textView1_b"
+        android:layout_alignLeft="@id/textView1_b"
+        android:maxWidth="450dp"
+        android:text="Google Play is a trademark of Google Inc.\nSpotify is a trademark of Spotify Ltd."
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText"/>
+
+    <TextView
+        android:id="@+id/textView1_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView1_b"
+        android:layout_alignRight="@id/textView1_b"
+        android:layout_alignLeft="@id/textView1_b"
+        android:text="@string/apps_desc"
+        android:textSize="24sp"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"/>
+
+</android.support.percent.PercentRelativeLayout>

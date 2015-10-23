@@ -27,7 +27,7 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="75dp">
 
         <Button
             android:text="@string/skip"
@@ -36,7 +36,7 @@
             android:background="?attr/selectableItemBackground"
             android:textColor="@android:color/white"
             android:textSize="@dimen/abc_text_size_medium_material"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -48,18 +48,28 @@
             android:layout_width="0dp"
             android:layout_height="10dp" />
 
-        <Button
-            android:text="@string/pager_arrow"
+        <ImageButton
+            android:src="@drawable/ic_chevron_right"
             android:id="@+id/pager_arrow"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:background="?attr/selectableItemBackground"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp" />
+
+        <Button
+            android:text="@android:string/ok"
+            android:id="@+id/pager_ok"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:background="?attr/selectableItemBackground"
             android:textColor="@android:color/white"
             android:textSize="@dimen/abc_text_size_medium_material"
-            android:layout_gravity="center"
+            android:layout_gravity="right|center_vertical"
             android:layout_weight="1"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
     <View
