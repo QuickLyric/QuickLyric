@@ -35,7 +35,6 @@ import java.util.List;
 public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
 
     private SearchFragment searchFragment;
-    private SearchActivity searchActivity;
     private String searchQuery;
 
     @Override
@@ -45,7 +44,7 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
         searchQuery = (String) params[0];
         searchFragment = (SearchFragment) params[1];
         int position = (Integer) params[2];
-        searchActivity = searchFragment.searchTabs;
+        SearchActivity searchActivity = (SearchActivity) searchFragment.getActivity();
         if (searchActivity == null)
             return null;
 
@@ -58,23 +57,22 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
                 ignored.printStackTrace();
                 break;
             }
-        while (results == null && !isCancelled()
-                && searchActivity != null
-                && (position == 1 // DatabaseHelper
-                || OnlineAccessVerifier.check(searchFragment.getActivity())
-        ));
+        while (results == null && !isCancelled() && (OnlineAccessVerifier.check(searchFragment.getActivity()) ||
+                position == 0)); // DatabaseHelper
 
         return results;
     }
 
     protected void onPostExecute(List<Lyrics> results) {
-        searchFragment.searchTabs.setSearchQuery(searchQuery);
+        if (searchFragment.getActivity() == null)
+            return;
+        ((SearchActivity) searchFragment.getActivity()).setSearchQuery(searchQuery);
         if (results == null && searchFragment.getActivity() != null &&
                 !OnlineAccessVerifier.check(searchFragment.getActivity()))
             Toast.makeText(searchFragment.getActivity(),
                     searchFragment.getString(R.string.connection_error),
                     Toast.LENGTH_LONG).show();
-        else if (searchActivity != null) {
+        else if (searchFragment.getActivity() != null) {
             if (results == null)
                 results = new ArrayList<>(0);
             searchFragment.setResults(results);

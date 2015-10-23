@@ -24,7 +24,6 @@ import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.net.Uri;
-import android.provider.SearchRecentSuggestions;
 
 import com.geecko.QuickLyric.BuildConfig;
 

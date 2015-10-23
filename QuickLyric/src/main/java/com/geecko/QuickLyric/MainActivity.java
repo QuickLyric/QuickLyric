@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
             lyricsViewFragment.searchResultLock = true;
         }
-        lyricsViewFragment.collapseSearchView();
+        lyricsViewFragment.updateSearchView(true, null, false);
     }
 
     @Override

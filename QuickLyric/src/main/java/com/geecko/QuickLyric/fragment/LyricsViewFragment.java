@@ -117,11 +117,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private String mSearchQuery;
     private boolean mSearchFocused;
     private NestedScrollView mScrollView;
-    private MenuItem searchItem;
     private boolean startEmtpy = false;
     public boolean searchResultLock;
     private SwipeRefreshLayout mRefreshLayout;
     private Thread mLrcThread;
+    private boolean mExpandedSearchView;
 
     public LyricsViewFragment() {
     }
@@ -606,13 +606,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             } else {
                 message = R.string.no_results;
                 whyVisibility = TextView.VISIBLE;
-                if (searchItem != null) {
-                    SearchView searchView = (SearchView) searchItem.getActionView();
-                    if (!searchItem.isActionViewExpanded())
-                        searchItem.expandActionView();
-                    searchView.setQuery(lyrics.getTrack(), false);
-                    searchView.clearFocus();
-                }
+                updateSearchView(false, lyrics.getTrack(), false);
             }
             TextView whyTextView = ((TextView) bugLayout.findViewById(R.id.bugtext_why));
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
@@ -789,7 +783,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getActivity()
                 .getSystemService(Context.SEARCH_SERVICE);
-        searchItem = menu.findItem(R.id.search_view);
+        MenuItem searchItem = menu.findItem(R.id.search_view);
+        if (mExpandedSearchView)
+            searchItem.expandActionView();
+        else
+            searchItem.collapseActionView();
+        mExpandedSearchView = false;
         final SearchView searchView = (SearchView) searchItem.getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager
@@ -830,11 +829,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return true;
             }
         });
-        if (mSearchQuery != null) {
+        if (mSearchQuery != null && !mSearchQuery.equals("")) {
             searchItem.expandActionView();
             searchView.setQuery(mSearchQuery, false);
             if (mSearchFocused)
                 searchView.requestFocus();
+            else
+                searchView.clearFocus();
         }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
@@ -949,8 +950,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         lrcView.changeCurrent(finalPosition);
                     }
                 });
-                String time = String.valueOf((position / 1000) % 60) + " sec";
-                Log.d("geecko", time); // fixme: remove
+                // String time = String.valueOf((position / 1000) % 60) + " sec";
+                // Log.d("geecko", time);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -963,8 +964,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
     };
 
-    public void collapseSearchView() {
-        if (searchItem != null)
-            searchItem.collapseActionView();
+    public void updateSearchView(boolean collapsed, String query, boolean focused) {
+        this.mExpandedSearchView = !collapsed;
+        if (query != null)
+            this.mSearchQuery = query;
+        this.mSearchFocused = focused;
+        getActivity().invalidateOptionsMenu();
     }
 }

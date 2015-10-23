@@ -53,7 +53,6 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter implements Vie
         SearchFragment searchFragment = new SearchFragment();
         searchFragment.setSearchProvider(position);
         searchFragment.setSearchQuery(searchQuery);
-        searchFragment.setSearchTabs(searchTabs);
         searchFragment.position = position;
         return searchFragment;
     }

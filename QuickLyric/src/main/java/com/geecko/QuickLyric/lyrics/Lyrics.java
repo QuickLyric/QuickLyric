@@ -19,6 +19,9 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class Lyrics implements Serializable {
+public class Lyrics implements Serializable, Parcelable {
 
     private String mTitle;
     private String mArtist;
@@ -52,6 +55,31 @@ public class Lyrics implements Serializable {
     public Lyrics(int flag) {
         this.mFlag = flag;
     }
+
+    protected Lyrics(Parcel in) {
+        mTitle = in.readString();
+        mArtist = in.readString();
+        mOriginalTitle = in.readString();
+        mOriginalArtist = in.readString();
+        mSourceUrl = in.readString();
+        mCoverURL = in.readString();
+        mLyrics = in.readString();
+        mSource = in.readString();
+        mLRC = in.readByte() != 0;
+        mFlag = in.readInt();
+    }
+
+    public static final Creator<Lyrics> CREATOR = new Creator<Lyrics>() {
+        @Override
+        public Lyrics createFromParcel(Parcel in) {
+            return new Lyrics(in);
+        }
+
+        @Override
+        public Lyrics[] newArray(int size) {
+            return new Lyrics[size];
+        }
+    };
 
     public String getTrack() {
         return mTitle;
@@ -178,5 +206,24 @@ public class Lyrics implements Serializable {
         // Potential issue with the Birthday Paradox when we hash over 50k lyrics
         return this.getURL() != null ? this.getURL().hashCode() :
                 (""+this.getOriginalArtist()+this.getOriginalTrack()+this.getSource()).hashCode();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeString(mArtist);
+        dest.writeString(mOriginalTitle);
+        dest.writeString(mOriginalArtist);
+        dest.writeString(mSourceUrl);
+        dest.writeString(mCoverURL);
+        dest.writeString(mLyrics);
+        dest.writeString(mSource);
+        dest.writeByte((byte) (mLRC ? 1 : 0));
+        dest.writeInt(mFlag);
     }
 }

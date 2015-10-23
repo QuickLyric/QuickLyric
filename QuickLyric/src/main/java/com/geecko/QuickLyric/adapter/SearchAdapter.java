@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,16 +29,18 @@ import android.widget.TextView;
 
 import com.geecko.QuickLyric.R;
 
+import java.lang.ref.WeakReference;
+
 public class SearchAdapter extends ArrayAdapter<String> {
-    private final Context context;
     private final String[] songs;
     private final String[] artists;
+    private final WeakReference<Activity> activityReference;
 
-    public SearchAdapter(Context context, String[] songs, String[] artists) {
+    public SearchAdapter(Context context, String[] songs, String[] artists, WeakReference<Activity> activityWeakReference) {
         super(context, R.layout.list_row, songs);
-        this.context = context;
         this.artists = artists;
         this.songs = songs;
+        this.activityReference = activityWeakReference;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class SearchAdapter extends ArrayAdapter<String> {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) activityReference.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_row, parent, false);
             viewHolder.title = (TextView) convertView.findViewById(R.id.row_title);
             viewHolder.artist = (TextView) convertView.findViewById(R.id.row_artist);

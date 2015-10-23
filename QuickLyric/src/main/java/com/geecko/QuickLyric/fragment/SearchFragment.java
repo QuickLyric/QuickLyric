@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,9 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.SearchTask;
 import com.squareup.leakcanary.RefWatcher;
 
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends ListFragment {
@@ -47,15 +51,12 @@ public class SearchFragment extends ListFragment {
     private String searchQuery;
     public List<Lyrics> results;
     private boolean refresh = false;
-    private ViewGroup errorView;
     public SearchTask searchTask;
-    public SearchActivity searchTabs;
     private int searchProvider;
     public int position;
 
     @Override
     public void onActivityCreated(Bundle bundle) {
-        setRetainInstance(true);
         super.onActivityCreated(bundle);
 
         ListView listView = getListView();
@@ -65,25 +66,20 @@ public class SearchFragment extends ListFragment {
         if (fragmentView != null)
             fragmentView.setBackgroundColor(typedValue.data);
 
-        if (searchQuery == null || searchQuery.equals("")) {  // bug
-            getActivity().onBackPressed();
-        } else if (listView.getAdapter() == null || refresh) { //refresh or empty list
+        if (bundle != null && (searchQuery == null || searchQuery.equals(""))) {
+            searchQuery = bundle.getString("query");
+            searchProvider = bundle.getInt("provider");
+            position = bundle.getInt("position");
+        }
+
+        if (bundle != null && bundle.containsKey("results") && results == null)
+            setResults(bundle.<Lyrics>getParcelableArrayList("results"));
+        else if (listView.getAdapter() == null || refresh) { //refresh or empty list
             if (searchTask != null)
                 searchTask.cancel(true);
             refresh = false;
             search(searchQuery);
-        } else if (this.results != null) //orientation change
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Lyrics lyrics = results.get(position);
-                    Intent activityResult = new Intent();
-                    activityResult.putExtra("lyrics", lyrics);
-                    getActivity().setResult(Activity.RESULT_OK, activityResult);
-                    getActivity().finish();
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.slide_out_end);
-                }
-            });
+        }
     }
 
     public void setSearchProvider(int searchProvider) {
@@ -98,10 +94,6 @@ public class SearchFragment extends ListFragment {
         return this.searchQuery;
     }
 
-    public void setSearchTabs(SearchActivity searchActivity) {
-        this.searchTabs = searchActivity;
-    }
-
     public void refresh() {
         this.refresh = true;
     }
@@ -111,7 +103,7 @@ public class SearchFragment extends ListFragment {
         if (getView() != null && getListView() != null) {
             LayoutInflater inflater = (LayoutInflater)
                     getActivity().getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
-            errorView = (ViewGroup)
+            ViewGroup errorView = (ViewGroup)
                     inflater.inflate(R.layout.error_msg, getListView(), false);
 
             if (getView() != null && errorView != null) {
@@ -125,7 +117,7 @@ public class SearchFragment extends ListFragment {
                     Lyrics lyrics = SearchFragment.this.results.get(position);
                     Intent activityResult = getActivity().getIntent();
                     activityResult = activityResult == null ? new Intent() : activityResult;
-                    activityResult.putExtra("lyrics", lyrics);
+                    activityResult.putExtra("lyrics", (Serializable) lyrics);
                     getActivity().setResult(Activity.RESULT_OK, activityResult);
                     getActivity().finish();
                     getActivity().overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
@@ -148,14 +140,16 @@ public class SearchFragment extends ListFragment {
                 songsArray[i] = l.getTrack();
                 artistsArray[i++] = l.getArtist();
             }
-            setListAdapter(new SearchAdapter(searchTabs, songsArray, artistsArray));
+            setListAdapter(new SearchAdapter(getActivity().getApplicationContext(), songsArray,
+                    artistsArray, new WeakReference<>(getActivity())));
         }
-        ((SearchPagerAdapter) searchTabs.viewPager.getAdapter()).registerFragment(position, this);
+        ((SearchPagerAdapter) ((SearchActivity) getActivity()).getViewPager().getAdapter()).registerFragment(position, this);
     }
 
     protected void search(String searchQuery) {
         if (getView() != null)
             this.setListShown(false);
+        ViewGroup errorView = (ViewGroup) getActivity().findViewById(R.id.error_msg);
         if (errorView != null) {
             errorView.setVisibility(View.INVISIBLE);
         }
@@ -163,9 +157,17 @@ public class SearchFragment extends ListFragment {
         searchTask.execute(searchQuery, this, searchProvider);
     }
 
+    public void onSaveInstanceState(Bundle outstate) {
+        outstate.putString("query", searchQuery);
+        outstate.putInt("provider", searchProvider);
+        outstate.putInt("position", position);
+        outstate.putParcelableArrayList("results", (ArrayList<? extends Parcelable>) results);
+        super.onSaveInstanceState(outstate);
+    }
+
     @Override
     public void onDestroy() {
-        ((SearchPagerAdapter) searchTabs.viewPager.getAdapter()).removeFragment(this);
+        ((SearchPagerAdapter) ((SearchActivity) getActivity()).getViewPager().getAdapter()).removeFragment(this);
         super.onDestroy();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(this);

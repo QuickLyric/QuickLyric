@@ -54,7 +54,6 @@ import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
     public ArrayList<Class> searchProviders = new ArrayList<>();
-    public ViewPager viewPager;
     private String searchQuery;
     public boolean leaving;
 
@@ -97,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
-        viewPager = (ViewPager) findViewById(R.id.search_pager);
+        ViewPager viewPager = getViewPager();
         viewPager.setAdapter(new SearchPagerAdapter(
                 this.getFragmentManager(), this, searchQuery));
         boolean online = OnlineAccessVerifier.check(this);
@@ -147,11 +146,13 @@ public class SearchActivity extends AppCompatActivity {
 
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
+        ViewPager viewPager = getViewPager();
         if (viewPager != null)
             ((SearchPagerAdapter) viewPager.getAdapter()).setSearchQuery(searchQuery);
     }
 
     public void refresh() {
+        ViewPager viewPager = getViewPager();
         if (viewPager != null) {
             SearchPagerAdapter searchPagerAdapter = (SearchPagerAdapter) viewPager.getAdapter();
             searchPagerAdapter.setSearchQuery(searchQuery);
@@ -217,5 +218,9 @@ public class SearchActivity extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public ViewPager getViewPager() {
+        return (ViewPager) findViewById(R.id.search_pager);
     }
 }
