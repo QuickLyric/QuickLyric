@@ -17,11 +17,11 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<com.geecko.QuickLyric.view.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/listSelector"
     android:translationZ="4dp"
-    elevation="4dp"
+    android:elevation="4dp"
     android:layout_width="match_parent"
     android:layout_height="@dimen/row_height">
 
@@ -59,4 +59,4 @@
             android:paddingRight="16dp"
             android:textSize="@dimen/small_txt_size"
             android:textColor="?android:attr/textColorSecondary" />
-</com.geecko.QuickLyric.view.CheckableLayout>
+</RelativeLayout>

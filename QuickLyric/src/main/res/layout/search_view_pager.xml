@@ -32,8 +32,8 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:focusable="false"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/actionBar.QuickLyric"/>
+        android:theme="@style/actionBar.QuickLyric"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <com.viewpagerindicator.TitlePageIndicator
         android:id="@+id/pager_title_strip"
@@ -41,13 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="?android:detailsElementBackground"
-        android:textColor="@color/accent"
         android:elevation="4dp"
-        app:topPadding="3dp"
+        android:textColor="@color/accent"
+        app:footerColor="@android:color/transparent"
+        app:footerIndicatorStyle="none"
         app:footerPadding="5dp"
         app:selectedColor="@color/accent"
-        app:footerColor="@android:color/transparent"
-        app:footerIndicatorStyle="none"/>
+        app:topPadding="3dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/search_pager"

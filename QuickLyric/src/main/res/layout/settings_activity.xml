@@ -44,6 +44,6 @@
         android:background="?colorPrimary"
         android:elevation="4dp"
         android:focusable="false"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/actionBar.QuickLyric"/>
+        android:theme="@style/actionBar.QuickLyric"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 </FrameLayout>
