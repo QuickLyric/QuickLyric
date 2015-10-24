@@ -436,7 +436,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             url = params[2];
         startRefreshAnimation();
 
-        Lyrics lyrics;
+        Lyrics lyrics = null;
         if (artist != null && title != null) {
             lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
             if (lyrics == null)
@@ -450,7 +450,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                             && mLyrics.getTrack().equalsIgnoreCase(title))
             ))
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
-        } else {
+        } else if (url == null) {
             showFirstStart();
             return;
         }

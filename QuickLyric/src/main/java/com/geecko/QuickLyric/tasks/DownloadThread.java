@@ -25,7 +25,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 
-import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -74,10 +73,6 @@ public class DownloadThread extends Thread {
     public static void setProviders(List<Class> providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
         DownloadThread.providers.addAll(0, providers);
-        if (providers.contains(Bollywood.class)) {
-            DownloadThread.providers.remove(Bollywood.class);
-            DownloadThread.providers.add(Bollywood.class);
-        }
     }
 
     public static void refreshProviders(Set<String> set) {
