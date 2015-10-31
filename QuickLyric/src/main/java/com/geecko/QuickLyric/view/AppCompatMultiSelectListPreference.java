@@ -35,18 +35,15 @@ import java.util.List;
 
 public class AppCompatMultiSelectListPreference extends MultiSelectListPreference {
 
-    private Context mContext;
     private AppCompatDialog mDialog;
     private List<String> mSelectedItems = new ArrayList<>();  // Where we track the selected items
 
     public AppCompatMultiSelectListPreference(Context context) {
         super(context);
-        this.mContext = context;
     }
 
     public AppCompatMultiSelectListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = context;
     }
 
     @Override
@@ -64,11 +61,13 @@ public class AppCompatMultiSelectListPreference extends MultiSelectListPreferenc
         boolean[] preselect = new boolean[getEntryValues().length];
         for (String s : getValues()) {
             int index = findIndexOfValue(s);
-            if (index != -1)
+            if (index != -1) {
                 preselect[index] = true;
+                mSelectedItems.add(s);
+            }
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
                 .setNegativeButton(getNegativeButtonText(), new DialogInterface.OnClickListener() {

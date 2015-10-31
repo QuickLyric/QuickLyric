@@ -32,17 +32,14 @@ import java.lang.reflect.Method;
 
 public class AppCompatListPreference extends ListPreference {
 
-    private Context mContext;
     private AppCompatDialog mDialog;
 
     public AppCompatListPreference(Context context) {
         super(context);
-        this.mContext = context;
     }
 
     public AppCompatListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = context;
     }
 
     @Override
@@ -58,7 +55,7 @@ public class AppCompatListPreference extends ListPreference {
         }
 
         int preselect = findIndexOfValue(getValue());
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
                 .setSingleChoiceItems(getEntries(), preselect, new DialogInterface.OnClickListener() {
