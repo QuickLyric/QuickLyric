@@ -19,11 +19,13 @@
 
 package com.geecko.QuickLyric.utils;
 
+import java.util.Locale;
+
 public class Levenshtein {
 
     public static int distance(String a, String b) {
-        a = a.toLowerCase();
-        b = b.toLowerCase();
+        a = a.toLowerCase(Locale.US);
+        b = b.toLowerCase(Locale.US);
         // i == 0
         int [] costs = new int [b.length() + 1];
         for (int j = 0; j < costs.length; j++)
