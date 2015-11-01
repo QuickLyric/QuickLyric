@@ -20,15 +20,10 @@
 <resources>
     <dimen name="child_card_padding">5dp</dimen>
     <dimen name="app_bar_layout_height">192dp</dimen>
-    <dimen name="cover_width">90dp</dimen>
     <dimen name="fab_top_margin">75dp</dimen>
-    <dimen name="lyrics_top_margin">100dp</dimen>
     <dimen name="txt_size">18sp</dimen>
     <dimen name="large_txt_size">23sp</dimen>
     <dimen name="small_txt_size">16sp</dimen>
-    <dimen name="frame_margin">8dp</dimen>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="drawer_width">290dp</dimen> <!-- match_parent !-->
     <dimen name="drawer_row_height">48dp</dimen>
     <dimen name="row_height">72dp</dimen>

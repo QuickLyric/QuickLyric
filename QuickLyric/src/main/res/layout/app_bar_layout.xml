@@ -22,6 +22,7 @@
     android:id="@+id/appbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_bar_layout_height"
     android:fitsSystemWindows="true"
@@ -81,7 +82,8 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="?android:textColorPrimary"
+            tools:ignore="Deprecated"/>
 
         <EditText
             android:id="@+id/artist"
@@ -99,7 +101,8 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?android:textColorSecondary"/>
+            android:textColor="?android:textColorSecondary"
+            tools:ignore="Deprecated"/>
 
         <ImageButton
             android:id="@+id/edit_tags_btn"
@@ -115,9 +118,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
             android:elevation="4dp"
             android:focusable="false"
-            android:background="@android:color/transparent"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </android.support.design.widget.CollapsingToolbarLayout>
