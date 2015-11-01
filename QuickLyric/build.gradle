@@ -54,6 +54,7 @@ android {
 
     buildTypes {
         release {
+            shrinkResources true
             minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -71,7 +72,7 @@ android {
     }
 
     lintOptions {
-        disable 'InvalidPackage'
+        disable 'InvalidPackage', 'UnusedAttribute', 'GradleDynamicVersion'
     }
 }
 
