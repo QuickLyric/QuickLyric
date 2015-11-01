@@ -22,11 +22,6 @@ package com.geecko.QuickLyric.view;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -35,9 +30,6 @@ import android.util.AttributeSet;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.geecko.QuickLyric.R;
-
-import static android.graphics.PorterDuff.Mode.OVERLAY;
 
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
@@ -68,8 +60,6 @@ public class FadeInNetworkImageView extends NetworkImageView {
         Context context = getContext();
         if (context != null) {
             Resources resources = context.getResources();
-            Bitmap diskBitmap =
-                    ((BitmapDrawable) resources.getDrawable(R.drawable.base_cover)).getBitmap();
             int overlayColor = 0xFFF;
             if (bm != null) {
                 Palette coverPalette = Palette.generate(bm);
@@ -84,16 +74,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
                 }
                 // DST = Disk, SRC = Artwork
                 overlayColor = swatch.getRgb();
-                ColorFilter filter = new PorterDuffColorFilter(overlayColor, OVERLAY);
-                diskBitmap = diskBitmap.copy(Bitmap.Config.ARGB_8888, true);
-                Canvas diskCanvas = new Canvas(diskBitmap);
-                Paint paint = new Paint();
-                paint.setColorFilter(filter);
-                diskCanvas.drawBitmap(diskBitmap, 0f, 0f, paint);
             }
             TransitionDrawable td = new TransitionDrawable(new Drawable[]{
                     new ColorDrawable(overlayColor),
-                    new BitmapDrawable(context.getResources(), diskBitmap)
+                    new ColorDrawable(overlayColor)
             });
 
             setImageDrawable(td);
