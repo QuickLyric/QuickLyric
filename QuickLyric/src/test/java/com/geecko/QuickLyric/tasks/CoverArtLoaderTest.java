@@ -33,7 +33,7 @@ public class CoverArtLoaderTest {
 
     @Test
     public void testLastFMAPI() {
-        String url = String.format("http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=Queen&track=Flash&format=json", "tez");
+        String url = String.format("http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=Queen&track=Flash&format=json", Keys.lastFM);
         int statusCode = 0;
         try {
             Connection.Response response = Jsoup.connect(url).ignoreContentType(true).execute();
