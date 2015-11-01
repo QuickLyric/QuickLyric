@@ -58,11 +58,11 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (position == 2) {
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.drawer_separator, null);
+                convertView = inflater.inflate(R.layout.drawer_separator, parent, false);
             }
         } else {
             if (convertView == null || convertView.getId() != position) {
-                convertView = inflater.inflate(R.layout.drawer_row, null);
+                convertView = inflater.inflate(R.layout.drawer_row, parent, false);
                 if (convertView != null) {
                     TextView textView = (TextView) convertView;
                     convertView.setId(position);

@@ -22,9 +22,9 @@
     android:id="@+id/drawerlist_separator"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="@dimen/drawer_row_height"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
-    android:clickable="false"
+    android:clickable="true"
     android:gravity="center_vertical"
     android:paddingBottom="10dp"
     android:paddingTop="10dp">
