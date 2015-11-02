@@ -197,9 +197,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else
             switch (intent.getAction()) {
-                case "android.intent.action.VIEW":
-                    processURL(intent);
-                    break;
                 case "com.geecko.QuickLyric.getLyrics":
                     Log.v("geecko", "breadcrumb");
                     String[] metadata = intent.getStringArrayExtra("TAGS");
@@ -331,10 +328,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 case "android.intent.action.VIEW":
                     if (intent.getDataString().contains("spotify"))
                         Spotify.onCallback(intent, this);
-                    else {
-                        processURL(intent);
-                        selectItem(0);
-                    }
                     break;
                 case "com.geecko.QuickLyric.getLyrics":
                     String[] metadata = intent.getStringArrayExtra("TAGS");
@@ -382,18 +375,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         searchIntent.putExtra("query", searchQuery);
         startActivityForResult(searchIntent, 55);
         overridePendingTransition(R.anim.slide_in_end, R.anim.fade_out);
-    }
-
-    private void processURL(Intent intent) {
-        Uri data = intent.getData();
-        String scheme = data.getScheme();//get the scheme (http,https)
-        String fullPath = data.getEncodedSchemeSpecificPart();//get the full path -scheme - fragments
-        String url = scheme + ":" + fullPath;
-        if (url.contains("www.azlyrics.com/") ||
-                url.contains("lyrics.wikia.com/") ||
-                url.contains("genius.com") ||
-                url.contains("j-lyric.net"))
-            updateLyricsFragment(0, null, null, url);
     }
 
     private void updateDBList() {
