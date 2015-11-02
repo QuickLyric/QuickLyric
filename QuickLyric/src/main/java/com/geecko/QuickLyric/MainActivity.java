@@ -80,7 +80,7 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
-import com.geecko.QuickLyric.utils.ScreenSlidePagerAdapter;
+import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
@@ -546,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         getLayoutInflater().inflate(layout.tutorial_view, rootView);
         ViewPager pager = (ViewPager) findViewById(id.pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
-        final ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), this);
+        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(getFragmentManager(), this);
         pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(pagerAdapter);
         indicator.setViewPager(pager);

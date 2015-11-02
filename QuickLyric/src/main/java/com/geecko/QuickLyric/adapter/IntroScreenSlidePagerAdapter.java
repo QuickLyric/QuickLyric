@@ -1,4 +1,4 @@
-package com.geecko.QuickLyric.utils;
+package com.geecko.QuickLyric.adapter;
 
 import android.animation.ArgbEvaluator;
 import android.app.Activity;
@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.view.BubblePopImageView;
 
 import java.util.Arrays;
@@ -55,7 +56,7 @@ import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
+public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
     public boolean rightToLeft = false;
     private Integer[] colors = new Integer[]{
             R.color.accent_dark,
@@ -201,7 +202,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter implement
     };
 
 
-    public ScreenSlidePagerAdapter(FragmentManager fm, Activity activity) {
+    public IntroScreenSlidePagerAdapter(FragmentManager fm, Activity activity) {
         super(fm);
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
