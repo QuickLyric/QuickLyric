@@ -21,13 +21,17 @@ package com.geecko.QuickLyric.adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Build;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+
+import java.util.Locale;
 
 public class SearchPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
 
@@ -35,15 +39,20 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter implements Vie
     private String searchQuery;
     private SearchActivity searchTabs;
     public int selectedPage = 0;
+    public boolean rightToLeft = false;
 
     public SearchPagerAdapter(FragmentManager fm, SearchActivity searchActivity, String query) {
         super(fm);
         this.searchQuery = query;
         this.searchTabs = searchActivity;
+        if (Build.VERSION.SDK_INT >= 17)
+            this.rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
     }
 
     @Override
     public Fragment getItem(int position) {
+        if (rightToLeft)
+            position = getCount() - 1 - position;
         if (fragments[position] != null && fragments[position].getSearchQuery().equals(this.searchQuery)) {
             if (fragments[position].results.size() == 0)
                 fragments[position].setResults(fragments[position].results);
@@ -85,7 +94,8 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter implements Vie
     @Override
     public CharSequence getPageTitle(int position) {
         try {
-            Class provider = searchTabs.searchProviders.get(position);
+            Class provider = searchTabs.searchProviders
+                    .get(rightToLeft ? getCount() - 1 - position : position);
             if (provider == DatabaseHelper.class)
                 return searchTabs.getString(R.string.local_title);
             return provider.getSimpleName();

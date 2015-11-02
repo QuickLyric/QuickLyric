@@ -28,8 +28,9 @@
 
     <TextView
         android:id="@android:id/text1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_gravity="start|center_vertical"
         android:gravity="center_vertical"
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
