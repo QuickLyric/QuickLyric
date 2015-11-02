@@ -26,7 +26,6 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.safety.Whitelist;
 
 import java.io.IOException;
@@ -66,7 +65,7 @@ public class LyricsMania {
             Element lyricsBody = document.getElementsByClass("lyrics-body").get(0);
             lyricsBody.select("div").last().remove();
             text = Jsoup.clean(lyricsBody.html(), "", Whitelist.basic().addTags("div"));
-            text = text.substring(text.indexOf("</strong>")+10);
+            text = text.substring(text.indexOf("</strong>")+10, text.lastIndexOf("</div>"));
             if (artist == null)
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
                         .getElementsByTag("a").get(0).text();
@@ -84,7 +83,7 @@ public class LyricsMania {
         lyrics.setTitle(title);
         lyrics.setURL(url);
         lyrics.setSource(domain);
-        lyrics.setText(text);
+        lyrics.setText(text.trim());
         return lyrics;
     }
 }
