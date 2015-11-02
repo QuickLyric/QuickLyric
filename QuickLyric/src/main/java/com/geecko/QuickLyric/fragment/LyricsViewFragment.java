@@ -184,7 +184,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         String track = lyrics.getTrack();
                         String url = lyrics.getURL();
                         fetchLyrics(artist, track, url);
-                        ((SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout)).setRefreshing(true);
+                        mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
+                        startRefreshAnimation();
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -271,6 +272,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 if (!startEmtpy)
                     fetchCurrentLyrics(false);
             } else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
+                mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
                 startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
@@ -843,7 +845,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (mLyrics != null
                     && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
                     && sharedPref.getBoolean("pref_auto_save", true)) {
-                if (!lyricsPresentInDB) {
+                String[] metadata = new String[]{
+                        mLyrics.getArtist(),
+                        mLyrics.getTrack(),
+                        mLyrics.getOriginalArtist(),
+                        mLyrics.getOriginalTrack()};
+                if (!DatabaseHelper.presenceCheck(((MainActivity) getActivity()).database, metadata)) {
                     lyricsPresentInDB = true;
                     new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
                 }
