@@ -57,7 +57,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
@@ -198,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         } else
             switch (intent.getAction()) {
                 case "com.geecko.QuickLyric.getLyrics":
-                    Log.v("geecko", "breadcrumb");
                     String[] metadata = intent.getStringArrayExtra("TAGS");
                     String artist = metadata[0];
                     String track = metadata[1];
