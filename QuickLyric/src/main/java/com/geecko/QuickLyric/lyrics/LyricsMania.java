@@ -50,6 +50,9 @@ public class LyricsMania {
         String htmlSong = Normalizer.normalize(song.replaceAll("[\\s-]", "_"), Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "").replaceAll("[^A-Za-z0-9_]", "");
 
+        if (artist.startsWith("The"))
+            htmlArtist = htmlArtist.substring(4) + "_the";
+
         String urlString = String.format(
                 baseURL,
                 htmlSong.toLowerCase(Locale.getDefault()),
@@ -69,8 +72,7 @@ public class LyricsMania {
             if (artist == null)
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
                         .getElementsByTag("a").get(0).text();
-            if (title == null)
-                title = document.getElementsByClass("active").text();
+            title = document.getElementsByClass("active").text();
         } catch (HttpStatusException e) {
             return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
