@@ -54,7 +54,6 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -240,7 +239,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (args != null)
                 refreshFab.setEnabled(args.getBoolean("refreshFabEnabled", true));
 
-            Log.v("isEnabled", String.valueOf(refreshFab.isEnabled()));
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
             TypedValue primaryColor = new TypedValue();
