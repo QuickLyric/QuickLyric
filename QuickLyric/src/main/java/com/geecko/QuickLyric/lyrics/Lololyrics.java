@@ -54,7 +54,7 @@ import java.net.URLEncoder;
 public class Lololyrics {
 
     private static final String baseUrl = "http://api.lololyrics.com/0.5/getLyric?artist=%1s&track=%1s&rawutf8=1";
-    public static final String domain = "www.urbanlyrics.com/";
+    public static final String domain = "www.lololyrics.com/";
 
     @Reflection
     public static Lyrics fromMetaData(String artist, String song) {
@@ -83,10 +83,9 @@ public class Lololyrics {
                 lyrics.setText(text);
                 lyrics.setSource(domain);
 
-                if (loloResult.select("cover").hasText()) {
-                    //Log.v(TAG, "Cover found");
+                if (loloResult.select("cover").hasText())
                     lyrics.setCoverURL(loloResult.select("cover").text());
-                }
+
                 String weburl = loloResult.select("url").html();
                 lyrics.setURL(weburl);
                 return lyrics;
