@@ -32,6 +32,13 @@ import javax.xml.parsers.ParserConfigurationException;
 public class LyricsProviderTest {
 
     @Test
+    public void testAZLyrics() {
+        Lyrics lyrics = AZLyrics.fromMetaData("Isyana Sarasvati", "Tetap Dalam Jiwa");
+        Assert.assertTrue(lyrics.getText().contains("terbayang"));
+        Assert.assertTrue(lyrics.getText().contains("ujungnya"));
+    }
+
+    @Test
     public void testGenius() {
         Assert.assertTrue(Genius.search("Eminem").size() > 2);
         Lyrics lyrics = Genius.fromMetaData("Red Hot Chili Peppers", "Can't stop");

@@ -25,6 +25,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 
+import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -61,7 +62,8 @@ public class DownloadThread extends Thread {
             {
                     LyricWiki.class,
                     Genius.class,
-                    LyricsMania.class
+                    LyricsMania.class,
+                    AZLyrics.class
             };
 
     private static ArrayList<Class> providers = new ArrayList<>(Arrays.asList(mainProviders));
