@@ -836,6 +836,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 searchView.requestFocus();
             else
                 searchView.clearFocus();
+            mSearchQuery = null;
         }
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
