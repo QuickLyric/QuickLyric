@@ -92,6 +92,7 @@ import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.utils.UpdateChecker;
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
@@ -121,6 +122,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private SwipeRefreshLayout mRefreshLayout;
     private Thread mLrcThread;
     private boolean mExpandedSearchView;
+    public boolean updateChecked = false;
 
     public LyricsViewFragment() {
     }
@@ -472,6 +474,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 new DownloadThread(this, artist, title).start();
             else
                 new DownloadThread(this, url, artist, title).start();
+
+            new UpdateChecker.UpdateCheckTask(this).execute();
         } else {
             lyrics = new Lyrics(Lyrics.ERROR);
             lyrics.setArtist(artist);
