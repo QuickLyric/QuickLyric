@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 default:
                     init(fragmentManager, false);
             }
-        if (!getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false)) {
+        if (!getSharedPreferences("slides", Context.MODE_PRIVATE).getBoolean("seen", false)) {
             registerTempReceiver();
             setupDemoScreen();
         }

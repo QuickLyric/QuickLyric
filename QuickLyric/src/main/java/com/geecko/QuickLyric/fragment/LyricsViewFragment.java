@@ -443,7 +443,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
 
             if (lyrics == null && url == null &&
-                    (getActivity().getSharedPreferences("tutorial", Context.MODE_PRIVATE).getBoolean("seen", false))
+                    (getActivity().getSharedPreferences("slides", Context.MODE_PRIVATE).getBoolean("seen", false))
                     && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
                     !("Storage".equals(mLyrics.getSource())
                             && mLyrics.getArtist().equalsIgnoreCase(artist)
