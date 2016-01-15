@@ -97,7 +97,7 @@ public class Genius {
         String text;
         try {
             lyricsPage = Jsoup.connect(url).userAgent(Net.USER_AGENT).get();
-            Elements lyricsDiv = lyricsPage.select("div.lyrics");
+            Elements lyricsDiv = lyricsPage.select(".lyrics");
             if (lyricsDiv.isEmpty())
                 throw new StringIndexOutOfBoundsException();
             else
