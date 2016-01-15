@@ -34,11 +34,11 @@ import java.util.ArrayList;
 public class Bollywood {
 
     @Reflection
-    public static final String domain = "quicklyric.cf/bollywood/";
+    public static final String domain = "quicklyric.azurewebsites.net/bollywood/";
 
     public static ArrayList<Lyrics> search(String query) {
         ArrayList<Lyrics> results = new ArrayList<>();
-        String searchUrl = "http://www.quicklyric.cf/bollywood/search.php?q=%s";
+        String searchUrl = "http://quicklyric.azurewebsites.net/bollywood/search.php?q=%s";
         try {
             String jsonText;
             jsonText = Net.getUrlAsString(String.format(searchUrl, URLEncoder.encode(query, "utf-8")));
@@ -56,7 +56,7 @@ public class Bollywood {
                         break;
                     }
                 }
-                lyrics.setURL("http://www.quicklyric.cf/bollywood/get.php?id=" + lyricsResult.get("id").getAsInt());
+                lyrics.setURL("http://quicklyric.azurewebsites.net/bollywood/get.php?id=" + lyricsResult.get("id").getAsInt());
                 results.add(lyrics);
             }
         } catch (IOException | JsonParseException e) {
