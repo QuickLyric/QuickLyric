@@ -194,20 +194,18 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         Lyrics receivedLyrics = getBeamedLyrics(intent);
         if (receivedLyrics != null) {
             updateLyricsFragment(0, 0, false, receivedLyrics);
-        } else
-            switch (intent.getAction()) {
-                case "com.geecko.QuickLyric.getLyrics":
-                    String[] metadata = intent.getStringArrayExtra("TAGS");
-                    String artist = metadata[0];
-                    String track = metadata[1];
-                    updateLyricsFragment(0, artist, track);
-                    break;
-                case "android.intent.action.SEND":
-                    new IdDecoder(this, init(fragmentManager, true)).execute(getIdUrl(extra));
-                    break;
-                default:
-                    init(fragmentManager, false);
-            }
+        } else {
+            String s = intent.getAction();
+            if ("com.geecko.QuickLyric.getLyrics".equals(s)) {
+                String[] metadata = intent.getStringArrayExtra("TAGS");
+                String artist = metadata[0];
+                String track = metadata[1];
+                updateLyricsFragment(0, artist, track);
+            } else if (s.equals("android.intent.action.SEND")) {
+                new IdDecoder(this, init(fragmentManager, true)).execute(getIdUrl(extra));
+            } else
+                init(fragmentManager, false);
+        }
         if (!getSharedPreferences("slides", Context.MODE_PRIVATE).getBoolean("seen", false)) {
             registerTempReceiver();
             setupDemoScreen();

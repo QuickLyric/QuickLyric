@@ -730,7 +730,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 break;
             case R.id.convert_action:
                 LrcView lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
-                if (lrcView != null)
+                if (lrcView != null && lrcView.dictionnary != null)
                     update(lrcView.getStaticLyrics(), getView(), true);
         }
         return false;
@@ -927,7 +927,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         public void run() {
             boolean ran = false;
             final LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            if (lrcView == null || getActivity() == null)
+            if (lrcView == null || getActivity() == null || lrcView.dictionnary != null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);

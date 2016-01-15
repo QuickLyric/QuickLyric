@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 
 public class LrcView extends View {
 
-    private TreeMap<Long, String> dictionnary;
+    public TreeMap<Long, String> dictionnary;
 
     private long mCurrentTime = 0l;
     private long mNextTime = 0l;
