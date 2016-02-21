@@ -33,9 +33,9 @@ public class LyricsProviderTest {
 
     @Test
     public void testAZLyrics() {
-        Lyrics lyrics = AZLyrics.fromMetaData("Isyana Sarasvati", "Tetap Dalam Jiwa");
-        Assert.assertTrue(lyrics.getText().contains("terbayang"));
-        Assert.assertTrue(lyrics.getText().contains("ujungnya"));
+        Lyrics lyrics = AZLyrics.fromMetaData("Fergie", "Big Girls don't cry");
+        Assert.assertTrue(lyrics.getText().contains("path"));
+        Assert.assertTrue(lyrics.getText().contains("cry"));
     }
 
     @Test
