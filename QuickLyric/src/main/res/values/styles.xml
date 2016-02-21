@@ -59,6 +59,7 @@
         <item name="asb_switchPreferenceStyle">@style/asb_Preference.SwitchPreference</item>
         <item name="android:panelColorForeground">@color/expanded</item>
         <item name="rippleBackGroundColor">#585858</item>
+        <item name="textAppearanceSearchResultTitle">@style/SearchResult</item>
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
@@ -70,6 +71,7 @@
         <item name="android:detailsElementBackground">@color/pager_title_strip_color_dark</item>
         <item name="android:dropDownListViewStyle">@style/DropDownBackground.Dark</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
+        <item name="textAppearanceSearchResultTitle">@style/DarkSearchResult</item>
     </style>
 
     <style name="Theme.QuickLyric.Night" parent="Theme.QuickLyric.Dark">
@@ -172,5 +174,13 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/accent</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SearchResult" parent="TextAppearance.AppCompat.SearchResult.Title">
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
+    </style>
+
+    <style name="DarkSearchResult" parent="TextAppearance.AppCompat.SearchResult.Title">
+        <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 </resources>
