@@ -67,7 +67,7 @@
   <string name="defaut_theme">Ambre (par défaut)</string>
   <string name="dark_theme">Sombre</string>
   <string name="pref_notifications_sum">Recevez une notification discrète lorsque la chanson change</string>
-  <string name="pref_auto_save">Sauvegarder automatiquement les paroles</string>
+  <string name="pref_auto_save">Sauvegarde auto. des paroles</string>
   <string name="pref_auto_save_sum">Toutes les paroles seront stockées sur votre appareil</string>
   <string name="pref_night_mode">Mode nocturne</string>
   <string name="pref_night_mode_sum">Affiche un fond sombre pendant la nuit</string>
@@ -132,4 +132,8 @@ Plusieurs raisons possibles:<br/>
     <item>Activées</item>
     <item>Activées (statiques)</item>
   </string-array>
+  <string name="artworks_pref_sum">Peut impliquer des frais de consommation de données</string>
+  <string name="artworks_pref_title">Téléchargement automatique des pochettes</string>
+  <string name="pref_force_screen_on">Maintenir l\'écran allumé</string>
+  <string name="pref_force_screen_sum">Empêche l\'écran de s\'éteindre pendant que vous lisez les paroles</string>
 </resources>

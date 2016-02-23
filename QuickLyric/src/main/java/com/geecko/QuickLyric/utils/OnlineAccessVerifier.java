@@ -30,5 +30,11 @@ public class OnlineAccessVerifier {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    public static boolean isConnectedWifi(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
+    }
 }
 

@@ -533,7 +533,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
         }
         setCoverArt(cover, null);
-        if (cover == null)
+        boolean artCellDownload =
+                Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity())
+                        .getString("pref_artworks", "0")) == 0;
+        if (cover == null && (artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity())))
             new CoverArtLoader().execute(lyrics, this);
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)

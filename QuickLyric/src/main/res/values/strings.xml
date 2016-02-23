@@ -243,6 +243,8 @@ A few possible reasons why:<br/>
     <string name="source_sync">Synchronized Lyrics</string>
     <string name="spotify_connection">Connecting to Spotify…</string>
     <string name="full_text_action">Show full text</string>
+    <string name="artworks_pref_title">Automatic artwork download</string>
+    <string name="artworks_pref_sum">May result in mobile data charges</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
@@ -257,7 +259,7 @@ A few possible reasons why:<br/>
     </plurals>
 
 
-    <string-array xmlns:tools="http://schemas.android.com/tools" name="nav_items">
+    <string-array name="nav_items" xmlns:tools="http://schemas.android.com/tools">
         <item>@string/title_lyrics</item>
         <item>@string/local_title</item>
         <item>-</item>
@@ -295,5 +297,9 @@ A few possible reasons why:<br/>
         <item>@string/uri_storage</item>
         <item>@string/uri_gmusic</item>
         <item>@string/uri_spotify</item>
+    </string-array>
+    <string-array name="artwork_download">
+        <item>Always enabled</item>
+        <item>Only on WiFi</item>
     </string-array>
 </resources>

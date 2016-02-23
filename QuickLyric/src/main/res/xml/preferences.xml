@@ -49,6 +49,13 @@
             android:key="pref_providers"
             android:summary="@string/pref_providers_sum"
             android:title="@string/pref_providers"/>
+        <com.geecko.QuickLyric.view.AppCompatListPreference
+            android:defaultValue="0"
+            android:entries="@array/artwork_download"
+            android:entryValues="@array/artworks_values"
+            android:key="pref_artworks"
+            android:summary="@string/artworks_pref_sum"
+            android:title="@string/artworks_pref_title"/>
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="pref_auto_save"
