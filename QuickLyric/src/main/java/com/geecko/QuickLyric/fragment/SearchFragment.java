@@ -72,9 +72,13 @@ public class SearchFragment extends ListFragment {
             position = bundle.getInt("position");
         }
 
-        if (bundle != null && bundle.containsKey("results") && results == null)
-            setResults(bundle.<Lyrics>getParcelableArrayList("results"));
-        else if (listView.getAdapter() == null || refresh) { //refresh or empty list
+        if (bundle != null && bundle.containsKey("results")
+                && bundle.get("results") != null && results == null) {
+            results = bundle.getParcelableArrayList("results");
+            if (results == null)
+                results = new ArrayList<>(0);
+            setResults(results);
+        } else if (listView.getAdapter() == null || refresh) { //refresh or empty list
             if (searchTask != null)
                 searchTask.cancel(true);
             refresh = false;
