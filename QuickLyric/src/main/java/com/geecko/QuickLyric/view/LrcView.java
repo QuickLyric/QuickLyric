@@ -112,9 +112,9 @@ public class LrcView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int measuredHeight = MeasureSpec.makeMeasureSpec(mLrcHeight, MeasureSpec.AT_MOST);
-        setMeasuredDimension(widthMeasureSpec, measuredHeight);
+        int measuredHeight = MeasureSpec.makeMeasureSpec(mLrcHeight, MeasureSpec.EXACTLY);
+        int measuredWidth = MeasureSpec.makeMeasureSpec(widthMeasureSpec, MeasureSpec.UNSPECIFIED);
+        setMeasuredDimension(measuredWidth, measuredHeight);
     }
 
     @Override
