@@ -35,7 +35,7 @@ android {
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 56
         versionName "2.0 RC3"
     }
