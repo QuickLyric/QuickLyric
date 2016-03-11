@@ -84,6 +84,7 @@ public class ViewLyrics {
         if (results.size() == 0)
             return new Lyrics(NEGATIVE_RESULT);
         String url = results.get(0).getURL();
+        url = url.replace("minilyrics", "viewlyrics");
 
         int artistDistance = Levenshtein.distance(results.get(0).getArtist(), artist);
         int titleDistance = Levenshtein.distance(results.get(0).getTrack(), title);

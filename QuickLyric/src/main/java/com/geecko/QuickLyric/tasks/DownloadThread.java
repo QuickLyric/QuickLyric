@@ -30,10 +30,12 @@ import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
+import com.geecko.QuickLyric.lyrics.ViewLyrics;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -75,6 +77,14 @@ public class DownloadThread extends Thread {
     public static void setProviders(List<Class> providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
         DownloadThread.providers.addAll(providers);
+        // TODO move "synchronized lyrics" to its own setting
+        // DownloadThread.providers.add(0, ViewLyrics.class);
+        if (DownloadThread.providers.contains(ViewLyrics.class)) {
+            while (!DownloadThread.providers.get(0).equals(ViewLyrics.class)) {
+                int i = DownloadThread.providers.indexOf(ViewLyrics.class);
+                Collections.swap(DownloadThread.providers, i, i - 1);
+            }
+        }
     }
 
     public static void refreshProviders(Set<String> set) {

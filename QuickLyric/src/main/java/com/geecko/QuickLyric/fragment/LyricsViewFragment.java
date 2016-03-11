@@ -929,12 +929,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         @Override
         public void run() {
             boolean ran = false;
-            final LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            if (lrcView == null || getActivity() == null || lrcView.dictionnary != null)
+            LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+            if (lrcView == null || getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);
-            if (position == -1) {
+            if (position == -1 && getActivity() != null) {
                 final Lyrics staticLyrics = lrcView.getStaticLyrics();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -947,7 +947,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 lrcView.changeCurrent(position);
 
             MusicBroadcastReceiver.forceAutoUpdate(true);
-            while (preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
+            while (getActivity() != null &&
+                    preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
                     preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
                     preferences.getBoolean("playing", true)) {
                 ran = true;
@@ -960,7 +961,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        lrcView.changeCurrent(finalPosition);
+                        ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
+                                .changeCurrent(finalPosition);
                     }
                 });
                 // String time = String.valueOf((position / 1000) % 60) + " sec";
@@ -972,7 +974,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
             }
             MusicBroadcastReceiver.forceAutoUpdate(true);
-            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC())
+            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC() && getActivity() != null)
                 fetchCurrentLyrics(false);
         }
     };
