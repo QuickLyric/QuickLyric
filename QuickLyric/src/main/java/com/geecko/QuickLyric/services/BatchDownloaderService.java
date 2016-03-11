@@ -83,6 +83,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             String[] projection = new String[]{"artist", "title"};
             String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
             Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
+            if (cursor == null)
+                return;
             total = cursor.getCount();
             updateProgress();
             while (cursor.moveToNext()) {
@@ -92,6 +94,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             }
             cursor.close();
         } else {
+            @SuppressWarnings("unchecked")
             ArrayList<String[]> savedTracks = (ArrayList<String[]>) intent.getExtras().get("spotifyTracks");
             if (savedTracks != null) {
                 total = savedTracks.size();
