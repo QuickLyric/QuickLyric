@@ -56,8 +56,8 @@ Don't be afraid to contribute! I welcome all forks & pull requests but *please*,
 Credits are due to : Last.FM, Roman Nurik for his scroll tricks, Ficus Kirkpatrick for Volley, Jake Wharton for his ViewPagerIndicator and makovkastar for the FloatingActionButton library.
 
 ## Screenshots
-![Imgur](https://i.imgur.com/IPy7VBv.png)
-![Imgur](https://i.imgur.com/6iyLW0m.png)
-![Imgur](https://i.imgur.com/ITCmin4.png)
-![Imgur](https://i.imgur.com/QkUIvEw.png)
-![Imgur](https://i.imgur.com/P1ezQjY.png)
+[![Static](./readme_img/static_lyrics_small.png)](https://i.imgur.com/IPy7VBv.png)
+[![Sync](./readme_img/syncd_lyrics_small.png)](https://i.imgur.com/6iyLW0m.png)
+[![Search](./readme_img/loading_search_small.png)](https://i.imgur.com/ITCmin4.png)
+[![Saved](./readme_img/saved_lyrics_small.png)](https://i.imgur.com/QkUIvEw.png)
+[![Settings](./readme_img/settings_small.png)](https://i.imgur.com/P1ezQjY.png)
