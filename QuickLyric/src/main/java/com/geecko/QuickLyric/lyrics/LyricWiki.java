@@ -64,7 +64,7 @@ public class LyricWiki {
         query = Normalizer.normalize(query, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         try {
             URL queryURL = new URL(String.format(baseSearchUrl, URLEncoder.encode(query, "UTF-8")));
-            Document searchpage = Jsoup.connect(queryURL.toExternalForm()).get();
+            Document searchpage = Jsoup.connect(queryURL.toExternalForm()).timeout(0).get();
             Elements searchResults = searchpage.getElementsByClass("Results");
             if (searchResults.size() >= 1) {
                 searchResults = searchResults.get(0).getElementsByClass("result");

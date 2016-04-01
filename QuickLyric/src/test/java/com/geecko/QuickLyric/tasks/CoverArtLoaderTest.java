@@ -36,7 +36,7 @@ public class CoverArtLoaderTest {
         String url = String.format("http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=Queen&track=Flash&format=json", Keys.lastFM);
         int statusCode = 0;
         try {
-            Connection.Response response = Jsoup.connect(url).ignoreContentType(true).execute();
+            Connection.Response response = Jsoup.connect(url).timeout(0).ignoreContentType(true).execute();
             statusCode = response.statusCode();
         } catch (IOException e) {
             e.printStackTrace();
