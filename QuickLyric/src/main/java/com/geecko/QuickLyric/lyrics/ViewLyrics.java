@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.lyrics;
 
+import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Levenshtein;
 import com.geecko.QuickLyric.utils.Net;
 import com.squareup.okhttp.MediaType;
@@ -44,6 +45,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.NEGATIVE_RESULT;
+import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.SEARCH_ITEM;
 
@@ -74,6 +76,12 @@ public class ViewLyrics {
 	/*
      * Search function
 	 */
+
+    @Reflection
+    public static Lyrics fromURL(String url, String artist, String title){
+        // TODO: support ViewLyrics URL
+        return new Lyrics(NO_RESULT);
+    }
 
     public static Lyrics fromMetaData(String artist, String title) throws IOException, NoSuchAlgorithmException, SAXException, ParserConfigurationException {
         ArrayList<Lyrics> results =

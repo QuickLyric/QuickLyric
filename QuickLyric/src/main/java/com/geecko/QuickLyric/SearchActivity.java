@@ -40,7 +40,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
+import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
+import com.geecko.QuickLyric.lyrics.JLyric;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
@@ -67,11 +69,13 @@ public class SearchActivity extends AppCompatActivity {
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(context)
                 .getStringSet("pref_providers", Collections.<String>emptySet());
         for (String name : providersSet)
-            try {
-                Class provider = Class.forName("com.geecko.QuickLyric.lyrics." + name);
-                if (provider.getMethod("search", String.class) != null)
-                    searchProviders.add(provider);
-            } catch (Exception ignored) {
+            switch (name) {
+                case "Bollywood":
+                    searchProviders.add(Bollywood.class);
+                    break;
+                case "JLyric":
+                    searchProviders.add(JLyric.class);
+                    break;
             }
     }
 

@@ -109,8 +109,6 @@ public class AnimatedExpandableListView extends ExpandableListView {
      *    the collapsed group.
      */
 
-    @SuppressWarnings("unused")
-    private static final String TAG = AnimatedExpandableListAdapter.class.getSimpleName();
 
     /**
      * The duration of the expand/collapse animations

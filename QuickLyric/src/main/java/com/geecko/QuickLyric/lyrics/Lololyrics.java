@@ -99,8 +99,7 @@ public class Lololyrics {
         }
     }
 
-    // TODO handle lololyrics.com urls
-    @Reflection
+    // TODO handle lololyrics.com url
     public static Lyrics fromURL(String url, String artist, String song) {
         /** We can't transform generic lololyrics url to API url.
          Also we can't get artist name and song title from Lololyrics API. **/

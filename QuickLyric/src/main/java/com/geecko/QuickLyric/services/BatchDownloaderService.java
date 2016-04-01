@@ -50,7 +50,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     // Sets the Time Unit to seconds
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
     // Sets the threadpool size to 8
-    private static final int CORE_POOL_SIZE = 8;
+    private static final int CORE_POOL_SIZE = 2;
     private static final int MAXIMUM_POOL_SIZE = 8;
     private final ThreadPoolExecutor mDownloadThreadPool;
     private SQLiteDatabase database;
@@ -78,7 +78,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                 .getStringSet("pref_providers", Collections.<String>emptySet());
         if (providersSet.contains("ViewLyrics"))
             providersSet.remove("ViewLyrics");
-        DownloadThread.refreshProviders(providersSet);
+        DownloadThread.setProviders(providersSet);
         if (content != null) {
             String[] projection = new String[]{"artist", "title"};
             String selection = "artist IS NOT NULL AND artist <> '<unknown>'";

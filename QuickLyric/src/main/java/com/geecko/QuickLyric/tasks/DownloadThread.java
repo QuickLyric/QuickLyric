@@ -26,18 +26,20 @@ import android.os.Message;
 import android.os.Process;
 
 import com.geecko.QuickLyric.lyrics.AZLyrics;
+import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
+import com.geecko.QuickLyric.lyrics.JLyric;
+import com.geecko.QuickLyric.lyrics.Lololyrics;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsMania;
+import com.geecko.QuickLyric.lyrics.MetalArchives;
+import com.geecko.QuickLyric.lyrics.PLyrics;
+import com.geecko.QuickLyric.lyrics.UrbanLyrics;
 import com.geecko.QuickLyric.lyrics.ViewLyrics;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 /*
  * *
@@ -60,42 +62,28 @@ import java.util.Set;
 
 public class DownloadThread extends Thread {
 
-    private static final Class[] mainProviders =
+    private static final String[] mainProviders =
             {
-                    LyricWiki.class,
-                    Genius.class,
-                    LyricsMania.class,
-                    AZLyrics.class
+                    "LyricWiki",
+                    "Genius",
+                    "LyricsMania",
+                    "AZLyrics"
             };
 
-    private static ArrayList<Class> providers = new ArrayList<>(Arrays.asList(mainProviders));
+    private static ArrayList<String> providers = new ArrayList<>(Arrays.asList(mainProviders));
 
     public DownloadThread(final Lyrics.Callback callback, final String... params) {
         super(DownloadThread.getRunnable(callback, params));
     }
 
-    public static void setProviders(List<Class> providers) {
+    public static void setProviders(Iterable<String> providers) {
         DownloadThread.providers = new ArrayList<>(Arrays.asList(mainProviders));
-        DownloadThread.providers.addAll(providers);
-        // TODO move "synchronized lyrics" to its own setting
-        // DownloadThread.providers.add(0, ViewLyrics.class);
-        if (DownloadThread.providers.contains(ViewLyrics.class)) {
-            while (!DownloadThread.providers.get(0).equals(ViewLyrics.class)) {
-                int i = DownloadThread.providers.indexOf(ViewLyrics.class);
-                Collections.swap(DownloadThread.providers, i, i - 1);
-            }
+        for (String provider : providers) {
+            if (provider.equals("ViewLyrics"))
+                DownloadThread.providers.add(0, provider);
+            else
+                DownloadThread.providers.add(provider);
         }
-    }
-
-    public static void refreshProviders(Set<String> set) {
-        ArrayList<Class> providers = new ArrayList<>();
-        for (String name : set)
-            try {
-                providers.add(Class.forName("com.geecko.QuickLyric.lyrics." + name));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        DownloadThread.setProviders(providers);
     }
 
     public static Runnable getRunnable(final Lyrics.Callback callback, final String... params) {
@@ -103,37 +91,97 @@ public class DownloadThread extends Thread {
 
             @SuppressWarnings("unchecked")
             public Lyrics download(String url, String artist, String title) {
-                for (Class provider : providers) {
-                    try {
-                        if (url.contains((String) provider.getField("domain").get(null)))
-                            return (Lyrics) provider.getMethod("fromURL",
-                                    String.class, String.class, String.class)
-                                    .invoke(null, url, artist, title);
-                    } catch (Exception ignored) {
+                Lyrics lyrics = null;
+                for (String provider : providers) {
+                    switch (provider) {
+                        case "AZLyrics":
+                            lyrics = AZLyrics.fromURL(url, artist, title);
+                            break;
+                        case "Bollywood":
+                            lyrics = Bollywood.fromURL(url, artist, title);
+                            break;
+                        case "Genius":
+                            lyrics = Genius.fromURL(url, artist, title);
+                            break;
+                        case "JLyric":
+                            lyrics = JLyric.fromURL(url, artist, title);
+                            break;
+                        case "Lololyrics":
+                            lyrics = Lololyrics.fromURL(url, artist, title);
+                            break;
+                        case "LyricsMania":
+                            lyrics = LyricsMania.fromURL(url, artist, title);
+                            break;
+                        case "LyricWiki":
+                            lyrics = LyricWiki.fromURL(url, artist, title);
+                            break;
+                        case "MetalArchives":
+                            lyrics = MetalArchives.fromURL(url, artist, title);
+                            break;
+                        case "PLyrics":
+                            lyrics = PLyrics.fromURL(url, artist, title);
+                            break;
+                        case "UrbanLyrics":
+                            lyrics = UrbanLyrics.fromURL(url, artist, title);
+                            break;
+                        case "ViewLyrics":
+                            lyrics = ViewLyrics.fromURL(url, artist, title);
+                            break;
                     }
+                    if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                        return lyrics;
                 }
                 return new Lyrics(Lyrics.NO_RESULT);
             }
 
             @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title) {
-                Lyrics result = new Lyrics(Lyrics.NO_RESULT);
-                for (Class provider : providers) {
-                    try {
-                        Method fromMetaData = provider.getMethod("fromMetaData", String.class, String.class);
-                        result = (Lyrics) fromMetaData.invoke(null, artist, title);
-                    } catch (Exception ignored) {
+                Lyrics lyrics = new Lyrics(Lyrics.NO_RESULT);
+                for (String provider : providers) {
+                    switch (provider) {
+                        case "AZLyrics":
+                            lyrics = AZLyrics.fromMetaData(artist, title);
+                            break;
+                        case "Bollywood":
+                            lyrics = Bollywood.fromMetaData(artist, title);
+                            break;
+                        case "Genius":
+                            lyrics = Genius.fromMetaData(artist, title);
+                            break;
+                        case "JLyric":
+                            lyrics = JLyric.fromMetaData(artist, title);
+                            break;
+                        case "Lololyrics":
+                            lyrics = Lololyrics.fromMetaData(artist, title);
+                            break;
+                        case "LyricsMania":
+                            lyrics = LyricsMania.fromMetaData(artist, title);
+                            break;
+                        case "LyricWiki":
+                            lyrics = LyricWiki.fromMetaData(artist, title);
+                            break;
+                        case "MetalArchives":
+                            lyrics = MetalArchives.fromMetaData(artist, title);
+                            break;
+                        case "PLyrics":
+                            lyrics = PLyrics.fromMetaData(artist, title);
+                            break;
+                        case "UrbanLyrics":
+                            lyrics = UrbanLyrics.fromMetaData(artist, title);
+                            break;
+                        case "ViewLyrics":
+                            try {
+                                lyrics = ViewLyrics.fromMetaData(artist, title);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
                     }
-                    if (result != null && result.getFlag() == Lyrics.POSITIVE_RESULT)
-                        return result;
+                    if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                        return lyrics;
                 }
-                if (result != null && result.getFlag() != Lyrics.POSITIVE_RESULT) {
-                    result.setArtist(artist);
-                    result.setTitle(title);
-                }
-                return result;
+                return lyrics;
             }
-
 
 
             public void run() {

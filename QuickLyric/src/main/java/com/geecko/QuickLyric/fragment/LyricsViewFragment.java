@@ -461,7 +461,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         else if (OnlineAccessVerifier.check(getActivity())) {
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getStringSet("pref_providers", Collections.<String>emptySet());
-            DownloadThread.refreshProviders(providersSet);
+            DownloadThread.setProviders(providersSet);
 
             if (mLyrics == null) {
                 TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
