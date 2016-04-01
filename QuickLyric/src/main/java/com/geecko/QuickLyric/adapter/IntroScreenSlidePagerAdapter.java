@@ -252,7 +252,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         return App.playStoreVariant ? 5 : 4;
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "ResourceAsColor"})
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         View tutorialLayout = mActivity.findViewById(R.id.tutorial_layout);
