@@ -76,8 +76,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         Uri content = intent.getExtras().getParcelable("uri");
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
                 .getStringSet("pref_providers", Collections.<String>emptySet());
-        if (providersSet.contains("ViewLyrics"))
-            providersSet.remove("ViewLyrics");
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_lrc", false))
+            providersSet.add("ViewLyrics");
         DownloadThread.setProviders(providersSet);
         if (content != null) {
             String[] projection = new String[]{"artist", "title"};

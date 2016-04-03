@@ -49,6 +49,11 @@
             android:key="pref_providers"
             android:summary="@string/pref_providers_sum"
             android:title="@string/pref_providers"/>
+        <org.jraf.android.backport.switchwidget.SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_lrc"
+            android:summary="@string/pref_lrc_sum"
+            android:title="@string/pref_lrc"/>
         <com.geecko.QuickLyric.view.AppCompatListPreference
             android:defaultValue="0"
             android:entries="@array/artwork_download"

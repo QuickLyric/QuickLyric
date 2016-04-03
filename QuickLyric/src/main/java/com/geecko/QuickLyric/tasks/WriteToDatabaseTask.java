@@ -79,7 +79,8 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         if (database != null) {
             for (Lyrics lyrics : lyricsArray)
                 if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),
-                        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})) {
+                        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})
+                        && !"Storage".equals(lyrics.getSource())) {
                     ContentValues values = new ContentValues(2);
                     values.put(columns[0], lyrics.getArtist());
                     values.put(columns[1], lyrics.getTrack());
