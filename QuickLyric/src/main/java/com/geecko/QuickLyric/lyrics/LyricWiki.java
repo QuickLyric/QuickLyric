@@ -116,7 +116,7 @@ public class LyricWiki {
             return lyrics;
         } catch (JsonParseException e) {
             return new Lyrics(NO_RESULT);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             return url == null ? new Lyrics(ERROR) : fromURL(url, originalArtist, originalTitle);
         }
     }
