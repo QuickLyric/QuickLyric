@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -111,6 +112,8 @@ public class ViewLyrics {
 
     private static ArrayList<Lyrics> search(String searchQuery) throws IOException, ParserConfigurationException, SAXException, NoSuchAlgorithmException {
         OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(10, TimeUnit.SECONDS);
+        client.setReadTimeout(30, TimeUnit.SECONDS);
 
         RequestBody body = RequestBody.create(MediaType.parse("application/text"), assembleQuery(searchQuery.getBytes("UTF-8")));
 
