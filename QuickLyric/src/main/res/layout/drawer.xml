@@ -28,6 +28,7 @@
         android:focusableInTouchMode="true">
 
         <ImageView
+            android:id="@+id/drawer_header"
             android:src="?android:attr/headerBackground"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <GridLayout
+        android:id="@+id/grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:columnCount="4"
+        tools:ignore="UselessParent">
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:tint="@color/primary"
+            android:tintMode="src_in"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_red_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_purple_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_indigo_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_green_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_Lime_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/material_brown_500"
+            android:tintMode="src_in"/>
+
+        <com.geecko.QuickLyric.view.ThemeButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round"
+            android:tint="@color/primary_material_dark"
+            android:tintMode="src_in"/>
+
+    </GridLayout>
+</RelativeLayout>

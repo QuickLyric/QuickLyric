@@ -247,6 +247,12 @@ A few possible reasons why:<br/>
     <string name="artworks_pref_sum">May result in mobile data charges</string>
     <string name="pref_lrc_sum">Highlights the words that are being sung. Not all music players are supported.</string>
     <string name="pref_lrc">Synchronized lyrics</string>
+    <string name="red_theme">Red</string>
+    <string name="purple_theme">Purple</string>
+    <string name="indigo_theme">Indigo</string>
+    <string name="green_theme">Green</string>
+    <string name="lime_theme">Lime</string>
+    <string name="brown_theme">Brown</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
@@ -276,10 +282,6 @@ A few possible reasons why:<br/>
     <string-array name="AZ_sort_order">
         <item>Alphabetically</item>
         <item>Reversed</item>
-    </string-array>
-    <string-array name="themes">
-        <item>@string/defaut_theme</item>
-        <item>@string/dark_theme</item>
     </string-array>
     <string-array name="providers">
         <item>@string/source_punk</item>

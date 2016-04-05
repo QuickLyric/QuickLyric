@@ -20,7 +20,9 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ import java.util.HashMap;
 
 public class LocalAdapter extends AnimatedExpandableListAdapter {
     private final AnimatedExpandableListView megaListView;
+    private final int expandedColor;
     private ArrayList<ArrayList<Lyrics>> savedLyrics = null;
     private LayoutInflater inflater;
     private HashMap<String, Long> mGroupIDs = new HashMap<>();
@@ -47,6 +50,11 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         inflater = LayoutInflater.from(context);
         mTouchListener = touchListener;
         megaListView = listView;
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+        expandedColor = typedValue.data;
     }
 
     @Override
@@ -60,7 +68,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
             convertView.setTag(holder);
         } else
             holder = (GroupViewHolder) convertView.getTag();
-        holder.artist.setTextColor(isExpanded ? parent.getResources().getColor(R.color.accent) : holder.textColor);
+        holder.artist.setTextColor(isExpanded ? expandedColor : holder.textColor);
         holder.artist.setText(getChild(groupPosition, 0).getArtist());
         holder.artist.setTypeface(null, isExpanded ? Typeface.BOLD : Typeface.NORMAL);
         return convertView;

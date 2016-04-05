@@ -72,7 +72,7 @@
                         android:layout_marginTop="@dimen/txt_size"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
-                        app:currentTextColor="@android:color/holo_orange_light"
+                        app:currentTextColor="?highlightColor"
                         app:dividerHeight="10dip"
                         app:normalTextColor="?android:textColorPrimary"
                         app:rows="10"

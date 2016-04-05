@@ -36,6 +36,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -65,10 +66,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
+import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
@@ -80,7 +83,6 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
-import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.RefreshIcon;
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     public ActionMode mActionMode;
     public SQLiteDatabase database;
     public ActionBarDrawerToggle mDrawerToggle;
+    public int themeNum;
     private Fragment displayedFragment;
     private MusicBroadcastReceiver receiver;
     private boolean receiverRegistered = false;
@@ -129,8 +132,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
-        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green,  R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+        themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
         if (nightMode && NightTimeVerifier.check(this))
             setTheme(R.style.Theme_QuickLyric_Night);
@@ -180,6 +186,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
             ((DrawerLayout) drawer).setStatusBarBackgroundColor(darkColorValue.data);
             ((DrawerLayout) drawer).setDrawerListener(mDrawerToggle);
+
+            if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
+                final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);
+                drawerHeader.setColorFilter(darkColorValue.data, PorterDuff.Mode.OVERLAY);
+            }
         }
 
         drawerListener = new DrawerItemClickListener();
@@ -402,6 +413,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         invalidateOptionsMenu();
         LyricsViewFragment lyricsViewFragment =
                 (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        if (lyricsViewFragment == null)
+            return;
         if (requestCode == 77) {
             lyricsViewFragment.checkPreferencesChanges();
         } else if (resultCode == RESULT_OK && requestCode == 55) {

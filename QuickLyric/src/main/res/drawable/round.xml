@@ -17,16 +17,14 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="?colorAccent" />
-        </shape>
-    </item>
-    <item android:bottom="5dp">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/action" />
-        </shape>
-    </item>
-</layer-list>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+    <!--circle filling color-->
+    <solid android:color="#000" />
+    <corners
+        android:bottomLeftRadius="2dp"
+        android:bottomRightRadius="2dp"
+        android:topLeftRadius="2dp"
+        android:topRightRadius="2dp" />
+</shape>

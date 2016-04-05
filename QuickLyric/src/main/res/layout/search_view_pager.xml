@@ -42,11 +42,11 @@
         android:layout_gravity="top"
         android:background="?android:detailsElementBackground"
         android:elevation="4dp"
-        android:textColor="@color/accent"
+        android:textColor="?colorAccent"
         app:footerColor="@android:color/transparent"
         app:footerIndicatorStyle="none"
         app:footerPadding="5dp"
-        app:selectedColor="@color/accent"
+        app:selectedColor="?colorAccent"
         app:topPadding="3dp"/>
 
     <android.support.v4.view.ViewPager

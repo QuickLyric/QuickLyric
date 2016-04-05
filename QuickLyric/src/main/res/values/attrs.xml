@@ -44,4 +44,6 @@
     <attr name="firstLaunchCoverDrawable" format="reference"/>
 
     <attr name="themeName" format="string"/>
+    <attr name="highlightColor" format="color"/>
+    <attr name="expandedRowColor" format="color"/>
 </resources>

@@ -97,6 +97,7 @@ dependencies {
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.+'
     compile 'ch.acra:acra:4.+'
+    compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
 
     /* The pure GPLv3 build */
     //Available here: https://github.com/geecko86/SpotifyApi

@@ -28,16 +28,23 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.GridLayout;
 
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private int selectedTheme;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Dark};
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
         if (nightMode && NightTimeVerifier.check(this))
@@ -62,5 +69,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
             getWindow().setStatusBarColor(color);
         }
+    }
+
+    public int getSelectedTheme() {
+        return selectedTheme;
+    }
+
+    public void selectTheme(View view) {
+        GridLayout grid = (GridLayout) view.getParent();
+        selectedTheme = grid.indexOfChild(view);
+        for (int i = 0; i < grid.getChildCount(); i++)
+            grid.getChildAt(i).setSelected(false);
+        view.setSelected(true);
     }
 }

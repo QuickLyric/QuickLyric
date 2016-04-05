@@ -681,9 +681,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             lrcView.setKeepScreenOn(screenOn);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         TypedValue outValue = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.themeName, outValue, false);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.getTheme().resolveAttribute(R.attr.themeName, outValue, false);
         if ("Night".equals(outValue.string) != NightTimeVerifier.check(getActivity()) ||
-                "Dark".equals(outValue.string) == sharedPrefs.getString("pref_theme", "0").equals("0")) {
+                mainActivity.themeNum != Integer.valueOf(sharedPrefs.getString("pref_theme", "0"))) {
             getActivity().finish();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.setAction("android.intent.action.MAIN");

@@ -22,6 +22,7 @@
 
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="themeName">Amber</item>
+        <item name="highlightColor">@android:color/holo_orange_light</item>
         <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
@@ -60,6 +61,72 @@
         <item name="android:panelColorForeground">@color/expanded</item>
         <item name="rippleBackGroundColor">#585858</item>
         <item name="textAppearanceSearchResultTitle">@style/SearchResult</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Red" parent="Theme.QuickLyric">
+        <item name="themeName">Red</item>
+        <item name="highlightColor">@color/material_red_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorPrimary">@color/material_red_500</item>
+        <item name="colorPrimaryDark">@color/material_red_800</item>
+        <item name="android:detailsElementBackground">@color/material_red_400</item>
+        <item name="colorAccent">@color/material_orange_A200</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Purple" parent="Theme.QuickLyric">
+        <item name="themeName">Purple</item>
+        <item name="highlightColor">@color/material_purple_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorPrimary">@color/material_purple_500</item>
+        <item name="colorPrimaryDark">@color/material_purple_700</item>
+        <item name="colorAccent">@color/material_amber_A700</item>
+        <item name="android:detailsElementBackground">@color/material_purple_300</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Indigo" parent="Theme.QuickLyric">
+        <item name="themeName">Indigo</item>
+        <item name="highlightColor">@color/material_indigo_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorPrimaryDark">@color/material_indigo_700</item>
+        <item name="colorPrimary">@color/material_indigo_500</item>
+        <item name="android:detailsElementBackground">@color/material_indigo_300</item>
+        <item name="colorAccent">@color/material_pink_A700</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Green" parent="Theme.QuickLyric">
+        <item name="themeName">Green</item>
+        <item name="highlightColor">@color/material_green_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorAccent">@color/deep_orange</item>
+        <item name="colorPrimaryDark">@color/material_green_700</item>
+        <item name="colorPrimary">@color/material_green_500</item>
+        <item name="android:detailsElementBackground">@color/material_green_300</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Lime" parent="Theme.QuickLyric">
+        <item name="themeName">Lime</item>
+        <item name="highlightColor">@color/material_Lime_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorPrimary">@color/material_Lime_600</item>
+        <item name="colorPrimaryDark">@color/material_Lime_700</item>
+        <item name="colorAccent">@color/material_pink_A200</item>
+        <item name="android:detailsElementBackground">@color/material_Lime_400</item>
+    </style>
+
+    <style name="Theme.QuickLyric.Brown" parent="Theme.QuickLyric">
+        <item name="themeName">Brown</item>
+        <item name="highlightColor">@color/material_brown_500</item>
+        <item name="android:headerBackground">@drawable/drawer_header_dark</item>
+        <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
+        <item name="colorPrimary">@color/material_brown_500</item>
+        <item name="colorPrimaryDark">@color/material_brown_700</item>
+        <item name="colorAccent">@color/material_green_A200</item>
+        <item name="android:detailsElementBackground">@color/material_brown_300</item>
     </style>
 
     <style name="Theme.QuickLyric.Dark" parent="Theme.QuickLyric">
@@ -172,7 +239,7 @@
 
     <style name="PagerTabStripText" parent="TextAppearance.AppCompat.Large">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColor">?colorAccent</item>
         <item name="android:textSize">14sp</item>
     </style>
 

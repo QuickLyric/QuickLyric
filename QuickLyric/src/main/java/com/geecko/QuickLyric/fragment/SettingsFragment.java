@@ -45,7 +45,9 @@ public class SettingsFragment extends PreferenceFragment implements
 
     private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
-    int[] themes = new int[]{R.string.defaut_theme, R.string.dark_theme};
+    int[] themes = new int[]{R.string.defaut_theme, R.string.red_theme,
+            R.string.purple_theme, R.string.indigo_theme, R.string.green_theme,
+            R.string.lime_theme, R.string.brown_theme, R.string.dark_theme};
 
     private int[] nightTimeStart = new int[]{42, 0};
 
@@ -156,6 +158,6 @@ public class SettingsFragment extends PreferenceFragment implements
         current.edit().putInt("startHour", 42)
                 .putInt("endHour", 45)
                 .apply();
-        ((SwitchPreference)findPreference("pref_night_mode")).setChecked(false);
+        ((SwitchPreference) findPreference("pref_night_mode")).setChecked(false);
     }
 }

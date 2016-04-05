@@ -19,9 +19,8 @@
   -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/pref_look_feel_category">
-        <com.geecko.QuickLyric.view.AppCompatListPreference
+        <com.geecko.QuickLyric.view.ColorGridPreference
             android:defaultValue="0"
-            android:entries="@array/themes"
             android:entryValues="@array/themes_values"
             android:key="pref_theme"
             android:title="@string/pref_theme"/>
