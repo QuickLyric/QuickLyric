@@ -39,4 +39,5 @@
 
 <resources>
     <bool name="isTablet">false</bool>
+    <integer name="lrcLines">10</integer>
 </resources>

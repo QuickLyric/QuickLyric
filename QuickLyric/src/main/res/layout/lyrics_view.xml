@@ -75,7 +75,7 @@
                         app:currentTextColor="?highlightColor"
                         app:dividerHeight="10dip"
                         app:normalTextColor="?android:textColorPrimary"
-                        app:rows="10"
+                        app:rows="@integer/lrcLines"
                         app:textSize="@dimen/txt_size"/>
 
                     <EditText
