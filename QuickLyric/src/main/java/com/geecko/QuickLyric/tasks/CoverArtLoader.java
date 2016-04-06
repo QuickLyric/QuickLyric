@@ -21,11 +21,11 @@ package com.geecko.QuickLyric.tasks;
 
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,19 +45,18 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
         if (url == null) {
             try {
-                String html = Net.getUrlAsString(new URL(String.format(
-                        "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=%s&track=%s&format=json",
-                        Keys.lastFM,
+                String txt = Net.getUrlAsString(new URL(String.format(
+                        "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
                         URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
                         URLEncoder.encode(lyrics.getTrack(), "UTF-8"))));
-                JSONObject json = new JSONObject(html);
-                url = json.getJSONObject("track").getJSONObject("album").getJSONArray("image")
-                        .getJSONObject(3).getString("#text");
-                if (url.contains("noimage"))
-                    url = null;
+                JSONObject json = new JSONObject(txt);
+                JSONArray results = json.getJSONArray("results");
+                JSONObject result = results.getJSONObject(0);
+                url = result.getString("artworkUrl60").replace("60x60bb.jpg", "600x600bb.jpg");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException ignored) {
+                url = null;
             }
         }
         return url;

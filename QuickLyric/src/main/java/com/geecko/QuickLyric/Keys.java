@@ -1,11 +1,5 @@
 package com.geecko.QuickLyric;
 
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-
-import java.io.IOException;
-
 /**
  * This file is part of QuickLyric
  * Created by geecko
@@ -23,7 +17,6 @@ import java.io.IOException;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Keys {
-    public static final String lastFM = "402bdca12feff2668e36a9aa3c675273";
     public static final String GENIUS = "5eDKEfmGtQulq_eFxVB2v-bhf_hIgb9fT14IY_LYUsgHx9KjN_H6Tid7yO6jc_Xa";
     public static final String ACRA_LOGIN = "hercesedsizeboutionferea";
     public static final String ACRA_PASSWORD = "KDwir5taV6EunCnrSVOMaeBM";
