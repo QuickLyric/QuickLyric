@@ -26,5 +26,4 @@
     <dimen name="small_txt_size">21sp</dimen>
     <dimen name="drawer_row_height">64dp</dimen>
     <dimen name="row_height">64dp</dimen>
-    <dimen name="expanded_title_margin_bottom">290dp</dimen>
 </resources>

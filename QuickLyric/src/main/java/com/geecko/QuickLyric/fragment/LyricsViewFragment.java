@@ -844,6 +844,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return true;
             }
         });
+        searchItem.collapseActionView();
         if (mSearchQuery != null && !mSearchQuery.equals("")) {
             searchItem.expandActionView();
             searchView.setQuery(mSearchQuery, false);

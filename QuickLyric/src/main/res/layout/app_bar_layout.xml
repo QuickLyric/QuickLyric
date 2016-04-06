@@ -35,7 +35,7 @@
         android:layout_height="@dimen/app_bar_layout_height"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+        app:expandedTitleMarginBottom="103dp"
         app:expandedTitleMarginStart="60dp"
         app:expandedTitleTextAppearance="@style/TextAppearance.Invisible"
         app:layout_scrollFlags="scroll|exitUntilCollapsed">
