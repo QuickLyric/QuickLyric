@@ -47,8 +47,8 @@ public class LrcView extends View {
 
     public TreeMap<Long, String> dictionnary;
 
-    private long mCurrentTime = 0l;
-    private long mNextTime = 0l;
+    private long mCurrentTime = 0L;
+    private long mNextTime = 0L;
 
     private int mViewWidth;
     private int mLrcHeight;
@@ -127,33 +127,13 @@ public class LrcView extends View {
 
         canvas.save();
 
-        // canvas.translate(0, -((currentLine - 3) * (mTextSize + mDividerHeight)));
-        int overflow;
-        int contained;
-
         int breakOffset = 0;
 
         if (currentLine - 1 >= 0) {
             long previousTime = mTimes.get(currentLine - 1);
             String previousLrc = dictionnary.get(previousTime);
             if (previousLrc != null) {
-                overflow = previousLrc.length() - mNormalPaint.breakText(previousLrc, true, mViewWidth, null);
-                contained = previousLrc.length() - overflow;
-                String cutPrevious = previousLrc.substring(0, contained);
-                cutPrevious = cutPrevious.substring(0, overflow > 0 && cutPrevious.contains(" ") ? cutPrevious.lastIndexOf(" ") : contained);
-                float previousX = (mViewWidth - mNormalPaint.measureText(cutPrevious)) / 2;
-                canvas.drawText(cutPrevious, previousX,
-                        (mTextSize + mDividerHeight) + breakOffset, mNormalPaint);
-                if (overflow > 0) {
-                    if (previousLrc.contains(" "))
-                        previousLrc = previousLrc.substring(previousLrc.substring(0, contained).lastIndexOf(" ") + 1);
-                    else
-                        previousLrc = previousLrc.substring(contained);
-                    previousX = (mViewWidth - mNormalPaint.measureText(previousLrc)) / 2;
-                    canvas.drawText(previousLrc, previousX,
-                            (mTextSize + mDividerHeight) * 2 + breakOffset, mNormalPaint);
-                    breakOffset += mTextSize + mDividerHeight;
-                }
+                breakOffset = drawDividedText(previousLrc, canvas, mTextSize + mDividerHeight, breakOffset, mNormalPaint);
             }
         }
 
@@ -162,45 +142,14 @@ public class LrcView extends View {
             mCurrentTime = dictionnary.firstKey();
             currentLrc = dictionnary.get(mCurrentTime);
         }
-        overflow = currentLrc.length() - mCurrentPaint.breakText(currentLrc, true, mViewWidth, null);
-        contained = currentLrc.length() - overflow;
-        String cutLrc = currentLrc.substring(0, contained);
-        cutLrc = cutLrc.substring(0, overflow > 0 && cutLrc.contains(" ") ? cutLrc.lastIndexOf(" ") : contained);
-        float currentX = (mViewWidth - mCurrentPaint.measureText(cutLrc)) / 2;
-        canvas.drawText(cutLrc, currentX,
-                (mTextSize + mDividerHeight) * 2 + breakOffset, mCurrentPaint);
-        if (overflow > 0) {
-            if (currentLrc.contains(" "))
-                currentLrc = currentLrc.substring(currentLrc.substring(0, contained).lastIndexOf(" ") + 1);
-            else
-                currentLrc = currentLrc.substring(contained);
-            currentX = (mViewWidth - mCurrentPaint.measureText(currentLrc)) / 2;
-            canvas.drawText(currentLrc, currentX,
-                    (mTextSize + mDividerHeight) * 3 + breakOffset, mCurrentPaint);
-            breakOffset += mTextSize + mDividerHeight;
-        }
+        breakOffset = drawDividedText(currentLrc, canvas, (mTextSize + mDividerHeight) * 2, breakOffset, mCurrentPaint);
 
         for (int i = currentLine + 1; i < Math.min(currentLine + mRows - 2, mTimes.size()); i++) {
             String lrc = dictionnary.get(mTimes.get(i));
             if (lrc == null)
                 continue;
-            overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth, null);
-            contained = lrc.length() - overflow;
-            cutLrc = lrc.substring(0, contained);
-            cutLrc = cutLrc.substring(0, overflow > 0 && cutLrc.contains(" ") ? cutLrc.lastIndexOf(" ") : contained);
-            float x = (mViewWidth - mNormalPaint.measureText(cutLrc)) / 2;
-            canvas.drawText(cutLrc, x,
-                    (mTextSize + mDividerHeight) * (2 + i - currentLine) + breakOffset, mNormalPaint);
-
-            if (overflow > 0) {
-                if (lrc.contains(" "))
-                    lrc = lrc.substring(lrc.substring(0, contained).lastIndexOf(" ") + 1);
-                else
-                    lrc = lrc.substring(contained);
-                x = (mViewWidth - mNormalPaint.measureText(lrc)) / 2;
-                canvas.drawText(lrc, x, (mTextSize + mDividerHeight) * (2 + i - currentLine + 1) + breakOffset, mNormalPaint);
-                breakOffset += mTextSize + mDividerHeight;
-            }
+            breakOffset = drawDividedText(lrc, canvas,
+                    (mTextSize + mDividerHeight) * (2 + i - currentLine), breakOffset, mNormalPaint);
         }
 
         mLrcHeight = (int) (mTextSize + mDividerHeight) * (mRows + 1) + breakOffset + 5;
@@ -208,6 +157,25 @@ public class LrcView extends View {
 
         canvas.restore();
         requestLayout();
+    }
+
+    private int drawDividedText(String lrc, Canvas canvas, float y, int breakOffset, Paint paint) {
+        int overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth, null);
+        int contained = lrc.length() - overflow;
+        String cutLrc = lrc.substring(0, contained);
+        cutLrc = cutLrc.substring(0, overflow > 0 && cutLrc.contains(" ") ? cutLrc.lastIndexOf(" ") : contained);
+        float x = (mViewWidth - mNormalPaint.measureText(cutLrc)) / 2;
+        canvas.drawText(cutLrc, x, y + breakOffset, paint);
+
+        if (overflow > 0) {
+            float lineHeight = mTextSize + mDividerHeight; // todo move to field
+            if (lrc.contains(" "))
+                lrc = lrc.substring(lrc.substring(0, contained).lastIndexOf(" ") + 1);
+            else
+                lrc = lrc.substring(contained);
+            breakOffset = drawDividedText(lrc, canvas, y + lineHeight, breakOffset, paint) + (int) lineHeight;
+        }
+        return breakOffset;
     }
 
     private Long parseTime(String time) {
