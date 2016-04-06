@@ -51,7 +51,7 @@ public class UpdateChecker {
             String version = Net.getUrlAsString("http://quicklyric.azurewebsites.net/current_version.txt");
             version = version.replaceAll("\\D+", "");
             newVersionCode = Integer.valueOf(version);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -87,7 +87,8 @@ public class UpdateChecker {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return UpdateChecker.isUpdateAvailable(lyricsFragment.getActivity().getApplicationContext());
+            return lyricsFragment.getActivity() != null &&
+                    UpdateChecker.isUpdateAvailable(lyricsFragment.getActivity().getApplicationContext());
         }
 
         @Override

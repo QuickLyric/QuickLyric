@@ -93,7 +93,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
 
     @Override
     public int getRealChildrenCount(int groupPosition) {
-        return savedLyrics.get(groupPosition).size();
+        return savedLyrics == null ? 0 : savedLyrics.get(groupPosition).size();
     }
 
     @Override
@@ -103,7 +103,8 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
 
     @Override
     public ArrayList<Lyrics> getGroup(int groupPosition) {
-        ArrayList<Lyrics> group = savedLyrics.size() > 0 ? savedLyrics.get(groupPosition) : null;
+        ArrayList<Lyrics> group = savedLyrics.size() > 0 && groupPosition < savedLyrics.size()
+                ? savedLyrics.get(groupPosition) : null;
         if (group != null && group.size() > 0)
             mGroupIDs.put(group.get(0).getArtist(), (long) group.get(0).getArtist().hashCode());
         return group;

@@ -87,7 +87,7 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
                         map.put(l.getArtist(), new ArrayList<Lyrics>());
                     ArrayList<Lyrics> artistSubGroup = map.get(l.getArtist());
                     artistSubGroup.add(l);
-                } while (cursor.moveToNext());
+                } while (!cursor.isClosed() && cursor.moveToNext());
             ArrayList<String> keys = new ArrayList<>(map.keySet());
             Collections.sort(keys);
             for (String key : keys)

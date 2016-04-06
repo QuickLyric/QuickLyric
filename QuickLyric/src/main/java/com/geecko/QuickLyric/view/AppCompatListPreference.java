@@ -90,7 +90,8 @@ public class AppCompatListPreference extends ListPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mDialog != null && mDialog.isShowing())
+        if (mDialog != null && mDialog.isShowing() &&
+                mDialog.getWindow() != null && mDialog.getWindow().getWindowManager() != null)
             mDialog.dismiss();
     }
 }

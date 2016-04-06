@@ -54,6 +54,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -123,6 +124,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private Thread mLrcThread;
     private boolean mExpandedSearchView;
     public boolean updateChecked = false;
+    private boolean threadCancelled;
 
     public LyricsViewFragment() {
     }
@@ -358,7 +360,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         songTV.setBackgroundColor(Color.TRANSPARENT);
         artistTV.setBackgroundColor(Color.TRANSPARENT);
 
-        String txt = mLyrics.getText();
+        String txt = mLrcThread == null ? null : mLyrics.getText();
         if (txt == null)
             txt = "";
 
@@ -891,6 +893,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     @Override
     public void onDestroy() {
         broadcastReceiver = null;
+        threadCancelled = true;
+        Log.d("geecko", "threadCancelled onDestroy:"+ threadCancelled);
         super.onDestroy();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(this);
@@ -939,14 +943,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private Runnable lrcUpdater = new Runnable() {
         @Override
         public void run() {
+            if (threadCancelled)
+                return;
             boolean ran = false;
-            LrcView lrcView = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
-            if (lrcView == null || getActivity() == null)
+            if (getActivity() == null)
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);
             if (position == -1 && getActivity() != null) {
-                final Lyrics staticLyrics = lrcView.getStaticLyrics();
+                final Lyrics staticLyrics = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
+                        .getStaticLyrics();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -954,14 +960,24 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     }
                 });
                 return;
-            } else
-                lrcView.changeCurrent(position);
+            } else {
+                final long finalPosition = position;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
+                                .changeCurrent(finalPosition);
+                    }
+                });
+            }
 
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (getActivity() != null &&
                     preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
                     preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
                     preferences.getBoolean("playing", true)) {
+                if (threadCancelled)
+                    return;
                 ran = true;
                 position = preferences.getLong("position", 0);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());

@@ -25,8 +25,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.widget.Toast;
 
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
 
@@ -38,8 +38,6 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-
-import com.geecko.QuickLyric.R;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
@@ -101,6 +99,6 @@ public class Id3Reader {
 
         String path = cursor.getString(2);
         cursor.close();
-        return new File(path);
+        return path == null ? null : new File(path);
     }
 }
