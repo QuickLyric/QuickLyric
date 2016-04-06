@@ -200,6 +200,8 @@ public class DownloadThread extends Thread {
                         lyrics = download(url, artist, title);
                         break;
                     default: // just tags
+                        artist = params[0];
+                        title = params[1];
                         lyrics = download(params[0], params[1]);
                 }
                 if (lyrics.getFlag() != Lyrics.POSITIVE_RESULT && lyrics.getArtist() != null) {

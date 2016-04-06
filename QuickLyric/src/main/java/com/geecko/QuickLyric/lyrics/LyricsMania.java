@@ -73,7 +73,7 @@ public class LyricsMania {
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
                         .getElementsByTag("a").get(0).text();
             title = document.getElementsByClass("active").text();
-        } catch (HttpStatusException e) {
+        } catch (HttpStatusException | IndexOutOfBoundsException e) {
             return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
             return new Lyrics(ERROR);
