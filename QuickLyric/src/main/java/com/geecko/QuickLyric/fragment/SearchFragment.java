@@ -72,7 +72,7 @@ public class SearchFragment extends ListFragment {
             position = bundle.getInt("position");
         }
 
-        if (bundle != null && bundle.containsKey("results")
+        if (bundle != null && searchQuery.equals(bundle.get("query")) && bundle.containsKey("results")
                 && bundle.get("results") != null && results == null) {
             results = bundle.getParcelableArrayList("results");
             if (results == null)
