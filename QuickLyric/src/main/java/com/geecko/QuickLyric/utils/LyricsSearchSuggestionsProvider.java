@@ -52,6 +52,9 @@ public class LyricsSearchSuggestionsProvider extends SearchRecentSuggestionsProv
             }
         }
 
-        return new Wrapper(super.query(uri, projection, selection, selectionArgs, sortOrder));
+        Cursor output = new Wrapper(super.query(uri, projection, selection, selectionArgs, sortOrder));
+        if (output.moveToLast() && selectionArgs[0].equals(output.getString(2)))
+            return null;
+        return output;
     }
 }
