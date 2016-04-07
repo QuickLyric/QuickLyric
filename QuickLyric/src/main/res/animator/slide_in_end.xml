@@ -21,7 +21,6 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <objectAnimator
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:duration="@android:integer/config_longAnimTime"
         android:propertyName="x"
         android:valueFrom="2000"

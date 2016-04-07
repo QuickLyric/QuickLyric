@@ -267,7 +267,7 @@ A few possible reasons why:<br/>
     </plurals>
 
 
-    <string-array name="nav_items" xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="nav_items">
         <item>@string/title_lyrics</item>
         <item>@string/local_title</item>
         <item>-</item>

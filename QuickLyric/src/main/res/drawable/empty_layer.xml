@@ -22,9 +22,9 @@
     <item android:drawable="@color/cover_bg"/>
 
     <item>
-        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-                android:src="@drawable/no_cover"
-                android:gravity="center"/>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/no_cover"/>
     </item>
 
 </layer-list>

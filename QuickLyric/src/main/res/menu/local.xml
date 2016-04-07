@@ -19,10 +19,10 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:support="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_scan"
-        support:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:orderInCategory="0"
         android:title="@string/scan_action"
         android:icon="@drawable/ic_cloud_download"/>

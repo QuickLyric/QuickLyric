@@ -1,38 +1,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:support="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/search_view"
         android:icon="@drawable/ic_menu_search"
         android:orderInCategory="0"
         android:title="@string/search_hint"
-        support:actionViewClass="android.support.v7.widget.SearchView"
-        support:showAsAction="collapseActionView|ifRoom"/>
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom"/>
 
     <item
         android:id="@+id/save_action"
         android:icon="@drawable/ic_save"
         android:orderInCategory="1"
         android:title="@string/save_action"
-        support:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/resync_action"
         android:orderInCategory="2"
         android:title="@string/resync_action"
         android:onClick="resync"
-        support:showAsAction="never"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/convert_action"
         android:orderInCategory="2"
         android:title="@string/full_text_action"
-        support:showAsAction="never" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/share_action"
         android:icon="@drawable/ic_menu_share"
         android:orderInCategory="3"
         android:title="@string/share"
-        support:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"/>
 </menu>
