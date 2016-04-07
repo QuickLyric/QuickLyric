@@ -49,7 +49,7 @@ public class Bollywood {
                 JsonArray tags = lyricsResult.get("tags").getAsJsonArray();
                 Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
                 lyrics.setTitle(lyricsResult.get("name").getAsString());
-                for (int j = 0; i < tags.size(); ++j) {
+                for (int j = 0; j < tags.size(); ++j) {
                     JsonObject tag = tags.get(j).getAsJsonObject();
                     if (tag.get("tag_type").getAsString().equals("Singer")) {
                         lyrics.setArtist(tag.get("name").getAsString().trim());
@@ -69,7 +69,8 @@ public class Bollywood {
     public static Lyrics fromMetaData(String artist, String title) {
         ArrayList<Lyrics> searchResults = search(artist + " " + title);
         for (Lyrics result : searchResults) {
-            if (artist.contains(result.getArtist()) && title.equalsIgnoreCase(result.getTrack()))
+            if (result.getArtist() != null && artist.contains(result.getArtist())
+                    && result.getTrack() != null && title.equalsIgnoreCase(result.getTrack()))
                 return fromAPI(result.getURL(), artist, result.getTrack());
         }
         return new Lyrics(Lyrics.NO_RESULT);
