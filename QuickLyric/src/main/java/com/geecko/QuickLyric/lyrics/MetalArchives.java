@@ -61,7 +61,7 @@ public class MetalArchives {
                     .get().body().html();
         } catch (IOException e) {
             return new Lyrics(ERROR);
-        } catch (JsonParseException e) {
+        } catch (JsonParseException | IndexOutOfBoundsException e) {
             return new Lyrics(NO_RESULT);
         }
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
