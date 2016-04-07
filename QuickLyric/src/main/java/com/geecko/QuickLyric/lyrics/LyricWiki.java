@@ -141,7 +141,6 @@ public class LyricWiki {
                 text = Parser.unescapeEntities(text, true);
             text = text.replaceAll("\\[\\d\\]", "").trim();
         } catch (IndexOutOfBoundsException | IOException e) {
-            e.printStackTrace();
             return new Lyrics(ERROR);
         }
 
