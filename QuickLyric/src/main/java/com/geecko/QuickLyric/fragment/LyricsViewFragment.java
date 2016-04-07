@@ -102,8 +102,8 @@ import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
@@ -464,7 +464,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 .getBoolean("pref_lrc", false);
         if (OnlineAccessVerifier.check(getActivity()) && (lyrics == null || (!lyrics.isLRC() && prefLRC))) {
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .getStringSet("pref_providers", Collections.<String>emptySet());
+                    .getStringSet("pref_providers", new TreeSet<String>());
             if (PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_lrc", false))
                 providersSet.add("ViewLyrics");
             DownloadThread.setProviders(providersSet);
