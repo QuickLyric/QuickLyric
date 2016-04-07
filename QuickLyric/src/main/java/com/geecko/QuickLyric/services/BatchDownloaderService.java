@@ -38,8 +38,8 @@ import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -75,7 +75,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         this.database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
         Uri content = intent.getExtras().getParcelable("uri");
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
-                .getStringSet("pref_providers", Collections.<String>emptySet());
+                .getStringSet("pref_providers", new TreeSet<String>());
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_lrc", false))
             providersSet.add("ViewLyrics");
         DownloadThread.setProviders(providersSet);
