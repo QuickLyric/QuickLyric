@@ -54,7 +54,6 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -545,7 +544,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity())
                         .getString("pref_artworks", "0")) == 0;
         if (cover == null && (artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity())))
-            new CoverArtLoader().execute(lyrics, this);
+            new CoverArtLoader().execute(lyrics, this.getActivity());
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
                 .setVisibility(musicFile == null || lyrics.isLRC() ? View.GONE : View.VISIBLE);
@@ -894,7 +893,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void onDestroy() {
         broadcastReceiver = null;
         threadCancelled = true;
-        Log.d("geecko", "threadCancelled onDestroy:"+ threadCancelled);
         super.onDestroy();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(this);
@@ -912,6 +910,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mLyrics.setCoverURL(url);
             if (url == null)
                 url = "";
+            coverView.setLyrics(mLyrics);
             coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
         }

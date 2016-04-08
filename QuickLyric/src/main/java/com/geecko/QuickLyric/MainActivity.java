@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
                 R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
-                R.style.Theme_QuickLyric_Green,  R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
                 R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
         themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
@@ -607,6 +607,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             }
             getWindow().setNavigationBarColor(color);
         }
+    }
+
+    public void updateArtwork(String url) {
+        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
+                getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        if (lyricsViewFragment != null)
+            lyricsViewFragment.setCoverArt(url, null);
     }
 
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder

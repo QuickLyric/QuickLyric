@@ -19,23 +19,35 @@
 
 package com.geecko.QuickLyric.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.util.AttributeSet;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.tasks.CoverArtLoader;
+import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
 
     private Bitmap mLocalBitmap;
     private boolean mShowLocal;
+    private Lyrics mLyrics;
+    private ConnectivityManager.NetworkCallback networkCallback;
 
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,12 +61,36 @@ public class FadeInNetworkImageView extends NetworkImageView {
         requestLayout();
     }
 
+    public void setLyrics(Lyrics lyrics) {
+        this.mLyrics = lyrics;
+    }
+
     @Override
     public void setImageUrl(String url, ImageLoader imageLoader) {
         mShowLocal = false;
-        super.setImageUrl(url, imageLoader);
+        if (!OnlineAccessVerifier.check(getContext())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final ConnectivityManager cm = (ConnectivityManager)
+                        getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                networkCallback = new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onAvailable(Network network) {
+                        super.onAvailable(network);
+                            new CoverArtLoader().execute(mLyrics, FadeInNetworkImageView.this.getActivity());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                                cm.unregisterNetworkCallback(networkCallback);
+                    }
+                };
+                NetworkRequest request = new NetworkRequest.Builder()
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
+                cm.registerNetworkCallback(request, networkCallback);
+            }
+        } else {
+            super.setImageUrl(url, imageLoader);
+        }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setImageBitmap(Bitmap bm) {
         Context context = getContext();
@@ -78,5 +114,16 @@ public class FadeInNetworkImageView extends NetworkImageView {
             bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
         if (mShowLocal && (bitmap == null || !(bitmap).equals(mLocalBitmap)))
             setImageBitmap(mLocalBitmap);
+    }
+
+    private Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 }

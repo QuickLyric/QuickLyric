@@ -21,7 +21,7 @@ package com.geecko.QuickLyric.tasks;
 
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
@@ -35,20 +35,21 @@ import java.net.URLEncoder;
 
 public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
-    private LyricsViewFragment lyricsViewFragment;
+    private MainActivity mActivity;
 
     @Override
     protected String doInBackground(Object... objects) {
         Lyrics lyrics = (Lyrics) objects[0];
-        lyricsViewFragment = (LyricsViewFragment) objects[1];
+        mActivity = (MainActivity) objects[1];
         String url = lyrics.getCoverURL();
 
         if (url == null) {
             try {
-                String txt = Net.getUrlAsString(new URL(String.format(
+                String requestURL = String.format(
                         "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
                         URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
-                        URLEncoder.encode(lyrics.getTrack(), "UTF-8"))));
+                        URLEncoder.encode(lyrics.getTrack(), "UTF-8"));
+                String txt = Net.getUrlAsString(new URL(requestURL));
                 JSONObject json = new JSONObject(txt);
                 JSONArray results = json.getJSONArray("results");
                 JSONObject result = results.getJSONObject(0);
@@ -64,6 +65,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
     @Override
     protected void onPostExecute(String url) {
-        lyricsViewFragment.setCoverArt(url, null);
+        if (mActivity != null && !mActivity.hasBeenDestroyed())
+            mActivity.updateArtwork(url);
     }
 }
