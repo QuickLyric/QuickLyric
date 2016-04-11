@@ -441,7 +441,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         startRefreshAnimation();
 
         Lyrics lyrics = null;
-        if (artist != null && title != null && false) {
+        if (artist != null && title != null) {
             if (url == null &&
                     (getActivity().getSharedPreferences("slides", Context.MODE_PRIVATE).getBoolean("seen", false))
                     && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
