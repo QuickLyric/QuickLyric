@@ -29,12 +29,12 @@
             android:key="pref_night_mode"
             android:summary="@string/pref_night_mode_sum"
             android:title="@string/pref_night_mode"/>
-        <CheckBoxPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:defaultValue="false"
             android:key="pref_force_screen_on"
             android:summary="@string/pref_force_screen_sum"
             android:title="@string/pref_force_screen_on"/>
-        <CheckBoxPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:defaultValue="false"
             android:key="pref_opendyslexic"
             android:summary="@string/pref_opendyslexic_sum"
@@ -60,7 +60,7 @@
             android:key="pref_artworks"
             android:summary="@string/artworks_pref_sum"
             android:title="@string/artworks_pref_title"/>
-        <CheckBoxPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:defaultValue="true"
             android:key="pref_auto_save"
             android:summary="@string/pref_auto_save_sum"
@@ -68,12 +68,12 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_scrobbling_category">
-        <CheckBoxPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:defaultValue="true"
             android:key="pref_filter_20min"
             android:summary="@string/pref_20min_ignore_sum"
             android:title="@string/pref_20min_ignore"/>
-        <CheckBoxPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:defaultValue="false"
             android:key="pref_auto_refresh"
             android:summary="@string/pref_auto_refresh_summary"
