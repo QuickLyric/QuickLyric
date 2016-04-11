@@ -32,6 +32,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -440,7 +441,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         startRefreshAnimation();
 
         Lyrics lyrics = null;
-        if (artist != null && title != null) {
+        if (artist != null && title != null && false) {
             if (url == null &&
                     (getActivity().getSharedPreferences("slides", Context.MODE_PRIVATE).getBoolean("seen", false))
                     && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
@@ -645,6 +646,15 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         int firstLaunchBGid = typedValue.resourceId;
         @SuppressWarnings("deprecation")
         BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(firstLaunchBGid));
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        if (themeNum > 0 && themeNum != 7) {
+            TypedValue darkColorValue = new TypedValue();
+            getActivity().getTheme().resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
+            ((FadeInNetworkImageView) getActivity().findViewById(R.id.cover))
+                    .setColorFilter(darkColorValue.data, PorterDuff.Mode.OVERLAY);
+        }
 
         setCoverArt(bd != null ? bd.getBitmap() : null, null);
         ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
