@@ -69,10 +69,15 @@ public class LyricsMania {
             // lyricsBody.select("div").last().remove();
             text = Jsoup.clean(lyricsBody.html(), "", Whitelist.basic().addTags("div"));
             text = text.substring(text.indexOf("</strong>")+10, text.lastIndexOf("</div>"));
+
+            String[] keywords =
+                    document.getElementsByTag("meta").attr("name", "keywords").get(0).attr("content").split(",");
+
             if (artist == null)
                 artist = document.getElementsByClass("lyrics-nav-menu").get(0)
                         .getElementsByTag("a").get(0).text();
-            title = document.getElementsByClass("active").text();
+            if (title == null)
+                title = keywords[0];
         } catch (HttpStatusException | IndexOutOfBoundsException e) {
             return new Lyrics(Lyrics.NO_RESULT);
         } catch (IOException e) {
