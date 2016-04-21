@@ -6,6 +6,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This file is part of QuickLyric
@@ -35,6 +36,7 @@ public class Net {
     public static String getUrlAsString(URL paramURL) throws IOException {
         Request request = new Request.Builder().header("User-Agent", USER_AGENT).url(paramURL).build();
         OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(10, TimeUnit.SECONDS);
         Response response = client.newCall(request).execute();
 
         return response.body().string();
