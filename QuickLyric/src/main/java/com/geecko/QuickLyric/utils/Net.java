@@ -26,7 +26,7 @@ import java.net.URL;
 public class Net {
 
     public static String USER_AGENT =
-            "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
+            "Mozilla/5.0 (Linux; U; Android 6.0.1; ko-kr; Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
 
     public static String getUrlAsString(String paramURL) throws IOException {
         return getUrlAsString(new URL(paramURL));
