@@ -60,7 +60,8 @@ public class LyricsProviderTest {
     public void testLyricsMania() {
         Lyrics lyrics = LyricsMania.fromMetaData("Red Hot Chili Peppers", "Can't stop");
         Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
-        Assert.assertTrue(lyrics.getText().startsWith("Can't stop"));
+        Assert.assertTrue(lyrics.getText().replaceAll("\n", "")
+                .replaceAll("<div>", "").trim().startsWith("Can't stop"));
         Assert.assertTrue(lyrics.getText().contains("life is more than just"));
     }
 
