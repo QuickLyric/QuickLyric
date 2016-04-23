@@ -21,8 +21,11 @@ package com.geecko.QuickLyric.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
@@ -65,6 +68,15 @@ public class ThemeButton extends ImageButton {
     private void initViews() {
         mCheckMark = getResources().getDrawable(R.drawable.anim_action_accept);
         mCheckMark.setCallback(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ColorStateList imageTintList = getImageTintList();
+            if (imageTintList == null) {
+                return;
+            }
+
+            setColorFilter(imageTintList.getDefaultColor(), PorterDuff.Mode.SRC_IN);
+        }
     }
 
     @Override
