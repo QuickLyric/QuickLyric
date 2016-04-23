@@ -25,15 +25,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/search_toolbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:focusable="false"
-        android:theme="@style/actionBar.QuickLyric"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/search_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:focusable="false"
+            android:theme="@style/actionBar.QuickLyric"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
+            android:id="@+id/material_search_view"
+            android:layout_width="match_parent"
+            android:elevation="6dp"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
 
     <com.viewpagerindicator.TitlePageIndicator
         android:id="@+id/pager_title_strip"

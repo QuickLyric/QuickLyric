@@ -28,16 +28,15 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
 import com.geecko.QuickLyric.lyrics.Bollywood;
@@ -48,6 +47,8 @@ import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.viewpagerindicator.TitlePageIndicator;
 
 import java.util.ArrayList;
@@ -121,9 +122,7 @@ public class SearchActivity extends AppCompatActivity {
             switch (action) {
                 case "android.intent.action.SEARCH":
                     this.searchQuery = intent.getStringExtra(SearchManager.QUERY);
-                    SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
-                            LyricsSearchSuggestionsProvider.AUTHORITY, LyricsSearchSuggestionsProvider.MODE);
-                    suggestions.saveRecentQuery(searchQuery, null);
+                    LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
                     this.refresh();
                     break;
             }
@@ -177,14 +176,50 @@ public class SearchActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         getMenuInflater().inflate(R.menu.menu_search, menu);
         // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint(getString(R.string.search_hint));
-        searchView.setQuery(searchQuery, false);
-        searchView.setMaxWidth(99999); //fixme?
+        final MaterialSuggestionsSearchView materialSearchView =
+                (MaterialSuggestionsSearchView) findViewById(R.id.material_search_view);
+        materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                materialSearchView.setSuggestions(null);
+                materialSearchView.requestFocus();
+                materialSearchView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(materialSearchView.getWindowToken(), 0);
+                    }
+                });
+                materialSearchView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SearchActivity.this.searchQuery = query;
+                        refresh();
+                    }
+                }, 90);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+
+        materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                onBackPressed();
+            }
+        });
+        materialSearchView.setMenuItem(menu.findItem(R.id.search_view));
+        materialSearchView.setHint(getResources().getString(R.string.search_hint));
+        materialSearchView.showSearch();
+        materialSearchView.setQuery(this.searchQuery, false);
         return true;
     }
 

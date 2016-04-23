@@ -19,42 +19,77 @@
 
 package com.geecko.QuickLyric.utils;
 
-import android.app.SearchManager;
-import android.content.SearchRecentSuggestionsProvider;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
-import android.net.Uri;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-import com.geecko.QuickLyric.BuildConfig;
+public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
 
-public class LyricsSearchSuggestionsProvider extends SearchRecentSuggestionsProvider {
-    public final static String AUTHORITY = "QuickLyric.LyricsSearchSuggestionsProvider";
-    public final static int MODE = DATABASE_MODE_QUERIES;
-    private final String mIconUri; // a drawable ID as a String will also do!
+    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "QuickLyric_searches";
+    private static final String TABLE_NAME = "search_suggestions";
+    private static final String KEY_ARTIST = "suggestion";
+    private static final String KEY_DATE = "access_date";
+    private static final String DICTIONARY_TABLE_CREATE =
+            "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT NOT NULL PRIMARY KEY," + KEY_DATE + " INTEGER);";
+    private static SQLiteDatabase database;
 
-    public LyricsSearchSuggestionsProvider() {
-        setupSuggestions(AUTHORITY, MODE);
-        mIconUri = "android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/ic_history";
+    public LyricsSearchSuggestionsProvider(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public Cursor query(Uri uri, String[] projection, String selection,
-                        String[] selectionArgs, String sortOrder) {
+    public static void setDatabase(SQLiteDatabase database) {
+        LyricsSearchSuggestionsProvider.database = database;
+    }
 
-        class Wrapper extends CursorWrapper {
-            Wrapper(Cursor c) {
-                super(c);
-            }
+    public String[] getHistory() {
+        String[] results;
+        String query = "";
+        query = query + KEY_DATE + " > 0 ORDER BY "+ KEY_DATE + " DESC";
 
-            public String getString(int columnIndex) {
-                if (columnIndex != -1 && columnIndex == getColumnIndex(SearchManager.SUGGEST_COLUMN_ICON_1))
-                    return mIconUri;
-                return super.getString(columnIndex);
-            }
+        Cursor cursor = database.query(TABLE_NAME, null, query, null, null, null, null);
+        results = new String[cursor.getCount()];
+        while (cursor.moveToNext()) {
+            results[cursor.getPosition()] = cursor.getString(0);
         }
+        cursor.close();
+        return results;
+    }
 
-        Cursor output = new Wrapper(super.query(uri, projection, selection, selectionArgs, sortOrder));
-        if (output.moveToLast() && selectionArgs[0].equals(output.getString(2)))
-            return null;
-        return output;
+    public String[] search(String searchQuery) {
+        if (searchQuery == null || searchQuery.isEmpty())
+            return new String[] {};
+
+        String[] results;
+        String query = "";
+        query = query + "suggestion LIKE '" + searchQuery + "%' ORDER BY "+ KEY_DATE + " DESC";
+
+        Cursor cursor = database.query(TABLE_NAME, null, query, null, null, null, null);
+        results = new String[cursor.getCount()];
+        while (cursor.moveToNext()) {
+            results[cursor.getPosition()] = cursor.getString(0);
+        }
+        cursor.close();
+        return results;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(DICTIONARY_TABLE_CREATE);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE "+TABLE_NAME+";");
+        onCreate(db);
+    }
+
+    public static void saveQuery(String searchQuery) {
+        ContentValues values = new ContentValues(2);
+        values.put(KEY_ARTIST, searchQuery);
+        values.put(KEY_DATE, System.currentTimeMillis());
+        database.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 }

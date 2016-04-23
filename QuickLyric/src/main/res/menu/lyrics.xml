@@ -2,37 +2,36 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search_view"
+        android:id="@+id/action_search"
         android:icon="@drawable/ic_menu_search"
         android:orderInCategory="0"
-        android:title="@string/search_hint"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom"/>
+        android:title="@string/abc_search_hint"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/save_action"
         android:icon="@drawable/ic_save"
-        android:orderInCategory="1"
+        android:orderInCategory="10"
         android:title="@string/save_action"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/resync_action"
-        android:orderInCategory="2"
+        android:orderInCategory="20"
         android:title="@string/resync_action"
         android:onClick="resync"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/convert_action"
-        android:orderInCategory="2"
+        android:orderInCategory="20"
         android:title="@string/full_text_action"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/share_action"
         android:icon="@drawable/ic_menu_share"
-        android:orderInCategory="3"
+        android:orderInCategory="30"
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
 </menu>

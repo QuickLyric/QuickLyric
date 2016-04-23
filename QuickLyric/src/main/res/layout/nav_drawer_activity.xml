@@ -56,6 +56,12 @@
                 android:layout_height="@dimen/app_bar_layout_height"
                 app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"/>
 
+            <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
+                android:id="@+id/material_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"/>
+
             <com.geecko.QuickLyric.view.RefreshIcon
                 android:id="@+id/refresh_fab"
                 android:layout_width="wrap_content"

@@ -24,7 +24,6 @@ import android.animation.AnimatorInflater;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,7 +43,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -97,7 +95,9 @@ import com.geecko.QuickLyric.utils.UpdateChecker;
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
+import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
@@ -746,6 +746,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     startActivity(Intent.createChooser(sendIntent, getString(R.string.share)));
                 }
                 return true;
+            case R.id.action_search:
+                MaterialSuggestionsSearchView suggestionsSearchView =
+                        (MaterialSuggestionsSearchView) getActivity()
+                                .findViewById(R.id.material_search_view);
+                if (suggestionsSearchView.isSearchOpen())
+                    ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
+                            .expandToolbar(true);
+                break;
             case R.id.save_action:
                 if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
                     new WriteToDatabaseTask().execute(this, item, this.mLyrics);
@@ -807,64 +815,69 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         inflater.inflate(R.menu.lyrics, menu);
         // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getActivity()
-                .getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.search_view);
-        if (mExpandedSearchView)
-            searchItem.expandActionView();
-        else
-            searchItem.collapseActionView();
-        mExpandedSearchView = false;
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint(getString(R.string.search_hint));
-        searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        final MaterialSuggestionsSearchView materialSearchView = (MaterialSuggestionsSearchView) getActivity().findViewById(R.id.material_search_view);
+        materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem searchItem) {
-                searchView.requestFocus();
-                searchView.post(new Runnable() {
+            public boolean onQueryTextSubmit(final String query) {
+                materialSearchView.setSuggestions(null);
+                materialSearchView.requestFocus();
+                materialSearchView.post(new Runnable() {
                     @Override
                     public void run() {
                         ((InputMethodManager) getActivity()
                                 .getSystemService(Context.INPUT_METHOD_SERVICE))
-                                .toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                                        InputMethodManager.HIDE_IMPLICIT_ONLY);
+                                .hideSoftInputFromWindow(materialSearchView.getWindowToken(), 0);
                     }
                 });
-                return true;
-            }
-        });
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                if (isActiveFragment) {
-                    ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
-                    ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
-                            .setCollapsedTitleTextColor(Color.TRANSPARENT);
-                }
+                materialSearchView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainActivity) getActivity()).search(query);
+                    }
+                }, 90);
                 return true;
             }
 
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                ((CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout))
-                        .setCollapsedTitleTextColor(Color.WHITE);
+            public boolean onQueryTextChange(String newText) {
+                if (!materialSearchView.hasSuggestions())
+                    materialSearchView.setSuggestions(materialSearchView.getHistory());
                 return true;
             }
         });
-        searchItem.collapseActionView();
+
+        materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+            }
+        });
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        materialSearchView.setMenuItem(searchItem);
+
+        if (mExpandedSearchView)
+            materialSearchView.showSearch();
+        else
+            materialSearchView.closeSearch();
+
+        mExpandedSearchView = false;
+
+        materialSearchView.setHint(getString(R.string.search_hint));
         if (mSearchQuery != null && !mSearchQuery.equals("")) {
             searchItem.expandActionView();
-            searchView.setQuery(mSearchQuery, false);
+            materialSearchView.setQuery(mSearchQuery, false);
             if (mSearchFocused)
-                searchView.requestFocus();
+                materialSearchView.requestFocus();
             else
-                searchView.clearFocus();
+                materialSearchView.clearFocus();
             mSearchQuery = null;
         }
+
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());

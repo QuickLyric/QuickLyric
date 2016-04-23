@@ -46,11 +46,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -85,6 +85,7 @@ import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.LrcView;
+import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -197,8 +198,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         drawerList.setOnItemClickListener(drawerListener);
         database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
         DatabaseHelper.setDatabase(database);
-        if (database != null && DatabaseHelper.getColumnsCount(database) <= 6)
-            DatabaseHelper.addMissingColumns(database);
 
         Intent intent = getIntent();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -373,15 +372,16 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         return null;
     }
 
-    private void search(String searchQuery) {
-        android.os.SystemClock.sleep(75); // fixme, keyboard animation slows down the transition
-        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
-                LyricsSearchSuggestionsProvider.AUTHORITY, LyricsSearchSuggestionsProvider.MODE);
-        suggestions.saveRecentQuery(searchQuery, null);
+    public void search(String searchQuery) {
+        LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchIntent.putExtra("query", searchQuery);
-        startActivityForResult(searchIntent, 55);
-        overridePendingTransition(R.anim.slide_in_end, R.anim.fade_out);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            startActivityForResult(searchIntent, 55);
+            overridePendingTransition(R.anim.slide_in_end, R.anim.fade_out);
+        } else
+            startActivityForResult(searchIntent, 55, ActivityOptionsCompat
+                    .makeCustomAnimation(this, R.anim.slide_in_end, R.anim.fade_out).toBundle());
     }
 
     private void updateDBList() {
@@ -470,7 +470,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     @Override
     public void onBackPressed() {
-        if (drawer instanceof DrawerLayout && ((DrawerLayout) drawer).isDrawerOpen(drawerView))
+        MaterialSuggestionsSearchView suggestionsSearchView =
+                (MaterialSuggestionsSearchView) findViewById(R.id.material_search_view);
+        if (suggestionsSearchView.isSearchOpen())
+            suggestionsSearchView.closeSearch();
+        else if (drawer instanceof DrawerLayout && ((DrawerLayout) drawer).isDrawerOpen(drawerView))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
         else
             finish();

@@ -130,8 +130,6 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
 
         SQLiteDatabase db = new DatabaseHelper(context).getReadableDatabase();
-        if (DatabaseHelper.getColumnsCount(db) <= 6)
-            DatabaseHelper.addMissingColumns(db);
         boolean inDatabase = DatabaseHelper.presenceCheck(db, new String[]{artist, track, artist, track});
         db.close();
 

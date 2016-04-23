@@ -31,7 +31,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "QuickLyric";
     public static final String TABLE_NAME = "lyrics";
     private static final String KEY_ARTIST = "artist";
@@ -59,6 +59,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 3 && getColumnsCount(db) <= 6) {
+            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
+            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
+            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
+        }
     }
 
     public static void setDatabase(SQLiteDatabase database) {
@@ -139,11 +144,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
         return (count != 0);
-    }
-
-    public static void addMissingColumns(SQLiteDatabase database) {
-        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
-        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
-        database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
     }
 }
