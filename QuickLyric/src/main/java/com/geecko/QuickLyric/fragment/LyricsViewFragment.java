@@ -833,6 +833,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     @Override
                     public void run() {
                         ((MainActivity) getActivity()).search(query);
+                        materialSearchView.setSuggestions(null);
                     }
                 }, 90);
                 return true;

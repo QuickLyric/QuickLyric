@@ -122,7 +122,6 @@ public class SearchActivity extends AppCompatActivity {
             switch (action) {
                 case "android.intent.action.SEARCH":
                     this.searchQuery = intent.getStringExtra(SearchManager.QUERY);
-                    LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
                     this.refresh();
                     break;
             }
@@ -155,6 +154,7 @@ public class SearchActivity extends AppCompatActivity {
         ViewPager viewPager = getViewPager();
         if (viewPager != null)
             ((SearchPagerAdapter) viewPager.getAdapter()).setSearchQuery(searchQuery);
+        LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
     }
 
     public void refresh() {

@@ -19,16 +19,22 @@
 
 package com.geecko.QuickLyric.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
 import android.util.AttributeSet;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 
+import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.adapter.SearchSuggestionAdapter;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MaterialSuggestionsSearchView extends MaterialSearchView {
 
-    private LyricsSearchSuggestionsProvider suggestionsProvider;
+    private String[] mSuggestions;
+    private ListAdapter mAdapter;
 
     public MaterialSuggestionsSearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,9 +48,9 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
 
     @SuppressWarnings("deprecation")
     private void init() {
-        this.suggestionsProvider = new LyricsSearchSuggestionsProvider(getContext());
         setSubmitOnClick(true);
-        LyricsSearchSuggestionsProvider.setDatabase(this.suggestionsProvider.getWritableDatabase());
+        LyricsSearchSuggestionsProvider.setDatabase(new LyricsSearchSuggestionsProvider(getContext())
+                .getWritableDatabase());
        /*
         Resources.Theme theme = getContext().getTheme();
         TypedValue textColor = new TypedValue();
@@ -60,13 +66,29 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
                 .setColorFilter(hintColor.data, PorterDuff.Mode.SRC_IN); */
     }
 
+    @Override
+    public void setAdapter(ListAdapter adapter) {
+        this.mAdapter = adapter;
+        super.setAdapter(new SearchSuggestionAdapter(getContext(), mSuggestions));
+    }
+
+    @Override
+    public void setSuggestions(String[] suggestions) {
+        this.mSuggestions = suggestions;
+        super.setSuggestions(suggestions);
+    }
+
     public boolean hasSuggestions() {
-        return ((ListView)findViewById(com.miguelcatalan.materialsearchview.R.id.suggestion_list))
-                .getAdapter() != null;
+        return mSuggestions != null;
+    }
+
+    public void refreshSuggestions() {
+        Editable text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
+        setQuery(text, false);
     }
 
     public String[] getHistory() {
-        return this.suggestionsProvider.getHistory();
+        return LyricsSearchSuggestionsProvider.getHistory();
         // todo close db
     }
 }

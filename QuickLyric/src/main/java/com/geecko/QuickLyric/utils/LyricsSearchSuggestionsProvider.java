@@ -30,10 +30,10 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "QuickLyric_searches";
     private static final String TABLE_NAME = "search_suggestions";
-    private static final String KEY_ARTIST = "suggestion";
+    private static final String KEY_SUGGESTION = "suggestion";
     private static final String KEY_DATE = "access_date";
     private static final String DICTIONARY_TABLE_CREATE =
-            "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT NOT NULL PRIMARY KEY," + KEY_DATE + " INTEGER);";
+            "CREATE TABLE " + TABLE_NAME + " (" + KEY_SUGGESTION + " TINYTEXT NOT NULL PRIMARY KEY," + KEY_DATE + " INTEGER);";
     private static SQLiteDatabase database;
 
     public LyricsSearchSuggestionsProvider(Context context) {
@@ -44,7 +44,7 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
         LyricsSearchSuggestionsProvider.database = database;
     }
 
-    public String[] getHistory() {
+    public static String[] getHistory() {
         String[] results;
         String query = "";
         query = query + KEY_DATE + " > 0 ORDER BY "+ KEY_DATE + " DESC";
@@ -88,8 +88,12 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
 
     public static void saveQuery(String searchQuery) {
         ContentValues values = new ContentValues(2);
-        values.put(KEY_ARTIST, searchQuery);
+        values.put(KEY_SUGGESTION, searchQuery);
         values.put(KEY_DATE, System.currentTimeMillis());
         database.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public static void deleteQuery(String suggestion) {
+        database.delete(TABLE_NAME, KEY_SUGGESTION+ "='" + suggestion + "';", null);
     }
 }
