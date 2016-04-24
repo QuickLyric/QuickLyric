@@ -30,9 +30,10 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList<Lyrics>>> {
     private LocalLyricsFragment localLyricsFragment;
@@ -70,7 +71,9 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
             Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, query);
             cursor.moveToFirst();
             ArrayList<ArrayList<Lyrics>> results = new ArrayList<>(cursor.getCount());
-            HashMap<String, ArrayList<Lyrics>> map = new HashMap<>();
+            Collator collator = Collator.getInstance();
+            collator.setStrength(Collator.PRIMARY);
+            TreeMap<String, ArrayList<Lyrics>> map = new TreeMap<>(collator);
             if (cursor.moveToFirst())
                 do {
                     Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
@@ -89,7 +92,7 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
                     artistSubGroup.add(l);
                 } while (!cursor.isClosed() && database.isOpen() && cursor.moveToNext());
             ArrayList<String> keys = new ArrayList<>(map.keySet());
-            Collections.sort(keys);
+            Collections.sort(keys, String.CASE_INSENSITIVE_ORDER);
             for (String key : keys)
                 results.add(map.get(key));
             cursor.close();
