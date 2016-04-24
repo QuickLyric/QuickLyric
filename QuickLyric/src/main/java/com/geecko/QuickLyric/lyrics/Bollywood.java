@@ -44,21 +44,22 @@ public class Bollywood {
             jsonText = Net.getUrlAsString(String.format(searchUrl, URLEncoder.encode(query, "utf-8")));
             JsonObject jsonResponse = new JsonParser().parse(jsonText).getAsJsonObject();
             JsonArray lyricsResults = jsonResponse.getAsJsonArray("lyrics");
-            for (int i = 0; i < lyricsResults.size(); ++i) {
-                JsonObject lyricsResult = lyricsResults.get(i).getAsJsonObject();
-                JsonArray tags = lyricsResult.get("tags").getAsJsonArray();
-                Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
-                lyrics.setTitle(lyricsResult.get("name").getAsString());
-                for (int j = 0; j < tags.size(); ++j) {
-                    JsonObject tag = tags.get(j).getAsJsonObject();
-                    if (tag.get("tag_type").getAsString().equals("Singer")) {
-                        lyrics.setArtist(tag.get("name").getAsString().trim());
-                        break;
+            if (lyricsResults != null)
+                for (int i = 0; i < lyricsResults.size(); ++i) {
+                    JsonObject lyricsResult = lyricsResults.get(i).getAsJsonObject();
+                    JsonArray tags = lyricsResult.get("tags").getAsJsonArray();
+                    Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
+                    lyrics.setTitle(lyricsResult.get("name").getAsString());
+                    for (int j = 0; j < tags.size(); ++j) {
+                        JsonObject tag = tags.get(j).getAsJsonObject();
+                        if (tag.get("tag_type").getAsString().equals("Singer")) {
+                            lyrics.setArtist(tag.get("name").getAsString().trim());
+                            break;
+                        }
                     }
+                    lyrics.setURL("http://quicklyric.azurewebsites.net/bollywood/get.php?id=" + lyricsResult.get("id").getAsInt());
+                    results.add(lyrics);
                 }
-                lyrics.setURL("http://quicklyric.azurewebsites.net/bollywood/get.php?id=" + lyricsResult.get("id").getAsInt());
-                results.add(lyrics);
-            }
         } catch (IOException | JsonParseException e) {
             e.printStackTrace();
         }
