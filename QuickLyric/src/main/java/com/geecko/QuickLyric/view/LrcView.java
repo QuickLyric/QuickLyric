@@ -218,6 +218,8 @@ public class LrcView extends View {
     }
 
     public synchronized void changeCurrent(long time) {
+        if (dictionnary == null || dictionnary.isEmpty())
+            return;
         mNextTime = dictionnary.lastKey();
         if (time < mNextTime)
             mNextTime = dictionnary.higherKey(time);
