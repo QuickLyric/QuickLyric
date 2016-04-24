@@ -994,8 +994,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
-                                .changeCurrent(finalPosition);
+                        Activity activity = LyricsViewFragment.this.getActivity();
+                        if (activity != null)
+                            ((LrcView) activity.findViewById(R.id.lrc_view))
+                                    .changeCurrent(finalPosition);
                     }
                 });
             }
