@@ -648,6 +648,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         BitmapDrawable bd = ((BitmapDrawable) getResources().getDrawable(firstLaunchBGid));
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        setCoverArt(bd != null ? bd.getBitmap() : null, null);
+        ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
+
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         if (themeNum > 0 && themeNum != 7) {
             TypedValue darkColorValue = new TypedValue();
@@ -656,8 +660,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     .setColorFilter(darkColorValue.data, PorterDuff.Mode.OVERLAY);
         }
 
-        setCoverArt(bd != null ? bd.getBitmap() : null, null);
-        ((TextSwitcher) getActivity().findViewById(R.id.switcher)).setText("");
         getActivity().findViewById(R.id.error_msg).setVisibility(View.INVISIBLE);
         ((TextView) getActivity().findViewById(R.id.artist)).setText("");
         ((TextView) getActivity().findViewById(R.id.song)).setText("");
@@ -937,6 +939,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (url == null)
                 url = "";
             coverView.setLyrics(mLyrics);
+            coverView.clearColorFilter();
             coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
         }
@@ -950,6 +953,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
         if (coverView != null)
             coverView.setLocalImageBitmap(cover);
+        coverView.clearColorFilter();
         getActivity().findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
     }
