@@ -119,14 +119,14 @@ public class Genius {
         Pattern pattern = Pattern.compile("\\[.+\\]");
         StringBuilder builder = new StringBuilder();
         for (String line : text.split("<br> ")) {
-            String strippedLine = line.replaceAll("\\s","");
+            String strippedLine = line.replaceAll("\\s", "");
             if (!pattern.matcher(strippedLine).matches() && !(strippedLine.isEmpty() && builder.length() == 0))
-                builder.append(line).append("<br/>");
+                builder.append(line.replaceAll("\\P{Print}", "")).append("<br/>");
         }
         builder.delete(builder.length() - 5, builder.length());
         result.setArtist(artist);
         result.setTitle(title);
-        result.setText(builder.toString());
+        result.setText(Normalizer.normalize(builder.toString(), Normalizer.Form.NFD));
         result.setURL(url);
         result.setSource("Genius");
         return result;
