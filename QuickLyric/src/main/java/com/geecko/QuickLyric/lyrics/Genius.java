@@ -123,7 +123,8 @@ public class Genius {
             if (!pattern.matcher(strippedLine).matches() && !(strippedLine.isEmpty() && builder.length() == 0))
                 builder.append(line.replaceAll("\\P{Print}", "")).append("<br/>");
         }
-        builder.delete(builder.length() - 5, builder.length());
+        if (builder.length() > 5)
+            builder.delete(builder.length() - 5, builder.length());
         result.setArtist(artist);
         result.setTitle(title);
         result.setText(Normalizer.normalize(builder.toString(), Normalizer.Form.NFD));
