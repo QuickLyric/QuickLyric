@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             updateLyricsFragment(0, 0, false, receivedLyrics);
         } else {
             String s = intent.getAction();
-            if ("com.geecko.QuickLyric.getLyrics".equals(s)) {
+            if ("com.geecko.QuickLyric.getLyrics".equals(s) && intent.getStringArrayExtra("TAGS") != null) {
                 String[] metadata = intent.getStringArrayExtra("TAGS");
                 String artist = metadata[0];
                 String track = metadata[1];

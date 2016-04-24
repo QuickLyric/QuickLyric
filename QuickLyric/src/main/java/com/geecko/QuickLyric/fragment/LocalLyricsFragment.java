@@ -390,8 +390,12 @@ public class LocalLyricsFragment extends ListFragment {
                         int childHeight = child.getHeight() + megaListView.getDividerHeight();
                         formerTop = newTop - childHeight;
                         int delta = formerTop - newTop;
-                        final float z = ((CardView) child).getCardElevation();
-                        ((CardView) child).setCardElevation(0f);
+                        float z1 = 0;
+                        if (child instanceof CardView) {
+                            z1 = ((CardView) child).getCardElevation();
+                            ((CardView) child).setCardElevation(0f);
+                        }
+                        final float z = z1;
                         child.setTranslationY(delta);
                         final int MOVE_DURATION = 500;
                         child.animate().setDuration(MOVE_DURATION).translationY(0);
