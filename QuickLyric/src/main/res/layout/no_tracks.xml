@@ -29,6 +29,7 @@
         android:id="@+id/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0.5"
         android:gravity="top|center_horizontal"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
@@ -40,9 +41,9 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_below="@id/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
         android:layout_centerHorizontal="true"
         android:src="@drawable/no_cover"/>
 
@@ -51,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
+        android:alpha="0.5"
         android:gravity="top|center_horizontal"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
