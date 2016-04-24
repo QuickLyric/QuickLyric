@@ -105,7 +105,7 @@ public class LocalLyricsFragment extends ListFragment {
                 mSwipeSlop = ViewConfiguration.get(getActivity())
                         .getScaledTouchSlop();
             }
-            int groupPosition = ((LocalAdapter.ChildViewHolder) v.getTag()).groupPosition;
+            final int groupPosition = ((LocalAdapter.ChildViewHolder) v.getTag()).groupPosition;
             int childPosition = 90;
 
             for (int c = 0; c < megaListView.getChildCount(); c++)
@@ -184,9 +184,9 @@ public class LocalLyricsFragment extends ListFragment {
                 case MotionEvent.ACTION_UP: {
                     // User let go - figure out whether to animate the view out, or back into place
                     if (mSwiping) {
-                        float x = event.getX() + v.getTranslationX();
+                        final float x = event.getX() + v.getTranslationX();
                         float deltaX = x - mDownX;
-                        float deltaXAbs = Math.abs(deltaX);
+                        final float deltaXAbs = Math.abs(deltaX);
                         float fractionCovered;
                         float endX;
                         float endAlpha;
@@ -209,6 +209,7 @@ public class LocalLyricsFragment extends ListFragment {
                         int SWIPE_DURATION = 600;
                         long duration = (int) ((1 - fractionCovered) * SWIPE_DURATION);
                         getListView().setEnabled(false);
+                        final int finalChildPosition = childPosition;
                         v.animate().setDuration(Math.abs(duration)).
                                 alpha(endAlpha).translationX(endX)
                                 .setListener(new AnimatorActionListener(new Runnable() {
@@ -217,6 +218,14 @@ public class LocalLyricsFragment extends ListFragment {
                                         // Restore animated values
                                         v.setAlpha(1);
                                         v.setTranslationX(0);
+                                        if (((LocalAdapter) megaListView.getExpandableListAdapter())
+                                                .getGroup(groupPosition).size() <= 1) {
+                                            View groupView = megaListView.getChildAt(finalChildPosition - 1);
+                                            if (groupView != null && groupView.getTag() instanceof LocalAdapter.GroupViewHolder) {
+                                                groupView.setTranslationX(0);
+                                                groupView.setAlpha(1);
+                                            }
+                                        }
                                         if (remove) {
                                             animateRemoval(getListView(), v);
                                         } else {
