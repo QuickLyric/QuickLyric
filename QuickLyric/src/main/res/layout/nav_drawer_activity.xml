@@ -58,6 +58,11 @@
 
             <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
                 android:id="@+id/material_search_view"
+                app:searchSuggestionBackground="?android:colorBackground"
+                app:searchSuggestionIcon="@drawable/ic_suggestion"
+                app:searchBackground="?android:colorBackground"
+                app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
+                android:textColor="?android:textColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"/>

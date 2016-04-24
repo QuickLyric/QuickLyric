@@ -21,9 +21,14 @@ package com.geecko.QuickLyric.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 
 import com.geecko.QuickLyric.R;
@@ -35,6 +40,8 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
 
     private String[] mSuggestions;
     private ListAdapter mAdapter;
+    private Drawable suggestionIcon;
+    private Drawable closeIcon;
 
     public MaterialSuggestionsSearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,19 +58,40 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
         setSubmitOnClick(true);
         LyricsSearchSuggestionsProvider.setDatabase(new LyricsSearchSuggestionsProvider(getContext())
                 .getWritableDatabase());
-       /*
         Resources.Theme theme = getContext().getTheme();
-        TypedValue textColor = new TypedValue();
         TypedValue hintColor = new TypedValue();
-        TypedValue searchBarColor = new TypedValue();
-        theme.resolveAttribute(android.R.attr.textColorPrimary, textColor, true);
-        theme.resolveAttribute(android.R.attr.textColorSecondaryInverse, hintColor, true);
-        theme.resolveAttribute(android.R.attr.colorBackground, searchBarColor, true);
-        setTextColor(textColor.data);
+        TypedValue suggestionColor = new TypedValue();
+        TypedValue themeName = new TypedValue();
+        theme.resolveAttribute(android.R.attr.textColorSecondary, hintColor, true);
+        theme.resolveAttribute(android.R.attr.textColorSecondaryInverse, suggestionColor, true);
+        theme.resolveAttribute(R.attr.themeName, themeName, true);
         setHintTextColor(hintColor.data);
-        setBackgroundColor(searchBarColor.data);
-        ((ImageView)findViewById(com.miguelcatalan.materialsearchview.R.id.action_up_btn))
-                .setColorFilter(hintColor.data, PorterDuff.Mode.SRC_IN); */
+        ((ImageView) findViewById(com.miguelcatalan.materialsearchview.R.id.action_up_btn))
+                .setColorFilter(suggestionColor.data, PorterDuff.Mode.SRC_IN);
+        if (suggestionIcon != null) {
+            suggestionIcon.setColorFilter(suggestionColor.data, PorterDuff.Mode.SRC_IN);
+            setSuggestionIcon(suggestionIcon);
+        }
+        if (closeIcon != null) {
+            closeIcon.setColorFilter(hintColor.data, PorterDuff.Mode.SRC_IN);
+            setCloseIcon(closeIcon);
+        }
+    }
+
+    @Override
+    public void setSuggestionIcon(Drawable d) {
+        this.suggestionIcon = d;
+        super.setSuggestionIcon(d);
+    }
+
+    @Override
+    public void setCloseIcon(Drawable d) {
+        this.closeIcon = d;
+        super.setCloseIcon(d);
+    }
+
+    public Drawable getCloseIcon() {
+        return closeIcon;
     }
 
     @Override

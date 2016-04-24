@@ -836,6 +836,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         materialSearchView.setSuggestions(null);
                     }
                 }, 90);
+                mExpandedSearchView = false;
                 return true;
             }
 
@@ -851,22 +852,23 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             @Override
             public void onSearchViewShown() {
                 ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+                mExpandedSearchView = true;
             }
 
             @Override
             public void onSearchViewClosed() {
+                mExpandedSearchView = false;
             }
         });
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         materialSearchView.setMenuItem(searchItem);
 
-        if (mExpandedSearchView)
+        if (!materialSearchView.isSearchOpen() && mExpandedSearchView) {
             materialSearchView.showSearch();
-        else
+            mExpandedSearchView = false;
+        } else if (!mExpandedSearchView)
             materialSearchView.closeSearch();
-
-        mExpandedSearchView = false;
 
         materialSearchView.setHint(getString(R.string.search_hint));
         if (mSearchQuery != null && !mSearchQuery.equals("")) {

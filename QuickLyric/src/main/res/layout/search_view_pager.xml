@@ -27,13 +27,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:focusable="false"
             android:theme="@style/actionBar.QuickLyric"
@@ -41,9 +41,15 @@
 
         <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
             android:id="@+id/material_search_view"
+            app:searchSuggestionBackground="?android:colorBackground"
+            app:searchSuggestionIcon="@drawable/ic_suggestion"
+            app:searchBackground="?android:colorBackground"
+            app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
+            android:textColor="?android:textColorPrimary"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:elevation="6dp"
-            android:layout_height="wrap_content" />
+            android:padding="6dp"/>
 
     </FrameLayout>
 

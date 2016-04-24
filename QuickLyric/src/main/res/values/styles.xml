@@ -50,7 +50,7 @@
         <item name="android:panelColorBackground">@android:color/white</item>
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover</item>
         <item name="android:textColorSecondary">#888</item>
-        <item name="android:textColorSecondaryInverse">#5000</item>
+        <item name="android:textColorSecondaryInverse">#575757</item>
         <item name="android:textColorPrimary">#222</item>
         <item name="android:colorBackground">#fafafa</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance</item>
