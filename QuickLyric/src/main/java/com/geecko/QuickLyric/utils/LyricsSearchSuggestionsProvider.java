@@ -34,7 +34,7 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
     private static final String KEY_DATE = "access_date";
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" + KEY_SUGGESTION + " TINYTEXT NOT NULL PRIMARY KEY," + KEY_DATE + " INTEGER);";
-    private static SQLiteDatabase database;
+    public static SQLiteDatabase database;
 
     public LyricsSearchSuggestionsProvider(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,10 +44,13 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
         LyricsSearchSuggestionsProvider.database = database;
     }
 
-    public static String[] getHistory() {
+    public static String[] getHistory(Context context) {
         String[] results;
         String query = "";
         query = query + KEY_DATE + " > 0 ORDER BY "+ KEY_DATE + " DESC";
+
+        if (database == null || !database.isOpen() && context != null)
+            database = new LyricsSearchSuggestionsProvider(context).getWritableDatabase();
 
         Cursor cursor = database.query(TABLE_NAME, null, query, null, null, null, null);
         results = new String[cursor.getCount()];

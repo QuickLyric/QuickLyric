@@ -39,12 +39,16 @@ import java.lang.reflect.Field;
 
 public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchview.SearchAdapter {
 
+    private final Context mContext;
+
     public SearchSuggestionAdapter(Context context, String[] suggestions, Drawable suggestionIcon, boolean ellipsize) {
         super(context, suggestions, suggestionIcon, ellipsize);
+        this.mContext = context;
     }
 
     public SearchSuggestionAdapter(Context context, String[] suggestions) {
         super(context, suggestions);
+        this.mContext = context;
     }
 
 
@@ -104,7 +108,7 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
             Field suggestions = com.miguelcatalan.materialsearchview.SearchAdapter.class
                     .getDeclaredField("suggestions");
             suggestions.setAccessible(true);
-            suggestions.set(this, LyricsSearchSuggestionsProvider.getHistory());
+            suggestions.set(this, LyricsSearchSuggestionsProvider.getHistory(mContext));
         } catch (Exception e) {
             e.printStackTrace();
         }

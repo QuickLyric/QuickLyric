@@ -39,7 +39,6 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 public class MaterialSuggestionsSearchView extends MaterialSearchView {
 
     private String[] mSuggestions;
-    private ListAdapter mAdapter;
     private Drawable suggestionIcon;
     private Drawable closeIcon;
 
@@ -56,8 +55,9 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     @SuppressWarnings("deprecation")
     private void init() {
         setSubmitOnClick(true);
-        LyricsSearchSuggestionsProvider.setDatabase(new LyricsSearchSuggestionsProvider(getContext())
-                .getWritableDatabase());
+        if (LyricsSearchSuggestionsProvider.database == null)
+            LyricsSearchSuggestionsProvider.setDatabase(new LyricsSearchSuggestionsProvider(getContext())
+                    .getWritableDatabase());
         Resources.Theme theme = getContext().getTheme();
         TypedValue hintColor = new TypedValue();
         TypedValue suggestionColor = new TypedValue();
@@ -96,7 +96,6 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
 
     @Override
     public void setAdapter(ListAdapter adapter) {
-        this.mAdapter = adapter;
         super.setAdapter(new SearchSuggestionAdapter(getContext(), mSuggestions));
     }
 
@@ -116,7 +115,14 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     }
 
     public String[] getHistory() {
-        return LyricsSearchSuggestionsProvider.getHistory();
-        // todo close db
+        return LyricsSearchSuggestionsProvider.getHistory(getContext());
     }
+/*
+    @Override
+    public void onDetachedFromWindow() {
+        if (LyricsSearchSuggestionsProvider.database != null
+                && LyricsSearchSuggestionsProvider.database.isOpen())
+            LyricsSearchSuggestionsProvider.database.close();
+        super.onDetachedFromWindow();
+    } */
 }

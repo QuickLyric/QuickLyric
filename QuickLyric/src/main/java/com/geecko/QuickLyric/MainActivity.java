@@ -446,6 +446,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         this.destroyed = true;
         if (database != null && database.isOpen())
             database.close();
+        if (LyricsSearchSuggestionsProvider.database != null
+                && LyricsSearchSuggestionsProvider.database.isOpen())
+            LyricsSearchSuggestionsProvider.database.close();
         super.onDestroy();
     }
 

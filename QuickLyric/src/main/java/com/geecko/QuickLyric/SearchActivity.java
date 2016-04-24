@@ -88,7 +88,7 @@ public class SearchActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
                 R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
-                R.style.Theme_QuickLyric_Green,  R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
                 R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
