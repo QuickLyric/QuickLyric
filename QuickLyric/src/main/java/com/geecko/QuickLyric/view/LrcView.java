@@ -160,7 +160,7 @@ public class LrcView extends View {
     }
 
     private int drawDividedText(String lrc, Canvas canvas, float y, int breakOffset, Paint paint) {
-        int overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth, null);
+        int overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth * 0.99f, null);
         int contained = lrc.length() - overflow;
         String cutLrc = lrc.substring(0, contained);
         cutLrc = cutLrc.substring(0, overflow > 0 && cutLrc.contains(" ") ? cutLrc.lastIndexOf(" ") : contained);
