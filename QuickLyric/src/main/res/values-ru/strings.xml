@@ -107,7 +107,7 @@
   <string name="pref_opendyslexic">Использовать шрифт OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Используйте специальный шрифт для читателей с ограниченными возможностями чтения</string>
   <string name="wrong_musicID">Неподдерживаемый сервис MusicID</string>
-  <string name="pref_issues_sum">quicklyricapp@Gmail.com (только на английском языке)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (только на английском языке)</string>
   <string name="ignore_id3_toast">Нажмите на «Обновить», чтобы загрузить</string>
   <string name="from_id3">(Текст, извлеченный из аудио файла)</string>
   <string name="pandora_warning">Предупреждение: радио сервисы как Pandora® не считаются музыкальными проигрывателями и не работают с QuickLyric</string>

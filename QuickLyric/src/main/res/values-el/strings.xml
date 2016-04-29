@@ -104,7 +104,7 @@
   <string name="pref_opendyslexic">Χρήση γραμματοσειράς OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Χρήση μιας ειδικής γραμματοσειράς που δημιουργήθηκε για τους χρήστες με προβλήματα στην ανάγνωση</string>
   <string name="wrong_musicID">Μη υποστηριζόμενη υπηρεσία MusicID</string>
-  <string name="pref_issues_sum">quicklyricapp@Gmail.com (μόνο Αγγλικά)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (μόνο Αγγλικά)</string>
   <string name="ignore_id3_toast">Πατήστε το κουμπί \"Ανανέωση\" για εξαναγκασμό μιας λήψης</string>
   <string name="from_id3">(Στίχοι προερχόμενοι από αρχείο ήχου)</string>
   <string name="pandora_warning">Προσοχή: Ραδιοφωνικές υπηρεσίες όπως η Pandora® Radio δεν ανήκουν στις εφαρμογές αναπαραγωγής μουσικής και δεν λειτουργούν με το QuickLyric.</string>

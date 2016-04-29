@@ -105,7 +105,7 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="pref_opendyslexic">Uporaba OpenDyslexic pisavo</string>
   <string name="pref_opendyslexic_sum">Uporabi pisavo ustvarjeno za bralce s težavami pri branju</string>
   <string name="wrong_musicID">Nepodprta MusicID storitev</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (samo v angleščini)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (samo v angleščini)</string>
   <string name="ignore_id3_toast">Tapni gumb Osveži za vsiljen prenos</string>
   <string name="from_id3">(Besedila izpisana iz zvočne datoteke)</string>
   <string name="pandora_warning">Opozorilo: Radio storitve kot Pandora ® Radio se ne upoštevajo kot predvajalniki glasbe in ne delujejo s QuickLyric.</string>

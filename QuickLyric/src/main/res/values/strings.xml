@@ -216,7 +216,7 @@ A few possible reasons why:<br/>
     <string name="pref_opendyslexic">Use OpenDyslexic font</string>
     <string name="pref_opendyslexic_sum">Use a special font created for readers with a reading disability</string>
     <string name="wrong_musicID">Unsupported MusicID service</string>
-    <string name="pref_issues_sum">quicklyricapp@gmail.com (English only)</string>
+    <string name="pref_issues_sum">contact@quicklyric.be (English only)</string>
     <string name="ignore_id3_toast">Tap the Refresh button to force a download</string>
     <string name="from_id3">(Lyrics extracted from audio file)</string>
     <string name="pandora_warning">Warning: Radio services such as Pandora® Radio do not qualify as music players and do not work with QuickLyric.</string>

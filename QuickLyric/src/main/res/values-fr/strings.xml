@@ -105,7 +105,7 @@ Plusieurs raisons possibles:<br/>
   <string name="pref_opendyslexic">Utiliser la police OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Utiliser une police spéciale pour les personnes atteint d\'un trouble de la lecture</string>
   <string name="wrong_musicID">Service d\'identification musicale non supporté</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com</string>
+  <string name="pref_issues_sum">contact@quicklyric.be</string>
   <string name="ignore_id3_toast">Appuyez sur le bouton Actualiser pour forcer un téléchargement</string>
   <string name="from_id3">(Paroles extraites du fichier audio)</string>
   <string name="pandora_warning">Attention : Les services de Radio tels que TuneIn ne sont pas considérés comme des lecteurs de musique et ne fonctionnent pas avec QuickLyric.</string>

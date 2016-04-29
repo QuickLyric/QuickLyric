@@ -104,7 +104,7 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="pref_opendyslexic">Använd OpenDyslexic typsnitt</string>
   <string name="pref_opendyslexic_sum">Använd ett särskilt teckensnitt skapat för läsare med lässvårigheter</string>
   <string name="wrong_musicID">Saknar stöd för MusicID-tjänsten</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (endast engelska)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (endast engelska)</string>
   <string name="ignore_id3_toast">Tryck på uppdateringsknappen för att tvinga fram en nedladdning</string>
   <string name="from_id3">(Text extraherad från ljudfil)</string>
   <string name="pandora_warning">Varning: Radiotjänster som Pandora ® Radio räknas inte som musikspelare och fungerar inte med QuickLyric.</string>

@@ -105,7 +105,7 @@ Mögliche Ursachen:<br/>
   <string name="pref_opendyslexic">OpenDyslexis-Schriftart verwenden</string>
   <string name="pref_opendyslexic_sum">Eine spezielle Schriftart für lesebehinderte Personen verwenden</string>
   <string name="wrong_musicID">Nicht unterstützter MusicID-Dienst</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (nur Englisch)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (nur Englisch)</string>
   <string name="ignore_id3_toast">Tippen Sie auf die Schaltfläche \"Aktualisieren\", um einen Download zu erzwingen</string>
   <string name="from_id3">(Songtext aus Audiodatei extrahiert)</string>
   <string name="pandora_warning">Warnung: Radiodienste wie Pandora® Radio gelten nicht als Musikspieler und werden nicht mit QuickLyric funktionieren.</string>

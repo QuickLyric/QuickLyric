@@ -109,7 +109,7 @@
   <string name="pref_opendyslexic">使用OpenDyslexic字体</string>
   <string name="pref_opendyslexic_sum">使用专为有阅读障碍的人开发的字体</string>
   <string name="wrong_musicID">不支持的MusicID设备</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (限英文)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (限英文)</string>
   <string name="ignore_id3_toast">点击刷新按钮强制下载</string>
   <string name="from_id3">(来自内嵌歌词)</string>
   <string name="pandora_warning">提示：诸如Pandora® Radio的电台服务不适合作为音乐播放器，所以不与QuickLyric兼容。</string>

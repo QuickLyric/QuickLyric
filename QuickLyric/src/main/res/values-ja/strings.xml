@@ -112,7 +112,7 @@
   <string name="pref_opendyslexic">OpenDyslexic フォントを使用する</string>
   <string name="pref_opendyslexic_sum">視覚障害のある方のために作成された特別なフォントを使用します</string>
   <string name="wrong_musicID">サポートされていない MusicID サービス</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (英語のみ)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (英語のみ)</string>
   <string name="ignore_id3_toast">更新ボタンをタップすると、強制的にダウンロード</string>
   <string name="from_id3">(オーディオ ファイルから抽出した歌詞)</string>
   <string name="pandora_warning">警告: Pandora® ラジオなどのラジオ サービスは音楽プレーヤーとして機能していないため、QuickLyric で動作しません。</string>

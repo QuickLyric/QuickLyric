@@ -105,7 +105,7 @@ Las posibles razones son:<br/>
   <string name="pref_opendyslexic">Usar fuente \"OpenDyslexic\"</string>
   <string name="pref_opendyslexic_sum">Usa una fuente creada especialmente para lectores con dificultades para leer</string>
   <string name="wrong_musicID">Servicio de identificación de música no admitido</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (Solo inglés, por favor)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (Solo inglés, por favor)</string>
   <string name="ignore_id3_toast">Pulse el botón \"refrescar\" para forzar una descarga</string>
   <string name="from_id3">(Letra extraída del archivo de audio)</string>
   <string name="pandora_warning">ADVERTENCIA: Los servicios de Radio tales que Radio Pandora ® no están cualificados como reproductores de música  y no funcionan con QuickLyric.</string>

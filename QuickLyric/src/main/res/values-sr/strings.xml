@@ -108,7 +108,7 @@
   <string name="pref_opendyslexic">Користи фонт „OpenDyslexic“</string>
   <string name="pref_opendyslexic_sum">Користи посебни фонт направљен за кориснике са дислексијом</string>
   <string name="wrong_musicID">Неподржан сервис музичког ИД-а</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (само на енглеском)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (само на енглеском)</string>
   <string name="ignore_id3_toast">Тапните „Освежи“ да бисте присилили преузимање</string>
   <string name="from_id3">(Стихови извучени из фајла)</string>
   <string name="pandora_warning">Упозорење: Радио сервиси као што је Пандора® радио нису музички плејери и не раде са Квик лириком.</string>

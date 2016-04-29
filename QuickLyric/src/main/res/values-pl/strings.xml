@@ -107,7 +107,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="pref_opendyslexic">Użyj czcionki OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Użyj specjalnej czcionki stworzonej dla osób, które mają trudności z czytaniem</string>
   <string name="wrong_musicID">Nieobsługiwana usługa MusicID</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (tylko w języku angielskim)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (tylko w języku angielskim)</string>
   <string name="ignore_id3_toast">Naciśnij przycisk odświeżania, aby wymusić pobieranie</string>
   <string name="from_id3">(Tekst pochodzcy z pliku audio)</string>
   <string name="pandora_warning">Ostrzeżenie: Usługi radiowe takie jak Pandora ® Radio nie kwalifikują się jako odtwarzacze muzyki i nie działają z QuickLyric.</string>

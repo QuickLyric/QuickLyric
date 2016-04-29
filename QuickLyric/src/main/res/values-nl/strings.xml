@@ -107,7 +107,7 @@
   <string name="pref_opendyslexic">Gebruik het OpenDyslexic lettertype</string>
   <string name="pref_opendyslexic_sum">Gebruik een speciaal lettertype gemaakt voor mensen met een leeshandicap</string>
   <string name="wrong_musicID">Niet-ondersteunde MusicID dienst</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com</string>
+  <string name="pref_issues_sum">contact@quicklyric.be</string>
   <string name="ignore_id3_toast">Tik op de refresh-knop om een download te forceren</string>
   <string name="from_id3">(Songteksten gehaald uit audiobestand)</string>
   <string name="pandora_warning">Waarschuwing: Radiodiensten zoals Pandora® Radio worden niet gezien als muziekspelers en werken daarom niet met QuickLyric.</string>

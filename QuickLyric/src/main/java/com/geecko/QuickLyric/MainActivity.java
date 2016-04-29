@@ -80,6 +80,7 @@ import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.EmailConfigGenTool;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
@@ -770,8 +771,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 // Feedback
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"quicklyricapp@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Issues with QuickLyric");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@quicklyric.be"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "QuickLyric support");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, EmailConfigGenTool.genConfig(this));
                 if (emailIntent.resolveActivity(getPackageManager()) != null) {
                     Toast.makeText(this, R.string.pref_issues_sum, Toast.LENGTH_LONG).show();
                     startActivity(emailIntent);

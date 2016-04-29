@@ -108,7 +108,7 @@ Alcune cause potrebbero essere:<br/>
   <string name="pref_opendyslexic">Usa il carattere OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Utilizza un carattere speciale creato per lettori con dislessia</string>
   <string name="wrong_musicID">Servizio di riconoscimento musicale non supportato</string>
-  <string name="pref_issues_sum">quicklyricapp@gmail.com (solo in Inglese)</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (solo in Inglese)</string>
   <string name="ignore_id3_toast">Tocca il pulsante di Ricarica per forzare il download</string>
   <string name="from_id3">(Testi estratti dal file audio)</string>
   <string name="pandora_warning">Attenzione: Servizi radio come Pandora® non sono dei lettori musicali quindi non funzioneranno con QuickLyric.</string>
