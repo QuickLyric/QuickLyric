@@ -72,8 +72,8 @@ public class DownloadThread extends Thread {
 
     private static ArrayList<String> providers = new ArrayList<>(Arrays.asList(mainProviders));
 
-    public DownloadThread(final Lyrics.Callback callback, final String... params) {
-        super(DownloadThread.getRunnable(callback, params));
+    public DownloadThread(final Lyrics.Callback callback, boolean positionAvailable, final String... params) {
+        super(DownloadThread.getRunnable(callback, positionAvailable, params));
     }
 
     public static void setProviders(Iterable<String> providers) {
@@ -86,7 +86,7 @@ public class DownloadThread extends Thread {
         }
     }
 
-    public static Runnable getRunnable(final Lyrics.Callback callback, final String... params) {
+    public static Runnable getRunnable(final Lyrics.Callback callback, final boolean positionAvailable, final String... params) {
         return new Runnable() {
 
             @SuppressWarnings("unchecked")
@@ -128,6 +128,8 @@ public class DownloadThread extends Thread {
                             lyrics = ViewLyrics.fromURL(url, artist, title);
                             break;
                     }
+                    if (lyrics.isLRC() && !positionAvailable)
+                        continue;
                     if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
                         return lyrics;
                 }
@@ -177,6 +179,8 @@ public class DownloadThread extends Thread {
                             }
                             break;
                     }
+                    if (lyrics.isLRC() && !positionAvailable)
+                        continue;
                     if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
                         return lyrics;
                 }
@@ -204,9 +208,7 @@ public class DownloadThread extends Thread {
                         title = params[1];
                         lyrics = download(params[0], params[1]);
                 }
-                if (lyrics.getFlag() != Lyrics.POSITIVE_RESULT && lyrics.getArtist() != null) {
-                    artist = lyrics.getArtist();
-                    title = lyrics.getTrack();
+                if (lyrics.getFlag() != Lyrics.POSITIVE_RESULT) {
                     String[] correction = correctTags(artist, title);
                     if (!(correction[0].equals(artist) && correction[1].equals(title)) || url != null) {
                         lyrics = download(correction[0], correction[1]);

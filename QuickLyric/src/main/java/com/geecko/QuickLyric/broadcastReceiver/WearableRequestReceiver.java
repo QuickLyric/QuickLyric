@@ -48,7 +48,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         Lyrics lyrics = DatabaseHelper.get(db,
                 new String[]{intent.getStringExtra("artist"), intent.getStringExtra("track")});
         if (lyrics == null)
-            new DownloadThread(this, intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
+            new DownloadThread(this, false, intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
         else
             onLyricsDownloaded(lyrics);
     }

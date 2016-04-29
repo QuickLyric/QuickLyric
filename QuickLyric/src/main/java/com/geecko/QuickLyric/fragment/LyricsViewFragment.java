@@ -476,10 +476,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 songTV.setText(title);
             }
 
+            SharedPreferences preferences = getActivity()
+                    .getSharedPreferences("current_music", Context.MODE_PRIVATE);
+            boolean positionAvailable = preferences.getLong("position", 0) != -1;
+
             if (url == null)
-                new DownloadThread(this, artist, title).start();
+                new DownloadThread(this, positionAvailable, artist, title).start();
             else
-                new DownloadThread(this, url, artist, title).start();
+                new DownloadThread(this, positionAvailable, url, artist, title).start();
 
             new UpdateChecker.UpdateCheckTask(this).execute();
         } else if (lyrics != null)

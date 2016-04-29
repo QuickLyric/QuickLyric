@@ -90,7 +90,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                mDownloadThreadPool.execute(DownloadThread.getRunnable(this, artist, title));
+                mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
             }
             cursor.close();
         } else {
@@ -100,7 +100,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                 total = savedTracks.size();
                 updateProgress();
                 for (String[] track : savedTracks) {
-                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, track[0], track[1]));
+                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, track[0], track[1]));
                 }
             }
         }

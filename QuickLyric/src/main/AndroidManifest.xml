@@ -17,10 +17,10 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:fullBackupContent="true"
         android:theme="@style/Theme.QuickLyric">
         <activity
             android:name=".MainActivity"
@@ -71,9 +71,14 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="quicklyric" android:host="spotify" android:path="/callback"/>
+
+                <data
+                    android:host="spotify"
+                    android:path="/callback"
+                    android:scheme="quicklyric"/>
             </intent-filter>
         </activity>
 
@@ -112,6 +117,14 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"/>
 
+        <service
+            android:name=".services.NotificationListenerService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
 
         <receiver
             android:name=".broadcastReceiver.WearableRequestReceiver"
