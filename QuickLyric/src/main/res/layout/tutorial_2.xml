@@ -28,39 +28,39 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
+        app:layout_marginPercent="3.5%"
         android:src="@drawable/demo_refresh"
-        app:elevation="@dimen/intro_fab_elevation"
         app:borderWidth="0dp"
+        app:elevation="@dimen/intro_fab_elevation"
         app:layout_marginLeftPercent="12%"
         app:layout_marginRightPercent="12%"
         app:rippleColor="@color/accent"/>
 
     <RelativeLayout
-        app:layout_marginTopPercent="6%"
-        android:layout_below="@id/big_fab"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/big_fab"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content">
+        app:layout_marginTopPercent="6%">
 
         <TextView
             android:id="@+id/textView2_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="@string/refresh_desc"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textSize="24sp"/>
 
         <TextView
-            android:layout_below="@id/textView2_a"
             android:id="@+id/textView2_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/textView2_a"
             android:layout_alignRight="@id/textView2_a"
+            android:layout_below="@id/textView2_a"
             android:text="@string/refresh_desc_sub"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"/>
