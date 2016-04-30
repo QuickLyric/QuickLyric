@@ -253,6 +253,8 @@ A few possible reasons why:<br/>
     <string name="green_theme">Green</string>
     <string name="lime_theme">Lime</string>
     <string name="brown_theme">Brown</string>
+    <string name="about_read_ToS">Read our Terms of Service</string>
+    <string name="about_product_tour">Product Tour</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

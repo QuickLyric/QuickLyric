@@ -112,6 +112,17 @@
                 android:value="com.geecko.QuickLyric.MainActivity"/>
         </activity>
 
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/pref_about"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.geecko.QuickLyric.MainActivity"
+            android:windowSoftInputMode="stateUnchanged|adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.geecko.QuickLyric.MainActivity"/>
+        </activity>
+
         <service
             android:name=".services.BatchDownloaderService"
             android:icon="@mipmap/ic_launcher"

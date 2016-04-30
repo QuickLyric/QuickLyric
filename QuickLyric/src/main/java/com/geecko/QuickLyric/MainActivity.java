@@ -783,13 +783,15 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 return;
             case 5:
                 // About Dialog
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setView(getLayoutInflater().inflate(layout.links_dialog, (ViewGroup) drawerView.getRootView(), false));
-                dialog.setCancelable(true);
-                mLinksDialog = dialog.create();
-                mLinksDialog.show();
                 if (drawer instanceof DrawerLayout)
                     ((DrawerLayout) drawer).closeDrawer(drawerView);
+                drawer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
+                        startActivityForResult(aboutIntent, 77);
+                    }
+                }, 250);
                 return;
         }
 
