@@ -72,7 +72,7 @@ public class Lololyrics {
 
             Element loloResult = lololyrics.select("result").first();
 
-            if (!loloResult.select("status").text().equals("OK"))
+            if (loloResult.select("status") == null || !"OK".equals(loloResult.select("status").text()))
                 return new Lyrics(Lyrics.NO_RESULT);
 
             if (loloResult.select("response").hasText()) {
