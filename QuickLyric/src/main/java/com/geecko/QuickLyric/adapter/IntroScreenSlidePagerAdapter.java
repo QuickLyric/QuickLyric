@@ -1,10 +1,12 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.animation.ArgbEvaluator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,11 +26,14 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.view.BubblePopImageView;
 
@@ -63,14 +68,14 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             R.color.bright_yellow,
             R.color.deep_red,
             android.R.color.holo_orange_light,
-            android.R.color.holo_red_dark
+            R.color.material_red_A700
     };
     private Class[] tutorialScreens = new Class[]{
             Tutorial_0.class,
             Tutorial_1.class,
             Tutorial_2.class,
             Tutorial_3.class,
-            Tutorial_4.class
+            Tutorial_5.class
     };
     private Activity mActivity;
     private ViewPager mPager;
@@ -111,7 +116,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     mVelocityTracker = null;
                     break;
                 case android.view.MotionEvent.ACTION_MOVE: {
-                    mVelocityTracker.addMovement(event);
+                    if (mVelocityTracker != null)
+                        mVelocityTracker.addMovement(event);
                     float x = event.getX() + v.getTranslationX();
                     float deltaX = x - mDownX;
                     float deltaXAbs = Math.abs(deltaX);
@@ -122,7 +128,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     if (mSwiping) {
                         boolean startDirection = rightToLeft ? deltaX < 0 : deltaX > 0;
                         if (startDirection) {
-                            mPager.setAlpha(1f);
+                            ((View) v.getParent()).setAlpha(1f);
                             mSwiping = false;
                             return false;
                         }
@@ -207,8 +213,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
         mPager.setOnTouchListener(exitTouchListener);
-        if (!App.playStoreVariant)
-            colors = Arrays.copyOfRange(colors, 0, 4);
         if (Build.VERSION.SDK_INT >= 17)
             rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
         if (rightToLeft) {
@@ -249,7 +253,13 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
     @Override
     public int getCount() {
-        return App.playStoreVariant ? 5 : 4;
+        int count = 4;
+        if (App.playStoreVariant)
+            count += 1;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            count += 1;
+        }
+        return count;
     }
 
     @SuppressWarnings({"deprecation", "ResourceAsColor"})
@@ -272,6 +282,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         View bigFab = tutorialLayout.findViewById(R.id.big_fab);
         View handImage = tutorialLayout.findViewById(R.id.musicid_demo_hand_image);
         View soundImage = tutorialLayout.findViewById(R.id.musicid_demo_sound_image);
+        View gearA = tutorialLayout.findViewById(R.id.gear_1);
+        View gearB = tutorialLayout.findViewById(R.id.gear_2);
         BubblePopImageView tableImageView = (BubblePopImageView) tutorialLayout.findViewById(R.id.table);
         position = rightToLeft ? getCount() - 1 - position : position;
         if (rightToLeft && positionOffset > 0.0) {
@@ -311,6 +323,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 }
                 break;
             case 3:
+                if (gearA != null && gearB != null) {
+                    gearA.setRotation(-180f * positionOffset);
+                    gearB.setRotation(180f * positionOffset);
+                }
                 break;
         }
     }
@@ -413,11 +429,39 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         }
     }
 
-    public static class Tutorial_4 extends Fragment {
-        // Last page
+    @SuppressWarnings("deprecation")
+    public static class Tutorial_5 extends Fragment {
+        // Last page: optional NotificationListener page
+        @SuppressLint("NewApi")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.tutorial_4, container, false);
+            View output = inflater.inflate(R.layout.tutorial_5, container, false);
+
+            TextView link = (TextView) output.findViewById(R.id.NL_link);
+            final boolean nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
+            ((ViewGroup) link.getParent()).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!nlEnabled) {
+                        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                        MainActivity.waitingForListener = true;
+                    }
+                }
+            });
+            ((ViewGroup) link.getParent()).setClickable(true);
+            return output;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            final boolean nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
+            ((ImageView) getView().findViewById(R.id.NL_icon))
+                    .setImageResource(nlEnabled ?
+                            R.drawable.ic_done : android.R.drawable.ic_dialog_alert);
+            getActivity().findViewById(R.id.pager_ok).setEnabled(nlEnabled);
+            getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
+            MainActivity.waitingForListener = false;
         }
     }
 }

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                               xmlns:app="http://schemas.android.com/apk/res-auto"
+                                               xmlns:tools="http://schemas.android.com/tools"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="match_parent"
+                                               tools:ignore="RtlCompat">
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/gears"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        app:layout_aspectRatio="121%"
+        app:layout_widthPercent="50%">
+
+        <ImageView
+            android:id="@+id/gear_1"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="8dp"
+            android:src="@drawable/intro_5_gear"
+            app:layout_aspectRatio="100%"
+            app:layout_heightPercent="60%"
+            app:layout_marginLeftPercent="10%"/>
+
+        <ImageView
+            android:id="@+id/gear_2"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="8dp"
+            android:src="@drawable/intro_5_gear_b"
+            app:layout_aspectRatio="100%"
+            app:layout_heightPercent="60%"
+            app:layout_marginRightPercent="9%"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/gears"
+        app:layout_heightPercent="100%"
+        app:layout_widthPercent="50%">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="One last thing."
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/textView"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:paddingEnd="25dp"
+            android:text="For QuickLyric to work with all players, some settings need to be changed."
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:textColor="?android:attr/textColorPrimaryInverse"/>
+
+        <RelativeLayout
+            android:id="@+id/NL_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#3000"
+            android:foreground="?selectableItemBackground"
+            android:padding="10dp"
+            app:layout_marginBottomPercent="20%"
+            app:layout_marginLeftPercent="5%"
+            app:layout_marginRightPercent="5%">
+
+            <ImageView
+                android:id="@+id/NL_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_dialog_alert"/>
+
+            <TextView
+                android:id="@+id/NL_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/NL_icon"
+                android:gravity="start|center_vertical"
+                android:text="Allow QuickLyric to read my notifications"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

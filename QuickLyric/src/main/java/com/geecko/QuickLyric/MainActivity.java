@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
     public static final String SEARCH_FRAGMENT_TAG = "SearchFragment";
+    public static boolean waitingForListener = false;
     public View drawer;
     public View drawerView;
     public DrawerItemClickListener drawerListener;
@@ -563,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private void setupDemoScreen() {
         ViewGroup rootView = (ViewGroup) findViewById(id.root_view);
         getLayoutInflater().inflate(layout.tutorial_view, rootView);
-        ViewPager pager = (ViewPager) findViewById(id.pager);
+        final ViewPager pager = (ViewPager) findViewById(id.pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
         final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(getFragmentManager(), this);
         pager.setAdapter(pagerAdapter);
@@ -576,7 +577,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagerAdapter.exitAction();
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                    pagerAdapter.exitAction();
+                else
+                    pager.setCurrentItem(pagerAdapter.getCount() - 1);
             }
         });
         arrowButton.setOnClickListener(new View.OnClickListener() {

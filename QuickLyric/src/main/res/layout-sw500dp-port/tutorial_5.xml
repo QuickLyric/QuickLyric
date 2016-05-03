@@ -26,13 +26,12 @@
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/gears"
-        android:layout_width="wrap_content"
+        android:layout_width="425dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerInParent="true"
         app:layout_heightPercent="48%"
-        app:layout_marginTopPercent="5%"
-        app:layout_widthPercent="66%">
+        app:layout_marginTopPercent="5%">
 
         <ImageView
             android:id="@+id/gear_1"
