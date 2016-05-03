@@ -255,8 +255,27 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     @Override
     public int getCount() {
         int count = 4;
-        if (App.playStoreVariant)
+        if (App.playStoreVariant) {
             count += 1;
+            if (tutorialScreens.length < 6) {
+                tutorialScreens = new Class[]{
+                        Tutorial_0.class,
+                        Tutorial_1.class,
+                        Tutorial_2.class,
+                        Tutorial_3.class,
+                        Tutorial_4.class,
+                        Tutorial_5.class
+                };
+                colors = new Integer[]{
+                        R.color.accent_dark,
+                        R.color.bright_yellow,
+                        R.color.deep_red,
+                        android.R.color.holo_orange_light,
+                        R.color.deep_red,
+                        R.color.material_red_A700
+                };
+            }
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             count += 1;
         }
@@ -441,6 +460,14 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.tutorial_3, container, false);
+        }
+    }
+
+    public static class Tutorial_4 extends Fragment {
+        // MusicID page
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.tutorial_4, container, false);
         }
     }
 

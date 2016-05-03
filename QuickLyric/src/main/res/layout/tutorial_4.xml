@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/intro_4_red_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/intro_4_red_key"
+        android:translationX="10.0dip"
+        android:translationY="100.0dip"/>
+
+    <ImageView
+        android:id="@+id/intro_4_yellow_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/demo_image"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textView2"
+        android:layout_marginLeft="50.0dip"
+        android:src="@drawable/intro_4_yellow_key"/>
+
+    <ImageView
+        android:id="@id/demo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/intro_4_ads"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:gravity="center_horizontal"
+        android:text="@string/ad_supported_title"
+        android:textAppearance="?android:textAppearanceLargeInverse"
+        android:textSize="30.0sp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="20.0dip"
+        android:layout_marginTop="10.0dip"
+        android:lineSpacingExtra="2.0dip"
+        android:text="@string/ad_supported_text"
+        android:textAppearance="?android:textAppearanceMediumInverse"
+        android:textColor="?android:textColorPrimaryInverse"/>
+</RelativeLayout>
