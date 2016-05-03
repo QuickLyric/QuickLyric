@@ -213,7 +213,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         super(fm);
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
-        mPager.setOnTouchListener(exitTouchListener);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            mPager.setOnTouchListener(exitTouchListener);
         if (Build.VERSION.SDK_INT >= 17)
             rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
         if (rightToLeft) {
