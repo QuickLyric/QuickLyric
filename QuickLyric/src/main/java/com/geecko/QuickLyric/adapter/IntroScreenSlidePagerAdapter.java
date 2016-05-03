@@ -184,7 +184,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                                                         ((DrawerLayout) activity.drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
                                                     activity.invalidateOptionsMenu();
                                                     SharedPreferences.Editor editor =
-                                                            activity.getSharedPreferences("slides", Context.MODE_PRIVATE).edit();
+                                                            activity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
                                                     editor.putBoolean("seen", true);
                                                     editor.apply();
                                                     activity.setStatusBarColor(null);
@@ -388,7 +388,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
                 mActivity.invalidateOptionsMenu();
                 SharedPreferences.Editor editor =
-                        mActivity.getSharedPreferences("slides", Context.MODE_PRIVATE).edit();
+                        mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
                 editor.putBoolean("seen", true);
                 editor.apply();
             }
