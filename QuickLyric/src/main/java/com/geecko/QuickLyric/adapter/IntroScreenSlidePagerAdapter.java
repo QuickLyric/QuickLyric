@@ -81,6 +81,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     private ViewPager mPager;
     private boolean hasClicked = false;
     private int mCurrentPage;
+    private int count = getCount();
 
     View.OnTouchListener exitTouchListener = new View.OnTouchListener() {
         VelocityTracker mVelocityTracker;
@@ -282,8 +283,11 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         View bigFab = tutorialLayout.findViewById(R.id.big_fab);
         View handImage = tutorialLayout.findViewById(R.id.musicid_demo_hand_image);
         View soundImage = tutorialLayout.findViewById(R.id.musicid_demo_sound_image);
+        View redKey = tutorialLayout.findViewById(R.id.intro_4_red_key);
+        View yellowKey = tutorialLayout.findViewById(R.id.intro_4_yellow_key);
         View gearA = tutorialLayout.findViewById(R.id.gear_1);
         View gearB = tutorialLayout.findViewById(R.id.gear_2);
+
         BubblePopImageView tableImageView = (BubblePopImageView) tutorialLayout.findViewById(R.id.table);
         position = rightToLeft ? getCount() - 1 - position : position;
         if (rightToLeft && positionOffset > 0.0) {
@@ -323,6 +327,17 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 }
                 break;
             case 3:
+                if (redKey != null && yellowKey != null) {
+                    redKey.setTranslationY(-230F * positionOffset);
+                    yellowKey.setTranslationY(-210f * Math.min(1.3f * positionOffset, 1.0f));
+                    yellowKey.setTranslationX(-75f * Math.min(1.3f * positionOffset, 1.0f));
+                }
+                if (3 == count - 2 && gearA != null && gearB != null) {
+                    gearA.setRotation(-180f * positionOffset);
+                    gearB.setRotation(180f * positionOffset);
+                }
+                break;
+            case 4:
                 if (gearA != null && gearB != null) {
                     gearA.setRotation(-180f * positionOffset);
                     gearB.setRotation(180f * positionOffset);
