@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.BadParcelableException;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -80,12 +81,14 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200))
                 || (lengthFilter && (extras.get("secs") instanceof Long && extras.getLong("secs") > 1200000)
                 || (extras.get("secs") instanceof Double && extras.getDouble("secs") > 1200000)
-                || (extras.get("secs") instanceof Integer && extras.getInt("secs") > 1200)))
+                || (extras.get("secs") instanceof Integer && extras.getInt("secs") > 1200))
+                || (extras.containsKey("com.maxmpz.audioplayer.source") && Build.VERSION.SDK_INT >= 19))
             return;
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
-        long position = extras.containsKey("position") ? extras.getLong("position") : -1;
+        long position = extras.containsKey("position") && extras.get("position") instanceof Long ?
+                extras.getLong("position") : -1;
         if (extras.get("position") instanceof Double)
             position = Double.valueOf(extras.getDouble("position")).longValue();
         boolean isPlaying = extras.getBoolean("playing", true);
@@ -110,7 +113,8 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = current.edit();
         editor.putString("artist", artist);
         editor.putString("track", track);
-        editor.putLong("position", position);
+        if (!(artist.equals(currentArtist) && track.equals(currentTrack) && position == -1))
+            editor.putLong("position", position);
         editor.putBoolean("playing", isPlaying);
         if (isPlaying) {
             long currentTime = System.currentTimeMillis();
