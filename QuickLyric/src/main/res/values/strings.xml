@@ -253,6 +253,8 @@ A few possible reasons why:<br/>
     <string name="green_theme">Green</string>
     <string name="lime_theme">Lime</string>
     <string name="brown_theme">Brown</string>
+    <string name="ad_supported_title">QuickLyric is ad-supported</string>
+    <string name="ad_supported_text">Ads allow us to pay the artists and rightholders for their work.\nWe hope you enjoy using QuickLyric!</string>
     <string name="about_read_ToS">Read our Terms of Service</string>
     <string name="about_product_tour">Product Tour</string>
 
