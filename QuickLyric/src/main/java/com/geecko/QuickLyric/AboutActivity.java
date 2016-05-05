@@ -77,8 +77,8 @@ public class AboutActivity extends AppCompatActivity {
                 .addTwitter("QuickLyric")
                 .addWebsite("http://www.quicklyric.be")
                 .setImage(R.drawable.icon)
-                .addItem(new Element("Tour", getString(R.string.about_product_tour), R.drawable.ic_explore)) // FixMe
-                .addItem(new Element("EULA", getString(R.string.about_read_ToS), R.drawable.ic_eula)) // FixMe
+                .addItem(new Element().setTitle(getString(R.string.about_product_tour))) // FixMe
+                .addItem(new Element().setTitle(getString(R.string.about_read_ToS))) // FixMe
                 .create();
         linearLayout.addView(toolbar);
         linearLayout.addView(aboutView);

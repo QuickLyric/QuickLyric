@@ -39,7 +39,7 @@ import java.util.HashMap;
 public class LocalAdapter extends AnimatedExpandableListAdapter {
     private final AnimatedExpandableListView megaListView;
     private final int expandedColor;
-    private ArrayList<ArrayList<Lyrics>> savedLyrics = null;
+    public ArrayList<ArrayList<Lyrics>> savedLyrics = null;
     private LayoutInflater inflater;
     private HashMap<String, Long> mGroupIDs = new HashMap<>();
     private View.OnTouchListener mTouchListener;

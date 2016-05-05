@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private MusicBroadcastReceiver receiver;
     private boolean receiverRegistered = false;
     private boolean destroyed = false;
-    private AlertDialog mLinksDialog;
+    private int selectedRow = -1;
 
     private static void prepareAnimations(Fragment nextFragment) {
         if (nextFragment != null) {
@@ -181,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                  */
                 public void onDrawerClosed(View view) {
                     focusOnFragment = true;
+                    if (selectedRow != -1)
+                        selectItem(selectedRow);
+                    MainActivity.this.selectedRow = -1;
                     MainActivity.this.invalidateOptionsMenu(); // onPrepareOptionsMenu()
                 }
             };
@@ -837,32 +840,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         Toast.makeText(this, string.ignore_id3_toast, Toast.LENGTH_LONG).show();
     }
 
-    public void facebookLink(View view) {
-        openLink("https://www.facebook.com/QuickLyric");
-        mLinksDialog.dismiss();
-    }
-
-    public void twitterLink(View view) {
-        openLink("https://www.twitter.com/QuickLyric");
-        mLinksDialog.dismiss();
-    }
-
-    public void googleLink(View view) {
-        openLink("https://plus.google.com/communities/115504114424315189412");
-        mLinksDialog.dismiss();
-    }
-
-    public void githubLink(View view) {
-        openLink("https://github.com/geecko86/QuickLyric");
-        mLinksDialog.dismiss();
-    }
-
-    private void openLink(String url) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-    }
-
     public void aboutApp(View view) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setView(getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) drawerView.getRootView(), false));
@@ -884,7 +861,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+            MainActivity.this.selectedRow = position;
+            ((DrawerLayout) drawer).closeDrawer(drawerView);
         }
     }
 }

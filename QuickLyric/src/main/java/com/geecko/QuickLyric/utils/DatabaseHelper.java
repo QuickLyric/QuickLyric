@@ -60,9 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 3 && getColumnsCount(db) <= 6) {
-            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
-            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
-            database.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
         }
     }
 

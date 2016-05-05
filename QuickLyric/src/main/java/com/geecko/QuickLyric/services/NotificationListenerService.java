@@ -31,6 +31,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteController;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -52,12 +53,10 @@ public class NotificationListenerService extends android.service.notification.No
     private RemoteController mRemoteController;
     private boolean isRemoteControllerPlaying;
     private boolean mHasBug = true;
-    private MusicBroadcastReceiver broadcastReceiver;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        broadcastReceiver = new MusicBroadcastReceiver();
         mRemoteController = new RemoteController(this, this);
         if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)) {
             throw new RuntimeException("Error while registering RemoteController!");
@@ -122,7 +121,7 @@ public class NotificationListenerService extends android.service.notification.No
         localIntent.putExtra("duration", duration);
         if (position != -1)
             localIntent.putExtra("position", position);
-        broadcastReceiver.onReceive(this, localIntent);
+        new MusicBroadcastReceiver().onReceive(this, localIntent);
     }
 
     private void broadcast(String artist, String track, boolean playing, double duration, long position) {
@@ -133,7 +132,7 @@ public class NotificationListenerService extends android.service.notification.No
         localIntent.putExtra("duration", duration);
         if (position != -1)
             localIntent.putExtra("position", position);
-        broadcastReceiver.onReceive(this, localIntent);
+        new MusicBroadcastReceiver().onReceive(this, localIntent);
     }
 
     private ViewGroup getNotificationLayout(StatusBarNotification sbn) {
@@ -164,7 +163,7 @@ public class NotificationListenerService extends android.service.notification.No
         if (MainActivity.waitingForListener) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent); // Fixme
+            startActivity(intent);
         }
     }
 
@@ -240,5 +239,8 @@ public class NotificationListenerService extends android.service.notification.No
         else if (durationObject instanceof Long)
             broadcast(artist, track, isRemoteControllerPlaying, (Long) durationObject, position);
         Log.d("geecko", "MetadataUpdate - position stored: " + position);
+    }
+
+    public void onClientSessionEvent(String packageName, Bundle bundle) {
     }
 }

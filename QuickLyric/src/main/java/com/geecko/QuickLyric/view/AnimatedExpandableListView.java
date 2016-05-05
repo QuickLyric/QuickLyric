@@ -116,6 +116,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
     private static final int ANIMATION_DURATION = 300;
 
     private AnimatedExpandableListAdapter adapter;
+    private boolean hasOnGroupClickListener = false;
+    private boolean hasOnChildClickListener = false;
 
     public AnimatedExpandableListView(Context context) {
         super(context);
@@ -182,6 +184,26 @@ public class AnimatedExpandableListView extends ExpandableListView {
         // Finally call expandGroup (note that expandGroup will call
         // notifyDataSetChanged so we don't need to)
         return expandGroup(groupPos);
+    }
+
+    @Override
+    public void setOnGroupClickListener(OnGroupClickListener onGroupClickListener) {
+        super.setOnGroupClickListener(onGroupClickListener);
+        this.hasOnGroupClickListener = true;
+    }
+
+    public boolean hasOnGroupClickListener() {
+        return this.hasOnGroupClickListener;
+    }
+
+    @Override
+    public void setOnChildClickListener(OnChildClickListener onChildClickListener) {
+        super.setOnChildClickListener(onChildClickListener);
+        this.hasOnChildClickListener = true;
+    }
+
+    public boolean hasOnChildClickListener() {
+        return this.hasOnChildClickListener;
     }
 
     /**

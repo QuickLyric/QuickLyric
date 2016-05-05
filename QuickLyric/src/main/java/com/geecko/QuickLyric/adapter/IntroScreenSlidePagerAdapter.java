@@ -502,8 +502,11 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             ((ImageView) getView().findViewById(R.id.NL_icon))
                     .setImageResource(nlEnabled ?
                             R.drawable.ic_done : android.R.drawable.ic_dialog_alert);
-            getActivity().findViewById(R.id.pager_ok).setEnabled(nlEnabled);
-            getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
+            View okButton = getActivity().findViewById(R.id.pager_ok);
+            if (okButton != null) {
+                okButton.setEnabled(nlEnabled);
+                getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
+            }
             MainActivity.waitingForListener = false;
         }
     }

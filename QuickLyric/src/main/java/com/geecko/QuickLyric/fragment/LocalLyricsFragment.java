@@ -19,8 +19,6 @@
 
 package com.geecko.QuickLyric.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.app.ListFragment;
 import android.content.DialogInterface;
@@ -30,7 +28,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.VelocityTrackerCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -83,7 +80,6 @@ public class LocalLyricsFragment extends ListFragment {
     public static final int REQUEST_CODE = 0;
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
-    public ArrayList<ArrayList<Lyrics>> lyricsArray = null;
     private AnimatedExpandableListView megaListView;
     private ProgressBar progressBar;
     private BackgroundContainer mBackgroundContainer;
@@ -464,50 +460,53 @@ public class LocalLyricsFragment extends ListFragment {
             drawerAdapter.notifyDataSetChanged();
         }
 
-        megaListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        if (!megaListView.hasOnGroupClickListener())
+            megaListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                final ImageView indicator = (ImageView) v.findViewById(R.id.group_indicator);
-                RotateAnimation anim;
-                if (megaListView.isGroupExpanded(groupPosition)) {
-                    megaListView.collapseGroupWithAnimation(groupPosition);
-                    if (indicator != null) {
-                        anim = new RotateAnimation(180f, 360f, indicator.getWidth() / 2, indicator.getHeight() / 2);
-                        anim.setInterpolator(new DecelerateInterpolator(3));
-                        anim.setDuration(500);
-                        anim.setFillAfter(true);
-                        indicator.startAnimation(anim);
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                    final ImageView indicator = (ImageView) v.findViewById(R.id.group_indicator);
+                    RotateAnimation anim;
+                    if (megaListView.isGroupExpanded(groupPosition)) {
+                        megaListView.collapseGroupWithAnimation(groupPosition);
+                        if (indicator != null) {
+                            anim = new RotateAnimation(180f, 360f, indicator.getWidth() / 2, indicator.getHeight() / 2);
+                            anim.setInterpolator(new DecelerateInterpolator(3));
+                            anim.setDuration(500);
+                            anim.setFillAfter(true);
+                            indicator.startAnimation(anim);
+                        }
+                    } else {
+                        megaListView.expandGroupWithAnimation(groupPosition);
+                        if (indicator != null) {
+                            anim = new RotateAnimation(0f, 180f, indicator.getWidth() / 2, indicator.getHeight() / 2);
+                            anim.setInterpolator(new DecelerateInterpolator(2));
+                            anim.setDuration(500);
+                            anim.setFillAfter(true);
+                            indicator.startAnimation(anim);
+                        }
                     }
-                } else {
-                    megaListView.expandGroupWithAnimation(groupPosition);
-                    if (indicator != null) {
-                        anim = new RotateAnimation(0f, 180f, indicator.getWidth() / 2, indicator.getHeight() / 2);
-                        anim.setInterpolator(new DecelerateInterpolator(2));
-                        anim.setDuration(500);
-                        anim.setFillAfter(true);
-                        indicator.startAnimation(anim);
-                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
 
-        megaListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                if (mSwiping) {
-                    mSwiping = false;
-                    return false;
+        if (!megaListView.hasOnChildClickListener())
+            megaListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView parent, View v,
+                                            int groupPosition, int childPosition, long id) {
+                    if (mSwiping) {
+                        mSwiping = false;
+                        return false;
+                    }
+                    final MainActivity mainActivity = (MainActivity) getActivity();
+                    megaListView.setOnChildClickListener(null); // prevents bug on double tap
+                    mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
+                            true, ((LocalAdapter) megaListView.getExpandableListAdapter())
+                                    .savedLyrics.get(groupPosition).get(childPosition));
+                    return true;
                 }
-                final MainActivity mainActivity = (MainActivity) getActivity();
-                megaListView.setOnChildClickListener(null); // prevents bug on double tap
-                mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
-                        true, lyricsArray.get(groupPosition).get(childPosition));
-                return true;
-            }
-        });
+            });
 
         this.isActiveFragment = true;
         new DBContentLister(this).execute();
@@ -519,7 +518,6 @@ public class LocalLyricsFragment extends ListFragment {
         int index = megaListView.getFirstVisiblePosition();
         View v = megaListView.getChildAt(0);
         int top = (v == null) ? 0 : (v.getTop() - megaListView.getPaddingTop());
-        lyricsArray = results;
 
         megaListView.setAdapter(new LocalAdapter(getActivity(), results, mTouchListener, megaListView));
         megaListView.setEmptyView(((ViewGroup) getView().findViewById(R.id.local_empty_database_textview).getParent()));
@@ -647,41 +645,6 @@ public class LocalLyricsFragment extends ListFragment {
 
     public ExpandableListAdapter getExpandableListAdapter() {
         return megaListView.getExpandableListAdapter();
-    }
-
-    @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        final MainActivity mainActivity = (MainActivity) getActivity();
-        Animator anim = null;
-        if (showTransitionAnim) {
-            if (nextAnim != 0)
-                anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-            showTransitionAnim = false;
-            if (anim != null)
-                anim.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if (mainActivity.drawer instanceof DrawerLayout)
-                            ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
-                        mainActivity.setDrawerListener(true);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-                    }
-
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        mainActivity.setDrawerListener(false);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-                    }
-                });
-        } else
-            anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
-        return anim;
     }
 
     @Override
