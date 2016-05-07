@@ -247,8 +247,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
             TypedValue primaryColor = new TypedValue();
+            TypedValue accentColor = new TypedValue();
             getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
-            mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, R.color.accent);
+            getActivity().getTheme().resolveAttribute(R.attr.colorAccent, accentColor, true);
+            mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, accentColor.resourceId);
             float offset = getResources().getDisplayMetrics().density * 64;
             mRefreshLayout.setProgressViewEndTarget(true, (int) offset);
             mRefreshLayout.setOnRefreshListener(this);
