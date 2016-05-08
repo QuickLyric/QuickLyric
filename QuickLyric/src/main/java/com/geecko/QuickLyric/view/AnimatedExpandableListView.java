@@ -34,6 +34,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import com.geecko.QuickLyric.adapter.LocalAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,7 +164,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
         int groupFlatPos = getFlatListPosition(getPackedPositionForGroup(groupPos));
         if (groupFlatPos != -1) {
             int childIndex = groupFlatPos - getFirstVisiblePosition();
-            if (childIndex < getChildCount()) {
+            if (childIndex < getChildCount() && childIndex > 0) {
                 // Get the view for the group is it is on screen...
                 View v = getChildAt(childIndex);
                 if (v.getBottom() >= getBottom()) {
@@ -189,7 +191,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
     @Override
     public void setOnGroupClickListener(OnGroupClickListener onGroupClickListener) {
         super.setOnGroupClickListener(onGroupClickListener);
-        this.hasOnGroupClickListener = true;
+        this.hasOnGroupClickListener = onGroupClickListener != null;
     }
 
     public boolean hasOnGroupClickListener() {
@@ -199,7 +201,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
     @Override
     public void setOnChildClickListener(OnChildClickListener onChildClickListener) {
         super.setOnChildClickListener(onChildClickListener);
-        this.hasOnChildClickListener = true;
+        this.hasOnChildClickListener = onChildClickListener != null;
     }
 
     public boolean hasOnChildClickListener() {
@@ -446,12 +448,11 @@ public class AnimatedExpandableListView extends ExpandableListView {
                     childView.measure(measureSpecW, childHeightSpec);
                     totalHeight += childView.getMeasuredHeight();
 
-                    if (totalHeight < clipHeight) {
-                        // we only need to draw enough views to fool the user...
-                        dummyView.addFakeView(childView);
-                    } else {
-                        dummyView.addFakeView(childView);
 
+                    // we only need to draw enough views to fool the user...
+                    dummyView.addFakeView(childView, ((LocalAdapter)
+                            ((ExpandableListView) parent).getExpandableListAdapter()).getItemOnTouchListener());
+                    if (totalHeight >= clipHeight) {
                         // if this group has too many views, we don't want to
                         // calculate the height of everything... just do a light
                         // approximation and break
@@ -538,8 +539,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
 
     }
 
-    private static class DummyView extends View {
-        private List<View> views = new ArrayList<View>();
+    public static class DummyView extends View {
+        public List<View> views = new ArrayList<View>();
         private Drawable divider;
         private int dividerWidth;
         private int dividerHeight;
@@ -561,11 +562,13 @@ public class AnimatedExpandableListView extends ExpandableListView {
         /**
          * Add a view for the DummyView to draw.
          *
-         * @param childView View to draw
+         * @param childView           View to draw
+         * @param itemOnTouchListener
          */
-        public void addFakeView(View childView) {
+        public void addFakeView(View childView, OnTouchListener itemOnTouchListener) {
             childView.layout(0, 0, getWidth(), childView.getMeasuredHeight());
             views.add(childView);
+            setOnTouchListener(itemOnTouchListener);
         }
 
         @Override

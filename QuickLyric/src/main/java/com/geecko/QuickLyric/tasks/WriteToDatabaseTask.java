@@ -33,10 +33,13 @@ import android.widget.Toast;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.adapter.LocalAdapter;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+
+import java.util.HashMap;
 
 public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
@@ -116,16 +119,29 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
         } else if (fragment instanceof LocalLyricsFragment) {
+            HashMap<Long, Integer> topMap = mLocalLyricsFragment.collectTopPositions();
+            mLocalLyricsFragment.addObserver(topMap);
+            int position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                    .getGroupPosition(lyricsArray[0].getArtist());
+            ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                    .removeArtistFromCache(lyricsArray[0].getArtist());
+            if (result && position == -1)
+                ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                        .addArtist(lyricsArray[0].getArtist());
             View.OnClickListener actionClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View snackbar) {
-                    mLocalLyricsFragment.animateUndo(lyricsArray);
+                    mLocalLyricsFragment.animateUndo(lyricsArray[0]);
                 }
             };
             if (!result && fragment.getView() != null) {
                 Snackbar.make(fragment.getView(), message, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, actionClickListener)
                         .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
+            } else if (fragment.getView() != null && position == -1) {
+                position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                        .getGroupPosition(lyricsArray[0].getArtist());
+                mLocalLyricsFragment.getMegaListView().expandGroupWithAnimation(position);
             }
         }
     }

@@ -19,23 +19,21 @@
 
 package com.geecko.QuickLyric.tasks;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
-import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 import java.text.Collator;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.TreeMap;
+import java.util.List;
+import java.util.TreeSet;
 
-public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList<Lyrics>>> {
+public class DBContentLister extends AsyncTask<Object, Void, String[]> {
     private LocalLyricsFragment localLyricsFragment;
 
     public DBContentLister(LocalLyricsFragment localLyricsFragment) {
@@ -48,60 +46,33 @@ public class DBContentLister extends AsyncTask<Object, Void, ArrayList<ArrayList
     }
 
     @Override
-    protected ArrayList<ArrayList<Lyrics>> doInBackground(Object... params) {
+    protected String[] doInBackground(Object... params) {
         if (localLyricsFragment == null || localLyricsFragment.getActivity() == null)
-            return new ArrayList<>(0);
-        SharedPreferences sharedPreferences = localLyricsFragment.getActivity().getSharedPreferences("local_sort_order", Context.MODE_PRIVATE);
-        int orderColumn = sharedPreferences.getInt("mode", 0);
-        boolean descending;
-        String[] columns;
-        switch (orderColumn) {
-            default:
-                descending = (sharedPreferences.getInt("order_artist", 1) == 1);
-                columns = new String[]{DatabaseHelper.columns[0], DatabaseHelper.columns[1]};
-                break;
-            case 1:
-                descending = (sharedPreferences.getInt("order_title", 1) == 1);
-                columns = new String[]{DatabaseHelper.columns[1], DatabaseHelper.columns[0]};
-                break;
-        }
-        String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE %s,%s COLLATE NOCASE ASC", columns[0], (descending ? "DESC" : "ASC"), columns[1]);
+            return new String[0];
+        String[] columns = new String[]{DatabaseHelper.columns[0], DatabaseHelper.columns[1]};
+        String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE DESC,%s COLLATE NOCASE ASC", columns[0], columns[1]);
         SQLiteDatabase database = ((MainActivity) localLyricsFragment.getActivity()).database;
         if (database != null) {
-            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, query);
+            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, new String[] {DatabaseHelper.columns[0]},
+                    null, null, null, null, query);
             cursor.moveToFirst();
-            ArrayList<ArrayList<Lyrics>> results = new ArrayList<>(cursor.getCount());
             Collator collator = Collator.getInstance();
             collator.setStrength(Collator.PRIMARY);
-            TreeMap<String, ArrayList<Lyrics>> map = new TreeMap<>(collator);
+            TreeSet<String> set = new TreeSet<>(collator);
             if (cursor.moveToFirst())
                 do {
-                    Lyrics l = new Lyrics(Lyrics.POSITIVE_RESULT);
-                    l.setArtist(cursor.getString(0));
-                    l.setTitle(cursor.getString(1));
-                    l.setText(cursor.getString(2));
-                    l.setURL(cursor.getString(3));
-                    l.setSource(cursor.getString(4));
-                    l.setCoverURL(cursor.getString(5));
-                    l.setOriginalArtist(cursor.getString(6));
-                    l.setOriginalTitle(cursor.getString(7));
-                    l.setLRC(cursor.getInt(8) == 1);
-                    if (map.get(l.getArtist()) == null)
-                        map.put(l.getArtist(), new ArrayList<Lyrics>());
-                    ArrayList<Lyrics> artistSubGroup = map.get(l.getArtist());
-                    artistSubGroup.add(l);
+                    if (!set.contains(cursor.getString(0)))
+                        set.add(cursor.getString(0));
                 } while (!cursor.isClosed() && database.isOpen() && cursor.moveToNext());
-            ArrayList<String> keys = new ArrayList<>(map.keySet());
-            Collections.sort(keys, String.CASE_INSENSITIVE_ORDER);
-            for (String key : keys)
-                results.add(map.get(key));
+            List<String> artists = Arrays.asList(set.toArray(new String[set.size()]));
+            Collections.sort(artists, String.CASE_INSENSITIVE_ORDER);
             cursor.close();
-            return results;
+            return (String[]) artists.toArray();
         } else
-            return new ArrayList<>(0);
+            return new String[0];
     }
 
-    protected void onPostExecute(final ArrayList<ArrayList<Lyrics>> results) {
-            localLyricsFragment.update(results);
+    protected void onPostExecute(final String[] results) {
+        localLyricsFragment.update(results);
     }
 }

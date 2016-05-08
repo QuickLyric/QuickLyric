@@ -44,6 +44,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -120,17 +121,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private boolean destroyed = false;
     private int selectedRow = -1;
 
-    private static void prepareAnimations(Fragment nextFragment) {
-        if (nextFragment != null) {
-            Class fragmentClass = ((Object) nextFragment).getClass();
-            try {
-                fragmentClass.getDeclaredField("showTransitionAnim").setBoolean(nextFragment, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             TypedValue darkColorValue = new TypedValue();
             theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
             ((DrawerLayout) drawer).setStatusBarBackgroundColor(darkColorValue.data);
-            ((DrawerLayout) drawer).setDrawerListener(mDrawerToggle);
+            ((DrawerLayout) drawer).addDrawerListener(mDrawerToggle);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
                 final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);
@@ -454,6 +444,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         if (LyricsSearchSuggestionsProvider.database != null
                 && LyricsSearchSuggestionsProvider.database.isOpen())
             LyricsSearchSuggestionsProvider.database.close();
+        try {
+            ((Class.forName("android.view.inputmethod.InputMethodManager"))
+                    .getMethod("wind‌​owDismissed", IBinder.class)).invoke(null, drawer.getWindowToken());
+        } catch (Exception ignored) {
+        }
         super.onDestroy();
     }
 
@@ -621,6 +616,15 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 color = typedValue.data;
             }
             getWindow().setNavigationBarColor(color);
+        }
+    }
+
+    private void prepareAnimations(Fragment nextFragment) {
+        if (nextFragment != null) {
+            if (nextFragment instanceof LocalLyricsFragment)
+                ((LocalLyricsFragment) nextFragment).showTransitionAnim = true;
+            else if (nextFragment instanceof LyricsViewFragment)
+                ((LyricsViewFragment) nextFragment).showTransitionAnim = true;
         }
     }
 

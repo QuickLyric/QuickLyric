@@ -28,25 +28,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 public class LocalAdapter extends AnimatedExpandableListAdapter {
     private final AnimatedExpandableListView megaListView;
     private final int expandedColor;
-    public ArrayList<ArrayList<Lyrics>> savedLyrics = null;
     private LayoutInflater inflater;
+    private String[] mArtists;
+    private final WeakHashMap<String, Lyrics[]> mCache;
     private HashMap<String, Long> mGroupIDs = new HashMap<>();
     private View.OnTouchListener mTouchListener;
 
-    public LocalAdapter(Context context, ArrayList<ArrayList<Lyrics>> lyrics,
-                        View.OnTouchListener touchListener, AnimatedExpandableListView listView) {
-        savedLyrics = lyrics;
+    public LocalAdapter(Context context, String[] artists, View.OnTouchListener touchListener,
+                        AnimatedExpandableListView listView) {
+        this.mArtists = artists;
+        mCache = new WeakHashMap<>(4);
         inflater = LayoutInflater.from(context);
         mTouchListener = touchListener;
         megaListView = listView;
@@ -69,15 +74,18 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         } else
             holder = (GroupViewHolder) convertView.getTag();
         holder.artist.setTextColor(isExpanded ? expandedColor : holder.textColor);
-        holder.artist.setText(getChild(groupPosition, 0).getArtist());
+        holder.artist.setText(mArtists[groupPosition]);
         holder.artist.setTypeface(null, isExpanded ? Typeface.BOLD : Typeface.NORMAL);
+        convertView.setAlpha(1f);
+        if (convertView.getTranslationX() == convertView.getWidth())
+            convertView.setTranslationX(0f);
         return convertView;
     }
 
     @Override
     public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildViewHolder holder;
-        if (convertView == null) {
+        if (convertView == null || !(convertView.getTag() instanceof ChildViewHolder)) {
             convertView = inflater.inflate(R.layout.local_child_item, parent, false);
             holder = new ChildViewHolder();
             holder.title = (TextView) convertView.findViewById(R.id.child_title);
@@ -88,37 +96,48 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         convertView.setOnTouchListener(mTouchListener);
         holder.groupPosition = groupPosition;
         holder.lyrics = getChild(groupPosition, childPosition);
+        convertView.setAlpha(1f);
+        convertView.setTranslationX(0f);
         return convertView;
     }
 
     @Override
     public int getRealChildrenCount(int groupPosition) {
-        return savedLyrics == null ? 0 : savedLyrics.get(groupPosition).size();
+        return getGroup(groupPosition).length;
     }
 
     @Override
     public int getGroupCount() {
-        return savedLyrics.size();
+        return mArtists.length;
     }
 
     @Override
-    public ArrayList<Lyrics> getGroup(int groupPosition) {
-        ArrayList<Lyrics> group = savedLyrics.size() > 0 && groupPosition < savedLyrics.size()
-                ? savedLyrics.get(groupPosition) : null;
-        if (group != null && group.size() > 0)
-            mGroupIDs.put(group.get(0).getArtist(), (long) group.get(0).getArtist().hashCode());
-        return group;
+    public Lyrics[] getGroup(int groupPosition) {
+        String artistName = mArtists[groupPosition];
+        if (mCache.containsKey(artistName))
+            return mCache.get(artistName);
+        Lyrics[] results = DatabaseHelper
+                .getLyricsByArtist(((MainActivity) megaListView.getContext()).database, artistName);
+        mGroupIDs.put(artistName, (long) artistName.hashCode());
+        mCache.put(artistName, results);
+        return results;
     }
 
     @Override
     public Lyrics getChild(int groupPosition, int childPosition) {
-        return getGroup(groupPosition).get(childPosition);
+        return getGroup(groupPosition)[childPosition];
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        String artist = getChild(groupPosition, 0).getArtist();
-        return mGroupIDs.get(artist);
+        String artist = mArtists[groupPosition];
+        if (mGroupIDs.containsKey(artist))
+            return mGroupIDs.get(artist);
+        else {
+            long id = artist.hashCode();
+            mGroupIDs.put(artist, id);
+            return id;
+        }
     }
 
     @Override
@@ -131,55 +150,47 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         return true;
     }
 
+    public void removeArtistFromCache(String artist) {
+        if (mCache.containsKey(artist)) {
+            int count = mCache.get(artist).length;
+            mCache.remove(artist);
+            if (count <= 1) {
+                int j = 0;
+                String[] newArtists = new String[mArtists.length - 1];
+                for (String str : mArtists) {
+                    if (artist.equals(str))
+                        continue;
+                    newArtists[j++] = str;
+                }
+                mArtists = newArtists;
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    public void addArtist(String artist) {
+        String[] newArtists = Arrays.copyOf(mArtists, mArtists.length + 1);
+        newArtists[newArtists.length - 1] = artist;
+        Arrays.sort(newArtists);
+        this.mArtists = newArtists;
+        notifyDataSetChanged();
+    }
+
+    public View.OnTouchListener getItemOnTouchListener() {
+        return mTouchListener;
+    }
+
+    public int getGroupPosition(String artist) {
+        for (int i = 0; i < mArtists.length; i++) {
+            if (mArtists[i].equalsIgnoreCase(artist))
+                return i;
+        }
+        return -1;
+    }
+
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
-    }
-
-    public int add(Lyrics lyricsToAdd) {
-        int index = 0;
-        for (ArrayList<Lyrics> sublist : savedLyrics) {
-            if (sublist.get(0).getArtist().equals(lyricsToAdd.getArtist())) {
-                int innerIndex = 0;
-                for (Lyrics item : sublist)
-                    if (lyricsToAdd.getTrack().compareToIgnoreCase(item.getTrack()) > 0)
-                        innerIndex++;
-                    else
-                        break;
-                sublist.add(innerIndex, lyricsToAdd);
-                notifyDataSetChanged();
-                return index;
-            } else if (lyricsToAdd.getArtist().compareToIgnoreCase(sublist.get(0).getArtist()) > 0)
-                index++;
-            else
-                break;
-        }
-        // Add group:
-        ArrayList<Lyrics> sublist = new ArrayList<>();
-        sublist.add(lyricsToAdd);
-        savedLyrics.add(index, sublist);
-        notifyDataSetChanged();
-        return index;
-    }
-
-    public boolean remove(int groupPosition, View viewToRemove) {
-        int childPosition = getGroup(groupPosition).indexOf(((ChildViewHolder) viewToRemove.getTag()).lyrics);
-        boolean result = getGroup(groupPosition).remove(childPosition) != null;
-        if (result) {
-            if (getGroup(groupPosition).size() != 0 || !remove(groupPosition))
-                notifyDataSetInvalidated();
-        }
-        return result;
-    }
-
-    public boolean remove(int groupPosition) {
-        boolean result = savedLyrics.remove(groupPosition) != null;
-        if (result) {
-            if (getGroupCount() > groupPosition)
-                megaListView.collapseGroup(groupPosition);
-            notifyDataSetChanged();
-        }
-        return result;
     }
 
     public class ChildViewHolder {

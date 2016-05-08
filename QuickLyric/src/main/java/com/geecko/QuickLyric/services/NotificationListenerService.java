@@ -190,6 +190,8 @@ public class NotificationListenerService extends android.service.notification.No
     public void onClientPlaybackStateUpdate(int state, long stateChangeTimeMs, long currentPosMs, float speed) {
         this.isRemoteControllerPlaying = state == RemoteControlClient.PLAYSTATE_PLAYING;
         mHasBug = false;
+        if (currentPosMs > 3600000)
+            currentPosMs = -1L;
         SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = current.edit();
         editor.putLong("position", currentPosMs);
@@ -212,7 +214,9 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientTransportControlUpdate(int transportControlFlags) {
         if (mHasBug) {
-            long position = mRemoteController.getEstimatedMediaPosition() + 3000;
+            long position = mRemoteController.getEstimatedMediaPosition();
+            if (position > 3600000)
+                position = -1L;
             SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
             current.edit().putLong("position", position).apply();
             if (isRemoteControllerPlaying) {
@@ -227,6 +231,8 @@ public class NotificationListenerService extends android.service.notification.No
     public void onClientMetadataUpdate(RemoteController.MetadataEditor metadataEditor) {
         // isRemoteControllerPlaying = true;
         long position = mRemoteController.getEstimatedMediaPosition();
+        if (position > 3600000)
+            position = -1L;
         Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 60000);
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));

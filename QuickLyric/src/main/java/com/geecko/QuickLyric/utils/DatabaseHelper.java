@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_COVER_URL = "cover";
     public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE,
             KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC};
-    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT,"  + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, "  + KEY_LRC + " BIT);";
+    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT);";
     private static SQLiteDatabase database = null;
 
     public DatabaseHelper(Context context) {
@@ -132,6 +132,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return result;
+    }
+
+    public static Lyrics[] getLyricsByArtist(SQLiteDatabase database, String artist) {
+        String[] columns = DatabaseHelper.columns;
+        String order = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE DESC,%s COLLATE NOCASE ASC", columns[0], columns[1]);
+        Cursor cursor = database.query(TABLE_NAME, null, String.format("upper(%s)=upper(?) OR upper(%s)=upper(?)",
+                columns[0], columns[6]), new String[]{artist, artist}, null, null, order);
+        Lyrics[] results = new Lyrics[cursor.getCount()];
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0)
+            do {
+                Lyrics result = new Lyrics(Lyrics.POSITIVE_RESULT);
+                result.setArtist(cursor.getString(0));
+                result.setTitle(cursor.getString(1));
+                result.setText(cursor.getString(2));
+                result.setURL(cursor.getString(3));
+                result.setSource(cursor.getString(4));
+                result.setCoverURL(cursor.getString(5));
+                result.setOriginalArtist(cursor.getString(6));
+                result.setOriginalTitle(cursor.getString(7));
+                result.setLRC(cursor.getInt(8) > 0);
+                results[cursor.getPosition()] = result;
+            } while (cursor.moveToNext());
+        cursor.close();
+        return results;
     }
 
     public static int getColumnsCount(SQLiteDatabase database) {
