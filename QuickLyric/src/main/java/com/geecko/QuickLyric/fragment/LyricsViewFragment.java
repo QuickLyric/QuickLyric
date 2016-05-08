@@ -616,6 +616,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     mScrollView.smoothScrollTo(0, 0);
                 }
             });
+            //if we have a cover, we explicitly recycle it without waiting for the CG to avoid potential OOM
+            if(cover != null){
+                cover.recycle();
+                cover = null;
+            }
         } else {
             textSwitcher.setText("");
             textSwitcher.setVisibility(View.INVISIBLE);
