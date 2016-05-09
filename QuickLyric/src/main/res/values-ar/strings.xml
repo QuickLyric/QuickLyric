@@ -26,11 +26,11 @@
   <string name="connection_error">غير قادر على الاتصال</string>
   <string name="no_refresh">لا حاجة لتحديث</string>
   <string name="search_hint">بحث</string>
-  <string name="search_no_result">لا النتائج</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">لا النتائج</string>
   <string name="beam_txt">نريد أن نرسل لك هذه الكلمات؟</string>
   <string name="pref_20min_ignore">عروض خاصة حول طويلة الموسيقى</string>
   <string name="pref_20min_ignore_sum">لا تعتبر أطول الموسيقى 20 دقيقة الموسيقى</string>
-  <string name="pref_about">حول</string>
+  <string name="pref_about" tools:ignore="ExtraTranslation">حول</string>
   <string name="pref_about_summary">معرفة المزيد حول Quicklyric </string>
   <string name="local_title">الكلمات المسجلة</string>
   <string name="settings_title">إعدادات</string>
@@ -40,21 +40,21 @@
   <string name="remove_action">مسح</string>
   <string name="pref_auto_refresh_title">تحديث الكلمات تلقائيا</string>
   <string name="pref_auto_refresh_summary">كلمات سيتم تحديث تلقائيا عندما تتغير الموسيقى</string>
-  <string name="select_all_action">تحديد الكل</string>
-  <string name="unselect_all_action">إلغاء تحديد كل</string>
-  <string name="sort_action">ترتيب</string>
-  <string name="sort_dialog_title">ترتيب&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">تحديد الكل</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">إلغاء تحديد كل</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">ترتيب</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">ترتيب&#8230;</string>
   <string name="local_empty_database">هل يتم حفظ كلمات</string>
-  <string name="pref_animations_title">تمكين الرسوم المتحركة</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">تمكين الرسوم المتحركة</string>
   <string name="welcome">مرحبا بكم في Quicklyric ! </string>
   <string name="pref_more_category">مزيد</string>
   <string name="undo">تراجع</string>
   <string name="skip">تخطى</string>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>حسب المزيد&#8230;</item>
     <item>حسب العنوان&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>أبجديا</item>
     <item>عكس</item>
   </string-array>

@@ -22,17 +22,17 @@
   <string name="app_name">Квик лирик</string>
   <string name="title_lyrics">Стихови</string>
   <string name="share">Подели</string>
-  <string name="refresh">Освежи</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">Освежи</string>
   <string name="no_results">Нема нађених стихова за ову нумеру</string>
   <string name="connection_error">Не могу да се повежем.</string>
   <string name="no_refresh">Није потребно освежавање</string>
   <string name="search_hint">Тражи</string>
-  <string name="search_no_result">Нема резултата</string>
-  <string name="beam_txt">Да пошаљем ове стихове?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">Нема резултата</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">Да пошаљем ове стихове?</string>
   <string name="pref_20min_ignore">Занемари дуге нумере</string>
   <string name="pref_20min_ignore_sum">Нумере дуже од 20 минута (нпр. подкасти) се не сматрају песмама</string>
   <string name="pref_about">О програму</string>
-  <string name="pref_about_summary">Још о Квик лирику</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">Још о Квик лирику</string>
   <string name="local_title">Сачувани стихови</string>
   <string name="settings_title">Поставке</string>
   <string name="save_action">Сачувај</string>
@@ -41,12 +41,12 @@
   <string name="remove_action">Обриши</string>
   <string name="pref_auto_refresh_title">Аутоматско освежавање</string>
   <string name="pref_auto_refresh_summary">Стихови ће бити аутоматски освежени при промени песме</string>
-  <string name="select_all_action">Изабери све</string>
-  <string name="unselect_all_action">Поништи избор</string>
-  <string name="sort_action">Поређај</string>
-  <string name="sort_dialog_title">Ређање&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">Изабери све</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">Поништи избор</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">Поређај</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">Ређање&#8230;</string>
   <string name="local_empty_database">Немате сачуваних стихова.</string>
-  <string name="pref_animations_title">Омогући анимације</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">Омогући анимације</string>
   <string name="pref_look_feel_category">Изглед и осећај</string>
   <string name="welcome">Добро дошли у Квик лирик!</string>
   <string name="welcome2_sub">Стихови које сте тражили&#8230;\nОвде, сада.</string>
@@ -57,8 +57,8 @@
   <string name="id_desc_sub">1. Препознајте песму\n2. Поделите резултат са Квик лириком\n3. Уживајте у стиховима</string>
   <string name="refresh_desc">Кад се промени песма&#8230;</string>
   <string name="refresh_desc_sub">Тапните ово дугме. Квик лирик ће да уради остало.</string>
-  <string name="drawer_desc">Истражимо даље!</string>
-  <string name="drawer_desc_sub">Да приступите осталим функцијама, тапните овде (или превуците екран са ивице).</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">Истражимо даље!</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">Да приступите осталим функцијама, тапните овде (или превуците екран са ивице).</string>
   <string name="pref_more_category">Још</string>
   <string name="share_prompt">Увези из музичког ИД-а</string>
   <string name="undo">Врати</string>
@@ -79,9 +79,9 @@
   <string name="dl_finished">Преузимање завршено</string>
   <string name="pref_providers">Додатни извори стихова</string>
   <string name="pref_providers_sum">Што их више изаберете, дуже ће трајати свако преузимање</string>
-  <string name="pref_issues">Пријава грешака</string>
-  <string name="pref_contribute">Доприноси на Гитхабу</string>
-  <string name="pref_contribute_sum">Побољшајте превод, проширите каталог стихова&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">Пријава грешака</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">Доприноси на Гитхабу</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">Побољшајте превод, проширите каталог стихова&#8230;</string>
   <string name="pref_beta">Постаните бета тестер</string>
   <string name="pref_beta_sum">Добијајте надоградње (нове функције и исправке грешака) брже и јављајте нам се е-поштом</string>
   <string name="scan_error_no_content">Нисам нашао музику</string>
@@ -111,7 +111,7 @@
   <string name="pref_issues_sum">contact@quicklyric.be (само на енглеском)</string>
   <string name="ignore_id3_toast">Тапните „Освежи“ да бисте присилили преузимање</string>
   <string name="from_id3">(Стихови извучени из фајла)</string>
-  <string name="pandora_warning">Упозорење: Радио сервиси као што је Пандора® радио нису музички плејери и не раде са Квик лириком.</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">Упозорење: Радио сервиси као што је Пандора® радио нису музички плејери и не раде са Квик лириком.</string>
   <plurals name="scan_dialog">
     <item quantity="one">Квик лирик ће да преузме стихове за укупно %1$d песму.\
         Побрините се да имате стабилну везу %2$d минута.</item>
@@ -128,11 +128,11 @@
     <item quantity="many">Преузети стихови за %1$d песама</item>
     <item quantity="other">Преузети стихови за %1$d песама</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>по извођачу&#8230;</item>
     <item>по наслову&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>растуће</item>
     <item>опадајуће</item>
   </string-array>

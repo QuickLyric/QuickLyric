@@ -21,17 +21,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">Letras</string>
   <string name="share">Compartir</string>
-  <string name="refresh">Actualizar</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">Actualizar</string>
   <string name="no_results">No se encontró la letra de esta canción</string>
   <string name="connection_error">No se ha podido conectar.</string>
   <string name="no_refresh">No es necesario actualizar</string>
   <string name="search_hint">Buscar</string>
-  <string name="search_no_result">Sin resultados</string>
-  <string name="beam_txt">¿Enviar esta letra?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">Sin resultados</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">¿Enviar esta letra?</string>
   <string name="pref_20min_ignore">Ignorar canciones largas</string>
   <string name="pref_20min_ignore_sum">Canciones mas largas de 20 minutos (como podcasts) no son consideradas canciones</string>
   <string name="pref_about">Acerca De</string>
-  <string name="pref_about_summary">Mas acerca de QuickLyric</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">Mas acerca de QuickLyric</string>
   <string name="local_title">Letras guardadas</string>
   <string name="settings_title">Ajustes</string>
   <string name="save_action">Guardar letra</string>
@@ -40,13 +40,13 @@
   <string name="remove_action">Borrar</string>
   <string name="pref_auto_refresh_title">Actualizar letras automáticamente</string>
   <string name="pref_auto_refresh_summary">Las letras se actualizarán automáticamente cada vez que la música cambia</string>
-  <string name="select_all_action">Seleccionar todo</string>
-  <string name="unselect_all_action">Deshacer selección</string>
-  <string name="sort_action">Ordenar</string>
-  <string name="sort_dialog_title">Ordenar&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">Seleccionar todo</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">Deshacer selección</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">Ordenar</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">Ordenar&#8230;</string>
   <string name="local_empty_database">Aun no ha guardado ninguna letra.</string>
-  <string name="pref_animations_title">Habilitar animaciones</string>
-  <string name="pref_animations_sum">Puede causar problemas en otros dispositivos</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">Habilitar animaciones</string>
+  <string name="pref_animations_sum" tools:ignore="ExtraTranslation">Puede causar problemas en otros dispositivos</string>
   <string name="pref_look_feel_category">Apariencia</string>
   <string name="welcome">Bienvenido a QuickLyric !</string>
   <string name="welcome2_sub">Las letras que estabas buscando&#8230; aquí, ahora.</string>
@@ -57,8 +57,8 @@
   <string name="id_desc_sub">1. Identifique una canción\n2. Comparta los resultados a QuickLyric\n3. Disfrute de su letra</string>
   <string name="refresh_desc">Cuando la canción ha cambiado&#8230;</string>
   <string name="refresh_desc_sub">Presiona este botón, QuickLyric hará el resto.</string>
-  <string name="drawer_desc">Vayamos mas profundo !</string>
-  <string name="drawer_desc_sub">Para acceder a otras funciones, presione aquí (o deslice desde el borde izquierdo).</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">Vayamos mas profundo !</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">Para acceder a otras funciones, presione aquí (o deslice desde el borde izquierdo).</string>
   <string name="pref_more_category">Más</string>
   <string name="share_prompt">Importar desde MusicID</string>
   <string name="undo">Deshacer</string>
@@ -79,9 +79,9 @@
   <string name="dl_finished">Descarga completa</string>
   <string name="pref_providers">Fuentes adicionales de letras</string>
   <string name="pref_providers_sum">Mientras más opciones elija, más tiempo tomará cada descarga</string>
-  <string name="pref_issues">Reportar Problemas</string>
-  <string name="pref_contribute">Contribuir en GitHub</string>
-  <string name="pref_contribute_sum">Mejorar traducciones, expandir el catálogo de letras&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">Reportar Problemas</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">Contribuir en GitHub</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">Mejorar traducciones, expandir el catálogo de letras&#8230;</string>
   <string name="pref_beta">Hazte Beta tester</string>
   <string name="pref_beta_sum">Obten novedades más rápido (nuevas características, corrección de errores, …) y danos tu opinión por correo electrónico</string>
   <string name="scan_error_no_content">No se encontró música</string>
@@ -108,7 +108,7 @@ Las posibles razones son:<br/>
   <string name="pref_issues_sum">contact@quicklyric.be (Solo inglés, por favor)</string>
   <string name="ignore_id3_toast">Pulse el botón \"refrescar\" para forzar una descarga</string>
   <string name="from_id3">(Letra extraída del archivo de audio)</string>
-  <string name="pandora_warning">ADVERTENCIA: Los servicios de Radio tales que Radio Pandora ® no están cualificados como reproductores de música  y no funcionan con QuickLyric.</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">ADVERTENCIA: Los servicios de Radio tales que Radio Pandora ® no están cualificados como reproductores de música  y no funcionan con QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>
@@ -119,11 +119,11 @@ Las posibles razones son:<br/>
     <item quantity="one">Descargadas las letras de %1$d canción</item>
     <item quantity="other">Descargadas las letras de %1$d canciones</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>Por artista&#8230;</item>
     <item>Por título&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>Alfabéticamente</item>
     <item>Invertido</item>
   </string-array>

@@ -21,17 +21,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">Songteksten</string>
   <string name="share">Delen</string>
-  <string name="refresh">Verversen</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">Verversen</string>
   <string name="no_results">Geen songtekst gevonden voor dit nummer</string>
   <string name="connection_error">Kon niet verbinden.</string>
   <string name="no_refresh">Er hoeft niet ververst te worden</string>
   <string name="search_hint">Zoeken</string>
-  <string name="search_no_result">Geen resultaat</string>
-  <string name="beam_txt">Deze songtekst delen?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">Geen resultaat</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">Deze songtekst delen?</string>
   <string name="pref_20min_ignore">Negeer lange liedjes</string>
   <string name="pref_20min_ignore_sum">Liedjes langer dan 20 minuten (zoals podcasts) zullen genegeerd worden</string>
   <string name="pref_about">Over ons</string>
-  <string name="pref_about_summary">Meer informatie over QuickLyric</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">Meer informatie over QuickLyric</string>
   <string name="local_title">Opgeslagen songteksten</string>
   <string name="settings_title">Instellingen</string>
   <string name="save_action">Opslaan</string>
@@ -40,13 +40,13 @@
   <string name="remove_action">Verwijderen</string>
   <string name="pref_auto_refresh_title">Songteksten automatisch vernieuwen</string>
   <string name="pref_auto_refresh_summary">Teksten automatisch vernieuwen elke keer dat de muziek verandert</string>
-  <string name="select_all_action">Alles selecteren</string>
-  <string name="unselect_all_action">Alles deselecteren</string>
-  <string name="sort_action">Sorteren</string>
-  <string name="sort_dialog_title">Sorteren&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">Alles selecteren</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">Alles deselecteren</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">Sorteren</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">Sorteren&#8230;</string>
   <string name="local_empty_database">Nog geen teksten opgeslagen</string>
-  <string name="pref_animations_title">Animaties inschakelen</string>
-  <string name="pref_animations_sum">Dit kan de app misschien vertragen</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">Animaties inschakelen</string>
+  <string name="pref_animations_sum" tools:ignore="ExtraTranslation">Dit kan de app misschien vertragen</string>
   <string name="pref_look_feel_category">Aspect</string>
   <string name="welcome">Welkom bij QuickLyric !</string>
   <string name="welcome2_sub">De teksten die je zoekt&#8230;\nOnmiddelijk.</string>
@@ -57,8 +57,8 @@
   <string name="id_desc_sub">1. Identificeer een liedje\n2. Deel de resultaten via QuickLyric\n3. Geniet van de songteksten</string>
   <string name="refresh_desc">Als het liedje verandert&#8230;</string>
   <string name="refresh_desc_sub">Druk op deze knop. QuickLyric zal de rest doen.</string>
-  <string name="drawer_desc">Laten we wat dieper graven !</string>
-  <string name="drawer_desc_sub">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">Laten we wat dieper graven !</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">Om toegang te hebben tot andere functies, klik hier (of grijp het menu met je vinger).</string>
   <string name="pref_more_category">Meer</string>
   <string name="share_prompt">Importeren van MusicID</string>
   <string name="undo">Annuleren</string>
@@ -79,9 +79,9 @@
   <string name="dl_finished">Downloaden gedaan</string>
   <string name="pref_providers">Extra bronnen</string>
   <string name="pref_providers_sum">Hoe meer er wordt geselecteerd, hoe langer het downloaden zal duren</string>
-  <string name="pref_issues">Problemen melden</string>
-  <string name="pref_contribute">Aan het project bijdragen op GitHub</string>
-  <string name="pref_contribute_sum">Verbeter vertalingen, breid de lyrics catalogus uit&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">Problemen melden</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">Aan het project bijdragen op GitHub</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">Verbeter vertalingen, breid de lyrics catalogus uit&#8230;</string>
   <string name="pref_beta">Word een betatester</string>
   <string name="pref_beta_sum">Krijg updates (nieuwe features, bug fixes, &#8230;) sneller en geef feedback via email</string>
   <string name="scan_error_no_content">Geen muziek gevonden</string>
@@ -110,7 +110,7 @@
   <string name="pref_issues_sum">contact@quicklyric.be</string>
   <string name="ignore_id3_toast">Tik op de refresh-knop om een download te forceren</string>
   <string name="from_id3">(Songteksten gehaald uit audiobestand)</string>
-  <string name="pandora_warning">Waarschuwing: Radiodiensten zoals Pandora® Radio worden niet gezien als muziekspelers en werken daarom niet met QuickLyric.</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">Waarschuwing: Radiodiensten zoals Pandora® Radio worden niet gezien als muziekspelers en werken daarom niet met QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric zal nu de songteksten downloaden voor een totaal van %1$d liedje.\
         Zorg ervoor dat u een vaste verbinding hebt voor ten minste %2$d minuut.</item>
@@ -121,11 +121,11 @@
     <item quantity="one">Songtekst gedownload voor %1$d nummer</item>
     <item quantity="other">Songteksten gedownload voor %1$d nummers</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>Per kunstenaar&#8230;</item>
     <item>Per titel&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>Alfabetisch</item>
     <item>Omgekeerd</item>
   </string-array>

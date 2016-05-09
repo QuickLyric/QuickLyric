@@ -21,7 +21,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">歌詞</string>
   <string name="share">共有</string>
-  <string name="refresh">更新</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">更新</string>
   <string name="drawer_open_desc">ナビゲーション ドロワーは開いています</string>
   <string name="drawer_closed_desc">ナビゲーション ドロワーは閉じています</string>
   <string name="no_results">このトラックの歌詞は見つかりません</string>
@@ -29,13 +29,13 @@
   <string name="no_refresh">更新する必要はありません</string>
   <string name="search_hint">検索</string>
   <string name="cover_art_desc">カバー アート</string>
-  <string name="search_no_result">検索結果はありません</string>
-  <string name="beam_txt">この歌詞を送信しますか ?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">検索結果はありません</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">この歌詞を送信しますか ?</string>
   <string name="pref_20min_ignore">長いトラックを無視します</string>
   <string name="pref_20min_ignore_sum">(ポッドキャストのような)20分を超えるトラックは曲として見なしません</string>
   <string name="pref_scrobbling_category">送信(Scrobbling)</string>
   <string name="pref_about">QuickLyricについて</string>
-  <string name="pref_about_summary">QuickLyricについての詳細</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">QuickLyricについての詳細</string>
   <string name="local_title">保存した歌詞</string>
   <string name="settings_title">設定</string>
   <string name="save_action">保存</string>
@@ -44,13 +44,13 @@
   <string name="remove_action">削除</string>
   <string name="pref_auto_refresh_title">歌詞を自動更新</string>
   <string name="pref_auto_refresh_summary">音楽に合わせて歌詞を自動的に変更します</string>
-  <string name="select_all_action">すべて選択</string>
-  <string name="unselect_all_action">すべて選択解除</string>
-  <string name="sort_action">並べ替え</string>
-  <string name="sort_dialog_title">並べ替え&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">すべて選択</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">すべて選択解除</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">並べ替え</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">並べ替え&#8230;</string>
   <string name="local_empty_database">まだ歌詞を保管していません</string>
-  <string name="pref_animations_title">アニメーションを有効</string>
-  <string name="pref_animations_sum">古いデバイスではパフォーマンスの問題を引き起こす可能性があります</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">アニメーションを有効</string>
+  <string name="pref_animations_sum" tools:ignore="ExtraTranslation">古いデバイスではパフォーマンスの問題を引き起こす可能性があります</string>
   <string name="pref_look_feel_category">ルック＆フィール</string>
   <string name="welcome">QuickLyricへようこそ !</string>
   <string name="welcome2_sub">探していた歌詞が&#8230;\nいますぐ、ここに&#8230;</string>
@@ -61,8 +61,8 @@
   <string name="id_desc_sub">1. 曲を識別します\n2. QuickLyric に結果を共有します\n3. 歌詞を楽しでください</string>
   <string name="refresh_desc">曲が変更されたとき&#8230;</string>
   <string name="refresh_desc_sub">このボタンを押してください、あとはQuickLyricが行います。</string>
-  <string name="drawer_desc">深く掘る！</string>
-  <string name="drawer_desc_sub">他の機能にアクセスするには、こちらをクリック（または、ここに指をスライドさせ）。.</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">深く掘る！</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">他の機能にアクセスするには、こちらをクリック（または、ここに指をスライドさせ）。.</string>
   <string name="pref_more_category">その他</string>
   <string name="share_prompt">MusicID からインポート</string>
   <string name="undo">元に戻す</string>
@@ -83,9 +83,9 @@
   <string name="dl_finished">ダウンロードが完了しました</string>
   <string name="pref_providers">歌詞の追加ソース</string>
   <string name="pref_providers_sum">選択するほど、ダウンロード時間は長くなります</string>
-  <string name="pref_issues">問題を報告</string>
-  <string name="pref_contribute">GitHub で貢献</string>
-  <string name="pref_contribute_sum">翻訳の改善、歌詞カタログの拡張&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">問題を報告</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">GitHub で貢献</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">翻訳の改善、歌詞カタログの拡張&#8230;</string>
   <string name="pref_beta">ベータ版のテスターになる</string>
   <string name="pref_beta_sum">アップデート (新機能、バグ修正、...) を早く入手して、メールでレポートしてください</string>
   <string name="scan_error_no_content">音楽が見つかりませんでした</string>
@@ -115,7 +115,7 @@
   <string name="pref_issues_sum">contact@quicklyric.be (英語のみ)</string>
   <string name="ignore_id3_toast">更新ボタンをタップすると、強制的にダウンロード</string>
   <string name="from_id3">(オーディオ ファイルから抽出した歌詞)</string>
-  <string name="pandora_warning">警告: Pandora® ラジオなどのラジオ サービスは音楽プレーヤーとして機能していないため、QuickLyric で動作しません。</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">警告: Pandora® ラジオなどのラジオ サービスは音楽プレーヤーとして機能していないため、QuickLyric で動作しません。</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>
@@ -123,11 +123,11 @@
   <plurals name="dl_finished_desc">
     <item quantity="other">%1$d 曲の歌詞をダウンロードしました</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>アーティスト順&#8230;</item>
     <item>タイトル順&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>アルファベット順</item>
     <item>逆順</item>
   </string-array>

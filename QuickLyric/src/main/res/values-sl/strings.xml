@@ -21,17 +21,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">Besedilo</string>
   <string name="share">Deli</string>
-  <string name="refresh">Osveži</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">Osveži</string>
   <string name="no_results">Za to skladbo ni najdenega besedila</string>
   <string name="connection_error">Ni mogoče povezati.</string>
   <string name="no_refresh">Ni potrebno osvežiti</string>
   <string name="search_hint">Iskanje</string>
-  <string name="search_no_result">Ni rezultatov</string>
-  <string name="beam_txt">Pošlji to besedilo ?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">Ni rezultatov</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">Pošlji to besedilo ?</string>
   <string name="pref_20min_ignore">Prezri dolge skladbe</string>
   <string name="pref_20min_ignore_sum">Skladbe daljše od 20 minut (kot poddaje) niso obravnavane kot pesmi</string>
   <string name="pref_about">O aplikaciji</string>
-  <string name="pref_about_summary">Več o QuickLyric</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">Več o QuickLyric</string>
   <string name="local_title">Shranjena besedila</string>
   <string name="settings_title">Nastavitve</string>
   <string name="save_action">Shrani</string>
@@ -40,12 +40,12 @@
   <string name="remove_action">Izbriši</string>
   <string name="pref_auto_refresh_title">Samodejno osveži besedilo</string>
   <string name="pref_auto_refresh_summary">Besedilo se bo samodejno osvežilo ob spremembi skladbe</string>
-  <string name="select_all_action">Izberi vse</string>
-  <string name="unselect_all_action">Opusti vse</string>
-  <string name="sort_action">Razvrsti</string>
-  <string name="sort_dialog_title">Razvrsti&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">Izberi vse</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">Opusti vse</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">Razvrsti</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">Razvrsti&#8230;</string>
   <string name="local_empty_database">Ni shranjenih besedil.</string>
-  <string name="pref_animations_title">Omogoči animacije</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">Omogoči animacije</string>
   <string name="pref_look_feel_category">Videz</string>
   <string name="welcome">Dobrodošli v QuickLyric!</string>
   <string name="welcome2_sub">Besedila ki ste jih iskali&#8230;\nTukaj, zdaj.</string>
@@ -56,8 +56,8 @@
   <string name="id_desc_sub">1. Identificirajte pesem\n2. Delite rezultate v QuickLyric\n3. Uživanje v besedilu</string>
   <string name="refresh_desc">Ob spremembi skladbe&#8230;</string>
   <string name="refresh_desc_sub">Pritisnite ta gumb. QuickLyric bo naredil ostalo.</string>
-  <string name="drawer_desc">Gremo globje!</string>
-  <string name="drawer_desc_sub">Tapnite tukaj za dostop do vseh funkcij (ali potegnite meni iz leve strani).</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">Gremo globje!</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">Tapnite tukaj za dostop do vseh funkcij (ali potegnite meni iz leve strani).</string>
   <string name="pref_more_category">Več</string>
   <string name="share_prompt">Uvozi iz MusicID</string>
   <string name="undo">Razveljavi</string>
@@ -78,9 +78,9 @@
   <string name="dl_finished">Prenos končan</string>
   <string name="pref_providers">Dodatni besedilni viri</string>
   <string name="pref_providers_sum">Več kot izberete, dlje bo vsak prenos trajal</string>
-  <string name="pref_issues">Prijavi napake</string>
-  <string name="pref_contribute">Prispevaj na GitHub-u</string>
-  <string name="pref_contribute_sum">Izboljšaj prevod, razširi katalog besedil&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">Prijavi napake</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">Prispevaj na GitHub-u</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">Izboljšaj prevod, razširi katalog besedil&#8230;</string>
   <string name="pref_beta">Postani testni uporabnik</string>
   <string name="pref_beta_sum">Dobi posodobitve (nove funkcije, popravki, &#8230;) hitreje in poročaj preko emaila</string>
   <string name="scan_error_no_content">Ni najdenih skladb</string>
@@ -108,7 +108,7 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="pref_issues_sum">contact@quicklyric.be (samo v angleščini)</string>
   <string name="ignore_id3_toast">Tapni gumb Osveži za vsiljen prenos</string>
   <string name="from_id3">(Besedila izpisana iz zvočne datoteke)</string>
-  <string name="pandora_warning">Opozorilo: Radio storitve kot Pandora ® Radio se ne upoštevajo kot predvajalniki glasbe in ne delujejo s QuickLyric.</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">Opozorilo: Radio storitve kot Pandora ® Radio se ne upoštevajo kot predvajalniki glasbe in ne delujejo s QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>
@@ -125,11 +125,11 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
     <item quantity="few">Preneseno besedilo za %1$d pesmi</item>
     <item quantity="other">Preneseno besedilo za %1$d pesmi</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>Po izvajalcu&#8230;</item>
     <item>Po naslovu&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>Abecedno</item>
     <item>Obratno</item>
   </string-array>

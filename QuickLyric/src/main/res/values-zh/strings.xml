@@ -21,17 +21,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">歌词</string>
   <string name="share">分享</string>
-  <string name="refresh">刷新</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">刷新</string>
   <string name="no_results">该曲目没有匹配的歌词</string>
   <string name="connection_error">网络不畅</string>
   <string name="no_refresh">无需刷新</string>
   <string name="search_hint">搜索</string>
-  <string name="search_no_result">无结果</string>
-  <string name="beam_txt">发送歌词？</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">无结果</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">发送歌词？</string>
   <string name="pref_20min_ignore">忽略过长曲目</string>
   <string name="pref_20min_ignore_sum">忽略时长大于20分钟的曲目(如广播等)</string>
   <string name="pref_about">关于</string>
-  <string name="pref_about_summary">了解更多</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">了解更多</string>
   <string name="local_title">保存歌词</string>
   <string name="settings_title">设置</string>
   <string name="save_action">保存</string>
@@ -40,12 +40,12 @@
   <string name="remove_action">删除</string>
   <string name="pref_auto_refresh_title">自动刷新歌词</string>
   <string name="pref_auto_refresh_summary">每次曲目改变时自动刷新歌词</string>
-  <string name="select_all_action">全选</string>
-  <string name="unselect_all_action">取消全选</string>
-  <string name="sort_action">排序</string>
-  <string name="sort_dialog_title">排序..</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">全选</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">取消全选</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">排序</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">排序..</string>
   <string name="local_empty_database">还没有保存的歌词</string>
-  <string name="pref_animations_title">开启动画效果</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">开启动画效果</string>
   <string name="pref_look_feel_category">界面外观</string>
   <string name="welcome">欢迎使用QuickLyric！</string>
   <string name="welcome2_sub">如果你是在寻找歌词..\n这正是你所需要的。</string>
@@ -56,8 +56,8 @@
   <string name="id_desc_sub">1. 确定曲目\n2. 分享到QuickLyric\n3. 开启歌词之旅</string>
   <string name="refresh_desc">当曲目改变时..</string>
   <string name="refresh_desc_sub">点击按钮，仅此而已</string>
-  <string name="drawer_desc">发现更多！</string>
-  <string name="drawer_desc_sub">更多功能期待你的发现。</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">发现更多！</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">更多功能期待你的发现。</string>
   <string name="pref_more_category">更多</string>
   <string name="share_prompt">从MusicID导入</string>
   <string name="undo">撤销</string>
@@ -78,9 +78,9 @@
   <string name="dl_finished">下载完成！</string>
   <string name="pref_providers">更多歌词来源</string>
   <string name="pref_providers_sum">选的越多，获取歌词越耗时</string>
-  <string name="pref_issues">报告问题</string>
-  <string name="pref_contribute">在github上出一份力</string>
-  <string name="pref_contribute_sum">完善翻译，扩展功能</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">报告问题</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">在github上出一份力</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">完善翻译，扩展功能</string>
   <string name="pref_beta">成为测试者</string>
   <string name="pref_beta_sum">通过邮件取得反馈并及时获取更新(新功能，BUG修复等)</string>
   <string name="scan_error_no_content">没有找到任何音乐</string>
@@ -112,7 +112,7 @@
   <string name="pref_issues_sum">contact@quicklyric.be (限英文)</string>
   <string name="ignore_id3_toast">点击刷新按钮强制下载</string>
   <string name="from_id3">(来自内嵌歌词)</string>
-  <string name="pandora_warning">提示：诸如Pandora® Radio的电台服务不适合作为音乐播放器，所以不与QuickLyric兼容。</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">提示：诸如Pandora® Radio的电台服务不适合作为音乐播放器，所以不与QuickLyric兼容。</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric即将为 %1$d 首歌下载歌词。\
         确保你有至少 %2$d 分钟(s)的通畅网络。</item>
@@ -120,11 +120,11 @@
   <plurals name="dl_finished_desc">
     <item quantity="other">为 %1$d 首歌下载歌词</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>按歌手..</item>
     <item>按标题..</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>按字母顺序</item>
     <item>倒序</item>
   </string-array>

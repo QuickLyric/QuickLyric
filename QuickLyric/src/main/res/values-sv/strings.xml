@@ -21,17 +21,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="title_lyrics">Låttexter</string>
   <string name="share">Dela</string>
-  <string name="refresh">Uppdatera</string>
+  <string name="refresh" tools:ignore="ExtraTranslation">Uppdatera</string>
   <string name="no_results">Inga texter hittades för detta spår</string>
   <string name="connection_error">Kunde inte ansluta.</string>
   <string name="no_refresh">Inget behov av uppdatering</string>
   <string name="search_hint">Sök</string>
-  <string name="search_no_result">Inga resultat</string>
-  <string name="beam_txt">Skicka dessa texter?</string>
+  <string name="search_no_result" tools:ignore="ExtraTranslation">Inga resultat</string>
+  <string name="beam_txt" tools:ignore="ExtraTranslation">Skicka dessa texter?</string>
   <string name="pref_20min_ignore">Ignorera långa spår</string>
   <string name="pref_20min_ignore_sum">Spår som är längre än 20 minuter (som podcasts) räknas inte som låtar</string>
   <string name="pref_about">Om</string>
-  <string name="pref_about_summary">Mer om QuickLyric</string>
+  <string name="pref_about_summary" tools:ignore="ExtraTranslation">Mer om QuickLyric</string>
   <string name="local_title">Sparade texter</string>
   <string name="settings_title">Inställningar</string>
   <string name="save_action">Spara</string>
@@ -40,12 +40,12 @@
   <string name="remove_action">Ta bort</string>
   <string name="pref_auto_refresh_title">Uppdatera låttexter automatiskt</string>
   <string name="pref_auto_refresh_summary">Låttexter uppdateras automatiskt när musiken ändras</string>
-  <string name="select_all_action">Markera alla</string>
-  <string name="unselect_all_action">Avmarkera alla</string>
-  <string name="sort_action">Sortera</string>
-  <string name="sort_dialog_title">Sortera&#8230;</string>
+  <string name="select_all_action" tools:ignore="ExtraTranslation">Markera alla</string>
+  <string name="unselect_all_action" tools:ignore="ExtraTranslation">Avmarkera alla</string>
+  <string name="sort_action" tools:ignore="ExtraTranslation">Sortera</string>
+  <string name="sort_dialog_title" tools:ignore="ExtraTranslation">Sortera&#8230;</string>
   <string name="local_empty_database">Du har inte sparat någon låttexter ännu.</string>
-  <string name="pref_animations_title">Aktivera animationer</string>
+  <string name="pref_animations_title" tools:ignore="ExtraTranslation">Aktivera animationer</string>
   <string name="pref_look_feel_category">Utseende</string>
   <string name="welcome">Välkommen till QuickLyric!</string>
   <string name="welcome2_sub">Texten du söker&#8230;\nHär och nu.</string>
@@ -56,8 +56,8 @@
   <string name="id_desc_sub">1. identifiera en song\n2. Dela resultatet till QuickLyric\n3. Få tillbaka låttexten</string>
   <string name="refresh_desc">När låten har ändrats&#8230;</string>
   <string name="refresh_desc_sub">Tryck på knappen. QuickLyric kommer att göra resten.</string>
-  <string name="drawer_desc">Utforska vidare!</string>
-  <string name="drawer_desc_sub">För att nå andra funktioner, tryck här (eller svep över skärmen från kanten).</string>
+  <string name="drawer_desc" tools:ignore="ExtraTranslation">Utforska vidare!</string>
+  <string name="drawer_desc_sub" tools:ignore="ExtraTranslation">För att nå andra funktioner, tryck här (eller svep över skärmen från kanten).</string>
   <string name="pref_more_category">Mer</string>
   <string name="share_prompt">Importera från MusicID</string>
   <string name="undo">Ångra</string>
@@ -78,9 +78,9 @@
   <string name="dl_finished">Hämtningen är färdig</string>
   <string name="pref_providers">Ytterligare källor</string>
   <string name="pref_providers_sum">Ju mer du väljer, desto längre tid tar varje nedladdning</string>
-  <string name="pref_issues">Rapportera Problem</string>
-  <string name="pref_contribute">Bidra på GitHub</string>
-  <string name="pref_contribute_sum">Förbättra översättningar, expandera textkatalogen&#8230;</string>
+  <string name="pref_issues" tools:ignore="ExtraTranslation">Rapportera Problem</string>
+  <string name="pref_contribute" tools:ignore="ExtraTranslation">Bidra på GitHub</string>
+  <string name="pref_contribute_sum" tools:ignore="ExtraTranslation">Förbättra översättningar, expandera textkatalogen&#8230;</string>
   <string name="pref_beta">Bli betatestare</string>
   <string name="pref_beta_sum">Få uppdateringar (nya funktioner, buggfixar, och så vidare) snabbare via email</string>
   <string name="scan_error_no_content">Kunde inte hitta någon musik</string>
@@ -107,7 +107,7 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="pref_issues_sum">contact@quicklyric.be (endast engelska)</string>
   <string name="ignore_id3_toast">Tryck på uppdateringsknappen för att tvinga fram en nedladdning</string>
   <string name="from_id3">(Text extraherad från ljudfil)</string>
-  <string name="pandora_warning">Varning: Radiotjänster som Pandora ® Radio räknas inte som musikspelare och fungerar inte med QuickLyric.</string>
+  <string name="pandora_warning" tools:ignore="ExtraTranslation">Varning: Radiotjänster som Pandora ® Radio räknas inte som musikspelare och fungerar inte med QuickLyric.</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>
@@ -118,11 +118,11 @@ Kontrollera att du har en stabil anslutning för minst %2$d minuter.</item>
     <item quantity="one">Hämtade texten för %1$d låt</item>
     <item quantity="other">Hämtade texten för %1$d låtar</item>
   </plurals>
-  <string-array name="sort_modes">
+  <string-array name="sort_modes" tools:ignore="ExtraTranslation">
     <item>Efter artist&#8230;</item>
     <item>Efter titel&#8230;</item>
   </string-array>
-  <string-array name="AZ_sort_order">
+  <string-array name="AZ_sort_order" tools:ignore="ExtraTranslation">
     <item>Alfabetiskt</item>
     <item>Omvänd</item>
   </string-array>
