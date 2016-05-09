@@ -41,16 +41,29 @@
                                                android:layout_width="match_parent"
                                                android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/demo_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon"
+        app:layout_widthPercent="60%"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_toEndOf="@id/demo_image"
+        android:layout_toRightOf="@id/demo_image"
         android:gravity="center"
         android:paddingBottom="30dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        app:layout_widthPercent="40%">
+        android:paddingRight="15dp">
 
         <TextView
             android:id="@+id/textView2"
@@ -74,17 +87,5 @@
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textSize="30sp"/>
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/demo_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:scaleType="fitCenter"
-        android:layout_centerVertical="true"
-        android:src="@drawable/icon"
-        android:layout_marginBottom="10dp"
-        app:layout_widthPercent="60%"/>
 
 </android.support.percent.PercentRelativeLayout>

@@ -257,6 +257,9 @@ A few possible reasons why:<br/>
     <string name="ad_supported_text">Ads allow us to pay the artists and rightholders for their work.\nWe hope you enjoy using QuickLyric!</string>
     <string name="about_read_ToS">Read our Terms of Service</string>
     <string name="about_product_tour">Product Tour</string>
+    <string name="nl_title">One last thing.</string>
+    <string name="nl_instructions">For QuickLyric to work with all players, some settings need to be changed.</string>
+    <string name="nl_settings_link">Allow QuickLyric to read my notifications</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

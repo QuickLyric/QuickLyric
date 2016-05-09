@@ -76,7 +76,7 @@
             android:layout_marginTop="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="One last thing."
+            android:text="@string/nl_title"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textSize="30sp"/>
 
@@ -89,7 +89,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:paddingEnd="25dp"
-            android:text="For QuickLyric to work with all players, some settings need to be changed."
+            android:text="@string/nl_instructions"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"/>
 
@@ -122,7 +122,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@id/NL_icon"
                 android:gravity="start|center_vertical"
-                android:text="Allow QuickLyric to read my notifications"
+                android:text="@string/nl_settings_link"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:textStyle="bold"/>
