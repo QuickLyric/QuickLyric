@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.view;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -65,6 +66,7 @@ public class FadeInNetworkImageView extends NetworkImageView {
         this.mLyrics = lyrics;
     }
 
+    @TargetApi(21)
     @Override
     public void setImageUrl(String url, ImageLoader imageLoader) {
         mShowLocal = false;

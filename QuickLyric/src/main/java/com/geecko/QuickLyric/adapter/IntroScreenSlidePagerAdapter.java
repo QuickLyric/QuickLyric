@@ -2,6 +2,7 @@ package com.geecko.QuickLyric.adapter;
 
 import android.animation.ArgbEvaluator;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -495,9 +496,12 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             return output;
         }
 
+        @TargetApi(19)
         @Override
         public void onResume() {
             super.onResume();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                return;
             final boolean nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
             ((ImageView) getView().findViewById(R.id.NL_icon))
                     .setImageResource(nlEnabled ?
