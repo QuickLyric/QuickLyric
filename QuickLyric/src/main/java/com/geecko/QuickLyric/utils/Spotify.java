@@ -47,8 +47,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 
-import org.acra.ACRA;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -91,7 +89,7 @@ public class Spotify {
                 .build();
 
         final Request spotifyRequest = new Request.Builder()
-                .url("https://www.quicklyric.cf/keys/spotify.php?")
+                .url("https://www.quicklyric.be/keys/spotify.php?")
                 .post(formBody)
                 .build();
         final SpotifyKeyCallback callback = new SpotifyKeyCallback(activity);
