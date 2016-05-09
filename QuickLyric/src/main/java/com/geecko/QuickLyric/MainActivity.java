@@ -57,7 +57,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -842,12 +841,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @SuppressWarnings("unused")
     public void id3PopUp(View view) {
         Toast.makeText(this, string.ignore_id3_toast, Toast.LENGTH_LONG).show();
-    }
-
-    public void aboutApp(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setView(getLayoutInflater().inflate(R.layout.about_dialog, (ViewGroup) drawerView.getRootView(), false));
-        dialog.create().show();
     }
 
     @SuppressLint("InlinedApi")

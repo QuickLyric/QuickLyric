@@ -22,23 +22,18 @@
     <string name="app_name">QuickLyric</string>
     <string name="title_lyrics">Lyrics</string>
     <string name="share">Share</string>
-    <string name="refresh">Refresh</string>
     <string name="drawer_open_desc">Navigation Drawer is open</string>
     <string name="drawer_closed_desc">Navigation Drawer is closed</string>
     <string name="no_results">No lyrics were found for this track</string>
     <string name="connection_error">Could not connect.</string>
-    <string name="search_ab_title">Search: %s</string>
     <string name="no_refresh">No need to refresh</string>
     <string name="search_hint">Search</string>
     <string name="cover_art_desc">Cover Art</string>
-    <string name="search_no_result">No results</string>
-    <string name="beam_txt">Send these lyrics ?</string>
     <string name="pref_20min_ignore">Ignore long tracks</string>
     <string name="pref_20min_ignore_sum">Tracks longer than 20 minutes (like podcasts) are not considered songs</string>
     <string name="pref_scrobbling_category">Scrobbling</string>
     <string name="pref_about">About</string>
     <string name="send_feedback">Send feedback</string>
-    <string name="pref_about_summary">More about QuickLyric</string>
     <string name="local_title">Saved Lyrics</string>
     <string name="settings_title">Settings</string>
     <string name="save_action">Save</string>
@@ -47,13 +42,7 @@
     <string name="remove_action">Delete</string>
     <string name="pref_auto_refresh_title">Automatically refresh lyrics</string>
     <string name="pref_auto_refresh_summary">Lyrics will automatically refresh every time the music changes</string>
-    <string name="select_all_action">Select all</string>
-    <string name="unselect_all_action">Unselect all</string>
-    <string name="sort_action">Sort</string>
-    <string name="sort_dialog_title">Sort…</string>
     <string name="local_empty_database">You haven\'t saved any lyrics yet.</string>
-    <string name="pref_animations_title">Enable animations</string>
-    <string name="pref_animations_sum">Might cause performance issues on older devices</string>
     <string name="pref_look_feel_category">Look and feel</string>
     <string name="welcome">Welcome to QuickLyric!</string>
     <string name="welcome2_sub">The lyrics you were looking for…\nRight here, right now.</string>
@@ -63,8 +52,6 @@
     <string name="id_desc_sub">1. Identify a song\n2. Share the results to QuickLyric\n3. Enjoy your lyrics</string>
     <string name="refresh_desc">When the song has changed…</string>
     <string name="refresh_desc_sub">Tap this button. QuickLyric will do the rest.</string>
-    <string name="drawer_desc">Let\'s dig deeper!</string>
-    <string name="drawer_desc_sub">To access other features, tap here (or swipe the screen from the edge).</string>
     <string name="pref_more_category">More</string>
     <string name="first_launch">Start playing music on your device and hit refresh.</string>
     <string name="share_prompt">Import from MusicID</string>
@@ -73,108 +60,6 @@
 1) Join the Google+ Community: \nhttps://plus.google.com/communities/115504114424315189412\n
 2) Sign up for the Beta: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric
     </string>
-    <string name="about_dialog_content">
-QuickLyric is licensed under the GNU Lesser General Public License Version 3 (GPLv3)
-\n A full copy of the license is available here: https://github.com/geecko86/QuickLyric/blob/master/LICENSE
-\n The Software is provided to you on an "AS IS" basis, without any technical support or warranty of any kind including, without limitation, any warranty or condition of merchantability, fitness for a particular purpose and non-infringement.
-\n
-\n-------------------------------------
-\n
-\nLyrics provided by AZLyrics, LyricsWiki, J-Lyric, Lololyrics, Metal-Archives Genius.com, Lyricsmint, UrbanLyrics and PLyrics.com.
-\nSearch provided by Genius.com.
-\n
-\n
-Terms of service available at:
-\n	Genius.com:
-\n      http://genius.com/static/terms
-\n	AZLyrics, PLyrics, UrbanLyrics:
-\n      http://www.azlyrics.com/copyright.html
-\n	LyricWikia:
-\n      http://lyrics.wikia.com/LyricWiki:Copyrights
-\n  Lololyrics:
-\n      http://www.lololyrics.com/faq
-\n
-\nThe lyrics provided via this app are property of their respective owners. Please investigate each track individually for copyright information.
-\nIf you believe QuickLyric uses your work in a way that doesn\'t qualify as Fair Use, please contact me via the GitHub page.
-\nApp is developed by geecko. Sources available at github.com/geecko86/QuickLyric under the GPLv3 license
-\n-------------------------------------
-\nCover arts are provided by Last FM as part of the last fm non-commercial usage license
-\n-------------------------------------
-\n- Scrolling tricks by Roman Nurik
-\n
-\n          Copyright 2013 Google Inc.
-\n
-\n          Licensed under the Apache License, Version 2.0 (the "License");
-\n          you may not use this file except in compliance with the License.
-\n          You may obtain a copy of the License at
-\n
-\n              http://www.apache.org/licenses/LICENSE-2.0
-\n
-\n          Unless required by applicable law or agreed to in writing, software
-\n          distributed under the License is distributed on an "AS IS" BASIS,
-\n          WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-\n          See the License for the specific language governing permissions and
-\n          limitations under the License.
-\n
-\n-------------------------------------
-\n- Android support libraries (AOSP)
-\n- Volley networking library (AOSP)
-\n- ViewPager Indicator (Jake Wharton)
-\n- Material DateTimePicker (Wouter Dullaert)
-\n
-\n/*
-\n *
-\n * Licensed under the Apache License, Version 2.0 (the "License");
-\n * you may not use this file except in compliance with the License.
-\n * You may obtain a copy of the License at
-\n *
-\n *      http://www.apache.org/licenses/LICENSE-2.0
-\n *
-\n * Unless required by applicable law or agreed to in writing, software
-\n * distributed under the License is distributed on an "AS IS" BASIS,
-\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-\n * See the License for the specific language governing permissions and
-\n * limitations under the License.
-\n */
-\n
-\n-------------------------------------
-\n
-\n - FloatingActionButton (Oleksandr Melnykov)
-\n - Snackbar (William Mora)
-\n - JSoup (Jonathan Hedley)
-\n
-\n The MIT License (MIT)
-\n
-\nCopyright © 2015
-\n
-\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-\n
-\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-\n
-\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-\n
-\n-------------------------------------
-\n
-\nSincere thanks to the following persons who helped translate the app:
-\nTatiana, Maxim - Russian
-\nPespulacek, Jan - Czech
-\nPatrik - Slovenian
-\nMyself + Mickael - French
-\nMarius, Fabian, Kevin, Friedger - German
-\nTheophanis, Lucretius - Greek
-\nGiorgia, Salvatore - Italian
-\nNaofum - Japanese
-\nNathalie, Kevin and Lisa - Dutch
-\nDominika + Kasia - Polish
-\nYusuf - Turkish
-\nSonia - Arabic
-\nAbde, Erick, Gerson - Spanish
-\nSimon - Swedish
-\nJordi - Catalan
-\nPolaris - Hungarian
-\nGurshabad - Hindi
-\nSerbian - Mladen
-\nRodax + Marcos + (?) - Portuguese</string>
     <string name="pager_arrow"><![CDATA[>]]></string>
     <string name="skip">Skip</string>
     <string name="pref_theme">Theme</string>
@@ -193,9 +78,6 @@ Terms of service available at:
     <string name="dl_finished">Download finished</string>
     <string name="pref_providers">Additional lyrics sources</string>
     <string name="pref_providers_sum">The more you select, the longer each download will take</string>
-    <string name="pref_issues">Report Issues</string>
-    <string name="pref_contribute">Contribute on GitHub</string>
-    <string name="pref_contribute_sum">Improve translations, expand the lyrics catalog,…</string>
     <string name="pref_beta">Become a beta tester</string>
     <string name="pref_beta_sum">Get updates (new features, bug fixes, …) faster and report back via email</string>
     <string name="scan_error_no_content">Could not find any music</string>
@@ -219,7 +101,6 @@ A few possible reasons why:<br/>
     <string name="pref_issues_sum">contact@quicklyric.be (English only)</string>
     <string name="ignore_id3_toast">Tap the Refresh button to force a download</string>
     <string name="from_id3">(Lyrics extracted from audio file)</string>
-    <string name="pandora_warning">Warning: Radio services such as Pandora® Radio do not qualify as music players and do not work with QuickLyric.</string>
     <string name="nighttime_start_dialog_title">Nighttime start</string>
     <string name="nighttime_end_dialog_title">Nighttime end</string>
     <string name="pref_force_screen_sum">Prevent the screen from turning off while reading lyrics.</string>
@@ -281,14 +162,6 @@ A few possible reasons why:<br/>
         <item>@string/settings_title</item>
         <item>@string/send_feedback</item>
         <item>@string/pref_about</item>
-    </string-array>
-    <string-array name="sort_modes">
-        <item>By artist…</item>
-        <item>By title…</item>
-    </string-array>
-    <string-array name="AZ_sort_order">
-        <item>Alphabetically</item>
-        <item>Reversed</item>
     </string-array>
     <string-array name="providers">
         <item>@string/source_punk</item>
