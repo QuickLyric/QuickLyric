@@ -142,6 +142,18 @@ A few possible reasons why:<br/>
     <string name="nl_instructions">For QuickLyric to work with all players, some settings need to be changed.</string>
     <string name="nl_settings_link">Allow QuickLyric to read my notifications</string>
 
+    <string name="premium_title">Get Premium</string>
+    <string name="remove_ads_title">Remove ads</string>
+    <string name="subscription_monthly">Monthly</string>
+    <string name="subscription_yearly">Yearly</string>
+    <string name="premium_sum_incent">Become Premium to support the development of QuickLyric and get access to the following features:</string>
+    <string name="premium_ads_incent">No more ads!</string>
+    <string name="premium_karaoke_incent">An exclusive *karaoke mode*</string>
+    <string name="premium_themes_incent">*7* new themes</string>
+    <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night.</string>
+    <string name="premium_thanks">Thanks for your support!</string>
+
+
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
         Make sure you have a stable connection for %2$d minute.</item>
