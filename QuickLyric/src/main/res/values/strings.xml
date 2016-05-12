@@ -103,7 +103,7 @@ A few possible reasons why:<br/>
     <string name="from_id3">(Lyrics extracted from audio file)</string>
     <string name="nighttime_start_dialog_title">Nighttime start</string>
     <string name="nighttime_end_dialog_title">Nighttime end</string>
-    <string name="pref_force_screen_sum">Prevent the screen from turning off while reading lyrics.</string>
+    <string name="pref_force_screen_sum">Prevent the screen from turning off while reading lyrics</string>
     <string name="pref_force_screen_on">Force screen on</string>
     <string name="scan_error_permission_denied">QuickLyric has been denied permission to scan your music</string>
     <string name="id3_write_error">Failed to edit song metadata</string>
@@ -126,7 +126,7 @@ A few possible reasons why:<br/>
     <string name="full_text_action">Show full text</string>
     <string name="artworks_pref_title">Automatic artwork download</string>
     <string name="artworks_pref_sum">May result in mobile data charges</string>
-    <string name="pref_lrc_sum">Highlights the words that are being sung. Not all music players are supported.</string>
+    <string name="pref_lrc_sum">Highlight the words that are being sung - not all music players are supported</string>
     <string name="pref_lrc">Synchronized lyrics</string>
     <string name="red_theme">Red</string>
     <string name="purple_theme">Purple</string>
