@@ -81,6 +81,7 @@ import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.EmailConfigGenTool;
+import com.geecko.QuickLyric.utils.IMMLeaks;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IMMLeaks.fixFocusedViewLeak(getApplication());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
                 R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,

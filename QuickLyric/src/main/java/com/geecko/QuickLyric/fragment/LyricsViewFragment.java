@@ -299,7 +299,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     }
                 }
             };
-        IMMLeaks.fixFocusedViewLeak(getActivity().getApplication());
         return layout;
     }
 
@@ -1010,6 +1009,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 });
             }
 
+            final LrcView lrcView =
+                    ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (getActivity() != null &&
                     preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
@@ -1027,8 +1028,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
-                                .changeCurrent(finalPosition);
+                        if (lrcView != null)
+                            lrcView.changeCurrent(finalPosition);
                     }
                 });
                 // String time = String.valueOf((position / 1000) % 60) + " sec";
