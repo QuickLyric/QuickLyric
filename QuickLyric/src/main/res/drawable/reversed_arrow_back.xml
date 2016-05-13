@@ -18,8 +18,13 @@
   ~  */
   -->
 
-<resources>
-    <bool name="isTablet">false</bool>
-    <integer name="lrcLines">10</integer>
-    <drawable name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</drawable>
-</resources>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <rotate
+            android:drawable="@drawable/ic_action_navigation_arrow_back"
+            android:fromDegrees="180.0"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="180.0"/>
+    </item>
+</layer-list>

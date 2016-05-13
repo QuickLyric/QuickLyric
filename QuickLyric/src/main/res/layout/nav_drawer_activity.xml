@@ -58,14 +58,15 @@
 
             <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
                 android:id="@+id/material_search_view"
-                app:searchSuggestionBackground="?android:colorBackground"
-                app:searchSuggestionIcon="@drawable/ic_suggestion"
-                app:searchBackground="?android:colorBackground"
-                app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
-                android:textColor="?android:textColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"/>
+                android:layout_gravity="top"
+                android:textColor="?android:textColorPrimary"
+                app:searchBackIcon="@drawable/searchBackIcon"
+                app:searchBackground="?android:colorBackground"
+                app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
+                app:searchSuggestionBackground="?android:colorBackground"
+                app:searchSuggestionIcon="@drawable/ic_suggestion"/>
 
             <com.geecko.QuickLyric.view.RefreshIcon
                 android:id="@+id/refresh_fab"
@@ -73,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right|end"
                 android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/ic_refresh"
                 android:translationZ="8dp"
                 app:borderWidth="0dp"

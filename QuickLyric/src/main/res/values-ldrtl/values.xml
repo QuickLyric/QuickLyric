@@ -19,7 +19,5 @@
   -->
 
 <resources>
-    <bool name="isTablet">false</bool>
-    <integer name="lrcLines">10</integer>
-    <drawable name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</drawable>
+    <drawable name="searchBackIcon">@drawable/reversed_arrow_back</drawable>
 </resources>
