@@ -154,7 +154,8 @@ public class SearchActivity extends AppCompatActivity {
         ViewPager viewPager = getViewPager();
         if (viewPager != null)
             ((SearchPagerAdapter) viewPager.getAdapter()).setSearchQuery(searchQuery);
-        LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
+        if (searchQuery != null)
+            LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
     }
 
     public void refresh() {
