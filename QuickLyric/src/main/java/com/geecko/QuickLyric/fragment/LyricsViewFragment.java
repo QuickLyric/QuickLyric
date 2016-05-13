@@ -87,7 +87,6 @@ import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.CoverCache;
 import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
-import com.geecko.QuickLyric.utils.IMMLeaks;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
