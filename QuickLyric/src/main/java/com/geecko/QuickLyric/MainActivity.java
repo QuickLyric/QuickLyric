@@ -63,6 +63,7 @@ import android.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -595,29 +596,37 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     @TargetApi(21)
-    public void setStatusBarColor(Integer color) {
-        if (Build.VERSION.SDK_INT >= 20) {
+    public static void setStatusBarColor(Window window, Resources.Theme theme, Integer color) {
+        if (Build.VERSION.SDK_INT >= 21) {
             if (color == null) {
                 TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = getTheme();
                 theme.resolveAttribute(android.R.attr.statusBarColor, typedValue, true);
                 color = typedValue.data;
             }
-            getWindow().setStatusBarColor(color);
+            window.setStatusBarColor(color);
+        }
+    }
+
+    @TargetApi(21)
+    public void setStatusBarColor(Integer color) {
+        MainActivity.setStatusBarColor(getWindow(), getTheme(), color);
+    }
+
+    @TargetApi(21)
+    public static void setNavBarColor(Window window, Resources.Theme theme, Integer color) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (color == null) {
+                TypedValue typedValue = new TypedValue();
+                theme.resolveAttribute(android.R.attr.navigationBarColor, typedValue, true);
+                color = typedValue.data;
+            }
+            window.setNavigationBarColor(color);
         }
     }
 
     @TargetApi(21)
     public void setNavBarColor(Integer color) {
-        if (Build.VERSION.SDK_INT >= 20) {
-            if (color == null) {
-                TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = getTheme();
-                theme.resolveAttribute(android.R.attr.navigationBarColor, typedValue, true);
-                color = typedValue.data;
-            }
-            getWindow().setNavigationBarColor(color);
-        }
+        MainActivity.setNavBarColor(getWindow(), getTheme(), color);
     }
 
     private void prepareAnimations(Fragment nextFragment) {

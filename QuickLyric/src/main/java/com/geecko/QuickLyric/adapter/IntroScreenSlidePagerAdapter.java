@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.geecko.QuickLyric.AboutActivity;
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -188,8 +189,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                                                             activity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
                                                     editor.putBoolean("seen", true);
                                                     editor.apply();
-                                                    activity.setStatusBarColor(null);
-                                                    activity.setNavBarColor(null);
+                                                    MainActivity.setNavBarColor(activity.getWindow(),
+                                                            activity.getTheme(), null);
+                                                    MainActivity.setNavBarColor(activity.getWindow(),
+                                                            activity.getTheme(), null);
                                                 }
                                             }, AnimatorActionListener.ActionType.END));
                                         } else {
@@ -294,10 +297,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                         mActivity.getResources().getColor(colors[position + 1]))
                 : mActivity.getResources().getColor(colors[position]);
         tutorialLayout.setBackgroundColor((int) background);
-        ((MainActivity) mActivity).setNavBarColor((int)
+        MainActivity.setNavBarColor(mActivity.getWindow(), mActivity.getTheme(), (int)
                 evaluator.evaluate(0.5f, mActivity.getResources().getColor(R.color.action_dark),
                         background));
-        ((MainActivity) mActivity).setStatusBarColor((int)
+        MainActivity.setStatusBarColor(mActivity.getWindow(), mActivity.getTheme(), (int)
                 evaluator.evaluate(0.5f, mActivity.getResources().getColor(R.color.action_dark),
                         background));
 
@@ -404,14 +407,16 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation animation) {
                 ((RelativeLayout) mPager.getParent()).setVisibility(View.GONE);
-                ((MainActivity) mActivity).focusOnFragment = true;
-                if (((MainActivity) mActivity).mDrawerToggle != null)
-                    ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
-                mActivity.invalidateOptionsMenu();
-                SharedPreferences.Editor editor =
-                        mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
-                editor.putBoolean("seen", true);
-                editor.apply();
+                if (mActivity instanceof MainActivity) {
+                    ((MainActivity) mActivity).focusOnFragment = true;
+                    if (((MainActivity) mActivity).mDrawerToggle != null)
+                        ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
+                    mActivity.invalidateOptionsMenu();
+                    SharedPreferences.Editor editor =
+                            mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
+                    editor.putBoolean("seen", true);
+                    editor.apply();
+                }
             }
 
             public void onAnimationRepeat(Animation animation) {
@@ -420,8 +425,13 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             public void onAnimationStart(Animation animation) {
             }
         });
-        ((MainActivity) mActivity).setStatusBarColor(null);
-        ((MainActivity) mActivity).setNavBarColor(null);
+        if (mActivity instanceof AboutActivity)
+            ((AboutActivity) mActivity).setStatusBarColor(null);
+        else
+            MainActivity.setStatusBarColor(mActivity.getWindow(),
+                    mActivity.getTheme(), null);
+        MainActivity.setNavBarColor(mActivity.getWindow(),
+                mActivity.getTheme(), null);
         ((RelativeLayout) mPager.getParent()).startAnimation(slideOut);
     }
 

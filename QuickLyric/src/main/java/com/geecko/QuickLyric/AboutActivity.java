@@ -20,21 +20,29 @@
 package com.geecko.QuickLyric;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
@@ -68,6 +76,21 @@ public class AboutActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(primaryColor.data);
         toolbar.setTitleTextColor(Color.WHITE);
 
+        View.OnClickListener productTourAction = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupDemoScreen();
+            }
+        };
+
+        Element productTourElement = new Element().setTitle(getString(R.string.about_product_tour));
+        productTourElement.setOnClickListener(productTourAction);
+        Element crowdinElement = new Element().setTitle("Help translate the app on Crowdin");
+        crowdinElement.setIntent(
+                new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/quicklyric"))
+        );
+        Element tosElement = new Element().setTitle(getString(R.string.about_read_ToS));
+
         View aboutView = new AboutPage(this)
                 .setDescription("QuickLyric is made with love in Brussels, Belgium.") // FixMe
                 .addEmail("contact@QuickLyric.be")
@@ -77,8 +100,9 @@ public class AboutActivity extends AppCompatActivity {
                 .addTwitter("QuickLyric")
                 .addWebsite("http://www.quicklyric.be")
                 .setImage(R.drawable.icon)
-                .addItem(new Element().setTitle(getString(R.string.about_product_tour))) // FixMe
-                .addItem(new Element().setTitle(getString(R.string.about_read_ToS))) // FixMe
+                .addItem(productTourElement)
+                .addItem(crowdinElement)
+                .addItem(tosElement) // FixMe
                 .create();
         linearLayout.addView(toolbar);
         linearLayout.addView(aboutView);
@@ -92,9 +116,39 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
+    private void setupDemoScreen() {
+        ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content).getRootView();
+        getLayoutInflater().inflate(R.layout.tutorial_view, (ViewGroup) rootView.getChildAt(0));
+        final ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(getFragmentManager(), this);
+        pager.setAdapter(pagerAdapter);
+        pager.addOnPageChangeListener(pagerAdapter);
+        indicator.setViewPager(pager);
+        pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
+        indicator.setOnPageChangeListener(pagerAdapter);
+        Button skipButton = (Button) rootView.findViewById(R.id.pager_button);
+        ImageButton arrowButton = (ImageButton) rootView.findViewById(R.id.pager_arrow);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                    pagerAdapter.exitAction();
+                else
+                    pager.setCurrentItem(pagerAdapter.getCount() - 1);
+            }
+        });
+        arrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pagerAdapter.nextAction();
+            }
+        });
+    }
+
     @TargetApi(21)
     public void setStatusBarColor(Integer color) {
-        if (Build.VERSION.SDK_INT >= 20) {
+        if (Build.VERSION.SDK_INT >= 21) {
             if (color == null) {
                 TypedValue typedValue = new TypedValue();
                 Resources.Theme theme = getTheme();
