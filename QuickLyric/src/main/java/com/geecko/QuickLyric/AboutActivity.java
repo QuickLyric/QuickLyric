@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
@@ -104,6 +105,7 @@ public class AboutActivity extends AppCompatActivity {
                 .addItem(crowdinElement)
                 .addItem(tosElement) // FixMe
                 .create();
+        aboutView.setLayoutParams(new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         linearLayout.addView(toolbar);
         linearLayout.addView(aboutView);
         setContentView(linearLayout);
