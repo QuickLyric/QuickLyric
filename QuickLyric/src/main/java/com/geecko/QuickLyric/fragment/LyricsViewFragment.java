@@ -735,7 +735,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public String getSource() {
-        return mLyrics.getSource();
+        if (mLyrics != null)
+            return mLyrics.getSource();
+        return null;
     }
 
     public boolean isLRC() {
