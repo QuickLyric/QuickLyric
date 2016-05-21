@@ -987,9 +987,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);
+            final LrcView lrcView =
+                    ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+
             if (position == -1 && getActivity() != null) {
-                final Lyrics staticLyrics = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))
-                        .getStaticLyrics();
+                final Lyrics staticLyrics = lrcView.getStaticLyrics();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1010,8 +1012,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 });
             }
 
-            final LrcView lrcView =
-                    ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (getActivity() != null &&
                     preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
