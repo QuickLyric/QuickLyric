@@ -29,8 +29,6 @@ import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
-
 import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
 import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
@@ -59,10 +57,10 @@ public class MetalArchives {
             String id = trackDocument.getElementsByClass("viewLyrics").get(0).id().substring(11);
             text = Jsoup.connect("http://www.metal-archives.com/release/ajax-view-lyrics/id/"+id)
                     .get().body().html();
-        } catch (IOException e) {
-            return new Lyrics(ERROR);
         } catch (JsonParseException | IndexOutOfBoundsException e) {
             return new Lyrics(NO_RESULT);
+        } catch (Exception e) {
+            return new Lyrics(ERROR);
         }
         Lyrics lyrics = new Lyrics(POSITIVE_RESULT);
         lyrics.setArtist(artist);
