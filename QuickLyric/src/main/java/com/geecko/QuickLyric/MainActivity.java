@@ -370,6 +370,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void search(String searchQuery) {
+        if (!LyricsSearchSuggestionsProvider.database.isOpen())
+            LyricsSearchSuggestionsProvider
+                    .setDatabase(new LyricsSearchSuggestionsProvider(this).getWritableDatabase());
         LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchIntent.putExtra("query", searchQuery);
