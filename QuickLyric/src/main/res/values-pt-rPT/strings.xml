@@ -19,85 +19,85 @@
   ~  */
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-  <string name="title_lyrics">Letra</string>
+  <string name="title_lyrics">Letras</string>
   <string name="share">Compartilhar</string>
-  <string name="no_results">Não foram encontradas letras para essa música</string>
+  <string name="no_results">Não foi encontrado letras para esta mùsica</string>
   <string name="connection_error">Conexão impossível.</string>
-  <string name="no_refresh">Não é preciso atualizar</string>
-  <string name="search_hint">Pesquisa</string>
-  <string name="pref_20min_ignore">Ignorar faixas longas</string>
-  <string name="pref_20min_ignore_sum">Faixas maiores que 20 minutos (como podcasts) não são consideradas músicas</string>
+  <string name="no_refresh">Não é preciso refrescar</string>
+  <string name="search_hint">Pesquisar</string>
+  <string name="pref_20min_ignore">Ignorar músicas longas</string>
+  <string name="pref_20min_ignore_sum">Faixas de som mais longas que 20 minutos (como podcasts) não são consideradas como mùsicas</string>
   <string name="pref_about">Sobre</string>
   <string name="send_feedback">Enviar feedback</string>
   <string name="local_title">Letras guardadas</string>
-  <string name="settings_title">Configurações</string>
+  <string name="settings_title">Configuração</string>
   <string name="save_action">Guardar</string>
-  <string name="lyrics_saved">Letra guardada</string>
-  <string name="lyrics_removed">Letra removida do armazenamento</string>
+  <string name="lyrics_saved">Letras baixadas</string>
+  <string name="lyrics_removed">Letras removidas da memória</string>
   <string name="remove_action">Deletar</string>
-  <string name="pref_auto_refresh_title">Atualizar as letras automaticamente</string>
-  <string name="pref_auto_refresh_summary">Letras são atualizadas automaticamente toda vez que a música for modificada</string>
-  <string name="local_empty_database">Você ainda não guardou nenhuma letra.</string>
-  <string name="pref_look_feel_category">Olhe e sinta</string>
-  <string name="welcome">Bem-vindo ao QuickLyric!</string>
-  <string name="welcome2_sub">As letras que você está procurando&#8230;\nAqui, e agora.</string>
+  <string name="pref_auto_refresh_title">Refrescar letras automaticamente</string>
+  <string name="pref_auto_refresh_summary">Letras serão refrescadas automaticamente cada vez que mudas de mùsica</string>
+  <string name="local_empty_database">Ainda não guardou uma letra</string>
+  <string name="pref_look_feel_category">Aspecto</string>
+  <string name="welcome">Bem-vindo a QuickLyric !</string>
+  <string name="welcome2_sub">As letras que você esta pesquisando&#8230;\nAqui, e agora</string>
   <string name="apps_desc">Funciona com todas as suas aplicações</string>
   <string name="apps_desc_sub">Se tiveres problemas com o teu player (ex: Poweramp, GoneMAD or Spotify), certifica-te que tem \"Scrobbling\" ou \"Status de Transmissão\" ligado.</string>
   <string name="id_desc">Integração com as suas aplicações MusicID favoritas. \n(Shazam, Soundhound, etc.)</string>
-  <string name="id_desc_sub">Identifique uma música\n2. Divulgue os resultados ao QuickLyric\n3. Aproveite suas letras</string>
-  <string name="refresh_desc">Quando a música mudar&#8230;</string>
-  <string name="refresh_desc_sub">Clique no botão. QuickLyric fará o resto.</string>
-  <string name="pref_more_category">Mais</string>
-  <string name="first_launch">Deixe a música reproduzindo em seu dispositivo e toque no botão de atualizar.</string>
-  <string name="share_prompt">Importar de identificador de música</string>
+  <string name="id_desc_sub">1. Identifica uma música\n2. Compartilhe os resultados no QuickLyric\n3. Desfrute de suas letras</string>
+  <string name="refresh_desc">Quando a música mudou&#8230;</string>
+  <string name="refresh_desc_sub">Aperte este botão. QuickLyric fará o resto.</string>
+  <string name="pref_more_category">Outros</string>
+  <string name="first_launch">Comece a reproduzir música no seu dispositivo e clique atualizar.</string>
+  <string name="share_prompt">Importar de MusicID</string>
   <string name="undo">Desfazer</string>
   <string name="beta_dialog_content">
-1) Participe de nossa comunidade no Google+: \nhttps://plus.google.com/communities/115504114424315189412\n
-2) Participe do beta: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric\n    </string>
+1) Junte-se à comunidade no Google+: \nhttps://plus.google.com/communities/115504114424315189412\n
+2)Registe-se para a versão beta:
+\nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
   <string name="skip">Pular</string>
-  <string name="pref_theme">Tema</string>
+  <string name="pref_theme">Temas</string>
   <string name="pref_notifications">Notificações</string>
   <string name="defaut_theme">Âmbar</string>
-  <string name="dark_theme">Escuro</string>
-  <string name="pref_notifications_sum">Receba uma notificação discreta quando a música mudar</string>
+  <string name="dark_theme">Preto</string>
+  <string name="pref_notifications_sum">Receber uma notificação discreta, quando a música mudar</string>
   <string name="pref_auto_save">Salvar automaticamente as letras</string>
   <string name="pref_auto_save_sum">Todas as letras serão armazenadas no seu dispositivo</string>
-  <string name="pref_night_mode">Modo Noturno</string>
-  <string name="pref_night_mode_sum">Exibir um fundo escuro à noite</string>
-  <string name="scan_action">Escanear música</string>
+  <string name="pref_night_mode">Modo Nocturno</string>
+  <string name="pref_night_mode_sum">Exibir um fundo escuro entre 21:00 e 06:00</string>
+  <string name="scan_action">Procurar música</string>
   <string name="warning">Aviso</string>
-  <string name="content_providers_title">Escanear música&#8230;</string>
-  <string name="dl_progress">Baixando letras&#8230; %1$d/%2$d</string>
-  <string name="dl_finished">Download completo</string>
-  <string name="pref_providers">Baixar as fontes das letras</string>
-  <string name="pref_providers_sum">Quanto mais você selecionar, mais demorado será o download</string>
+  <string name="content_providers_title">Procurar música&#8230;</string>
+  <string name="dl_progress">A descarregar letras... %1$d/%2$d</string>
+  <string name="dl_finished">Download terminado</string>
+  <string name="pref_providers">Fontes de letras adicionais</string>
+  <string name="pref_providers_sum">Quanto mais fontes selecionar, mais tempo levará o download</string>
   <string name="pref_beta">Torne-se um beta tester</string>
-  <string name="pref_beta_sum">Receba atualizações (novos recursos, correções de bugs, ...) mais rapidamente, e informe-nos por e-mail</string>
-  <string name="scan_error_no_content">Não foi possível achar uma música</string>
-  <string name="no_results_why"><u>Por quê?</u></string>
-  <string name="why_popup_text"><![CDATA[Você estava procurando pela letra da música "%1$s", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la… <br/><br/>
+  <string name="pref_beta_sum">Receba atualizações (novas funcionalidades, correções de bugs, ...) mais rapidamente e contacte-me por e-mail</string>
+  <string name="scan_error_no_content">Não foi possível encontrar nenhuma música</string>
+  <string name="no_results_why"><u>Porquê?</u></string>
+  <string name="why_popup_text"><![CDATA[Estava à procura da letra da música %1$s por %2$s. Infelizmente QuickLyric não conseguiu encontrá-la… <br/><br/>
 Algumas possíveis razões:<br/>
 <br/>
-• A sua música está <strong>marcada</strong> corretamente? o QuickLyric não reconhece músicas que não estão marcadas.<br/>
-• Verifique se sua conexão com a internet está funcionando.<br/>
-• Talvez essa música não faz parte do catálogo principal. Você marcou a opção the <strong>provedores adicionais</strong> nas configurações??<br/>
-• Você pode ter encontrado um bug. Se sim, por favor, mande-me um e-mail.<br/>
-• Finalmente,  é possível que as letras para essa música não estejam disponíveis. Se você tiver sugestões sobre adições ao catálogo, sinta-se livre para me enviar um e-mail.<br/>
-]]></string>
-  <string name="why_popup_title">Por que não está funcionando?</string>
-  <string name="download_category">Downloads</string>
-  <string name="wearable_prompt">Abrir no smartwatch</string>
-  <string name="pref_opendyslexic">Use a fonte OpenDyslexic</string>
-  <string name="pref_opendyslexic_sum">Use uma fonte especial criada para usuários com dificuldades de leitura</string>
+• A sua música está <strong>marcada</strong> corretamente? QuickLyric não consegue reconhecer músicas que não estejam marcadas.<br/>
+• Verifique a sua conexão.<br/>
+• Talvez esta música não faça parte do catálogo principal. Já verificou as <strong>fontes adicionais</strong> nas definições?<br/>
+• Talvez tenha encontrado um bug. Se for o caso, envie-me um e-mail.<br/>
+• Por último, também é possível que esta letra não esteja disponível. Se tem sugestões relacionadas com possíveis adições ao catálogo, envie-me um e-mail.<br/>]]></string>
+  <string name="why_popup_title">Porque não funciona?</string>
+  <string name="download_category">Transferências</string>
+  <string name="wearable_prompt">Abrir em smartwatch</string>
+  <string name="pref_opendyslexic">Usar o tipo de letra OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Use um tipo de letra especial para leitores com dificuldades visuais</string>
   <string name="wrong_musicID">Serviço MusicID não suportado</string>
   <string name="pref_issues_sum">contact@quicklyric.be (apenas inglês) </string>
   <string name="ignore_id3_toast">Toque no botão atualizar para forçar um download</string>
-  <string name="from_id3">(Letra extraída do arquivo de áudio)</string>
+  <string name="from_id3">(Letra extraída de ficheiro áudio)</string>
   <string name="nighttime_start_dialog_title">Início da noite</string>
   <string name="nighttime_end_dialog_title">Fim da noite</string>
-  <string name="pref_force_screen_sum">Impedir que a tela se desligue durante a leitura das letras.</string>
-  <string name="pref_force_screen_on">Manter a tela ligada</string>
-  <string name="scan_error_permission_denied">QuickLyric foi negada a permissão de escanear a sua música</string>
+  <string name="pref_force_screen_sum">Impedir que o ecrã se desligue enquanto lê as letras.</string>
+  <string name="pref_force_screen_on">Force ecrã ligado</string>
+  <string name="scan_error_permission_denied">QuickLyrics tem a permissão que analisar as músicas negada</string>
   <string name="id3_write_error">Falha ao editar os metadados da música</string>
   <string name="id3_write_success">Metadados da música editados com sucesso</string>
   <string name="id3_read_rationale">QuickLyrics precisa desta permissão para ler as letras e as capas disponíveis neste dispositivo</string>
@@ -106,7 +106,7 @@ Algumas possíveis razões:<br/>
   <string name="resync_action">Ressincronização</string>
   <string name="uri_storage">Este dispositivo</string>
   <string name="uri_gmusic">A tua biblioteca do Google Play Music</string>
-  <string name="uri_spotify">Sua biblioteca de Spotify</string>
+  <string name="uri_spotify">A tua biblioteca do Spotify</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -114,7 +114,7 @@ Algumas possíveis razões:<br/>
   <string name="source_japanese">Japonês</string>
   <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
-  <string name="spotify_connection">Conectando ao Spotify&#8230;</string>
+  <string name="spotify_connection">A ligar ao Spotify&#8230;</string>
   <string name="full_text_action">Mostrar texto completo</string>
   <string name="artworks_pref_title">Download automático das capas</string>
   <string name="artworks_pref_sum">Pode resultar em gasto de dados móveis</string>
@@ -144,19 +144,19 @@ Algumas possíveis razões:<br/>
   <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite.</string>
   <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
   <plurals name="scan_dialog">
-    <item quantity="one">QuickLyric irá agora baixar a letra para um total de %1$d música.\
-Certifique-se de manter uma conexão estável por %2$d minuto.</item>
-    <item quantity="other">QuickLyric irá agora baixar as letras para um total de %1$d músicas.\
-Certifique-se de manter uma conexão estável por pelo menos %2$d minuto(s).</item>
+    <item quantity="one">QuickLyric vai agora descarregar a letra para %1$d música. \
+        Certifique-se que tenha uma conexão estável durante no mínimo %2$d minuto.</item>
+    <item quantity="other">QuickLyric vai agora descarregar as letras para %1$d músicas. \
+        Certifique-se que tenha uma conexão estável durante um mínimo de %2$d minutos.</item>
   </plurals>
   <plurals name="dl_finished_desc">
-    <item quantity="one">Foi baixada a letra para %1$d música</item>
-    <item quantity="other">Foram baixadas as letras para %1$d músicas</item>
+    <item quantity="one">Letras descarregadas para %1$d músicas</item>
+    <item quantity="other">Letras descarregadas para %1$d músicas</item>
   </plurals>
   <string-array name="notifications">
     <item>Desativado (padrão)</item>
     <item>Ativado</item>
-    <item>Ativado (afixado)</item>
+    <item>Activado (estático)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>Sempre ligado</item>

@@ -210,7 +210,7 @@ public class Spotify {
                                 progressDialog.dismiss();
                                 final int time = (int) Math.ceil(savedTracks.size() / 500f);
                                 String prompt = mActivity.getResources()
-                                        .getQuantityString(R.plurals.scan_dialog, savedTracks.size() > 1 ? 2 : 1);
+                                        .getQuantityString(R.plurals.scan_dialog, savedTracks.size());
                                 AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mActivity);
                                 confirmDialog
                                         .setTitle(R.string.warning)
