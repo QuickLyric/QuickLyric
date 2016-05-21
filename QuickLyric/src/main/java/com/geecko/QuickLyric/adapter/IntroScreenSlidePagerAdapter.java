@@ -281,7 +281,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 };
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             count += 1;
         }
         return count;
