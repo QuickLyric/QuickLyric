@@ -152,6 +152,7 @@ A few possible reasons why:<br/>
     <string name="premium_themes_incent">*7* new themes</string>
     <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night.</string>
     <string name="premium_thanks">Thanks for your support!</string>
+    <string name="about_crowdin">Help translate the app on Crowdin</string>
 
 
     <plurals name="scan_dialog">

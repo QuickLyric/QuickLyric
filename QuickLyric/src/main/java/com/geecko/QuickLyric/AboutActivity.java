@@ -31,11 +31,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -86,11 +88,30 @@ public class AboutActivity extends AppCompatActivity {
 
         Element productTourElement = new Element().setTitle(getString(R.string.about_product_tour));
         productTourElement.setOnClickListener(productTourAction);
-        Element crowdinElement = new Element().setTitle("Help translate the app on Crowdin");
+        Element crowdinElement = new Element().setTitle(getString(R.string.about_crowdin));
         crowdinElement.setIntent(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/quicklyric"))
         );
+        Element ossLicensesElement = new Element().setTitle("Open Source Licenses").setTag("OSSLicenses");
+        ossLicensesElement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebView webView = new WebView(AboutActivity.this);
+                String data = getResources().getString(R.string.open_source_librairies_licenses);
+                webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
+                new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
+            }
+        });
         Element tosElement = new Element().setTitle(getString(R.string.about_read_ToS));
+        tosElement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebView webView = new WebView(AboutActivity.this);
+                String data = getResources().getString(R.string.QL_EULA);
+                webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
+                new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
+            }
+        });
 
         View aboutView = new AboutPage(this)
                 .setDescription("QuickLyric is made with love in Brussels, Belgium.") // FixMe
@@ -103,7 +124,8 @@ public class AboutActivity extends AppCompatActivity {
                 .setImage(R.drawable.icon)
                 .addItem(productTourElement)
                 .addItem(crowdinElement)
-                .addItem(tosElement) // FixMe
+                .addItem(ossLicensesElement)
+                .addItem(tosElement)
                 .create();
         aboutView.setLayoutParams(new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         linearLayout.addView(toolbar);

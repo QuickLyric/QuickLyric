@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<resources>
+    <string name="open_source_librairies_licenses" translatable="false"><![CDATA[
+        <h1>Open Source Licenses</h1>
+
+<h2>Apache License Version 2.0</h2>
+
+<p>Used by:</p>
+
+<ul>
+<li>Android Support Library v4</li>
+<li>Android Support Library v13</li>
+<li>Android AppCompat Support Library</li>
+<li>Android Design Support Library</li>
+<li>Android CardView Support Library</li>
+<li>Android Percent Support Library</li>
+<li>Material Ripple Layout (Copyright 2015 Balys Valentukevicius)</li>
+<li>Volley</li>
+<li>Retrofit (Copyright 2013 Square, Inc.)</li>
+<li>OkHTTP (Copyright 2016 Square, Inc.)</li>
+<li>ViewPagerIndicator (Copyright 2012 Jake Wharton, Copyright 2011 Patrik Åkerfeldt, Copyright 2011 Francisco Figueiredo Jr.)</li>
+<li>MaterialDateTimePicker (Copyright © 2015 Wouter Dullaert)</li>
+<li>MaterialSearchView (Copyright 2015 Miguel Catalan Bañuls)</li>
+<li>SpotifyApi (Copyright 2015 Drivemode, Inc.)</li>
+<li>LeakCanary (Copyright 2015 Square, Inc.)</li>
+</ul>
+
+<blockquote>
+  <p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+  <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</blockquote>
+
+<h2>The MIT License</h2>
+
+<p>Used by:</p>
+
+<ul>
+<li>Android About Page (Copyright © 2016 Mehdi Sakout)</li>
+<li>Jsoup (© 2009-2016, Jonathan Hedley)</li>
+</ul>
+
+<blockquote>
+  <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</blockquote>
+
+<h2>GNU Lesser General Public License</h2>
+
+<p>Used by jAudioTagger.</p>
+
+<blockquote>
+  <h1>GNU Lesser General Public License</h1>
+
+<p><em>Version 3, 29 June 2007</em>
+<em>Copyright © 2007 Free Software Foundation, Inc. &lt;<a href="http://fsf.org/">http://fsf.org/</a>&gt;</em></p>
+
+<p>Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.</p>
+
+<p>This version of the GNU Lesser General Public License incorporates
+the terms and conditions of version 3 of the GNU General Public
+License, supplemented by the additional permissions listed below.</p>
+
+<h3>0. Additional Definitions</h3>
+
+<p>As used herein, “this License” refers to version 3 of the GNU Lesser
+General Public License, and the “GNU GPL” refers to version 3 of the GNU
+General Public License.</p>
+
+<p>“The Library” refers to a covered work governed by this License,
+other than an Application or a Combined Work as defined below.</p>
+
+<p>An “Application” is any work that makes use of an interface provided
+by the Library, but which is not otherwise based on the Library.
+Defining a subclass of a class defined by the Library is deemed a mode
+of using an interface provided by the Library.</p>
+
+<p>A “Combined Work” is a work produced by combining or linking an
+Application with the Library.  The particular version of the Library
+with which the Combined Work was made is also called the “Linked
+Version”.</p>
+
+<p>The “Minimal Corresponding Source” for a Combined Work means the
+Corresponding Source for the Combined Work, excluding any source code
+for portions of the Combined Work that, considered in isolation, are
+based on the Application, and not on the Linked Version.</p>
+
+<p>The “Corresponding Application Code” for a Combined Work means the
+object code and/or source code for the Application, including any data
+and utility programs needed for reproducing the Combined Work from the
+Application, but excluding the System Libraries of the Combined Work.</p>
+
+<h3>1. Exception to Section 3 of the GNU GPL</h3>
+
+<p>You may convey a covered work under sections 3 and 4 of this License
+without being bound by section 3 of the GNU GPL.</p>
+
+<h3>2. Conveying Modified Versions</h3>
+
+<p>If you modify a copy of the Library, and, in your modifications, a
+facility refers to a function or data to be supplied by an Application
+that uses the facility (other than as an argument passed when the
+facility is invoked), then you may convey a copy of the modified
+version:</p>
+
+<ul>
+<li><p><strong>a)</strong> under this License, provided that you make a good faith effort to
+ensure that, in the event an Application does not supply the
+function or data, the facility still operates, and performs
+whatever part of its purpose remains meaningful, or</p></li>
+<li><p><strong>b)</strong> under the GNU GPL, with none of the additional permissions of
+this License applicable to that copy.</p></li>
+</ul>
+
+<h3>3. Object Code Incorporating Material from Library Header Files</h3>
+
+<p>The object code form of an Application may incorporate material from
+a header file that is part of the Library.  You may convey such object
+code under terms of your choice, provided that, if the incorporated
+material is not limited to numerical parameters, data structure
+layouts and accessors, or small macros, inline functions and templates
+(ten or fewer lines in length), you do both of the following:</p>
+
+<ul>
+<li><strong>a)</strong> Give prominent notice with each copy of the object code that the
+Library is used in it and that the Library and its use are
+covered by this License.</li>
+<li><strong>b)</strong> Accompany the object code with a copy of the GNU GPL and this license
+document.</li>
+</ul>
+
+<h3>4. Combined Works</h3>
+
+<p>You may convey a Combined Work under terms of your choice that,
+taken together, effectively do not restrict modification of the
+portions of the Library contained in the Combined Work and reverse
+engineering for debugging such modifications, if you also do each of
+the following:</p>
+
+<ul>
+<li><p><strong>a)</strong> Give prominent notice with each copy of the Combined Work that
+the Library is used in it and that the Library and its use are
+covered by this License.</p></li>
+<li><p><strong>b)</strong> Accompany the Combined Work with a copy of the GNU GPL and this license
+document.</p></li>
+<li><p><strong>c)</strong> For a Combined Work that displays copyright notices during
+execution, include the copyright notice for the Library among
+these notices, as well as a reference directing the user to the
+copies of the GNU GPL and this license document.</p></li>
+<li><p><strong>d)</strong> Do one of the following:</p>
+
+<ul>
+<li><strong>0)</strong> Convey the Minimal Corresponding Source under the terms of this
+License, and the Corresponding Application Code in a form
+suitable for, and under terms that permit, the user to
+recombine or relink the Application with a modified version of
+the Linked Version to produce a modified Combined Work, in the
+manner specified by section 6 of the GNU GPL for conveying
+Corresponding Source.</li>
+<li><strong>1)</strong> Use a suitable shared library mechanism for linking with the
+Library.  A suitable mechanism is one that <strong>(a)</strong> uses at run time
+a copy of the Library already present on the user\'s computer
+system, and <strong>(b)</strong> will operate properly with a modified version
+of the Library that is interface-compatible with the Linked
+Version.</li>
+</ul></li>
+<li><p><strong>e)</strong> Provide Installation Information, but only if you would otherwise
+be required to provide such information under section 6 of the
+GNU GPL, and only to the extent that such information is
+necessary to install and execute a modified version of the
+Combined Work produced by recombining or relinking the
+Application with a modified version of the Linked Version. (If
+you use option <strong>4d0</strong>, the Installation Information must accompany
+the Minimal Corresponding Source and Corresponding Application
+Code. If you use option <strong>4d1</strong>, you must provide the Installation
+Information in the manner specified by section 6 of the GNU GPL
+for conveying Corresponding Source.)</p></li>
+</ul>
+
+<h3>5. Combined Libraries</h3>
+
+<p>You may place library facilities that are a work based on the
+Library side by side in a single library together with other library
+facilities that are not Applications and are not covered by this
+License, and convey such a combined library under terms of your
+choice, if you do both of the following:</p>
+
+<ul>
+<li><strong>a)</strong> Accompany the combined library with a copy of the same work based
+on the Library, uncombined with any other library facilities,
+conveyed under the terms of this License.</li>
+<li><strong>b)</strong> Give prominent notice with the combined library that part of it
+is a work based on the Library, and explaining where to find the
+accompanying uncombined form of the same work.</li>
+</ul>
+
+<h3>6. Revised Versions of the GNU Lesser General Public License</h3>
+
+<p>The Free Software Foundation may publish revised and/or new versions
+of the GNU Lesser General Public License from time to time. Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.</p>
+
+<p>Each version is given a distinguishing version number. If the
+Library as you received it specifies that a certain numbered version
+of the GNU Lesser General Public License “or any later version”
+applies to it, you have the option of following the terms and
+conditions either of that published version or of any later version
+published by the Free Software Foundation. If the Library as you
+received it does not specify a version number of the GNU Lesser
+General Public License, you may choose any version of the GNU Lesser
+General Public License ever published by the Free Software Foundation.</p>
+
+<p>If the Library as you received it specifies that a proxy can decide
+whether future versions of the GNU Lesser General Public License shall
+apply, that proxy\'s public statement of acceptance of any version is
+permanent authorization for you to choose that version for the
+Library.</p>
+</blockquote>
+
+<h2>GNU General Public License v3</h2>
+
+<p>Used by QuickLyric.</p>
+
+<blockquote>
+  <h1>GNU General Public License</h1>
+
+<p><em>Version 3, 29 June 2007</em>
+<em>Copyright © 2007 Free Software Foundation, Inc. &lt;<a href="http://fsf.org/">http://fsf.org/</a>&gt;</em></p>
+
+<p>Everyone is permitted to copy and distribute verbatim copies of this license
+document, but changing it is not allowed.</p>
+
+<h2>Preamble</h2>
+
+<p>The GNU General Public License is a free, copyleft license for software and other
+kinds of works.</p>
+
+<p>The licenses for most software and other practical works are designed to take away
+your freedom to share and change the works. By contrast, the GNU General Public
+License is intended to guarantee your freedom to share and change all versions of a
+program—to make sure it remains free software for all its users. We, the Free
+Software Foundation, use the GNU General Public License for most of our software; it
+applies also to any other work released this way by its authors. You can apply it to
+your programs, too.</p>
+
+<p>When we speak of free software, we are referring to freedom, not price. Our General
+Public Licenses are designed to make sure that you have the freedom to distribute
+copies of free software (and charge for them if you wish), that you receive source
+code or can get it if you want it, that you can change the software or use pieces of
+it in new free programs, and that you know you can do these things.</p>
+
+<p>To protect your rights, we need to prevent others from denying you these rights or
+asking you to surrender the rights. Therefore, you have certain responsibilities if
+you distribute copies of the software, or if you modify it: responsibilities to
+respect the freedom of others.</p>
+
+<p>For example, if you distribute copies of such a program, whether gratis or for a fee,
+you must pass on to the recipients the same freedoms that you received. You must make
+sure that they, too, receive or can get the source code. And you must show them these
+terms so they know their rights.</p>
+
+<p>Developers that use the GNU GPL protect your rights with two steps: <strong>(1)</strong> assert
+copyright on the software, and <strong>(2)</strong> offer you this License giving you legal permission
+to copy, distribute and/or modify it.</p>
+
+<p>For the developers\' and authors\' protection, the GPL clearly explains that there is
+no warranty for this free software. For both users\' and authors\' sake, the GPL
+requires that modified versions be marked as changed, so that their problems will not
+be attributed erroneously to authors of previous versions.</p>
+
+<p>Some devices are designed to deny users access to install or run modified versions of
+the software inside them, although the manufacturer can do so. This is fundamentally
+incompatible with the aim of protecting users\' freedom to change the software. The
+systematic pattern of such abuse occurs in the area of products for individuals to
+use, which is precisely where it is most unacceptable. Therefore, we have designed
+this version of the GPL to prohibit the practice for those products. If such problems
+arise substantially in other domains, we stand ready to extend this provision to
+those domains in future versions of the GPL, as needed to protect the freedom of
+users.</p>
+
+<p>Finally, every program is threatened constantly by software patents. States should
+not allow patents to restrict development and use of software on general-purpose
+computers, but in those that do, we wish to avoid the special danger that patents
+applied to a free program could make it effectively proprietary. To prevent this, the
+GPL assures that patents cannot be used to render the program non-free.</p>
+
+<p>The precise terms and conditions for copying, distribution and modification follow.</p>
+
+<h2>TERMS AND CONDITIONS</h2>
+
+<h3>0. Definitions</h3>
+
+<p>“This License” refers to version 3 of the GNU General Public License.</p>
+
+<p>“Copyright” also means copyright-like laws that apply to other kinds of
+works, such as semiconductor masks.</p>
+
+<p>“The Program” refers to any copyrightable work licensed under this
+License. Each licensee is addressed as “you”. “Licensees” and
+“recipients” may be individuals or organizations.</p>
+
+<p>To “modify” a work means to copy from or adapt all or part of the work in
+a fashion requiring copyright permission, other than the making of an exact copy. The
+resulting work is called a “modified version” of the earlier work or a
+work “based on” the earlier work.</p>
+
+<p>A “covered work” means either the unmodified Program or a work based on
+the Program.</p>
+
+<p>To “propagate” a work means to do anything with it that, without
+permission, would make you directly or secondarily liable for infringement under
+applicable copyright law, except executing it on a computer or modifying a private
+copy. Propagation includes copying, distribution (with or without modification),
+making available to the public, and in some countries other activities as well.</p>
+
+<p>To “convey” a work means any kind of propagation that enables other
+parties to make or receive copies. Mere interaction with a user through a computer
+network, with no transfer of a copy, is not conveying.</p>
+
+<p>An interactive user interface displays “Appropriate Legal Notices” to the
+extent that it includes a convenient and prominently visible feature that <strong>(1)</strong>
+displays an appropriate copyright notice, and <strong>(2)</strong> tells the user that there is no
+warranty for the work (except to the extent that warranties are provided), that
+licensees may convey the work under this License, and how to view a copy of this
+License. If the interface presents a list of user commands or options, such as a
+menu, a prominent item in the list meets this criterion.</p>
+
+<h3>1. Source Code</h3>
+
+<p>The “source code” for a work means the preferred form of the work for
+making modifications to it. “Object code” means any non-source form of a
+work.</p>
+
+<p>A “Standard Interface” means an interface that either is an official
+standard defined by a recognized standards body, or, in the case of interfaces
+specified for a particular programming language, one that is widely used among
+developers working in that language.</p>
+
+<p>The “System Libraries” of an executable work include anything, other than
+the work as a whole, that <strong>(a)</strong> is included in the normal form of packaging a Major
+Component, but which is not part of that Major Component, and <strong>(b)</strong> serves only to
+enable use of the work with that Major Component, or to implement a Standard
+Interface for which an implementation is available to the public in source code form.
+A “Major Component”, in this context, means a major essential component
+(kernel, window system, and so on) of the specific operating system (if any) on which
+the executable work runs, or a compiler used to produce the work, or an object code
+interpreter used to run it.</p>
+
+<p>The “Corresponding Source” for a work in object code form means all the
+source code needed to generate, install, and (for an executable work) run the object
+code and to modify the work, including scripts to control those activities. However,
+it does not include the work\'s System Libraries, or general-purpose tools or
+generally available free programs which are used unmodified in performing those
+activities but which are not part of the work. For example, Corresponding Source
+includes interface definition files associated with source files for the work, and
+the source code for shared libraries and dynamically linked subprograms that the work
+is specifically designed to require, such as by intimate data communication or
+control flow between those subprograms and other parts of the work.</p>
+
+<p>The Corresponding Source need not include anything that users can regenerate
+automatically from other parts of the Corresponding Source.</p>
+
+<p>The Corresponding Source for a work in source code form is that same work.</p>
+
+<h3>2. Basic Permissions</h3>
+
+<p>All rights granted under this License are granted for the term of copyright on the
+Program, and are irrevocable provided the stated conditions are met. This License
+explicitly affirms your unlimited permission to run the unmodified Program. The
+output from running a covered work is covered by this License only if the output,
+given its content, constitutes a covered work. This License acknowledges your rights
+of fair use or other equivalent, as provided by copyright law.</p>
+
+<p>You may make, run and propagate covered works that you do not convey, without
+conditions so long as your license otherwise remains in force. You may convey covered
+works to others for the sole purpose of having them make modifications exclusively
+for you, or provide you with facilities for running those works, provided that you
+comply with the terms of this License in conveying all material for which you do not
+control copyright. Those thus making or running the covered works for you must do so
+exclusively on your behalf, under your direction and control, on terms that prohibit
+them from making any copies of your copyrighted material outside their relationship
+with you.</p>
+
+<p>Conveying under any other circumstances is permitted solely under the conditions
+stated below. Sublicensing is not allowed; section 10 makes it unnecessary.</p>
+
+<h3>3. Protecting Users\' Legal Rights From Anti-Circumvention Law</h3>
+
+<p>No covered work shall be deemed part of an effective technological measure under any
+applicable law fulfilling obligations under article 11 of the WIPO copyright treaty
+adopted on 20 December 1996, or similar laws prohibiting or restricting circumvention
+of such measures.</p>
+
+<p>When you convey a covered work, you waive any legal power to forbid circumvention of
+technological measures to the extent such circumvention is effected by exercising
+rights under this License with respect to the covered work, and you disclaim any
+intention to limit operation or modification of the work as a means of enforcing,
+against the work\'s users, your or third parties\' legal rights to forbid circumvention
+of technological measures.</p>
+
+<h3>4. Conveying Verbatim Copies</h3>
+
+<p>You may convey verbatim copies of the Program\'s source code as you receive it, in any
+medium, provided that you conspicuously and appropriately publish on each copy an
+appropriate copyright notice; keep intact all notices stating that this License and
+any non-permissive terms added in accord with section 7 apply to the code; keep
+intact all notices of the absence of any warranty; and give all recipients a copy of
+this License along with the Program.</p>
+
+<p>You may charge any price or no price for each copy that you convey, and you may offer
+support or warranty protection for a fee.</p>
+
+<h3>5. Conveying Modified Source Versions</h3>
+
+<p>You may convey a work based on the Program, or the modifications to produce it from
+the Program, in the form of source code under the terms of section 4, provided that
+you also meet all of these conditions:</p>
+
+<ul>
+<li><strong>a)</strong> The work must carry prominent notices stating that you modified it, and giving a
+relevant date.</li>
+<li><strong>b)</strong> The work must carry prominent notices stating that it is released under this
+License and any conditions added under section 7. This requirement modifies the
+requirement in section 4 to “keep intact all notices”.</li>
+<li><strong>c)</strong> You must license the entire work, as a whole, under this License to anyone who
+comes into possession of a copy. This License will therefore apply, along with any
+applicable section 7 additional terms, to the whole of the work, and all its parts,
+regardless of how they are packaged. This License gives no permission to license the
+work in any other way, but it does not invalidate such permission if you have
+separately received it.</li>
+<li><strong>d)</strong> If the work has interactive user interfaces, each must display Appropriate Legal
+Notices; however, if the Program has interactive interfaces that do not display
+Appropriate Legal Notices, your work need not make them do so.</li>
+</ul>
+
+<p>A compilation of a covered work with other separate and independent works, which are
+not by their nature extensions of the covered work, and which are not combined with
+it such as to form a larger program, in or on a volume of a storage or distribution
+medium, is called an “aggregate” if the compilation and its resulting
+copyright are not used to limit the access or legal rights of the compilation\'s users
+beyond what the individual works permit. Inclusion of a covered work in an aggregate
+does not cause this License to apply to the other parts of the aggregate.</p>
+
+<h3>6. Conveying Non-Source Forms</h3>
+
+<p>You may convey a covered work in object code form under the terms of sections 4 and
+5, provided that you also convey the machine-readable Corresponding Source under the
+terms of this License, in one of these ways:</p>
+
+<ul>
+<li><strong>a)</strong> Convey the object code in, or embodied in, a physical product (including a
+physical distribution medium), accompanied by the Corresponding Source fixed on a
+durable physical medium customarily used for software interchange.</li>
+<li><strong>b)</strong> Convey the object code in, or embodied in, a physical product (including a
+physical distribution medium), accompanied by a written offer, valid for at least
+three years and valid for as long as you offer spare parts or customer support for
+that product model, to give anyone who possesses the object code either <strong>(1)</strong> a copy of
+the Corresponding Source for all the software in the product that is covered by this
+License, on a durable physical medium customarily used for software interchange, for
+a price no more than your reasonable cost of physically performing this conveying of
+source, or <strong>(2)</strong> access to copy the Corresponding Source from a network server at no
+charge.</li>
+<li><strong>c)</strong> Convey individual copies of the object code with a copy of the written offer to
+provide the Corresponding Source. This alternative is allowed only occasionally and
+noncommercially, and only if you received the object code with such an offer, in
+accord with subsection 6b.</li>
+<li><strong>d)</strong> Convey the object code by offering access from a designated place (gratis or for
+a charge), and offer equivalent access to the Corresponding Source in the same way
+through the same place at no further charge. You need not require recipients to copy
+the Corresponding Source along with the object code. If the place to copy the object
+code is a network server, the Corresponding Source may be on a different server
+(operated by you or a third party) that supports equivalent copying facilities,
+provided you maintain clear directions next to the object code saying where to find
+the Corresponding Source. Regardless of what server hosts the Corresponding Source,
+you remain obligated to ensure that it is available for as long as needed to satisfy
+these requirements.</li>
+<li><strong>e)</strong> Convey the object code using peer-to-peer transmission, provided you inform
+other peers where the object code and Corresponding Source of the work are being
+offered to the general public at no charge under subsection 6d.</li>
+</ul>
+
+<p>A separable portion of the object code, whose source code is excluded from the
+Corresponding Source as a System Library, need not be included in conveying the
+object code work.</p>
+
+<p>A “User Product” is either <strong>(1)</strong> a “consumer product”, which
+means any tangible personal property which is normally used for personal, family, or
+household purposes, or <strong>(2)</strong> anything designed or sold for incorporation into a
+dwelling. In determining whether a product is a consumer product, doubtful cases
+shall be resolved in favor of coverage. For a particular product received by a
+particular user, “normally used” refers to a typical or common use of
+that class of product, regardless of the status of the particular user or of the way
+in which the particular user actually uses, or expects or is expected to use, the
+product. A product is a consumer product regardless of whether the product has
+substantial commercial, industrial or non-consumer uses, unless such uses represent
+the only significant mode of use of the product.</p>
+
+<p>“Installation Information” for a User Product means any methods,
+procedures, authorization keys, or other information required to install and execute
+modified versions of a covered work in that User Product from a modified version of
+its Corresponding Source. The information must suffice to ensure that the continued
+functioning of the modified object code is in no case prevented or interfered with
+solely because modification has been made.</p>
+
+<p>If you convey an object code work under this section in, or with, or specifically for
+use in, a User Product, and the conveying occurs as part of a transaction in which
+the right of possession and use of the User Product is transferred to the recipient
+in perpetuity or for a fixed term (regardless of how the transaction is
+characterized), the Corresponding Source conveyed under this section must be
+accompanied by the Installation Information. But this requirement does not apply if
+neither you nor any third party retains the ability to install modified object code
+on the User Product (for example, the work has been installed in ROM).</p>
+
+<p>The requirement to provide Installation Information does not include a requirement to
+continue to provide support service, warranty, or updates for a work that has been
+modified or installed by the recipient, or for the User Product in which it has been
+modified or installed. Access to a network may be denied when the modification itself
+materially and adversely affects the operation of the network or violates the rules
+and protocols for communication across the network.</p>
+
+<p>Corresponding Source conveyed, and Installation Information provided, in accord with
+this section must be in a format that is publicly documented (and with an
+implementation available to the public in source code form), and must require no
+special password or key for unpacking, reading or copying.</p>
+
+<h3>7. Additional Terms</h3>
+
+<p>“Additional permissions” are terms that supplement the terms of this
+License by making exceptions from one or more of its conditions. Additional
+permissions that are applicable to the entire Program shall be treated as though they
+were included in this License, to the extent that they are valid under applicable
+law. If additional permissions apply only to part of the Program, that part may be
+used separately under those permissions, but the entire Program remains governed by
+this License without regard to the additional permissions.</p>
+
+<p>When you convey a copy of a covered work, you may at your option remove any
+additional permissions from that copy, or from any part of it. (Additional
+permissions may be written to require their own removal in certain cases when you
+modify the work.) You may place additional permissions on material, added by you to a
+covered work, for which you have or can give appropriate copyright permission.</p>
+
+<p>Notwithstanding any other provision of this License, for material you add to a
+covered work, you may (if authorized by the copyright holders of that material)
+supplement the terms of this License with terms:</p>
+
+<ul>
+<li><strong>a)</strong> Disclaiming warranty or limiting liability differently from the terms of
+sections 15 and 16 of this License; or</li>
+<li><strong>b)</strong> Requiring preservation of specified reasonable legal notices or author
+attributions in that material or in the Appropriate Legal Notices displayed by works
+containing it; or</li>
+<li><strong>c)</strong> Prohibiting misrepresentation of the origin of that material, or requiring that
+modified versions of such material be marked in reasonable ways as different from the
+original version; or</li>
+<li><strong>d)</strong> Limiting the use for publicity purposes of names of licensors or authors of the
+material; or</li>
+<li><strong>e)</strong> Declining to grant rights under trademark law for use of some trade names,
+trademarks, or service marks; or</li>
+<li><strong>f)</strong> Requiring indemnification of licensors and authors of that material by anyone
+who conveys the material (or modified versions of it) with contractual assumptions of
+liability to the recipient, for any liability that these contractual assumptions
+directly impose on those licensors and authors.</li>
+</ul>
+
+<p>All other non-permissive additional terms are considered “further
+restrictions” within the meaning of section 10. If the Program as you received
+it, or any part of it, contains a notice stating that it is governed by this License
+along with a term that is a further restriction, you may remove that term. If a
+license document contains a further restriction but permits relicensing or conveying
+under this License, you may add to a covered work material governed by the terms of
+that license document, provided that the further restriction does not survive such
+relicensing or conveying.</p>
+
+<p>If you add terms to a covered work in accord with this section, you must place, in
+the relevant source files, a statement of the additional terms that apply to those
+files, or a notice indicating where to find the applicable terms.</p>
+
+<p>Additional terms, permissive or non-permissive, may be stated in the form of a
+separately written license, or stated as exceptions; the above requirements apply
+either way.</p>
+
+<h3>8. Termination</h3>
+
+<p>You may not propagate or modify a covered work except as expressly provided under
+this License. Any attempt otherwise to propagate or modify it is void, and will
+automatically terminate your rights under this License (including any patent licenses
+granted under the third paragraph of section 11).</p>
+
+<p>However, if you cease all violation of this License, then your license from a
+particular copyright holder is reinstated <strong>(a)</strong> provisionally, unless and until the
+copyright holder explicitly and finally terminates your license, and <strong>(b)</strong> permanently,
+if the copyright holder fails to notify you of the violation by some reasonable means
+prior to 60 days after the cessation.</p>
+
+<p>Moreover, your license from a particular copyright holder is reinstated permanently
+if the copyright holder notifies you of the violation by some reasonable means, this
+is the first time you have received notice of violation of this License (for any
+work) from that copyright holder, and you cure the violation prior to 30 days after
+your receipt of the notice.</p>
+
+<p>Termination of your rights under this section does not terminate the licenses of
+parties who have received copies or rights from you under this License. If your
+rights have been terminated and not permanently reinstated, you do not qualify to
+receive new licenses for the same material under section 10.</p>
+
+<h3>9. Acceptance Not Required for Having Copies</h3>
+
+<p>You are not required to accept this License in order to receive or run a copy of the
+Program. Ancillary propagation of a covered work occurring solely as a consequence of
+using peer-to-peer transmission to receive a copy likewise does not require
+acceptance. However, nothing other than this License grants you permission to
+propagate or modify any covered work. These actions infringe copyright if you do not
+accept this License. Therefore, by modifying or propagating a covered work, you
+indicate your acceptance of this License to do so.</p>
+
+<h3>10. Automatic Licensing of Downstream Recipients</h3>
+
+<p>Each time you convey a covered work, the recipient automatically receives a license
+from the original licensors, to run, modify and propagate that work, subject to this
+License. You are not responsible for enforcing compliance by third parties with this
+License.</p>
+
+<p>An “entity transaction” is a transaction transferring control of an
+organization, or substantially all assets of one, or subdividing an organization, or
+merging organizations. If propagation of a covered work results from an entity
+transaction, each party to that transaction who receives a copy of the work also
+receives whatever licenses to the work the party\'s predecessor in interest had or
+could give under the previous paragraph, plus a right to possession of the
+Corresponding Source of the work from the predecessor in interest, if the predecessor
+has it or can get it with reasonable efforts.</p>
+
+<p>You may not impose any further restrictions on the exercise of the rights granted or
+affirmed under this License. For example, you may not impose a license fee, royalty,
+or other charge for exercise of rights granted under this License, and you may not
+initiate litigation (including a cross-claim or counterclaim in a lawsuit) alleging
+that any patent claim is infringed by making, using, selling, offering for sale, or
+importing the Program or any portion of it.</p>
+
+<h3>11. Patents</h3>
+
+<p>A “contributor” is a copyright holder who authorizes use under this
+License of the Program or a work on which the Program is based. The work thus
+licensed is called the contributor\'s “contributor version”.</p>
+
+<p>A contributor\'s “essential patent claims” are all patent claims owned or
+controlled by the contributor, whether already acquired or hereafter acquired, that
+would be infringed by some manner, permitted by this License, of making, using, or
+selling its contributor version, but do not include claims that would be infringed
+only as a consequence of further modification of the contributor version. For
+purposes of this definition, “control” includes the right to grant patent
+sublicenses in a manner consistent with the requirements of this License.</p>
+
+<p>Each contributor grants you a non-exclusive, worldwide, royalty-free patent license
+under the contributor\'s essential patent claims, to make, use, sell, offer for sale,
+import and otherwise run, modify and propagate the contents of its contributor
+version.</p>
+
+<p>In the following three paragraphs, a “patent license” is any express
+agreement or commitment, however denominated, not to enforce a patent (such as an
+express permission to practice a patent or covenant not to sue for patent
+infringement). To “grant” such a patent license to a party means to make
+such an agreement or commitment not to enforce a patent against the party.</p>
+
+<p>If you convey a covered work, knowingly relying on a patent license, and the
+Corresponding Source of the work is not available for anyone to copy, free of charge
+and under the terms of this License, through a publicly available network server or
+other readily accessible means, then you must either <strong>(1)</strong> cause the Corresponding
+Source to be so available, or <strong>(2)</strong> arrange to deprive yourself of the benefit of the
+patent license for this particular work, or <strong>(3)</strong> arrange, in a manner consistent with
+the requirements of this License, to extend the patent license to downstream
+recipients. “Knowingly relying” means you have actual knowledge that, but
+for the patent license, your conveying the covered work in a country, or your
+recipient\'s use of the covered work in a country, would infringe one or more
+identifiable patents in that country that you have reason to believe are valid.</p>
+
+<p>If, pursuant to or in connection with a single transaction or arrangement, you
+convey, or propagate by procuring conveyance of, a covered work, and grant a patent
+license to some of the parties receiving the covered work authorizing them to use,
+propagate, modify or convey a specific copy of the covered work, then the patent
+license you grant is automatically extended to all recipients of the covered work and
+works based on it.</p>
+
+<p>A patent license is “discriminatory” if it does not include within the
+scope of its coverage, prohibits the exercise of, or is conditioned on the
+non-exercise of one or more of the rights that are specifically granted under this
+License. You may not convey a covered work if you are a party to an arrangement with
+a third party that is in the business of distributing software, under which you make
+payment to the third party based on the extent of your activity of conveying the
+work, and under which the third party grants, to any of the parties who would receive
+the covered work from you, a discriminatory patent license <strong>(a)</strong> in connection with
+copies of the covered work conveyed by you (or copies made from those copies), or <strong>(b)</strong>
+primarily for and in connection with specific products or compilations that contain
+the covered work, unless you entered into that arrangement, or that patent license
+was granted, prior to 28 March 2007.</p>
+
+<p>Nothing in this License shall be construed as excluding or limiting any implied
+license or other defenses to infringement that may otherwise be available to you
+under applicable patent law.</p>
+
+<h3>12. No Surrender of Others\' Freedom</h3>
+
+<p>If conditions are imposed on you (whether by court order, agreement or otherwise)
+that contradict the conditions of this License, they do not excuse you from the
+conditions of this License. If you cannot convey a covered work so as to satisfy
+simultaneously your obligations under this License and any other pertinent
+obligations, then as a consequence you may not convey it at all. For example, if you
+agree to terms that obligate you to collect a royalty for further conveying from
+those to whom you convey the Program, the only way you could satisfy both those terms
+and this License would be to refrain entirely from conveying the Program.</p>
+
+<h3>13. Use with the GNU Affero General Public License</h3>
+
+<p>Notwithstanding any other provision of this License, you have permission to link or
+combine any covered work with a work licensed under version 3 of the GNU Affero
+General Public License into a single combined work, and to convey the resulting work.
+The terms of this License will continue to apply to the part which is the covered
+work, but the special requirements of the GNU Affero General Public License, section
+13, concerning interaction through a network will apply to the combination as such.</p>
+
+<h3>14. Revised Versions of this License</h3>
+
+<p>The Free Software Foundation may publish revised and/or new versions of the GNU
+General Public License from time to time. Such new versions will be similar in spirit
+to the present version, but may differ in detail to address new problems or concerns.</p>
+
+<p>Each version is given a distinguishing version number. If the Program specifies that
+a certain numbered version of the GNU General Public License “or any later
+version” applies to it, you have the option of following the terms and
+conditions either of that numbered version or of any later version published by the
+Free Software Foundation. If the Program does not specify a version number of the GNU
+General Public License, you may choose any version ever published by the Free
+Software Foundation.</p>
+
+<p>If the Program specifies that a proxy can decide which future versions of the GNU
+General Public License can be used, that proxy\'s public statement of acceptance of a
+version permanently authorizes you to choose that version for the Program.</p>
+
+<p>Later license versions may give you additional or different permissions. However, no
+additional obligations are imposed on any author or copyright holder as a result of
+your choosing to follow a later version.</p>
+
+<h3>15. Disclaimer of Warranty</h3>
+
+<p>THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.
+EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER
+EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE
+QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE
+DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.</p>
+
+<h3>16. Limitation of Liability</h3>
+
+<p>IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY
+COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE PROGRAM AS
+PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL,
+INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE
+OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE
+WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.</p>
+
+<h3>17. Interpretation of Sections 15 and 16</h3>
+
+<p>If the disclaimer of warranty and limitation of liability provided above cannot be
+given local legal effect according to their terms, reviewing courts shall apply local
+law that most closely approximates an absolute waiver of all civil liability in
+connection with the Program, unless a warranty or assumption of liability accompanies
+a copy of the Program in return for a fee.</p>
+
+<p><em>END OF TERMS AND CONDITIONS</em></p>
+
+</blockquote>
+    ]]></string>
+    <string name="QL_EULA" translatable="false"><![CDATA[
+<p>LICENCE TERMS AND CONDITIONS  APPLICABLE WORLDWIDE EXCEPT WHERE WE PUBLISH SPECIFIC TERRITORIAL TERMS AND CONDITIONS</p>
+
+<p>These terms and conditions (Terms) set out important information regarding the rights, obligations and the restrictions that may apply to you as a user (User) when you access, use or download the mobile application (Application) and any services offered in conjunction with the QuickLyric digital application (Services) as they are made available on various digital media devices, such as PDAs, cellular/mobile phones, handheld devices or PCs (Devices) and networks, such as those of mobile operators, internet service providers or cable operators (Networks). </p>
+
+<p>The Services may include the ability for Users to purchase certain digital products. The Application is a digital application that facilitates the use of Services, which generally consist of a Music Player with digital lyrics recognition, that provides song lyrics, artist identification and other detailed meta data about the artist and access to related third party applications (Third Party Applications) and websites (Third Party Sites), that can be used in conjunction with the Application and/or Services (for example, e-mail providers, social networking sites, information and access feature providers). </p>
+
+<p>QuickLyric also provides a hosting service where Users can upload, submit and post their own text to share with other Users through the app. The Application and the associated Services, where not specifically provided otherwise, are supplied by [company name] (we, us and our as appropriate).
+We are a limited company incorporated in Italy. Our registered office is at: [company address], our email: is contact@quicklyric.be VAT number: 12345</p>
+
+<p>These Terms may be accessed via the Application directly from your Device, or on our Website at http://www.quicklyric.be.
+Any translation of these Terms are provided as a courtesy to you and the definitive text of these Terms is the English (UK) version.
+If you wish to use the Application and/or the Services (collectively referred to as QuickLyric), you must agree to be bound by these Terms, as set out below, and any applicable laws regarding your use of QuickLyric. You must also pay any charges for the Services which may be applicable, including all charges relating to purchase and delivery of products.</p>
+
+<p>IF ANY OF THESE TERMS ARE UNACCEPTABLE TO YOU OR IN THE EVENT THAT ANY FUTURE CHANGES TO THESE TERMS ARE UNACCEPTABLE TO YOU, DO NOT USE QUICKLYRIC. YOUR CONTINUED USE OF QUICKLYRIC (INCLUDING, BUT NOT LIMITED TO, THE DOWNLOADING OF THE APPLICATION OR ANY APPLICATION UPGRADES AND/OR USE OF THE SERVICES AND THE PURCHASE OF A SUBSCRIPTION) NOW, OR FOLLOWING THE POSTING OF NOTICE OF ANY CHANGES IN THESE TERMS, WILL BE DEEMED ACCEPTANCE BY YOU OF THESE TERMS AND ANY SUCH CHANGES OR MODIFICATIONS. YOU AGREE TO USE QUICKLYRIC ONLY FOR PURPOSES THAT ARE LEGAL, PROPER AND IN ACCORDANCE WITH THESE TERMS AND ANY LOCAL BINDING POLICIES OR GUIDELINES.
+BY DOING ANY OF THE FOLLOWING ACTS YOU AGREE TO BE BOUND BY THESE TERMS:
+a) EXPRESSLY ACCEPTING THESE TERMS OF USE AT ANY TIME, FOR EXAMPLE BY CLICKING ON ANY CLEARLY INDICATED ACTIVATION PHRASE ON YOUR DEVICE.
+b) DOWNLOADING THE APPLICATION OR DOWNLOADING AN UPGRADE TO THE APPLICATION (WHICH MAY BE OFFERED FROM TIME TO TIME).
+c) PURCHASING A SUBSCRIPTION</p>
+
+<ol>
+<li>USAGE POLICY
+1.1 Unless otherwise specifically provided by us, our grant of rights to you under these Terms is personal to you and gives you access to use the Application and the Services only on the Device on which the software was first installed. The licence is not transferrable to another person or another Device without our agreement in writing (which will only be given in exceptional circumstances) or if otherwise expressly provided in these Terms.
+1.2 You agree to provide true, accurate, current and complete information about yourself at any time you are prompted by QuickLyric to complete a registration form (for example, your name, email address, and certain demographic information) and to maintain the accuracy of this information (such information being the Membership Data) throughout the period you use QuickLyric. Membership Data and certain other information about you are subject to our Privacy Policy.
+1.3 If you do not comply with any of Sections 1.2 and 1.5, or we have reasonable grounds to suspect that you have not, we have the right to suspend and/or terminate your account and refuse any and all current or future use of QuickLyric.
+1.4 We may change, suspend or discontinue any aspect of QuickLyric at any time, including the availability of any feature, database and/or content. We may also impose limits on certain features and services or restrict your access to parts or all of the Services without liability. Such changes will be notified with reasonable notice, where they are material and where practicable, and you will have the opportunity to terminate the service should you not accept the new Terms. Where these changes or suspensions would amount to a complete termination of the Services you may be entitled to a refund of the reasonable part of any charges paid by you.
+1.5 Continued use of the Application and/or Services may require a download of new releases of software which may contain different functionality and consequently may be subject to different licence terms. You agree not to misuse QuickLyric and to only upload content to QuickLyric strictly in accordance with these Terms, any other guidance or instructions given by us and all applicable laws. In particular, you agree that you will not: (a) post or distribute any offensive, obscene or otherwise inappropriate material which may cause offence to others on grounds of race, religion, ethnicity or sex; (b) post or distribute any material that is unlawful or which threatens or encourages illegal activities or which harms the rights of others; © post or distribute material which is not your own or in respect of which you have not been given the necessary rights, licences or permissions to post to QuickLyric; (d) post or distribute any material which infringes the copyright, trademark, patent, trade secret or other intellectual property or proprietary rights of any other party; (e) post or distribute any unsolicited advertising material, junk mail, spam, chain letters, or pyramid schemes; (f) defame, harass or stalk others or encourage such behaviour; (g) harm, or attempt to harm, any person in any way; (h) impersonate any person or entity or create a false or misleading identity; (i) access, or attempt to access, the accounts of others; (j) breach or attempt to breach our security measures, or penetrate or attempt to penetrate our computer software, hardware, electronic communication system, or telecommunications systems; (k) collect, attempt to collect, or use other members personal information; (l) engage in any activity which adversely affects the ability of other people or systems to use QuickLyric or the internet generally; (m) cause any nuisance or cause the operation of QuickLyric to be jeopardised or impaired; (n) post or distribute any material that contains any form of software virus or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment; (o) reverse engineer any portion of QuickLyric or its contents, or use any robot, spider, site search/retrieval application, or other device to retrieve or index any portion of the Website and/or Application, save only to the extent permitted by applicable law; or (p) use QuickLyric for any improper, unlawful or immoral purpose.
+1.6 Each time you attempt to interact with QuickLyric, such as when you request lyrics for a music track, you will send data for which your Network will charge at your usual data rates.
+1.7 Certain versions of the Application are distributed in a form that limits the availability of some of the Services that can be accessed from that version and/or some of the Service features, for example some versions of the Application imposes a limit on the number of lyric requests that can be made in any period. Details on Services and feature sets, and any limitations on use for your version of the Application, are accessible via the Application from your Device and/or from the source where you originally obtained the Application. Even where there is no such limit imposed in the Application on the amount of usage permitted, you agree to use the Services fairly.</li>
+<li>DIGITAL PRODUCTS
+If you are (or become) a paying customer of any part of the Application and/ or Services or any other product of QuickLyric, including by purchasing products, we will provide you with the price, on a case by case basis, before completing payment for your purchase. Any purchase will be effective upon the processing of your payment and all sales of digital products on the Services are final.
+2.1 You hereby agree to waive any other right to cancel your purchase of digital products (if applicable) that may be available to you under any worldwide consumer protection laws and all refunds will be at our sole discretion. If a waiver of such rights is prohibited by law, this cancellation right shall be limited to 7 working days.
+2.2 You acknowledge that you will not be entitled to any refund for purchases of digital products on the Services, including any purchases made while using the Application.</li>
+<li>THIRD PARTY APPLICATIONS AND SERVICES
+3.1 QuickLyric may enable you to use functionalities of Third Party Applications and/or to link to Third Party Sites that are not owned or controlled by us. Content, products and services that are part of any Third Party Applications and/or Sites to which we may connect (including, but not limited to, social networking sites, sites on which you can view content and from which you can make purchases, or record a geographic location) are subject to the terms and conditions of the relevant application and/or Third Party Sites. We have no control over and are not responsible or liable for any matters relating to your dealings with such third parties.
+3.2We are not responsible for and have no control over any third-party content, syndicated content, applications, services, advertisements, links, privacy policies and/or practices of any such third-parties that may be found through QuickLyric. In addition, we will not and cannot censor or edit the content of any Third Party Applications and/or Sites.
+3.3By using the Services, you acknowledge that we do not to incur any liability arising from your use of any Third Party Applications and/or Sites. Accordingly, we encourage you to be aware when you leave QuickLyric and to read the terms and conditions and privacy policy of each and every other Third Party Application, Site and/or other resources that you visit. Any correspondence, business dealings with, syndication, linking or participation in promotions of Third Party Applications and/or Sites, including payment or delivery of related goods or services, and any other terms, conditions, warranties or representations associated with such dealings, are solely between you and such third parties.
+3.4 We shall not be responsible or liable for any loss or damage of any sort incurred as the result of any dealings between you and any third parties, or as the result of the presence of such third-party content accessed via QuickLyric or as a result of the failure of such Third Party Applications and/or Sites to function as intended.</li>
+<li>USER-GENERATED CONTENT
+4.1 We respect the intellectual property of others, and we ask our Users to do the same. If you believe that your work has been copied or used in a way that constitutes copyright infringement, or your intellectual property rights have been otherwise violated, please see our Copyright and DMCA Policy
+4.2 Please choose carefully the words, information, content, messages, text, files, images, photos, sounds, profiles, works of authorship or any other materials you post, upload, link to, publish or display on our Website and/or through the use of Services and any such content that you provide or make available to other Users through the Website (collectively, User Content). You are responsible for all User Content, as set forth below.
+4.3 You retain ownership of User Content. All User Content is wholly original to you (or you have permission to post it to QuickLyric in the way envisaged under these Terms), at your direction and under your control and you understand that you are responsible for that content and any consequences of posting it to QuickLyric. By sharing User Content via QuickLyric (and any Third Party Application and/or Sites), you grant to us during the entire period of protection of your intellectual property rights associated with such content and material, a world-wide, royalty free, non-exclusive irrevocable licence to use, copy, modify, publicly perform, publicly display, translate, reproduce, transmit or distribute, or an equivalent right to use, the User Content via QuickLyric (and any other Third Party Applications and/or Sites). We require such a licence in order to provide certain functionality within QuickLyric (and any Third Party Applications and/or Sites). Any User Content submitted by you will remain on QuickLyric indefinitely. You will not have the option to remove your User Content from QuickLyric at any time, except where you submit a request in writing to [company name] to remove your User Content, which is to be decided by [company name] at our sole discretion. By sharing User Content within QuickLyric (and any Third Party Application and/or Sites) you warrant that you own all rights in and to the User Content shared by you and that you are not breaching any other partys rights to privacy, publicity rights, copyrights or contractual rights.
+4.4 You understand and agree that if you post any User Content to QuickLyric which breaches any of these Terms, we have the right to remove the content (at our sole discretion), to terminate your account and you will be responsible to us for any issues arising out of breach of these Terms.
+4.5 Please note that we cannot accept any User Content containing any music, save where expressly permitted in writing by us.
+4.6 Information or User Content provided by other Users may contain inaccurate, inappropriate or offensive material, products or services, and we assume no responsibility or liability for this material. User Content must not be illegal, obscene, threatening, defamatory, invasive of privacy, infringing of intellectual property rights, violate any confidentiality agreement or other contract or be otherwise injurious to third parties or objectionable and must not consist of or contain software viruses, political campaigning, commercial solicitation, chain letters, mass mailings, or any form of spam. You may not use a false email address, impersonate any person or entity, or otherwise mislead as to the origin of any User Content. We have the right but not the obligation to refuse to post, remove or edit any posting or submission User Content. We do not actively monitor User Content and take no responsibility and assume no liability for any User Content.
+4.7 By submitting the User Content to us, you grant us and our affiliates the right to use the username that you submit in connection with such User Content. You grant to us a revocable, non-exclusive, worldwide right and licence, or another equivalent right to use, all the trademarks, service marks, trade dress, artwork, names, likenesses and biographical material associated with the User Content, your username, or your account in connection with your use of and our operation of QuickLyric. You are solely responsible for any necessary payments that may become due to any third parties as the result of your posting of or linking to the User Content and our use thereof on the Website.
+4.8 The following is a partial list of the kind of User Content that is illegal or prohibited on QuickLyric. We reserve the right to investigate and take appropriate legal action in its sole discretion against anyone who violates this provision, including without limitation, removing the offending User Content from the Website or Services and terminating the access to QuickLyric of such violators. Prohibited User Content includes content that:
+a) is obscene, patently offensive, or promotes racism, bigotry, hatred or physical harm of any kind against any group or individual;
+b) harasses or advocates harassment of another person;
+c) involves the transmission of junk mail, chain letters, or unsolicited mass mailing or spamming;
+d) consists of information that you know is false or misleading or promotes illegal activities or conduct that is abusive, threatening, obscene, defamatory or libellous;
+e) consists of an illegal or unauthorized copy of a copyrighted work, such as sound recordings, musical compositions and videos in which you do not personally own the copyright or otherwise do not have the necessary authority from the copyright owner(s);
+f) computer programs or links to them or providing information to circumvent manufacturer-installed copy-protect devices, or infringing materials;
+g) contains restricted or password-only access pages or hidden pages or images (those not linked to or from another accessible page);
+h) provides material that exploits people under the age of 18 or solicits personal information from anyone under 18;
+i) provides instructional information about illegal activities;
+j) solicits passwords or personal identifying information for commercial or unlawful purposes from other Users;
+k) involves commercial activities and/or sales without our prior written consent such as contests, sweepstakes, barter, advertising, or pyramid schemes;
+l) violates anyones right of privacy; or
+m) uses any unfair, misleading or deceptive content intended to draw traffic to the profile.
+4.9 You hereby waive all moral rights and similar rights in any jurisdiction, including any rights to object to derogatory treatment of the User Content to which you may now or at any future time be entitled.</li>
+<li>AVAILABILITY OF SERVICES
+5.1 We will do our best to offer you a smooth service, but we give no guarantees that QuickLyric will be free from faults or that the Services will be provided uninterrupted. If a fault does occur, please report it to Customer Services and we will attempt to correct the fault as soon as we reasonably can.
+5.2 We will occasionally restrict your access to the Website or to the Services to carry out repairs, maintenance or to introduce new functionality or services and we will endeavour to keep disruption to a minimum.
+5.3 New Services are subject to a period of testing. This means that a new Service may not perform with complete functionality, may be undergoing testing, may be inconsistently available, may have software bugs being fixed by us and may have other issues affecting availability and functionality.</li>
+<li>LEGAL PROTECTION AND LIMITATIONS
+6.1 You acknowledge that QuickLyric (and any other applications) licensed by us to you are our property and all intellectual property rights in the Application, the Services and the technology used or supported by the Application, anywhere in the world belong to us. You are granted only a limited, revocable, non-exclusive, non-transferable (without the right to sublicense) licence to use QuickLyric or any Third Party Application for the purpose of accessing and using the Services. You agree not to disassemble, de-compile, reverse engineer the Application or Services or any Third Party Application. You will not copy any part of QuickLyric or any Third Party Applications and/or Sites or make commercial use of, rent, lease, loan, sell, publish, license, sublicense, distribute, assign or otherwise transfer any part of QuickLyric to any person.
+6.2 You agree to not use QuickLyric to:
+a) interfere with, manipulate, or take any actions that may undermine the integrity of any rating system used on the Services;
+b) interfere with or disrupt QuickLyric or servers or networks, or disobey any requirements, procedures, policies or regulations of networks connected to these;
+c) collect or store personal data about other Users of QuickLyric; or
+d) harass, abuse, or harm another person, or in order to contact, advertise to, solicit, or sell to any other User without their prior explicit consent.
+6.3 You will not alter, destroy, obscure, or otherwise remove any copyright or proprietary notices or labels on or embedded within any part of QuickLyric and/or any Third Party Applications.
+6.4 You agree to not use QuickLyric or export any portion of it in violation of U.S. export regulations.
+6.5 You represent and warrant that you are not located in a country that is subject to a U.S. Government embargo or that has been designated by the U.S. Government as a terrorist supporting country and you are not listed on any U.S. list of prohibited or restricted parties.
+6.6 Any content provided by us as part of QuickLyric, including but not limited to lyrics, artist information and downloads contains copyrighted material, trademarks and other proprietary rights belonging to us and our licensors. All right, title and interest in and to such content vests in us and our licensors. You are granted a limited, revocable, non-exclusive licence to display that content as part of the Services solely for your personal use. Except as expressly authorized by us, you may not copy, modify, translate, reproduce, distribute, publish, broadcast, perform, display, sell, assign, lease or sub-license that content, in whole or in part.
+6.7 YOUR USE OF QuickLyric IS AT YOUR SOLE RISK. QuickLyric IS PROVIDED ON AN AS IS AND AS AVAILABLE BASIS. WE EXPRESSLY DISCLAIM ALL REPRESENTATIONS, WARRANTIES AND STATUTORY REMEDIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, WE MAKE NO WARRANTY THAT
+a)QuickLyric WILL MEET YOUR REQUIREMENTS,
+b)DELIVERY OF ANY PORTION OF QuickLyric WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE,
+c)THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF QuickLyric WILL BE ACCURATE OR RELIABLE,
+d) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION, OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH THE SERVICES WILL MEET YOUR EXPECTATIONS,
+e) (ANY ERRORS IN THE SOFTWARE WILL BE CORRECTED,
+f)ANY PORTION OF QuickLyric OR ANY OTHER APPLICATION PROVIDED BY US WILL BE OF SATISFACTORY QUALITY, FAULT OR VIRUS FREE OR UNINTERRUPTED OR SATISFY ANY CONDITIONS OF QUALITY AND FITNESS FOR PURPOSE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM US OR THROUGH OR FROM THE QuickLyric SHALL CREATE ANY WARRANTY NOT EXPRESSLY STATED IN THESE TERMS.
+6.8 Under no circumstances will we or our subsidiaries, and affiliates, suppliers and their respective owners, officers, manager, members, agents and employees, be liable to you for loss of profits, business interruptions, loss of business information, loss of business, opportunity or other pecuniary loss, loss of data or any direct, indirect, incidental, consequential, special, exemplary, or punitive damages or losses, whether based in contract, tort or otherwise, arising out of or in connection with use of, or inability to use QuickLyric (and any other applications) which we license to you, any content delivered to you or QuickLyric, whether or not we have been advised of the possibility of such damages or loss. In any event, our liability to you shall be limited to typical and foreseeable damage and shall not exceed the fees paid by you for a 3 month period or the maximum amount of (Euro 15), whichever is higher.
+6.9 Some jurisdictions (countries, provinces, states) absolutely prohibit some limitations on liability, disclaimer of warranties or exclusion of direct or consequential damages. In such cases only the above disclaimers, limitations or exclusions may not apply to you to their full extent.
+6.10 You acknowledge and agree that we are merely a passive conduit and hosting service for User Content and we play no active role in the distribution or presentation of User Content. We do not review or monitor User Content to ensure it is compliant with these Terms and applicable law. It is solely your responsibility to ensure User Content is acceptable and compliant.
+6.11You hereby indemnify and hold harmless, and upon our request, defend, us, our affiliates (and their respective directors, officers and employees) from and against any and all losses, liabilities, damages, costs or expenses (including reasonable attorneys fees and costs) arising out of any claim, action, or proceeding brought by a third party based on a breach of any warranty, representation, covenant or obligation by you under these Terms. You will reimburse us and our affiliates on demand for any actual payments made in resolution of any liability or claim that is subject to indemnification under this Section, provided that we attempt to obtain your written consent prior to making such payments, such consent not to be unreasonably withheld, delayed or conditioned. We shall promptly notify you of any such claim, and you shall assume control of the defence of such claim upon our request. We shall have the right, at your expense, to participate in the defence thereof under your direction.
+6.12Nothing in these Terms shall be construed so as to exclude or limit our liability or that of any third party for death or personal injury as a result of negligence.
+6.13Nothing in these Terms affects any mandatory statutory rights that you may have as a consumer, except to the extent permitted by law.
+6.14We will endeavour to comply with mandatory local regulations of public policy and consumer protection, but disclaim all and any liability, apart from the liability assumed within these Terms, to the maximum extent permitted by law.</li>
+</ol>
+
+<p>7.GENERAL
+7.1 These Terms are not intended to give rights to anyone except you and us, unless otherwise expressly indicated by us within these Terms. We may assign our rights and obligation under these Terms without your prior consent to any new provider of QuickLyric.
+7.2 If any provision of these Terms is found to be unlawful, void, or for any reason unenforceable, then the provision will be deleted. Any such deletion will not affect the validity and enforceability of any of the other provisions of these Terms.
+7.3 You may at any time unsubscribe or cancel your QuickLyric account, subscription or any other relationship with QuickLyric which is being governed by these Terms via Third Party Sites. Please note, however, that QuickLyric will not make any refunds, except in exceptional circumstances involving material breach on our part, and you will remain liable for payment of any part of QuickLyric Services that you have already used or previously committed to.
+7.4 We may at any time terminate your account or prevent you from gaining access to QuickLyric. If we terminate your account, we may immediately delete all the files and information on your profile and prevent you accessing your profile. We will use reasonable efforts to give you notice of termination or suspension of access to QuickLyric, but this may not always be possible. We will not be liable to you or to any third party for termination or for any permanent or temporary suspension of any of the Website, Application or Services. If you are a paying customer and our Services to you are terminated you may be entitled to a refund of the reasonable part of any charges paid by you.
+7.5 We will not be liable to you or to any third party for any failure, suspension and/or termination of access to QuickLyric in connection with or arising out of a force majeure event including, without limitation, strikes, lock-outs or other industrial disputes, nuclear accident or acts of God, war or terrorist activity, riot, civil commotion, malicious damage, compliance with any law or government order, rule regulation or direction, accident or breakdown of plant or machinery, fire, flood, storm or default of suppliers, and where they are beyond our reasonable control, any other acts, events, omissions or accidents. We may provide you with notices regarding QuickLyric or these Terms by post to any address you have given us, by email, by SMS message or by postings to the Website.
+7.6 These Terms and the relationship between you and us and any dispute or claim arising out of or in connection with these Terms or their subject matter or formulation (including non-contractual disputes or claims) shall be governed by the laws of Belgium. You and we agree to submit to the exclusive jurisdiction of the courts of Belgium.
+7.7 We may amend these Terms at any time by posting the amended terms on our Website and/or by amending the Terms as they are accessed from the Application on your Device. It is your responsibility to review these Terms from time to time to check if they have been amended. The effective date of each new version the Terms will be included at the top of the Terms page. If you continue to use the Application and/or Services or you download any content or upgrade any of the Services after we have posted any amended terms that will demonstrate that you accept our updated Terms. Should you not accept these amendments, you may terminate the Services.
+7.8If we fail to insist that you perform any of your obligations under these Terms, or if we do not enforce our rights against you or if we delay in doing so this does not mean that we have waived our rights against you and will not mean that you do not have to comply with those obligations. If we do waive a default by you, we will only do so in writing, and that will not mean that we will automatically waive any later default by you.
+7.9 A person who is not a party to these Terms shall not have any rights under the Contracts (Rights of Third Parties) Act 1999 or otherwise to enforce any of these Terms.
+PRIVACY POLICY
+We are committed to protecting and respecting your privacy.
+This policy sets out the basis on which any personal data we collect from you, or that you provide to us, will be processed by us. Please read the following carefully to understand our views and practices regarding your personal data and how we will treat it. For the purpose of the Legislative Decree of 30 June 2003 No. 196 (the Code concerning the protection of personal data) (the Code), the data controller is [company name] [company address].
+1. INFORMATION WE MAY COLLECT FROM YOU
+1.1 We may collect and process the following data about you:
+a) Information that you provide by filling in forms on the Website or through the Application. This includes information provided at the time of registering to use our site, subscribing to the Services, using QuickLyric, posting material or requesting further services. We may also ask you for information when you report a problem with our site.
+b)If you contact us, we may keep a record of that correspondence.
+c)Details of transactions you carry out through our site or the Application and of the fulfilment of your orders.
+d)Details of your visits to our site, uses of the Services, Application and of QuickLyric including, but not limited to, traffic data, location data, weblogs and other communication data, whether this is required for our own billing purposes or otherwise and the resources that you access.
+2. IP ADDRESSES AND COOKIES
+2.1 Subject to receiving your prior consent, we may collect information about your computer, including where available your IP address, operating system, the referring URL, if any, and browser type, for system administration and to report aggregate information to our advertisers. This is statistical data about our users browsing actions and patterns, and does not identify any individual.
+2.2 For the same reason, we may obtain information about your general internet usage by using a cookie file which is stored on the hard drive of your computer. Cookies contain information that is transferred to your computers hard drive. They help us to improve our site and to deliver a better and more personalized service. They enable us:
+a) to estimate our audience size and usage pattern.
+b) to store information about your preferences, and so allow us to customize our site according to your individual interests.
+c) to speed up your searches.
+d) to recognize you when you return to use and access QuickLyric.
+2.3 You will need to either accept or reject cookies when you log into our site. However, if you reject cookies you may be unable to access certain parts of our site.
+3. WHERE WE STORE YOUR PERSONAL DATA
+3.1 The data that we collect from you may be transferred to, and stored at, a destination outside the European Economic Area (EEA). It may also be processed by staff operating outside the EEA who work for us or for one of our suppliers. Such staff maybe engaged in, among other things, the fulfilment of your order, the processing of your payment details and the provision of support services. By consenting to the terms of this privacy policy, you agree to this transfer, storing or processing. We will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this privacy policy.
+3.2 Unfortunately, the transmission of information via the internet is not completely secure. Although we will do our best to protect your personal data, we cannot guarantee the security of your data transmitted to us; any transmission is at your own risk. Once we have received your information, we will use strict procedures and security features to try to prevent unauthorized access.
+4. USES MADE OF THE INFORMATION
+4.1 We use information held about you in the following ways:
+a) To ensure that content from QuickLyric is presented in the most effective manner for you and for your device.
+b)To provide you with information, products or services that you request from us or which we feel may interest you, where you have consented to be contacted for such purposes.
+c)To carry out our obligations arising from any contracts entered into between you and us.
+d)To allow you to participate in interactive features of QuickLyric, when you choose to do so.
+e) To notify you about changes to QuickLyric.
+5. ADVERTISING
+5.1 We reserve the right to deliver advertising to you in conjunction with your use of QuickLyric and utilise the processor bandwidth and storage hardware on your Device for this purpose.
+5.2 A cookie is a small amount of data sent from our server and stored on your computers hard drive. A web beacon actively monitors the behaviour of a user visiting the Website. We may use cookies or web beacons to collect, process or disclose information, either in the course of our service delivery or while advertisements are being served to you. This allows us to store and retrieve login information on a users system and provide us with data on your usage of QuickLyric and your interaction with the advertisements. Such data helps us to improve our Services and enables us or any third party advertisers to deliver more targeted advertisements. Any cookies used by advertisers are covered by the privacy policy of the relevant advertiser. Most browsers are initially set up to accept cookies, but you can usually set your browser to prevent this from happening.
+5.3 Advertising may be contextual, that is it may be sent to you based on your current location or use of QuickLyric. Any opt out that you send us in relation to direct marketing communications does not apply to such advertising. In addition, you may receive advertising and promotional information or offers if you respond to a QuickLyric prompt on radio or television or in audiovisual or interactive media.
+5.4 Where QuickLyric contains links to third-party content, applications, services and/or advertising, we are not responsible for the privacy policy or for any matters relating to such third party products, promotions or advertising, including responsibility for controlling any personal data that you may provide in response to such products, promotions or advertising. We encourage you to check the privacy policies of all third party sites that you visit.
+6. PROTECTION OF MINORS
+6.1To use QuickLyric you must be aged 13 or older. Additionally, if you are under 18 years old, you must obtain the permission of your parent or guardian and the person who pays your mobile phone bills (if different) and they must agree to these Terms on your behalf before you use QuickLyric and before you provide any personal information to us. Also, to use some of the Services you may be asked to register with us and provide certain personal details. See the section on privacy below regarding what we do with this information.
+6.2 You represent and warrant that you are fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms, and to abide by and comply with these Terms and have obtained all necessary third-party consents, licences and permissions necessary to enter into and fully perform your obligations under these Terms.
+6.3 If you are reading these terms to provide permission to a minor to use QuickLyric, you represent and warrant that you have the full authority to act on behalf of the service user and that you are either more than 18 years of age and contracting for yourself or are the parent or guardian of the person who will use the Services and are entering into this contract to cover their usage. In any case, you affirm that you are, or the person who will use QuickLyric (where you are the parent or guardian of that person) is, over the age of 13.
+6.4 The Services are not intended for children under 13. If you are under 13 years of age, then please do not use QuickLyric. If you are the parent or guardian of a person under the age of 13, then please do not permit that person use QuickLyric.
+6.5Your access to the Services may be deleted or blocked without warning if it is found that you are misrepresenting your age or the age of the person using QuickLyric. In this case, your membership account and all related data may be deleted without warning. Your access to the Services is solely for your personal use, and you must not authorize others to use your account.
+7. DISCLOSURE OF YOUR INFORMATION
+7.1We may disclose your personal information to third parties:
+a) In the event that we sell or buy any business or assets, in which case we may disclose your personal data to the prospective seller or buyer of such business or assets.
+b) If [company name] or substantially all of its assets are acquired by a third party, in which case personal data held by it about its customers will be one of the transferred assets.
+c) If we are under a duty to disclose or share your personal data in order to comply with any legal obligation, or in order to enforce or apply our terms of use and other agreements; or to protect the rights, property, or safety of [company name], our customers, or others. This includes exchanging information with other companies and organisations for the purposes of fraud protection, credit risk reduction and the infringement of any intellectual property rights.
+8. LOCATION BASED SERVICES
+8.1 Where we collect location-based information, we will generally do it on an anonymised basis for the improvement of our Application or Services. You consent to our use of anonymised location based services information collected from you.
+8.2Where we collect location-based information that is personally identifiable we will give you options to manage your disclosure of this information within our Application or on your Device. Depending on your version of QuickLyric and the functionalities available on your Device you may benefit from advanced options to manage the disclosure of location-based information.
+8.3 Where this technology is used in conjunction with any Third Party Applications or Sites further information on usage policies and options management shall be available from such third parties. It is your responsibility to find, read and understand the usage policies of these services, get fully familiar with all the available disclosure options and manage these in a way that fits your purposes.
+8.4 As a separate issue, you may receive contextual advertising from us. Please see the Section on ADVERTISING above.
+9. YOUR RIGHTS
+9.1 You have the right to ask us not to process your personal data for marketing purposes. We will inform you (before collecting your data) if we intend to use your data for such purposes or if we intend to disclose your information to any third party for such purposes. You can exercise your right to prevent such processing by checking certain boxes on the forms we use to collect your data. You can also exercise the right at any time by contacting us at contact@quicklyric.be
+9.2 QuickLyric may, from time to time, contain links to and from the websites of our partner networks, advertisers and affiliates. If you follow a link to any of these websites, please note that these websites have their own privacy policies and that we do not accept any responsibility or liability for these policies. Please check these policies before you submit any personal data to these websites.
+10. ACCESS TO INFORMATION
+10.1 The Code gives you the right to access information held about you. Your right of access can be exercised in accordance with the Code. Please email contact@quicklyric.be if you wish to receive a copy of the information held about you. There may be a small administrative charge for providing the information to you.
+11. CHANGES TO OUR PRIVACY POLICY
+11.1 Any changes we may make to our privacy policy in the future will be posted on our Website or through the Application or, where appropriate, notified to you by e-mail.
+12. CONTACT
+12.1 Questions, comments and requests regarding this privacy policy are welcomed and should be addressed to contact@quicklyric.be
+13. CONSENT
+13.1We will not process any personal data without your prior consent to be given by checking a box on the QuickLyric Website or in the Application. In the absence of such consent you will not be able to register as a user of the services on the website.
+CONTACT
+Questions, comments and requests regarding this privacy policy are welcomed and should be addressed to contact@QuickLyric.be
+CONSENT
+We will not process any personal data without your prior consent to be given by checking a box on theQuickLyricWebsite or in the Application. In the absence of such consent you will not be able to register as a user of the services on the website.
+Effective [July 2016]</p>
+    ]]></string>
+</resources>
