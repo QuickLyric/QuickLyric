@@ -706,6 +706,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 prepareAnimations(activeFragment);
                 prepareAnimations(lyricsViewFragment);
             }
+            showRefreshFab(true);
+            lyricsViewFragment.expandToolbar();
         } else {
             Bundle lyricsBundle = new Bundle();
             try {

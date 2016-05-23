@@ -966,6 +966,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
     }
 
+    public void expandToolbar() {
+        ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+    }
+
     public void updateLRC() {
         if (mLrcThread == null || !mLrcThread.isAlive()) {
             mLrcThread = new Thread(lrcUpdater);
