@@ -51,7 +51,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -376,12 +375,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchIntent.putExtra("query", searchQuery);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            startActivityForResult(searchIntent, 55);
-            overridePendingTransition(R.anim.slide_in_end, R.anim.fade_out);
-        } else
-            startActivityForResult(searchIntent, 55, ActivityOptionsCompat
-                    .makeCustomAnimation(this, R.anim.slide_in_end, R.anim.fade_out).toBundle());
+        startActivityForResult(searchIntent, 55);
+        overridePendingTransition(R.anim.slide_in_end, android.R.anim.fade_out);
     }
 
     private void updateDBList() {
