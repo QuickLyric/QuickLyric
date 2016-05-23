@@ -15,6 +15,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -85,7 +86,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     private int mCurrentPage;
     private int count = getCount();
 
-    View.OnTouchListener exitTouchListener = new View.OnTouchListener() {
+    private final View.OnTouchListener exitTouchListener = new View.OnTouchListener() {
         VelocityTracker mVelocityTracker;
         float mDownX;
         float mSwipeSlop = -1;
@@ -93,7 +94,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
         @Override
         public boolean onTouch(final View v, MotionEvent event) {
-            if (mPager.getCurrentItem() != (rightToLeft ? 0 : getCount() - 1))
+            if (mPager.getCurrentItem() != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_5.nlEnabled)
                 return false;
             int pointerId = event.getPointerId(event.getActionIndex());
             if (mSwipeSlop < 0) {
@@ -179,20 +180,25 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                                             v.animate().setListener(new AnimatorActionListener(new Runnable() {
                                                 public void run() {
                                                     mSwiping = false;
-                                                    MainActivity activity = (MainActivity) v.getContext();
-                                                    ((RelativeLayout) v.getParent()).setVisibility(View.GONE);
-                                                    activity.focusOnFragment = true;
-                                                    if (activity.mDrawerToggle != null)
-                                                        ((DrawerLayout) activity.drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
-                                                    activity.invalidateOptionsMenu();
-                                                    SharedPreferences.Editor editor =
-                                                            activity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
-                                                    editor.putBoolean("seen", true);
-                                                    editor.apply();
-                                                    MainActivity.setNavBarColor(activity.getWindow(),
-                                                            activity.getTheme(), null);
-                                                    MainActivity.setNavBarColor(activity.getWindow(),
-                                                            activity.getTheme(), null);
+                                                    if (v.getContext() instanceof MainActivity) {
+                                                        MainActivity activity = (MainActivity) v.getContext();
+                                                        ((RelativeLayout) v.getParent()).setVisibility(View.GONE);
+                                                        activity.focusOnFragment = true;
+                                                        if (activity.mDrawerToggle != null)
+                                                            ((DrawerLayout) activity.drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
+                                                        activity.invalidateOptionsMenu();
+                                                        SharedPreferences.Editor editor =
+                                                                activity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
+                                                        editor.putBoolean("seen", true);
+                                                        editor.apply();
+                                                    }
+                                                    MainActivity.setNavBarColor(((AppCompatActivity) (v.getContext())).getWindow(),
+                                                            v.getContext().getTheme(), null);
+                                                    if (v.getContext() instanceof MainActivity)
+                                                        MainActivity.setStatusBarColor(((AppCompatActivity) (v.getContext())).getWindow(),
+                                                                v.getContext().getTheme(), null);
+                                                    else if (v.getContext() instanceof AboutActivity)
+                                                        ((AboutActivity) v.getContext()).setStatusBarColor(null);
                                                 }
                                             }, AnimatorActionListener.ActionType.END));
                                         } else {
@@ -217,8 +223,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         super(fm);
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            mPager.setOnTouchListener(exitTouchListener);
+        mPager.setOnTouchListener(exitTouchListener);
         if (Build.VERSION.SDK_INT >= 17)
             rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
         if (rightToLeft) {
@@ -486,13 +491,16 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     @SuppressWarnings("deprecation")
     public static class Tutorial_5 extends Fragment {
         // Last page: optional NotificationListener page
+
+        static boolean nlEnabled = true;
+
         @SuppressLint("NewApi")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View output = inflater.inflate(R.layout.tutorial_5, container, false);
 
             TextView link = (TextView) output.findViewById(R.id.NL_link);
-            final boolean nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
+            nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
             ((ViewGroup) link.getParent()).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
