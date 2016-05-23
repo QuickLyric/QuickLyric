@@ -520,7 +520,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             super.onResume();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
                 return;
-            final boolean nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
+            nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
             ((ImageView) getView().findViewById(R.id.NL_icon))
                     .setImageResource(nlEnabled ?
                             R.drawable.ic_done : android.R.drawable.ic_dialog_alert);
