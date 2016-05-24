@@ -19,7 +19,6 @@
 -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 -dontwarn org.jaudiotagger.**
 -dontwarn com.viewpagerindicator.**
--dontwarn org.acra.**
 -dontwarn java.nio.file.Files
 -dontwarn java.nio.file.Path
 -dontwarn java.nio.file.OpenOption
@@ -30,6 +29,6 @@
 -dontwarn org.apache.**
 -dontwarn android.net.http.**
 -dontwarn com.android.volley.**
--dontoptimize
+-dontwarn com.squareup.okhttp.internal.**
 
 -keep class !android.support.v7.internal.view.menu.**,!android.support.v7.app.**, ** {*;}

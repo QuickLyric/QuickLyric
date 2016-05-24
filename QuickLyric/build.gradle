@@ -6,8 +6,8 @@ repositories {
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots/'
     }
-    flatDir {
-        dirs 'libs'
+    maven {
+        url "https://jitpack.io"
     }
 }
 
@@ -80,8 +80,6 @@ dependencies {
     compile 'com.github.medyo:android-about-page:1.0.+'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.android.volley:volley:1.+'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp:2.+'
     compile 'org.jraf:android-switch-backport:2.0.1'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.wdullaer:materialdatetimepicker:1.4.2'
@@ -90,7 +88,9 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.+'
     compile 'ch.acra:acra:4.+'
     compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
-    compile(name: 'SpotifyApi', ext: 'aar')
+    compile 'com.squareup.retrofit:retrofit:1.+'
+    compile 'com.squareup.okhttp:okhttp:2.+'
+    compile 'com.github.geecko86:SpotifyApi:3'
 
     /* Debug & testing */
     testCompile 'junit:junit:4.12'
