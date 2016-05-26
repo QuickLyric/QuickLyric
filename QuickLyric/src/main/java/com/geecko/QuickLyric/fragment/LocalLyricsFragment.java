@@ -513,7 +513,6 @@ public class LocalLyricsFragment extends ListFragment {
                         final int time = (int) Math.ceil(count / 500f);
                         countCursor.close();
                         choiceDialog.dismiss();
-                        count = 2532;
                         String prompt = getResources()
                                 .getQuantityString(R.plurals.scan_dialog, count);
                         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getActivity());
