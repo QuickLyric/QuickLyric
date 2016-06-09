@@ -86,7 +86,6 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.+'
-    compile 'ch.acra:acra:4.+'
     compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
     compile 'com.squareup.retrofit:retrofit:1.+'
     compile 'com.squareup.okhttp:okhttp:2.+'

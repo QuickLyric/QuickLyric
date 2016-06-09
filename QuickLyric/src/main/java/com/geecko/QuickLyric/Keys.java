@@ -18,10 +18,6 @@ package com.geecko.QuickLyric;
  */
 public class Keys {
     public static final String GENIUS = "5eDKEfmGtQulq_eFxVB2v-bhf_hIgb9fT14IY_LYUsgHx9KjN_H6Tid7yO6jc_Xa";
-    public static final String ACRA_LOGIN = "hercesedsizeboutionferea";
-    public static final String ACRA_PASSWORD = "KDwir5taV6EunCnrSVOMaeBM";
-    public static final String ACRA_URL = "https://geecko.cloudant.com/acra-quicklyric/_design/acra-storage/_update/report";
-
     // Put your Spotify Key here
     public static final String SPOTIFY_PUBLIC = "0abc29261dc74426b72c3c44bde9a4d5";
     // Put your Spotify Secret here

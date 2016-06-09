@@ -25,31 +25,6 @@ import android.os.StrictMode;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
-import org.acra.ACRA;
-import org.acra.ReportField;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-import org.acra.sender.HttpSender;
-
-@ReportsCrashes(
-        formUri = Keys.ACRA_URL,
-        reportType = HttpSender.Type.JSON,
-        httpMethod = HttpSender.Method.POST,
-        formUriBasicAuthLogin = Keys.ACRA_LOGIN,
-        formUriBasicAuthPassword = Keys.ACRA_PASSWORD,
-        customReportContent = {
-                ReportField.APP_VERSION_CODE,
-                ReportField.APP_VERSION_NAME,
-                ReportField.ANDROID_VERSION,
-                ReportField.PACKAGE_NAME,
-                ReportField.CRASH_CONFIGURATION,
-                ReportField.DISPLAY,
-                ReportField.REPORT_ID,
-                ReportField.BUILD,
-                ReportField.STACK_TRACE
-        },
-        mode = ReportingInteractionMode.SILENT
-)
 public class App extends android.app.Application {
 
     public static boolean playStoreVariant;
@@ -67,11 +42,11 @@ public class App extends android.app.Application {
         return activityVisible;
     }
 
-    public static void activityResumed() {
+    static void activityResumed() {
         activityVisible = true;
     }
 
-    public static void activityPaused() {
+    static void activityPaused() {
         activityVisible = false;
     }
 
@@ -87,8 +62,8 @@ public class App extends android.app.Application {
                     .detectAll()
                     .penaltyLog()
                     .build());
-        } else
-            ACRA.init(this);
+        }
+
         playStoreVariant = BuildConfig.FLAVOR.equals("play");
         super.onCreate();
         refWatcher = LeakCanary.install(this);
