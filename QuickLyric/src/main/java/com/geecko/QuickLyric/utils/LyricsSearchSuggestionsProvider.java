@@ -97,6 +97,6 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
     }
 
     public static void deleteQuery(String suggestion) {
-        database.delete(TABLE_NAME, KEY_SUGGESTION+ "='" + suggestion + "';", null);
+        database.delete(TABLE_NAME, KEY_SUGGESTION+ "='" + suggestion.replaceAll("'", "''") + "';", null);
     }
 }
