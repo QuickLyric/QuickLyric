@@ -994,27 +994,28 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             final LrcView lrcView =
                     ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
 
-            if (position == -1 && getActivity() != null) {
-                final Lyrics staticLyrics = lrcView.getStaticLyrics();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        update(staticLyrics, getView(), true);
-                    }
-                });
-                return;
-            } else {
-                final long finalPosition = position;
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Activity activity = LyricsViewFragment.this.getActivity();
-                        if (activity != null)
-                            ((LrcView) activity.findViewById(R.id.lrc_view))
-                                    .changeCurrent(finalPosition);
-                    }
-                });
-            }
+            if (lrcView != null)
+               if (position == -1 && getActivity() != null) {
+                   final Lyrics staticLyrics = lrcView.getStaticLyrics();
+                   getActivity().runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           update(staticLyrics, getView(), true);
+                       }
+                   });
+                   return;
+               } else if (getActivity() != null) {
+                   final long finalPosition = position;
+                   getActivity().runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           Activity activity = LyricsViewFragment.this.getActivity();
+                           if (activity != null)
+                               ((LrcView) activity.findViewById(R.id.lrc_view))
+                                       .changeCurrent(finalPosition);
+                       }
+                   });
+               }
 
             MusicBroadcastReceiver.forceAutoUpdate(true);
             while (getActivity() != null &&
