@@ -59,7 +59,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Object... params) {
+    public Boolean doInBackground(Object... params) {
         lyricsArray = new Lyrics[params.length - 2];
         SQLiteDatabase database;
         if (params[0] instanceof Fragment) {
@@ -80,36 +80,44 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         boolean result = true;
         String[] columns = DatabaseHelper.columns;
         if (database != null) {
-            for (Lyrics lyrics : lyricsArray)
-                if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),
-                        lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})
-                        && !"Storage".equals(lyrics.getSource())) {
-                    ContentValues values = new ContentValues(2);
-                    values.put(columns[0], lyrics.getArtist());
-                    values.put(columns[1], lyrics.getTrack());
-                    values.put(columns[2], lyrics.getText());
-                    values.put(columns[3], lyrics.getURL());
-                    values.put(columns[4], lyrics.getSource());
-                    values.put(columns[5], lyrics.getCoverURL());
-                    values.put(columns[6], lyrics.getOriginalArtist());
-                    values.put(columns[7], lyrics.getOriginalTrack());
-                    values.put(columns[8], lyrics.isLRC() ? 1 : 0);
-                    database.insert(DatabaseHelper.TABLE_NAME, null, values);
-                    if (fragment instanceof LyricsViewFragment)
-                        ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
-                    result = true;
-                } else if (mContext != null) { // if called from activity, not service
-                    database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
-                    if (fragment instanceof LyricsViewFragment)
-                        ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
-                    result = false;
+            database.beginTransactionNonExclusive();
+            try {
+                for (Lyrics lyrics : lyricsArray) {
+                    if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),
+                            lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})
+                            && !"Storage".equals(lyrics.getSource())) {
+                        ContentValues values = new ContentValues(2);
+                        values.put(columns[0], lyrics.getArtist());
+                        values.put(columns[1], lyrics.getTrack());
+                        values.put(columns[2], lyrics.getText());
+                        values.put(columns[3], lyrics.getURL());
+                        values.put(columns[4], lyrics.getSource());
+                        values.put(columns[5], lyrics.getCoverURL());
+                        values.put(columns[6], lyrics.getOriginalArtist());
+                        values.put(columns[7], lyrics.getOriginalTrack());
+                        values.put(columns[8], lyrics.isLRC() ? 1 : 0);
+                        database.insert(DatabaseHelper.TABLE_NAME, null, values);
+                        if (fragment instanceof LyricsViewFragment)
+                            ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
+                        result = true;
+                    } else if (mContext != null) { // if called from activity, not service
+                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
+                        if (fragment instanceof LyricsViewFragment)
+                            ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
+                        result = false;
+                    }
+                    database.yieldIfContendedSafely();
                 }
+                database.setTransactionSuccessful();
+            } finally {
+                database.endTransaction();
+            }
         }
         return result;
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
+    public void onPostExecute(Boolean result) {
         int message = result ? R.string.lyrics_saved : R.string.lyrics_removed;
         if (fragment instanceof LyricsViewFragment) {
             SharedPreferences sharedPref =

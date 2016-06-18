@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
         drawerListener = new DrawerItemClickListener();
         drawerList.setOnItemClickListener(drawerListener);
-        database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
+        database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
         DatabaseHelper.setDatabase(database);
 
         Intent intent = getIntent();

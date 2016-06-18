@@ -72,7 +72,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        this.database = new DatabaseHelper(getApplicationContext()).getReadableDatabase();
+        this.database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
         Uri content = intent.getExtras().getParcelable("uri");
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
                 .getStringSet("pref_providers", new TreeSet<String>());
@@ -111,7 +111,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         count++;
         updateProgress();
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT && this.database != null) {
-            new WriteToDatabaseTask().execute(this.database, null, lyrics);
+            WriteToDatabaseTask task = new WriteToDatabaseTask();
+            task.onPostExecute(task.doInBackground(this.database, null, lyrics));
             successCount++;
         }
     }

@@ -164,10 +164,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
-        Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s)=upper(?) AND upper(%s)=upper(?)) OR (upper(%s)=upper(?) AND upper(%s)=upper(?))",
-                columns[0], columns[1], columns[6], columns[7]), metaData, null, null, null);
-        int count = cursor.getCount();
-        cursor.close();
+        int count = 0;
+        if (database != null) {
+            database.beginTransaction();
+            try {
+                Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s)=upper(?) AND upper(%s)=upper(?)) OR (upper(%s)=upper(?) AND upper(%s)=upper(?))",
+                        columns[0], columns[1], columns[6], columns[7]), metaData, null, null, null);
+                count = cursor.getCount();
+                cursor.close();
+                database.setTransactionSuccessful();
+            } finally {
+                database.endTransaction();
+            }
+        }
         return (count != 0);
     }
 }
