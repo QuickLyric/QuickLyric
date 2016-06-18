@@ -58,7 +58,8 @@ public class NotificationListenerService extends android.service.notification.No
     public void onCreate() {
         super.onCreate();
         mRemoteController = new RemoteController(this, this);
-        if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)) {
+        if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)
+                && mRemoteController.clearArtworkConfiguration()) {
             throw new RuntimeException("Error while registering RemoteController!");
         }
     }
@@ -234,7 +235,7 @@ public class NotificationListenerService extends android.service.notification.No
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));
         String track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
-        // ToDo handle BitMap?
+
         if (durationObject instanceof Double)
             broadcast(artist, track, isRemoteControllerPlaying, (Double) durationObject, position);
         else if (durationObject instanceof Integer)
