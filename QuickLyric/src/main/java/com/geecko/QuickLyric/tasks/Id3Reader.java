@@ -24,7 +24,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -43,7 +46,7 @@ import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
 
 public class Id3Reader {
 
-    public static final int REQUEST_CODE = 2;
+    private static final int REQUEST_CODE = 2;
 
     public static Bitmap getCover(Context context, String artist, String title) {
         try {
@@ -52,7 +55,20 @@ public class Id3Reader {
             Tag tag = af.getTag();
             byte[] byteArray = tag.getFirstArtwork().getBinaryData();
             ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
-            return BitmapFactory.decodeStream(imageStream);
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(imageStream, null, options);
+
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = options.outWidth / size.x;
+
+            return BitmapFactory.decodeStream(imageStream, null, options);
         } catch (Exception e) {
             return null;
         }
