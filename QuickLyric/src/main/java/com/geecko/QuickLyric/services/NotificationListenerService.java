@@ -25,7 +25,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
@@ -35,11 +34,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
-import android.view.InflateException;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
@@ -65,45 +59,14 @@ public class NotificationListenerService extends android.service.notification.No
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mRemoteController);
+    }
+
+    @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        String artist = null;
-        String track = null;
-        boolean isPlaying = false;
-        int duration = -1;
-        int position = -1;
-        ViewGroup viewGroup = getNotificationLayout(sbn);
-        if (viewGroup == null)
-            return;
-        String packageName = sbn.getPackageName();
-        try {
-            switch (packageName) {
-                case "com.apple.android.music":
-                    track = ((TextView) ((ViewGroup) viewGroup.getChildAt(1))
-                            .getChildAt(0)).getText().toString();
-                    artist = ((TextView) ((ViewGroup) viewGroup.getChildAt(1))
-                            .getChildAt(2)).getText().toString();
-                    isPlaying = ((ViewGroup) viewGroup.getChildAt(3))
-                            .getChildAt(1).getContentDescription().equals("Pause");
-                    break;
-                case "com.saavn.android":
-                    track = ((TextView) ((ViewGroup) viewGroup.getChildAt(4))
-                            .getChildAt(0)).getText().toString();
-                    artist = ((TextView) ((ViewGroup) viewGroup.getChildAt(4))
-                            .getChildAt(1)).getText().toString();
-                    break;
-                case "com.pandora.android":
-                    track = ((TextView) ((ViewGroup) ((ViewGroup) viewGroup.getChildAt(2))
-                            .getChildAt(0)).getChildAt(0)).getText().toString();
-                    artist = ((TextView) ((ViewGroup) viewGroup.getChildAt(2))
-                            .getChildAt(1)).getText().toString();
-                    break;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if ((artist != null && !artist.trim().isEmpty()) && (track != null && !track.trim().isEmpty()))
-            broadcast(artist, track, isPlaying, duration, position);
     }
 
     @Override
@@ -133,28 +96,6 @@ public class NotificationListenerService extends android.service.notification.No
         new MusicBroadcastReceiver().onReceive(this, localIntent);
     }
 
-    private ViewGroup getNotificationLayout(StatusBarNotification sbn) {
-        RemoteViews rv;
-        if (sbn.getNotification().bigContentView != null)
-            rv = sbn.getNotification().bigContentView;
-        else
-            rv = sbn.getNotification().contentView;
-        Context context = null;
-        try {
-            context = createPackageContext(sbn.getPackageName(), Context.CONTEXT_RESTRICTED);
-        } catch (PackageManager.NameNotFoundException ignored) {
-        }
-        ViewGroup viewGroup = null;
-        try {
-            viewGroup = (ViewGroup) ((LayoutInflater) context
-                    .getSystemService(LAYOUT_INFLATER_SERVICE))
-                    .inflate(rv.getLayoutId(), null);
-            rv.reapply(context, viewGroup);
-        } catch (InflateException ignore) {
-        }
-        return viewGroup;
-    }
-
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
@@ -171,7 +112,6 @@ public class NotificationListenerService extends android.service.notification.No
         String packageName = context.getPackageName();
 
         return !(enabledNotificationListeners == null || !enabledNotificationListeners.contains(packageName));
-
     }
 
     @Override
@@ -193,6 +133,7 @@ public class NotificationListenerService extends android.service.notification.No
         SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = current.edit();
         editor.putLong("position", currentPosMs);
+
         if (isRemoteControllerPlaying) {
             long currentTime = System.currentTimeMillis();
             editor.putLong("startTime", currentTime);
@@ -231,17 +172,21 @@ public class NotificationListenerService extends android.service.notification.No
         long position = mRemoteController.getEstimatedMediaPosition();
         if (position > 3600000)
             position = -1L;
+
         Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 60000);
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));
         String track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
 
-        if (durationObject instanceof Double)
-            broadcast(artist, track, isRemoteControllerPlaying, (Double) durationObject, position);
-        else if (durationObject instanceof Integer)
-            broadcast(artist, track, isRemoteControllerPlaying, (Integer) durationObject, position);
-        else if (durationObject instanceof Long)
-            broadcast(artist, track, isRemoteControllerPlaying, (Long) durationObject, position);
+        if (durationObject instanceof Double) {
+            if (artist != null && !artist.isEmpty())
+                broadcast(artist, track, isRemoteControllerPlaying, (Double) durationObject, position);
+        } else if (durationObject instanceof Integer) {
+            if (artist != null && !artist.isEmpty())
+                broadcast(artist, track, isRemoteControllerPlaying, (Integer) durationObject, position);
+        } else if (durationObject instanceof Long)
+            if (artist != null && !artist.isEmpty())
+                broadcast(artist, track, isRemoteControllerPlaying, (Long) durationObject, position);
         Log.d("geecko", "MetadataUpdate - position stored: " + position);
     }
 
