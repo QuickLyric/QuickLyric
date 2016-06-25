@@ -34,10 +34,13 @@ android {
 
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
+        resConfigs "ar", "ca", "cs", "de", "el", "en", "es", "fa", "fr", "hi", "hu", "in", "it", "iw",
+                "ja", "nl", "pl", "pt", "ru", "sl", "sr", "sv", "tr", "uk", "vls", "zh"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 65
-        versionName "2.0 May Preview 3"
+        vectorDrawables.useSupportLibrary = true
+        versionCode 68
+        versionName "2.0 June Preview 2"
     }
 
     compileOptions {
@@ -61,12 +64,16 @@ android {
             minifyEnabled true
             useProguard true
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro', getDefaultProguardFile('proguard-android-optimize.txt')
         }
     }
 
     lintOptions {
         disable 'InvalidPackage', 'UnusedAttribute', 'GradleDynamicVersion', 'MissingQuantity'
+    }
+
+    aaptOptions {
+        cruncherEnabled false
     }
 }
 
@@ -95,5 +102,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-SNAPSHOT'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-SNAPSHOT'
-
 }
