@@ -94,7 +94,7 @@ public class UpdateChecker {
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            if (result)
+            if (result && lyricsFragment.getActivity() != null)
                 showDialog(lyricsFragment.getActivity());
             else
                 lyricsFragment.updateChecked = true;
