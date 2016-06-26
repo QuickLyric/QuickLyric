@@ -19,18 +19,21 @@
 
 package com.geecko.QuickLyric.services;
 
-
 import android.annotation.TargetApi;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaMetadata;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteController;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
+import android.media.session.PlaybackState;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -39,29 +42,60 @@ import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+import java.util.List;
 
+@SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class NotificationListenerService extends android.service.notification.NotificationListenerService
         implements RemoteController.OnClientUpdateListener {
 
-    private RemoteController mRemoteController;
+    private RemoteController mController;
     private boolean isRemoteControllerPlaying;
     private boolean mHasBug = true;
+    private MediaSessionManager.OnActiveSessionsChangedListener listener;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mRemoteController = new RemoteController(this, this);
-        if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)
-                && mRemoteController.clearArtworkConfiguration()) {
-            throw new RuntimeException("Error while registering RemoteController!");
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mController = new RemoteController(this, this);
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mController)
+                    && mController.clearArtworkConfiguration()) {
+                throw new RuntimeException("Error while registering RemoteController!");
+            }
+        } else {
+            listener = new MediaSessionManager.OnActiveSessionsChangedListener() {
+                        @Override
+                        public void onActiveSessionsChanged(List<MediaController> controllers) {
+                            if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                MediaController controller = controllers.get(0);
+                                MediaMetadata metadata = controller.getMetadata();
+                                if (metadata == null)
+                                    return;
+                                String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
+                                String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
+                                boolean playing = controller.getPlaybackState().getState() == PlaybackState.STATE_PLAYING;
+                                double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+                                long position = duration == 0 ?
+                                        -1 : controller.getPlaybackState().getPosition();
+
+                                broadcast(artist, track, playing, duration, position);
+                            }
+                        }
+                    };
+            ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
+                    .addOnActiveSessionsChangedListener(listener, new ComponentName(this, getClass()));
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mRemoteController);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mController);
+        else
+            ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
+                    .removeOnActiveSessionsChangedListener(listener);
     }
 
     @Override
@@ -114,6 +148,7 @@ public class NotificationListenerService extends android.service.notification.No
         return !(enabledNotificationListeners == null || !enabledNotificationListeners.contains(packageName));
     }
 
+    /* KitKat stuff */
     @Override
     public void onClientChange(boolean clearing) {
         isListeningAuthorized(this);
@@ -138,7 +173,8 @@ public class NotificationListenerService extends android.service.notification.No
             long currentTime = System.currentTimeMillis();
             editor.putLong("startTime", currentTime);
         }
-        editor.putBoolean("playing", isRemoteControllerPlaying).apply();
+        editor.putBoolean("playing", isRemoteControllerPlaying);
+        editor.apply();
 
         if (App.isActivityVisible() && isRemoteControllerPlaying) {
             Intent internalIntent = new Intent("Broadcast");
@@ -153,7 +189,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientTransportControlUpdate(int transportControlFlags) {
         if (mHasBug) {
-            long position = mRemoteController.getEstimatedMediaPosition();
+            long position = mController.getEstimatedMediaPosition();
             if (position > 3600000)
                 position = -1L;
             SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
@@ -169,7 +205,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientMetadataUpdate(RemoteController.MetadataEditor metadataEditor) {
         // isRemoteControllerPlaying = true;
-        long position = mRemoteController.getEstimatedMediaPosition();
+        long position = mController.getEstimatedMediaPosition();
         if (position > 3600000)
             position = -1L;
 
@@ -188,8 +224,5 @@ public class NotificationListenerService extends android.service.notification.No
             if (artist != null && !artist.isEmpty())
                 broadcast(artist, track, isRemoteControllerPlaying, (Long) durationObject, position);
         Log.d("geecko", "MetadataUpdate - position stored: " + position);
-    }
-
-    public void onClientSessionEvent(String packageName, Bundle bundle) {
     }
 }
