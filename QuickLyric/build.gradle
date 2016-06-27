@@ -34,13 +34,12 @@ android {
 
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
-        resConfigs "ar", "ca", "cs", "de", "el", "en", "es", "fa", "fr", "hi", "hu", "in", "it", "iw",
-                "ja", "nl", "pl", "pt", "ru", "sl", "sr", "sv", "tr", "uk", "vls", "zh"
+        resConfigs "ar-rSA", "ca-rES", "cs-rCZ", "de-rBE", "el-rGR", "es-rES", "fa-rIR", "fr-rFR", "hi-rIN", "hu-rHU", "in-rID", "it-rIT", "iw-rIL", "ja-rJP", "pl-rPL", "pt-rBR", "pt-rPT", "ru-rRU", "sl-rSI", "sr-rSP", "sv-rSE", "tr-rTR", "uk-rUA", "vls-rBE", "zh-rCN"
         minSdkVersion 14
         targetSdkVersion 23
         vectorDrawables.useSupportLibrary = true
-        versionCode 69
-        versionName "2.0 June Preview 2"
+        versionCode 70
+        versionName "2.0 June Preview 3"
     }
 
     compileOptions {
