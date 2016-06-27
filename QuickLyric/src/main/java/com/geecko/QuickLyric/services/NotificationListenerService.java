@@ -42,6 +42,7 @@ import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -65,24 +66,25 @@ public class NotificationListenerService extends android.service.notification.No
             }
         } else {
             listener = new MediaSessionManager.OnActiveSessionsChangedListener() {
-                        @Override
-                        public void onActiveSessionsChanged(List<MediaController> controllers) {
-                            if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                MediaController controller = controllers.get(0);
-                                MediaMetadata metadata = controller.getMetadata();
-                                if (metadata == null)
-                                    return;
-                                String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
-                                String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
-                                boolean playing = controller.getPlaybackState().getState() == PlaybackState.STATE_PLAYING;
-                                double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
-                                long position = duration == 0 ?
-                                        -1 : controller.getPlaybackState().getPosition();
+                @Override
+                public void onActiveSessionsChanged(List<MediaController> controllers) {
+                    if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        MediaController controller = controllers.get(0);
+                        MediaMetadata metadata = controller.getMetadata();
+                        PlaybackState playbackState = controller.getPlaybackState();
+                        if (metadata == null)
+                            return;
+                        String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
+                        String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
+                        boolean playing = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
+                        double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+                        long position = duration == 0 || playbackState == null ?
+                                -1 : playbackState.getPosition();
 
-                                broadcast(artist, track, playing, duration, position);
-                            }
-                        }
-                    };
+                        broadcast(artist, track, playing, duration, position);
+                    }
+                }
+            };
             ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
                     .addOnActiveSessionsChangedListener(listener, new ComponentName(this, getClass()));
         }
