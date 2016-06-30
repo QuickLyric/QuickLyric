@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric.services;
 
 import android.annotation.TargetApi;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -54,6 +55,7 @@ public class NotificationListenerService extends android.service.notification.No
     private boolean isRemoteControllerPlaying;
     private boolean mHasBug = true;
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
+    private MediaController.Callback controllerCallback;
 
     @Override
     public void onCreate() {
@@ -70,6 +72,33 @@ public class NotificationListenerService extends android.service.notification.No
                 public void onActiveSessionsChanged(List<MediaController> controllers) {
                     if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         MediaController controller = controllers.get(0);
+                        if (controllerCallback != null)
+                            controller.unregisterCallback(controllerCallback);
+                        controllerCallback = new MediaController.Callback() {
+                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onPlaybackStateChanged(PlaybackState state) {
+                                super.onPlaybackStateChanged(state);
+                                if (state == null)
+                                    return;
+                                boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
+                                long position = state.getPosition();
+                                SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = current.edit();
+                                editor.putBoolean("playing", isPlaying);
+                                if (!isPlaying) {
+                                    NotificationManager notificationManager =
+                                            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+                                    notificationManager.cancel(0);
+                                    notificationManager.cancel(8);
+                                }
+                                if (position >= 0)
+                                    editor.putLong("position", position);
+                                editor.apply();
+                            }
+                        };
+                        controller.registerCallback(controllerCallback);
+
                         MediaMetadata metadata = controller.getMetadata();
                         PlaybackState playbackState = controller.getPlaybackState();
                         if (metadata == null)
@@ -174,6 +203,11 @@ public class NotificationListenerService extends android.service.notification.No
         if (isRemoteControllerPlaying) {
             long currentTime = System.currentTimeMillis();
             editor.putLong("startTime", currentTime);
+        } else {
+            NotificationManager notificationManager =
+                    ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+            notificationManager.cancel(0);
+            notificationManager.cancel(8);
         }
         editor.putBoolean("playing", isRemoteControllerPlaying);
         editor.apply();

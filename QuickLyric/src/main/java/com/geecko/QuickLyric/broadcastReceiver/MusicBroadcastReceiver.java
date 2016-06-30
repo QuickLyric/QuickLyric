@@ -91,7 +91,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 extras.getLong("position") : -1;
         if (extras.get("position") instanceof Double)
             position = Double.valueOf(extras.getDouble("position")).longValue();
-        boolean isPlaying = extras.getBoolean("playing", true);
+        boolean isPlaying = extras.getBoolean(extras.containsKey("playstate") ? "playstate" : "playing", true);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
