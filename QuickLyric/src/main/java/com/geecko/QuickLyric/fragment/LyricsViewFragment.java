@@ -554,7 +554,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             new CoverArtLoader().execute(lyrics, this.getActivity());
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
-                .setVisibility(musicFile == null || lyrics.isLRC() ? View.GONE : View.VISIBLE);
+                .setVisibility(musicFile == null || !musicFile.canWrite() || lyrics.isLRC()
+                        ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
         View v = getActivity().findViewById(R.id.tracks_msg);
