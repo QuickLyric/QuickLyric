@@ -50,7 +50,7 @@ public class LyricsMania {
         String htmlSong = Normalizer.normalize(song.replaceAll("[\\s-]", "_"), Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "").replaceAll("[^A-Za-z0-9_]", "");
 
-        if (artist.startsWith("The"))
+        if (artist.startsWith("The "))
             htmlArtist = htmlArtist.substring(4) + "_the";
 
         String urlString = String.format(
