@@ -38,8 +38,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         vectorDrawables.useSupportLibrary = true
-        versionCode 70
-        versionName "2.0 June Preview 3"
+        versionCode 72
+        versionName "2.0 July Preview"
     }
 
     compileOptions {
