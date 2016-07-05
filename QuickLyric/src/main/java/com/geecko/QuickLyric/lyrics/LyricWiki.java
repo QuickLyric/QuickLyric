@@ -132,7 +132,6 @@ public class LyricWiki {
             //url = URLDecoder.decode(url, "utf-8");
             Document lyricsPage = Jsoup.connect(url).get();
             Element lyricbox = lyricsPage.select("div.lyricBox").get(0);
-            lyricbox.after(lyricbox.childNode(0));
             lyricbox.getElementsByClass("references").remove();
             String lyricsHtml = lyricbox.html();
             final Document.OutputSettings outputSettings = new Document.OutputSettings().prettyPrint(false);
@@ -140,14 +139,18 @@ public class LyricWiki {
             if (text.contains("&#"))
                 text = Parser.unescapeEntities(text, true);
             text = text.replaceAll("\\[\\d\\]", "").trim();
+
+            String title = lyricsPage.getElementsByTag("title").get(0).text();
+            int colon = title.indexOf(':');
+            if (artist == null)
+                artist = title.substring(0, colon).trim();
+            if (song == null) {
+                int end = title.indexOf("Lyrics - LyricW");
+                song = title.substring(colon+1, end).trim();
+            }
         } catch (IndexOutOfBoundsException | IOException e) {
             return new Lyrics(ERROR);
         }
-
-        if (artist == null)
-            artist = url.substring(24).replace("Gracenote:", "").split(":", 2)[0].replace('_', ' ');
-        if (song == null)
-            song = url.substring(24).replace("Gracenote:", "").split(":", 2)[1].replace('_', ' ');
 
         try {
             artist = URLDecoder.decode(artist, "UTF-8");

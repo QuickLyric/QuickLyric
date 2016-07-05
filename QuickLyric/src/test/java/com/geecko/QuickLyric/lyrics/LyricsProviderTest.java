@@ -50,10 +50,16 @@ public class LyricsProviderTest {
     @Test
     public void testLyricsWiki() {
         Assert.assertTrue(LyricWiki.search("Eminem").size() > 2);
+
         Lyrics lyrics = LyricWiki.fromMetaData("Red Hot Chili Peppers", "Can't stop");
         Assert.assertEquals(Lyrics.POSITIVE_RESULT, lyrics.getFlag());
         Assert.assertTrue(lyrics.getText().startsWith("Can't stop"));
         Assert.assertTrue(lyrics.getText().endsWith("more than just a read through"));
+
+        lyrics = LyricWiki.fromURL("http://lyrics.wikia.com/wiki/Thin_Lizzy:The_Boys_Are_Back_In_Town", null, null);
+        Assert.assertTrue(lyrics.getText().trim().startsWith("Guess"));
+        Assert.assertTrue("Thin Lizzy".equalsIgnoreCase(lyrics.getArtist()));
+        Assert.assertTrue("The Boys Are Back In Town".equalsIgnoreCase(lyrics.getTrack()));
     }
 
     @Test
