@@ -40,6 +40,7 @@ import com.drivemode.spotify.SpotifyService;
 import com.drivemode.spotify.models.Pager;
 import com.drivemode.spotify.models.Playlist;
 import com.drivemode.spotify.models.PlaylistTrack;
+import com.drivemode.spotify.models.SavedTrack;
 import com.drivemode.spotify.models.User;
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.R;
@@ -65,14 +66,23 @@ import retrofit.RetrofitError;
 
 public class Spotify {
 
-    public static void getTracks(Activity activity) {
+    private static boolean mPlaylists;
+
+    public static void getPlaylistTracks(Activity activity) {
         if (Keys.SPOTIFY_SECRET.isEmpty())
-            startAuthWithRemoteKey(activity);
+            startAuthWithRemoteKey(activity, true);
         else
-            new SpotifyKeyCallback(activity).startAuth();
+            new SpotifyKeyCallback(activity, true).startAuth();
     }
 
-    public static void startAuthWithRemoteKey(final Activity activity) {
+    public static void getUserTracks(Activity activity) {
+        if (Keys.SPOTIFY_SECRET.isEmpty())
+            startAuthWithRemoteKey(activity, false);
+        else
+            new SpotifyKeyCallback(activity, false).startAuth();
+    }
+
+    public static void startAuthWithRemoteKey(final Activity activity, boolean playlists) {
         final OkHttpClient client = new OkHttpClient();
         String param;
         try {
@@ -91,7 +101,7 @@ public class Spotify {
                 .url("https://www.quicklyric.be/keys/spotify.php?")
                 .post(formBody)
                 .build();
-        final SpotifyKeyCallback callback = new SpotifyKeyCallback(activity);
+        final SpotifyKeyCallback callback = new SpotifyKeyCallback(activity, playlists);
         Thread networkThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -131,8 +141,9 @@ public class Spotify {
 
         private final Activity mActivity;
 
-        public SpotifyKeyCallback(Activity activity) {
+        public SpotifyKeyCallback(Activity activity, boolean playlists) {
             this.mActivity = activity;
+            mPlaylists = playlists;
         }
 
         @Override
@@ -161,7 +172,10 @@ public class Spotify {
                     .setClientSecret(Keys.SPOTIFY_SECRET)
                     .setRedirectUri("quicklyric://spotify/callback")
                     .build());
-            SpotifyApi.getInstance().authorize(mActivity, new String[]{"user-library-read", "playlist-read-private"}, false);
+            SpotifyApi.getInstance().authorize(mActivity, mPlaylists ?
+                            new String[]{"user-library-read", "playlist-read-private"} :
+                            new String[]{"user-library-read"},
+                    false);
         }
     }
 
@@ -198,7 +212,63 @@ public class Spotify {
 
         @Override
         public void onLoadFinished(Loader<Response<User>> loader, Response<User> data) {
-            new SpotifyTracks().saveLyricsForAllTracks();
+            if (mPlaylists)
+                new SpotifyTracks().getAllPlaylistTracks();
+            else
+                getUserSavedTrack();
+        }
+
+        private void getUserSavedTrack() {
+            final ArrayList<SavedTrack> savedTracks = new ArrayList<>();
+            SpotifyApi.getInstance().getApiService().getMySavedTracks(mOffset, 50, new Callback<Pager<SavedTrack>>() {
+                        @Override
+                        public void success(Pager<SavedTrack> savedTracksPager, retrofit.client.Response response) {
+                            savedTracks.addAll(savedTracksPager.items);
+                            if (savedTracksPager.next != null) {
+                                SpotifyApi.getInstance().getApiService()
+                                        .getMySavedTracks(savedTracksPager.offset + savedTracksPager.limit, 50, this);
+                            } else if (savedTracks.size() > 0) {
+                                progressDialog.dismiss();
+                                final int time = (int) Math.ceil(savedTracks.size() / 500f);
+                                String prompt = mActivity.getResources()
+                                        .getQuantityString(R.plurals.scan_dialog, savedTracks.size());
+                                AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mActivity);
+                                confirmDialog
+                                        .setTitle(R.string.warning)
+                                        .setMessage(String.format(prompt, savedTracks.size(), time))
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Intent scanInfo = new Intent(mActivity,
+                                                        BatchDownloaderService.class);
+                                                scanInfo.putExtra("spotifyTracks", cleanResults(savedTracks));
+                                                mActivity.startService(scanInfo);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.cancel, null)
+                                        .create().show();
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(mActivity, R.string.scan_error_no_content, Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
+                            if (progressDialog != null)
+                                progressDialog.dismiss();
+                        }
+                    }
+
+            );
+        }
+
+        private ArrayList<String[]> cleanResults(ArrayList<SavedTrack> savedTracks) {
+            ArrayList<String[]> results = new ArrayList<>(savedTracks.size());
+            for (SavedTrack savedTrack : savedTracks)
+                results.add(new String[]{savedTrack.track.artists.get(0).name, savedTrack.track.name});
+            return results;
         }
 
         @Override
@@ -226,7 +296,7 @@ public class Spotify {
                         playlistTrack.track.name};
             }
 
-            protected void saveLyricsForAllTracks() {
+            protected void getAllPlaylistTracks() {
                 SpotifyApi.getInstance().getApiService().getMe(new Callback<User>() {
 
                     @Override

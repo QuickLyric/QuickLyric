@@ -490,10 +490,27 @@ public class LocalLyricsFragment extends ListFragment {
                 .setTitle(R.string.content_providers_title)
                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface choiceDialog, int i) {
+                    public void onClick(final DialogInterface choiceDialog, int i) {
                         if (values[i].equals("Spotify")) {
-                            Spotify.getTracks(getActivity());
-                            choiceDialog.dismiss();
+                            AlertDialog.Builder spotifyChoiceBuilder = new AlertDialog.Builder(getActivity());
+                            spotifyChoiceBuilder.setSingleChoiceItems(R.array.spotify_options, -1,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case 1:
+                                                    Spotify.getPlaylistTracks(getActivity());
+                                                    dialog.dismiss();
+                                                    choiceDialog.dismiss();
+                                                    break;
+                                                case 0:
+                                                    Spotify.getUserTracks(getActivity());
+                                                    dialog.dismiss();
+                                                    choiceDialog.dismiss();
+                                                    break;
+                                            }
+                                        }
+                                    }).show();
                             return;
                         }
                         final Uri contentProvider = Uri.parse(values[i]);

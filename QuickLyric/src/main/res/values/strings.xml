@@ -115,6 +115,8 @@ A few possible reasons why:<br/>
     <string name="uri_storage">This device</string>
     <string name="uri_gmusic">Your Google Play Music library</string>
     <string name="uri_spotify">Your Spotify Library</string>
+    <string name="spotify_library">Your saved tracks</string>
+    <string name="spotify_playlists">Your playlists</string>
     <string name="source_punk">Punk Rock</string>
     <string name="source_metal">Metal</string>
     <string name="source_hip_hop">Hip Hop</string>
@@ -193,6 +195,10 @@ A few possible reasons why:<br/>
         <item>@string/uri_storage</item>
         <item>@string/uri_gmusic</item>
         <item>@string/uri_spotify</item>
+    </string-array>
+    <string-array name="spotify_options">
+        <item>@string/spotify_library</item>
+        <item>@string/spotify_playlists</item>
     </string-array>
     <string-array name="artwork_download">
         <item>Always enabled</item>
