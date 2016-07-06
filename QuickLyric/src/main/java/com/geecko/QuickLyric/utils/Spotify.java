@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -37,7 +38,8 @@ import com.drivemode.spotify.SpotifyApi;
 import com.drivemode.spotify.SpotifyLoader;
 import com.drivemode.spotify.SpotifyService;
 import com.drivemode.spotify.models.Pager;
-import com.drivemode.spotify.models.SavedTrack;
+import com.drivemode.spotify.models.Playlist;
+import com.drivemode.spotify.models.PlaylistTrack;
 import com.drivemode.spotify.models.User;
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.R;
@@ -63,10 +65,7 @@ import retrofit.RetrofitError;
 
 public class Spotify {
 
-    private static ArrayList<SavedTrack> savedTracks;
-
     public static void getTracks(Activity activity) {
-        savedTracks = new ArrayList<>();
         if (Keys.SPOTIFY_SECRET.isEmpty())
             startAuthWithRemoteKey(activity);
         else
@@ -162,7 +161,7 @@ public class Spotify {
                     .setClientSecret(Keys.SPOTIFY_SECRET)
                     .setRedirectUri("quicklyric://spotify/callback")
                     .build());
-            SpotifyApi.getInstance().authorize(mActivity, new String[]{"user-library-read"}, false);
+            SpotifyApi.getInstance().authorize(mActivity, new String[]{"user-library-read", "playlist-read-private"}, false);
         }
     }
 
@@ -199,55 +198,7 @@ public class Spotify {
 
         @Override
         public void onLoadFinished(Loader<Response<User>> loader, Response<User> data) {
-            SpotifyApi.getInstance().getApiService().getMySavedTracks(mOffset, 50, new Callback<Pager<SavedTrack>>() {
-                        @Override
-                        public void success(Pager<SavedTrack> savedTracksPager, retrofit.client.Response response) {
-                            savedTracks.addAll(savedTracksPager.items);
-                            if (savedTracksPager.next != null) {
-                                SpotifyApi.getInstance().getApiService()
-                                        .getMySavedTracks(savedTracksPager.offset + savedTracksPager.limit, 50, this);
-                            } else if (savedTracks.size() > 0) {
-                                progressDialog.dismiss();
-                                final int time = (int) Math.ceil(savedTracks.size() / 500f);
-                                String prompt = mActivity.getResources()
-                                        .getQuantityString(R.plurals.scan_dialog, savedTracks.size());
-                                AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mActivity);
-                                confirmDialog
-                                        .setTitle(R.string.warning)
-                                        .setMessage(String.format(prompt, savedTracks.size(), time))
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                Intent scanInfo = new Intent(mActivity,
-                                                        BatchDownloaderService.class);
-                                                scanInfo.putExtra("spotifyTracks", cleanResults(savedTracks));
-                                                mActivity.startService(scanInfo);
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.cancel, null)
-                                        .create().show();
-                            } else {
-                                progressDialog.dismiss();
-                                Toast.makeText(mActivity, R.string.scan_error_no_content, Toast.LENGTH_LONG).show();
-                            }
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
-                            if (progressDialog != null)
-                                progressDialog.dismiss();
-                        }
-                    }
-
-            );
-        }
-
-        private ArrayList<String[]> cleanResults(ArrayList<SavedTrack> savedTracks) {
-            ArrayList<String[]> results = new ArrayList<>(savedTracks.size());
-            for (SavedTrack savedTrack : savedTracks)
-                results.add(new String[]{savedTrack.track.artists.get(0).name, savedTrack.track.name});
-            return results;
+            new SpotifyTracks().saveLyricsForAllTracks();
         }
 
         @Override
@@ -263,6 +214,114 @@ public class Spotify {
             public User call(SpotifyService service) throws Exception {
                 return service.getMe();
             }
+        }
+
+        private class SpotifyTracks {
+            private ArrayList<String[]> tracks = new ArrayList<String[]>();
+            private final int playListsToFetch = 1;
+
+            @NonNull
+            private String[] cleanTrack(PlaylistTrack playlistTrack) {
+                return new String[]{playlistTrack.track.artists.get(0).name,
+                        playlistTrack.track.name};
+            }
+
+            protected void saveLyricsForAllTracks() {
+                SpotifyApi.getInstance().getApiService().getMe(new Callback<User>() {
+
+                    @Override
+                    public void success(final User user, retrofit.client.Response response) {
+                        PlayListCallback playListCallback = new PlayListCallback(user);
+                        SpotifyApi.getInstance().getApiService().getPlaylists(user.id, 0, playListsToFetch, playListCallback);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
+
+                    }
+                });
+            }
+
+
+            private class PlayListCallback implements Callback<Pager<Playlist>> {
+                private User user;
+
+                public PlayListCallback(User user) {
+                    this.user = user;
+                }
+
+                @Override
+                public void success(final Pager<Playlist> playlistPager, retrofit.client.Response response) {
+                    SpotifyApi.getInstance().getApiService()
+                            .getPlaylistTracks(playlistPager.items.get(0).owner.id, playlistPager.items.get(0).id,
+                                    new PlaylistTrackCallback(playlistPager, this, user));
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    progressDialog.dismiss();
+                    Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            private class PlaylistTrackCallback implements Callback<Pager<PlaylistTrack>> {
+
+                private final PlayListCallback playListCallback;
+                private Pager<Playlist> playlistPager;
+                private User user;
+
+
+                public PlaylistTrackCallback(Pager<Playlist> playlistPager, PlayListCallback playListCallback, User user) {
+                    this.playlistPager = playlistPager;
+                    this.playListCallback = playListCallback;
+                    this.user = user;
+                }
+
+                @Override
+                public void success(Pager<PlaylistTrack> playlistTrackPager, retrofit.client.Response response) {
+                    for (PlaylistTrack playlistTrack : playlistTrackPager.items) {
+                        tracks.add(cleanTrack(playlistTrack));
+                    }
+                    if (playlistPager.next != null) {
+                        SpotifyApi.getInstance().getApiService()
+                                .getPlaylists(user.id, playlistPager.offset + playlistPager.limit, playListsToFetch, playListCallback);
+                    } else {
+                        progressDialog.dismiss();
+                        if (tracks.isEmpty()) {
+                            Toast.makeText(mActivity, R.string.scan_error_no_content, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        final int time = (int) Math.ceil(tracks.size() / 500f);
+                        String prompt = mActivity.getResources()
+                                .getQuantityString(R.plurals.scan_dialog, tracks.size());
+                        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mActivity);
+                        confirmDialog
+                                .setTitle(R.string.warning)
+                                .setMessage(String.format(prompt, tracks.size(), time))
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent scanInfo = new Intent(mActivity,
+                                                BatchDownloaderService.class);
+                                        scanInfo.putExtra("spotifyTracks", tracks);
+                                        mActivity.startService(scanInfo);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .create().show();
+
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    progressDialog.dismiss();
+                    Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
+                }
+            }
+
         }
     }
 }
