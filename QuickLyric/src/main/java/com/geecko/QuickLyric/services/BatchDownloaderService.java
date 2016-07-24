@@ -100,7 +100,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                 total = savedTracks.size();
                 updateProgress();
                 for (String[] track : savedTracks) {
-                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, track[0], track[1]));
+                    if (track != null)
+                        mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, track[0], track[1]));
                 }
             }
         }

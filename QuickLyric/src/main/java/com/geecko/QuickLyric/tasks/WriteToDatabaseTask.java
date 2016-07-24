@@ -80,7 +80,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         boolean result = true;
         String[] columns = DatabaseHelper.columns;
         if (database != null) {
-            database.beginTransactionNonExclusive();
+            database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
                     if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),

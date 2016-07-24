@@ -292,6 +292,8 @@ public class Spotify {
 
             @NonNull
             private String[] cleanTrack(PlaylistTrack playlistTrack) {
+                if (playlistTrack == null || playlistTrack.track == null)
+                    return null;
                 return new String[]{playlistTrack.track.artists.get(0).name,
                         playlistTrack.track.name};
             }
