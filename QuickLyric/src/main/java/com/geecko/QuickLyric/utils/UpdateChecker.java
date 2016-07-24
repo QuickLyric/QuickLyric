@@ -31,8 +31,6 @@ import android.support.v7.app.AlertDialog;
 
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 
-import java.io.IOException;
-
 public class UpdateChecker {
 
     public static boolean isUpdateAvailable(Context context) {
@@ -48,7 +46,7 @@ public class UpdateChecker {
         int newVersionCode = versionCode;
 
         try {
-            String version = Net.getUrlAsString("http://quicklyric.azurewebsites.net/current_version.txt");
+            String version = Net.getUrlAsString("http://quicklyric-api.azurewebsites.net/current_version.txt");
             version = version.replaceAll("\\D+", "");
             newVersionCode = Integer.valueOf(version);
         } catch (Exception e) {

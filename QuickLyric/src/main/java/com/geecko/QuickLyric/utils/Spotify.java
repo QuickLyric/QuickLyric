@@ -98,7 +98,7 @@ public class Spotify {
                 .build();
 
         final Request spotifyRequest = new Request.Builder()
-                .url("https://www.quicklyric.be/keys/spotify.php?")
+                .url("https://api.quicklyric.be/keys/spotify.php?")
                 .post(formBody)
                 .build();
         final SpotifyKeyCallback callback = new SpotifyKeyCallback(activity, playlists);
