@@ -80,7 +80,10 @@ public class FadeInNetworkImageView extends NetworkImageView {
                         super.onAvailable(network);
                             new CoverArtLoader().execute(mLyrics, FadeInNetworkImageView.this.getActivity());
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && networkCallback != null)
-                                cm.unregisterNetworkCallback(networkCallback);
+                                try {
+                                    cm.unregisterNetworkCallback(networkCallback);
+                                } catch (IllegalArgumentException ignored) {
+                                }
                     }
                 };
                 NetworkRequest request = new NetworkRequest.Builder()
