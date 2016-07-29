@@ -18,6 +18,7 @@
   ~  */
   -->
 <resources>
+    <dimen name="dp">1dp</dimen>
     <dimen name="child_card_padding">5dp</dimen>
     <dimen name="app_bar_layout_height">192dp</dimen>
     <dimen name="fab_top_margin">75dp</dimen>
