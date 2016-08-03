@@ -169,8 +169,8 @@ public class LrcView extends View {
 
         if (overflow > 0) {
             float lineHeight = mTextSize + mDividerHeight; // todo move to field
-            if (lrc.contains(" "))
-                lrc = lrc.substring(lrc.substring(0, contained).lastIndexOf(" ") + 1);
+            if (cutLrc.contains(" "))
+                lrc = lrc.substring(cutLrc.lastIndexOf(" ") + 1);
             else
                 lrc = lrc.substring(contained);
             breakOffset = drawDividedText(lrc, canvas, y + lineHeight, breakOffset, paint) + (int) lineHeight;

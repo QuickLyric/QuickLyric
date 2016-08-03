@@ -104,7 +104,7 @@ public class ViewLyrics {
         result.setTitle(title);
         result.setArtist(artist);
         result.setLRC(url.endsWith("lrc"));
-        result.setText(Net.getUrlAsString(url));
+        result.setText(Net.getUrlAsString(url).replaceAll("(\\[(?=.[a-z]).+\\]|<.+?>|www.*[\\s])", "").replaceAll("[\n\r]", " ").replaceAll("\\[", "\n\\["));
         result.setSource(clientUserAgent);
 
         return result;
