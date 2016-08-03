@@ -43,6 +43,7 @@ import com.drivemode.spotify.models.PlaylistTrack;
 import com.drivemode.spotify.models.SavedTrack;
 import com.drivemode.spotify.models.User;
 import com.geecko.QuickLyric.Keys;
+import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -224,6 +225,8 @@ public class Spotify {
                         @Override
                         public void success(Pager<SavedTrack> savedTracksPager, retrofit.client.Response response) {
                             savedTracks.addAll(savedTracksPager.items);
+                            if (((MainActivity)progressDialog.getContext()).isFinishing())
+                                return;
                             if (savedTracksPager.next != null) {
                                 SpotifyApi.getInstance().getApiService()
                                         .getMySavedTracks(savedTracksPager.offset + savedTracksPager.limit, 50, this);
