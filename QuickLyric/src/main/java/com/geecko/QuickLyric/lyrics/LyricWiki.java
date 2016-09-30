@@ -145,7 +145,7 @@ public class LyricWiki {
             if (artist == null)
                 artist = title.substring(0, colon).trim();
             if (song == null) {
-                int end = title.indexOf("Lyrics - LyricW");
+                int end = title.lastIndexOf("Lyrics");
                 song = title.substring(colon+1, end).trim();
             }
         } catch (IndexOutOfBoundsException | IOException e) {
