@@ -30,6 +30,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.drivemode.spotify.ClientConfig;
@@ -42,8 +43,8 @@ import com.drivemode.spotify.models.Playlist;
 import com.drivemode.spotify.models.PlaylistTrack;
 import com.drivemode.spotify.models.SavedTrack;
 import com.drivemode.spotify.models.User;
+import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.Keys;
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -53,14 +54,15 @@ import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.security.KeyStore;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
+import java.util.Locale;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
+import javax.crypto.Cipher;
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.crypto.spec.PSource;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -85,49 +87,36 @@ public class Spotify {
 
     public static void startAuthWithRemoteKey(final Activity activity, boolean playlists) {
         final OkHttpClient client = new OkHttpClient();
-        String param;
+
+        AssetManager assetManager = activity.getAssets();
+        String message;
         try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update("spotify_key_request_KBxrcRvcxjo3Gr".getBytes());
-            param = String.format("%032x", new BigInteger(1, md5.digest()));
-        } catch (NoSuchAlgorithmException e) {
+            InputStream keyStoreInputStream = assetManager.open("quicklyric.store");
+            KeyStore trustStore = KeyStore.getInstance("BKS");
+            trustStore.load(keyStoreInputStream, null);
+            PublicKey publicKey = trustStore.getCertificate("myAlias").getPublicKey();
+
+            Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding", "BC");
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey, new OAEPParameterSpec("SHA-256", "MGF1", MGF1ParameterSpec.SHA256,
+                    PSource.PSpecified.DEFAULT));
+            String plain = String.format(Locale.ENGLISH, "%s_%s_%d",
+                    BuildConfig.APPLICATION_ID, "spotify", System.currentTimeMillis()).trim();
+            byte[] encryptedBytes = Base64.encode(cipher.doFinal(plain.getBytes("UTF-8")), Base64.DEFAULT);
+            message = new String(encryptedBytes, "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
+
         RequestBody formBody = new FormEncodingBuilder()
-                .add("p", param)
+                .add("p", message)
                 .build();
 
         final Request spotifyRequest = new Request.Builder()
-                .url("https://api.quicklyric.be/keys/spotify.php?")
+                .url("https://api.quicklyric.be/keys/spotify")
                 .post(formBody)
                 .build();
-        final SpotifyKeyCallback callback = new SpotifyKeyCallback(activity, playlists);
-        Thread networkThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                AssetManager assetManager = activity.getAssets();
-                SSLContext sslContext;
-                try {
-                    InputStream keyStoreInputStream = assetManager.open("quicklyric.store");
-                    KeyStore trustStore = KeyStore.getInstance("BKS");
-
-                    trustStore.load(keyStoreInputStream, null);
-
-                    TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-                    tmf.init(trustStore);
-
-                    sslContext = SSLContext.getInstance("TLS");
-                    sslContext.init(null, tmf.getTrustManagers(), null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return;
-                }
-                client.setSslSocketFactory(sslContext.getSocketFactory());
-                client.newCall(spotifyRequest).enqueue(callback);
-            }
-        });
-        networkThread.run();
+        client.newCall(spotifyRequest).enqueue(new SpotifyKeyCallback(activity, playlists));
     }
 
     public static void onCallback(Intent intent, Activity activity) {
@@ -225,7 +214,7 @@ public class Spotify {
                         @Override
                         public void success(Pager<SavedTrack> savedTracksPager, retrofit.client.Response response) {
                             savedTracks.addAll(savedTracksPager.items);
-                            if (((MainActivity)progressDialog.getContext()).isFinishing())
+                            if (mActivity == null || mActivity.isFinishing())
                                 return;
                             if (savedTracksPager.next != null) {
                                 SpotifyApi.getInstance().getApiService()
