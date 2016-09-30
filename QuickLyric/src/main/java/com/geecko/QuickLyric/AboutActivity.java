@@ -132,7 +132,7 @@ public class AboutActivity extends AppCompatActivity {
         linearLayout.addView(aboutView);
         setContentView(linearLayout);
 
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
         setSupportActionBar(toolbar);
