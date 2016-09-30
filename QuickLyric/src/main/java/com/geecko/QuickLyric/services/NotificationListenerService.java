@@ -58,6 +58,8 @@ public class NotificationListenerService extends android.service.notification.No
     private MediaController.Callback controllerCallback;
 
     @Override
+    @SuppressWarnings("NewApi")
+    @TargetApi(21)
     public void onCreate() {
         super.onCreate();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
