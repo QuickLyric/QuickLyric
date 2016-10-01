@@ -100,6 +100,8 @@ public class NotificationListenerService extends android.service.notification.No
                             }
                         };
                         controller.registerCallback(controllerCallback);
+                        if ("com.google.android.youtube".equals(controller.getPackageName()))
+                            return;
 
                         MediaMetadata metadata = controller.getMetadata();
                         PlaybackState playbackState = controller.getPlaybackState();
