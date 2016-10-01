@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.LongSparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -38,8 +39,6 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
-
-import java.util.HashMap;
 
 public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
@@ -127,13 +126,14 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
         } else if (fragment instanceof LocalLyricsFragment) {
-            HashMap<Long, Integer> topMap = mLocalLyricsFragment.collectTopPositions();
+            LongSparseArray<Integer> topMap = mLocalLyricsFragment.collectTopPositions();
             mLocalLyricsFragment.addObserver(topMap);
             int position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
                     .getGroupPosition(lyricsArray[0].getArtist());
-            ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
-                    .removeArtistFromCache(lyricsArray[0].getArtist());
-            if (result && position == -1)
+            if (!result)
+                ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                        .removeArtistFromCache(lyricsArray[0].getArtist());
+            else
                 ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
                         .addArtist(lyricsArray[0].getArtist());
             View.OnClickListener actionClickListener = new View.OnClickListener() {

@@ -28,6 +28,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.util.LongSparseArray;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -71,7 +72,6 @@ import com.geecko.QuickLyric.view.BackgroundContainer;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class LocalLyricsFragment extends ListFragment {
 
@@ -257,8 +257,8 @@ public class LocalLyricsFragment extends ListFragment {
                 .execute(LocalLyricsFragment.this, null, lyrics);
     }
 
-    public HashMap<Long, Integer> collectTopPositions() {
-        final HashMap<Long, Integer> itemIdTopMap = new HashMap<>();
+    public LongSparseArray<Integer> collectTopPositions() {
+        final LongSparseArray<Integer> itemIdTopMap = new LongSparseArray<>();
         int firstVisiblePosition = megaListView.getFirstVisiblePosition();
         for (int i = 0; i < megaListView.getChildCount(); ++i) {
             View child = megaListView.getChildAt(i);
@@ -269,7 +269,7 @@ public class LocalLyricsFragment extends ListFragment {
         return itemIdTopMap;
     }
 
-    public void addObserver(final HashMap<Long, Integer> itemIdTopMap) {
+    public void addObserver(final LongSparseArray<Integer> itemIdTopMap) {
         final boolean[] firstAnimation = {true};
         final ViewTreeObserver observer = megaListView.getViewTreeObserver();
         observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -305,7 +305,8 @@ public class LocalLyricsFragment extends ListFragment {
                         // based on neighboring views.
                         int childHeight = child.getHeight() + megaListView.getDividerHeight();
                         boolean isFurthest = true;
-                        for (Integer top : itemIdTopMap.values()) {
+                        for (int j = 0; j < itemIdTopMap.size(); j++) {
+                            Integer top = itemIdTopMap.valueAt(j);
                             if (top - childHeight > newTop) {
                                 isFurthest = false;
                                 break;
@@ -318,8 +319,12 @@ public class LocalLyricsFragment extends ListFragment {
                             child.setTranslationY(delta);
                             child.animate().setDuration(MOVE_DURATION).translationY(0);
                         } else {
-                            child.setTranslationX(child.getWidth());
-                            child.animate().setDuration(MOVE_DURATION).translationX(0);
+                            int translationX = formerTop > childHeight ?
+                                    child.getWidth() : 0;
+                            child.setTranslationX(translationX);
+                            if (translationX == 0)
+                                child.setTranslationY(formerTop - newTop);
+                            child.animate().setDuration(MOVE_DURATION).translationX(0).translationY(0);
                         }
                         if (firstAnimation[0]) {
                             child.animate().setListener(new AnimatorActionListener(new Runnable() {

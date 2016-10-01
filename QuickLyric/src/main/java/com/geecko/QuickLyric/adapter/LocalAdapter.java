@@ -36,7 +36,9 @@ import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.WeakHashMap;
 
 public class LocalAdapter extends AnimatedExpandableListAdapter {
@@ -169,10 +171,14 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     }
 
     public void addArtist(String artist) {
-        String[] newArtists = Arrays.copyOf(mArtists, mArtists.length + 1);
-        newArtists[newArtists.length - 1] = artist;
-        Arrays.sort(newArtists);
-        this.mArtists = newArtists;
+        mCache.remove(artist);
+        if (!Arrays.asList(mArtists).contains(artist)) {
+            String[] newArtists = Arrays.copyOf(mArtists, mArtists.length + 1);
+            newArtists[newArtists.length - 1] = artist;
+            List artistsList = Arrays.asList(newArtists);
+            Collections.sort(artistsList, String.CASE_INSENSITIVE_ORDER);
+            this.mArtists = (String[]) artistsList.toArray();
+        }
         notifyDataSetChanged();
     }
 
