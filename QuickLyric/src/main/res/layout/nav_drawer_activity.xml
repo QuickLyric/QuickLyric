@@ -27,7 +27,8 @@
     android:fitsSystemWindows="true">
 
     <!-- The main content view -->
-    <FrameLayout
+    <com.geecko.QuickLyric.view.ScrimInsetsFrameLayout
+        android:fitsSystemWindows="true"
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,11 +57,13 @@
                 android:layout_height="@dimen/app_bar_layout_height"
                 app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"/>
 
+            <!--suppress AndroidDomInspection -->
             <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
                 android:id="@+id/material_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:layout_marginTop="@*android:dimen/status_bar_height"
                 android:textColor="?android:textColorPrimary"
                 app:searchBackIcon="@drawable/searchBackIcon"
                 app:searchBackground="?android:colorBackground"
@@ -82,7 +85,7 @@
                 app:layout_behavior="com.geecko.QuickLyric.utils.RefreshButtonBehavior"/>
 
         </android.support.design.widget.CoordinatorLayout>
-    </FrameLayout>
+    </com.geecko.QuickLyric.view.ScrimInsetsFrameLayout>
     <!-- The navigation drawer -->
 
     <include

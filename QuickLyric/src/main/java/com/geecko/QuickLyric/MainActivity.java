@@ -181,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             Resources.Theme theme = getTheme();
             TypedValue darkColorValue = new TypedValue();
             theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
-            ((DrawerLayout) drawer).setStatusBarBackgroundColor(darkColorValue.data);
             ((DrawerLayout) drawer).addDrawerListener(mDrawerToggle);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
