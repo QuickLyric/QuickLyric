@@ -314,8 +314,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         View soundImage = tutorialLayout.findViewById(R.id.musicid_demo_sound_image);
         View redKey = tutorialLayout.findViewById(R.id.intro_4_red_key);
         View yellowKey = tutorialLayout.findViewById(R.id.intro_4_yellow_key);
-        View gearA = tutorialLayout.findViewById(R.id.gear_1);
-        View gearB = tutorialLayout.findViewById(R.id.gear_2);
+        View gearA = tutorialLayout.findViewById(R.id.redGear);
+        View gearB = tutorialLayout.findViewById(R.id.blueGear);
 
         BubblePopImageView tableImageView = (BubblePopImageView) tutorialLayout.findViewById(R.id.table);
         position = rightToLeft ? getCount() - 1 - position : position;

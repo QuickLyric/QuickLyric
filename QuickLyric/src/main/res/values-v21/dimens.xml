@@ -18,7 +18,9 @@
   ~  */
   -->
 
+<!--suppress AndroidDomInspection -->
 <resources>
     <dimen name="child_card_padding">0dp</dimen>
     <dimen name="intro_fab_elevation">24dp</dimen>
+    <dimen name="upper_margin">@*android:dimen/status_bar_height</dimen>
 </resources>

@@ -22,68 +22,9 @@
                                                xmlns:tools="http://schemas.android.com/tools"
                                                android:layout_width="match_parent"
                                                android:layout_height="match_parent"
+                                               android:clipChildren="false"
+                                               android:clipToPadding="false"
                                                tools:ignore="RtlCompat">
-
-    <android.support.percent.PercentRelativeLayout
-        android:id="@+id/gears"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerInParent="true"
-        app:layout_heightPercent="48%"
-        app:layout_marginTopPercent="5%"
-        app:layout_widthPercent="66%">
-
-        <ImageView
-            android:id="@+id/gear_1"
-            android:layout_width="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/intro_5_gear"
-            app:layout_aspectRatio="100%"
-            app:layout_marginLeftPercent="1%"
-            app:layout_widthPercent="60%"/>
-
-        <ImageView
-            android:id="@+id/gear_2"
-            android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/intro_5_gear_b"
-            app:layout_aspectRatio="100%"
-            app:layout_marginRightPercent="1%"
-            app:layout_widthPercent="60%"/>
-
-    </android.support.percent.PercentRelativeLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/nl_title"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="30sp"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/textView"
-        android:layout_alignRight="@id/gears"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="@string/nl_instructions"
-        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-        android:textColor="?android:attr/textColorPrimaryInverse"/>
 
     <RelativeLayout
         android:id="@+id/NL_frame"
@@ -113,12 +54,65 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@id/NL_icon"
-            android:paddingEnd="10dp"
             android:gravity="start|center_vertical"
+            android:paddingEnd="10dp"
             android:text="@string/nl_settings_link"
             android:textAppearance="?android:attr/textAppearanceSmallInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textStyle="bold"/>
     </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/redGear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear"
+        android:translationY="-15dp"
+        android:translationX="-50dp"/>
+
+    <ImageView
+        android:id="@+id/blueGear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear_b"
+        android:translationX="56dp"
+        android:translationY="95dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/nl_title"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/redGear"
+        android:layout_alignLeft="@id/textView"
+        android:layout_alignRight="@id/NL_frame"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="15dp"
+        android:text="@string/nl_instructions"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:layout_marginBottomPercent="2%"/>
+
 
 </android.support.percent.PercentRelativeLayout>

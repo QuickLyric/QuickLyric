@@ -119,7 +119,7 @@
         <!--suppress AndroidDomInspection -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_marginTop="@*android:dimen/status_bar_height"
+            android:layout_marginTop="@dimen/upper_margin"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
