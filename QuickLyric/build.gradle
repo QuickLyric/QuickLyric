@@ -18,7 +18,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.1'
     }
 }
 
@@ -36,7 +36,7 @@ android {
         applicationId "com.geecko.QuickLyric"
         resConfigs "ar-rSA", "ca-rES", "cs-rCZ", "de-rBE", "el-rGR", "es-rES", "fa-rIR", "fr-rFR", "hi-rIN", "hu-rHU", "in-rID", "it-rIT", "iw-rIL", "ja-rJP", "pl-rPL", "pt-rBR", "pt-rPT", "ru-rRU", "sl-rSI", "sr-rSP", "sv-rSE", "tr-rTR", "uk-rUA", "vls-rBE", "zh-rCN"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
         vectorDrawables.useSupportLibrary = true
         versionCode 75
         versionName "2.0 August Preview"
@@ -78,8 +78,10 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:24.+'
+    //noinspection GradleDependency
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:support-v13:24.+'
+    //noinspection GradleDependency
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:24.+'
     compile 'com.android.support:percent:24.+'
@@ -99,6 +101,6 @@ dependencies {
 
     /* Debug & testing */
     testCompile 'junit:junit:4.12'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
