@@ -125,7 +125,7 @@ A few possible reasons why:<br/>
     <string name="source_bollywood">Bollywood Music</string>
     <string name="source_sync">Synchronized Lyrics</string>
     <string name="spotify_connection">Connecting to Spotify…</string>
-    <string name="full_text_action">Show full text</string>
+    <string name="full_text_action">Full text</string>
     <string name="artworks_pref_title">Automatic artwork download</string>
     <string name="artworks_pref_sum">May result in mobile data charges</string>
     <string name="pref_lrc_sum">Highlight the words that are being sung - not all music players are supported</string>
