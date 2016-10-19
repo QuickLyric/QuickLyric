@@ -38,6 +38,7 @@ import java.lang.reflect.Method;
 public class ColorGridPreference extends ListPreference {
 
     private AppCompatDialog mDialog;
+    public static String originalValue = null;
 
     @SuppressWarnings("unused")
     public ColorGridPreference(Context context) {
@@ -55,13 +56,15 @@ public class ColorGridPreference extends ListPreference {
     }
 
     @Override
-    protected void showDialog(Bundle state) {
+    public void showDialog(Bundle state) {
         if (getEntryValues() == null) {
             throw new IllegalStateException(
                     "ColorGridPreference requires an entryValues array.");
         }
 
-        int preselect = findIndexOfValue(getValue());
+        if (originalValue == null)
+            originalValue = getValue();
+        final int preselect = findIndexOfValue(getValue());
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
@@ -69,18 +72,14 @@ public class ColorGridPreference extends ListPreference {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        onDialogClosed(false);
                         dialog.cancel();
                     }
                 })
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        which = ((SettingsActivity) getContext()).getSelectedTheme();
-                        if (which >= 0 && getEntryValues() != null) {
-                            String value = getEntryValues()[which].toString();
-                            if (callChangeListener(value) && isPersistent())
-                                setValue(value);
-                        }
+                        onDialogClosed(true);
                         dialog.dismiss();
                     }
                 })
@@ -97,11 +96,13 @@ public class ColorGridPreference extends ListPreference {
         }
 
         mDialog = builder.create();
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.getWindow().getAttributes().windowAnimations = android.R.anim.accelerate_interpolator;
         if (state != null)
             mDialog.onRestoreInstanceState(state);
         mDialog.show();
 
-        GridLayout gridLayout = ((GridLayout)mDialog.findViewById(R.id.grid));
+        GridLayout gridLayout = ((GridLayout) mDialog.findViewById(R.id.grid));
         gridLayout.getChildAt(preselect).setSelected(true);
         for (int i = 0; i < gridLayout.getChildCount(); i++) {
             gridLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
@@ -111,6 +112,15 @@ public class ColorGridPreference extends ListPreference {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        super.onDialogClosed(false);
+        if (!positiveResult)
+            ((SettingsActivity) getContext()).selectTheme(Integer.parseInt(originalValue), false);
+        else
+            originalValue = getValue();
     }
 
     @Override

@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
@@ -31,11 +32,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.GridLayout;
 
+import com.geecko.QuickLyric.fragment.SettingsFragment;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.geecko.QuickLyric.view.ColorGridPreference;
 
 public class SettingsActivity extends AppCompatActivity {
-
-    private int selectedTheme;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,12 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if ((getIntent().getExtras() != null && !getIntent().getExtras().getString("openedDialog", "").isEmpty()) ||
+                ColorGridPreference.originalValue != null && Integer.parseInt(ColorGridPreference.originalValue) != themeNum) {
+            ((ColorGridPreference)((SettingsFragment)getFragmentManager().findFragmentByTag("SettingsFragment"))
+                    .findPreference("pref_theme")).showDialog(null);
+            getIntent().putExtra("openedDialog", "");
+        }
     }
 
     @TargetApi(21)
@@ -72,14 +79,30 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public int getSelectedTheme() {
-        return selectedTheme;
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        return Integer.valueOf(sharedPref.getString("pref_theme", "0"));
     }
 
     public void selectTheme(View view) {
         GridLayout grid = (GridLayout) view.getParent();
-        selectedTheme = grid.indexOfChild(view);
+        int selection = grid.indexOfChild(view);
         for (int i = 0; i < grid.getChildCount(); i++)
             grid.getChildAt(i).setSelected(false);
         view.setSelected(true);
+        selectTheme(selection, true);
+    }
+
+    public void selectTheme(int selection, boolean showDialog) {
+        int selectedTheme = getSelectedTheme();
+        if (selectedTheme == selection)
+            return;
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref.edit().putString("pref_theme", String.valueOf(selection)).apply();
+        Intent relaunch = new Intent(SettingsActivity.this, SettingsActivity.class);
+        if (showDialog)
+           relaunch.putExtra("openedDialog", "themeSelector");
+        finish();
+        startActivity(relaunch);
+        overridePendingTransition(0, 0);
     }
 }
