@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.TypedValue;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
@@ -156,8 +157,17 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
             NotificationCompat.Builder wearableNotifBuilder = new NotificationCompat.Builder(context);
 
-            if ("0".equals(sharedPref.getString("pref_theme", "0")))
-                notifBuilder.setColor(context.getResources().getColor(R.color.primary));
+            int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                    R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                    R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                    R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+            int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+
+            TypedValue primaryColorValue = new TypedValue();
+            context.setTheme(themes[themeNum]);
+            context.getTheme().resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
+
+            notifBuilder.setColor(primaryColorValue.data);
 
             notifBuilder.setSmallIcon(R.drawable.ic_notif)
                     .setContentTitle(context.getString(R.string.app_name))
