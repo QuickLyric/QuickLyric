@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -104,6 +105,14 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription taskDescription =
+                    new ActivityManager.TaskDescription
+                            (null, null, toolbar.getSolidColor());
+            this.setTaskDescription(taskDescription);
+        }
+
         ViewPager viewPager = getViewPager();
         viewPager.setAdapter(new SearchPagerAdapter(
                 this.getFragmentManager(), this, searchQuery));

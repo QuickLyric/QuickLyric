@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -78,6 +79,13 @@ public class AboutActivity extends AppCompatActivity {
             toolbar.setElevation(8f);
         toolbar.setBackgroundColor(primaryColor.data);
         toolbar.setTitleTextColor(Color.WHITE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription taskDescription =
+                    new ActivityManager.TaskDescription
+                            (null, null, primaryColor.data);
+            this.setTaskDescription(taskDescription);
+        }
 
         View.OnClickListener productTourAction = new View.OnClickListener() {
             @Override

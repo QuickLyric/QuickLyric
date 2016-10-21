@@ -20,9 +20,11 @@
 package com.geecko.QuickLyric;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -54,14 +56,21 @@ public class SettingsActivity extends AppCompatActivity {
             setTheme(themes[themeNum]);
         setStatusBarColor(null);
         setContentView(R.layout.settings_activity);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if ((getIntent().getExtras() != null && !getIntent().getExtras().getString("openedDialog", "").isEmpty()) ||
                 ColorGridPreference.originalValue != null && Integer.parseInt(ColorGridPreference.originalValue) != themeNum) {
-            ((ColorGridPreference)((SettingsFragment)getFragmentManager().findFragmentByTag("SettingsFragment"))
+            ((ColorGridPreference) ((SettingsFragment) getFragmentManager().findFragmentByTag("SettingsFragment"))
                     .findPreference("pref_theme")).showDialog(null);
             getIntent().putExtra("openedDialog", "");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription taskDescription =
+                    new ActivityManager.TaskDescription
+                            (null, null, ((ColorDrawable) toolbar.getBackground()).getColor());
+            this.setTaskDescription(taskDescription);
         }
     }
 
@@ -100,7 +109,7 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPref.edit().putString("pref_theme", String.valueOf(selection)).apply();
         Intent relaunch = new Intent(SettingsActivity.this, SettingsActivity.class);
         if (showDialog)
-           relaunch.putExtra("openedDialog", "themeSelector");
+            relaunch.putExtra("openedDialog", "themeSelector");
         finish();
         startActivity(relaunch);
         overridePendingTransition(0, 0);

@@ -22,6 +22,7 @@ package com.geecko.QuickLyric;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -180,12 +181,20 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             };
             Resources.Theme theme = getTheme();
             TypedValue darkColorValue = new TypedValue();
+            TypedValue primaryColorValue = new TypedValue();
             theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
+            theme.resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
             ((DrawerLayout) drawer).addDrawerListener(mDrawerToggle);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
                 final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);
                 drawerHeader.setColorFilter(darkColorValue.data, PorterDuff.Mode.OVERLAY);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityManager.TaskDescription taskDescription =
+                        new ActivityManager.TaskDescription
+                                (null, null, primaryColorValue.data);
+                this.setTaskDescription(taskDescription);
             }
         }
 

@@ -36,6 +36,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             android:focusable="false"
+            android:background="?attr/colorPrimary"
             android:theme="@style/actionBar.QuickLyric"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
