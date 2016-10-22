@@ -962,6 +962,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView.clearColorFilter();
             coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
+            if (!url.isEmpty())
+                DatabaseHelper.updateCover(((MainActivity) getActivity()).database, mLyrics.getArtist(), mLyrics.getTrack(), url);
         }
     }
 

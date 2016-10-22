@@ -19,6 +19,7 @@
 
 package com.geecko.QuickLyric.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -157,6 +158,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         cursor.close();
         return results;
+    }
+
+    public static void updateCover(SQLiteDatabase database, String artist, String title, String coverUrl) {
+        if (database != null) {
+            database.beginTransaction();
+            try {
+                ContentValues values = new ContentValues();
+                values.put(KEY_COVER_URL, coverUrl);
+                database.update(TABLE_NAME, values, String.format("(upper(%s)=upper(?) AND upper(%s)=upper(?) AND %s='')", KEY_ARTIST, KEY_TRACK, KEY_URL), new String[]{artist, title});
+                database.setTransactionSuccessful();
+            } finally {
+                database.endTransaction();
+            }
+        }
     }
 
     public static int getColumnsCount(SQLiteDatabase database) {

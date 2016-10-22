@@ -36,14 +36,18 @@ import android.net.NetworkRequest;
 import android.os.Build;
 import android.util.AttributeSet;
 
+import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
+import java.io.File;
+
 public class FadeInNetworkImageView extends NetworkImageView {
     private static final int FADE_IN_TIME_MS = 500;
+    private final DiskBasedCache mDiskCache;
 
     private Bitmap mLocalBitmap;
     private boolean mShowLocal;
@@ -52,6 +56,14 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
     public FadeInNetworkImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        File cacheDir = new File(getContext().getCacheDir(), "volley");
+        mDiskCache = new DiskBasedCache(cacheDir);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mDiskCache.initialize();
+            }
+        }).start();
     }
 
     public void setLocalImageBitmap(Bitmap bitmap) {
@@ -70,7 +82,8 @@ public class FadeInNetworkImageView extends NetworkImageView {
     @Override
     public void setImageUrl(String url, ImageLoader imageLoader) {
         mShowLocal = false;
-        if (!OnlineAccessVerifier.check(getContext())) {
+        if (mDiskCache.get(url) == null && !OnlineAccessVerifier.check(getContext())) {
+            this.setImageBitmap(null);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final ConnectivityManager cm = (ConnectivityManager)
                         getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
