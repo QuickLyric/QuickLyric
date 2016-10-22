@@ -711,6 +711,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             intent.setAction("android.intent.action.MAIN");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            getActivity().overridePendingTransition(0, 0);
         }
     }
 
