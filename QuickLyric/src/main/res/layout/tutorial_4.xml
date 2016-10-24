@@ -1,38 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="@dimen/upper_margin">
 
-    <ImageView
-        android:id="@+id/intro_4_red_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.percent.PercentRelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/textView2"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/intro_4_red_key"
-        android:translationX="10.0dip"
-        android:translationY="100.0dip"/>
+        android:clipChildren="false">
 
-    <ImageView
-        android:id="@+id/intro_4_yellow_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/demo_image"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/textView2"
-        android:layout_marginLeft="50.0dip"
-        android:src="@drawable/intro_4_yellow_key"/>
+        <ImageView
+            android:id="@+id/intro_4_red_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/demo_image"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/intro_4_red_key"
+            android:translationX="10.0dip"
+            app:layout_heightPercent="25%"/>
 
-    <ImageView
-        android:id="@id/demo_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/textView2"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/intro_4_ads"/>
+        <ImageView
+            android:id="@+id/intro_4_yellow_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/demo_image"
+            android:layout_alignLeft="@id/demo_image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/intro_4_yellow_key"
+            app:layout_heightPercent="25%"/>
+
+        <ImageView
+            android:id="@id/demo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/intro_4_ads"
+            app:layout_heightPercent="@fraction/ad_height"
+            app:layout_widthPercent="@fraction/ad_width"/>
+    </android.support.percent.PercentRelativeLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -53,7 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20.0dip"
         android:layout_marginRight="20.0dip"
         android:layout_marginTop="10.0dip"

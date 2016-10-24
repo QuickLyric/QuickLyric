@@ -31,4 +31,10 @@
     <dimen name="line_spacing">3dp</dimen>
     <dimen name="intro_fab_elevation">0dp</dimen>
     <dimen name="upper_margin">0dp</dimen>
+    <fraction name="ad_height">@null</fraction>
+    <fraction name="ad_width">65%</fraction>
+    <dimen name="bluegear_X">43dp</dimen>
+    <dimen name="bluegear_Y">80dp</dimen>
+    <dimen name="redGear_X">-33dp</dimen>
+    <dimen name="redGear_Y">0dp</dimen>
 </resources>

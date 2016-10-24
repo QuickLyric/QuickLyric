@@ -16,9 +16,13 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<com.geecko.QuickLyric.view.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.internal.ScrimInsetsFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:insetForeground="#2000"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="#0000"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -37,4 +41,4 @@
         <include layout="@layout/drawer_list" />
 
     </LinearLayout>
-</com.geecko.QuickLyric.view.ScrimInsetsFrameLayout>
+</android.support.design.internal.ScrimInsetsFrameLayout>

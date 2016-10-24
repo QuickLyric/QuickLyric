@@ -17,14 +17,16 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               xmlns:tools="http://schemas.android.com/tools"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent"
-                                               android:clipChildren="false"
-                                               android:clipToPadding="false"
-                                               tools:ignore="RtlCompat">
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/upper_margin"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:ignore="RtlCompat">
 
     <RelativeLayout
         android:id="@+id/NL_frame"
@@ -36,6 +38,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:background="#3000"
+        android:elevation="6dp"
         android:foreground="?selectableItemBackground"
         android:padding="10dp">
 
@@ -70,8 +73,8 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         android:src="@drawable/intro_5_gear"
-        android:translationY="-15dp"
-        android:translationX="-50dp"/>
+        android:translationX="@dimen/redGear_X"
+        android:translationY="@dimen/redGear_Y"/>
 
     <ImageView
         android:id="@+id/blueGear"
@@ -80,8 +83,8 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         android:src="@drawable/intro_5_gear_b"
-        android:translationX="56dp"
-        android:translationY="95dp"/>
+        android:translationX="@dimen/bluegear_X"
+        android:translationY="@dimen/bluegear_Y"/>
 
     <TextView
         android:id="@+id/textView"
@@ -102,9 +105,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/redGear"
         android:layout_alignLeft="@id/textView"
-        android:layout_alignRight="@id/NL_frame"
+        android:layout_alignRight="@id/textView"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"

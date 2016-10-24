@@ -17,29 +17,31 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent">
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/upper_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        app:layout_heightPercent="30%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        app:layout_marginBottomPercent="3%"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        app:layout_heightPercent="30%"
+        app:layout_marginBottomPercent="3%">
 
         <TextView
             android:id="@+id/textView2"
-            android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
             android:text="@string/welcome2_sub"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?android:attr/textColorPrimaryInverse"
@@ -49,9 +51,9 @@
             android:id="@+id/welcome_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_above="@id/textView2"
             android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
             android:gravity="center"
             android:text="@string/welcome"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"

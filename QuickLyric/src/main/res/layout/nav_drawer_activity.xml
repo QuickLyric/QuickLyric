@@ -19,6 +19,8 @@
 
 <android.support.v4.widget.DrawerLayout
     android:id="@+id/drawer_layout"
+    app:statusBarScrim="@android:color/holo_green_dark"
+    app:statusBarBackground="@android:color/holo_red_dark"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,7 +41,7 @@
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
 
-            <FrameLayout
+            <com.geecko.QuickLyric.view.ScrimInsetsFrameLayout
                 android:id="@+id/main_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -57,13 +59,11 @@
                 android:layout_height="@dimen/app_bar_layout_height"
                 app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior"/>
 
-            <!--suppress AndroidDomInspection -->
             <com.geecko.QuickLyric.view.MaterialSuggestionsSearchView
                 android:id="@+id/material_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="@dimen/upper_margin"
                 android:textColor="?android:textColorPrimary"
                 app:searchBackIcon="@drawable/searchBackIcon"
                 app:searchBackground="?android:colorBackground"

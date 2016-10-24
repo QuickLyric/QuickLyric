@@ -16,11 +16,13 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/upper_margin">
 
     <TextView
         android:id="@+id/textView1_c"
@@ -29,9 +31,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:maxWidth="450dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:maxWidth="450dp"
         android:text="Google Play is a trademark of Google Inc.\nSpotify is a trademark of Spotify Ltd."
         android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:textColor="?android:attr/textColorPrimaryInverse"
@@ -59,13 +61,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/textView1_b"
-        android:layout_alignStart="@id/textView1_b"
-        android:layout_alignLeft="@id/textView1_b"
         android:layout_alignEnd="@id/textView1_b"
+        android:layout_alignLeft="@id/textView1_b"
         android:layout_alignRight="@id/textView1_b"
+        android:layout_alignStart="@id/textView1_b"
         android:text="@string/apps_desc"
-        android:textSize="24sp"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"/>
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textSize="24sp"/>
 
     <com.geecko.QuickLyric.view.BubblePopImageView
         android:id="@+id/table"
@@ -73,8 +75,8 @@
         android:layout_height="match_parent"
         android:layout_above="@id/textView1_a"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="15dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
         android:src="@drawable/intro_1_table"
         app:icon1="@drawable/google_music"
         app:icon2="@drawable/spotify"

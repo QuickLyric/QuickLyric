@@ -19,4 +19,6 @@
   -->
 <resources>
     <dimen name="drawer_width">340dp</dimen>
+    <fraction name="ad_height">65%</fraction>
+    <fraction name="ad_width">@null</fraction>
 </resources>

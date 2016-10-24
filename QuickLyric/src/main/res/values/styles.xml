@@ -41,7 +41,7 @@
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="vpiCirclePageIndicatorStyle">@style/materialCirclePageIndicator</item>
-        <item name="android:statusBarColor" tools:ignore="NewApi">#1a000000</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:windowBackground">@color/window_background</item>

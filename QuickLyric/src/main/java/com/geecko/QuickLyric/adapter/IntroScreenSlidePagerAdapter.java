@@ -94,7 +94,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
         @Override
         public boolean onTouch(final View v, MotionEvent event) {
-            if (mPager.getCurrentItem() != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_5.nlEnabled)
+            if (mCurrentPage != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_5.nlEnabled)
                 return false;
             int pointerId = event.getPointerId(event.getActionIndex());
             if (mSwipeSlop < 0) {
@@ -212,7 +212,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 mSwiping = false;
                 break;
                 default:
-                    return false;
+                    return true;
             }
             return false;
         }
@@ -349,7 +349,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 break;
             case 2:
                 if (bigFab != null)
-                    bigFab.setTranslationX((!rightToLeft ? -0.4f : 0.4f) * positionOffsetPixels);
+                    ((View) bigFab.getParent()).setTranslationX((!rightToLeft ? -0.4f : 0.4f) * positionOffsetPixels);
                 if (soundImage != null && handImage != null) {
                     soundImage.setTranslationX(300f - 300f * positionOffset);
                     handImage.setTranslationX(-400f + 400f * positionOffset);
@@ -357,9 +357,17 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 break;
             case 3:
                 if (redKey != null && yellowKey != null) {
-                    redKey.setTranslationY(-230F * positionOffset);
-                    yellowKey.setTranslationY(-210f * Math.min(1.3f * positionOffset, 1.0f));
-                    yellowKey.setTranslationX(-75f * Math.min(1.3f * positionOffset, 1.0f));
+                    if (redKey.getMeasuredHeight() < redKey.getResources().getDimensionPixelSize(R.dimen.dp) * 15) {
+                        redKey.setVisibility(View.INVISIBLE);
+                        yellowKey.setVisibility(View.INVISIBLE);
+                        break;
+                    } else {
+                        redKey.setVisibility(View.VISIBLE);
+                        yellowKey.setVisibility(View.VISIBLE);
+                    }
+                    redKey.setTranslationY(330f * (1 - positionOffset));
+                    yellowKey.setTranslationY(290f * Math.min(1.3f * (1 - positionOffset), 1.0f));
+                    yellowKey.setTranslationX(105f * Math.min(1.3f * (1 - positionOffset), 1.0f));
                 }
                 if (3 == count - 2 && gearA != null && gearB != null) {
                     gearA.setRotation(-180f * positionOffset);

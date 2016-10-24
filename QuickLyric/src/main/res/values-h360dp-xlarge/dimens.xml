@@ -26,4 +26,8 @@
     <dimen name="small_txt_size">21sp</dimen>
     <dimen name="drawer_row_height">64dp</dimen>
     <dimen name="row_height">64dp</dimen>
+    <dimen name="bluegear_X">80dp</dimen>
+    <dimen name="bluegear_Y">137dp</dimen>
+    <dimen name="redGear_X">-75dp</dimen>
+    <dimen name="redGear_Y">-23dp</dimen>
 </resources>

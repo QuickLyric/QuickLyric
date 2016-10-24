@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
             theme.resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
             ((DrawerLayout) drawer).addDrawerListener(mDrawerToggle);
+            ((DrawerLayout) drawer).setStatusBarBackground(null);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
                 final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);

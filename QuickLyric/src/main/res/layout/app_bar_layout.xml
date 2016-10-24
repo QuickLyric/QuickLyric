@@ -36,7 +36,7 @@
         android:layout_height="@dimen/app_bar_layout_height"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:statusBarScrim="?attr/colorPrimary"
+        app:statusBarScrim="?attr/colorPrimaryDark"
         app:expandedTitleMarginBottom="66dp"
         app:expandedTitleMarginStart="60dp"
         app:expandedTitleTextAppearance="@style/TextAppearance.Invisible"
@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="84dp"
             android:layout_gravity="top"
+            android:fitsSystemWindows="true"
             android:src="@drawable/gradient_overlay_top"
             app:layout_collapseMode="pin"/>
 
@@ -85,7 +86,7 @@
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="?android:textColorPrimary"
-            tools:ignore="Deprecated"/>
+            tools:ignore="Deprecated,RtlSymmetry"/>
 
         <EditText
             android:id="@+id/artist"
@@ -104,7 +105,7 @@
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="?android:textColorSecondary"
-            tools:ignore="Deprecated"/>
+            tools:ignore="Deprecated,RtlSymmetry"/>
 
         <ImageButton
             android:id="@+id/edit_tags_btn"
@@ -116,14 +117,11 @@
             android:padding="10dp"
             android:src="@drawable/ic_edit"/>
 
-        <!--suppress AndroidDomInspection -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_marginTop="@dimen/upper_margin"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            android:elevation="4dp"
             android:focusable="false"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>

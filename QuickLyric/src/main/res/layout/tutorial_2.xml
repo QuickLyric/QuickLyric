@@ -17,31 +17,21 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent">
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/big_fab"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:layout_marginPercent="3.5%"
-        android:src="@drawable/demo_refresh"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/intro_fab_elevation"
-        app:layout_marginLeftPercent="12%"
-        app:layout_marginRightPercent="12%"
-        app:rippleColor="@color/accent"/>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/upper_margin">
 
     <RelativeLayout
+        android:id="@+id/below"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/big_fab"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:layout_marginTopPercent="6%">
+        android:layout_centerVertical="true"
+        app:layout_marginBottomPercent="10%">
 
         <TextView
             android:id="@+id/textView2_a"
@@ -66,5 +56,25 @@
             android:textColor="?android:attr/textColorPrimaryInverse"/>
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/below"
+        android:clipChildren="false"
+        android:layout_centerInParent="true"
+        app:layout_marginPercent="8%">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/big_fab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/demo_refresh"
+            android:layout_gravity="center"
+            app:borderWidth="0dp"
+            app:elevation="@dimen/intro_fab_elevation"
+            app:rippleColor="@color/accent"/>
+    </FrameLayout>
+
 
 </android.support.percent.PercentRelativeLayout>
