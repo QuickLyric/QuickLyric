@@ -38,8 +38,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 24
         vectorDrawables.useSupportLibrary = true
-        versionCode 75
-        versionName "2.0 August Preview"
+        versionCode 76
+        versionName "2.0 October Preview"
     }
 
     compileOptions {
@@ -50,7 +50,7 @@ android {
     signingConfigs {
 
         release {
-            storeFile file('../release.keystore')
+            storeFile file('../../release.keystore')
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
