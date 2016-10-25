@@ -20,37 +20,29 @@
 package com.geecko.QuickLyric.utils;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
+
+import com.geecko.QuickLyric.BuildConfig;
 
 import java.util.Locale;
 
 public class EmailConfigGenTool {
 
     public static String genConfig(Context context) { //ToDo Premium
-        return String.format(Locale.US, "Package version: %s\n" +
+        return String.format(Locale.US, "Package version: %s %d\n" +
                         "Device model: %s %s\n" +
                         "API version: %s\n" +
                         "Locale: %s\n" +
                         "\n\n%s\n\n" +
                         "--- \n \n \n",
-                getVersionName(context),
+                BuildConfig.VERSION_NAME,
+                BuildConfig.VERSION_CODE,
                 Build.MANUFACTURER,
                 Build.MODEL,
                 Build.VERSION.SDK_INT,
                 Locale.getDefault().getDisplayLanguage(),
                 PreferenceManager.getDefaultSharedPreferences(context).getAll()
         );
-    }
-
-    public static String getVersionName(Context context) {
-        try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            return pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            return "?";
-        }
     }
 }
