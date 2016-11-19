@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.util.Log;
@@ -181,7 +180,7 @@ public class IMMLeaks {
         }
 
         application.registerActivityLifecycleCallbacks(new LifecycleCallbacksAdapter() {
-            @Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            @Override public void onActivityStarted(Activity activity) {
                 ReferenceCleaner cleaner =
                         new ReferenceCleaner(inputMethodManager, mHField, mServedViewField,
                                 finishInputLockedMethod);
