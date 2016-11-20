@@ -15,7 +15,6 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -180,25 +179,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                                             v.animate().setListener(new AnimatorActionListener(new Runnable() {
                                                 public void run() {
                                                     mSwiping = false;
-                                                    if (v.getContext() instanceof MainActivity) {
-                                                        MainActivity activity = (MainActivity) v.getContext();
-                                                        ((RelativeLayout) v.getParent()).setVisibility(View.GONE);
-                                                        activity.focusOnFragment = true;
-                                                        if (activity.mDrawerToggle != null)
-                                                            ((DrawerLayout) activity.drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
-                                                        activity.invalidateOptionsMenu();
-                                                        SharedPreferences.Editor editor =
-                                                                activity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
-                                                        editor.putBoolean("seen", true);
-                                                        editor.apply();
-                                                    }
-                                                    MainActivity.setNavBarColor(((AppCompatActivity) (v.getContext())).getWindow(),
-                                                            v.getContext().getTheme(), null);
-                                                    if (v.getContext() instanceof MainActivity)
-                                                        MainActivity.setStatusBarColor(((AppCompatActivity) (v.getContext())).getWindow(),
-                                                                v.getContext().getTheme(), null);
-                                                    else if (v.getContext() instanceof AboutActivity)
-                                                        ((AboutActivity) v.getContext()).setStatusBarColor(null);
+                                                    IntroScreenSlidePagerAdapter.this.onAnimationEnd();
                                                 }
                                             }, AnimatorActionListener.ActionType.END));
                                         } else {
@@ -419,17 +400,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation animation) {
-                ((RelativeLayout) mPager.getParent()).setVisibility(View.GONE);
-                if (mActivity instanceof MainActivity) {
-                    ((MainActivity) mActivity).focusOnFragment = true;
-                    if (((MainActivity) mActivity).mDrawerToggle != null)
-                        ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
-                    mActivity.invalidateOptionsMenu();
-                    SharedPreferences.Editor editor =
-                            mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
-                    editor.putBoolean("seen", true);
-                    editor.apply();
-                }
+                IntroScreenSlidePagerAdapter.this.onAnimationEnd();
             }
 
             public void onAnimationRepeat(Animation animation) {
@@ -446,6 +417,27 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         MainActivity.setNavBarColor(mActivity.getWindow(),
                 mActivity.getTheme(), null);
         ((RelativeLayout) mPager.getParent()).startAnimation(slideOut);
+    }
+
+    private void onAnimationEnd() {
+
+        ((RelativeLayout) mPager.getParent()).setVisibility(View.GONE);
+        if (mActivity instanceof MainActivity) {
+            ((MainActivity) mActivity).focusOnFragment = true;
+            if (((MainActivity) mActivity).mDrawerToggle != null)
+                ((DrawerLayout) ((MainActivity) mActivity).drawer).setDrawerLockMode(LOCK_MODE_UNLOCKED);
+            mActivity.invalidateOptionsMenu();
+            SharedPreferences.Editor editor =
+                    mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
+            editor.putBoolean("seen", true);
+            editor.apply();
+            MainActivity.setStatusBarColor(mActivity.getWindow(),
+                    mActivity.getTheme(), null);
+        } else if (mActivity instanceof AboutActivity)
+            ((AboutActivity) mActivity).setStatusBarColor(null);
+
+        MainActivity.setNavBarColor(mActivity.getWindow(),
+                mActivity.getTheme(), null);
     }
 
     public static class Tutorial_0 extends Fragment {
