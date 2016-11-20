@@ -6,6 +6,7 @@ import com.geecko.QuickLyric.utils.Net;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
@@ -54,6 +55,8 @@ public class Genius {
                     .ignoreContentType(true);
             Document document = connection.userAgent(Net.USER_AGENT).get();
             response = new JsonParser().parse(document.text()).getAsJsonObject();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
