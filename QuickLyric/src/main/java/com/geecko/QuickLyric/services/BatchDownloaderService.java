@@ -90,7 +90,12 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
+                if (!DatabaseHelper.presenceCheck(database, new String[] {artist, title}))
+                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
+                else {
+                    count++;
+                    updateProgress();
+                }
             }
             cursor.close();
         } else {
