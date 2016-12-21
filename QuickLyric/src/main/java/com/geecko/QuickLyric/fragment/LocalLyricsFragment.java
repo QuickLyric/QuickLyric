@@ -21,7 +21,9 @@ package com.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.app.ActivityManager;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +34,7 @@ import android.support.v4.util.LongSparseArray;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -481,7 +484,11 @@ public class LocalLyricsFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_scan:
-                showScanDialog();
+                if (!isMyServiceRunning(getActivity()))
+                    showScanDialog();
+                else
+                    Toast.makeText(getActivity(), getString(R.string.dl_progress, 9, 9)
+                            .replaceAll("9", ""), Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -517,6 +524,12 @@ public class LocalLyricsFragment extends ListFragment {
                                         }
                                     }).show();
                             return;
+                        } else {
+                            if (!PermissionsChecker.requestPermission(getActivity(),
+                                    "android.permission.READ_EXTERNAL_STORAGE",
+                                    0,
+                                    LocalLyricsFragment.REQUEST_CODE))
+                                return;
                         }
                         final Uri contentProvider = Uri.parse(values[i]);
                         String[] projection = new String[]{"artist", "title"};
@@ -556,11 +569,17 @@ public class LocalLyricsFragment extends ListFragment {
                 })
                 .create();
         choiceDialog.show();
-        if (!PermissionsChecker.requestPermission(getActivity(),
-                "android.permission.READ_EXTERNAL_STORAGE",
-                0,
-                LocalLyricsFragment.REQUEST_CODE))
-            choiceDialog.dismiss();
+    }
+
+    private boolean isMyServiceRunning(Context context) {
+        ActivityManager manager = (ActivityManager)context. getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (BatchDownloaderService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        Log.i("Service not","running");
+        return false;
     }
 
     public void setListShown(final boolean visible) {
