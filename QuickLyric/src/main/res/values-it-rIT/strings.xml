@@ -155,14 +155,6 @@ Alcune cause potrebbero essere:<br/>
     <item quantity="one">Testo di %1$d canzone scaricato</item>
     <item quantity="other">Testo di %1$d canzoni scaricati</item>
   </plurals>
-  <string-array name="nav_items">
-    <item>@string/title_lyrics</item>
-    <item>@string/local_title</item>
-    <item>-</item>
-    <item>@string/settings_title</item>
-    <item>@string/send_feedback</item>
-    <item>@string/pref_about</item>
-  </string-array>
   <string-array name="providers">
     <item>@string/source_punk</item>
     <item>@string/source_metal</item>
