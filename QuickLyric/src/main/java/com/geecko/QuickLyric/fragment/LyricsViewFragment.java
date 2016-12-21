@@ -28,6 +28,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -43,6 +44,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -869,8 +871,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-               ((ControllableAppBarLayout) ((Activity)materialSearchView.getContext())
-                       .findViewById(R.id.appbar)).expandToolbar(true);
+               ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
+                       .expandToolbar(true);
                 mExpandedSearchView = true;
             }
 
@@ -879,6 +881,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 mExpandedSearchView = false;
             }
         });
+
+        final Resources resources = getResources();
+        final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight;
+        if (resourceId > 0)
+            statusBarHeight =  resources.getDimensionPixelSize(resourceId);
+        else
+            statusBarHeight = (int) Math.ceil((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? 24 : 25) * resources.getDisplayMetrics().density);
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) materialSearchView.getLayoutParams();
+        lp.setMargins(lp.leftMargin, statusBarHeight, lp.rightMargin, lp.bottomMargin);
+        materialSearchView.setLayoutParams(lp);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         materialSearchView.setMenuItem(searchItem);

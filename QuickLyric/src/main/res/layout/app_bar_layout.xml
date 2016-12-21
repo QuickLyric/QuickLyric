@@ -25,8 +25,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_bar_layout_height"
-    android:fitsSystemWindows="true"
     android:background="@null"
+    android:fitsSystemWindows="true"
     android:theme="@style/actionBar.QuickLyric"
     app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior">
 
@@ -36,19 +36,19 @@
         android:layout_height="@dimen/app_bar_layout_height"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:statusBarScrim="?attr/colorPrimaryDark"
         app:expandedTitleMarginBottom="66dp"
         app:expandedTitleMarginStart="60dp"
         app:expandedTitleTextAppearance="@style/TextAppearance.Invisible"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:statusBarScrim="?attr/colorPrimaryDark">
 
         <com.geecko.QuickLyric.view.FadeInNetworkImageView
             android:id="@+id/cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/empty_layer"
-            android:fitsSystemWindows="true"
             android:contentDescription="@string/cover_art_desc"
+            android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             app:layout_collapseMode="parallax"
             app:layout_collapseParallaxMultiplier="0.5"/>

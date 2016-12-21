@@ -61,10 +61,8 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
         Resources.Theme theme = getContext().getTheme();
         TypedValue hintColor = new TypedValue();
         TypedValue suggestionColor = new TypedValue();
-        TypedValue themeName = new TypedValue();
         theme.resolveAttribute(android.R.attr.textColorSecondary, hintColor, true);
         theme.resolveAttribute(android.R.attr.textColorSecondaryInverse, suggestionColor, true);
-        theme.resolveAttribute(R.attr.themeName, themeName, true);
         setHintTextColor(hintColor.data);
         ((ImageView) findViewById(com.miguelcatalan.materialsearchview.R.id.action_up_btn))
                 .setColorFilter(suggestionColor.data, PorterDuff.Mode.SRC_IN);

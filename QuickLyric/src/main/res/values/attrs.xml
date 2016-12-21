@@ -44,6 +44,7 @@
     <attr name="firstLaunchCoverDrawable" format="reference"/>
 
     <attr name="themeName" format="string"/>
+    <attr name="searchBarTheme" format="reference"/>
     <attr name="highlightColor" format="color"/>
     <attr name="expandedRowColor" format="color"/>
 </resources>

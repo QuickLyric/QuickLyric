@@ -61,6 +61,7 @@
         <item name="android:panelColorForeground">@color/expanded</item>
         <item name="rippleBackGroundColor">#585858</item>
         <item name="textAppearanceSearchResultTitle">@style/SearchResult</item>
+        <item name="searchBarTheme">@style/Theme.QuickLyric</item>
     </style>
 
     <style name="Theme.QuickLyric.Red" parent="Theme.QuickLyric">
@@ -149,6 +150,7 @@
         <item name="android:textColorSecondaryInverse">#BBB</item>
         <item name="android:textColorPrimary">#EEE</item>
         <item name="rippleBackGroundColor">#191919</item>
+        <item name="searchBarTheme">@style/Theme.QuickLyric.Night</item>
         <item name="android:panelColorForeground">@color/expanded_night</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
         <item name="android:divider">@color/divider_night</item>
@@ -176,8 +178,8 @@
         <item name="android:textColorTertiary">@color/abc_secondary_text_material_dark</item>
         <item name="android:textColorTertiaryInverse">@color/abc_secondary_text_material_light
         </item>
-        <item name="android:textColorHint">@color/hint_foreground_material_dark</item>
-        <item name="android:textColorHintInverse">@color/hint_foreground_material_light</item>
+        <item name="android:textColorHint">@color/abc_hint_foreground_material_dark</item>
+        <item name="android:textColorHintInverse">@color/abc_hint_foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
         <item name="android:colorBackgroundCacheHint">
             @color/abc_background_cache_hint_selector_material_dark

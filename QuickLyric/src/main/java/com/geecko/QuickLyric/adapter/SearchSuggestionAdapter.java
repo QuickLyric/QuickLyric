@@ -19,7 +19,6 @@
 
 package com.geecko.QuickLyric.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -53,7 +52,7 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
 
 
     @Override
-    public View getView(final int position, final View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
         final RelativeLayout suggestionRow = (RelativeLayout) super.getView(position, convertView, parent);
         TypedValue suggestionTextColor = new TypedValue();
         suggestionRow.getContext().getTheme()
@@ -62,7 +61,7 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
 
         if (suggestionRow.getChildCount() < 3) {
             final MaterialSuggestionsSearchView searchView = (MaterialSuggestionsSearchView)
-                    ((Activity) suggestionRow.getContext()).findViewById(R.id.material_search_view);
+                    parent.getRootView().findViewById(R.id.material_search_view);
             ImageButton removeButton = new ImageButton(suggestionRow.getContext());
             removeButton.setImageDrawable(searchView.getCloseIcon());
             TypedValue background = new TypedValue();
@@ -95,7 +94,7 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
             @Override
             public void onClick(View v) {
                 MaterialSuggestionsSearchView searchView = (MaterialSuggestionsSearchView)
-                        ((Activity) v.getContext()).findViewById(R.id.material_search_view);
+                        parent.getRootView().findViewById(R.id.material_search_view);
                 searchView.setQuery((String) getItem(position), true);
             }
         });
