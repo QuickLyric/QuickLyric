@@ -83,7 +83,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "$s OR original_track LIKE %" + keyword + "$s) AND ";
             keywords[i] = "'%" + ((String) keywords[i]).replaceAll("'", "''") + "%'";
         }
-
         query = query.substring(0, query.length() - 5);
 
         Cursor cursor = database.query(TABLE_NAME, null, String.format(query,
@@ -105,7 +104,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return results;
     }
 
-    public static List<Lyrics> search(String query) {
+    public List<Lyrics> search(String query) {
+        if (database == null || !database.isOpen())
+            database = getReadableDatabase();
         return search(database, query);
     }
 

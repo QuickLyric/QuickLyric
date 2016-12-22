@@ -88,7 +88,7 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
             case "Bollywood":
                 return Bollywood.search(searchQuery);
             case "DatabaseHelper":
-                return DatabaseHelper.search(searchQuery);
+                return new DatabaseHelper(searchFragment.getActivity()).search(searchQuery);
             case "JLyric":
                 return JLyric.search(searchQuery);
             default:
