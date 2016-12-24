@@ -42,6 +42,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
         Lyrics lyrics = (Lyrics) objects[0];
         mActivity = (MainActivity) objects[1];
         String url = lyrics.getCoverURL();
+        boolean secondTry = objects.length > 2;
 
         if (url == null) {
             try {
@@ -57,7 +58,11 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException ignored) {
-                url = null;
+                if (!secondTry) {
+                    lyrics.setArtist(lyrics.getOriginalArtist());
+                    lyrics.setTitle(lyrics.getTrack());
+                    return doInBackground(lyrics, mActivity, Boolean.TRUE);
+                }
             }
         }
         return url;
