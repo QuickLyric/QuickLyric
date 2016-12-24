@@ -47,9 +47,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE,
             KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC};
     private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT);";
-    private static SQLiteDatabase database = null;
+    private static DatabaseHelper sInstance;
 
-    public DatabaseHelper(Context context) {
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -65,10 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
             db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
         }
-    }
-
-    public static void setDatabase(SQLiteDatabase database) {
-        DatabaseHelper.database = database;
     }
 
     public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
@@ -105,16 +108,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Lyrics> search(String query) {
-        if (database == null || !database.isOpen())
-            database = getReadableDatabase();
+        SQLiteDatabase database = getReadableDatabase();
         return search(database, query);
     }
 
-    public static Lyrics get(SQLiteDatabase database, String[] metaData) {
+    public Lyrics get(String[] metaData) {
         String[] args = new String[4];
         System.arraycopy(metaData, 0, args, 0, metaData.length);
         System.arraycopy(metaData, 0, args, 2, metaData.length);
         String[] columns = DatabaseHelper.columns;
+        SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s) = upper(?) AND upper(%s) = upper(?)) OR (upper(%s)=upper(?) AND upper(%s) = upper(?))",
                 columns[0], columns[1], columns[6], columns[3]), args, null, null, null);
         int count = cursor.getCount();
@@ -136,9 +139,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public static Lyrics[] getLyricsByArtist(SQLiteDatabase database, String artist) {
+    public Lyrics[] getLyricsByArtist(String artist) {
         String[] columns = DatabaseHelper.columns;
         String order = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE DESC,%s COLLATE NOCASE ASC", columns[0], columns[1]);
+        SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, null, String.format("upper(%s)=upper(?) OR upper(%s)=upper(?)",
                 columns[0], columns[6]), new String[]{artist, artist}, null, null, order);
         Lyrics[] results = new Lyrics[cursor.getCount()];
@@ -161,7 +165,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return results;
     }
 
-    public static void updateCover(SQLiteDatabase database, String artist, String title, String coverUrl) {
+    public void updateCover(String artist, String title, String coverUrl) {
+        SQLiteDatabase database = getWritableDatabase();
         if (database != null) {
             database.beginTransaction();
             try {
@@ -175,11 +180,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public static int getColumnsCount(SQLiteDatabase database) {
+    private int getColumnsCount(SQLiteDatabase database) {
         return database.query(TABLE_NAME, null, null, null, null, null, null).getColumnCount();
     }
 
-    public static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
+    private static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
         int count = 0;
         if (database != null) {
             database.beginTransaction();
@@ -194,5 +199,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return (count != 0);
+    }
+
+    public boolean presenceCheck(String[] metaData) {
+        SQLiteDatabase database = getReadableDatabase();
+        return presenceCheck(database, metaData);
     }
 }

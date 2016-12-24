@@ -23,7 +23,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
@@ -51,7 +50,7 @@ public class DBContentLister extends AsyncTask<Object, Void, String[]> {
             return new String[0];
         String[] columns = new String[]{DatabaseHelper.columns[0], DatabaseHelper.columns[1]};
         String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE DESC,%s COLLATE NOCASE ASC", columns[0], columns[1]);
-        SQLiteDatabase database = ((MainActivity) localLyricsFragment.getActivity()).database;
+        SQLiteDatabase database = DatabaseHelper.getInstance(localLyricsFragment.getActivity()).getReadableDatabase();
         if (database != null) {
             Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, new String[] {DatabaseHelper.columns[0]},
                     null, null, null, null, query);

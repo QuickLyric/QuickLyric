@@ -35,7 +35,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     public DrawerItemClickListener drawerListener;
     public boolean focusOnFragment = true;
     public ActionMode mActionMode;
-    public SQLiteDatabase database;
     public ActionBarDrawerToggle mDrawerToggle;
     public int themeNum;
     private Fragment displayedFragment;
@@ -201,8 +199,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
         drawerListener = new DrawerItemClickListener();
         drawerList.setOnItemClickListener(drawerListener);
-        database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
-        DatabaseHelper.setDatabase(database);
 
         Intent intent = getIntent();
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -378,10 +374,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void search(String searchQuery) {
-        if (!LyricsSearchSuggestionsProvider.database.isOpen())
-            LyricsSearchSuggestionsProvider
-                    .setDatabase(new LyricsSearchSuggestionsProvider(this).getWritableDatabase());
-        LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
+        LyricsSearchSuggestionsProvider.getInstance(getApplicationContext()).saveQuery(searchQuery);
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchIntent.putExtra("query", searchQuery);
         startActivityForResult(searchIntent, 55);
@@ -448,11 +441,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onDestroy() {
         this.destroyed = true;
-        if (database != null && database.isOpen())
-            database.close();
-        if (LyricsSearchSuggestionsProvider.database != null
-                && LyricsSearchSuggestionsProvider.database.isOpen())
-            LyricsSearchSuggestionsProvider.database.close();
+        if (DatabaseHelper.getInstance(getApplicationContext()) != null)
+            DatabaseHelper.getInstance(getApplicationContext()).close();
         try {
             ((Class.forName("android.view.inputmethod.InputMethodManager"))
                     .getMethod("wind‌​owDismissed", IBinder.class)).invoke(null, drawer.getWindowToken());

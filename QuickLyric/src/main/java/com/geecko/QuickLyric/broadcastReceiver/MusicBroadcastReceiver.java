@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.BadParcelableException;
 import android.os.Build;
 import android.os.Bundle;
@@ -134,9 +133,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         }
 
 
-        SQLiteDatabase db = new DatabaseHelper(context).getReadableDatabase();
-        boolean inDatabase = DatabaseHelper.presenceCheck(db, new String[]{artist, track, artist, track});
-        db.close();
+        boolean inDatabase = DatabaseHelper.getInstance(context).presenceCheck(new String[]{artist, track, artist, track});
 
         if (notificationPref != 0 && isPlaying
                 && (inDatabase || OnlineAccessVerifier.check(context))) {

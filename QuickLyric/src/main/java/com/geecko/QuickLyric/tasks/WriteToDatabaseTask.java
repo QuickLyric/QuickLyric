@@ -66,7 +66,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             mContext = fragment.getActivity();
             if (mContext == null || !(mContext instanceof MainActivity))
                 cancel(true);
-            database = ((MainActivity) mContext).database;
+            database = DatabaseHelper.getInstance(mContext).getWritableDatabase();
         } else
             database = (SQLiteDatabase) params[0];
         item = (MenuItem) params[1];
@@ -82,7 +82,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
-                    if (!DatabaseHelper.presenceCheck(database, new String[]{lyrics.getArtist(), lyrics.getTrack(),
+                    if (!DatabaseHelper.getInstance(mContext).presenceCheck(new String[]{lyrics.getArtist(), lyrics.getTrack(),
                             lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})
                             && !"Storage".equals(lyrics.getSource())) {
                         ContentValues values = new ContentValues(2);

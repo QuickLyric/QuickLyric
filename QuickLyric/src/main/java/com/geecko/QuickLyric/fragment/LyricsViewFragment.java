@@ -438,6 +438,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void fetchLyrics(String... params) {
+        if (getActivity() == null)
+            return;
+
         String artist = params[0];
         String title = params[1];
         String url = null;
@@ -457,10 +460,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
 
             if (lyrics == null)
-                lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+                lyrics = DatabaseHelper.getInstance(getActivity()).get(new String[]{artist, title});
 
             if (lyrics == null)
-                lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
+                lyrics = DatabaseHelper.getInstance(getActivity()).get(DownloadThread.correctTags(artist, title));
         } else if (url == null) {
             showFirstStart();
             return;
@@ -778,10 +781,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     LrcView lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
                     if (lrcView != null && lrcView.dictionnary != null)
                         update(lrcView.getStaticLyrics(), getView(), true);
-                } else {
-                    update(DatabaseHelper.get(((MainActivity) getActivity()).database,
-                            new String[]{mLyrics.getArtist(), mLyrics.getTrack()}), getView(), true);
-                }
+                } else
+                    update(DatabaseHelper.getInstance(getActivity())
+                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack()}), getView(), true);
         }
         return false;
     }
@@ -925,7 +927,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         mLyrics.getTrack(),
                         mLyrics.getOriginalArtist(),
                         mLyrics.getOriginalTrack()};
-                if (!DatabaseHelper.presenceCheck(((MainActivity) getActivity()).database, metadata)) {
+                if (DatabaseHelper.getInstance(getActivity()).presenceCheck(metadata)) {
                     lyricsPresentInDB = true;
                     new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
                 }
@@ -940,8 +942,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (resyncMenuItem != null)
             resyncMenuItem.setVisible(mLyrics != null && mLyrics.isLRC());
         if (convertMenuItem != null) {
-            Lyrics stored = mLyrics == null || mLyrics.isLRC() ? null : DatabaseHelper.get(((MainActivity) getActivity()).database,
-                    new String[]{mLyrics.getArtist(), mLyrics.getTrack()});
+            Lyrics stored = mLyrics == null || mLyrics.isLRC() ? null : DatabaseHelper.getInstance(getActivity())
+                    .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack()});
             convertMenuItem.setVisible((mLyrics != null && (mLyrics.isLRC())) || (stored != null && stored.isLRC()));
             convertMenuItem.setTitle(stored == null ? R.string.full_text_action : R.string.pref_lrc);
         }
@@ -977,7 +979,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
             if (!url.isEmpty())
-                DatabaseHelper.updateCover(((MainActivity) getActivity()).database, mLyrics.getArtist(), mLyrics.getTrack(), url);
+                DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
         }
     }
 

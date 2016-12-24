@@ -55,9 +55,6 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     @SuppressWarnings("deprecation")
     private void init() {
         setSubmitOnClick(true);
-        if (LyricsSearchSuggestionsProvider.database == null)
-            LyricsSearchSuggestionsProvider.setDatabase(new LyricsSearchSuggestionsProvider(getContext())
-                    .getWritableDatabase());
         Resources.Theme theme = getContext().getTheme();
         TypedValue hintColor = new TypedValue();
         TypedValue suggestionColor = new TypedValue();
@@ -113,7 +110,7 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     }
 
     public String[] getHistory() {
-        return LyricsSearchSuggestionsProvider.getHistory(getContext());
+        return LyricsSearchSuggestionsProvider.getInstance(getContext()).getHistory();
     }
 /*
     @Override

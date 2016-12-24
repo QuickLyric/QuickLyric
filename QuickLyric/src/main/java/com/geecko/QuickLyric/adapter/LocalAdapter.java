@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
@@ -118,8 +117,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         String artistName = mArtists[groupPosition];
         if (mCache.containsKey(artistName))
             return mCache.get(artistName);
-        Lyrics[] results = DatabaseHelper
-                .getLyricsByArtist(((MainActivity) megaListView.getContext()).database, artistName);
+        Lyrics[] results = DatabaseHelper.getInstance(megaListView.getContext()).getLyricsByArtist(artistName);
         mGroupIDs.put(artistName, (long) artistName.hashCode());
         mCache.put(artistName, results);
         return results;

@@ -25,7 +25,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.BigTextStyle;
@@ -43,10 +42,8 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
     @Override
     public void onReceive(Context context, Intent intent) {
         mContext = context;
-        SQLiteDatabase db = new DatabaseHelper
-                (context).getReadableDatabase();
-        Lyrics lyrics = DatabaseHelper.get(db,
-                new String[]{intent.getStringExtra("artist"), intent.getStringExtra("track")});
+        Lyrics lyrics = DatabaseHelper.getInstance(context)
+                .get(new String[]{intent.getStringExtra("artist"), intent.getStringExtra("track")});
         if (lyrics == null)
             new DownloadThread(this, false, intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
         else

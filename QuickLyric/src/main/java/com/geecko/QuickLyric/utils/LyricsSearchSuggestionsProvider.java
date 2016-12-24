@@ -34,23 +34,29 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
     private static final String KEY_DATE = "access_date";
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" + KEY_SUGGESTION + " TINYTEXT NOT NULL PRIMARY KEY," + KEY_DATE + " INTEGER);";
-    public static SQLiteDatabase database;
+    private static LyricsSearchSuggestionsProvider sInstance;
 
-    public LyricsSearchSuggestionsProvider(Context context) {
+    private LyricsSearchSuggestionsProvider(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static void setDatabase(SQLiteDatabase database) {
-        LyricsSearchSuggestionsProvider.database = database;
+    public static synchronized LyricsSearchSuggestionsProvider getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new LyricsSearchSuggestionsProvider(context.getApplicationContext());
+        }
+        return sInstance;
     }
 
-    public static String[] getHistory(Context context) {
+    public String[] getHistory() {
         String[] results;
         String query = "";
         query = query + KEY_DATE + " > 0 ORDER BY "+ KEY_DATE + " DESC";
 
-        if (database == null || !database.isOpen() && context != null)
-            database = new LyricsSearchSuggestionsProvider(context).getWritableDatabase();
+        SQLiteDatabase database = getReadableDatabase();
 
         Cursor cursor = database.query(TABLE_NAME, null, query, null, null, null, null);
         results = new String[cursor.getCount()];
@@ -58,6 +64,7 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
             results[cursor.getPosition()] = cursor.getString(0);
         }
         cursor.close();
+        database.close();
         return results;
     }
 
@@ -69,7 +76,7 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
         String query = "";
         query = query + "suggestion LIKE '" + searchQuery + "%' ORDER BY "+ KEY_DATE + " DESC";
 
-        Cursor cursor = database.query(TABLE_NAME, null, query, null, null, null, null);
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, null, query, null, null, null, null);
         results = new String[cursor.getCount()];
         while (cursor.moveToNext()) {
             results[cursor.getPosition()] = cursor.getString(0);
@@ -89,14 +96,17 @@ public class LyricsSearchSuggestionsProvider extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public static void saveQuery(String searchQuery) {
+    public void saveQuery(String searchQuery) {
         ContentValues values = new ContentValues(2);
         values.put(KEY_SUGGESTION, searchQuery);
         values.put(KEY_DATE, System.currentTimeMillis());
+
+        SQLiteDatabase database = getWritableDatabase();
         database.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    public static void deleteQuery(String suggestion) {
+    public void deleteQuery(String suggestion) {
+        SQLiteDatabase database = getWritableDatabase();
         database.delete(TABLE_NAME, KEY_SUGGESTION+ "='" + suggestion.replaceAll("'", "''") + "';", null);
     }
 }

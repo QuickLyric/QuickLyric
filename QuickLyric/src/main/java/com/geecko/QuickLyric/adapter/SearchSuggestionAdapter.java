@@ -102,12 +102,12 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
     }
 
     private void removeSuggestion(String suggestion) {
-        LyricsSearchSuggestionsProvider.deleteQuery(suggestion);
+        LyricsSearchSuggestionsProvider.getInstance(mContext).deleteQuery(suggestion);
         try {
             Field suggestions = com.miguelcatalan.materialsearchview.SearchAdapter.class
                     .getDeclaredField("suggestions");
             suggestions.setAccessible(true);
-            suggestions.set(this, LyricsSearchSuggestionsProvider.getHistory(mContext));
+            LyricsSearchSuggestionsProvider.getInstance(mContext).getHistory();
         } catch (Exception e) {
             e.printStackTrace();
         }

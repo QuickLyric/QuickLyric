@@ -21,7 +21,6 @@ package com.geecko.QuickLyric.tasks;
 
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
@@ -34,11 +33,7 @@ public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
         String[] metaData = (String[]) params[1];
         return lyricsViewFragment != null &&
                 lyricsViewFragment.getActivity() != null &&
-                ((MainActivity) lyricsViewFragment.getActivity()).database != null &&
-                DatabaseHelper.presenceCheck(
-                        ((MainActivity) lyricsViewFragment.getActivity()).database,
-                        metaData
-                );
+                DatabaseHelper.getInstance(lyricsViewFragment.getActivity()).presenceCheck(metaData);
     }
 
     @Override

@@ -153,6 +153,12 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        DatabaseHelper.getInstance(getApplicationContext()).close();
+        super.onDestroy();
+    }
+
+    @Override
     public void finish() {
         leaving = true;
         super.finish();
@@ -163,13 +169,8 @@ public class SearchActivity extends AppCompatActivity {
         ViewPager viewPager = getViewPager();
         if (viewPager != null)
             ((SearchPagerAdapter) viewPager.getAdapter()).setSearchQuery(searchQuery);
-        if (searchQuery != null) {
-            if (!LyricsSearchSuggestionsProvider.database.isOpen())
-                LyricsSearchSuggestionsProvider
-                        .setDatabase(new LyricsSearchSuggestionsProvider(this).getWritableDatabase());
-
-            LyricsSearchSuggestionsProvider.saveQuery(searchQuery);
-        }
+        if (searchQuery != null)
+            LyricsSearchSuggestionsProvider.getInstance(getApplicationContext()).saveQuery(searchQuery);
     }
 
     public void refresh() {

@@ -53,7 +53,6 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     private static final int CORE_POOL_SIZE = 2;
     private static final int MAXIMUM_POOL_SIZE = 8;
     private final ThreadPoolExecutor mDownloadThreadPool;
-    private SQLiteDatabase database;
     private int total = 0;
     private int count = 0;
     private int successCount = 0;
@@ -72,7 +71,6 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        this.database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
         Uri content = intent.getExtras().getParcelable("uri");
         Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
                 .getStringSet("pref_providers", new TreeSet<String>());
@@ -90,7 +88,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                if (!DatabaseHelper.presenceCheck(database, new String[] {artist, title}))
+                if (!DatabaseHelper.getInstance(this).presenceCheck(new String[] {artist, title}))
                     mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
                 else {
                     count++;
@@ -116,9 +114,9 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     public void onLyricsDownloaded(Lyrics lyrics) {
         count++;
         updateProgress();
-        if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT && this.database != null) {
+        if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             WriteToDatabaseTask task = new WriteToDatabaseTask();
-            task.onPostExecute(task.doInBackground(this.database, null, lyrics));
+            task.onPostExecute(task.doInBackground(DatabaseHelper.getInstance(this).getWritableDatabase(), null, lyrics));
             successCount++;
         }
     }
