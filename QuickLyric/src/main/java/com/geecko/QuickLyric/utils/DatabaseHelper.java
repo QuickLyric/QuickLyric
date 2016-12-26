@@ -32,7 +32,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "QuickLyric";
     public static final String TABLE_NAME = "lyrics";
     private static final String KEY_ARTIST = "artist";
@@ -67,10 +67,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3 && getColumnsCount(db) <= 6) {
-            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_LRC + " BIT;");
+        if (oldVersion < 4) {
+            db.execSQL("DELETE FROM "+TABLE_NAME);
         }
     }
 
