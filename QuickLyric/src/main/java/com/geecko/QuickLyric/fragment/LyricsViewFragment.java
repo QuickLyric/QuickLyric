@@ -55,6 +55,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -927,7 +928,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         mLyrics.getTrack(),
                         mLyrics.getOriginalArtist(),
                         mLyrics.getOriginalTrack()};
-                if (DatabaseHelper.getInstance(getActivity()).presenceCheck(metadata)) {
+                if (!DatabaseHelper.getInstance(getActivity()).presenceCheck(metadata)) {
                     lyricsPresentInDB = true;
                     new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
                 }
@@ -1021,12 +1022,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 return;
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);
-            final LrcView lrcView =
-                    ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+            final LrcView[] lrcView = {((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))};
 
-            if (lrcView != null)
+            if (lrcView[0] != null)
                 if (position == -1 && getActivity() != null) {
-                    final Lyrics staticLyrics = lrcView.getStaticLyrics();
+                    final Lyrics staticLyrics = lrcView[0].getStaticLyrics();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -1064,12 +1064,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (lrcView != null)
-                            lrcView.changeCurrent(finalPosition);
+                        if (lrcView[0] == null)
+                            lrcView[0] = ((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view));
+                        if (lrcView[0] != null)
+                            lrcView[0].changeCurrent(finalPosition);
                     }
                 });
-                // String time = String.valueOf((position / 1000) % 60) + " sec";
-                // Log.d("geecko", time);
+                String time = String.valueOf((position / 60000)) + " min ";
+                time += String.valueOf((position / 1000) % 60) + " sec";
+                Log.i("QuickLyric", time);
+                Log.d("QuickLyric", "Playing:"+preferences.getBoolean("playing", true));
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
