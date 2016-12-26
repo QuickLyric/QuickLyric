@@ -292,13 +292,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             IntentFilter[] intentFiltersArray = new IntentFilter[]{ndef,};
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
         }
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
-            if ((sharedPref.getBoolean("pref_auto_refresh", false) || lyricsViewFragment.isLRC()) &&
-                    (getIntent() == null || getIntent().getAction() == null ||
-                            getIntent().getAction().equals(""))) {
+            if (getIntent() == null || getIntent().getAction() == null ||
+                    getIntent().getAction().equals("")) {
                 // fixme executes twice?
                 if (!"Storage".equals(lyricsViewFragment.getSource())
                         && !lyricsViewFragment.searchResultLock)
