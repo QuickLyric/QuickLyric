@@ -48,45 +48,23 @@ public class RefreshButtonBehavior extends FloatingActionButton.Behavior {
     // hide the FAB when the AppBarLayout exits
     public void animateOut(final FloatingActionButton button) {
         int translationY = button.getHeight() + ((CoordinatorLayout.LayoutParams) button.getLayoutParams()).bottomMargin;
-        if (Build.VERSION.SDK_INT >= 14) {
-            ViewCompat.animate(button).translationY(translationY)
-                    .setInterpolator(INTERPOLATOR).withLayer()
-                    .setListener(new ViewPropertyAnimatorListener() {
-                        public void onAnimationStart(View view) {
-                            RefreshButtonBehavior.this.mIsAnimatingOut = true;
-                        }
+        ViewCompat.animate(button).translationY(translationY)
+                .setInterpolator(INTERPOLATOR).withLayer()
+                .setListener(new ViewPropertyAnimatorListener() {
+                    public void onAnimationStart(View view) {
+                        RefreshButtonBehavior.this.mIsAnimatingOut = true;
+                    }
 
-                        public void onAnimationCancel(View view) {
-                            RefreshButtonBehavior.this.mIsAnimatingOut = false;
-                        }
+                    public void onAnimationCancel(View view) {
+                        RefreshButtonBehavior.this.mIsAnimatingOut = false;
+                    }
 
-                        public void onAnimationEnd(View view) {
-                            RefreshButtonBehavior.this.mIsAnimatingOut = false;
-                            view.setVisibility(View.GONE);
-                            visible = false;
-                        }
-                    }).start();
-        } else {
-            Animation anim = AnimationUtils.loadAnimation(button.getContext(), R.anim.refresh_out);
-            anim.setInterpolator(INTERPOLATOR);
-            anim.setDuration(200L);
-            anim.setAnimationListener(new Animation.AnimationListener() {
-                public void onAnimationStart(Animation animation) {
-                    RefreshButtonBehavior.this.mIsAnimatingOut = true;
-                }
-
-                public void onAnimationEnd(Animation animation) {
-                    RefreshButtonBehavior.this.mIsAnimatingOut = false;
-                    button.setVisibility(View.GONE);
-                    visible = false;
-                }
-
-                @Override
-                public void onAnimationRepeat(final Animation animation) {
-                }
-            });
-            button.startAnimation(anim);
-        }
+                    public void onAnimationEnd(View view) {
+                        RefreshButtonBehavior.this.mIsAnimatingOut = false;
+                        view.setVisibility(View.INVISIBLE);
+                        visible = false;
+                    }
+                }).start();
     }
 
     // Same animation that FloatingActionButton.Behavior
