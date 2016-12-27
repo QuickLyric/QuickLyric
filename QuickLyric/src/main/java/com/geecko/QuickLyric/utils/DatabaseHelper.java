@@ -131,9 +131,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Lyrics get(String[] metaData) {
-        String[] args = new String[4];
-        System.arraycopy(metaData, 0, args, 0, metaData.length);
-        System.arraycopy(metaData, 0, args, 2, metaData.length);
+        String[] args;
+        if (metaData.length < 4) {
+            args = new String[4];
+            System.arraycopy(metaData, 0, args, 0, metaData.length);
+            System.arraycopy(metaData, 0, args, 2, metaData.length);
+        } else
+            args = metaData;
         String[] columns = DatabaseHelper.columns;
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s) = upper(?) AND upper(%s) = upper(?)) OR (upper(%s)=upper(?) AND upper(%s) = upper(?))",

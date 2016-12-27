@@ -915,6 +915,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 materialSearchView.clearFocus();
             mSearchQuery = null;
         }
+        Lyrics storedLyrics = mLyrics == null ? null :
+                DatabaseHelper.getInstance(getActivity()).get(new String[]{
+                        mLyrics.getArtist(),
+                        mLyrics.getTrack(),
+                        mLyrics.getOriginalArtist(),
+                        mLyrics.getOriginalTrack()});
+
 
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
@@ -923,12 +930,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 saveMenuItem.setVisible(false);
             else if (mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
                     && sharedPref.getBoolean("pref_auto_save", true)) {
-                String[] metadata = new String[]{
-                        mLyrics.getArtist(),
-                        mLyrics.getTrack(),
-                        mLyrics.getOriginalArtist(),
-                        mLyrics.getOriginalTrack()};
-                if (!DatabaseHelper.getInstance(getActivity()).presenceCheck(metadata)) {
+                if (storedLyrics == null || (mLyrics.isLRC() && !storedLyrics.isLRC())) {
                     lyricsPresentInDB = true;
                     new WriteToDatabaseTask().execute(this, saveMenuItem, mLyrics);
                 }
@@ -943,8 +945,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (resyncMenuItem != null)
             resyncMenuItem.setVisible(mLyrics != null && mLyrics.isLRC());
         if (convertMenuItem != null) {
-            Lyrics stored = mLyrics == null || mLyrics.isLRC() ? null : DatabaseHelper.getInstance(getActivity())
-                    .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack()});
+            Lyrics stored = mLyrics == null || mLyrics.isLRC() ? null : storedLyrics;
             convertMenuItem.setVisible((mLyrics != null && (mLyrics.isLRC())) || (stored != null && stored.isLRC()));
             convertMenuItem.setTitle(stored == null ? R.string.full_text_action : R.string.pref_lrc);
         }

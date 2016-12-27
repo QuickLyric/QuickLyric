@@ -82,8 +82,9 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
-                    if (!DatabaseHelper.getInstance(mContext).presenceCheck(new String[]{lyrics.getArtist(), lyrics.getTrack(),
-                            lyrics.getOriginalArtist(), lyrics.getOriginalTrack()})
+                    Lyrics storedLyrics = DatabaseHelper.getInstance(mContext).get(new String[]{lyrics.getArtist(), lyrics.getTrack(),
+                            lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
+                    if ((storedLyrics == null || (!storedLyrics.isLRC() && lyrics.isLRC()))
                             && !"Storage".equals(lyrics.getSource())) {
                         ContentValues values = new ContentValues(2);
                         values.put(columns[0], lyrics.getArtist());
@@ -95,6 +96,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                         values.put(columns[6], lyrics.getOriginalArtist());
                         values.put(columns[7], lyrics.getOriginalTrack());
                         values.put(columns[8], lyrics.isLRC() ? 1 : 0);
+                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
                         database.insert(DatabaseHelper.TABLE_NAME, null, values);
                         if (fragment instanceof LyricsViewFragment)
                             ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
