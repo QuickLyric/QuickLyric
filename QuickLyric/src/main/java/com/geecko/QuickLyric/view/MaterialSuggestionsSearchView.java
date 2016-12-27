@@ -27,6 +27,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -105,7 +106,12 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     }
 
     public void refreshSuggestions() {
-        Editable text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
+
+        Editable text;
+        if (getContext() instanceof Activity)
+            text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
+        else
+            text = ((EditText) ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
         setQuery(text, false);
     }
 
