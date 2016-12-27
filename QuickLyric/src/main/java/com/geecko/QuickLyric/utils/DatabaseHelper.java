@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -116,6 +117,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return search(database, query);
     }
 
+    public List<List> listMetadata() {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_NAME, new String[] {columns[6], columns[7]},
+                null, null, null, null, null);
+        ArrayList<List> output = new ArrayList<>();
+        cursor.moveToFirst();
+        do {
+            output.add(Arrays.asList(cursor.getString(0),cursor.getString(1)));
+        } while (cursor.moveToNext());
+        cursor.close();
+        return output;
+    }
+
     public Lyrics get(String[] metaData) {
         String[] args = new String[4];
         System.arraycopy(metaData, 0, args, 0, metaData.length);
@@ -123,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = DatabaseHelper.columns;
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s) = upper(?) AND upper(%s) = upper(?)) OR (upper(%s)=upper(?) AND upper(%s) = upper(?))",
-                columns[0], columns[1], columns[6], columns[3]), args, null, null, null);
+                columns[0], columns[1], columns[6], columns[7]), args, null, null, null);
         int count = cursor.getCount();
         Lyrics result = null;
         if (count > 0) {

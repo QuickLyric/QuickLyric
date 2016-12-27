@@ -26,7 +26,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -38,6 +37,8 @@ import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -53,6 +54,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
     private static final int CORE_POOL_SIZE = 2;
     private static final int MAXIMUM_POOL_SIZE = 8;
     private final ThreadPoolExecutor mDownloadThreadPool;
+    private final DatabaseHelper dbHelper;
     private int total = 0;
     private int count = 0;
     private int successCount = 0;
@@ -61,6 +63,7 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         super("Batch Downloader Service");
         mDownloadThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
                 KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, new LinkedBlockingQueue<Runnable>());
+        this.dbHelper = DatabaseHelper.getInstance(this);
     }
 
     @Override
@@ -77,9 +80,10 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_lrc", false))
             providersSet.add("ViewLyrics");
         DownloadThread.setProviders(providersSet);
+        List<List> savedLyrics = dbHelper.listMetadata();
         if (content != null) {
             String[] projection = new String[]{"artist", "title"};
-            String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
+            String selection = "artist IS NOT NULL AND artist <> '<unknown>' AND artist <> '<unknown artist>'";
             Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
             if (cursor == null)
                 return;
@@ -88,7 +92,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                if (!DatabaseHelper.getInstance(this).presenceCheck(new String[] {artist, title}))
+                if (artist == null || title == null || artist.isEmpty() || title.isEmpty()
+                        || savedLyrics.contains(Arrays.asList(artist, title)))
                     mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
                 else {
                     count++;
