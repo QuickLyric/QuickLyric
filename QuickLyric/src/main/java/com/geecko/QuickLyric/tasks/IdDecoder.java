@@ -8,14 +8,13 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.utils.Net;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import java.io.IOException;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
@@ -69,17 +68,21 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                 JsonObject jsonData = new JsonParser().parse(data).getAsJsonObject();
                 artist = jsonData.get("artist_display_name").getAsString();
                 track = jsonData.get("track_name").getAsString();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return new Lyrics(ERROR);
             }
 
         } else if (url.contains("//shz.am/")) {
+            String id = url.split(".am/t")[1];
+            url = "https://www.shazam.com/discovery/v1/en/US/web/-/track/"+id;
             try {
-                Document doc = Jsoup.connect(url.trim()).get();
-                track = doc.getElementsByAttribute("data-track-title").text();
-                artist = doc.getElementsByAttribute("data-track-artist").text();
-            } catch (IOException e) {
+                String jsonString = Net.getUrlAsString(url);
+                JsonObject jsonData = new JsonParser().parse(jsonString).getAsJsonObject();
+                jsonData = jsonData.getAsJsonObject("heading");
+                artist = jsonData.get("subtitle").getAsString();
+                track = jsonData.get("title").getAsString();
+            } catch (Exception e) {
                 e.printStackTrace();
                 return new Lyrics(ERROR);
             }
@@ -92,7 +95,7 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
                                 .get(0);
                 artist = doc.getElementsByClass("primary").text();
                 track = playCell.parent().parent().child(1).getElementsByClass("title").text();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return new Lyrics(ERROR);
             }
