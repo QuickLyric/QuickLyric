@@ -122,10 +122,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(TABLE_NAME, new String[] {columns[6], columns[7]},
                 null, null, null, null, null);
         ArrayList<List> output = new ArrayList<>();
-        cursor.moveToFirst();
-        do {
-            output.add(Arrays.asList(cursor.getString(0),cursor.getString(1)));
-        } while (cursor.moveToNext());
+        if (cursor.moveToFirst()) {
+            do {
+                output.add(Arrays.asList(cursor.getString(0), cursor.getString(1)));
+            } while (cursor.moveToNext());
+        }
         cursor.close();
         return output;
     }
