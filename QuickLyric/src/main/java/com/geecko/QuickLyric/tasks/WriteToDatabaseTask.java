@@ -78,7 +78,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             }
         boolean result = true;
         String[] columns = DatabaseHelper.columns;
-        if (database != null) {
+        if (database != null && database.isOpen()) {
             database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
