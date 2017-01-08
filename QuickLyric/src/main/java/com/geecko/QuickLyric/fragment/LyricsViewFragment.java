@@ -338,7 +338,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         if (songTV.requestFocus()) {
             InputMethodManager imm = (InputMethodManager)
-                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         }
     }
