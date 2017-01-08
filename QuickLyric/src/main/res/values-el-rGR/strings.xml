@@ -51,6 +51,8 @@
   <string name="first_launch">Ξεκινήστε την αναπαραγωγή μουσικής στη συσκευή σας και πατήσετε ανανέωση.</string>
   <string name="share_prompt">Εισαγωγή από MusicID</string>
   <string name="undo">Αναίρεση</string>
+  <string name="beta_dialog_content">1) Γίνεται μέλος στην Google+ Κοινότητα μας: \nhttps://plus.google.com/communities/115504114424315189412\n
+2) Εγγραφείτε για την beta έκδοση του προγράμματος: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
   <string name="skip">Παράλειψη</string>
   <string name="pref_theme">Θέμα</string>
   <string name="pref_notifications">Ειδοποιήσεις</string>
@@ -86,19 +88,37 @@
   <string name="pref_opendyslexic">Χρήση γραμματοσειράς OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Χρησιμοποιήστε μια ειδική γραμματοσειρά που δημιουργήθηκε για τους χρήστες με προβλήματα στην ανάγνωση</string>
   <string name="wrong_musicID">Μη υποστηριζόμενη υπηρεσία MusicID</string>
+  <string name="pref_issues_sum">Επικοινωνήστε στο: contact@quicklyric.be   (μόνο Αγγλικά παρακαλώ)</string>
   <string name="ignore_id3_toast">Πατήστε το κουμπί \"Ανανέωση\" για εξαναγκασμό μιας λήψης</string>
   <string name="from_id3">(Στίχοι προερχόμενοι από αρχείο ήχου)</string>
+  <string name="nighttime_start_dialog_title">Νυχτερινές ώρες έναρξης</string>
+  <string name="nighttime_end_dialog_title">Νυχτερινές ώρες λήξης</string>
   <string name="pref_force_screen_sum">Εμποδίζει την απενεργοποίηση της οθόνης όταν διαβάζετε στίχους.</string>
   <string name="pref_force_screen_on">Ενεργοποίηση οθόνης</string>
   <string name="scan_error_permission_denied">Το QuickLyric δεν είχε άδεια για να σαρώσει τη μουσική σας</string>
+  <string name="id3_write_error">Αποτυχία επεξεργασίας των δεδομένων του τραγουδιού</string>
+  <string name="id3_write_success">Τα δεδομένα του τραγουδιού επεξεργάστηκαν επιτυχώς</string>
+  <string name="id3_read_rationale">Το QuickLyric χρειάζεται αυτήν την άδεια για να διαβάσει τους στίχους και τα εξώφυλλα που είναι διαθέσιμα σε αυτήν την συσκευή</string>
+  <string name="permission_denied">(δεν επιτρέπεται η άδεια)</string>
+  <string name="id3_write_permission_error">Η εφαρμογή πρέπει να επανεκκινηθεί για να αποκτήσει δικαιώματα εγγραφής</string>
+  <string name="resync_action">Επανασυγχρονισμός</string>
   <string name="uri_storage">Αυτή η συσκευή</string>
+  <string name="uri_gmusic">Η βιβλιοθήκη σας στο Google Play Music</string>
+  <string name="uri_spotify">Η βιβλιοθήκη σας στο Spotify</string>
+  <string name="spotify_library">Τα αποθηκευμένα τραγούδια σας</string>
+  <string name="spotify_playlists">Οι λίστες αναπαραγωγής σας</string>
+  <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Electronic Dance Music</string>
   <string name="source_japanese">Ιαπωνική</string>
   <string name="source_bollywood">Μουσική Bollywood</string>
   <string name="source_sync">Συγχρονισμένοι στίχοι</string>
-  <string name="full_text_action">Εμφάνιση πλήρους κειμένου</string>
+  <string name="spotify_connection">Σύνδεση με Spotify&#8230;</string>
+  <string name="full_text_action">Πλήρες κείμενο</string>
+  <string name="artworks_pref_title">Αυτόματο κατέβασμα εξώφυλλων άλμπουμ</string>
+  <string name="artworks_pref_sum">Μπορεί να οδηγήσει σε χρεώσεις δεδομένων κινητής τηλεφωνίας</string>
+  <string name="pref_lrc_sum">Επισημαίνει τις λέξεις τη στιγμή που εκφωνούνται - όχι όλες οι εφαρμογές μουσικής είναι συμβατές</string>
   <string name="pref_lrc">Συγχρονισμένοι στίχοι</string>
   <string name="red_theme">Κοκκινο</string>
   <string name="purple_theme">Μωβ</string>
@@ -107,9 +127,25 @@
   <string name="lime_theme">Κιτρινοπράσινο</string>
   <string name="brown_theme">Καφέ</string>
   <string name="ad_supported_title">Το QuickLyric υποστηρίζεται από διαφημίσεις</string>
+  <string name="ad_supported_text">Οι διαφημίσεις μας επιτρέπουν να πληρώνουμε τους καλλιτέχνες και τους δικαιούχους για το έργο τους. \nΕλπίζουμε να απολαύσετε το QuickLyric!</string>
   <string name="about_read_ToS">Διαβάστε τους όρους παροχής υπηρεσιών</string>
+  <string name="about_product_tour">Περιήγηση προϊόντος</string>
   <string name="nl_title">Ένα τελευταίο πράγμα.</string>
+  <string name="nl_instructions">Για να δουλέψει το QuickLyric με όλες τις εφαρμογές αναπαραγωγής μουσικής, κάποιες ρυθμίσεις πρέπει να αλλαχθούν.</string>
   <string name="nl_settings_link">Επέτρεψε στο QuickLyric να διαβάσει τις ειδοποιήσεις μου</string>
+  <string name="changelog">Τι νέο υπάρχει</string>
+  <string name="rate_us">Αξιολογήστε την εφαρμογή</string>
+  <string name="premium_title">Απόκτησε το Premium</string>
+  <string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις</string>
+  <string name="subscription_monthly">Μηνιαία</string>
+  <string name="subscription_yearly">Ετήσια</string>
+  <string name="premium_sum_incent">Γίνεται Premium χρήστης για να υποστηρίξετε την ανάπτυξη του QuickLyric και να αποκτήσετε πρόσβαση στις ακόλουθες δυνατότητες:</string>
+  <string name="premium_ads_incent">Όχι άλλες διαφημίσεις!</string>
+  <string name="premium_karaoke_incent">Μια αποκλειστική * karaoke λειτουργία *</string>
+  <string name="premium_themes_incent">*7* νέα θέματα</string>
+  <string name="premium_night_mode_incent">Μια *λειτουργία νύχτας* για να ξεκουράζετε τα μάτια σας τη νύχτα</string>
+  <string name="premium_thanks">Ευχαριστούμε για την υποστήριξη σας!</string>
+  <string name="about_crowdin">Βοηθήστε να μεταφραστεί η εφαρμογή στο Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
         Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>
@@ -124,5 +160,9 @@
     <item>Απενεργοποιημένη (προεπιλογή)</item>
     <item>Ενεργοποιημένη</item>
     <item>Ενεργοποιημένη (μόνιμη)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Πάντα ενεργοποιημένο</item>
+    <item>Μόνο σε Wi-Fi</item>
   </string-array>
 </resources>

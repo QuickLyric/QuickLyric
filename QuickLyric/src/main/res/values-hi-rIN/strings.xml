@@ -28,6 +28,10 @@
   <string name="pref_20min_ignore">लंबे गाने अनदेखें</string>
   <string name="pref_20min_ignore_sum">बीस मिनिट से लंबे ट्रॅक्स गानों की तरह नहीं गिनें जाएँगे</string>
   <string name="pref_about">बारे में</string>
+  <string name="send_feedback">Shri Guru Charan Sarooja-raj Nija manu Mukura Sudhaari
+Baranau Rahubhara Bimala Yasha Jo Dayaka Phala Chari
+Budhee-Heen Thanu Jannikay Sumirow Pavana Kumara
+Bala-Budhee Vidya Dehoo Mohee Harahu Kalesha Vikaara</string>
   <string name="local_title">बचाए हुए गाने</string>
   <string name="settings_title">सेटिंग्स</string>
   <string name="save_action">बचयें</string>

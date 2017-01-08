@@ -118,7 +118,7 @@
   <string name="source_bollywood">Музика Боллівуд</string>
   <string name="source_sync">Синхронізовані тексти</string>
   <string name="spotify_connection">Зʼєднання зі Spotify&#8230;</string>
-  <string name="full_text_action">Показати повний текст</string>
+  <string name="full_text_action">Повний текст</string>
   <string name="artworks_pref_title">Автоматичне завантаження обкладинок</string>
   <string name="artworks_pref_sum">Може призвести до стягнення плати за мобільне зʼєднання</string>
   <string name="pref_lrc_sum">Підсвічує співані зараз слова. Не всі програвачі підтримуються.</string>
@@ -129,6 +129,8 @@
   <string name="green_theme">Зелений</string>
   <string name="lime_theme">Салатовий</string>
   <string name="brown_theme">Коричневий</string>
+  <string name="ad_supported_title">Додаток Quick Lyric розвивається за допомогою реклами</string>
+  <string name="ad_supported_text">Реклама дозволяє нам оплачувати артистам і правовласникам їх роботу.\nМи сподіваємося, вам подобається використовувати QuickLyric!</string>
   <string name="about_read_ToS">Прочитайте наші Умови</string>
   <string name="about_product_tour">Огляд продукту</string>
   <string name="nl_title">Остання річ.</string>
@@ -138,7 +140,11 @@
   <string name="remove_ads_title">Прибрати рекламу</string>
   <string name="subscription_monthly">Місячна</string>
   <string name="subscription_yearly">Річна</string>
+  <string name="premium_sum_incent">Станьте Преміум-користувачем, щоб підтримати розробку QuickLyric і отримати доступ до таких функцій:</string>
+  <string name="premium_ads_incent">Більше жодної реклами!</string>
+  <string name="premium_karaoke_incent">Ексклюзивний * караоке режим *</string>
   <string name="premium_themes_incent">*7* нових тем</string>
+  <string name="premium_night_mode_incent">*Нічний режим*, щоб ваші очі відпочивали вночі</string>
   <string name="premium_thanks">Дякуємо за вашу підтримку!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric зараз завантажить тексти для %1$d пісні.\

@@ -108,6 +108,8 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="uri_storage">To urządzenie</string>
   <string name="uri_gmusic">Twoja biblioteka Google Play Music</string>
   <string name="uri_spotify">Twoja biblioteka Spotify</string>
+  <string name="spotify_library">Twoje zapisane utwory</string>
+  <string name="spotify_playlists">Twoje listy odtwarzania</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -116,10 +118,10 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="source_bollywood">Muzyka z Bollywood</string>
   <string name="source_sync">Zsynchronizowane teksty</string>
   <string name="spotify_connection">Łączenie ze Spotify&#8230;</string>
-  <string name="full_text_action">Pokaż pełny tekst</string>
+  <string name="full_text_action">Pełny tekst</string>
   <string name="artworks_pref_title">Automatyczne pobieranie grafiki</string>
   <string name="artworks_pref_sum">Może skutkować naliczeniem opłat</string>
-  <string name="pref_lrc_sum">Wyróżnia słowa śpiewane w danym momencie. Nie wszystkie odtwarzacze mają tę funkcję.</string>
+  <string name="pref_lrc_sum">Wyróżnia słowa śpiewane w danym momencie - ta funkcja nie wspiera wszystkich odtwarzaczy muzycznych</string>
   <string name="pref_lrc">Zsynchronizowane teksty</string>
   <string name="red_theme">Czerwony</string>
   <string name="purple_theme">Fioletowy</string>
@@ -134,6 +136,8 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="nl_title">Ostatnia sprawa.</string>
   <string name="nl_instructions">Aby QuickLyric mógł współpracować z wszystkimi odtwarzaczami, niektóre ustawienia muszą zostać zmienione.</string>
   <string name="nl_settings_link">Pozwól QuickLyric na odczyt moich powiadomień</string>
+  <string name="changelog">Lista zmian</string>
+  <string name="rate_us">Oceń aplikację</string>
   <string name="premium_title">Przejdź na wersję Premium</string>
   <string name="remove_ads_title">Usuń reklamy</string>
   <string name="subscription_monthly">Na miesiąc</string>
@@ -142,8 +146,12 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="premium_ads_incent">Żadnych reklam!</string>
   <string name="premium_karaoke_incent">Ekskluzywny *tryb karaoke*</string>
   <string name="premium_themes_incent">*7* nowych skórek</string>
-  <string name="premium_night_mode_incent">*Tryb nocny*, aby dać odpocząć Twoim oczom.</string>
+  <string name="premium_night_mode_incent">*Tryb nocny*, aby dać odpocząć Twoim oczom</string>
+  <string name="premium_incentive">Wesprzyj artystów oraz twórców QuickLyric</string>
+  <string name="premium_doubt">Nie masz pewności, czy zasubskrybować? Napisz do nas: contact@quicklyric.be</string>
   <string name="premium_thanks">Dziękujemy za wsparcie!</string>
+  <string name="about_crowdin">Pomóż w tłumaczeniu aplikacji na Crowdin</string>
+  <string name="online_title">Katalog online</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
         Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>

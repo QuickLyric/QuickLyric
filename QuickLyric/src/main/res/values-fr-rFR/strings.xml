@@ -28,7 +28,7 @@
   <string name="pref_20min_ignore">Ignorer les morceaux longs</string>
   <string name="pref_20min_ignore_sum">Les morceaux plus longs que 20 minutes (comme des podcasts) sont bloqués</string>
   <string name="pref_about">À propos</string>
-  <string name="send_feedback">Envoyer commentaires</string>
+  <string name="send_feedback">Envoyer vos retours</string>
   <string name="local_title">Paroles sauvegardées</string>
   <string name="settings_title">Paramètres</string>
   <string name="save_action">Sauvegarder</string>
@@ -107,6 +107,8 @@ Plusieurs raisons possibles:<br/>
   <string name="uri_storage">Cet appareil</string>
   <string name="uri_gmusic">Votre bibliothèque Play Musique</string>
   <string name="uri_spotify">Votre bibliothèque Spotify</string>
+  <string name="spotify_library">Votre musique</string>
+  <string name="spotify_playlists">Vos playlists</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Métal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -115,7 +117,7 @@ Plusieurs raisons possibles:<br/>
   <string name="source_bollywood">Musique Bollywood</string>
   <string name="source_sync">Paroles synchronisées</string>
   <string name="spotify_connection">Connexion à Spotify&#8230;</string>
-  <string name="full_text_action">Afficher le texte complet</string>
+  <string name="full_text_action">Texte intégral</string>
   <string name="artworks_pref_title">Téléchargement auto. des illustrations</string>
   <string name="artworks_pref_sum">Peut entraîner des frais de données mobiles</string>
   <string name="pref_lrc_sum">Surligne les mots qui sont chantés - tous les lecteurs de musique ne sont pas pris en charge</string>
@@ -124,17 +126,19 @@ Plusieurs raisons possibles:<br/>
   <string name="purple_theme">Violet</string>
   <string name="indigo_theme">Indigo</string>
   <string name="green_theme">Vert</string>
-  <string name="lime_theme">Citron vert</string>
+  <string name="lime_theme">Vert clair</string>
   <string name="brown_theme">Marron</string>
   <string name="ad_supported_title">QuickLyric est financé par la publicité</string>
-  <string name="ad_supported_text">Les publicités permettent de payer les artistes et les ayants droit pour leur travail.\nNous espérons que vous appréciez QuickLyric !</string>
+  <string name="ad_supported_text">Les publicités permettent de payer les artistes et les ayants droit pour leur travail.\nNous espérons que vous aimerez utiliser QuickLyric !</string>
   <string name="about_read_ToS">Lire nos conditions d\'utilisation</string>
   <string name="about_product_tour">Présentation du produit</string>
   <string name="nl_title">Une dernière chose.</string>
   <string name="nl_instructions">Pour que QuickLyric fonctionne avec tous les lecteurs, certains paramètres doivent être modifiés.</string>
   <string name="nl_settings_link">Permettre à QuickLyric de lire mes notifications</string>
-  <string name="premium_title">Obtenir version Premium</string>
-  <string name="remove_ads_title">Supprimer publicité</string>
+  <string name="changelog">Nouveautés</string>
+  <string name="rate_us">Noter l\'appli</string>
+  <string name="premium_title">Passer Premium</string>
+  <string name="remove_ads_title">Enlever la publicité</string>
   <string name="subscription_monthly">Mensuel</string>
   <string name="subscription_yearly">Annuel</string>
   <string name="premium_sum_incent">Devenir Premium pour soutenir le développement de QuickLyric et accéder aux fonctionnalités suivantes :</string>
@@ -142,7 +146,11 @@ Plusieurs raisons possibles:<br/>
   <string name="premium_karaoke_incent">Un *mode karaoké* exclusif</string>
   <string name="premium_themes_incent">*7* nouveaux thèmes</string>
   <string name="premium_night_mode_incent">Un *mode nuit* pour reposer vos yeux la nuit</string>
+  <string name="premium_incentive">Soutenez les artistes et l’équipe derrière QuickLyric</string>
+  <string name="premium_doubt">Pas certain de vouloir prendre un abonnement ? Envoyez-nous un email : contact@quicklyric.be</string>
   <string name="premium_thanks">Merci pour votre soutien !</string>
+  <string name="about_crowdin">Contribuez à la traduction de QuickLyric</string>
+  <string name="online_title">Catalogue en ligne</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
         Vérifiez que vous avez une connexion stable pour %2$d minute.</item>

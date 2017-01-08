@@ -52,9 +52,8 @@
   <string name="share_prompt">Importar desde MusicID</string>
   <string name="undo">Deshacer</string>
   <string name="beta_dialog_content">
-1) Unirse a la comunidad de Google+: \nhttps://plus.google.com/communities/115504114424315189412\n
-
-2) Registrarse para la Beta: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
+1) Únete a la comunidad de Google +: \nhttps://plus.google.com/communities/115504114424315189412\n 
+2) Regístrate para la Beta: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
   <string name="skip">Omitir</string>
   <string name="pref_theme">Estilo</string>
   <string name="pref_notifications">Notificaciones</string>
@@ -93,8 +92,8 @@ Las posibles razones son:<br/>
   <string name="pref_issues_sum">contact@quicklyric.be (solo inglés)</string>
   <string name="ignore_id3_toast">Pulse el botón \"refrescar\" para forzar una descarga</string>
   <string name="from_id3">(Letra extraída del archivo de audio)</string>
-  <string name="nighttime_start_dialog_title">Iniciar modo noche</string>
-  <string name="nighttime_end_dialog_title">Finalización del modo noche</string>
+  <string name="nighttime_start_dialog_title">Iniciar modo nocturno</string>
+  <string name="nighttime_end_dialog_title">Finalizar el modo nocturno</string>
   <string name="pref_force_screen_sum">Evita que la pantalla se apague mientras lees la letra</string>
   <string name="pref_force_screen_on">Mantener pantalla encendida</string>
   <string name="scan_error_permission_denied">A QuickLyric se le ha denegado el permiso para explorar su música</string>
@@ -107,6 +106,8 @@ Las posibles razones son:<br/>
   <string name="uri_storage">Este dispositivo</string>
   <string name="uri_gmusic">Tu biblioteca de Google Play Music</string>
   <string name="uri_spotify">Tu biblioteca de Spotify</string>
+  <string name="spotify_library">Tus canciones guardadas</string>
+  <string name="spotify_playlists">Tus listas de reproducción</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip-Hop</string>
@@ -115,9 +116,9 @@ Las posibles razones son:<br/>
   <string name="source_bollywood">Música Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
   <string name="spotify_connection">Conectando con Spotify&#8230;</string>
-  <string name="full_text_action">Mostrar texto completo</string>
+  <string name="full_text_action">Texto completo</string>
   <string name="artworks_pref_title">Descargar carátulas automáticamente</string>
-  <string name="artworks_pref_sum">Puede incluir cargos por datos móviles</string>
+  <string name="artworks_pref_sum">Puede resultar en cargos por datos móviles</string>
   <string name="pref_lrc_sum">Resalta las palabras que están siendo cantadas. No funciona con todos los reproductores</string>
   <string name="pref_lrc">Letras sincronizadas</string>
   <string name="red_theme">Rojo</string>
@@ -126,23 +127,24 @@ Las posibles razones son:<br/>
   <string name="green_theme">Verde</string>
   <string name="lime_theme">Lima</string>
   <string name="brown_theme">Marrón</string>
-  <string name="ad_supported_title">QuickLyric está respaldado con publicidad</string>
-  <string name="ad_supported_text">Los anuncios nos permiten pagar a los artistas y los titulares de los derechos por su trabajo. \n¡Esperamos que disfrutes usando QuickLyric!</string>
+  <string name="ad_supported_title">QuickLyric está financiado por anuncios</string>
+  <string name="ad_supported_text">Los anuncios nos permiten pagar a los artistas y los titulares de los derechos por su trabajo. \n ¡Esperamos que disfrutes usando QuickLyric!</string>
   <string name="about_read_ToS">Lee nuestros términos de servicio</string>
   <string name="about_product_tour">Tour del producto</string>
   <string name="nl_title">Una última cosa.</string>
   <string name="nl_instructions">Algunas opciones deben ser cambiadas para que Quicklyric pueda trabajar con todos los reproductores.</string>
   <string name="nl_settings_link">Permitir que QuickLyric lea mis notificaciones</string>
   <string name="premium_title">Hazte Premium</string>
-  <string name="remove_ads_title">Eliminar publicidad</string>
-  <string name="subscription_monthly">Mensual</string>
+  <string name="remove_ads_title">Eliminar anuncios</string>
+  <string name="subscription_monthly">Mensualmente</string>
   <string name="subscription_yearly">Anual</string>
-  <string name="premium_sum_incent">Hazte Premium para apoyar al desarrollo de QuickLyric y tener acceso a las siguientes características:</string>
-  <string name="premium_ads_incent">¡Sin publicidad!</string>
+  <string name="premium_sum_incent">Conviértase en afiliado Premium para apoyar al desarrollo de QuickLyric y tener acceso a las siguientes características:</string>
+  <string name="premium_ads_incent">¡No más anuncios!</string>
   <string name="premium_karaoke_incent">Un exclusivo *modo karaoke*</string>
   <string name="premium_themes_incent">*7* nuevos temas</string>
-  <string name="premium_night_mode_incent">Un *modo noche* para descansar tus ojos por la noche.</string>
+  <string name="premium_night_mode_incent">Un *modo noche* para descansar tus ojos por la noche</string>
   <string name="premium_thanks">¡Gracias por tu apoyo!</string>
+  <string name="about_crowdin">Ayudar a traducir la aplicación en Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>

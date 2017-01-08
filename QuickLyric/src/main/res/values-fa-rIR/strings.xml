@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">صرف‌نظر از آهنگ‌های طولانی</string>
   <string name="pref_20min_ignore_sum">آهنگ‌های طولانی‌تر از ۲۰ دقیقه(مانند پادکست‌ها) در نظر گرفته نمی‌شوند</string>
   <string name="pref_about">درباره</string>
+  <string name="send_feedback">ارسال پیشنهاد و انتقاد</string>
   <string name="local_title">اشعار ذخیره‌شده</string>
   <string name="settings_title">تنظیمات</string>
   <string name="save_action">ذخيره</string>
@@ -40,10 +41,12 @@
   <string name="pref_look_feel_category">شكل و شمايل</string>
   <string name="welcome">به QuickLyric خوش آمدید!</string>
   <string name="welcome2_sub">اشعاری که شما دنبالش می‌گردید...\nهمین‌جا، همین الآن.</string>
+  <string name="apps_desc">کار کردن با همه برنامه هایتان</string>
   <string name="id_desc_sub">۱. شناسایی یک موسیقی\n۲. اشتراک‌گذاری نتایج با QuickLyric\n۳. لذت بردن از اشعار</string>
   <string name="refresh_desc">وقتی آهنگ تغییر کرد&#8230;</string>
   <string name="refresh_desc_sub">روی این دکمه بزنید. QuickLyric بقیه را انجام می‌دهد.</string>
   <string name="pref_more_category">بیش‌تر</string>
+  <string name="first_launch">شروع پخش کردن آهنگ در دستگاه شما و تازه سازی.</string>
   <string name="share_prompt">وارد کردن از MusicID</string>
   <string name="undo">بازگرد</string>
   <string name="beta_dialog_content">
@@ -52,6 +55,7 @@
   <string name="skip">رد شدن</string>
   <string name="pref_theme">پوسته</string>
   <string name="pref_notifications">اعلان‌ها</string>
+  <string name="defaut_theme">کهربا</string>
   <string name="dark_theme">تیره</string>
   <string name="pref_notifications_sum">دریافت یک اعلان هنگامی‌که آهنگ تغییر می‌کند</string>
   <string name="pref_auto_save">ذخیره‌ی خودکار اشعار</string>
@@ -88,10 +92,24 @@
   <string name="nighttime_end_dialog_title">زمان پایان شب</string>
   <string name="pref_force_screen_sum">جلوگیری از خاموش شدن صفحه هنگام خواندن اشعار.</string>
   <string name="pref_force_screen_on">اجبار روشن بودن صفحه</string>
-  <plurals name="scan_dialog">
-    <item quantity="other">اکنون QuickLyric اشعار را برای در مجموع %1$d آهنگ دانلود خواهد کرد.\        مطمئن شوید که یک اتصال پایدار برای %2$d دقیقه دارید.</item>
-  </plurals>
+  <string name="scan_error_permission_denied">Quick lyricمجوز اسکن آهنگهای شما را نپذیرفته است</string>
+  <string name="id3_write_error">ناموفق بودن ویرایش اطلاعات اولیه آهنگ</string>
+  <string name="id3_write_success">اطلاعات آهنگ با موفقیت ویرایش شد</string>
+  <string name="id3_read_rationale">Quick lyric به مجوز برای خواندن متن ها و اشعار روی این دستگاه نیاز دارد</string>
+  <string name="permission_denied">(مجوز داده نشد)</string>
+  <string name="id3_write_permission_error">برنامه نیاز به شروع مجدد برای بدست آوردن مجوز نوشتن دارد</string>
+  <string name="uri_storage">این دستگاه</string>
+  <string name="uri_gmusic">مجموعه آهنگ های google plyشما</string>
+  <string name="spotify_library">آهنگ های ذخیره شده شما</string>
+  <string name="spotify_playlists">لیست پخش شما</string>
+  <string name="source_metal">فلز</string>
+  <string name="source_hip_hop">هیپ هاپ</string>
+  <string name="source_EDM">آهنگ های رقص الکترونیکی</string>
+  <string name="source_japanese">ژاپنی</string>
+  <string name="source_bollywood">موسیقی بالیود</string>
+  <string name="source_sync">همگام سازی آهنگ ها</string>
   <plurals name="dl_finished_desc">
+    <item quantity="one">اشعار برای %1$d آهنگ دریافت شدند</item>
     <item quantity="other">اشعار برای %1$d آهنگ دریافت شدند</item>
   </plurals>
   <string-array name="notifications">

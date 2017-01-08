@@ -37,7 +37,7 @@
   <string name="remove_action">Cancella</string>
   <string name="pref_auto_refresh_title">Aggiorna testi automaticamente</string>
   <string name="pref_auto_refresh_summary">Il testo verrà automaticamente aggiornato ad ogni cambiamento della musica</string>
-  <string name="local_empty_database">Non hai ancora salvato nessun testo.</string>
+  <string name="local_empty_database">Non hai ancora salvato alcun testo.</string>
   <string name="pref_look_feel_category">Aspetto</string>
   <string name="welcome">Benvenuto su QuickLyric!</string>
   <string name="welcome2_sub">I testi che stavi cercando&#8230;\nProprio qui, proprio ora.</string>
@@ -109,6 +109,8 @@ Alcune cause potrebbero essere:<br/>
   <string name="uri_storage">Questo dispositivo</string>
   <string name="uri_gmusic">La tua libreria Google Play Music</string>
   <string name="uri_spotify">La tua libreria Spotify</string>
+  <string name="spotify_library">Le tue tracce salvate</string>
+  <string name="spotify_playlists">Le tue playlist</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -117,7 +119,7 @@ Alcune cause potrebbero essere:<br/>
   <string name="source_bollywood">Musica di Bollywood</string>
   <string name="source_sync">Testi sincronizzati</string>
   <string name="spotify_connection">Collegamento a Spotify&#8230;</string>
-  <string name="full_text_action">Mostra il testo completo</string>
+  <string name="full_text_action">Testo completo</string>
   <string name="artworks_pref_title">Scaricamento automatico copertina</string>
   <string name="artworks_pref_sum">Potrebbe comportare dei costi di connessione</string>
   <string name="pref_lrc_sum">Evidenzia le parole che vengono cantate. Non tutti i lettori musicali sono supportati.</string>
@@ -143,8 +145,9 @@ Alcune cause potrebbero essere:<br/>
   <string name="premium_ads_incent">Niente più pubblicità!</string>
   <string name="premium_karaoke_incent">Un\'esclusiva *modalità karaoke*</string>
   <string name="premium_themes_incent">*7* nuovi temi</string>
-  <string name="premium_night_mode_incent">Una *modalità notturna* per riposare i tuoi occhi durante la notte.</string>
+  <string name="premium_night_mode_incent">Una *modalità notturna* per riposare i tuoi occhi durante la notte</string>
   <string name="premium_thanks">Grazie per il tuo supporto!</string>
+  <string name="about_crowdin">Aiuta a tradurre l\'app su Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>
@@ -155,6 +158,15 @@ Alcune cause potrebbero essere:<br/>
     <item quantity="one">Testo di %1$d canzone scaricato</item>
     <item quantity="other">Testo di %1$d canzoni scaricati</item>
   </plurals>
+  <string-array name="nav_items">
+    <item>@string/title_lyrics</item>
+    <item>@string/local_title</item>
+    <item>-</item>
+    <item>@string/settings_title</item>
+    <item>@string/send_feedback</item>
+    <item>@string/pref_about</item>
+    <item>@string/premium_title</item>
+  </string-array>
   <string-array name="providers">
     <item>@string/source_punk</item>
     <item>@string/source_metal</item>

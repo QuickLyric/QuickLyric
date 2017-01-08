@@ -95,7 +95,7 @@
   <string name="from_id3">(Текст, извлеченный из аудио файла)</string>
   <string name="nighttime_start_dialog_title">Начало ночного времени</string>
   <string name="nighttime_end_dialog_title">Конец ночного времени</string>
-  <string name="pref_force_screen_sum">Предотвращает выключение экрана во время чтения текста песни.</string>
+  <string name="pref_force_screen_sum">Предотвращает выключение экрана во время чтения текста песни</string>
   <string name="pref_force_screen_on">Не выключать экран</string>
   <string name="scan_error_permission_denied">QuickLyric было отказано в сканировании вашей музыки</string>
   <string name="id3_write_error">Не удалось изменить метаданные песни</string>
@@ -107,6 +107,8 @@
   <string name="uri_storage">Данное устройство</string>
   <string name="uri_gmusic">Ваша библиотека Google Play Music</string>
   <string name="uri_spotify">Ваша библиотека Spotify</string>
+  <string name="spotify_library">Сохранённые треки</string>
+  <string name="spotify_playlists">Плейлисты</string>
   <string name="source_punk">Панк Рок</string>
   <string name="source_metal">Метал</string>
   <string name="source_hip_hop">Хип-Хоп</string>
@@ -115,9 +117,9 @@
   <string name="source_bollywood">Болливуд</string>
   <string name="source_sync">Синхронизированные слова</string>
   <string name="spotify_connection">Подключение к Spotify&#8230;</string>
-  <string name="full_text_action">Показать текст полностью</string>
+  <string name="full_text_action">Полный текст</string>
   <string name="artworks_pref_title">Скачивать обложки альбомов автоматически</string>
-  <string name="artworks_pref_sum">Может привести к использования интернет траффика</string>
+  <string name="artworks_pref_sum">Может расходовать интернет-траффик</string>
   <string name="pref_lrc_sum">Подсвечивает слова, которые поются. Не все музыкальные плееры поддерживаются.</string>
   <string name="pref_lrc">Синхронизированные слова</string>
   <string name="red_theme">Красная</string>
@@ -133,6 +135,7 @@
   <string name="nl_title">Ещё одна вещь.</string>
   <string name="nl_instructions">Для того, чтобы QuickLyric работал со всеми плеерами, некоторые настройки следует изменить.</string>
   <string name="nl_settings_link">Разрешить QuickLyric просматривать мои уведомления</string>
+  <string name="changelog">Изменения</string>
   <string name="premium_title">Получить Премиум доступ</string>
   <string name="remove_ads_title">Убрать рекламу</string>
   <string name="subscription_monthly">Ежемесячно</string>
@@ -141,8 +144,9 @@
   <string name="premium_ads_incent">Больше никакой рекламы!</string>
   <string name="premium_karaoke_incent">Эксклюзивный *режим караоке*</string>
   <string name="premium_themes_incent">*7* новых тем оформления</string>
-  <string name="premium_night_mode_incent">*Ночной режим*, чтобы ваши глаза отдыхали ночью.</string>
+  <string name="premium_night_mode_incent">*Ночной режим*, чтобы ваши глаза отдыхали ночью</string>
   <string name="premium_thanks">Спасибо за вашу поддержку!</string>
+  <string name="about_crowdin">Помочь с переводом на Crowdin</string>
   <string-array name="notifications">
     <item>Отключено (По умолчанию)</item>
     <item>Включено</item>

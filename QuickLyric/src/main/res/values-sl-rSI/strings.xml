@@ -98,6 +98,53 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="pref_force_screen_sum">Prepreči ugašanje zaslona med branjem besedil.</string>
   <string name="pref_force_screen_on">Ohrani vklopljen zaslon</string>
   <string name="scan_error_permission_denied">QuickLyric je bilo zavrnjeno dovoljenje za iskanje vaše glasbe</string>
+  <string name="id3_write_error">Urejanje metapodatkov pesmi ni uspelo</string>
+  <string name="id3_write_success">Metapodatki pesmi uspešno urejeni</string>
+  <string name="id3_read_rationale">QuickLyric potrebuje to dovoljenje za branje besedil in slik albuma na tej napravi</string>
+  <string name="permission_denied">(dovoljenje zavrnjeno)</string>
+  <string name="id3_write_permission_error">Za pridobitev dovoljenja pisanja mora aplikacija biti znova zagnana</string>
+  <string name="resync_action">Ponovna sinhronizacija</string>
+  <string name="uri_storage">Ta naprava</string>
+  <string name="uri_gmusic">Vaša Google Play Glasba knjižnica</string>
+  <string name="uri_spotify">Vaša Spotify knjižnica</string>
+  <string name="spotify_library">Vaše shranjene skladbe</string>
+  <string name="spotify_playlists">Vaši seznami predvajanja</string>
+  <string name="source_punk">Punk Rock</string>
+  <string name="source_metal">Metal</string>
+  <string name="source_hip_hop">Hip Hop</string>
+  <string name="source_EDM">Elektronska plesna glasba</string>
+  <string name="source_japanese">Japonščina</string>
+  <string name="source_bollywood">Bollywood glasba</string>
+  <string name="source_sync">Sinhronizirana besedila</string>
+  <string name="spotify_connection">Povezovanje na Spotify&#8230;</string>
+  <string name="artworks_pref_title">Samodejen prenos slik albuma</string>
+  <string name="artworks_pref_sum">Lahko povzroči stroške na mobilnih podatkih</string>
+  <string name="pref_lrc_sum">Poudari pete besede - vsi glasbeni predvajalniki niso podprti</string>
+  <string name="pref_lrc">Sinhronizirana besedila</string>
+  <string name="red_theme">Rdeča</string>
+  <string name="purple_theme">Vijolična</string>
+  <string name="indigo_theme">Indigo</string>
+  <string name="green_theme">Zelena</string>
+  <string name="lime_theme">Limeta</string>
+  <string name="brown_theme">Rjava</string>
+  <string name="ad_supported_title">QuickLyric je podprt z oglasi</string>
+  <string name="ad_supported_text">Oglasi nam omogočajo, da avtorjem in imetnikom pravic plačamo za njihovo delo.\nUpamo, da ob uporabi QuickLyric uživate!</string>
+  <string name="about_read_ToS">Preberite naše pogoje storitve</string>
+  <string name="about_product_tour">Predstavitev izdelka</string>
+  <string name="nl_title">Še zadnja stvar.</string>
+  <string name="nl_instructions">Da lahko QuickLyric deluje z vsemi predvajalniki, morajo nekatere nastavitve biti spremenjene.</string>
+  <string name="nl_settings_link">Omogoči da QuickLyric bere moja obvestila</string>
+  <string name="premium_title">Nakup Premium</string>
+  <string name="remove_ads_title">Odstrani oglase</string>
+  <string name="subscription_monthly">Mesečno</string>
+  <string name="subscription_yearly">Letno</string>
+  <string name="premium_sum_incent">Postanite Premium uporabnik, da podprete razvoj in omogočite naslednje funkcije:</string>
+  <string name="premium_ads_incent">Nič več oglasov!</string>
+  <string name="premium_karaoke_incent">Ekskluzivni *karaoke* način</string>
+  <string name="premium_themes_incent">*7* novih tem</string>
+  <string name="premium_night_mode_incent">*nočni način* za manjšo obremenitev oči ponoči</string>
+  <string name="premium_thanks">Hvala za vašo podporo!</string>
+  <string name="about_crowdin">Pomagajte prevesti aplikacijo na Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>
@@ -118,5 +165,9 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
     <item>Onemogočeno (privzeto)</item>
     <item>Omogočeno</item>
     <item>Omogočeno (pripeto)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Vedno omogočeno</item>
+    <item>Samo na WiFi</item>
   </string-array>
 </resources>

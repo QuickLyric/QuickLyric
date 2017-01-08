@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">Hosszú számok figyelmen kívül hagyása</string>
   <string name="pref_20min_ignore_sum">20 percnél hosszabb számok (mint a podcastok) nincsenek dalokként kezelve</string>
   <string name="pref_about">Névjegy</string>
+  <string name="send_feedback">Visszajelzés küldése</string>
   <string name="local_title">Elmentett dalszövegek</string>
   <string name="settings_title">Beállítások</string>
   <string name="save_action">Mentés</string>
@@ -37,11 +38,101 @@
   <string name="pref_auto_refresh_title">Dalszövegek automatikus frissítése</string>
   <string name="pref_auto_refresh_summary">A dalszövegek automatikusan frissítve lesznek amint új szám indul</string>
   <string name="local_empty_database">Nincs még elmentett dalszöveg.</string>
+  <string name="pref_look_feel_category">Megjelenés</string>
   <string name="welcome">Üdvözöl a QuickLyric!</string>
   <string name="welcome2_sub">A keresett dalszövegek&#8230;\nItt és most.</string>
+  <string name="apps_desc">Minden alkamazásával működik</string>
+  <string name="apps_desc_sub">Ha gondja akadna némelyik lejátszóval (pl. Poweramp, GoneMAD, Spotify), bizonyosodjon meg róla hogy a \"Scrobbling\" vagy \"Állapot közvetítése\" be van kapcsolva.</string>
+  <string name="id_desc_sub">1. Azonosítson egy zeneszámot\n2. Ossza meg az eredményt a QuickLyric-el\n3. Élvezze a dalszövegét</string>
   <string name="refresh_desc">Mikor dalváltás van&#8230;</string>
   <string name="refresh_desc_sub">Nyomja le ezt a gombot. QuickLyric gondoskodik a többiről.</string>
   <string name="pref_more_category">Tovább</string>
+  <string name="first_launch">Játsszon zenét a készülékén és nyomja meg a frissítés gombot.</string>
+  <string name="share_prompt">Importálás MusicID-ről</string>
   <string name="undo">Vissza</string>
+  <string name="beta_dialog_content">
+1) Csatlakozás a Google+ közösséghez: 
+\nhttps://plus.google.com/communities/115504114424315189412\n
+2) Jelentkezés a Bétába: 
+\nhttps://play.google.com/apps/testing/com.geecko.QuickLyric
+    </string>
   <string name="skip">Átugor</string>
+  <string name="pref_theme">Kinézet</string>
+  <string name="pref_notifications">Értesítések</string>
+  <string name="defaut_theme">Sárga</string>
+  <string name="dark_theme">Sötét</string>
+  <string name="pref_notifications_sum">Diszkrét értesítést kap zeneszám változásánál</string>
+  <string name="pref_auto_save">Dalszövegek automatikus mentése</string>
+  <string name="pref_auto_save_sum">Az összes dalszöveg a készülékén lesz tárolva</string>
+  <string name="pref_night_mode">Éjjeli üzemmód</string>
+  <string name="pref_night_mode_sum">Sötét háttér használata éjjel</string>
+  <string name="scan_action">Zene Keresése</string>
+  <string name="warning">Figyelem</string>
+  <string name="content_providers_title">Zene keresése innen&#8230;</string>
+  <string name="dl_progress">Dalszövegek letöltése&#8230; %1$d/%2$d</string>
+  <string name="dl_finished">Letöltés befejeződött</string>
+  <string name="pref_providers">További dalszövegforrások</string>
+  <string name="pref_providers_sum">Minél többet választ ki, annál tovább fognak a letöltések tartani</string>
+  <string name="pref_beta">Legyen béta-tesztelő</string>
+  <string name="pref_beta_sum">Kapjon frissítéseket (új funkciók, hibajavítások, &#8230;) hamarabb és jelezzen vissza e-mail segítségével</string>
+  <string name="scan_error_no_content">Nem sikerült zenét találni</string>
+  <string name="no_results_why"><u>Miért?</u></string>
+  <string name="why_popup_title">Miért nem működik?</string>
+  <string name="download_category">Letöltések</string>
+  <string name="wearable_prompt">Megnyitás viselhető készüléken</string>
+  <string name="pref_opendyslexic">OpenDyslexic betűkészlet használata</string>
+  <string name="wrong_musicID">Nem támogatott MusicID szolgáltatás</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (csak Angolul)</string>
+  <string name="ignore_id3_toast">Letöltés kényszerítéséhez érintse meg a Frissítés gombot</string>
+  <string name="from_id3">(Hangfájlból kivont zeneszöveg)</string>
+  <string name="nighttime_start_dialog_title">Éjszaka kezdete</string>
+  <string name="nighttime_end_dialog_title">Éjszaka vége</string>
+  <string name="pref_force_screen_sum">Képernyő kikapcsolásának akadályozása zeneszöveg olvasása közben</string>
+  <string name="id3_write_error">Zeneszám metaadatának szerkesztése sikertelen</string>
+  <string name="id3_write_success">Zeneszám medaadata sikeresen szerkesztve</string>
+  <string name="id3_read_rationale">A QuickLyric-nek szüksége van erre az engedélyre hogy hozzá férhessen dalszövegekhez és lemezborítókhoz ezen a készüléken</string>
+  <string name="permission_denied">(engedély megtagadva)</string>
+  <string name="id3_write_permission_error">Az alkalmazást szükséges újraindítani írásjog szerzéséhez</string>
+  <string name="uri_storage">Ez a készülék</string>
+  <string name="uri_gmusic">Google Play Music könyvtár</string>
+  <string name="uri_spotify">Spotify könyvtár</string>
+  <string name="spotify_library">Zenekönyvtár</string>
+  <string name="spotify_playlists">Lejátszási listák</string>
+  <string name="source_punk">Punk Rock</string>
+  <string name="source_metal">Metal</string>
+  <string name="source_hip_hop">Hip Hop</string>
+  <string name="source_EDM">EDM</string>
+  <string name="source_japanese">Japán</string>
+  <string name="source_bollywood">Bollywood zene</string>
+  <string name="source_sync">Szinkronizált dalszövegek</string>
+  <string name="spotify_connection">Csatlakozás Spotify-ra&#8230;</string>
+  <string name="full_text_action">Teljes szöveg</string>
+  <string name="artworks_pref_title">Borítók automatikus letöltése</string>
+  <string name="pref_lrc">Szinkronizált dalszövegek</string>
+  <string name="red_theme">Piros</string>
+  <string name="purple_theme">Lila</string>
+  <string name="indigo_theme">Indigó</string>
+  <string name="green_theme">Zöld</string>
+  <string name="lime_theme">Lime</string>
+  <string name="brown_theme">Barna</string>
+  <string name="about_product_tour">Termékbemutató</string>
+  <string name="nl_title">És még valami.</string>
+  <string name="premium_title">Váltson Prémiumra</string>
+  <string name="remove_ads_title">Reklámok eltávolítása</string>
+  <string name="subscription_monthly">Havi</string>
+  <string name="subscription_yearly">Éves</string>
+  <string name="premium_karaoke_incent">Exklúzív *karaoke mód*</string>
+  <string name="premium_themes_incent">*7* új téma</string>
+  <string name="premium_night_mode_incent">*Éjszakai mód* a szemei pihentetéséért</string>
+  <string name="premium_thanks">Köszönöm a támogatását!</string>
+  <string name="about_crowdin">Segítsen az alkalmazást lefordítani a Crowdin-on</string>
+  <string-array name="notifications">
+    <item>Letiltva (alapértelmezett)</item>
+    <item>Engedélyezve</item>
+    <item>Engedélyezve (mindig látható)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Mindig engedélyezve</item>
+    <item>Csak Wi-Fi-n</item>
+  </string-array>
 </resources>

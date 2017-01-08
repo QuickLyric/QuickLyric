@@ -101,11 +101,15 @@
   <string name="scan_error_permission_denied">Квик лирику је одбијена дозвола да скенира вашу музику</string>
   <string name="id3_write_error">Неуспех уређивања метаподатака песме</string>
   <string name="id3_write_success">Метаподаци песме успешно уређени</string>
+  <string name="id3_read_rationale">Квик лирик захтева дозволу за читање стихова и омота са овог уређаја</string>
   <string name="permission_denied">(приступ одбијен)</string>
+  <string name="id3_write_permission_error">Апликација треба поново да се покрене да би дозволе уписа ступиле на снагу</string>
   <string name="resync_action">Ресинхронизуј</string>
   <string name="uri_storage">овог уређаја</string>
   <string name="uri_gmusic">ваше Гугл Плеј музичке библиотеке</string>
   <string name="uri_spotify">ваше Спотифај библиотеке</string>
+  <string name="spotify_library">Ваше сачуване нумере</string>
+  <string name="spotify_playlists">Ваше листе нумера</string>
   <string name="source_punk">Панк рок</string>
   <string name="source_metal">Метал</string>
   <string name="source_hip_hop">Хип хоп</string>
@@ -114,8 +118,9 @@
   <string name="source_bollywood">Боливудска музика</string>
   <string name="source_sync">Синхронизовани стихови</string>
   <string name="spotify_connection">Повезујем се на Спотифај&#8230;</string>
-  <string name="full_text_action">Прикажи цео текст</string>
   <string name="artworks_pref_title">Аутоматско преузимање омота</string>
+  <string name="artworks_pref_sum">Може да резултује наплатом преноса мобилних података</string>
+  <string name="pref_lrc_sum">Истиче речи које се певају — не подржавају сви музички плејери</string>
   <string name="pref_lrc">Синхронизовани стихови</string>
   <string name="red_theme">Црвена</string>
   <string name="purple_theme">Љубичаста</string>
@@ -124,7 +129,9 @@
   <string name="lime_theme">Лимета</string>
   <string name="brown_theme">Смеђа</string>
   <string name="ad_supported_title">Квик лирик је подржан рекламама</string>
+  <string name="ad_supported_text">Рекламе нам омогућавају да платимо извођачима и власницима права за њихов рад.\nНадамо се да уживате у коришћењу Квик лирика!</string>
   <string name="about_read_ToS">Прочитајте наше услове коришћења</string>
+  <string name="about_product_tour">Турнеја кроз производ</string>
   <string name="nl_title">И још нешто.</string>
   <string name="nl_instructions">Да би Квик лирик радио са свим плејерима, неке поставке морају бити измењене.</string>
   <string name="nl_settings_link">Дозволи Квик лирику да чита моја обавештења</string>
@@ -136,8 +143,9 @@
   <string name="premium_ads_incent">Нема више реклама!</string>
   <string name="premium_karaoke_incent">Ексклузивни *караоке режим*</string>
   <string name="premium_themes_incent">*7* нових тема</string>
-  <string name="premium_night_mode_incent">*Ноћи режим* вам одмара очи ноћу.</string>
+  <string name="premium_night_mode_incent">*Ноћи режим* вам одмара очи ноћу</string>
   <string name="premium_thanks">Хвала вам на подршци!</string>
+  <string name="about_crowdin">Помозите превођењем апликације на Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">Квик лирик ће да преузме стихове за укупно %1$d песму.\
         Побрините се да имате стабилну везу %2$d минута.</item>

@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">Mengabaikan panjang trek</string>
   <string name="pref_20min_ignore_sum">Trek yang lebih dari 20 menit (seperti podcast) tidak dianggap sebagai lagu</string>
   <string name="pref_about">Tentang</string>
+  <string name="send_feedback">Kirim Masukan</string>
   <string name="local_title">Lirik yang disimpan</string>
   <string name="settings_title">Pengaturan</string>
   <string name="save_action">Simpan</string>
@@ -39,55 +40,113 @@
   <string name="local_empty_database">Anda belum diselamatkan lirik apapun.</string>
   <string name="pref_look_feel_category">Tampilan dan nuansa</string>
   <string name="welcome">Selamat datang di QuickLyric!</string>
-  <string name="welcome2_sub">Lirik yang sedang Anda for…\nRight di sini, sekarang.</string>
-  <string name="id_desc_sub">1. mengidentifikasi song\n2. Berbagi hasil untuk QuickLyric\n3. Menikmati lirik</string>
+  <string name="welcome2_sub">Lirik yang sedang Anda for&#8230;\nRight di sini, sekarang.</string>
+  <string name="apps_desc">Cocok dengan semua aplikasi anda</string>
+  <string name="apps_desc_sub">Jika anda mengalami masalah dengan pemutar musik Anda (contohnya Poweramp, GoneMAD atau Spotify), pastikan \"Scrobbling\" atau \"Status Siaran Perangkat\" diaktifkan.</string>
+  <string name="id_desc">Integrasi dengan aplikasi MusicID favorit Anda.\n(Shazam™, SoundHound™, etc.)</string>
+  <string name="id_desc_sub">1. Identifikasi Lagunya\n2. Bagikan hasilnya ke QuickLyric\n3. Nikmati liriknya</string>
   <string name="refresh_desc">Ketika lagu telah berubah&#8230;</string>
-  <string name="refresh_desc_sub">Tekan tombol ini. QuickLyric akan melakukan sisanya.</string>
-  <string name="pref_more_category">Lebih</string>
-  <string name="first_launch">Mulai bermain musik pada perangkat Anda dan tekan refresh.</string>
+  <string name="refresh_desc_sub">Sentuh tombol ini. QuickLyric akan melakukan perubahan.</string>
+  <string name="pref_more_category">Lebih Lanjut</string>
+  <string name="first_launch">Mulailah memutar musik pada perangkat Anda dan tekan muat ulang.</string>
   <string name="share_prompt">Impor dari MusicID</string>
   <string name="undo">Membatalkan</string>
-  <string name="beta_dialog_content">1) bergabung dengan Google + komunitas: \ nhttps://plus.google.com/communities/115504114424315189412 \n 2) yang Sign up untuk Beta: \ nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
-  <string name="skip">Skip</string>
+  <string name="beta_dialog_content">
+1) Bergabunglah dengan komunitas Google+: \ nhttps://plus.google.com/communities/115504114424315189412 \n 2) Daftar untuk percobaan: \ nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
+  <string name="skip">Lewati</string>
   <string name="pref_theme">Tema</string>
   <string name="pref_notifications">Pemberitahuan</string>
+  <string name="defaut_theme">Amber</string>
   <string name="dark_theme">Gelap</string>
-  <string name="pref_notifications_sum">Mendapatkan pemberitahuan bijaksana ketika lagu perubahan</string>
-  <string name="pref_auto_save">Secara otomatis menyimpan lirik</string>
+  <string name="pref_notifications_sum">Dapatkan pemberitahuan ketika lagu berubah</string>
+  <string name="pref_auto_save">Simpan lirik otomatis</string>
   <string name="pref_auto_save_sum">Semua lirik akan disimpan pada perangkat Anda</string>
   <string name="pref_night_mode">Modus malam</string>
-  <string name="pref_night_mode_sum">Menampilkan latar belakang gelap di malam hari</string>
-  <string name="scan_action">Memindai musik</string>
-  <string name="warning">Peringatan</string>
-  <string name="content_providers_title">Memindai musik dari&#8230;</string>
-  <string name="dl_progress">Men-download lirik… %1$d/%2$d</string>
+  <string name="pref_night_mode_sum">Tampilkan latar belakang gelap pada malam hari</string>
+  <string name="scan_action">Pindai musik</string>
+  <string name="warning">Perhatian</string>
+  <string name="content_providers_title">Pindai musik dari&#8230;</string>
+  <string name="dl_progress">Men-download lirik&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Download selesai</string>
   <string name="pref_providers">Sumber-sumber tambahan lirik</string>
-  <string name="pref_providers_sum">Semakin Anda pilih, semakin lama setiap download akan mengambil</string>
-  <string name="pref_beta">Menjadi beta tester</string>
-  <string name="pref_beta_sum">Dapatkan update (fitur baru, perbaikan bug,…) lebih cepat dan laporan kembali melalui email</string>
-  <string name="scan_error_no_content">Tidak dapat menemukan setiap musik</string>
+  <string name="pref_providers_sum">Semakin banyak yang Anda pilih, semakin lama juga mengunduhnya</string>
+  <string name="pref_beta">Jadi beta tester</string>
+  <string name="pref_beta_sum">Dapatkan pembaruan (fitur baru, perbaikan bug,&#8230;) lebih cepat dan laporkan kembali melalui email</string>
+  <string name="scan_error_no_content">Tidak dapat menemukan musik apapun</string>
   <string name="no_results_why"><u>Mengapa?</u></string>
   <string name="why_popup_text"><![CDATA[
-Anda sedang mencari lirik \"%1$s\" oleh %2$s. Sayangnya QuickLyric couldn\'t menemukan mereka… <br/> <br/> Beberapa kemungkinan alasan mengapa: <br/> <br/>
-• adalah Anda musik <strong>tagged</strong> dengan benar? QuickLyric tidak dapat mengenali trek yang aren\'t tagged. <br/>
+Anda sedang mencari lirik \"%1$s\" oleh %2$s. Sayangnya QuickLyric tidak dapat menemukannya... <br/> <br/> 
+Beberapa kemungkinan kenapa: <br/>
+<br/>
+• Apakah musik anda<strong>diberi tanda</strong> dengan benar? QuickLyric tidak dapat mengenali trek yang tidak ditandai. <br/>
 • Periksa jika sambungan Anda bekerja. <br/>
-• Mungkin ini lagu isn\'t bagian Katalog utama. Apakah Anda memeriksa <strong>penyedia tambahan</strong> dalam pengaturan? <br/>
+• Mungkin lagu ini bukan dari katalog utama. Apakah Anda sudah mencentang<strong>penyedia tambahan</strong>pada pengaturan?<br/>
 • Anda mungkin telah menemukan bug. Jika demikian, silakan email saya <br/>
-• Akhirnya, itu \'s juga mungkin bahwa lirik untuk lagu ini aren\'t tersedia. Jika Anda memiliki saran mengenai penambahan Katalog, merasa bebas untuk email saya <br/>
+• Akhirnya, mungkin saja bahwa lirik untuk lagu ini tidak tersedia. Jika Anda memiliki saran mengenai penambahan Katalog, jangan sungkan untuk mengirim email ke saya. <br/>
 ]]></string>
-  <string name="why_popup_title">Mengapa tidak bekerja?</string>
-  <string name="download_category">Mingguan</string>
-  <string name="wearable_prompt">Buka pada dpt dipakai</string>
-  <string name="pref_opendyslexic">Penggunaan OpenDyslexic font</string>
-  <string name="pref_opendyslexic_sum">Menggunakan font khusus diciptakan untuk pembaca dengan kecacatan membaca</string>
-  <string name="wrong_musicID">Tidak didukung MusicID Layanan</string>
+  <string name="why_popup_title">Kenapa tidak bisa?</string>
+  <string name="download_category">Unduhan</string>
+  <string name="wearable_prompt">Buka pada Smartwatch</string>
+  <string name="pref_opendyslexic">Gunakan font OpenDyslexic</string>
+  <string name="pref_opendyslexic_sum">Gunakan font khusus yang dibuat untuk pembaca yang memiliki kekurangan dalam membaca</string>
+  <string name="wrong_musicID">Layanan MusicID tidak didukung</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (hanya dalam bahasa Inggris)</string>
   <string name="ignore_id3_toast">Tekan tombol Refresh untuk memaksa download</string>
   <string name="from_id3">(Lirik diekstrak dari audio file)</string>
   <string name="nighttime_start_dialog_title">Malam hari mulai</string>
   <string name="nighttime_end_dialog_title">Akhir malam</string>
-  <string name="pref_force_screen_sum">Mencegah layar mematikan saat membaca lirik.</string>
-  <string name="pref_force_screen_on">Kekuatan layar pada</string>
+  <string name="pref_force_screen_sum">Cegah layar dari tidur saat membaca lirik</string>
+  <string name="pref_force_screen_on">Paksa layar menyala</string>
+  <string name="scan_error_permission_denied">QuickLyric telah ditolak izinnya untuk memindai musik Anda</string>
+  <string name="id3_write_error">Gagal mengedit metadata lagu</string>
+  <string name="id3_write_success">Metadata lagu berhasil diedit</string>
+  <string name="id3_read_rationale">QuickLyric membutuhkan izin untuk membaca lirik dan sampul album yang ada diperangkat ini</string>
+  <string name="permission_denied">(izin ditolak)</string>
+  <string name="id3_write_permission_error">Aplikasi perlu dimulai ulang untuk mendapatkan izin menulis</string>
+  <string name="resync_action">Sinkron ulang</string>
+  <string name="uri_storage">Perangkat ini</string>
+  <string name="uri_gmusic">Pustaka Google Play Musik</string>
+  <string name="uri_spotify">Pustaka Spotify Anda</string>
+  <string name="spotify_library">Track tersimpan Anda</string>
+  <string name="spotify_playlists">Daftar putar Anda</string>
+  <string name="source_punk">Punk Rock</string>
+  <string name="source_metal">Metal</string>
+  <string name="source_hip_hop">Hip Hop</string>
+  <string name="source_EDM">Electronic Dance Music</string>
+  <string name="source_japanese">Jepang</string>
+  <string name="source_bollywood">Musik Bollywood</string>
+  <string name="source_sync">Sinkronkan lirik</string>
+  <string name="spotify_connection">Menghubungkan ke Spotify&#8230;</string>
+  <string name="full_text_action">Teks lengkap</string>
+  <string name="artworks_pref_title">Download otomatis sampul album</string>
+  <string name="artworks_pref_sum">Dapat mengakibatkan biaya data seluler</string>
+  <string name="pref_lrc_sum">Sorot kata-kata yang sedang dinyanyikan - tidak semua pemutar musik didukung</string>
+  <string name="pref_lrc">Sinkronkan lirik</string>
+  <string name="red_theme">Merah</string>
+  <string name="purple_theme">Ungu</string>
+  <string name="indigo_theme">Indigo</string>
+  <string name="green_theme">Hijau</string>
+  <string name="lime_theme">Lime</string>
+  <string name="brown_theme">Coklat</string>
+  <string name="ad_supported_title">QuickLyric bertumpu pada iklan</string>
+  <string name="ad_supported_text">Iklan mengizinkan kita untuk membayar para artis dan pemegang hak untuk karya mereka.\nKami harap Anda menikmati penggunaan QuickLyric!</string>
+  <string name="about_read_ToS">Bacalah Syarat dan Ketentuan kami</string>
+  <string name="about_product_tour">Safari produk</string>
+  <string name="nl_title">Satu hal lagi.</string>
+  <string name="nl_instructions">Agar QuickLyric berfungsi pada semua pemutar musik, beberapa setelan perlu diubah.</string>
+  <string name="nl_settings_link">Izinkan QuickLyric untuk membaca pemberitahuan saya</string>
+  <string name="changelog">Catatan perubahan</string>
+  <string name="premium_title">Dapatkan Premium</string>
+  <string name="remove_ads_title">Hapus iklan</string>
+  <string name="subscription_monthly">Bulanan</string>
+  <string name="subscription_yearly">Tahunan</string>
+  <string name="premium_sum_incent">Jadilah Premium untuk mendukung pengembangan QuickLyric dan dapatkan akses ke dalam fitur berikut:</string>
+  <string name="premium_ads_incent">Tidak ada lagi Iklan!</string>
+  <string name="premium_karaoke_incent">Spesial *karaoke mode*</string>
+  <string name="premium_themes_incent">7 tema baru</string>
+  <string name="premium_night_mode_incent">*mode malam* untuk merehatkan mata Anda di malam hari</string>
+  <string name="premium_thanks">Terima kasih atas dukungan Anda!</string>
+  <string name="about_crowdin">Bantu terjemahkan aplikasi di Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric sekarang men-download Lirik untuk total %1$d lagu. \ pastikan Anda memiliki koneksi yang stabil untuk di setidaknya %2$d menit.</item>
   </plurals>
@@ -98,5 +157,9 @@ Anda sedang mencari lirik \"%1$s\" oleh %2$s. Sayangnya QuickLyric couldn\'t men
     <item>Cacat (default)</item>
     <item>Diaktifkan</item>
     <item>Diaktifkan (lengket)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Selalu diaktifkan</item>
+    <item>Hanya pada Wi-Fi</item>
   </string-array>
 </resources>

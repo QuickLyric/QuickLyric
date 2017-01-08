@@ -115,7 +115,7 @@ Algumas possíveis razões:<br/>
   <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
   <string name="spotify_connection">A ligar ao Spotify&#8230;</string>
-  <string name="full_text_action">Mostrar texto completo</string>
+  <string name="full_text_action">Texto completo</string>
   <string name="artworks_pref_title">Download automático das capas</string>
   <string name="artworks_pref_sum">Pode resultar em gasto de dados móveis</string>
   <string name="pref_lrc_sum">Sublinha as palavras que estão a ser cantadas. Nem todos os players de música são suportados.</string>
@@ -141,7 +141,7 @@ Algumas possíveis razões:<br/>
   <string name="premium_ads_incent">Sem mais anúncios!</string>
   <string name="premium_karaoke_incent">Um *modo karaoke* exclusivo</string>
   <string name="premium_themes_incent">*7* temas novos</string>
-  <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite.</string>
+  <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite</string>
   <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric vai agora descarregar a letra para %1$d música. \

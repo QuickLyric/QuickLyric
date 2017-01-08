@@ -143,6 +143,8 @@ A few possible reasons why:<br/>
     <string name="nl_title">One last thing.</string>
     <string name="nl_instructions">For QuickLyric to work with all players, some settings need to be changed.</string>
     <string name="nl_settings_link">Allow QuickLyric to read my notifications</string>
+    <string name="changelog">Changelog</string>
+    <string name="rate_us">Rate the app</string>
 
     <string name="premium_title">Get Premium</string>
     <string name="remove_ads_title">Remove ads</string>
@@ -152,7 +154,9 @@ A few possible reasons why:<br/>
     <string name="premium_ads_incent">No more ads!</string>
     <string name="premium_karaoke_incent">An exclusive *karaoke mode*</string>
     <string name="premium_themes_incent">*7* new themes</string>
-    <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night.</string>
+    <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night</string>
+    <string name="premium_incentive">Support the artists and the team behind QuickLyric</string>
+    <string name="premium_doubt">Unsure about getting a subscription? Shoot us an email: contact@quicklyric.be</string>
     <string name="premium_thanks">Thanks for your support!</string>
     <string name="about_crowdin">Help translate the app on Crowdin</string>
 

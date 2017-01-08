@@ -109,6 +109,8 @@
   <string name="uri_storage">此设备</string>
   <string name="uri_gmusic">你的 Google Play 音乐库</string>
   <string name="uri_spotify">你的 Spotify 音乐库</string>
+  <string name="spotify_library">你保存了曲库</string>
+  <string name="spotify_playlists">播放列表</string>
   <string name="source_punk">朋克摇滚</string>
   <string name="source_metal">金属</string>
   <string name="source_hip_hop">嘻哈</string>
@@ -117,7 +119,7 @@
   <string name="source_bollywood">宝莱坞</string>
   <string name="source_sync">同步歌词</string>
   <string name="spotify_connection">连接到 Spotify...</string>
-  <string name="full_text_action">显示文本</string>
+  <string name="full_text_action">全文</string>
   <string name="artworks_pref_title">自动下载专辑封面</string>
   <string name="artworks_pref_sum">可能产生移动数据流量费用</string>
   <string name="pref_lrc_sum">高亮同步歌词 — — 支持部分播放器</string>
@@ -135,6 +137,8 @@
   <string name="nl_title">最后一件事。</string>
   <string name="nl_instructions">为了兼容众多播放器，您可能需要更改一些设置。</string>
   <string name="nl_settings_link">允许 QuickLyric 读取通知栏信息</string>
+  <string name="changelog">更新日志</string>
+  <string name="rate_us">好评本应用</string>
   <string name="premium_title">升级至专业版</string>
   <string name="remove_ads_title">移除广告</string>
   <string name="subscription_monthly">每月</string>
@@ -143,8 +147,9 @@
   <string name="premium_ads_incent">没有广告!</string>
   <string name="premium_karaoke_incent">独有的 * 卡拉 ok 模式 *</string>
   <string name="premium_themes_incent">* 7 * 款新主题</string>
-  <string name="premium_night_mode_incent">* 夜间模式 * 在晚上保护您的眼睛。</string>
+  <string name="premium_night_mode_incent">* 夜间模式 * 在晚上保护您的眼睛</string>
   <string name="premium_thanks">感谢您的支持 ！</string>
+  <string name="about_crowdin">在Crowdin上协助QuickLyrics本地化</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric即将为 %1$d 首歌下载歌词。\
         确保你有至少 %2$d 分钟(s)的通畅网络。</item>

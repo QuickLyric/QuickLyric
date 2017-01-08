@@ -111,6 +111,8 @@
   <string name="uri_storage">このデバイス</string>
   <string name="uri_gmusic">ご利用の Google Play 音楽ライブラリ</string>
   <string name="uri_spotify">ご利用の Spotify ライブラリ</string>
+  <string name="spotify_library">保存したトラック</string>
+  <string name="spotify_playlists">プレイリスト</string>
   <string name="source_punk">パンクロック</string>
   <string name="source_metal">メタル</string>
   <string name="source_hip_hop">ヒップ ホップ</string>
@@ -119,7 +121,7 @@
   <string name="source_bollywood">ボリウッド音楽</string>
   <string name="source_sync">同期した歌詞</string>
   <string name="spotify_connection">Spotify に接続中&#8230;</string>
-  <string name="full_text_action">全文を表示</string>
+  <string name="full_text_action">全文</string>
   <string name="artworks_pref_title">自動的にアートワークをダウンロード</string>
   <string name="artworks_pref_sum">モバイル データ料金がかかることがあります</string>
   <string name="pref_lrc_sum">歌われている歌詞をハイライト表示します。すべての音楽プレーヤーがサポートされているわけではありません。</string>
@@ -137,6 +139,8 @@
   <string name="nl_title">最後に一つ。</string>
   <string name="nl_instructions">QuickLyric をすべてのプレーヤーで動作させるには、いくつかの設定を変更する必要があります。</string>
   <string name="nl_settings_link">QuickLyric で私の通知を読むことを許可する</string>
+  <string name="changelog">変更履歴</string>
+  <string name="rate_us">アプリを評価する</string>
   <string name="premium_title">プレミアム版を入手</string>
   <string name="remove_ads_title">広告を削除</string>
   <string name="subscription_monthly">毎月</string>
@@ -145,8 +149,9 @@
   <string name="premium_ads_incent">広告はありません!</string>
   <string name="premium_karaoke_incent">唯一の *カラオケ モード*</string>
   <string name="premium_themes_incent">*7* つの新しいテーマ</string>
-  <string name="premium_night_mode_incent">*夜間モード* が夜に目を休ませてくれます。</string>
+  <string name="premium_night_mode_incent">*夜間モード* が夜に目を休ませてくれます</string>
   <string name="premium_thanks">ご支援ありがとうございます!</string>
+  <string name="about_crowdin">Crowdin でアプリの翻訳を支援する</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>

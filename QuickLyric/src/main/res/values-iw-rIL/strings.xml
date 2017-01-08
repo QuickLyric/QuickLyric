@@ -85,14 +85,6 @@
   <string name="nighttime_end_dialog_title">סיום זמן לילה</string>
   <string name="pref_force_screen_sum">מנע מהמסך להכבות בזמן קריאת מילות שיר.</string>
   <string name="pref_force_screen_on">כפה על המסך להישאר פועל</string>
-  <plurals name="scan_dialog">
-    <item quantity="one">QuickLyric יוריד עכשיו את מילות השיר עבור סך הכל %1$d שיר. וודא שיש לך חיבור יציב ל-%2$d דקות.</item>
-    <item quantity="other">QuickLyric יוריד עכשיו את מילות השיר עבור סך הכל %1$d שירים. וודא שיש לך חיבור יציב ל-%2$d דקות.</item>
-  </plurals>
-  <plurals name="dl_finished_desc">
-    <item quantity="one">הורדו מילות השיר עבור %1$d שיר</item>
-    <item quantity="other">הורדו מילות השיר עבור %1$d שירים</item>
-  </plurals>
   <string-array name="notifications">
     <item>מבוטל (ברירת מחדל)</item>
     <item>אפשר</item>

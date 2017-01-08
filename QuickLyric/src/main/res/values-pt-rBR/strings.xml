@@ -41,9 +41,9 @@
   <string name="pref_look_feel_category">Olhe e sinta</string>
   <string name="welcome">Bem-vindo ao QuickLyric!</string>
   <string name="welcome2_sub">As letras que você está procurando&#8230;\nAqui, e agora.</string>
-  <string name="apps_desc">Funciona com todas as suas aplicações</string>
-  <string name="apps_desc_sub">Se tiveres problemas com o teu player (ex: Poweramp, GoneMAD or Spotify), certifica-te que tem \"Scrobbling\" ou \"Status de Transmissão\" ligado.</string>
-  <string name="id_desc">Integração com as suas aplicações MusicID favoritas. \n(Shazam, Soundhound, etc.)</string>
+  <string name="apps_desc">Funciona com todos os seus aplicativos</string>
+  <string name="apps_desc_sub">Se você tiver problemas com seu reprodutor (ex: Poweramp, GoneMAD ou Spotify), tenha certeza que as opções \"Scrobbling\" ou \"Broadcast Status\" foram selecionadas.</string>
+  <string name="id_desc">Integração com seus aplicativos de MusicID.\n(Shazam™, SoundHound™, etc.)</string>
   <string name="id_desc_sub">Identifique uma música\n2. Divulgue os resultados ao QuickLyric\n3. Aproveite suas letras</string>
   <string name="refresh_desc">Quando a música mudar&#8230;</string>
   <string name="refresh_desc_sub">Clique no botão. QuickLyric fará o resto.</string>
@@ -90,7 +90,7 @@ Algumas possíveis razões:<br/>
   <string name="pref_opendyslexic">Use a fonte OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">Use uma fonte especial criada para usuários com dificuldades de leitura</string>
   <string name="wrong_musicID">Serviço MusicID não suportado</string>
-  <string name="pref_issues_sum">contact@quicklyric.be (apenas inglês) </string>
+  <string name="pref_issues_sum">contact@quicklyric.be (Apenas Inglês)</string>
   <string name="ignore_id3_toast">Toque no botão atualizar para forçar um download</string>
   <string name="from_id3">(Letra extraída do arquivo de áudio)</string>
   <string name="nighttime_start_dialog_title">Início da noite</string>
@@ -98,51 +98,55 @@ Algumas possíveis razões:<br/>
   <string name="pref_force_screen_sum">Impedir que a tela se desligue durante a leitura das letras.</string>
   <string name="pref_force_screen_on">Manter a tela ligada</string>
   <string name="scan_error_permission_denied">QuickLyric foi negada a permissão de escanear a sua música</string>
-  <string name="id3_write_error">Falha ao editar os metadados da música</string>
-  <string name="id3_write_success">Metadados da música editados com sucesso</string>
-  <string name="id3_read_rationale">QuickLyrics precisa desta permissão para ler as letras e as capas disponíveis neste dispositivo</string>
+  <string name="id3_write_error">A edição dos metadados da música falhou</string>
+  <string name="id3_write_success">A edição dos metadados da música foi bem sucedida</string>
+  <string name="id3_read_rationale">O QuickLyric necessita desta permissão para ter acesso às letras e imagens de capas disponíveis no dispositivo</string>
   <string name="permission_denied">(permissão negada)</string>
-  <string name="id3_write_permission_error">A aplicação precisa de reiniciar para obter permissão de escrita</string>
+  <string name="id3_write_permission_error">O aplicativo precisa ser reinicializado para obter acesso de escrita</string>
   <string name="resync_action">Ressincronização</string>
   <string name="uri_storage">Este dispositivo</string>
-  <string name="uri_gmusic">A tua biblioteca do Google Play Music</string>
+  <string name="uri_gmusic">Sua biblioteca do Google Play Música</string>
   <string name="uri_spotify">Sua biblioteca de Spotify</string>
+  <string name="spotify_library">Suas músicas guardadas</string>
+  <string name="spotify_playlists">Suas listas de reprodução</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
-  <string name="source_EDM">Música eletrónica</string>
-  <string name="source_japanese">Japonês</string>
+  <string name="source_EDM">Música eletrônica (dançante)</string>
+  <string name="source_japanese">Japonesa</string>
   <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
   <string name="spotify_connection">Conectando ao Spotify&#8230;</string>
-  <string name="full_text_action">Mostrar texto completo</string>
+  <string name="full_text_action">Texto completo</string>
   <string name="artworks_pref_title">Download automático das capas</string>
   <string name="artworks_pref_sum">Pode resultar em gasto de dados móveis</string>
-  <string name="pref_lrc_sum">Sublinha as palavras que estão a ser cantadas. Nem todos os players de música são suportados.</string>
+  <string name="pref_lrc_sum">Sublinhar as palavras que estão sendo cantadas. Nem todos os tocadores de música são suportados</string>
   <string name="pref_lrc">Letras sincronizadas</string>
   <string name="red_theme">Vermelho</string>
   <string name="purple_theme">Roxo</string>
-  <string name="indigo_theme">Índigo</string>
+  <string name="indigo_theme">Azul indigo</string>
   <string name="green_theme">Verde</string>
   <string name="lime_theme">Limão</string>
-  <string name="brown_theme">Castanho</string>
+  <string name="brown_theme">Marrom</string>
   <string name="ad_supported_title">QuickLyrics possui anúncios</string>
   <string name="ad_supported_text">Os anúncios permitem-nos pagar aos artistas e titulares de direitos pelo seu trabalho.\nEsperamos que desfrute do QuickLyric!</string>
   <string name="about_read_ToS">Leia os Termos de Serviço</string>
   <string name="about_product_tour">Tour do Produto</string>
   <string name="nl_title">Uma última coisa.</string>
-  <string name="nl_instructions">Para o QuickLyric funcionar com todos os players, algumas definições precisam de ser mudadas.</string>
+  <string name="nl_instructions">Para o QuickLyric funcionar com todos os tocadores, algumas definições precisam de ser mudadas.</string>
   <string name="nl_settings_link">Permitir que o QuickLyric leia as minhas notificações</string>
-  <string name="premium_title">Obter Premium</string>
+  <string name="changelog">Alterações</string>
+  <string name="premium_title">Seja Premium</string>
   <string name="remove_ads_title">Remover anúncios</string>
   <string name="subscription_monthly">Mensal</string>
   <string name="subscription_yearly">Anualmente</string>
   <string name="premium_sum_incent">Torne-se Premium para ajudar o desenvolvimento do QuickLyric e obtenha acesso aos seguintes recursos:</string>
-  <string name="premium_ads_incent">Sem mais anúncios!</string>
+  <string name="premium_ads_incent">Sem anúncios!</string>
   <string name="premium_karaoke_incent">Um *modo karaoke* exclusivo</string>
   <string name="premium_themes_incent">*7* temas novos</string>
-  <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite.</string>
-  <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
+  <string name="premium_night_mode_incent">Um *modo noturno* para descansar os teus olhos à noite</string>
+  <string name="premium_thanks">Obrigado pelo seu apoio!</string>
+  <string name="about_crowdin">Ajude a traduzir o aplicativo no Crowdin</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric irá agora baixar a letra para um total de %1$d música.\
 Certifique-se de manter uma conexão estável por %2$d minuto.</item>
@@ -160,6 +164,6 @@ Certifique-se de manter uma conexão estável por pelo menos %2$d minuto(s).</it
   </string-array>
   <string-array name="artwork_download">
     <item>Sempre ligado</item>
-    <item>Só em Wi-Fi</item>
+    <item>Somente em WiFi</item>
   </string-array>
 </resources>
