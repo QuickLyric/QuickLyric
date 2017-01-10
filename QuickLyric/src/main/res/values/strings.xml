@@ -143,7 +143,7 @@ A few possible reasons why:<br/>
     <string name="nl_title">One last thing.</string>
     <string name="nl_instructions">For QuickLyric to work with all players, some settings need to be changed.</string>
     <string name="nl_settings_link">Allow QuickLyric to read my notifications</string>
-    <string name="changelog">Changelog</string>
+    <string name="changelog">What\'s new?</string>
     <string name="rate_us">Rate the app</string>
 
     <string name="premium_title">Get Premium</string>
