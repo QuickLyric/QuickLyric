@@ -29,6 +29,7 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -56,7 +57,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.MenuItem;
@@ -79,6 +82,7 @@ import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
+import com.geecko.QuickLyric.utils.ChangelogStringBuilder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.EmailConfigGenTool;
 import com.geecko.QuickLyric.utils.IMMLeaks;
@@ -217,10 +221,17 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             } else
                 init(fragmentManager, false);
         }
-        if (!getSharedPreferences("intro_slides", Context.MODE_PRIVATE).getBoolean("seen", false)) {
+        boolean seenIntro = getSharedPreferences("intro_slides", Context.MODE_PRIVATE).getBoolean("seen", false);
+        if (!seenIntro) {
             registerTempReceiver();
             setupDemoScreen();
         }
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int versionCode = sharedPreferences.getInt("VERSION_CODE", seenIntro ? BuildConfig.VERSION_CODE - 1 : BuildConfig.VERSION_CODE);
+        sharedPreferences.edit().putInt("VERSION_CODE", BuildConfig.VERSION_CODE).apply();
+        if (versionCode < BuildConfig.VERSION_CODE)
+            onAppUpdated(versionCode);
     }
 
     private LyricsViewFragment init(FragmentManager fragmentManager, boolean startEmpty) {
@@ -738,6 +749,37 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             refreshFAB.show();
         else
             refreshFAB.hide();
+    }
+
+    private void onAppUpdated(int versionCode) {
+        String changelog = ChangelogStringBuilder.getChangelog(getResources(), versionCode);
+        if (changelog == null || changelog.isEmpty())
+            return;
+        CharSequence spannedChangelog = Html.fromHtml(changelog);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(string.changelog)
+                .setCancelable(true)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("Translate the app", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+//                .setNeutralButton(string.rate_us, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss(); TODO: Add play store page here
+//                    }
+//                }) TODO: only show this button on PLAY variant
+                .setMessage(spannedChangelog)
+                .create();
+        dialog.show();
     }
 
     @Override
