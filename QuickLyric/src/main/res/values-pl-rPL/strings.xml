@@ -142,12 +142,10 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="remove_ads_title">Usuń reklamy</string>
   <string name="subscription_monthly">Na miesiąc</string>
   <string name="subscription_yearly">Na rok</string>
-  <string name="premium_sum_incent">Zostań Premium, aby wspierać rozwój QuickLyric i uzyskać dostęp do następujących funkcji:</string>
   <string name="premium_ads_incent">Żadnych reklam!</string>
   <string name="premium_karaoke_incent">Ekskluzywny *tryb karaoke*</string>
   <string name="premium_themes_incent">*7* nowych skórek</string>
   <string name="premium_night_mode_incent">*Tryb nocny*, aby dać odpocząć Twoim oczom</string>
-  <string name="premium_incentive">Wesprzyj artystów oraz twórców QuickLyric</string>
   <string name="premium_doubt">Nie masz pewności, czy zasubskrybować? Napisz do nas: contact@quicklyric.be</string>
   <string name="premium_thanks">Dziękujemy za wsparcie!</string>
   <string name="about_crowdin">Pomóż w tłumaczeniu aplikacji na Crowdin</string>

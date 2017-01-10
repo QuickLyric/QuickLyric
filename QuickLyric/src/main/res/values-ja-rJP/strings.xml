@@ -145,13 +145,14 @@
   <string name="remove_ads_title">広告を削除</string>
   <string name="subscription_monthly">毎月</string>
   <string name="subscription_yearly">毎年</string>
-  <string name="premium_sum_incent">プレミアム版になると、QuickLyric の開発をサポートし、次の機能にアクセスできるようになります:</string>
   <string name="premium_ads_incent">広告はありません!</string>
   <string name="premium_karaoke_incent">唯一の *カラオケ モード*</string>
   <string name="premium_themes_incent">*7* つの新しいテーマ</string>
   <string name="premium_night_mode_incent">*夜間モード* が夜に目を休ませてくれます</string>
+  <string name="premium_doubt">サブスクリプションの入手についてご不明な点がありますか? 私たちにメールをお送りください: contact@quicklyric.be</string>
   <string name="premium_thanks">ご支援ありがとうございます!</string>
   <string name="about_crowdin">Crowdin でアプリの翻訳を支援する</string>
+  <string name="online_title">オンラインカタログ</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>

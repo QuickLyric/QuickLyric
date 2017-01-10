@@ -141,7 +141,6 @@ Alcune cause potrebbero essere:<br/>
   <string name="remove_ads_title">Rimuovi gli annunci</string>
   <string name="subscription_monthly">Mensile</string>
   <string name="subscription_yearly">Annuale</string>
-  <string name="premium_sum_incent">Passa a Premium per sostenere lo sviluppo di QuickLyric ed avere accesso a:</string>
   <string name="premium_ads_incent">Niente più pubblicità!</string>
   <string name="premium_karaoke_incent">Un\'esclusiva *modalità karaoke*</string>
   <string name="premium_themes_incent">*7* nuovi temi</string>
@@ -158,23 +157,6 @@ Alcune cause potrebbero essere:<br/>
     <item quantity="one">Testo di %1$d canzone scaricato</item>
     <item quantity="other">Testo di %1$d canzoni scaricati</item>
   </plurals>
-  <string-array name="nav_items">
-    <item>@string/title_lyrics</item>
-    <item>@string/local_title</item>
-    <item>-</item>
-    <item>@string/settings_title</item>
-    <item>@string/send_feedback</item>
-    <item>@string/pref_about</item>
-    <item>@string/premium_title</item>
-  </string-array>
-  <string-array name="providers">
-    <item>@string/source_punk</item>
-    <item>@string/source_metal</item>
-    <item>@string/source_hip_hop</item>
-    <item>@string/source_EDM</item>
-    <item>@string/source_japanese</item>
-    <item>@string/source_bollywood</item>
-  </string-array>
   <string-array name="notifications">
     <item>Disabilitate (predefinito)</item>
     <item>Abilitate</item>

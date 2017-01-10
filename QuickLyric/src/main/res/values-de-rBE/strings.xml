@@ -118,6 +118,12 @@ Mögliche Ursachen:<br/>
   <string name="spotify_connection">Verbinde zu Spotify&#8230;</string>
   <string name="artworks_pref_title">Automatischer Bilder Download</string>
   <string name="artworks_pref_sum">Verursacht möglicherweise Datenkosten</string>
+  <string name="red_theme">Rot</string>
+  <string name="purple_theme">Lila</string>
+  <string name="green_theme">Grün</string>
+  <string name="brown_theme">Braun</string>
+  <string name="ad_supported_title">QuickLyric ist werbefinanziert</string>
+  <string name="about_read_ToS">Lesen Sie unsere Allgemeinen Geschäftsbedingungen</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric wird nun den Songtext für %1$d Musikdatei herunterladen.\
         Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minute eine Verbindung zum Internet haben.</item>
