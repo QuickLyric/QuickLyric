@@ -71,7 +71,7 @@ public class NotificationListenerService extends android.service.notification.No
         } else {
             listener = new MediaSessionManager.OnActiveSessionsChangedListener() {
                 @Override
-                public void onActiveSessionsChanged(List<MediaController> controllers) {
+                public void onActiveSessionsChanged(final List<MediaController> controllers) {
                     if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         MediaController controller = controllers.get(0);
                         if (controllerCallback != null)
@@ -84,19 +84,13 @@ public class NotificationListenerService extends android.service.notification.No
                                 if (state == null)
                                     return;
                                 boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
-                                long position = state.getPosition();
-                                SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = current.edit();
-                                editor.putBoolean("playing", isPlaying);
                                 if (!isPlaying) {
                                     NotificationManager notificationManager =
                                             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
                                     notificationManager.cancel(0);
                                     notificationManager.cancel(8);
                                 }
-                                if (position >= 0)
-                                    editor.putLong("position", position);
-                                editor.apply();
+                                broadcastControllerState(controllers.get(0), isPlaying);
                             }
                         };
                         controller.registerCallback(controllerCallback);
@@ -104,24 +98,33 @@ public class NotificationListenerService extends android.service.notification.No
                                 "org.videolan.vlc".equals(controller.getPackageName()))
                             return;
 
-                        MediaMetadata metadata = controller.getMetadata();
-                        PlaybackState playbackState = controller.getPlaybackState();
-                        if (metadata == null)
-                            return;
-                        String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
-                        String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
-                        boolean playing = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
-                        double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
-                        long position = duration == 0 || playbackState == null ?
-                                -1 : playbackState.getPosition();
-
-                        broadcast(artist, track, playing, duration, position);
+                        broadcastControllerState(controller, null);
                     }
                 }
             };
             ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
                     .addOnActiveSessionsChangedListener(listener, new ComponentName(this, getClass()));
         }
+    }
+
+    @TargetApi(21)
+    private void broadcastControllerState(MediaController controller, Boolean isPlaying) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ignored) {
+        }
+        MediaMetadata metadata = controller.getMetadata();
+        PlaybackState playbackState = controller.getPlaybackState();
+        if (metadata == null)
+            return;
+        String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
+        String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
+        if (isPlaying == null)
+            isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
+        double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+        long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
+
+        broadcast(artist, track, isPlaying, duration, position);
     }
 
     @Override
