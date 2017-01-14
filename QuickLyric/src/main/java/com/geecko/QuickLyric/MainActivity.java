@@ -227,9 +227,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             setupDemoScreen();
         }
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int versionCode = sharedPreferences.getInt("VERSION_CODE", seenIntro ? BuildConfig.VERSION_CODE - 1 : BuildConfig.VERSION_CODE);
-        sharedPreferences.edit().putInt("VERSION_CODE", BuildConfig.VERSION_CODE).apply();
+        SharedPreferences updatePrefs = getSharedPreferences("update_tracker", Context.MODE_PRIVATE);
+        int versionCode = updatePrefs.getInt("VERSION_CODE", seenIntro ? BuildConfig.VERSION_CODE - 1 : BuildConfig.VERSION_CODE);
+        updatePrefs.edit().putInt("VERSION_CODE", BuildConfig.VERSION_CODE).apply();
         if (versionCode < BuildConfig.VERSION_CODE)
             onAppUpdated(versionCode);
     }

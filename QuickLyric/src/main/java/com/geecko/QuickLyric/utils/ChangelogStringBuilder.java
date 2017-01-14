@@ -53,7 +53,7 @@ public class ChangelogStringBuilder {
             if (version > max)
                 max = version;
         }
-        for (int i = max; i >= versionCode; i--) {
+        for (int i = max; i > versionCode; i--) {
             String change = map.get(i);
             if (change == null)
                 continue;
@@ -61,6 +61,7 @@ public class ChangelogStringBuilder {
             stringBuilder.append(i);
             stringBuilder.append(":</b><br/>");
             stringBuilder.append(change);
+            stringBuilder.append("<br/>");
         }
         return stringBuilder.toString();
     }
