@@ -487,8 +487,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             suggestionsSearchView.closeSearch();
         else if (drawer instanceof DrawerLayout && ((DrawerLayout) drawer).isDrawerOpen(drawerView))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
-        else
-            finish();
+        else {
+            displayedFragment = getDisplayedFragment(getActiveFragments());
+            if (displayedFragment != null && displayedFragment instanceof LocalLyricsFragment)
+                selectItem(0);
+            else
+                finish();
+        }
     }
 
     @Override
