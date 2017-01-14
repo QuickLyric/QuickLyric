@@ -784,7 +784,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         update(lrcView.getStaticLyrics(), getView(), true);
                 } else
                     update(DatabaseHelper.getInstance(getActivity())
-                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack()}), getView(), true);
+                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
+                                    mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), getView(), true);
         }
         return false;
     }
