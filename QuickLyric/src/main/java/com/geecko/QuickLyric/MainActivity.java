@@ -738,13 +738,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    private void collapseToolbar() {
+    private void expandToolbar(boolean expanded) {
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
         AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
         if (behavior != null) {
             behavior.onNestedFling((CoordinatorLayout) (findViewById(id.coordinator_layout)),
-                    appBarLayout, null, 0, 10000, true);
+                    appBarLayout, appBarLayout, 0, expanded ? -4000 : 4000, !expanded);
         }
     }
 
@@ -860,7 +860,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 return;
         }
 
-        Fragment activeFragment = getDisplayedFragment(getActiveFragments());
+        final Fragment activeFragment = getDisplayedFragment(getActiveFragments());
         prepareAnimations(activeFragment);
 
         // Insert the fragment by replacing any existing fragment
@@ -877,11 +877,21 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setCollapsedTitleTextColor(Color.WHITE);
             fragmentTransaction.commit();
 
-            if (activeFragment instanceof LyricsViewFragment) {
-                showRefreshFab(false);
-                collapseToolbar();
-            } else if (newFragment instanceof LyricsViewFragment)
-                showRefreshFab(true);
+            if (activeFragment instanceof LyricsViewFragment || newFragment instanceof LyricsViewFragment) {
+                final Fragment newFragmentCopy = newFragment;
+                activeFragment.getView().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (activeFragment instanceof LyricsViewFragment) {
+                            expandToolbar(false);
+                            showRefreshFab(false);
+                        } else if (newFragmentCopy instanceof LyricsViewFragment) {
+                            expandToolbar(true);
+                            showRefreshFab(true);
+                        }
+                    }
+                }, getResources().getInteger(android.R.integer.config_longAnimTime));
+            }
         }
         if (drawer instanceof DrawerLayout && (newFragment == activeFragment))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
