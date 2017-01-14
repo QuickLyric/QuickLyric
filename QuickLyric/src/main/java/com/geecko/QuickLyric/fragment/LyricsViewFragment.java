@@ -94,7 +94,6 @@ import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
-import com.geecko.QuickLyric.utils.UpdateChecker;
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
@@ -493,8 +492,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 new DownloadThread(this, positionAvailable, artist, title).start();
             else
                 new DownloadThread(this, positionAvailable, url, artist, title).start();
-
-            new UpdateChecker.UpdateCheckTask(this).execute();
         } else if (lyrics != null)
             onLyricsDownloaded(lyrics);
         else {
