@@ -1069,10 +1069,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                             lrcView[0].changeCurrent(finalPosition);
                     }
                 });
-                String time = String.valueOf((position / 60000)) + " min ";
-                time += String.valueOf((position / 1000) % 60) + " sec";
-                Log.i("QuickLyric", time);
-                Log.d("QuickLyric", "Playing:"+preferences.getBoolean("playing", true));
+                //String time = String.valueOf((position / 60000)) + " min ";
+                //time += String.valueOf((position / 1000) % 60) + " sec";
+                //Log.i("QuickLyric", time);
+                //Log.d("QuickLyric", "Playing:"+preferences.getBoolean("playing", true));
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
