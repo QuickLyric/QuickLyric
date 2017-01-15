@@ -35,6 +35,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.view.LrcView;
 
 public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics.Callback {
     private Context mContext;
@@ -52,6 +53,13 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
 
     @Override
     public void onLyricsDownloaded(Lyrics lyrics) {
+        if (lyrics.isLRC()) {
+            LrcView lrcView = new LrcView(mContext, null);
+            lrcView.setOriginalLyrics(lyrics);
+            lrcView.setSourceLrc(lyrics.getText());
+            lyrics.setText(lrcView.getStaticLyrics().getText());
+        }
+
         NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(mContext);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
@@ -72,6 +80,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
                 .setGroup("Lyrics_Notification")
                 .setOngoing(false)
                 .setGroupSummary(false)
+                .setContentIntent(openAction)
                 .setVisibility(-1); // Notification.VISIBILITY_SECRET
 
         if (lyrics.getFlag() < 0)
