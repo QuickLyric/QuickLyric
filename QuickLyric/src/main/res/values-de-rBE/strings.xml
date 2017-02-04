@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">Lange Tracks ignorieren</string>
   <string name="pref_20min_ignore_sum">Titel mit einer Länge von mehr als 20 Min. (z.B.: Podcasts) werden ignoriert</string>
   <string name="pref_about">Infos</string>
+  <string name="send_feedback">Senden Sie uns Feedback</string>
   <string name="local_title">Gespeicherte Songtexte</string>
   <string name="settings_title">Einstellungen</string>
   <string name="save_action">Speichern</string>
@@ -42,6 +43,7 @@
   <string name="welcome2_sub">Ihr gesuchter Songtext&#8230;\nJetzt sofort verfügbar.</string>
   <string name="apps_desc">Funktioniert mit all deinen Apps</string>
   <string name="apps_desc_sub">Wenn Probleme mit Ihrem Player (Poweramp, GoneMAD oder Spotify) auftreten, stellen Sie sicher, dass \"Scrobbling\" oder \"Broadcast-Status\" aktiviert ist.</string>
+  <string name="id_desc">Integration Ihrer Lieblings Musik Erkennungs Apps.\n (Shazam™, SoundHound™, usw.)</string>
   <string name="id_desc_sub">1. Titel identifizieren\n2. Ergebnis mit QuickLyric teilen\n3. Songtext genießen</string>
   <string name="refresh_desc">Wenn sich das Lied geändert hat&#8230;</string>
   <string name="refresh_desc_sub">Drücken Sie auf diese Schaltfläche, QuickLyric erledigt den Rest.</string>
@@ -58,6 +60,7 @@
   <string name="skip">Überspringen</string>
   <string name="pref_theme">Thema</string>
   <string name="pref_notifications">Benachrichtigungen</string>
+  <string name="defaut_theme">Bernstein</string>
   <string name="dark_theme">Dunkel</string>
   <string name="pref_notifications_sum">Erhalten Sie eine diskrete Benachrichtigung, wenn der Track sich ändert</string>
   <string name="pref_auto_save">Songtext automatisch speichern</string>
@@ -116,14 +119,39 @@ Mögliche Ursachen:<br/>
   <string name="source_bollywood">Bollywood Musik</string>
   <string name="source_sync">Synchronisierte Lyrics</string>
   <string name="spotify_connection">Verbinde zu Spotify&#8230;</string>
+  <string name="full_text_action">Vollständiger Text</string>
   <string name="artworks_pref_title">Automatischer Bilder Download</string>
   <string name="artworks_pref_sum">Verursacht möglicherweise Datenkosten</string>
+  <string name="pref_lrc_sum">Hebe gesungene Wörter hervor - nicht alle Musik-Player werden unterstützt</string>
+  <string name="pref_lrc">Synchronisierte Lyrics</string>
   <string name="red_theme">Rot</string>
   <string name="purple_theme">Lila</string>
+  <string name="indigo_theme">Blau</string>
   <string name="green_theme">Grün</string>
+  <string name="lime_theme">Hellgrün</string>
   <string name="brown_theme">Braun</string>
   <string name="ad_supported_title">QuickLyric ist werbefinanziert</string>
+  <string name="ad_supported_text">Anzeigen ermöglichen es uns, die Künstler und Rechteinhaber für ihre Arbeit zu bezahlen.\n Wir wünschen Ihnen viel Spaß mit QuickLyric!</string>
   <string name="about_read_ToS">Lesen Sie unsere Allgemeinen Geschäftsbedingungen</string>
+  <string name="about_product_tour">Produkt-Tour</string>
+  <string name="nl_title">Eine letzte Sache.</string>
+  <string name="nl_instructions">Damit QuickLyric mit allen Media-Playern funktioniert, müssen einige Einstellungen geändert werden.</string>
+  <string name="nl_settings_link">QuickLyric erlauben meine Benachrichtigungen zu lesen</string>
+  <string name="changelog">Was ist neu?</string>
+  <string name="rate_us">Bewerten Sie unsere App</string>
+  <string name="premium_title">Holen Sie sich Premium</string>
+  <string name="remove_ads_title">Werbung entfernen</string>
+  <string name="subscription_monthly">Monatliche</string>
+  <string name="subscription_yearly">Jährlich</string>
+  <string name="premium_sum_incent">Holen Sie sich Premium um die Künstler &amp; das Team hinter QuickLyric zu unterstützen!</string>
+  <string name="premium_ads_incent">Keine Werbung mehr!</string>
+  <string name="premium_karaoke_incent">Einen exklusiven * Karaoke-Modus *</string>
+  <string name="premium_themes_incent">* 7 * neue Themen</string>
+  <string name="premium_night_mode_incent">Ein \'Nacht Modus\' um Ihre Augen bei Nacht zu entspannen</string>
+  <string name="premium_doubt">Sie haben noch Fragen zum Abonnement? Schicken Sie uns eine e-Mail: contact@quicklyric.be</string>
+  <string name="premium_thanks">Vielen Dank für Ihre Unterstützung!</string>
+  <string name="about_crowdin">Hilf uns bei der Übersetzung der App auf Crowdin</string>
+  <string name="online_title">Online-Katalog</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric wird nun den Songtext für %1$d Musikdatei herunterladen.\
         Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minute eine Verbindung zum Internet haben.</item>
@@ -138,5 +166,9 @@ Mögliche Ursachen:<br/>
     <item>Deaktiviert (Standard)</item>
     <item>Aktiviert</item>
     <item>Aktiviert (bleibend)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Immer aktiviert</item>
+    <item>Nur bei WLAN</item>
   </string-array>
 </resources>

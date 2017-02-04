@@ -31,7 +31,7 @@
   <string name="send_feedback">Enviar sugerencias</string>
   <string name="local_title">Letras guardadas</string>
   <string name="settings_title">Ajustes</string>
-  <string name="save_action">Guardar letra</string>
+  <string name="save_action">Guardar</string>
   <string name="lyrics_saved">Letras guardadas</string>
   <string name="lyrics_removed">Letras borradas del dispositivo</string>
   <string name="remove_action">Borrar</string>
@@ -46,7 +46,7 @@
   <string name="id_desc">Integración con tu app de MusicID favorita.\n(Shazam™, SoundHound™, etc.)</string>
   <string name="id_desc_sub">1. Identifique una canción\n2. Comparta los resultados a QuickLyric\n3. Disfrute de su letra</string>
   <string name="refresh_desc">Cuando la canción ha cambiado&#8230;</string>
-  <string name="refresh_desc_sub">Presiona este botón, QuickLyric hará el resto.</string>
+  <string name="refresh_desc_sub">Presiona este botón. QuickLyric hará el resto.</string>
   <string name="pref_more_category">Más</string>
   <string name="first_launch">Comience a escuchar música en su dispositivo y presione actualizar.</string>
   <string name="share_prompt">Importar desde MusicID</string>
@@ -134,16 +134,21 @@ Las posibles razones son:<br/>
   <string name="nl_title">Una última cosa.</string>
   <string name="nl_instructions">Algunas opciones deben ser cambiadas para que Quicklyric pueda trabajar con todos los reproductores.</string>
   <string name="nl_settings_link">Permitir que QuickLyric lea mis notificaciones</string>
+  <string name="changelog">¿Novedades?</string>
+  <string name="rate_us">Califica la aplicación</string>
   <string name="premium_title">Hazte Premium</string>
   <string name="remove_ads_title">Eliminar anuncios</string>
   <string name="subscription_monthly">Mensualmente</string>
   <string name="subscription_yearly">Anual</string>
+  <string name="premium_sum_incent">Consigue Premium para apoyar los artistas &amp; el equipo detrás de QuickLyric!</string>
   <string name="premium_ads_incent">¡No más anuncios!</string>
   <string name="premium_karaoke_incent">Un exclusivo *modo karaoke*</string>
   <string name="premium_themes_incent">*7* nuevos temas</string>
   <string name="premium_night_mode_incent">Un *modo noche* para descansar tus ojos por la noche</string>
+  <string name="premium_doubt">¿No está seguro sobre cómo obtener una suscripción? Dispárenos un email: contact@quicklyric.be</string>
   <string name="premium_thanks">¡Gracias por tu apoyo!</string>
   <string name="about_crowdin">Ayudar a traducir la aplicación en Crowdin</string>
+  <string name="online_title">Catálogo en línea</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>

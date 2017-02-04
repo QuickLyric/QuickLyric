@@ -43,9 +43,10 @@
   <string name="welcome2_sub">A keresett dalszövegek&#8230;\nItt és most.</string>
   <string name="apps_desc">Minden alkamazásával működik</string>
   <string name="apps_desc_sub">Ha gondja akadna némelyik lejátszóval (pl. Poweramp, GoneMAD, Spotify), bizonyosodjon meg róla hogy a \"Scrobbling\" vagy \"Állapot közvetítése\" be van kapcsolva.</string>
+  <string name="id_desc">Integráció a kedvenc MusicID alkalmazásával.\n(Shazam™, SoundHound™, stb.)</string>
   <string name="id_desc_sub">1. Azonosítson egy zeneszámot\n2. Ossza meg az eredményt a QuickLyric-el\n3. Élvezze a dalszövegét</string>
   <string name="refresh_desc">Mikor dalváltás van&#8230;</string>
-  <string name="refresh_desc_sub">Nyomja le ezt a gombot. QuickLyric gondoskodik a többiről.</string>
+  <string name="refresh_desc_sub">Érintse meg ezt a jelet. QuickLyric gondoskodik a többiről.</string>
   <string name="pref_more_category">Tovább</string>
   <string name="first_launch">Játsszon zenét a készülékén és nyomja meg a frissítés gombot.</string>
   <string name="share_prompt">Importálás MusicID-ről</string>
@@ -77,10 +78,22 @@
   <string name="pref_beta_sum">Kapjon frissítéseket (új funkciók, hibajavítások, &#8230;) hamarabb és jelezzen vissza e-mail segítségével</string>
   <string name="scan_error_no_content">Nem sikerült zenét találni</string>
   <string name="no_results_why"><u>Miért?</u></string>
+  <string name="why_popup_text"><![CDATA[
+A(z) %2$s szerzőtől származó \"%1$s\" számhoz keresett dalszöveget. Sajnos a QuickLyric nem találta meg...<br/><br/>
+Ennek okai lehetnek a következők:<br/>
+<br/>
+• Biztos hogy a helyesen vannak <strong>jelölve</strong> a zenéi? A QuickLyric nem tudja felismerni azokat a számokat amelyeknek nincsen jelölésük.
+<br/>
+• Ellenőrizze az internet kapcsolatot.<br/>
+• Lehet hogy ez a szám nincs a népszerű katalógusokban. Megnézte a <strong>kiegészítő forrásokat</strong> a beállításokban?<br/>
+• Lehet hogy talált egy hibát. Ha ez így van, kérem írjon egy emailt.<br/>
+• Végül pedig, lehet hogy nem érhető el dalszöveg ehhez a számhoz. Ha vannak tanácsai a katalógus kiegészítéséről, bátran írjál emailt nekem.<br/>
+]]></string>
   <string name="why_popup_title">Miért nem működik?</string>
   <string name="download_category">Letöltések</string>
   <string name="wearable_prompt">Megnyitás viselhető készüléken</string>
   <string name="pref_opendyslexic">OpenDyslexic betűkészlet használata</string>
+  <string name="pref_opendyslexic_sum">Használjon speciális betűtípust az olvasási nehézségekkel küzdő olvasóknak számára</string>
   <string name="wrong_musicID">Nem támogatott MusicID szolgáltatás</string>
   <string name="pref_issues_sum">contact@quicklyric.be (csak Angolul)</string>
   <string name="ignore_id3_toast">Letöltés kényszerítéséhez érintse meg a Frissítés gombot</string>
@@ -88,11 +101,14 @@
   <string name="nighttime_start_dialog_title">Éjszaka kezdete</string>
   <string name="nighttime_end_dialog_title">Éjszaka vége</string>
   <string name="pref_force_screen_sum">Képernyő kikapcsolásának akadályozása zeneszöveg olvasása közben</string>
+  <string name="pref_force_screen_on">Képernyő bekapcsolva tartása</string>
+  <string name="scan_error_permission_denied">QuickLyric nem kapott engedélyt a zenéi szkennelésére</string>
   <string name="id3_write_error">Zeneszám metaadatának szerkesztése sikertelen</string>
   <string name="id3_write_success">Zeneszám medaadata sikeresen szerkesztve</string>
   <string name="id3_read_rationale">A QuickLyric-nek szüksége van erre az engedélyre hogy hozzá férhessen dalszövegekhez és lemezborítókhoz ezen a készüléken</string>
   <string name="permission_denied">(engedély megtagadva)</string>
-  <string name="id3_write_permission_error">Az alkalmazást szükséges újraindítani írásjog szerzéséhez</string>
+  <string name="id3_write_permission_error">Az alkalmazást újra kell indítani az írásjog megszerzéséhez</string>
+  <string name="resync_action">Újraszinkronizálás</string>
   <string name="uri_storage">Ez a készülék</string>
   <string name="uri_gmusic">Google Play Music könyvtár</string>
   <string name="uri_spotify">Spotify könyvtár</string>
@@ -108,6 +124,8 @@
   <string name="spotify_connection">Csatlakozás Spotify-ra&#8230;</string>
   <string name="full_text_action">Teljes szöveg</string>
   <string name="artworks_pref_title">Borítók automatikus letöltése</string>
+  <string name="artworks_pref_sum">Adat használatba kerülhet</string>
+  <string name="pref_lrc_sum">Jelölje ki az éppen a dalban hangzó szavakat - nem minden zenelejátszó támogatott</string>
   <string name="pref_lrc">Szinkronizált dalszövegek</string>
   <string name="red_theme">Piros</string>
   <string name="purple_theme">Lila</string>
@@ -115,17 +133,36 @@
   <string name="green_theme">Zöld</string>
   <string name="lime_theme">Lime</string>
   <string name="brown_theme">Barna</string>
+  <string name="ad_supported_title">A QuickLyric alkalmazás fejlesztése reklámok bevételéből támogatott</string>
+  <string name="ad_supported_text">A reklámok bevételéből tudjuk fizetni a zeneszerzőket és jogtulajdonosoknak a munkájukért.\nReméljük élvezi a QuickLyric használatát!</string>
+  <string name="about_read_ToS">Olvassa el a Szolgáltatás nyújtási Feltételeinket</string>
   <string name="about_product_tour">Termékbemutató</string>
   <string name="nl_title">És még valami.</string>
+  <string name="nl_instructions">Ahhoz hogy a QuickLyric működjön az összes lejátszóval, néhány beállítás kell végrehajtani.</string>
+  <string name="nl_settings_link">Engedélyezze a QuickLyric számára értesítéseinek olvasását</string>
+  <string name="changelog">Újdonságok</string>
+  <string name="rate_us">Értékelje az alkalmazást</string>
   <string name="premium_title">Váltson Prémiumra</string>
   <string name="remove_ads_title">Reklámok eltávolítása</string>
   <string name="subscription_monthly">Havi</string>
   <string name="subscription_yearly">Éves</string>
+  <string name="premium_sum_incent">Váltson Prémiumra ezzel támogatva a szerzőket &amp; QuickLyric fejlesztői csapatát!</string>
+  <string name="premium_ads_incent">Nincs több hirdetést!</string>
   <string name="premium_karaoke_incent">Exklúzív *karaoke mód*</string>
   <string name="premium_themes_incent">*7* új téma</string>
   <string name="premium_night_mode_incent">*Éjszakai mód* a szemei pihentetéséért</string>
+  <string name="premium_doubt">Bizonytalan a feliratkozással kapcsolatban? Írjon nekünk egy emailt: contact@quicklyric.be</string>
   <string name="premium_thanks">Köszönöm a támogatását!</string>
   <string name="about_crowdin">Segítsen az alkalmazást lefordítani a Crowdin-on</string>
+  <string name="online_title">Online katalógus</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
+    <item quantity="other">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">%1$d szám dalszövege letöltése befejeződött</item>
+    <item quantity="other">%1$d szám dalszövege letöltése befejeződött</item>
+  </plurals>
   <string-array name="notifications">
     <item>Letiltva (alapértelmezett)</item>
     <item>Engedélyezve</item>

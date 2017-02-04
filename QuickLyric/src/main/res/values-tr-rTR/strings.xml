@@ -95,6 +95,7 @@ Beta sürümler için kayıt ol:
   <string name="source_bollywood">Bollywood Müziği</string>
   <string name="source_sync">Senkronize şarkı sözleri</string>
   <string name="spotify_connection">Spotify\'a bağlanılıyor&#8230;</string>
+  <string name="full_text_action">Tam metin</string>
   <string name="artworks_pref_sum">Mobil veri farklarına yol açabilir</string>
   <string name="red_theme">Kırmızı</string>
   <string name="purple_theme">Mor</string>
@@ -102,13 +103,18 @@ Beta sürümler için kayıt ol:
   <string name="green_theme">Yeşil</string>
   <string name="lime_theme">Kireç</string>
   <string name="brown_theme">Kahverengi</string>
+  <string name="ad_supported_title">QuickLyric reklam desteklidir</string>
+  <string name="ad_supported_text">Reklamlar sanatçıların ve hak sahiplerinin çalışmalarını ödememizde yardımcı olur.\nQuickLyric\'i kullanırken eğlenmenizi umarız!</string>
   <string name="about_read_ToS">Hizmet Şartlarımızı Okuyun</string>
   <string name="about_product_tour">Ürün Turu</string>
   <string name="nl_title">Son bir şey.</string>
+  <string name="changelog">Yeni ne var?</string>
+  <string name="rate_us">Uygulamayı değerlendirin</string>
   <string name="premium_title">Premium Al</string>
   <string name="remove_ads_title">Reklamları kaldır</string>
   <string name="subscription_monthly">Aylık</string>
   <string name="subscription_yearly">Yıllık</string>
+  <string name="premium_sum_incent">Sanatçıları ve QuickLyric\'in arkasındaki ekibi desteklemek için Premium alın!</string>
   <string name="premium_ads_incent">Daha fazla reklam yok!</string>
   <string name="premium_themes_incent">*7* yeni tema</string>
   <string name="premium_thanks">Desteğiniz için teşekkürler!</string>

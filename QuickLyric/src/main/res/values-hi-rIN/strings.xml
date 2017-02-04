@@ -28,10 +28,7 @@
   <string name="pref_20min_ignore">लंबे गाने अनदेखें</string>
   <string name="pref_20min_ignore_sum">बीस मिनिट से लंबे ट्रॅक्स गानों की तरह नहीं गिनें जाएँगे</string>
   <string name="pref_about">बारे में</string>
-  <string name="send_feedback">Shri Guru Charan Sarooja-raj Nija manu Mukura Sudhaari
-Baranau Rahubhara Bimala Yasha Jo Dayaka Phala Chari
-Budhee-Heen Thanu Jannikay Sumirow Pavana Kumara
-Bala-Budhee Vidya Dehoo Mohee Harahu Kalesha Vikaara</string>
+  <string name="send_feedback">प्रतिक्रिया भेजें</string>
   <string name="local_title">बचाए हुए गाने</string>
   <string name="settings_title">सेटिंग्स</string>
   <string name="save_action">बचयें</string>
@@ -44,21 +41,125 @@ Bala-Budhee Vidya Dehoo Mohee Harahu Kalesha Vikaara</string>
   <string name="pref_look_feel_category">दिखावा</string>
   <string name="welcome">QuickLyric पे स्वागत है</string>
   <string name="welcome2_sub">जो बोल आप ढूंड रहे थे&#8230; \nअभी इस वक़्त</string>
+  <string name="apps_desc">अपने सभी एप्लिकेशन के साथ काम करता है</string>
+  <string name="apps_desc_sub">यदि QuickLyric आपके प्लेयर (जैसे Poweramp या Spotify) के साथ काम नहीं करता है, तो सुनिश्चित करें कि \"Scrobbling\" या \"Broadcast Status\" माजूद है।</string>
+  <string name="id_desc">अपने पसंदीदा MusicID apps.\n(Shazam™, SoundHound™, etc.) के साथ एकीकरण।</string>
   <string name="id_desc_sub">1. गाने को पहचानें
 2. QuickLyric के साथ परिणाम शेर करें। 
 3. अपने बोल का आनंद लें</string>
   <string name="refresh_desc">जब गाना बदल गया हो</string>
   <string name="refresh_desc_sub">इस बटन को दबायें। QuickLyric बाकी सब करेगा ।</string>
   <string name="pref_more_category">ज़्यादा</string>
+  <string name="first_launch">अपने डिवाइस पर संगीत बजाना शुरू करे और रिफ्रेश करे।</string>
+  <string name="share_prompt">MusicID से आयात (Import) करें।</string>
   <string name="undo">वापिस करें</string>
+  <string name="beta_dialog_content">
+ 1) Google + समुदाय में शामिल हों: \nhttps://plus.google.com/communities/115504114424315189412 \n 2) साइन अप बीटा के लिए: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
   <string name="skip">अगला ना लायें</string>
   <string name="pref_theme">पसंदीदार थीम</string>
   <string name="pref_notifications">सूचनाएँ</string>
+  <string name="defaut_theme">एम्बर</string>
   <string name="dark_theme">काला</string>
   <string name="pref_notifications_sum">एक छोटी सूचना जब गीत बदले</string>
+  <string name="pref_auto_save">गीत के बोल स्वचालित रूप से हर बार संचय करे।</string>
+  <string name="pref_auto_save_sum">सभी गीत के बोल आपके डिवाइस पर संग्रहीत किया जायेंगे।</string>
+  <string name="pref_night_mode">रात्रि मोड</string>
+  <string name="pref_night_mode_sum">रात में एक गहरी पृष्ठभूमि प्रदर्शित करें</string>
+  <string name="scan_action">संगीत स्कैन करे।</string>
+  <string name="warning">चेतावनी!</string>
+  <string name="content_providers_title">संगीत यहाँ से स्कैन करें...</string>
+  <string name="dl_progress">गीत के बोल डाउनलोड किया जा रहा है... %1$d/%2$d</string>
+  <string name="dl_finished">डाउनलोड समाप्त हो गया</string>
+  <string name="pref_providers">अतिरिक्त गीत के बोल के स्रोत</string>
+  <string name="pref_providers_sum">जितना अधिक आप चयन करेंगे, उतना ज्यादा डाउनलोड करने में समय लगेगा।</string>
+  <string name="pref_beta">बीटा परीक्षक बने</string>
+  <string name="pref_beta_sum">अपडेट (नई सुविधाओं, बग फिक्स,...) तेजी से प्राप्त करे और ईमेल के माध्यम से वापस रिपोर्ट करे</string>
+  <string name="scan_error_no_content">कोई संगीत नहीं मिला।</string>
+  <string name="no_results_why"><u>क्यों?</u></string>
+  <string name="why_popup_text"><![CDATA[
+आप %2$s का \"%1$s\" गीत को ढूंढ रहे थे । दुर्भाग्य से QuickLyric को वो नहीं मिला... <br/> <br/> कुछ संभावित कारण: <br/> <br/> • क्या आपके संगीत ठीक से <strong>टैग</strong> किये गए है? टैग बिना के संगीत को QuickLyric नहीं पहचान सकता। <br/> • यदि आपका कनेक्शन काम कर रहा है की नहीं ये जाँच करें. <br/> • शायद इस गीत मुख्य सूची का भाग नहीं है। क्या आप सेटिंग्स में <strong>अतिरिक्त विकल्पों</strong> की जाँच की है? <br/> • आप एक बग पाया हो सकता है। यदि हां, तो कृपया मुझे ईमेल करे। <br/> • अंत में, यह भी संभव है कि इस गीत के बोल उपलब्ध नहीं है। यदि आप सूची जोड़ने के संबंध में सुझाव दे सकते है, तो मुझे ईमेल करने में स्वतन्त्र महसूस है। <br/>
+]]></string>
+  <string name="why_popup_title">यह क्यों काम नहीं कर रहा है?</string>
+  <string name="download_category">आपके डौनलोड्स</string>
+  <string name="wearable_prompt">किसी पहनने योग्य डिवाइस पर खोले।</string>
+  <string name="pref_opendyslexic">OpenDyslexic फ़ॉन्ट उपयोग करे</string>
+  <string name="pref_opendyslexic_sum">पढ़ने में अक्षम लोगो के लिए बनाया गया एक विशेष फ़ॉन्ट का उपयोग करें</string>
+  <string name="wrong_musicID">असमर्थित MusicID सेवा</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (केवल अंग्रेज़ी)</string>
+  <string name="ignore_id3_toast">जबरदस्ती पूर्वक डाउनलोड करने के लिए रिफ्रेश बटन पर टैप करें</string>
+  <string name="from_id3">(ऑडियो फ़ाइल से निकाले गए गीत के बोल)</string>
+  <string name="nighttime_start_dialog_title">Nighttime प्रारंभ</string>
+  <string name="nighttime_end_dialog_title">Nighttime अंत</string>
+  <string name="pref_force_screen_sum">गीत के बोल को पढ़ते समय स्क्रीन बंद होने से रोके</string>
+  <string name="pref_force_screen_on">जबरदस्ती स्क्रीन चालू रखे।</string>
+  <string name="scan_error_permission_denied">QuickLyric को आपके संगीत को स्कैन करने की अनुमति नहीं दी गई है</string>
+  <string name="id3_write_error">गीत के मेटाडेटा को सुरक्षित करने में विफल हुए</string>
+  <string name="id3_write_success">सफलतापूर्वक गीत के मेटाडेटा को संपादित किया</string>
+  <string name="id3_read_rationale">QuickLyric को बोल और artworks इस डिवाइस पर उपलब्ध करने के लिए इस अनुमति की आवश्यकता है</string>
+  <string name="permission_denied">(अनुमति अस्वीकार किया गया)</string>
+  <string name="id3_write_permission_error">लिखने की अनुमति हासिल करने के लिए app को पुनरारंभ शुरू करने की जरूरत है</string>
+  <string name="resync_action">फिर से समकालीन करे</string>
+  <string name="uri_storage">यह डिवाइस</string>
+  <string name="uri_gmusic">आपकी Google Play Music संग्रह</string>
+  <string name="uri_spotify">आपका Spotify संग्रह</string>
+  <string name="spotify_library">आपके संचित किये गए गीत</string>
+  <string name="spotify_playlists">आपकी प्लेलिस्ट</string>
+  <string name="source_punk">पंक रॉक</string>
+  <string name="source_metal">मेटल</string>
+  <string name="source_hip_hop">हिप हॉप</string>
+  <string name="source_EDM">इलेक्ट्रॉनिक डांस म्यूजिक</string>
+  <string name="source_japanese">जापानी</string>
+  <string name="source_bollywood">बॉलीवुड संगीत</string>
+  <string name="source_sync">सिंक्रनाइज़्ड बोल</string>
+  <string name="spotify_connection">स्पॉटिफाय से जोड़ रहे है...</string>
+  <string name="full_text_action">पूर्ण पाठ</string>
+  <string name="artworks_pref_title">स्वत: कलाकृति डाउनलोड</string>
+  <string name="artworks_pref_sum">मोबाइल डेटा शुल्क परिणाम हो सकता है</string>
+  <string name="pref_lrc_sum">गाया जा रहा गीत के शब्दों को हाइलाइट करें - सभी म्यूजिक प्लेयर का समर्थन नहीं हैं।</string>
+  <string name="pref_lrc">सिंक्रनाइज़्ड बोल</string>
+  <string name="red_theme">लाल</string>
+  <string name="purple_theme">बैंगनी</string>
+  <string name="indigo_theme">इंडिगो</string>
+  <string name="green_theme">हरा</string>
+  <string name="lime_theme">लाइम</string>
+  <string name="brown_theme">भूरा</string>
+  <string name="ad_supported_title">QuickLyric विज्ञापन-समर्थित है</string>
+  <string name="ad_supported_text">विज्ञापन कलाकारों और राईट होल्डर्स को उनके काम के लिए भुगतान करने में हमें सक्षम करता है। \nहमें आशा है की QuickLyric का उपयोग करके आपको आनंद आए॥</string>
+  <string name="about_read_ToS">हमारी सेवा की शर्तें पढ़ें</string>
+  <string name="about_product_tour">उत्पाद टूर</string>
+  <string name="nl_title">एक अंतिम बात।</string>
+  <string name="nl_instructions">QuickLyric का सभी म्यूजिक प्लेयर के साथ काम करने के लिए, कुछ सेटिंग्स परिवर्तित करने की जरूरत होगी।</string>
+  <string name="nl_settings_link">QuickLyric आने वाली अपनी सूचनाओं को पढ़ने की अनुमति दें</string>
+  <string name="changelog">नया क्या है:</string>
+  <string name="rate_us">इस एप्प का मूल्यांकन करें</string>
+  <string name="premium_title">प्रीमियम प्राप्त करें</string>
+  <string name="remove_ads_title">विज्ञापन हटाएँ</string>
+  <string name="subscription_monthly">मासिक</string>
+  <string name="subscription_yearly">वार्षिक</string>
+  <string name="premium_sum_incent">कलाकारों और QuickLyric के पीछे टीम का समर्थन करने के लिए प्रीमियम खरीदिये!</string>
+  <string name="premium_ads_incent">और कोई अधिक विज्ञापन नहीं!</string>
+  <string name="premium_karaoke_incent">एक विशेष * कराओके मोड *</string>
+  <string name="premium_themes_incent">* 7 * नई थीम्स</string>
+  <string name="premium_night_mode_incent">एक * रात्रि मोड * आपकी आँखो को रात में आराम देने के लिए</string>
+  <string name="premium_doubt">एक सदस्यता प्राप्त करने के बारे में अनिश्चित? हमें एक ईमेल करे: contact@quicklyric.be (केवल अंग्रेजी)</string>
+  <string name="premium_thanks">मदद के लिए धन्यवाद!</string>
+  <string name="about_crowdin">Crowdin पर app का अनुवाद में मदद करे</string>
+  <string name="online_title">ऑनलाइन सूची</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric कुल के %1$d गीत के बोल डाउनलोड करेगा। सुनिश्चित करें कि आपके पास %2$d मिनट के लिए एक स्थिर कनेक्शन हो।</item>
+    <item quantity="other">QuickLyric कुल के %1$d गीत के बोल डाउनलोड करेगा। सुनिश्चित करें कि आपके पास %2$d मिनट के लिए एक स्थिर कनेक्शन हो।</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="one">%1$d गीत के बोल डाउनलोड कर दिए गए है।</item>
+    <item quantity="other">%1$d गीत के बोल डाउनलोड कर दिए गए है।</item>
+  </plurals>
   <string-array name="notifications">
     <item>बंद (डिफॉल्ट)</item>
     <item>सक्षम</item>
     <item>सक्षम (ना हटने वाली)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>हमेशा सक्षम</item>
+    <item>केवल वाईफ़ाई पर</item>
   </string-array>
 </resources>

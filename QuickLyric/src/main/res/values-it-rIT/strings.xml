@@ -137,16 +137,21 @@ Alcune cause potrebbero essere:<br/>
   <string name="nl_title">Un\'ultima cosa.</string>
   <string name="nl_instructions">Per permettere a QuickLyric di funzionare con tutti i lettori musicali, è necessario modificare alcune impostazioni.</string>
   <string name="nl_settings_link">Permetti a QuickLyric di leggere le mie notifiche</string>
+  <string name="changelog">Cosa c\'è di nuovo?</string>
+  <string name="rate_us">Valuta l\'applicazione</string>
   <string name="premium_title">Passa a Premium</string>
   <string name="remove_ads_title">Rimuovi gli annunci</string>
   <string name="subscription_monthly">Mensile</string>
   <string name="subscription_yearly">Annuale</string>
+  <string name="premium_sum_incent">Passa a Premium per supportare gli artisti &amp; il team dietro QuickLyric!</string>
   <string name="premium_ads_incent">Niente più pubblicità!</string>
   <string name="premium_karaoke_incent">Un\'esclusiva *modalità karaoke*</string>
   <string name="premium_themes_incent">*7* nuovi temi</string>
-  <string name="premium_night_mode_incent">Una *modalità notturna* per riposare i tuoi occhi durante la notte</string>
+  <string name="premium_night_mode_incent">Una *modalità notturna* per riposare gli occhi durante la notte</string>
+  <string name="premium_doubt">Non sei sicuro del perché dovresti abbonarti? Scrivici una mail: contact@quicklyric.be</string>
   <string name="premium_thanks">Grazie per il tuo supporto!</string>
   <string name="about_crowdin">Aiuta a tradurre l\'app su Crowdin</string>
+  <string name="online_title">Catalogo online</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>

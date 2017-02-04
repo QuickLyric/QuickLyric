@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">Ignorera långa spår</string>
   <string name="pref_20min_ignore_sum">Spår som är längre än 20 minuter (som podcasts) räknas inte som låtar</string>
   <string name="pref_about">Om</string>
+  <string name="send_feedback">Skicka feedback</string>
   <string name="local_title">Sparade texter</string>
   <string name="settings_title">Inställningar</string>
   <string name="save_action">Spara</string>
@@ -40,15 +41,22 @@
   <string name="pref_look_feel_category">Utseende</string>
   <string name="welcome">Välkommen till QuickLyric!</string>
   <string name="welcome2_sub">Texten du söker&#8230;\nHär och nu.</string>
+  <string name="apps_desc">Fungerar med alla dina appar</string>
+  <string name="apps_desc_sub">Om du upplever problem med din musikspelare (t.ex. Poweramp, GoneMAD eller Spotify), se till att den har \"Scrobbling\" eller \"Broadcast Status\" aktiverat.</string>
+  <string name="id_desc">Integration med dina favorit MusicID-appar.\n(Shazam™, SoundHound™, etc.)</string>
   <string name="id_desc_sub">1. identifiera en song\n2. Dela resultatet till QuickLyric\n3. Få tillbaka låttexten</string>
   <string name="refresh_desc">När låten har ändrats&#8230;</string>
   <string name="refresh_desc_sub">Tryck på knappen. QuickLyric kommer att göra resten.</string>
   <string name="pref_more_category">Mer</string>
+  <string name="first_launch">Börja spela musik på enheten och tryck på uppdatera.</string>
   <string name="share_prompt">Importera från MusicID</string>
   <string name="undo">Ångra</string>
+  <string name="beta_dialog_content">
+1) Gå med i Google+ gruppen: \nhttps://plus.google.com/communities/115504114424315189412\n 2) Registrera dig för beta versionen: \n https://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
   <string name="skip">Hoppa över</string>
   <string name="pref_theme">Tema</string>
   <string name="pref_notifications">Aviseringar</string>
+  <string name="defaut_theme">Gul</string>
   <string name="dark_theme">Mörkt</string>
   <string name="pref_notifications_sum">Få ett diskret meddelande när låten ändras</string>
   <string name="pref_auto_save">Spara låttexter automatiskt</string>
@@ -79,8 +87,16 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="pref_opendyslexic">Använd OpenDyslexic typsnitt</string>
   <string name="pref_opendyslexic_sum">Använd ett särskilt teckensnitt skapat för läsare med lässvårigheter</string>
   <string name="wrong_musicID">Saknar stöd för MusicID-tjänsten</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (endast engelska)</string>
   <string name="ignore_id3_toast">Tryck på uppdateringsknappen för att tvinga fram en nedladdning</string>
   <string name="from_id3">(Text extraherad från ljudfil)</string>
+  <string name="nighttime_start_dialog_title">Nattläge start</string>
+  <string name="nighttime_end_dialog_title">Nattläge slut</string>
+  <string name="pref_force_screen_sum">Hindra skärmen från att stängas av medans låttexter visas</string>
+  <string name="id3_read_rationale">QuickLyric behöver denna behörighet för att läsa in låttexter och omslag från denna enhet</string>
+  <string name="source_sync">Synkroniserade Låttexter</string>
+  <string name="pref_lrc">Synkroniserade låttexter</string>
+  <string name="premium_night_mode_incent">Ett nattläge för att vila ögonen</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>

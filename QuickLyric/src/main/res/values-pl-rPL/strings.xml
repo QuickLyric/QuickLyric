@@ -142,6 +142,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="remove_ads_title">Usuń reklamy</string>
   <string name="subscription_monthly">Na miesiąc</string>
   <string name="subscription_yearly">Na rok</string>
+  <string name="premium_sum_incent">Wykup Premium, aby wesprzeć artystów &amp; twórców QuickLyric!</string>
   <string name="premium_ads_incent">Żadnych reklam!</string>
   <string name="premium_karaoke_incent">Ekskluzywny *tryb karaoke*</string>
   <string name="premium_themes_incent">*7* nowych skórek</string>
