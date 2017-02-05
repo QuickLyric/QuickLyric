@@ -110,8 +110,12 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
         Editable text;
         if (getContext() instanceof Activity)
             text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
-        else
+        else if (getContext() instanceof ContextThemeWrapper)
             text = ((EditText) ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
+        else if (getContext() instanceof android.support.v7.view.ContextThemeWrapper)
+            text = ((EditText) ((Activity) ((android.support.v7.view.ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
+        else
+            return;
         setQuery(text, false);
     }
 

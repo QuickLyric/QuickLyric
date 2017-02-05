@@ -874,6 +874,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
+                if (getActivity() == null)
+                    return;
                 ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
                         .expandToolbar(true);
                 mExpandedSearchView = true;
