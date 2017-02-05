@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -554,11 +555,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         boolean artCellDownload =
                 Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity())
                         .getString("pref_artworks", "0")) == 0;
-        if (cover == null && (artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity())))
-            new CoverArtLoader().execute(lyrics, this.getActivity());
+        if (cover == null)
+            new CoverArtLoader().execute(lyrics, this.getActivity(), artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity()));
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
                 .setVisibility(musicFile == null || !musicFile.canWrite() || lyrics.isLRC()
+                        || Id3Reader.getLyrics(getActivity(), lyrics.getArtist(), lyrics.getTrack()) == null
                         ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
@@ -872,8 +874,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-               ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
-                       .expandToolbar(true);
+                ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
+                        .expandToolbar(true);
                 mExpandedSearchView = true;
             }
 
@@ -887,7 +889,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         int statusBarHeight;
         if (resourceId > 0)
-            statusBarHeight =  resources.getDimensionPixelSize(resourceId);
+            statusBarHeight = resources.getDimensionPixelSize(resourceId);
         else
             statusBarHeight = (int) Math.ceil((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? 24 : 25) * resources.getDisplayMetrics().density);
         CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) materialSearchView.getLayoutParams();
@@ -976,10 +978,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 url = "";
             coverView.setLyrics(mLyrics);
             coverView.clearColorFilter();
-            coverView.setImageUrl(url,
-                    new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
-            if (!url.isEmpty())
-                DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
+            if (url.startsWith("/")) {
+                coverView.setImageBitmap(BitmapFactory.decodeFile(url));
+            } else {
+                coverView.setImageUrl(url,
+                        new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
+                if (!url.isEmpty())
+                    DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
+            }
         }
     }
 

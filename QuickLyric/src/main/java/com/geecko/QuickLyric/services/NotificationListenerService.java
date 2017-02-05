@@ -26,6 +26,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.media.MediaMetadataRetriever;
@@ -35,6 +36,7 @@ import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Build;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -44,6 +46,10 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -56,6 +62,11 @@ public class NotificationListenerService extends android.service.notification.No
     private boolean mHasBug = true;
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
     private MediaController.Callback controllerCallback;
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return super.onBind(intent);
+    }
 
     @Override
     @SuppressWarnings("NewApi")
@@ -119,6 +130,33 @@ public class NotificationListenerService extends android.service.notification.No
             return;
         String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
         String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
+        Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+
+        File artworksDir = new File(getCacheDir(), "artworks");
+        if (artworksDir.exists() || artworksDir.mkdir()) {
+            File artworkFile = new File(artworksDir, artist + track + ".png");
+            if (!artworkFile.exists()) {
+                FileOutputStream fos = null;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                try {
+                    fos = new FileOutputStream(artworkFile);
+                    stream.writeTo(fos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (fos != null)
+                            fos.close();
+                        stream.close();
+                        artwork.recycle();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         if (isPlaying == null)
             isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
         double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
@@ -172,6 +210,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
+        Log.v("geecko", "LISTENER CONNECTED!!!");
         if (MainActivity.waitingForListener) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

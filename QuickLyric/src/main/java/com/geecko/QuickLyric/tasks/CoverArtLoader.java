@@ -29,9 +29,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
@@ -42,9 +45,40 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
         Lyrics lyrics = (Lyrics) objects[0];
         mActivity = (MainActivity) objects[1];
         String url = lyrics.getCoverURL();
-        boolean secondTry = objects.length > 2;
+        boolean online = objects.length >= 3 && (Boolean) objects[2];
+        boolean secondTry = objects.length >= 4 && (Boolean) objects[3];
 
-        if (url == null) {
+        File artworksDir = new File(mActivity.getCacheDir(), "artworks");
+        if (artworksDir.exists() || artworksDir.mkdirs()) {
+            long size = 0;
+            for (File file : artworksDir.listFiles()) {
+                size += file.length() / 1024;
+            }
+            File artworkFile = new File(artworksDir, lyrics.getOriginalArtist() + lyrics.getOriginalTrack() + ".png");
+            if (size > 20000L) {
+                File[] files = artworksDir.listFiles();
+                if (files.length != 0) {
+                    HashMap<Long, File> hashMap = new HashMap<>(files.length);
+                    for (File file : files)
+                        hashMap.put(file.lastModified(), file);
+                    File[] sortedFiles = new File[files.length / 2];
+
+                    for (int i = 0; i < files.length / 2 ; i++) {
+                        long key = Collections.min(hashMap.keySet());
+                        sortedFiles[i] = hashMap.get(key);
+                        hashMap.remove(key);
+                    }
+                    for (File file : sortedFiles) {
+                        if (!file.getName().equals(artworkFile.getName()))
+                            file.delete();
+                    }
+                }
+            }
+            if (artworkFile.exists()) {
+                return artworkFile.getAbsoluteFile().getAbsolutePath();
+            }
+        }
+        if (url == null && online) {
             try {
                 String requestURL = String.format(
                         "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
