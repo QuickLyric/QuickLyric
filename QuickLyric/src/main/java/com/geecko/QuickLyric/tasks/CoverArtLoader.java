@@ -33,8 +33,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.List;
 
 public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
@@ -51,51 +53,51 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
         File artworksDir = new File(mActivity.getCacheDir(), "artworks");
         if (artworksDir.exists() || artworksDir.mkdirs()) {
             long size = 0;
-            for (File file : artworksDir.listFiles()) {
+            List<File> files = Arrays.asList(artworksDir.listFiles());
+            for (File file : files) {
                 size += file.length() / 1024;
             }
             File artworkFile = new File(artworksDir, lyrics.getOriginalArtist() + lyrics.getOriginalTrack() + ".png");
             if (size > 20000L) {
-                File[] files = artworksDir.listFiles();
-                if (files.length != 0) {
-                    HashMap<Long, File> hashMap = new HashMap<>(files.length);
-                    for (File file : files)
-                        hashMap.put(file.lastModified(), file);
-                    File[] sortedFiles = new File[files.length / 2];
+                File[] sortedFiles = new File[files.size() / 2];
 
-                    for (int i = 0; i < files.length / 2 ; i++) {
-                        long key = Collections.min(hashMap.keySet());
-                        sortedFiles[i] = hashMap.get(key);
-                        hashMap.remove(key);
-                    }
-                    for (File file : sortedFiles) {
-                        if (!file.getName().equals(artworkFile.getName()))
-                            file.delete();
-                    }
+                for (int i = 0; i < files.size() / 2; i++) {
+                    sortedFiles[i] = Collections.min(files, new Comparator<File>() {
+                        @Override
+                        public int compare(File file1, File file2) {
+                            return (int) (file1.lastModified() - file2.lastModified());
+                        }
+                    });
+                    files.remove(sortedFiles[i]);
+                }
+                for (File file : sortedFiles) {
+                    if (!file.getName().equals(artworkFile.getName()))
+                        //noinspection ResultOfMethodCallIgnored
+                        file.delete();
+                }
+                if (artworkFile.exists() && artworkFile.length() > 0) {
+                    return artworkFile.getAbsoluteFile().getAbsolutePath();
                 }
             }
-            if (artworkFile.exists()) {
-                return artworkFile.getAbsoluteFile().getAbsolutePath();
-            }
-        }
-        if (url == null && online) {
-            try {
-                String requestURL = String.format(
-                        "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
-                        URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
-                        URLEncoder.encode(lyrics.getTrack(), "UTF-8"));
-                String txt = Net.getUrlAsString(new URL(requestURL));
-                JSONObject json = new JSONObject(txt);
-                JSONArray results = json.getJSONArray("results");
-                JSONObject result = results.getJSONObject(0);
-                url = result.getString("artworkUrl60").replace("60x60bb.jpg", "600x600bb.jpg");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException ignored) {
-                if (!secondTry) {
-                    lyrics.setArtist(lyrics.getOriginalArtist());
-                    lyrics.setTitle(lyrics.getTrack());
-                    return doInBackground(lyrics, mActivity, Boolean.TRUE);
+            if (url == null && online) {
+                try {
+                    String requestURL = String.format(
+                            "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
+                            URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
+                            URLEncoder.encode(lyrics.getTrack(), "UTF-8"));
+                    String txt = Net.getUrlAsString(new URL(requestURL));
+                    JSONObject json = new JSONObject(txt);
+                    JSONArray results = json.getJSONArray("results");
+                    JSONObject result = results.getJSONObject(0);
+                    url = result.getString("artworkUrl60").replace("60x60bb.jpg", "600x600bb.jpg");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException ignored) {
+                    if (!secondTry) {
+                        lyrics.setArtist(lyrics.getOriginalArtist());
+                        lyrics.setTitle(lyrics.getOriginalTrack());
+                        return doInBackground(lyrics, mActivity, online, Boolean.TRUE);
+                    }
                 }
             }
         }

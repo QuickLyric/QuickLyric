@@ -135,7 +135,14 @@ public class NotificationListenerService extends android.service.notification.No
         File artworksDir = new File(getCacheDir(), "artworks");
         if (artworksDir.exists() || artworksDir.mkdir()) {
             File artworkFile = new File(artworksDir, artist + track + ".png");
-            if (!artworkFile.exists()) {
+            if (!artworkFile.exists())
+                try {
+                    //noinspection ResultOfMethodCallIgnored
+                    artworkFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            else if (artworkFile.length() == 0) {
                 FileOutputStream fos = null;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -210,7 +217,6 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
-        Log.v("geecko", "LISTENER CONNECTED!!!");
         if (MainActivity.waitingForListener) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -81,6 +81,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.Id3Reader;
@@ -765,6 +766,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
                 return true;
             case R.id.action_search:
+                getActivity().startService(new Intent(getActivity(), NotificationListenerService.class));
                 MaterialSuggestionsSearchView suggestionsSearchView =
                         (MaterialSuggestionsSearchView) getActivity()
                                 .findViewById(R.id.material_search_view);
@@ -974,20 +976,20 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         mainActivity.findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
         if (coverView == null)
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
+        if (url == null)
+            url = "";
         if (mLyrics != null) {
             mLyrics.setCoverURL(url);
-            if (url == null)
-                url = "";
             coverView.setLyrics(mLyrics);
-            coverView.clearColorFilter();
-            if (url.startsWith("/")) {
-                coverView.setImageBitmap(BitmapFactory.decodeFile(url));
-            } else {
-                coverView.setImageUrl(url,
-                        new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
-                if (!url.isEmpty())
-                    DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
-            }
+        }
+        coverView.clearColorFilter();
+        if (url.startsWith("/")) {
+            coverView.setImageBitmap(BitmapFactory.decodeFile(url));
+        } else {
+            coverView.setImageUrl(url,
+                    new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
+            if (!url.isEmpty() && mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
         }
     }
 
