@@ -20,6 +20,7 @@
 
 <resources>
     <string-array name="changelog">
+        <item><![CDATA[85§• Fixed a timing issue with some synchronized lyrics<br/>• Artwork is now being imported from your player instead of being downloaded<br/>• Fixed dialog colors in Night Mode <br/>• Crash fixes and translation import]]></item>
         <item><![CDATA[84§• New strings to be translated (again)<br/>• Pressing back on the saved lyrics screen won\'t close the app anymore<br/>• Improved overall animations <br/>• Fixed a couple of reported crashes]]></item>
         <item><![CDATA[83§• New changelog pop-up dialog<br/>• New strings added on Crowdin<br/>• Enhanced compatibility with players like BlackPlayer or PowerAmp<br/>• Corrected bug where searching lyrics with non-standard characters would cause issues<br/>• Fixed important memory leaks]]></item>
     </string-array>

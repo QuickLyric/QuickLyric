@@ -40,7 +40,7 @@ android {
         targetSdkVersion 24
         vectorDrawables.useSupportLibrary = true
         versionCode 85
-        versionName "2.0 Final Preview"
+        versionName "2.0 Final Preview 2"
     }
 
     compileOptions {
