@@ -181,15 +181,15 @@ public class LrcView extends View {
         if (!min[1].contains("."))
             min[1] += ".00";
         sec = min[1].split("\\.");
+        sec[1] = sec[1].replaceAll("\\D+", "").replaceAll("\r", "").replaceAll("\n", "").trim();
 
         long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
                 .replaceAll("\r", "").replaceAll("\n", "").trim());
         long secInt = Long.parseLong(sec[0].replaceAll("\\D+", "")
                 .replaceAll("\r", "").replaceAll("\n", "").trim());
-        long milInt = Long.parseLong(sec[1].replaceAll("\\D+", "")
-                .replaceAll("\r", "").replaceAll("\n", "").trim());
+        long milInt = Long.parseLong(sec[1]);
 
-        return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
+        return minInt * 60 * 1000 + secInt * 1000 + milInt * Double.valueOf(Math.pow(10, 3 - sec[1].length())).longValue();
     }
 
     private String[] parseLine(String line) {
