@@ -30,9 +30,9 @@
 
     <target
         android:name="right_arm"
-        android:animation="@anim/done_to_edit_left" />
+        android:animation="@animator/done_to_edit_left" />
   
     <target
         android:name="left_arm"
-        android:animation="@anim/done_to_edit_right" />
+        android:animation="@animator/done_to_edit_right" />
 </animated-vector>
