@@ -47,10 +47,6 @@ import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,8 +60,12 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
 
 public class Spotify {
 
@@ -108,7 +108,7 @@ public class Spotify {
             return;
         }
 
-        RequestBody formBody = new FormEncodingBuilder()
+        RequestBody formBody = new FormBody.Builder()
                 .add("p", message)
                 .build();
 
@@ -127,7 +127,7 @@ public class Spotify {
         }
     }
 
-    private static class SpotifyKeyCallback implements com.squareup.okhttp.Callback {
+    private static class SpotifyKeyCallback implements okhttp3.Callback {
 
         private final Activity mActivity;
 
@@ -137,16 +137,7 @@ public class Spotify {
         }
 
         @Override
-        public void onResponse(com.squareup.okhttp.Response response) throws IOException {
-            if (response.code() != 404) {
-                Keys.SPOTIFY_SECRET = response.body().string();
-                startAuth();
-            } else
-                onFailure(null, new IOException("Wrong POST parameter"));
-        }
-
-        @Override
-        public void onFailure(Request request, IOException e) {
+        public void onFailure(Call call, IOException e) {
             e.printStackTrace();
             mActivity.runOnUiThread(new Runnable() {
                 @Override
@@ -154,6 +145,15 @@ public class Spotify {
                     Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
                 }
             });
+        }
+
+        @Override
+        public void onResponse(Call call, okhttp3.Response response) throws IOException {
+            if (response.code() != 404) {
+                Keys.SPOTIFY_SECRET = response.body().string();
+                startAuth();
+            } else
+                onFailure(null, new IOException("Wrong POST parameter"));
         }
 
         public void startAuth() {
@@ -210,15 +210,15 @@ public class Spotify {
 
         private void getUserSavedTrack() {
             final ArrayList<SavedTrack> savedTracks = new ArrayList<>();
-            SpotifyApi.getInstance().getApiService().getMySavedTracks(mOffset, 50, new Callback<Pager<SavedTrack>>() {
+            SpotifyApi.getInstance().getApiService().getMySavedTracks(mOffset, 50).enqueue(new Callback<Pager<SavedTrack>>() {
                         @Override
-                        public void success(Pager<SavedTrack> savedTracksPager, retrofit.client.Response response) {
-                            savedTracks.addAll(savedTracksPager.items);
+                        public void onResponse(retrofit2.Call<Pager<SavedTrack>> call, retrofit2.Response<Pager<SavedTrack>> response) {
+                            savedTracks.addAll(response.body().items);
                             if (mActivity == null || mActivity.isFinishing())
                                 return;
-                            if (savedTracksPager.next != null) {
+                            if (response.body().next != null) {
                                 SpotifyApi.getInstance().getApiService()
-                                        .getMySavedTracks(savedTracksPager.offset + savedTracksPager.limit, 50, this);
+                                        .getMySavedTracks(response.body().offset + response.body().limit, 50).enqueue(this);
                             } else if (savedTracks.size() > 0) {
                                 progressDialog.dismiss();
                                 final int time = (int) Math.ceil(savedTracks.size() / 500f);
@@ -246,7 +246,7 @@ public class Spotify {
                         }
 
                         @Override
-                        public void failure(RetrofitError error) {
+                        public void onFailure(retrofit2.Call<Pager<SavedTrack>> call, Throwable t) {
                             Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
                             if (progressDialog != null)
                                 progressDialog.dismiss();
@@ -274,12 +274,12 @@ public class Spotify {
 
             @Override
             public User call(SpotifyService service) throws Exception {
-                return service.getMe();
+                return service.getMe().execute().body();
             }
         }
 
         private class SpotifyTracks {
-            private ArrayList<String[]> tracks = new ArrayList<String[]>();
+            private ArrayList<String[]> tracks = new ArrayList<>();
             private final int playListsToFetch = 1;
 
             @NonNull
@@ -291,40 +291,38 @@ public class Spotify {
             }
 
             protected void getAllPlaylistTracks() {
-                SpotifyApi.getInstance().getApiService().getMe(new Callback<User>() {
+                SpotifyApi.getInstance().getApiService().getMe().enqueue(new Callback<User>() {
 
                     @Override
-                    public void success(final User user, retrofit.client.Response response) {
-                        PlayListCallback playListCallback = new PlayListCallback(user);
-                        SpotifyApi.getInstance().getApiService().getPlaylists(user.id, 0, playListsToFetch, playListCallback);
+                    public void onResponse(retrofit2.Call<User> call, retrofit2.Response<User> response) {
+                        PlayListCallback playListCallback = new PlayListCallback(response.body());
+                        SpotifyApi.getInstance().getApiService().getPlaylists(response.body().id, 0, playListsToFetch)
+                        .enqueue(playListCallback);
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(retrofit2.Call<User> call, Throwable t) {
                         progressDialog.dismiss();
                         Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
-
                     }
                 });
             }
 
-
             private class PlayListCallback implements Callback<Pager<Playlist>> {
                 private User user;
-
                 public PlayListCallback(User user) {
                     this.user = user;
                 }
 
                 @Override
-                public void success(final Pager<Playlist> playlistPager, retrofit.client.Response response) {
+                public void onResponse(retrofit2.Call<Pager<Playlist>> call, retrofit2.Response<Pager<Playlist>> response) {
                     SpotifyApi.getInstance().getApiService()
-                            .getPlaylistTracks(playlistPager.items.get(0).owner.id, playlistPager.items.get(0).id,
-                                    new PlaylistTrackCallback(playlistPager, this, user));
+                            .getPlaylistTracks(response.body().items.get(0).owner.id, response.body().items.get(0).id)
+                            .enqueue(new PlaylistTrackCallback(response.body(), this, user));
                 }
 
                 @Override
-                public void failure(RetrofitError error) {
+                public void onFailure(retrofit2.Call<Pager<Playlist>> call, Throwable t) {
                     progressDialog.dismiss();
                     Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
                 }
@@ -344,13 +342,14 @@ public class Spotify {
                 }
 
                 @Override
-                public void success(Pager<PlaylistTrack> playlistTrackPager, retrofit.client.Response response) {
-                    for (PlaylistTrack playlistTrack : playlistTrackPager.items) {
+                public void onResponse(retrofit2.Call<Pager<PlaylistTrack>> call, retrofit2.Response<Pager<PlaylistTrack>> response) {
+                    for (PlaylistTrack playlistTrack : response.body().items) {
                         tracks.add(cleanTrack(playlistTrack));
                     }
                     if (playlistPager.next != null) {
                         SpotifyApi.getInstance().getApiService()
-                                .getPlaylists(user.id, playlistPager.offset + playlistPager.limit, playListsToFetch, playListCallback);
+                                .getPlaylists(user.id, playlistPager.offset + playlistPager.limit, playListsToFetch)
+                                .enqueue(playListCallback);
                     } else {
                         progressDialog.dismiss();
                         if (tracks.isEmpty()) {
@@ -380,7 +379,7 @@ public class Spotify {
                 }
 
                 @Override
-                public void failure(RetrofitError error) {
+                public void onFailure(retrofit2.Call<Pager<PlaylistTrack>> call, Throwable t) {
                     progressDialog.dismiss();
                     Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
                 }
