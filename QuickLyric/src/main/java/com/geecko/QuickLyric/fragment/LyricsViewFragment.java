@@ -892,7 +892,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         final Resources resources = getResources();
         final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         int statusBarHeight;
-        if (resourceId > 0)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+            statusBarHeight = 0;
+        else if (resourceId > 0)
             statusBarHeight = resources.getDimensionPixelSize(resourceId);
         else
             statusBarHeight = (int) Math.ceil((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? 24 : 25) * resources.getDisplayMetrics().density);
