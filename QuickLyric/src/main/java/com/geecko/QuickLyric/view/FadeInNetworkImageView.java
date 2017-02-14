@@ -25,6 +25,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -143,5 +145,19 @@ public class FadeInNetworkImageView extends NetworkImageView {
             context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Matrix matrix = getImageMatrix();
+
+        float scaleFactorWidth = getWidth() / (float) getDrawable().getIntrinsicWidth();
+        float scaleFactorHeight = getHeight() / (float) getDrawable().getIntrinsicHeight();
+
+        float scaleFactor = (scaleFactorWidth > scaleFactorHeight) ? scaleFactorWidth : scaleFactorHeight;
+
+        matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.12f);
+        setImageMatrix(matrix);
+        super.onDraw(canvas);
     }
 }
