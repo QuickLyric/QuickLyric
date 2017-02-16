@@ -20,9 +20,6 @@
 package com.geecko.QuickLyric.utils;
 
 import com.geecko.QuickLyric.Keys;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import junit.framework.Assert;
 
@@ -31,6 +28,10 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SpotifyTest {
 
