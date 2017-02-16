@@ -56,7 +56,7 @@
         <ImageView
             android:id="@+id/top_gradient"
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="72dp"
             android:layout_gravity="top"
             android:fitsSystemWindows="true"
             android:src="@drawable/gradient_overlay_top"
@@ -65,7 +65,7 @@
         <ImageView
             android:id="@+id/bottom_gradient"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:src="@drawable/gradient_overlay_bottom"/>
 
