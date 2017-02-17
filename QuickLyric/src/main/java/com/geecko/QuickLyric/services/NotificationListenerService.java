@@ -132,8 +132,11 @@ public class NotificationListenerService extends android.service.notification.No
         String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
         Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
 
+        if (isPlaying == null)
+            isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
+
         File artworksDir = new File(getCacheDir(), "artworks");
-        if (artworksDir.exists() || artworksDir.mkdir()) {
+        if (artwork != null && (artworksDir.exists() || artworksDir.mkdir())) {
             File artworkFile = new File(artworksDir, artist + track + ".png");
             if (!artworkFile.exists())
                 try {
@@ -142,7 +145,7 @@ public class NotificationListenerService extends android.service.notification.No
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            else if (artworkFile.length() == 0) {
+            if (isPlaying && artworkFile.length() == 0) {
                 FileOutputStream fos = null;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -164,8 +167,6 @@ public class NotificationListenerService extends android.service.notification.No
             }
         }
 
-        if (isPlaying == null)
-            isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
         double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
         long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
