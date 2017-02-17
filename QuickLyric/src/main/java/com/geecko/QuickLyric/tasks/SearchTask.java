@@ -56,7 +56,8 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
         List<Lyrics> results;
         do
             results = doSearch(searchActivity.searchProviders.get(position));
-        while (results == null && !isCancelled() && (OnlineAccessVerifier.check(searchFragment.getActivity()) ||
+        while (results == null && !isCancelled() &&  searchFragment != null &&
+                (OnlineAccessVerifier.check(searchFragment.getActivity()) ||
                 position == 0)); // DatabaseHelper
 
         return results;
