@@ -182,6 +182,8 @@ public class LrcView extends View {
             min[1] += ".00";
         sec = min[1].split("\\.");
         sec[1] = sec[1].replaceAll("\\D+", "").replaceAll("\r", "").replaceAll("\n", "").trim();
+        if (sec[1].length() > 3)
+            sec[1] = sec[1].substring(0,3);
 
         long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
                 .replaceAll("\r", "").replaceAll("\n", "").trim());
@@ -268,7 +270,6 @@ public class LrcView extends View {
             if (!(texts.get(i).startsWith("Album:") || texts.get(i).startsWith("Title:")
                     || texts.get(i).startsWith("Artist:"))
                     && (i > 2 || (!texts.get(i).contains(lyrics.getArtist()) &&
-                    !texts.get(i).contains(lyrics.getTrack()) &&
                     (uploader == null || !texts.get(i).contains(uploader)))))
                 if (!(dictionnary.isEmpty() && texts.get(i).replaceAll("\\s", "").isEmpty()))
                     dictionnary.put(mTimes.get(i), texts.get(i));
