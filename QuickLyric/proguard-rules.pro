@@ -36,6 +36,7 @@
 -dontwarn com.android.volley.**
 -dontwarn okhttp3.**
 
+-keep class org.jsoup.** { *; }
 -keep class retrofit2.** { *; }
 -keep class org.jaudiotagger.** { *; }
 -keep public class com.google.** { *; }
