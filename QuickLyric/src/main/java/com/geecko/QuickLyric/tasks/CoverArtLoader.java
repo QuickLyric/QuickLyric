@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -53,7 +54,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
         File artworksDir = new File(mActivity.getCacheDir(), "artworks");
         if (artworksDir.exists() || artworksDir.mkdirs()) {
             long size = 0;
-            List<File> files = Arrays.asList(artworksDir.listFiles());
+            List<File> files = new ArrayList<>(Arrays.asList(artworksDir.listFiles()));
             for (File file : files) {
                 size += file.length() / 1024;
             }
@@ -71,13 +72,13 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
                     files.remove(sortedFiles[i]);
                 }
                 for (File file : sortedFiles) {
-                    if (!file.getName().equals(artworkFile.getName()))
+                    if (file != null && !file.getName().equals(artworkFile.getName()))
                         //noinspection ResultOfMethodCallIgnored
                         file.delete();
                 }
-                if (artworkFile.exists() && artworkFile.length() > 0) {
-                    return artworkFile.getAbsoluteFile().getAbsolutePath();
-                }
+            }
+            if (artworkFile.exists() && artworkFile.length() > 0) {
+                return artworkFile.getAbsoluteFile().getAbsolutePath();
             }
             if (url == null && online) {
                 try {
