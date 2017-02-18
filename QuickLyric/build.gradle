@@ -98,7 +98,7 @@ dependencies {
     compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.github.geecko86:SpotifyApi:5'
+    compile 'com.github.geecko86:SpotifyApi:6'
 
     /* Debug & testing */
     testCompile 'junit:junit:4.12'
