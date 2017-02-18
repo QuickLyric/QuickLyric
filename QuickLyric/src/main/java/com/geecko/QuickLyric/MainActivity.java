@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         IMMLeaks.fixFocusedViewLeak(getApplication());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             setTheme(R.style.Theme_QuickLyric_Night);
         else
             setTheme(themes[themeNum]);
+        super.onCreate(savedInstanceState);
         setStatusBarColor(null);
         setNavBarColor(null);
         final FragmentManager fragmentManager = getFragmentManager();
