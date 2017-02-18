@@ -153,12 +153,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        DatabaseHelper.getInstance(getApplicationContext()).close();
-        super.onDestroy();
-    }
-
-    @Override
     public void finish() {
         leaving = true;
         super.finish();

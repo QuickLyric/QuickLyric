@@ -49,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC};
     private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT);";
     private static DatabaseHelper sInstance;
+    private boolean closed = false;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -227,5 +228,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean presenceCheck(String[] metaData) {
         SQLiteDatabase database = getReadableDatabase();
         return presenceCheck(database, metaData);
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    @Override
+    public void close() {
+        this.closed = true;
+        super.close();
     }
 }

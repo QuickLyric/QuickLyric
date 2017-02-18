@@ -33,6 +33,7 @@ public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
         String[] metaData = (String[]) params[1];
         return lyricsViewFragment != null &&
                 lyricsViewFragment.getActivity() != null &&
+                !DatabaseHelper.getInstance(lyricsViewFragment.getActivity()).isClosed() &&
                 DatabaseHelper.getInstance(lyricsViewFragment.getActivity()).presenceCheck(metaData);
     }
 
