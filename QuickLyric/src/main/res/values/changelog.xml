@@ -20,6 +20,7 @@
 
 <resources>
     <string-array name="changelog">
+        <item><![CDATA[89§• New launch screen<br/>• Crash fixes]]></item>
         <item><![CDATA[87§• Adjusted the artwork framing<br/>• Switched to HTTP2 for a faster, better experience<br/>• Made the APK lighter<br/>• Fixed sync issues, crashes and some minor bugs]]></item>
         <item><![CDATA[86§• Fixed a critical bug that broke player compatibility. You may need to restart your device. Apologies for the inconvenience.]]></item>
         <item><![CDATA[85§• Fixed a timing issue with some synchronized lyrics<br/>• Artwork is now being imported from your player instead of being downloaded<br/>• Fixed dialog colors in Night Mode <br/>• Crash fixes and translation import]]></item>
