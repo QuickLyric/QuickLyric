@@ -149,15 +149,17 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Matrix matrix = getImageMatrix();
+        if (getDrawable() != null) {
+            Matrix matrix = getImageMatrix();
 
-        float scaleFactorWidth = getWidth() / (float) getDrawable().getIntrinsicWidth();
-        float scaleFactorHeight = getHeight() / (float) getDrawable().getIntrinsicHeight();
+            float scaleFactorWidth = getWidth() / (float) getDrawable().getIntrinsicWidth();
+            float scaleFactorHeight = getHeight() / (float) getDrawable().getIntrinsicHeight();
 
-        float scaleFactor = (scaleFactorWidth > scaleFactorHeight) ? scaleFactorWidth : scaleFactorHeight;
+            float scaleFactor = (scaleFactorWidth > scaleFactorHeight) ? scaleFactorWidth : scaleFactorHeight;
 
-        matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.12f);
-        setImageMatrix(matrix);
+            matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.12f);
+            setImageMatrix(matrix);
+        }
         super.onDraw(canvas);
     }
 }
