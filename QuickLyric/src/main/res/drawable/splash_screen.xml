@@ -21,14 +21,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
             android:opacity="opaque">
     <item android:drawable="@color/material_deepOrange_700"/>
-    <item>
+    <item android:bottom="80dp">
         <bitmap
             android:gravity="center"
             android:src="@drawable/splash_icon"/>
     </item>
-    <item android:bottom="165dp">
+    <item android:top="140dp">
         <bitmap
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center"
             android:src="@drawable/splash_text"/>
     </item>
 </layer-list>
