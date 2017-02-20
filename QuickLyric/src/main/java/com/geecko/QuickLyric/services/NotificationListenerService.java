@@ -94,6 +94,9 @@ public class NotificationListenerService extends android.service.notification.No
                                 super.onPlaybackStateChanged(state);
                                 if (state == null)
                                     return;
+                                if ("com.google.android.youtube".equals(controllers.get(0).getPackageName()) ||
+                                        "org.videolan.vlc".equals(controllers.get(0).getPackageName()))
+                                    return;
                                 boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
                                 if (!isPlaying) {
                                     NotificationManager notificationManager =
