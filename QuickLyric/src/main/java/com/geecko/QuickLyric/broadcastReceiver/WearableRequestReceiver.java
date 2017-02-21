@@ -30,6 +30,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.BigTextStyle;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.Html;
+import android.util.TypedValue;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -68,10 +69,19 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         PendingIntent openAction = PendingIntent.getActivity(mContext, 0, activityIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if (sharedPref.getString("pref_theme", "0").equals("0"))
-            notifBuilder.setColor(mContext.getResources().getColor(R.color.primary));
-        BigTextStyle bigStyle = new NotificationCompat.BigTextStyle();
+        BigTextStyle bigStyle = new BigTextStyle();
         bigStyle.bigText(lyrics.getText() != null ? Html.fromHtml(lyrics.getText()) : "");
+
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
+
+        TypedValue primaryColorValue = new TypedValue();
+        mContext.setTheme(themes[themeNum]);
+        mContext.getTheme().resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
 
         notifBuilder.setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle(mContext.getString(R.string.app_name))
@@ -79,9 +89,13 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
                 .setStyle(bigStyle)
                 .setGroup("Lyrics_Notification")
                 .setOngoing(false)
+                .setColor(primaryColorValue.data)
                 .setGroupSummary(false)
                 .setContentIntent(openAction)
                 .setVisibility(-1); // Notification.VISIBILITY_SECRET
+
+        if (notificationPref == 2)
+            notifBuilder.setPriority(-2);
 
         if (lyrics.getFlag() < 0)
             notifBuilder.extend(new NotificationCompat.WearableExtender()

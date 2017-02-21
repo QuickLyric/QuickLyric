@@ -164,14 +164,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             context.setTheme(themes[themeNum]);
             context.getTheme().resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
 
-            notifBuilder.setColor(primaryColorValue.data);
-
             notifBuilder.setSmallIcon(R.drawable.ic_notif)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(String.format("%s - %s", artist, track))
                     .setContentIntent(openAppPending)
                     .setVisibility(-1) // Notification.VISIBILITY_SECRET
                     .setGroup("Lyrics_Notification")
+                    .setColor(primaryColorValue.data)
                     .setGroupSummary(true);
 
             wearableNotifBuilder.setSmallIcon(R.drawable.ic_notif)
@@ -181,11 +180,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                     .setVisibility(-1) // Notification.VISIBILITY_SECRET
                     .setGroup("Lyrics_Notification")
                     .setOngoing(false)
+                    .setColor(primaryColorValue.data)
                     .setGroupSummary(false)
                     .extend(new NotificationCompat.WearableExtender().addAction(wearableAction));
 
             if (notificationPref == 2) {
                 notifBuilder.setOngoing(true).setPriority(-2); // Notification.PRIORITY_MIN
+                wearableNotifBuilder.setPriority(-2);
             } else
                 notifBuilder.setPriority(-1); // Notification.PRIORITY_LOW
 
