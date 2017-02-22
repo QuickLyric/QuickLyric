@@ -28,7 +28,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary">
+        android:elevation="4dp"
+        android:minHeight="56dp"
+        android:background="@android:color/white">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/search_toolbar"
@@ -36,6 +38,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             android:focusable="false"
+            android:visibility="gone"
             android:background="?attr/colorPrimary"
             android:theme="@style/actionBar.QuickLyric"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -44,11 +47,10 @@
             android:id="@+id/material_search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:padding="6dp"
             android:textColor="?android:textColorPrimary"
             app:searchBackIcon="@drawable/searchBackIcon"
             app:searchBackground="?android:colorBackground"
+            android:elevation="5dp"
             app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
             app:searchSuggestionBackground="?android:colorBackground"
             app:searchSuggestionIcon="@drawable/ic_suggestion"/>
