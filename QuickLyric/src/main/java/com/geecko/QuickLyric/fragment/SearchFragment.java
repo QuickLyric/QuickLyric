@@ -141,7 +141,7 @@ public class SearchFragment extends ListFragment {
             String[] artistsArray = new String[results.size()];
             int i = 0;
             for (Lyrics l : results) {
-                songsArray[i] = l.getTrack();
+                songsArray[i] = l.getTitle();
                 artistsArray[i++] = l.getArtist();
             }
             setListAdapter(new SearchAdapter(getActivity().getApplicationContext(), songsArray,

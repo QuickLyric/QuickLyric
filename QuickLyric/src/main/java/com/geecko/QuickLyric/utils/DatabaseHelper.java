@@ -33,7 +33,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "QuickLyric";
     public static final String TABLE_NAME = "lyrics";
     private static final String KEY_ARTIST = "artist";
@@ -45,8 +45,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_LRC = "isLRC";
     private static final String KEY_SOURCE = "source";
     private static final String KEY_COVER_URL = "cover";
+    private static final String KEY_WRITER = "writer";
+    private static final String KEY_COPYRIGHT = "copyright";
     public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE,
-            KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC};
+            KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC, KEY_WRITER, KEY_COPYRIGHT};
     private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT);";
     private static DatabaseHelper sInstance;
     private boolean closed = false;
@@ -78,6 +80,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 4) {
             db.execSQL("DELETE FROM "+TABLE_NAME);
         }
+        if (oldVersion < 6) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_WRITER + " TINYTEXT;");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + "\n ADD " + KEY_COPYRIGHT + " TINYTEXT;");
+        }
     }
 
     public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
@@ -107,6 +113,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             l.setCoverURL(cursor.getString(5));
             l.setOriginalArtist(cursor.getString(6));
             l.setOriginalTitle(cursor.getString(7));
+            l.setLRC(cursor.getInt(8) > 0);
+            l.setWriter(cursor.getString(9));
+            l.setCopyright(cursor.getString(10));
             results.add(l);
         }
         cursor.close();
@@ -158,6 +167,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             result.setOriginalArtist(cursor.getString(6));
             result.setOriginalTitle(cursor.getString(7));
             result.setLRC(cursor.getInt(8) > 0);
+            result.setWriter(cursor.getString(9));
+            result.setCopyright(cursor.getString(10));
         }
         cursor.close();
         return result;
@@ -183,6 +194,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 result.setOriginalArtist(cursor.getString(6));
                 result.setOriginalTitle(cursor.getString(7));
                 result.setLRC(cursor.getInt(8) > 0);
+                result.setWriter(cursor.getString(9));
+                result.setCopyright(cursor.getString(10));
                 results[cursor.getPosition()] = result;
             } while (cursor.moveToNext());
         cursor.close();

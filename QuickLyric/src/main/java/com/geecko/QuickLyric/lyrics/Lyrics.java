@@ -38,7 +38,9 @@ public class Lyrics implements Serializable, Parcelable {
     private String mOriginalArtist;
     private String mSourceUrl;
     private String mCoverURL;
-    private String mLyrics;
+    private String mCopyright;
+    private String mWriter;
+    private String mText;
     private String mSource;
     private boolean mLRC = false;
     private final int mFlag;
@@ -63,7 +65,7 @@ public class Lyrics implements Serializable, Parcelable {
         mOriginalArtist = in.readString();
         mSourceUrl = in.readString();
         mCoverURL = in.readString();
-        mLyrics = in.readString();
+        mText = in.readString();
         mSource = in.readString();
         mLRC = in.readByte() != 0;
         mFlag = in.readInt();
@@ -81,7 +83,7 @@ public class Lyrics implements Serializable, Parcelable {
         }
     };
 
-    public String getTrack() {
+    public String getTitle() {
         return mTitle;
     }
 
@@ -135,12 +137,28 @@ public class Lyrics implements Serializable, Parcelable {
         this.mCoverURL = coverURL;
     }
 
+    public String getCopyright() {
+        return mCopyright;
+    }
+
+    public void setCopyright(String copyright) {
+        this.mCopyright = copyright;
+    }
+
+    public String getWriter() {
+        return this.mWriter;
+    }
+
+    public void setWriter(String writer) {
+        this.mWriter = writer;
+    }
+
     public String getText() {
-        return mLyrics;
+        return mText;
     }
 
     public void setText(String lyrics) {
-        this.mLyrics = lyrics;
+        this.mText = lyrics;
     }
 
     public String getSource() {
@@ -194,7 +212,7 @@ public class Lyrics implements Serializable, Parcelable {
             result &= this.getFlag() == other.getFlag();
             result &= this.getSource().equals(other.getSource());
             result &= this.getArtist().equals(other.getArtist());
-            result &= this.getTrack().equals(other.getTrack());
+            result &= this.getTitle().equals(other.getTitle());
             return result;
         }
         else
@@ -221,7 +239,9 @@ public class Lyrics implements Serializable, Parcelable {
         dest.writeString(mOriginalArtist);
         dest.writeString(mSourceUrl);
         dest.writeString(mCoverURL);
-        dest.writeString(mLyrics);
+        dest.writeString(mCopyright);
+        dest.writeString(mWriter);
+        dest.writeString(mText);
         dest.writeString(mSource);
         dest.writeByte((byte) (mLRC ? 1 : 0));
         dest.writeInt(mFlag);

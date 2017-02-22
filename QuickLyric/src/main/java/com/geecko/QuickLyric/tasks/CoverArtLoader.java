@@ -85,7 +85,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
                     String requestURL = String.format(
                             "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
                             URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
-                            URLEncoder.encode(lyrics.getTrack(), "UTF-8"));
+                            URLEncoder.encode(lyrics.getTitle(), "UTF-8"));
                     String txt = Net.getUrlAsString(new URL(requestURL));
                     JSONObject json = new JSONObject(txt);
                     JSONArray results = json.getJSONArray("results");

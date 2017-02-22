@@ -93,7 +93,7 @@ public class Id3Writer extends AsyncTask<Object, Object, Boolean> {
                 TagOptionSingleton.getInstance().setAndroid(true);
                 Tag tags = af.getTag();
                 tags.setField(FieldKey.ARTIST, editedLyrics.getArtist());
-                tags.setField(FieldKey.TITLE, editedLyrics.getTrack());
+                tags.setField(FieldKey.TITLE, editedLyrics.getTitle());
                 tags.setField(FieldKey.LYRICS, Html.fromHtml(editedLyrics.getText()).toString());
                 af.setTag(tags);
                 AudioFileIO.write(af);

@@ -43,9 +43,11 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/lyrics_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="1dp">
 
                     <!--
                         Fixme minHeight trick
@@ -56,9 +58,9 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="top"
                         android:focusable="false"
-                        android:minHeight="530dp"
                         android:inAnimation="@android:anim/fade_in"
                         android:measureAllChildren="false"
+                        android:minHeight="530dp"
                         android:outAnimation="@android:anim/fade_out"
                         android:padding="5dp"/>
 
@@ -67,11 +69,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="@dimen/txt_size"
                         android:focusable="false"
                         android:visibility="gone"
-                        android:layout_marginTop="@dimen/txt_size"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginLeft="15dp"
                         app:currentTextColor="?highlightColor"
                         app:dividerHeight="10dip"
                         app:normalTextColor="?android:textColorPrimary"
@@ -96,14 +98,29 @@
                         android:visibility="gone"/>
 
                     <TextView
-                        android:id="@+id/id3_tv"
+                        android:id="@+id/source_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:clickable="true"
                         android:gravity="center"
-                        android:onClick="id3PopUp"
-                        android:text="@string/from_id3"
+                        android:textColor="?android:textColorSecondary"
+                        android:textColorLink="?android:textColorSecondary"/>
+
+                    <TextView
+                        android:id="@+id/writer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:textColor="?android:textColorSecondary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/copyright_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:textColor="?android:textColorSecondary"
                         android:visibility="gone"/>
                 </LinearLayout>

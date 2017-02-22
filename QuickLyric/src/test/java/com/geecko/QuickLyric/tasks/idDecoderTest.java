@@ -42,7 +42,7 @@ public class idDecoderTest {
         Lyrics result = idDecoder.doInBackground("http://www.soundhound.com/?t=100712370075285435");
         assertNotNull(result);
         assertEquals("Tycho", result.getArtist());
-        assertEquals("Melanine", result.getTrack());
+        assertEquals("Melanine", result.getTitle());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class idDecoderTest {
         Lyrics result = idDecoder.doInBackground("http://shz.am/t54008130");
         assertNotNull(result);
         assertEquals(result.getArtist(), "Tycho");
-        assertEquals(result.getTrack(), "A Walk");
+        assertEquals(result.getTitle(), "A Walk");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class idDecoderTest {
         Lyrics result = idDecoder.doInBackground("https://play.google.com/store/music/album?id=Bnl7gvtywqiwmfao4rmd5pecfbu&tid=song-Trdszdvkk3arz3dkuv4flo37uly");
         assertNotNull(result);
         assertEquals(result.getArtist(), "Tycho");
-        assertEquals(result.getTrack(), "A Walk");
+        assertEquals(result.getTitle(), "A Walk");
     }
 
 }

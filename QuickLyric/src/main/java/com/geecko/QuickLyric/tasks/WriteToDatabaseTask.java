@@ -82,13 +82,13 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
-                    Lyrics storedLyrics = DatabaseHelper.getInstance(mContext).get(new String[]{lyrics.getArtist(), lyrics.getTrack(),
+                    Lyrics storedLyrics = DatabaseHelper.getInstance(mContext).get(new String[]{lyrics.getArtist(), lyrics.getTitle(),
                             lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
                     if ((storedLyrics == null || (!storedLyrics.isLRC() && lyrics.isLRC()))
                             && !"Storage".equals(lyrics.getSource())) {
                         ContentValues values = new ContentValues(2);
                         values.put(columns[0], lyrics.getArtist());
-                        values.put(columns[1], lyrics.getTrack());
+                        values.put(columns[1], lyrics.getTitle());
                         values.put(columns[2], lyrics.getText());
                         values.put(columns[3], lyrics.getURL());
                         values.put(columns[4], lyrics.getSource());
@@ -96,13 +96,15 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                         values.put(columns[6], lyrics.getOriginalArtist());
                         values.put(columns[7], lyrics.getOriginalTrack());
                         values.put(columns[8], lyrics.isLRC() ? 1 : 0);
-                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
+                        values.put(columns[9], lyrics.getWriter());
+                        values.put(columns[10], lyrics.getCopyright());
+                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTitle()});
                         database.insert(DatabaseHelper.TABLE_NAME, null, values);
                         if (fragment instanceof LyricsViewFragment)
                             ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
                         result = true;
                     } else if (mContext != null) { // if called from activity, not service
-                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTrack()});
+                        database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTitle()});
                         if (fragment instanceof LyricsViewFragment)
                             ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
                         result = false;

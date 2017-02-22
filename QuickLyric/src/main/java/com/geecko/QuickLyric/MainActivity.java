@@ -425,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.checkPreferencesChanges();
         } else if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
-            updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTrack(), results.getURL());
+            updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTitle(), results.getURL());
             lyricsViewFragment.searchResultLock = true;
         }
         lyricsViewFragment.updateSearchView(true, null, false);

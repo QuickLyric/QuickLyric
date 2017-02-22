@@ -94,7 +94,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         } else
             holder = (ChildViewHolder) convertView.getTag();
         holder.lyrics = getChild(groupPosition, childPosition);
-        holder.title.setText(holder.lyrics.getTrack());
+        holder.title.setText(holder.lyrics.getTitle());
         convertView.setOnTouchListener(mTouchListener);
         holder.groupPosition = groupPosition;
         convertView.setAlpha(1f);

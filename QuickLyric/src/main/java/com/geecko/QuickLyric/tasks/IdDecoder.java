@@ -111,12 +111,12 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
         if (lyricsViewFragment != null) {
-            if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTrack() == null))
+            if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTitle() == null))
                 lyricsViewFragment.stopRefreshAnimation();
             else
-                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTrack());
+                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTitle());
         } else
-            ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTrack());
+            ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTitle());
         if (lyrics.getFlag() == ERROR)
             Toast.makeText(mContext, R.string.wrong_musicID, Toast.LENGTH_LONG).show();
     }

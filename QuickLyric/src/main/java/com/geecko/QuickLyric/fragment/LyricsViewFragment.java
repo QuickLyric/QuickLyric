@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
@@ -37,6 +38,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -55,6 +57,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -189,7 +194,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     this.mLyrics = lyrics;
                     if (lyrics != null && lyrics.getText() == null && lyrics.getArtist() != null) {
                         String artist = lyrics.getArtist();
-                        String track = lyrics.getTrack();
+                        String track = lyrics.getTitle();
                         String url = lyrics.getURL();
                         fetchLyrics(artist, track, url);
                         mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
@@ -231,11 +236,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
             artistTV.setTypeface(LyricsTextFactory.FontCache.get("regular", getActivity()));
             songTV.setTypeface(LyricsTextFactory.FontCache.get("medium", getActivity()));
-
-            TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
-            SpannableString text = new SpannableString(id3TV.getText());
-            text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
-            id3TV.setText(text);
 
             final RefreshIcon refreshFab = (RefreshIcon) getActivity().findViewById(R.id.refresh_fab);
             refreshFab.setOnClickListener(new View.OnClickListener() {
@@ -284,9 +284,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
                 startRefreshAnimation();
                 if (mLyrics.getArtist() != null)
-                    fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
+                    fetchLyrics(mLyrics.getArtist(), mLyrics.getTitle());
                 ((TextView) (getActivity().findViewById(R.id.artist))).setText(mLyrics.getArtist());
-                ((TextView) (getActivity().findViewById(R.id.song))).setText(mLyrics.getTrack());
+                ((TextView) (getActivity().findViewById(R.id.song))).setText(mLyrics.getTitle());
             } else //Rotation, resume
                 update(mLyrics, layout, false);
         }
@@ -374,7 +374,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         File musicFile = Id3Reader.getFile(getActivity(), mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack());
 
         if (!mLyrics.getArtist().equals(artistTV.getText().toString())
-                || !mLyrics.getTrack().equals(songTV.getText().toString())
+                || !mLyrics.getTitle().equals(songTV.getText().toString())
                 || !Html.fromHtml(txt).toString().equals(newLyrics.getText().toString())) {
             mLyrics.setArtist(artistTV.getText().toString());
             mLyrics.setTitle(songTV.getText().toString());
@@ -406,7 +406,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (!hidden) {
             this.onViewCreated(getView(), null);
             if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB)
-                new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
+                new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
                         mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
         } else
             this.isActiveFragment = false;
@@ -457,7 +457,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
                     !("Storage".equals(mLyrics.getSource())
                             && mLyrics.getArtist().equalsIgnoreCase(artist)
-                            && mLyrics.getTrack().equalsIgnoreCase(title))
+                            && mLyrics.getTitle().equalsIgnoreCase(title))
             ))
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
 
@@ -507,7 +507,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void fetchCurrentLyrics(boolean showMsg) {
         searchResultLock = false;
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(false);
-        if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
+        if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTitle() != null)
             new ParseTask(this, showMsg, false).execute(mLyrics);
         else
             new ParseTask(this, showMsg, false).execute((Object) null);
@@ -545,12 +545,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mLyrics = lyrics;
     }
 
+    @SuppressLint("SetTextI18n")
     public void update(Lyrics lyrics, View layout, boolean animation) {
         File musicFile = null;
         Bitmap cover = null;
         if (PermissionsChecker.hasPermission(getActivity(), "android.permission.READ_EXTERNAL_STORAGE")) {
             musicFile = Id3Reader.getFile(getActivity(), lyrics.getOriginalArtist(), lyrics.getOriginalTrack());
-            cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTrack());
+            cover = Id3Reader.getCover(getActivity(), lyrics.getArtist(), lyrics.getTitle());
         }
         setCoverArt(cover, null);
         boolean artCellDownload =
@@ -561,7 +562,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
                 .setVisibility(musicFile == null || !musicFile.canWrite() || lyrics.isLRC()
-                        || Id3Reader.getLyrics(getActivity(), lyrics.getArtist(), lyrics.getTrack()) == null
+                        || Id3Reader.getLyrics(getActivity(), lyrics.getArtist(), lyrics.getTitle()) == null
                         ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
@@ -570,22 +571,41 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             ((ViewGroup) v.getParent()).removeView(v);
         TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
         TextView songTV = (TextView) getActivity().findViewById(R.id.song);
-        TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
+        final TextView id3TV = (TextView) layout.findViewById(R.id.source_tv);
+        TextView writerTV = (TextView) layout.findViewById(R.id.writer_tv);
+        TextView copyrightTV = (TextView) layout.findViewById(R.id.copyright_tv);
         RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
         this.mLyrics = lyrics;
         if (SDK_INT >= ICE_CREAM_SANDWICH)
             beamLyrics(lyrics, this.getActivity());
-        new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack(),
+        new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTitle(),
                 lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
 
         if (lyrics.getArtist() != null)
             artistTV.setText(lyrics.getArtist());
         else
             artistTV.setText("");
-        if (lyrics.getTrack() != null)
-            songTV.setText(lyrics.getTrack());
+        if (lyrics.getTitle() != null)
+            songTV.setText(lyrics.getTitle());
         else
             songTV.setText("");
+        if (lyrics.getCopyright() != null) {
+            copyrightTV.setText("Copyright: " + lyrics.getCopyright());
+            copyrightTV.setVisibility(View.VISIBLE);
+        } else {
+            copyrightTV.setText("");
+            copyrightTV.setVisibility(View.GONE);
+        }
+        if (lyrics.getWriter() != null) {
+            if (lyrics.getWriter().contains(","))
+                writerTV.setText("Writers:\n" + lyrics.getWriter());
+            else
+                writerTV.setText("Writer:" + lyrics.getWriter());
+            writerTV.setVisibility(View.VISIBLE);
+        } else {
+            writerTV.setText("");
+            writerTV.setVisibility(View.GONE);
+        }
         if (isActiveFragment)
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
         EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
@@ -611,10 +631,31 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             }
 
             bugLayout.setVisibility(View.INVISIBLE);
-            if ("Storage".equals(lyrics.getSource()))
-                id3TV.setVisibility(View.VISIBLE);
-            else
-                id3TV.setVisibility(View.GONE);
+            id3TV.setVisibility(View.VISIBLE);
+            id3TV.setMovementMethod(LinkMovementMethod.getInstance());
+            if ("Storage".equals(lyrics.getSource())) {
+                SpannableString text = new SpannableString(getString(R.string.from_id3));
+                text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
+                id3TV.setText(text);
+                id3TV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((MainActivity) getActivity()).id3PopUp(id3TV);
+                    }
+                });
+            } else {
+                id3TV.setOnClickListener(null);
+                SpannableString text = new SpannableString("Lyrics licensed & provided by LyricFind");
+                int start = text.toString().indexOf("LyricFind");
+                text.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.lyricfind.com")));
+                    }
+                }, start, start + 9, 0);
+                text.setSpan(new UnderlineSpan(), start, start + 9, 0);
+                id3TV.setText(text);
+            }
             mScrollView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -635,7 +676,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             } else {
                 message = R.string.no_results;
                 whyVisibility = TextView.VISIBLE;
-                updateSearchView(false, lyrics.getTrack(), false);
+                updateSearchView(false, lyrics.getTitle(), false);
             }
             TextView whyTextView = ((TextView) bugLayout.findViewById(R.id.bugtext_why));
             ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
@@ -722,7 +763,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void showWhyPopup() {
-        String title = mLyrics.getTrack();
+        String title = mLyrics.getTitle();
         String artist = mLyrics.getArtist();
         new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.why_popup_title))
                 .setMessage(String.format(String.valueOf(Html.fromHtml(getString(R.string.why_popup_text))),
@@ -785,7 +826,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         update(lrcView.getStaticLyrics(), getView(), true);
                 } else
                     update(DatabaseHelper.getInstance(getActivity())
-                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
+                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
                                     mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), getView(), true);
         }
         return false;
@@ -924,7 +965,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         Lyrics storedLyrics = mLyrics == null ? null :
                 DatabaseHelper.getInstance(getActivity()).get(new String[]{
                         mLyrics.getArtist(),
-                        mLyrics.getTrack(),
+                        mLyrics.getTitle(),
                         mLyrics.getOriginalArtist(),
                         mLyrics.getOriginalTrack()});
 
@@ -991,7 +1032,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             coverView.setImageUrl(url,
                     new ImageLoader(Volley.newRequestQueue(mainActivity), CoverCache.instance()));
             if (!url.isEmpty() && mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
-                DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTrack(), url);
+                DatabaseHelper.getInstance(getActivity()).updateCover(mLyrics.getArtist(), mLyrics.getTitle(), url);
         }
     }
 

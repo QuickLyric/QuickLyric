@@ -65,7 +65,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
-                .putExtra("TAGS", new String[]{lyrics.getArtist(), lyrics.getTrack()});
+                .putExtra("TAGS", new String[]{lyrics.getArtist(), lyrics.getTitle()});
         PendingIntent openAction = PendingIntent.getActivity(mContext, 0, activityIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -85,7 +85,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
 
         notifBuilder.setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle(mContext.getString(R.string.app_name))
-                .setContentText(String.format("%s - %s", lyrics.getArtist(), lyrics.getTrack()))
+                .setContentText(String.format("%s - %s", lyrics.getArtist(), lyrics.getTitle()))
                 .setStyle(bigStyle)
                 .setGroup("Lyrics_Notification")
                 .setOngoing(false)
