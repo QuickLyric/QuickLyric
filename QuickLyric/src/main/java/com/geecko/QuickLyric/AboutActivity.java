@@ -100,7 +100,7 @@ public class AboutActivity extends AppCompatActivity {
         crowdinElement.setIntent(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/quicklyric"))
         );
-        Element ossLicensesElement = new Element().setTitle("Open Source Licenses").setTag("OSSLicenses");
+        Element ossLicensesElement = new Element().setTitle("Open Source Licenses");
         ossLicensesElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
