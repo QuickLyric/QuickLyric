@@ -406,10 +406,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                         + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
                 Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
-        Matcher matcher = urlPattern.matcher(extra);
-        if (matcher.find())
-            return extra.substring(matcher.start(), matcher.end());
-        else
+        if (!(extra == null || extra.isEmpty())) {
+            Matcher matcher = urlPattern.matcher(extra);
+            if (matcher.find())
+                return extra.substring(matcher.start(), matcher.end());
+        }
             return null;
     }
 
