@@ -117,6 +117,7 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="source_bollywood">Bollywood glasba</string>
   <string name="source_sync">Sinhronizirana besedila</string>
   <string name="spotify_connection">Povezovanje na Spotify&#8230;</string>
+  <string name="full_text_action">Celotno besedilo</string>
   <string name="artworks_pref_title">Samodejen prenos slik albuma</string>
   <string name="artworks_pref_sum">Lahko povzroči stroške na mobilnih podatkih</string>
   <string name="pref_lrc_sum">Poudari pete besede - vsi glasbeni predvajalniki niso podprti</string>
@@ -134,16 +135,21 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="nl_title">Še zadnja stvar.</string>
   <string name="nl_instructions">Da lahko QuickLyric deluje z vsemi predvajalniki, morajo nekatere nastavitve biti spremenjene.</string>
   <string name="nl_settings_link">Omogoči da QuickLyric bere moja obvestila</string>
+  <string name="changelog">Kaj je novega?</string>
+  <string name="rate_us">Oceni aplikacijo</string>
   <string name="premium_title">Nakup Premium</string>
   <string name="remove_ads_title">Odstrani oglase</string>
   <string name="subscription_monthly">Mesečno</string>
   <string name="subscription_yearly">Letno</string>
+  <string name="premium_sum_incent">Pridobite Premium, da podprete izvajalce &amp; ekipo QuickLyric!</string>
   <string name="premium_ads_incent">Nič več oglasov!</string>
   <string name="premium_karaoke_incent">Ekskluzivni *karaoke* način</string>
   <string name="premium_themes_incent">*7* novih tem</string>
   <string name="premium_night_mode_incent">*nočni način* za manjšo obremenitev oči ponoči</string>
+  <string name="premium_doubt">Niste prepričani o naročnini? Pišite nam na contact@quicklyric.be</string>
   <string name="premium_thanks">Hvala za vašo podporo!</string>
   <string name="about_crowdin">Pomagajte prevesti aplikacijo na Crowdin</string>
+  <string name="online_title">Spletni katalog</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>

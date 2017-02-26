@@ -118,6 +118,7 @@ Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer ni
   <string name="source_bollywood">Bollywood muziek</string>
   <string name="source_sync">Gesynchroniseerde songteksten</string>
   <string name="spotify_connection">Verbindt met Spotify...</string>
+  <string name="full_text_action">Volledige tekst</string>
   <string name="artworks_pref_title">Automatisch albumafbeeldingen downloaden</string>
   <string name="artworks_pref_sum">Dit kan mogelijk hogere data kosten veroorzaken</string>
   <string name="pref_lrc_sum">Licht de woorden op die worden gezongen - werkt niet met alle muziek spelers</string>
@@ -135,17 +136,24 @@ Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer ni
   <string name="nl_title">Nog een ding.</string>
   <string name="nl_instructions">Er moeten wat instellingen veranderd worden voordat QuickLyric werkt met al je spelers.</string>
   <string name="nl_settings_link">Sta QuickLyric toe mijn notificaties te lezen</string>
+  <string name="changelog">Wat is er nieuw?</string>
   <string name="rate_us">Beoordeel deze app</string>
   <string name="premium_title">Haal Premium</string>
   <string name="remove_ads_title">Verwijder advertenties</string>
   <string name="subscription_monthly">Maandelijks</string>
   <string name="subscription_yearly">Jaarlijks</string>
+  <string name="premium_sum_incent">Koop Premium om de artiesten &amp; het team achter QuickLyric te steunen!</string>
   <string name="premium_ads_incent">Geen advertenties meer!</string>
   <string name="premium_karaoke_incent">Een exclusieve *Karaoke modus*</string>
   <string name="premium_themes_incent">*7* nieuwe thema\'s</string>
   <string name="premium_night_mode_incent">Een *nacht modus* om je ogen \'s nachts rust te geven</string>
+  <string name="premium_doubt">Onzeker over het kopen van de upgrade? Stuur een email naar contact@quicklyric.be</string>
   <string name="premium_thanks">Bedankt voor je bijdrage!</string>
   <string name="about_crowdin">Help met het vertalen van de app op Crowdin</string>
+  <string name="online_title">Online catalogus</string>
+  <string name="yearly_sub_template">%s/jaar</string>
+  <string name="monthly_sub_template">%s/maand</string>
+  <string name="buy_sub">Kopen</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric zal nu de songteksten downloaden voor een totaal van %1$d liedje.\
         Zorg ervoor dat u een vaste verbinding hebt voor ten minste %2$d minuut.</item>

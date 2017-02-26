@@ -135,7 +135,7 @@ Beberapa kemungkinan kenapa: <br/>
   <string name="nl_title">Satu hal lagi.</string>
   <string name="nl_instructions">Agar QuickLyric berfungsi pada semua pemutar musik, beberapa setelan perlu diubah.</string>
   <string name="nl_settings_link">Izinkan QuickLyric untuk membaca pemberitahuan saya</string>
-  <string name="changelog">Catatan perubahan</string>
+  <string name="changelog">Perubahan baru</string>
   <string name="premium_title">Dapatkan Premium</string>
   <string name="remove_ads_title">Hapus iklan</string>
   <string name="subscription_monthly">Bulanan</string>
@@ -146,6 +146,7 @@ Beberapa kemungkinan kenapa: <br/>
   <string name="premium_night_mode_incent">*mode malam* untuk merehatkan mata Anda di malam hari</string>
   <string name="premium_thanks">Terima kasih atas dukungan Anda!</string>
   <string name="about_crowdin">Bantu terjemahkan aplikasi di Crowdin</string>
+  <string name="online_title">katalok online</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric sekarang men-download Lirik untuk total %1$d lagu. \ pastikan Anda memiliki koneksi yang stabil untuk di setidaknya %2$d menit.</item>
   </plurals>

@@ -140,16 +140,21 @@
   <string name="nl_title">شيء واحد آخر.</string>
   <string name="nl_instructions">لكي يعمل QuickLyric مع جميع مشغلي الموسيقى، بعض الإعدادات قد تحتاج إلى تغيير.</string>
   <string name="nl_settings_link">السماح لQuickLyric لقراءة التنويهات</string>
+  <string name="changelog">ما الجديد؟</string>
+  <string name="rate_us">قيّم التطبيق</string>
   <string name="premium_title">شراء حساب المميز</string>
   <string name="remove_ads_title">إزالة الإعلانات</string>
   <string name="subscription_monthly">شهريًا</string>
   <string name="subscription_yearly">سنويًا</string>
+  <string name="premium_sum_incent">أحصل على النسخة المدفوعة من التطبيق لدعم الفنانين &amp; الفريق وراء QuickLyric!</string>
   <string name="premium_ads_incent">لا مزيد من الاعلانات!</string>
   <string name="premium_karaoke_incent">حصري * وضع كاريوكي *</string>
   <string name="premium_themes_incent">* 7 * مواضيع جديدة</string>
   <string name="premium_night_mode_incent">* وضع ليلي* لراحة عينيك في الليل</string>
+  <string name="premium_doubt">غير متأكد حول الحصول على اشتراك؟ تواصل معنا عبر البريد إلكتروني: contact@quicklyric.be</string>
   <string name="premium_thanks">شكرا لدعمك!</string>
   <string name="about_crowdin">المساعدة في ترجمة التطبيق في Crowdin</string>
+  <string name="online_title">القائمة عبر الأنترنت</string>
   <string-array name="notifications">
     <item>معطل (افتراضي)</item>
     <item>ممكنة</item>

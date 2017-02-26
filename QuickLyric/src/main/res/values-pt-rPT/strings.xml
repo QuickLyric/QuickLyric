@@ -107,6 +107,8 @@ Algumas possíveis razões:<br/>
   <string name="uri_storage">Este dispositivo</string>
   <string name="uri_gmusic">A tua biblioteca do Google Play Music</string>
   <string name="uri_spotify">A tua biblioteca do Spotify</string>
+  <string name="spotify_library">As tuas músicas guardadas</string>
+  <string name="spotify_playlists">As tuas playlists</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -133,15 +135,21 @@ Algumas possíveis razões:<br/>
   <string name="nl_title">Uma última coisa.</string>
   <string name="nl_instructions">Para o QuickLyric funcionar com todos os players, algumas definições precisam de ser mudadas.</string>
   <string name="nl_settings_link">Permitir que o QuickLyric leia as minhas notificações</string>
+  <string name="changelog">O que há de novo?</string>
+  <string name="rate_us">Avaliar a app</string>
   <string name="premium_title">Obter Premium</string>
   <string name="remove_ads_title">Remover anúncios</string>
   <string name="subscription_monthly">Mensal</string>
   <string name="subscription_yearly">Anualmente</string>
+  <string name="premium_sum_incent">Obtém Premium para apoiar os artistas &amp; a equipa por detrás do QuickLyric!</string>
   <string name="premium_ads_incent">Sem mais anúncios!</string>
   <string name="premium_karaoke_incent">Um *modo karaoke* exclusivo</string>
   <string name="premium_themes_incent">*7* temas novos</string>
   <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite</string>
+  <string name="premium_doubt">Não tem a certeza sobre ter uma subscrição? Envia-nos um email: contact@quicklyric.be</string>
   <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
+  <string name="about_crowdin">Ajuda a traduzir a app no Crowdin</string>
+  <string name="online_title">Catálogo online</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric vai agora descarregar a letra para %1$d música. \
         Certifique-se que tenha uma conexão estável durante no mínimo %2$d minuto.</item>

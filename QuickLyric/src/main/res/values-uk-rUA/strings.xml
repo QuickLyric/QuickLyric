@@ -110,6 +110,8 @@
   <string name="uri_storage">Цей пристрій</string>
   <string name="uri_gmusic">Ваша бібліотека Google Play Music</string>
   <string name="uri_spotify">Ваша бібліотека Spotify</string>
+  <string name="spotify_library">Збережені доріжки</string>
+  <string name="spotify_playlists">Списки відтворення</string>
   <string name="source_punk">Панк-рок</string>
   <string name="source_metal">Метал</string>
   <string name="source_hip_hop">Хіп-хоп</string>
@@ -136,15 +138,21 @@
   <string name="nl_title">Остання річ.</string>
   <string name="nl_instructions">Аби QuickLyric працював з усіма програвачами, необхідно змінити деякі налаштування.</string>
   <string name="nl_settings_link">Дозволити QuickLyric читати мої сповіщення</string>
+  <string name="changelog">Що нового?</string>
+  <string name="rate_us">Оцініть додаток</string>
   <string name="premium_title">Отримати Premium</string>
   <string name="remove_ads_title">Прибрати рекламу</string>
   <string name="subscription_monthly">Місячна</string>
   <string name="subscription_yearly">Річна</string>
+  <string name="premium_sum_incent">Підпишіться на Premium, щоб підтримати виконавців та команду QuickLyric!</string>
   <string name="premium_ads_incent">Більше жодної реклами!</string>
   <string name="premium_karaoke_incent">Ексклюзивний * караоке режим *</string>
   <string name="premium_themes_incent">*7* нових тем</string>
   <string name="premium_night_mode_incent">*Нічний режим*, щоб ваші очі відпочивали вночі</string>
+  <string name="premium_doubt">Не впевнені щодо підписки? Маякніть нам на contact@quicklyric.be</string>
   <string name="premium_thanks">Дякуємо за вашу підтримку!</string>
+  <string name="about_crowdin">Допоможіть перекласти на Crowdin</string>
+  <string name="online_title">Мережевий каталог</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric зараз завантажить тексти для %1$d пісні.\
 Переконайтесь, що Ви маєте стабільне Інтернет-з\'єднання принаймні на %2$d хвилину.</item>

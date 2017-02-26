@@ -133,18 +133,21 @@
   <string name="nl_title">Ένα τελευταίο πράγμα.</string>
   <string name="nl_instructions">Για να δουλέψει το QuickLyric με όλες τις εφαρμογές αναπαραγωγής μουσικής, κάποιες ρυθμίσεις πρέπει να αλλαχθούν.</string>
   <string name="nl_settings_link">Επέτρεψε στο QuickLyric να διαβάσει τις ειδοποιήσεις μου</string>
-  <string name="changelog">Τι νέο υπάρχει</string>
+  <string name="changelog">Τι νέο υπάρχει;</string>
   <string name="rate_us">Αξιολογήστε την εφαρμογή</string>
   <string name="premium_title">Απόκτησε το Premium</string>
   <string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις</string>
   <string name="subscription_monthly">Μηνιαία</string>
   <string name="subscription_yearly">Ετήσια</string>
+  <string name="premium_sum_incent">Απόκτησε το Premium για την υποστήριξη των καλλιτεχνών και την ομάδα πίσω από το QuickLyric!</string>
   <string name="premium_ads_incent">Όχι άλλες διαφημίσεις!</string>
   <string name="premium_karaoke_incent">Μια αποκλειστική * karaoke λειτουργία *</string>
   <string name="premium_themes_incent">*7* νέα θέματα</string>
   <string name="premium_night_mode_incent">Μια *λειτουργία νύχτας* για να ξεκουράζετε τα μάτια σας τη νύχτα</string>
+  <string name="premium_doubt">Δεν είστε σίγουροι για τη συνδρομή; Στείλτε μας ένα μήνυμα ηλεκτρονικού ταχυδρομείου: contact@quicklyric.be</string>
   <string name="premium_thanks">Ευχαριστούμε για την υποστήριξη σας!</string>
   <string name="about_crowdin">Βοηθήστε να μεταφραστεί η εφαρμογή στο Crowdin</string>
+  <string name="online_title">Ηλεκτρονικός κατάλογος</string>
   <plurals name="scan_dialog">
     <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
         Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>

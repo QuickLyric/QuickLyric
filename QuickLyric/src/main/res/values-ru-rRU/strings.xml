@@ -136,16 +136,23 @@
   <string name="nl_instructions">Для того, чтобы QuickLyric работал со всеми плеерами, некоторые настройки следует изменить.</string>
   <string name="nl_settings_link">Разрешить QuickLyric просматривать мои уведомления</string>
   <string name="changelog">Изменения</string>
+  <string name="rate_us">Оценить на Google Play</string>
   <string name="premium_title">Получить Премиум доступ</string>
   <string name="remove_ads_title">Убрать рекламу</string>
   <string name="subscription_monthly">Ежемесячно</string>
   <string name="subscription_yearly">Ежегодно</string>
+  <string name="premium_sum_incent">Получить премиум-аккаунт и поддержать разработчиков QuickLyric!</string>
   <string name="premium_ads_incent">Больше никакой рекламы!</string>
   <string name="premium_karaoke_incent">Эксклюзивный *режим караоке*</string>
   <string name="premium_themes_incent">*7* новых тем оформления</string>
   <string name="premium_night_mode_incent">*Ночной режим*, чтобы ваши глаза отдыхали ночью</string>
+  <string name="premium_doubt">Не уверены насчёт подписки? Свяжитесь с нами (английский язык приветствуется): contact@quicklyric.be</string>
   <string name="premium_thanks">Спасибо за вашу поддержку!</string>
   <string name="about_crowdin">Помочь с переводом на Crowdin</string>
+  <string name="online_title">Онлайн каталог</string>
+  <string name="yearly_sub_template">%s/год</string>
+  <string name="monthly_sub_template">%s/месяц</string>
+  <string name="buy_sub">Купить</string>
   <string-array name="notifications">
     <item>Отключено (По умолчанию)</item>
     <item>Включено</item>

@@ -154,6 +154,9 @@
   <string name="premium_thanks">ご支援ありがとうございます!</string>
   <string name="about_crowdin">Crowdin でアプリの翻訳を支援する</string>
   <string name="online_title">オンラインカタログ</string>
+  <string name="yearly_sub_template">%s/年</string>
+  <string name="monthly_sub_template">%s/月</string>
+  <string name="buy_sub">購入</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>

@@ -151,6 +151,9 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="premium_thanks">Dziękujemy za wsparcie!</string>
   <string name="about_crowdin">Pomóż w tłumaczeniu aplikacji na Crowdin</string>
   <string name="online_title">Katalog online</string>
+  <string name="yearly_sub_template">%s/rok</string>
+  <string name="monthly_sub_template">%s/miesiąc</string>
+  <string name="buy_sub">Kup</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
         Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>

@@ -93,10 +93,60 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="nighttime_start_dialog_title">Nattläge start</string>
   <string name="nighttime_end_dialog_title">Nattläge slut</string>
   <string name="pref_force_screen_sum">Hindra skärmen från att stängas av medans låttexter visas</string>
+  <string name="pref_force_screen_on">Håll skärmen igång</string>
+  <string name="scan_error_permission_denied">QuickLyric har nekats tillstånd att skanna din musik</string>
+  <string name="id3_write_error">Det gick inte att redigera låt metadata</string>
+  <string name="id3_write_success">Redigering av metadata lyckades</string>
   <string name="id3_read_rationale">QuickLyric behöver denna behörighet för att läsa in låttexter och omslag från denna enhet</string>
+  <string name="permission_denied">(åtkomst nekad)</string>
+  <string name="id3_write_permission_error">Appen måste startas om för att få skrivbehörighet</string>
+  <string name="resync_action">Synkronisera om</string>
+  <string name="uri_storage">Denna enhet</string>
+  <string name="uri_gmusic">Ditt Google Play Music-bibliotek</string>
+  <string name="uri_spotify">Ditt Spotify bibliotek</string>
+  <string name="spotify_library">Dina lokala låtar</string>
+  <string name="spotify_playlists">Dina spellistor</string>
+  <string name="source_punk">Punk Rock</string>
+  <string name="source_metal">Metall</string>
+  <string name="source_hip_hop">Hip Hop</string>
+  <string name="source_EDM">Electronic Dance Music</string>
+  <string name="source_japanese">Japansk</string>
+  <string name="source_bollywood">Bollywoodmusik</string>
   <string name="source_sync">Synkroniserade Låttexter</string>
+  <string name="spotify_connection">Ansluter till Spotify&#8230;</string>
+  <string name="full_text_action">Hela texten</string>
+  <string name="artworks_pref_title">Automatisk omslagsnedladdning</string>
+  <string name="artworks_pref_sum">Kan resultera i mobildata avgifter</string>
+  <string name="pref_lrc_sum">Markera de ord som sjungs - inte alla musikspelare stöds</string>
   <string name="pref_lrc">Synkroniserade låttexter</string>
+  <string name="red_theme">Röd</string>
+  <string name="purple_theme">Lila</string>
+  <string name="indigo_theme">Indigo</string>
+  <string name="green_theme">Grön</string>
+  <string name="lime_theme">Lime</string>
+  <string name="brown_theme">Brun</string>
+  <string name="ad_supported_title">QuickLyric är reklamstött</string>
+  <string name="ad_supported_text">Reklam låter oss betala artisterna rättsinnehavarna för deras arbete.\nVi hoppas du gillar QuickLyric!</string>
+  <string name="about_read_ToS">Läs våra användarvillkor</string>
+  <string name="about_product_tour">Produktvisning</string>
+  <string name="nl_title">En sista sak.</string>
+  <string name="nl_instructions">För att QuickLyric ska fungera ordentligt med alla musikspelare, behöver vissa inställningar ändras.</string>
+  <string name="nl_settings_link">Tillåta QuickLyric att läsa mina notifikationer</string>
+  <string name="changelog">Vad är nytt?</string>
+  <string name="rate_us">Betygsätt appen</string>
+  <string name="premium_title">Skaffa Premium</string>
+  <string name="remove_ads_title">Ta bort annonser</string>
+  <string name="subscription_monthly">Månadsvis</string>
+  <string name="subscription_yearly">Årsvis</string>
+  <string name="premium_sum_incent">Skaffa Premium för att stödja artisterna &amp; teamet bakom QuickLyric!</string>
+  <string name="premium_ads_incent">Inga fler annonser!</string>
+  <string name="premium_karaoke_incent">Ett exklusivt *karaoke-läge *</string>
+  <string name="premium_themes_incent">*7* nya teman</string>
   <string name="premium_night_mode_incent">Ett nattläge för att vila ögonen</string>
+  <string name="premium_doubt">Osäker på att få en prenumeration? Skicka ett mail: contact@quicklyric.be (endast engelska)</string>
+  <string name="premium_thanks">Tack för ditt stöd!</string>
+  <string name="about_crowdin">Hjälp till att översätta appen på Crowdin</string>
+  <string name="online_title">Online-katalogen</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>
@@ -111,5 +161,9 @@ Kontrollera att du har en stabil anslutning för minst %2$d minuter.</item>
     <item>Inaktiverad (standard)</item>
     <item>Aktiverad</item>
     <item>Aktiverad (klistrad)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>Alltid igång</item>
+    <item>Bara på WiFi</item>
   </string-array>
 </resources>
