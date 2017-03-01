@@ -92,7 +92,8 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                         values.put(columns[2], lyrics.getText());
                         values.put(columns[3], lyrics.getURL());
                         values.put(columns[4], lyrics.getSource());
-                        values.put(columns[5], lyrics.getCoverURL());
+                        if (lyrics.getCoverURL() != null && lyrics.getCoverURL().startsWith("http://"))
+                            values.put(columns[5], lyrics.getCoverURL());
                         values.put(columns[6], lyrics.getOriginalArtist());
                         values.put(columns[7], lyrics.getOriginalTrack());
                         values.put(columns[8], lyrics.isLRC() ? 1 : 0);
