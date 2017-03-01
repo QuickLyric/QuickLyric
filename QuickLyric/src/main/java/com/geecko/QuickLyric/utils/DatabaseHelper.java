@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
             db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_LRC + " BIT;");
         }
-        if (oldVersion < 4) {
+        if (oldVersion < 7) {
             db.execSQL("DELETE FROM "+TABLE_NAME);
         }
         if (oldVersion < 7 && db.query(TABLE_NAME, null, null, null, null, null, null, "1")
