@@ -90,7 +90,7 @@ A few possible reasons why:<br/>
 • Check if your connection is working.<br/>
 • Perhaps this song isn\'t part of the main catalog. Have you checked the <strong>additional providers</strong> in the settings?<br/>
 • You might have found a bug. If so, please email me.<br/>
-• Finally, it\'s also possible that the lyrics for this song aren\'t available. If you have suggestions regarding additions to the catalog, feel free to email me.<br/>
+• Check if the date & time in of your device are set correctly.<br/>
 ]]></string>
     <string name="why_popup_title">Why doesn\'t it work?</string>
     <string name="download_category">Downloads</string>
