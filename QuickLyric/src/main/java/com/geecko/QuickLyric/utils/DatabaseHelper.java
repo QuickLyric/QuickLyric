@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_COPYRIGHT = "copyright";
     public static final String[] columns = {KEY_ARTIST, KEY_TRACK, KEY_LYRICS, KEY_URL, KEY_SOURCE,
             KEY_COVER_URL, KEY_ORIGINAL_ARTIST, KEY_ORIGINAL_TRACK, KEY_LRC, KEY_WRITER, KEY_COPYRIGHT};
-    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT);";
+    private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ARTIST + " TINYTEXT, " + KEY_TRACK + " TINYTEXT, " + KEY_LYRICS + " TINYTEXT, " + KEY_URL + " TINYTEXT," + KEY_SOURCE + " TINYTEXT," + KEY_COVER_URL + " TINYTEXT," + KEY_ORIGINAL_ARTIST + " TINYTEXT, " + KEY_ORIGINAL_TRACK + " TINYTEXT, " + KEY_LRC + " BIT, " + KEY_WRITER + " TINYTEXT, " + KEY_COPYRIGHT + " TINYTEXT);";
     private static DatabaseHelper sInstance;
     private boolean closed = false;
 
@@ -71,11 +71,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3 || (oldVersion < 5 && db.query(TABLE_NAME, null, null, null, null, null, null, "1")
-                .getColumnIndex(KEY_ORIGINAL_ARTIST) < 0)) {
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_LRC + " BIT;");
+        if (oldVersion < 3 || oldVersion < 5) {
+            if (db.query(TABLE_NAME, null, null, null, null, null, null, "1").getColumnIndex(KEY_ORIGINAL_ARTIST) < 0)
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_ORIGINAL_ARTIST + " TINYTEXT;");
+            if (db.query(TABLE_NAME, null, null, null, null, null, null, "1").getColumnIndex(KEY_ORIGINAL_TRACK) < 0)
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_ORIGINAL_TRACK + " TINYTEXT;");
+            if (db.query(TABLE_NAME, null, null, null, null, null, null, "1").getColumnIndex(KEY_LRC) < 0)
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_LRC + " BIT;");
         }
         if (oldVersion < 7) {
             db.execSQL("DELETE FROM "+TABLE_NAME);
