@@ -20,8 +20,9 @@
 
 <resources>
     <string-array name="changelog">
-	<item><![CDATA[103§• Fix issues for users attempting to buy a subscription]]></item>
-	<item><![CDATA[90§• Show copyright and writer credits<br/>• Prevent youtube notifications from triggering notifications<br/>• Fix search bar appearance<br/>• Fix bug for Android Wear users<br/>• Make Android Wear support paid<br/>• Fix issue where the wrong artwork would be displayed<br/>• Crash fixes]]></item>
+        <item><![CDATA[104§• Fix issues with artwork not always appearing<br/>• Fix Search not working<br/>• Fix synchronized lyrics not being on by default]]></item>
+        <item><![CDATA[103§• Fix issues for users attempting to buy a subscription]]></item>
+        <item><![CDATA[90§• Show copyright and writer credits<br/>• Prevent youtube notifications from triggering notifications<br/>• Fix search bar appearance<br/>• Fix bug for Android Wear users<br/>• Make Android Wear support paid<br/>• Fix issue where the wrong artwork would be displayed<br/>• Crash fixes]]></item>
         <item><![CDATA[89§• New launch screen<br/>• Crash fixes]]></item>
         <item><![CDATA[87§• Adjusted the artwork framing<br/>• Switched to HTTP2 for a faster, better experience<br/>• Made the APK lighter<br/>• Fixed sync issues, crashes and some minor bugs]]></item>
         <item><![CDATA[86§• Fixed a critical bug that broke player compatibility. You may need to restart your device. Apologies for the inconvenience.]]></item>
