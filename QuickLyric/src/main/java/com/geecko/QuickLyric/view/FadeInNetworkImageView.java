@@ -127,8 +127,6 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        if (changed)
-            super.onLayout(true, left, top, right, bottom);
         Bitmap bitmap = null;
         if (getDrawable() != null)
             bitmap = ((BitmapDrawable) ((TransitionDrawable) getDrawable()).getDrawable(1)).getBitmap();
@@ -157,7 +155,7 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
             float scaleFactor = (scaleFactorWidth > scaleFactorHeight) ? scaleFactorWidth : scaleFactorHeight;
 
-            matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.12f);
+            matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.62f);
             setImageMatrix(matrix);
         }
         super.onDraw(canvas);
