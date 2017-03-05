@@ -65,6 +65,8 @@ public class Lyrics implements Serializable, Parcelable {
         mOriginalArtist = in.readString();
         mSourceUrl = in.readString();
         mCoverURL = in.readString();
+        mCopyright = in.readString();
+        mWriter = in.readString();
         mText = in.readString();
         mSource = in.readString();
         mLRC = in.readByte() != 0;
