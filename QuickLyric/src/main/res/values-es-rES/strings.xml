@@ -145,10 +145,12 @@ Las posibles razones son:<br/>
   <string name="premium_karaoke_incent">Un exclusivo *modo karaoke*</string>
   <string name="premium_themes_incent">*7* nuevos temas</string>
   <string name="premium_night_mode_incent">Un *modo noche* para descansar tus ojos por la noche</string>
+  <string name="premium_android_wear">Soporta relojes *Android Wear*</string>
   <string name="premium_doubt">¿No está seguro sobre cómo obtener una suscripción? Dispárenos un email: contact@quicklyric.be</string>
   <string name="premium_thanks">¡Gracias por tu apoyo!</string>
   <string name="about_crowdin">Ayudar a traducir la aplicación en Crowdin</string>
   <string name="online_title">Catálogo en línea</string>
+  <string name="buy_sub">Comprar</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>

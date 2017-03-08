@@ -143,10 +143,14 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="premium_karaoke_incent">Ett exklusivt *karaoke-läge *</string>
   <string name="premium_themes_incent">*7* nya teman</string>
   <string name="premium_night_mode_incent">Ett nattläge för att vila ögonen</string>
+  <string name="premium_android_wear">Stöd för *Android Wear* klockor</string>
   <string name="premium_doubt">Osäker på att få en prenumeration? Skicka ett mail: contact@quicklyric.be (endast engelska)</string>
   <string name="premium_thanks">Tack för ditt stöd!</string>
   <string name="about_crowdin">Hjälp till att översätta appen på Crowdin</string>
   <string name="online_title">Online-katalogen</string>
+  <string name="yearly_sub_template">%s/år</string>
+  <string name="monthly_sub_template">%s/månad</string>
+  <string name="buy_sub">Köp</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>

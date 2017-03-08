@@ -118,6 +118,7 @@
   <string name="source_bollywood">Боливудска музика</string>
   <string name="source_sync">Синхронизовани стихови</string>
   <string name="spotify_connection">Повезујем се на Спотифај&#8230;</string>
+  <string name="full_text_action">Цео текст</string>
   <string name="artworks_pref_title">Аутоматско преузимање омота</string>
   <string name="artworks_pref_sum">Може да резултује наплатом преноса мобилних података</string>
   <string name="pref_lrc_sum">Истиче речи које се певају — не подржавају сви музички плејери</string>
@@ -135,16 +136,25 @@
   <string name="nl_title">И још нешто.</string>
   <string name="nl_instructions">Да би Квик лирик радио са свим плејерима, неке поставке морају бити измењене.</string>
   <string name="nl_settings_link">Дозволи Квик лирику да чита моја обавештења</string>
+  <string name="changelog">Шта је ново?</string>
+  <string name="rate_us">Оцените апликацију</string>
   <string name="premium_title">Купи премијум</string>
   <string name="remove_ads_title">Уклони рекламе</string>
   <string name="subscription_monthly">Месечно</string>
   <string name="subscription_yearly">Годишње</string>
+  <string name="premium_sum_incent">Набавите премијум издање да бисте подржали извођаче и људе иза Квик лирика!</string>
   <string name="premium_ads_incent">Нема више реклама!</string>
   <string name="premium_karaoke_incent">Ексклузивни *караоке режим*</string>
   <string name="premium_themes_incent">*7* нових тема</string>
   <string name="premium_night_mode_incent">*Ноћи режим* вам одмара очи ноћу</string>
+  <string name="premium_android_wear">Подршка за *Android Wear* сатове</string>
+  <string name="premium_doubt">Питате се зашто да набавите претплату? Пошаљите нам е-поруку: contact@quicklyric.be</string>
   <string name="premium_thanks">Хвала вам на подршци!</string>
   <string name="about_crowdin">Помозите превођењем апликације на Crowdin</string>
+  <string name="online_title">Каталог на мрежи</string>
+  <string name="yearly_sub_template">%s годишње</string>
+  <string name="monthly_sub_template">%s месечно</string>
+  <string name="buy_sub">Купи</string>
   <plurals name="scan_dialog">
     <item quantity="one">Квик лирик ће да преузме стихове за укупно %1$d песму.\
         Побрините се да имате стабилну везу %2$d минута.</item>

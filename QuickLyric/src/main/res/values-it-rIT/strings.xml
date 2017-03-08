@@ -148,10 +148,14 @@ Alcune cause potrebbero essere:<br/>
   <string name="premium_karaoke_incent">Un\'esclusiva *modalità karaoke*</string>
   <string name="premium_themes_incent">*7* nuovi temi</string>
   <string name="premium_night_mode_incent">Una *modalità notturna* per riposare gli occhi durante la notte</string>
+  <string name="premium_android_wear">Supporto per dispositivi *Android Wear*</string>
   <string name="premium_doubt">Non sei sicuro del perché dovresti abbonarti? Scrivici una mail: contact@quicklyric.be</string>
   <string name="premium_thanks">Grazie per il tuo supporto!</string>
   <string name="about_crowdin">Aiuta a tradurre l\'app su Crowdin</string>
   <string name="online_title">Catalogo online</string>
+  <string name="yearly_sub_template">%s/anno</string>
+  <string name="monthly_sub_template">%s/mese</string>
+  <string name="buy_sub">Acquista</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>

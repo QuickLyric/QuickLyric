@@ -138,20 +138,24 @@
   <string name="nl_instructions">为了兼容众多播放器，您可能需要更改一些设置。</string>
   <string name="nl_settings_link">允许 QuickLyric 读取通知栏信息</string>
   <string name="changelog">更新日志</string>
-  <string name="rate_us">好评本应用</string>
+  <string name="rate_us">赏个好评</string>
   <string name="premium_title">升级至专业版</string>
   <string name="remove_ads_title">移除广告</string>
   <string name="subscription_monthly">每月</string>
   <string name="subscription_yearly">每年</string>
-  <string name="premium_sum_incent">获取专业版以支持唱片歌手&amp; 以及QuickLyric团队！</string>
+  <string name="premium_sum_incent">获取专业版以支持唱片作者&amp; 以及QuickLyric团队！</string>
   <string name="premium_ads_incent">没有广告!</string>
   <string name="premium_karaoke_incent">独有的 * 卡拉 ok 模式 *</string>
   <string name="premium_themes_incent">* 7 * 款新主题</string>
   <string name="premium_night_mode_incent">* 夜间模式 * 在晚上保护您的眼睛</string>
+  <string name="premium_android_wear">支持 *Android Wear* 手表</string>
   <string name="premium_doubt">不确定是否订阅？给我们发邮件吧：contact@quicklyric.be</string>
   <string name="premium_thanks">感谢您的支持 ！</string>
   <string name="about_crowdin">在Crowdin上协助QuickLyrics本地化</string>
   <string name="online_title">在线分类</string>
+  <string name="yearly_sub_template">%s年</string>
+  <string name="monthly_sub_template">%s 月</string>
+  <string name="buy_sub">购买</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric即将为 %1$d 首歌下载歌词。\
         确保你有至少 %2$d 分钟(s)的通畅网络。</item>

@@ -150,6 +150,7 @@
   <string name="premium_karaoke_incent">唯一の *カラオケ モード*</string>
   <string name="premium_themes_incent">*7* つの新しいテーマ</string>
   <string name="premium_night_mode_incent">*夜間モード* が夜に目を休ませてくれます</string>
+  <string name="premium_android_wear">*Android Wear* ウォッチのサポート</string>
   <string name="premium_doubt">サブスクリプションの入手についてご不明な点がありますか? 私たちにメールをお送りください: contact@quicklyric.be</string>
   <string name="premium_thanks">ご支援ありがとうございます!</string>
   <string name="about_crowdin">Crowdin でアプリの翻訳を支援する</string>
