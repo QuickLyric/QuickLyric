@@ -1,6 +1,7 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,11 +10,13 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -200,7 +203,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     };
 
 
-    public IntroScreenSlidePagerAdapter(FragmentManager fm, Activity activity) {
+    public IntroScreenSlidePagerAdapter(FragmentManager fm, final Activity activity) {
         super(fm);
         this.mActivity = activity;
         mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
@@ -217,7 +220,22 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!hasClicked) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Tutorial_5.nlEnabled) {
+                    final ViewGroup nlFrame = (ViewGroup) activity.findViewById(R.id.NL_frame);
+                    final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+                            Color.parseColor("#30000000"), Color.parseColor("#80FFFFFF"));
+                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            nlFrame.setBackgroundColor((int) animation.getAnimatedValue());
+                        }
+                    });
+                    colorAnimation.setInterpolator(new LinearOutSlowInInterpolator());
+                    colorAnimation.setRepeatCount(3);
+                    colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+                    colorAnimation.setDuration(650L);
+                    colorAnimation.start();
+                } else if (!hasClicked) {
                     exitAction();
                     hasClicked = true;
                 }
@@ -526,7 +544,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                             R.drawable.ic_done : android.R.drawable.ic_dialog_alert);
             View okButton = getActivity().findViewById(R.id.pager_ok);
             if (okButton != null) {
-                okButton.setEnabled(nlEnabled);
                 getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
             }
             MainActivity.waitingForListener = false;
