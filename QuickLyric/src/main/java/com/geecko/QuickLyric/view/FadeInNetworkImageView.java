@@ -155,7 +155,7 @@ public class FadeInNetworkImageView extends NetworkImageView {
 
             float scaleFactor = (scaleFactorWidth > scaleFactorHeight) ? scaleFactorWidth : scaleFactorHeight;
 
-            matrix.setScale(scaleFactor, scaleFactor, 0, getDrawable().getIntrinsicHeight() * 0.62f);
+            matrix.setScale(scaleFactor, scaleFactor, 0, mShowLocal ? 0 : getDrawable().getIntrinsicHeight() * 0.62f);
             setImageMatrix(matrix);
         }
         super.onDraw(canvas);
