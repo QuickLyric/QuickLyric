@@ -62,20 +62,19 @@ public class UpdateChecker {
     public static void showDialog(final Context context) {
         AlertDialog.Builder updateDialog = new AlertDialog.Builder(context);
         updateDialog.setTitle("Update available")
-                .setMessage("Dear Beta tester, a new update is available on the Google+ page.")
+                .setMessage("Dear QuickLyric user, a new update is available on F-Droid and Google Play.")
                 .setPositiveButton("Download", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://goo.gl/forms/98hSOLsQyO")
+                                Uri.parse("https://f-droid.org/repository/browse/?fdid=com.geecko.QuickLyric")
                         );
                         context.startActivity(browserIntent);
                     }
                 })
                 .setCancelable(true)
                 .show();
-        // TODO: Remove
     }
 
     public static class UpdateCheckTask extends AsyncTask<Void, Void, Boolean> {
