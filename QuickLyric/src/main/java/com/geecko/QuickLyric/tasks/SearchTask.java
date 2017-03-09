@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.fragment.SearchFragment;
-import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.JLyric;
 import com.geecko.QuickLyric.lyrics.LyricWiki;
@@ -87,8 +86,6 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
                 return LyricWiki.search(searchQuery);
             case "Genius":
                 return Genius.search(searchQuery);
-            case "Bollywood":
-                return Bollywood.search(searchQuery);
             case "DatabaseHelper":
                 return DatabaseHelper.getInstance(searchFragment.getActivity()).search(searchQuery);
             case "JLyric":

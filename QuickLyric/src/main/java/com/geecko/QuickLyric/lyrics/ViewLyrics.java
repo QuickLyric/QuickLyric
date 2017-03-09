@@ -22,11 +22,6 @@ package com.geecko.QuickLyric.lyrics;
 import com.geecko.QuickLyric.annotations.Reflection;
 import com.geecko.QuickLyric.utils.Levenshtein;
 import com.geecko.QuickLyric.utils.Net;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -44,6 +39,12 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.geecko.QuickLyric.lyrics.Lyrics.NEGATIVE_RESULT;
 import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
@@ -96,7 +97,7 @@ public class ViewLyrics {
         url = url.replace("minilyrics", "viewlyrics");
 
         int artistDistance = Levenshtein.distance(results.get(0).getArtist(), artist);
-        int titleDistance = Levenshtein.distance(results.get(0).getTrack(), title);
+        int titleDistance = Levenshtein.distance(results.get(0).getTitle(), title);
 
         if (url.endsWith("txt") || artistDistance > 6 || titleDistance > 6)
             return new Lyrics(NEGATIVE_RESULT);
@@ -111,9 +112,9 @@ public class ViewLyrics {
     }
 
     private static ArrayList<Lyrics> search(String searchQuery) throws IOException, ParserConfigurationException, SAXException, NoSuchAlgorithmException {
-        OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(10, TimeUnit.SECONDS);
-        client.setReadTimeout(30, TimeUnit.SECONDS);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS).build();
 
         RequestBody body = RequestBody.create(MediaType.parse("application/text"), assembleQuery(searchQuery.getBytes("UTF-8")));
 

@@ -26,7 +26,6 @@ import android.os.Message;
 import android.os.Process;
 
 import com.geecko.QuickLyric.lyrics.AZLyrics;
-import com.geecko.QuickLyric.lyrics.Bollywood;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.JLyric;
 import com.geecko.QuickLyric.lyrics.Lololyrics;
@@ -97,9 +96,6 @@ public class DownloadThread extends Thread {
                         case "AZLyrics":
                             lyrics = AZLyrics.fromURL(url, artist, title);
                             break;
-                        case "Bollywood":
-                            lyrics = Bollywood.fromURL(url, artist, title);
-                            break;
                         case "Genius":
                             lyrics = Genius.fromURL(url, artist, title);
                             break;
@@ -143,9 +139,6 @@ public class DownloadThread extends Thread {
                     switch (provider) {
                         case "AZLyrics":
                             lyrics = AZLyrics.fromMetaData(artist, title);
-                            break;
-                        case "Bollywood":
-                            lyrics = Bollywood.fromMetaData(artist, title);
                             break;
                         case "Genius":
                             lyrics = Genius.fromMetaData(artist, title);

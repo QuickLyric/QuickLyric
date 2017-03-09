@@ -188,7 +188,6 @@ A few possible reasons why:<br/>
         <item>@string/source_hip_hop</item>
         <item>@string/source_EDM</item>
         <item>@string/source_japanese</item>
-        <item>@string/source_bollywood</item>
     </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>
