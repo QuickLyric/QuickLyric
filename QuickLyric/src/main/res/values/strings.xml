@@ -159,6 +159,7 @@ A few possible reasons why:<br/>
     <string name="premium_doubt">Unsure about getting a subscription? Shoot us an email: contact@quicklyric.be</string>
     <string name="premium_thanks">Thanks for your support!</string>
     <string name="about_crowdin">Help translate the app on Crowdin</string>
+    <string name="online_title">Online catalog</string>
 
 
     <plurals name="scan_dialog">
