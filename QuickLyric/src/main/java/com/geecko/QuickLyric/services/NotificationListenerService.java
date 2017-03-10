@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
+import android.media.MediaMetadataEditor;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteController;
@@ -145,41 +146,7 @@ public class NotificationListenerService extends android.service.notification.No
         if (isPlaying == null)
             isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
 
-        File artworksDir = new File(getCacheDir(), "artworks");
-        if (artwork != null && (artworksDir.exists() || artworksDir.mkdir())) {
-            File artworkFile = new File(artworksDir, artist + track + ".png");
-            if (!artworkFile.exists())
-                try {
-                    //noinspection ResultOfMethodCallIgnored
-                    artworkFile.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            if (isPlaying && (artworkFile.length() == 0 || (artwork.getByteCount() != this.previousArtworkSize
-                    && previousArtworkSize != 0))) {
-                this.previousArtworkSize = artwork.getByteCount();
-                FileOutputStream fos = null;
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                try {
-                    fos = new FileOutputStream(artworkFile);
-                    stream.writeTo(fos);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (fos != null)
-                            fos.close();
-                        stream.close();
-                        artwork.recycle();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            // This circumvents a bug where the artwork for the previous song is mistakenly sent
-            this.previousArtworkSize = artwork.getByteCount();
-        }
+        saveArtwork(artwork, artist, track, isPlaying);
 
         broadcast(artist, track, isPlaying, duration, position);
     }
@@ -314,6 +281,7 @@ public class NotificationListenerService extends android.service.notification.No
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));
         String track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
+        Bitmap artwork = metadataEditor.getBitmap(MediaMetadataEditor.BITMAP_KEY_ARTWORK, null);
 
         if (durationObject instanceof Double) {
             if (artist != null && !artist.isEmpty())
@@ -324,6 +292,46 @@ public class NotificationListenerService extends android.service.notification.No
         } else if (durationObject instanceof Long)
             if (artist != null && !artist.isEmpty())
                 broadcast(artist, track, isRemoteControllerPlaying, (Long) durationObject, position);
+
+        saveArtwork(artwork, artist, track, isRemoteControllerPlaying);
         Log.d("geecko", "MetadataUpdate - position stored: " + position);
+    }
+
+    private void saveArtwork(Bitmap artwork, String artist, String track, boolean isPlaying) {
+        File artworksDir = new File(getCacheDir(), "artworks");
+        if (artwork != null && (artworksDir.exists() || artworksDir.mkdir())) {
+            File artworkFile = new File(artworksDir, artist + track + ".png");
+            if (!artworkFile.exists())
+                try {
+                    //noinspection ResultOfMethodCallIgnored
+                    artworkFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            if (isPlaying && (artworkFile.length() == 0 || (artwork.getByteCount() != this.previousArtworkSize
+                    && previousArtworkSize != 0))) {
+                this.previousArtworkSize = artwork.getByteCount();
+                FileOutputStream fos = null;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                try {
+                    fos = new FileOutputStream(artworkFile);
+                    stream.writeTo(fos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (fos != null)
+                            fos.close();
+                        stream.close();
+                        artwork.recycle();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            // This circumvents a bug where the artwork for the previous song is mistakenly sent
+            this.previousArtworkSize = artwork.getByteCount();
+        }
     }
 }

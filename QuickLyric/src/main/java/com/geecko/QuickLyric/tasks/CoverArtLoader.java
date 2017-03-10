@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric.tasks;
 
 import android.os.AsyncTask;
+import android.os.Build;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -52,7 +53,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
         boolean secondTry = objects.length >= 4 && (Boolean) objects[3];
 
         File artworksDir = new File(mActivity.getCacheDir(), "artworks");
-        if (artworksDir.exists() || artworksDir.mkdirs()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && (artworksDir.exists() || artworksDir.mkdirs())) {
             long size = 0;
             List<File> files = new ArrayList<>(Arrays.asList(artworksDir.listFiles()));
             for (File file : files) {
@@ -80,25 +81,25 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
             if (artworkFile.exists() && artworkFile.length() > 0) {
                 return artworkFile.getAbsoluteFile().getAbsolutePath();
             }
-            if (url == null && online) {
-                try {
-                    String requestURL = String.format(
-                            "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
-                            URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
-                            URLEncoder.encode(lyrics.getTitle(), "UTF-8"));
-                    String txt = Net.getUrlAsString(new URL(requestURL));
-                    JSONObject json = new JSONObject(txt);
-                    JSONArray results = json.getJSONArray("results");
-                    JSONObject result = results.getJSONObject(0);
-                    url = result.getString("artworkUrl60").replace("60x60bb.jpg", "600x600bb.jpg");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException ignored) {
-                    if (!secondTry) {
-                        lyrics.setArtist(lyrics.getOriginalArtist());
-                        lyrics.setTitle(lyrics.getOriginalTrack());
-                        return doInBackground(lyrics, mActivity, online, Boolean.TRUE);
-                    }
+        }
+        if (url == null && online) {
+            try {
+                String requestURL = String.format(
+                        "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
+                        URLEncoder.encode(lyrics.getArtist(), "UTF-8"),
+                        URLEncoder.encode(lyrics.getTitle(), "UTF-8"));
+                String txt = Net.getUrlAsString(new URL(requestURL));
+                JSONObject json = new JSONObject(txt);
+                JSONArray results = json.getJSONArray("results");
+                JSONObject result = results.getJSONObject(0);
+                url = result.getString("artworkUrl60").replace("60x60bb.jpg", "1000x1000bb.jpg");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException ignored) {
+                if (!secondTry) {
+                    lyrics.setArtist(lyrics.getOriginalArtist());
+                    lyrics.setTitle(lyrics.getOriginalTrack());
+                    return doInBackground(lyrics, mActivity, online, Boolean.TRUE);
                 }
             }
         }
