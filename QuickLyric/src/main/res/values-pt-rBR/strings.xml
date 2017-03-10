@@ -150,6 +150,7 @@ Algumas possíveis razões:<br/>
   <string name="premium_thanks">Obrigado pelo seu apoio!</string>
   <string name="about_crowdin">Ajude a traduzir o aplicativo no Crowdin</string>
   <string name="online_title">Catálogo on-line</string>
+  <string name="buy_sub">Comprar</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric irá agora baixar a letra para um total de %1$d música.\
 Certifique-se de manter uma conexão estável por %2$d minuto.</item>

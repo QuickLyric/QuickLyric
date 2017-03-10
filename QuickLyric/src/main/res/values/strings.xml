@@ -190,6 +190,12 @@ A few possible reasons why:<br/>
         <item>@string/source_EDM</item>
         <item>@string/source_japanese</item>
     </string-array>
+    <string-array name="premium_incent" translatable="false">
+        <item>@string/premium_ads_incent</item>
+        <item>@string/premium_night_mode_incent</item>
+        <item>@string/premium_themes_incent</item>
+        <item>@string/premium_android_wear</item>
+    </string-array>
     <string-array name="notifications">
         <item>Disabled (default)</item>
         <item>Enabled</item>

@@ -146,6 +146,7 @@ Plusieurs raisons possibles:<br/>
   <string name="premium_karaoke_incent">Un *mode karaoké* exclusif</string>
   <string name="premium_themes_incent">*7* nouveaux thèmes</string>
   <string name="premium_night_mode_incent">Un *mode nuit* pour reposer vos yeux la nuit</string>
+  <string name="premium_android_wear">Compatibilité avec les montres *Android Wear*</string>
   <string name="premium_doubt">Pas certain de vouloir prendre un abonnement ? Envoyez-nous un e-mail : contact@quicklyric.be</string>
   <string name="premium_thanks">Merci pour votre soutien !</string>
   <string name="about_crowdin">Contribuez à la traduction de QuickLyric</string>
