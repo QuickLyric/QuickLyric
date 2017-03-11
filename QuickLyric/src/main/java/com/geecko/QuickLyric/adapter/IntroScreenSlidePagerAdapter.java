@@ -470,7 +470,9 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         // Players page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.tutorial_1, container, false);
+            View rootView = inflater.inflate(R.layout.tutorial_1, container, false);
+            rootView.findViewById(R.id.textView1_b).setVisibility(Build.VERSION.SDK_INT < 19 ? View.VISIBLE : View.INVISIBLE);
+            return rootView;
         }
 
         @Override
