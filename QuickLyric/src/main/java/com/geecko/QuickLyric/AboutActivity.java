@@ -120,6 +120,10 @@ public class AboutActivity extends AppCompatActivity {
                 new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
             }
         });
+        Element cookElement = new Element().setTitle("Icon Designer");
+        cookElement.setIntent(
+                new Intent(Intent.ACTION_VIEW, Uri.parse("https://cookicons.co/"))
+        );
 
         View aboutView = new AboutPage(this)
                 .setDescription("QuickLyric is made with love in Brussels, Belgium.") // FixMe
@@ -132,6 +136,7 @@ public class AboutActivity extends AppCompatActivity {
                 .setImage(R.drawable.icon)
                 .addItem(productTourElement)
                 .addItem(crowdinElement)
+                .addItem(cookElement)
                 .addItem(ossLicensesElement)
                 .addItem(tosElement)
                 .create();
