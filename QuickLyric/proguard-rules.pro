@@ -17,11 +17,8 @@
 #}
 
 #-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
-<<<<<<< HEAD
-=======
 -keepattributes Signature, Exceptions, Annotation
 
->>>>>>> d989421... Update proguard rules
 -dontwarn org.jaudiotagger.**
 -dontwarn com.viewpagerindicator.**
 -dontwarn java.nio.file.Files
@@ -41,21 +38,11 @@
 -keep class org.jaudiotagger.** { *; }
 -keep public class com.google.** { *; }
 -keep class com.drivemode.spotify.** { *; }
--keep class com.google.analytics.** { *; }
--keep class com.android.vending.billing.**
--keep public class com.google.ads.** {
-   public *;
-}
+
 -keep class * extends java.util.ListResourceBundle {
     protected Object[][] getContents();
 }
--keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
-    public static final *** NULL;
-}
--keepnames @com.google.android.gms.common.annotation.KeepName class *
--keepclassmembernames class * {
-    @com.google.android.gms.common.annotation.KeepName *;
-}
+
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
