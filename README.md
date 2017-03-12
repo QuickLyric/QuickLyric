@@ -18,9 +18,7 @@ or on [the original F-Droid page](https://f-droid.org/repository/browse/?fdid=co
 
 *Note: The F-Droid page is currently not up to date, they still have a build from 2 years ago. The Google Play version contains some teeny tiny portions of code that are not public (monetization, handling copyrighted content, etc.)*
 
-## Donate
-
-If you want to support my work as a developer (not for this app specifically), you may make a donation [here](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RSJZUSUHBBKTJ&lc=US&item_name=geecko&item_number=00&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted).
+#### DO NOT fork this project if you don't intend to respect the GPL license (read it). DO NOT put it on the play store if you're not licensed to, I will have you taken down. You have been warned \<3
 
 ## Features
 
