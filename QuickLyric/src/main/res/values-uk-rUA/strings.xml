@@ -77,16 +77,6 @@
   <string name="pref_beta_sum">Отримуйте оновлення (нові можливості, виправлення, &#8230;) швидше і відписуйте через email</string>
   <string name="scan_error_no_content">Не вдалося знайти музику</string>
   <string name="no_results_why"><u>Чому?</u></string>
-  <string name="why_popup_text"><![CDATA[
-Ви шукали текст пісні %2$s \"%1$s\". На жаль, QuickLyric не зміг його знайти… <br/><br/>
-Ось кілька можливих причин:<br/>
-<br/>
-• Чи правильні <strong>теги</strong> у вашої музики? QuickLyric не розпізнає пісні без міток.<br/>
-• Перевірте ваше зʼєднання.<br/>
-• Можливо, ця пісня не в основному каталозі. Спробуйте змінити налаштування<strong>додаткових джерел</strong>.<br/>
-• Ви могли знайти помилку. Якщо так, прошу написати мені.<br/>
-• І нарешті, у нас може просто не бути тексту цієї пісні. Якщо ви маєте пропозиції щодо доповнення каталогу, не полінуйтеся написати мені.<br/>
-]]></string>
   <string name="why_popup_title">Чому це не працює?</string>
   <string name="download_category">Завантаження</string>
   <string name="wearable_prompt">Відкрити на портативних пристроях</string>
@@ -117,7 +107,6 @@
   <string name="source_hip_hop">Хіп-хоп</string>
   <string name="source_EDM">Електронна танцювальна музика</string>
   <string name="source_japanese">Японська</string>
-  <string name="source_bollywood">Музика Боллівуд</string>
   <string name="source_sync">Синхронізовані тексти</string>
   <string name="spotify_connection">Зʼєднання зі Spotify&#8230;</string>
   <string name="full_text_action">Повний текст</string>

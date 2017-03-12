@@ -73,13 +73,6 @@
   <string name="pref_beta_sum">دریافت سریع‌تر به‌روزرسانی‌ها (امکانات جدید, رفع اشکال,...) و گزارش از طریق ایمیل</string>
   <string name="scan_error_no_content">هیچ آهنگی پیدا نشد</string>
   <string name="no_results_why"><u>چرا؟</u></string>
-  <string name="why_popup_text"><![CDATA[شما دنبال اشعار «%1$s» از %2$s می‌گردید. متأسفانه، QuickLyric نمی‌تواند آنها را بیابد…<br/><br/>
-برخی دلایل ممکن:<br/><br/>
-• آیا <strong>تگ</strong> موسیقی شما درست است؟ QuickLyric نمی‌تواند آهنگ‌هایی را که تگ ندارند را شناسایی کند.<br/>
-• بررسی کنید که اتصال شما کار می‌کند.<br/>
-• شاید این آهنگ در فهرست موسیقی وجود ندارد. قسمت <strong>خدمات‌دهندگان اضافه</strong> را در تنظیمات بررسی کرده‌اید؟
-• ممکن است شما یک مشکل را پیدا کرده‌باشید. اگر این طور است، لطفا به من ایمیل بزنید.<br/>
-• در آخر، ممکن است اشعار برای این آهنگ در دسترس نباشند. اگر پیشنهادی در این مورد دارید، به راحتی به من ایمیل کنید.<br/>]]></string>
   <string name="why_popup_title">چرا کار نمی‌کند؟</string>
   <string name="download_category">دریافت‌ها</string>
   <string name="wearable_prompt">بازکردن روی پوشیدنی</string>
@@ -106,7 +99,6 @@
   <string name="source_hip_hop">هیپ هاپ</string>
   <string name="source_EDM">آهنگ های رقص الکترونیکی</string>
   <string name="source_japanese">ژاپنی</string>
-  <string name="source_bollywood">موسیقی بالیود</string>
   <string name="source_sync">همگام سازی آهنگ ها</string>
   <plurals name="dl_finished_desc">
     <item quantity="one">اشعار برای %1$d آهنگ دریافت شدند</item>

@@ -74,13 +74,6 @@
   <string name="pref_beta_sum">Få uppdateringar (nya funktioner, buggfixar, och så vidare) snabbare via email</string>
   <string name="scan_error_no_content">Kunde inte hitta någon musik</string>
   <string name="no_results_why"><u>Varför?</u></string>
-  <string name="why_popup_text"><![CDATA[Du efter sökte texten till "%1$s" av %2$s. Tyvärr kunde QuickLyric inte hitta den… <br/>< br/>
-Några möjliga orsaker varför: <br/><br/>
-• Är din musik <strong>taggad</strong> ordentligt? QuickLyric kan inte känna igen spår som inte är taggade. <br/>
-• Kontrollera om din anslutning fungerar. <br/>
-• Kanske saknas låten i huvudkatalogen. Har du kollat de <stark> ytterligare källorna </strong> i inställningarna? <br/>
-• Du kanske har hittat en bugg. Om så är fallet, vänligen maila mig <br/>
-• Slutligen är det också möjligt att texten till den här låten är inte tillgänglig. Om du har förslag om tillägg till katalogen, maila mig. <br/>]]></string>
   <string name="why_popup_title">Varför fungerar det inte?</string>
   <string name="download_category">Hämtade filer</string>
   <string name="wearable_prompt">Öppna på wearable</string>
@@ -111,7 +104,6 @@ Några möjliga orsaker varför: <br/><br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Electronic Dance Music</string>
   <string name="source_japanese">Japansk</string>
-  <string name="source_bollywood">Bollywoodmusik</string>
   <string name="source_sync">Synkroniserade Låttexter</string>
   <string name="spotify_connection">Ansluter till Spotify&#8230;</string>
   <string name="full_text_action">Hela texten</string>

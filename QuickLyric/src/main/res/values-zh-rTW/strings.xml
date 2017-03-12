@@ -64,9 +64,6 @@
   <string name="pref_beta_sum">通過電子郵件更快獲取更新 (新功能、 問題修復，...) 和報告</string>
   <string name="scan_error_no_content">找不到任何音樂</string>
   <string name="no_results_why"><u>為什麼?</u></string>
-  <string name="why_popup_text"><![CDATA[
-你正在尋找 \"%1$s\" (演出者 %2$s)的歌詞。可惜 QuickLyric 找不到......<br/> <br/>有幾個可能原因: <br/> <br/> • 你的音樂的 <strong>標記</strong> 正確嗎?QuickLyric 不能識別沒有標記的音樂。 <br/>• 請檢查您的連接是否正常。 <br/>• 也許這首歌並不主目錄。看看在設定中的 <strong>其他提供者</strong> ? <br/>• 您可能已發現 bug。如果是這樣，請發電子郵件給我 <br/>• 最後，也有可能是這首歌的歌詞沒有在歌詞目錄。如果你有關於增補目錄的建議，請隨時給我發電子郵件 <br/>
-]]></string>
   <string name="why_popup_title">出了甚麼問題?</string>
   <string name="download_category">下載</string>
   <string name="wearable_prompt">在可穿戴裝置上打開</string>

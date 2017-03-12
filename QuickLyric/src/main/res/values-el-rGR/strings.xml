@@ -74,14 +74,6 @@
   <string name="pref_beta_sum">Λάβετε ενημερώσεις (νέα χαρακτηριστικά, διορθώσεις σφαλμάτων,...) γρηγορότερα και στείλτε τις εντυπώσεις σας μέσω ηλεκτρονικού ταχυδρομείου</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
-  <string name="why_popup_text"><![CDATA[Ψάχνατε για τους στίχους του "%1$s" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… < br/><br/>
-Μερικές πιθανές αιτίες: <br/>
-<br/>
-• Έχει η μουσική σας σωστές < strong > ετικέτες </strong> Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.<br/>
-• Ελέγξτε αν η σύνδεσή σας λειτουργεί.<br/>
-• Ίσως αυτό το τραγούδι δεν αποτελεί μέρος του κύριου καταλόγου. Έχετε ελέγξει τις <strong> πρόσθετες υπηρεσίες παροχής </strong> στις ρυθμίσεις;<br/>
-• Ίσως βρήκατε ένα bug. Αν ναι, παρακαλώ στείλτε μου email.<br/>
-• Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.<br/>]]></string>
   <string name="why_popup_title">Γιατί δεν λειτουργεί;</string>
   <string name="download_category">Λήψεις</string>
   <string name="wearable_prompt">Άνοιγμα σε έξυπνο ρολόι</string>
@@ -112,7 +104,6 @@
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Electronic Dance Music</string>
   <string name="source_japanese">Ιαπωνική</string>
-  <string name="source_bollywood">Μουσική Bollywood</string>
   <string name="source_sync">Συγχρονισμένοι στίχοι</string>
   <string name="spotify_connection">Σύνδεση με Spotify&#8230;</string>
   <string name="full_text_action">Πλήρες κείμενο</string>

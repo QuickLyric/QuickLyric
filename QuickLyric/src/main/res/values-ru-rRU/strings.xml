@@ -76,14 +76,6 @@
   <string name="pref_beta_sum">Получить обновления (новые возможности, исправления ошибок, ...) быстрее и сообщать об найденных ошибка по электронной почте</string>
   <string name="scan_error_no_content">Музыка не найдена</string>
   <string name="no_results_why"><u>Почему?</u></string>
-  <string name="why_popup_text"><![CDATA[Вы искали текст "%1$s" исполнителя %2$s. К сожалению QuickLyric не смог его найти… <br/><br/>
-Возможные причины:<br/>
-<br/>
-• У Вашей музыки правильно установлены <strong>теги</strong>? QuickLyric не распознаёт песни без тегов.<br/>
-• Проверьте подключение к интернету.<br/>
-• Возможно, песни нет в популярных каталогах. Попробуйте включить <strong>дополнительные источники</strong> в настройках.<br/>
-• Возможно, вы столкнулись с ошибкой. Пожалуйста, напишите об этом на почту.<br/>
-• Наконец, текст данной песни может быть недоступен. Если у Вас есть предложения насчёт пополнения каталога текстов, напишите на почту. <br/>]]></string>
   <string name="why_popup_title">Почему не работает?</string>
   <string name="download_category">Загрузок</string>
   <string name="wearable_prompt">Открыть на носимых устройствах</string>
@@ -114,7 +106,6 @@
   <string name="source_hip_hop">Хип-Хоп</string>
   <string name="source_EDM">Электронная танцевальная музыка</string>
   <string name="source_japanese">Японская</string>
-  <string name="source_bollywood">Болливуд</string>
   <string name="source_sync">Синхронизированные слова</string>
   <string name="spotify_connection">Подключение к Spotify&#8230;</string>
   <string name="full_text_action">Полный текст</string>

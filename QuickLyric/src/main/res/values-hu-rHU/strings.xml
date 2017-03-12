@@ -78,17 +78,6 @@
   <string name="pref_beta_sum">Kapjon frissítéseket (új funkciók, hibajavítások, &#8230;) hamarabb és jelezzen vissza e-mail segítségével</string>
   <string name="scan_error_no_content">Nem sikerült zenét találni</string>
   <string name="no_results_why"><u>Miért?</u></string>
-  <string name="why_popup_text"><![CDATA[
-A(z) %2$s szerzőtől származó \"%1$s\" számhoz keresett dalszöveget. Sajnos a QuickLyric nem találta meg...<br/><br/>
-Ennek okai lehetnek a következők:<br/>
-<br/>
-• Biztos hogy a helyesen vannak <strong>jelölve</strong> a zenéi? A QuickLyric nem tudja felismerni azokat a számokat amelyeknek nincsen jelölésük.
-<br/>
-• Ellenőrizze az internet kapcsolatot.<br/>
-• Lehet hogy ez a szám nincs a népszerű katalógusokban. Megnézte a <strong>kiegészítő forrásokat</strong> a beállításokban?<br/>
-• Lehet hogy talált egy hibát. Ha ez így van, kérem írjon egy emailt.<br/>
-• Végül pedig, lehet hogy nem érhető el dalszöveg ehhez a számhoz. Ha vannak tanácsai a katalógus kiegészítéséről, bátran írjál emailt nekem.<br/>
-]]></string>
   <string name="why_popup_title">Miért nem működik?</string>
   <string name="download_category">Letöltések</string>
   <string name="wearable_prompt">Megnyitás viselhető készüléken</string>
@@ -119,7 +108,6 @@ Ennek okai lehetnek a következők:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">EDM</string>
   <string name="source_japanese">Japán</string>
-  <string name="source_bollywood">Bollywood zene</string>
   <string name="source_sync">Szinkronizált dalszövegek</string>
   <string name="spotify_connection">Csatlakozás Spotify-ra&#8230;</string>
   <string name="full_text_action">Teljes szöveg</string>

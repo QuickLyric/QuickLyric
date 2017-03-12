@@ -80,14 +80,6 @@
   <string name="pref_beta_sum">アップデート (新機能、バグ修正、...) を早く入手して、メールでレポートしてください</string>
   <string name="scan_error_no_content">音楽が見つかりませんでした</string>
   <string name="no_results_why"><u>なぜ?</u></string>
-  <string name="why_popup_text"><![CDATA[%2$s で"%1$s" の歌詞を検索しました。残念ながら QuickLyric は見つけることができませんでした… <br/><br/>
-次の可能性があります: <br/>
-<br/>
-• 音楽は適切に <strong>タグ付け</strong> されていますか? QuickLyric タグ付けされていないトラックを認識できません。 <br/>
-• 正しく接続されているか確認してください。 <br/>
-• この曲はメインカタログに含まれていないかもしれません。 設定で、<strong>追加プロバイダー</strong> をチェックしていますか? <br/>
-• バグを発見した可能性があります。もしそうなら、私にメールしてください。 <br/>
-• 最後に、この曲の歌詞が利用できない可能性もあります。カタログへの追加に関して提案があれば、お気軽に私にメールしてください。 <br/>]]></string>
   <string name="why_popup_title">なぜ動作しないのですか?</string>
   <string name="download_category">ダウンロード</string>
   <string name="wearable_prompt">ウェアラブルで開く</string>
@@ -118,7 +110,6 @@
   <string name="source_hip_hop">ヒップ ホップ</string>
   <string name="source_EDM">エレクトロニック ダンス ミュージック</string>
   <string name="source_japanese">邦楽</string>
-  <string name="source_bollywood">ボリウッド音楽</string>
   <string name="source_sync">同期した歌詞</string>
   <string name="spotify_connection">Spotify に接続中&#8230;</string>
   <string name="full_text_action">全文</string>

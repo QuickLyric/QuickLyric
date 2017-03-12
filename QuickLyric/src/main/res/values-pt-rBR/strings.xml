@@ -75,15 +75,6 @@
   <string name="pref_beta_sum">Receba atualizações (novos recursos, correções de bugs, ...) mais rapidamente, e informe-nos por e-mail</string>
   <string name="scan_error_no_content">Não foi possível achar uma música</string>
   <string name="no_results_why"><u>Por quê?</u></string>
-  <string name="why_popup_text"><![CDATA[Você estava procurando pela letra da música "%1$s", por %2$s. Infelizmente, o QuickLyric não conseguiu achá-la… <br/><br/>
-Algumas possíveis razões:<br/>
-<br/>
-• A sua música está <strong>marcada</strong> corretamente? o QuickLyric não reconhece músicas que não estão marcadas.<br/>
-• Verifique se sua conexão com a internet está funcionando.<br/>
-• Talvez essa música não faz parte do catálogo principal. Você marcou a opção the <strong>provedores adicionais</strong> nas configurações??<br/>
-• Você pode ter encontrado um bug. Se sim, por favor, mande-me um e-mail.<br/>
-• Finalmente,  é possível que as letras para essa música não estejam disponíveis. Se você tiver sugestões sobre adições ao catálogo, sinta-se livre para me enviar um e-mail.<br/>
-]]></string>
   <string name="why_popup_title">Por que não está funcionando?</string>
   <string name="download_category">Downloads</string>
   <string name="wearable_prompt">Abrir no smartwatch</string>
@@ -114,7 +105,6 @@ Algumas possíveis razões:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Música eletrônica (dançante)</string>
   <string name="source_japanese">Japonesa</string>
-  <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
   <string name="spotify_connection">Conectando ao Spotify&#8230;</string>
   <string name="full_text_action">Texto completo</string>

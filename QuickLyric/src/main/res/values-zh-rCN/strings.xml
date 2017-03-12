@@ -76,16 +76,6 @@
   <string name="pref_beta_sum">通过邮件取得反馈并及时获取更新(新功能，BUG修复等)</string>
   <string name="scan_error_no_content">没有找到任何音乐</string>
   <string name="no_results_why"><u>发生了什么?</u></string>
-  <string name="why_popup_text"><![CDATA[
-你正在搜索 %2$s 的 %1$s 。很不幸，QuickLyric没有找到任何结果&lt;br/&gt;&lt;br/&gt;
-一些可能的原因：&lt;br/&gt;
-&lt;br/&gt;
-• 你的音乐文件&lt;strong&gt;内嵌标签&lt;/strong&gt;完整吗？QuickLyric不能识别无标签的曲目。&lt;br/&gt;
-• 检查你的网络连接。&lt;br/&gt;
-• 可能这首歌超出了当前歌词源的收录范围。试着在设置里勾选&lt;strong&gt;更多歌词来源&lt;/strong&gt;？ &lt;br/&gt;
-• 你可能发现了BUG，请邮件联系我。&lt;br/&gt;
-• 最后，可能现有的歌词源确实无法检索到。如果你有更好的歌词源作为补充，可以随时联系我。&lt;br/&gt;
-]]></string>
   <string name="why_popup_title">为什么罢工了？</string>
   <string name="download_category">下载</string>
   <string name="wearable_prompt">在可穿戴设备上打开</string>
@@ -116,7 +106,6 @@
   <string name="source_hip_hop">嘻哈</string>
   <string name="source_EDM">电子乐</string>
   <string name="source_japanese">日语</string>
-  <string name="source_bollywood">宝莱坞</string>
   <string name="source_sync">同步歌词</string>
   <string name="spotify_connection">连接到 Spotify...</string>
   <string name="full_text_action">全文</string>

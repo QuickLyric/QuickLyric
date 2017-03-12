@@ -74,16 +74,6 @@
   <string name="pref_beta_sum">Dapatkan pembaruan (fitur baru, perbaikan bug,&#8230;) lebih cepat dan laporkan kembali melalui email</string>
   <string name="scan_error_no_content">Tidak dapat menemukan musik apapun</string>
   <string name="no_results_why"><u>Mengapa?</u></string>
-  <string name="why_popup_text"><![CDATA[
-Anda sedang mencari lirik \"%1$s\" oleh %2$s. Sayangnya QuickLyric tidak dapat menemukannya... <br/> <br/> 
-Beberapa kemungkinan kenapa: <br/>
-<br/>
-• Apakah musik anda<strong>diberi tanda</strong> dengan benar? QuickLyric tidak dapat mengenali trek yang tidak ditandai. <br/>
-• Periksa jika sambungan Anda bekerja. <br/>
-• Mungkin lagu ini bukan dari katalog utama. Apakah Anda sudah mencentang<strong>penyedia tambahan</strong>pada pengaturan?<br/>
-• Anda mungkin telah menemukan bug. Jika demikian, silakan email saya <br/>
-• Akhirnya, mungkin saja bahwa lirik untuk lagu ini tidak tersedia. Jika Anda memiliki saran mengenai penambahan Katalog, jangan sungkan untuk mengirim email ke saya. <br/>
-]]></string>
   <string name="why_popup_title">Kenapa tidak bisa?</string>
   <string name="download_category">Unduhan</string>
   <string name="wearable_prompt">Buka pada Smartwatch</string>
@@ -114,7 +104,6 @@ Beberapa kemungkinan kenapa: <br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Electronic Dance Music</string>
   <string name="source_japanese">Jepang</string>
-  <string name="source_bollywood">Musik Bollywood</string>
   <string name="source_sync">Sinkronkan lirik</string>
   <string name="spotify_connection">Menghubungkan ke Spotify&#8230;</string>
   <string name="full_text_action">Teks lengkap</string>

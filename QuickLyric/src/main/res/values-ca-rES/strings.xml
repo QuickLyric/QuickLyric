@@ -74,15 +74,6 @@
   <string name="pref_beta_sum">Obtenir actualitzacions (novetats, correccions,...) més ràpid i informe via correu electrònic</string>
   <string name="scan_error_no_content">No es va poder trobar música</string>
   <string name="no_results_why"><u>Perquè?</u></string>
-  <string name="why_popup_text"><![CDATA[Estaves buscant les lletres per "%1$s" de %2$s. Malauradament QuickLyric no va poder trobar-les… <br/><br/>
-Possibles raons:<br/>
-<br/>
-• Està la teva música <strong>etiquetada</strong> correctament? QuickLyric no reconeixerà les cançons que no estiguin etiquejades.<br/>
-• Comprova que la teva connexió funciona.<br/>
-• A lo millor aquesta cançó no es troba al catàlog principal. Has comprovat els <strong>proveïdors adicionals</strong> als ajustos?<br/>
-• Pots haver trobat un bug. Si es així, envia\'m un email.<br/>
-• Finalment, es possible que les lletres per aquesta cançó no estiguin disponibles. Si tens alguna sugerencia per adicions al catalog, envia\'m un email.<br/>
-  ]]></string>
   <string name="why_popup_title">Perquè no funciona?</string>
   <string name="download_category">Descargues</string>
   <string name="wearable_prompt">Obrir al rellotge (wearable)</string>
@@ -113,7 +104,6 @@ Possibles raons:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Electronic Dance Music</string>
   <string name="source_japanese">Japonesa (ひらがな)</string>
-  <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Lletres sincronitzades</string>
   <string name="spotify_connection">Connectant a Spotify&#8230;</string>
   <string name="full_text_action">Text complet</string>

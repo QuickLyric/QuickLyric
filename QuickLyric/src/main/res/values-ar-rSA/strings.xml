@@ -77,18 +77,6 @@
   <string name="pref_beta_sum">أحصل على تحديثات (ميزات جديدة وإصلاحات الشوائب،...) أسرع و أخبرنا برأيك عبر البريد الإلكتروني</string>
   <string name="scan_error_no_content">تعذر العثور على أية موسيقى</string>
   <string name="no_results_why"><u>لماذا؟</u></string>
-  <string name="why_popup_text"><![CDATA[
-كنت تبحث عن كلمات أغنية %1$s للمغني %2$s. للأسف QuickLyric لم يمكنه العثور علي كلمات الأغنية...
-<br/><br/>
-هناك عدد قليل من الأسباب المحتملة:<br/>
-<br/>
- • هل <strong>تفاصيل الأغنية</strong> صحيحة؟ QuickLyric لا يمكنه التعرف على الأغاني التي بدون تفاصيل.
-<br/>
- • التحقق من شبكة الإنترنت إذا كانت تعمل.<br/>
- • لعل هذه الأغنية ليست جزءا من الكتالوج الرئيسي. هل راجعت على <strong> المزودين الإضافيين</ strong> في الإعدادات؟<br/>
- • ربما قد وجدت مشكلة بالبرنامج. إذا كان الأمر كذلك، يرجى امراسلتي.<br/>
- • وأخيرا، فإنه من الممكن أيضا أن كلمات هذه الأغنية غير متوفرة. إذا كان لديك اقتراحات بشأن إضافة قاعدة بيانات إلى القائمة، لا تتردد في الكتابة لي. <br/>
-]]></string>
   <string name="why_popup_title">لماذا لا يعمل؟</string>
   <string name="download_category">التحميلات</string>
   <string name="wearable_prompt">إفتح على الساعة الذكية</string>
@@ -119,7 +107,6 @@
   <string name="source_hip_hop">الهيب هوب</string>
   <string name="source_EDM">موسيقى الرقص الإلكترونية</string>
   <string name="source_japanese">اليبانية</string>
-  <string name="source_bollywood">موسيقى بوليوود</string>
   <string name="source_sync">كلمات الأغاني متزامنة</string>
   <string name="spotify_connection">جاري الربط بسبوتيفي&#8230;</string>
   <string name="full_text_action">النص الكامل</string>

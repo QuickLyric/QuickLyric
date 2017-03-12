@@ -77,14 +77,6 @@
   <string name="pref_beta_sum">Добијајте надоградње (нове функције и исправке грешака) брже и јављајте нам се е-поштом</string>
   <string name="scan_error_no_content">Нисам нашао музику</string>
   <string name="no_results_why"><u>Зашто?</u></string>
-  <string name="why_popup_text"><![CDATA[Тражили сте стихове песме „%1$s“ од %2$s. Нажалост Квик лирик није могао да их нађе… <br/><br/>
-Неки од могућих разлога за то:<br/>
-<br/>
-• Да ли је ваша музика <strong>означена</strong> исправно? Квик лирик не може да препозна нумере које нису означене.<br/>
-• Проверите вашу везу на интернет.<br/>
-• Можда ове песме нема у главном каталогу. Да ли сте одредили <strong>додатне изворе стихова</strong> у поставкама?<br/>
-• Можда сте наишлина грешку. Ако је тако, пошаљите е-поруку аутору.<br/>
-• Коначно, могуће је да нема стихова ове песме. Ако имате предлоге у вези додавања у каталог, слободно пошаљите е-поруку аутору.<br/>]]></string>
   <string name="why_popup_title">Зашто не ради?</string>
   <string name="download_category">Преузимања</string>
   <string name="wearable_prompt">Отвори на носивим уређајима</string>
@@ -115,7 +107,6 @@
   <string name="source_hip_hop">Хип хоп</string>
   <string name="source_EDM">Електронска денс музика</string>
   <string name="source_japanese">Јапанска</string>
-  <string name="source_bollywood">Боливудска музика</string>
   <string name="source_sync">Синхронизовани стихови</string>
   <string name="spotify_connection">Повезујем се на Спотифај&#8230;</string>
   <string name="full_text_action">Цео текст</string>

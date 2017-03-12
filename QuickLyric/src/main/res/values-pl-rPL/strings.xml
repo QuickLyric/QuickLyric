@@ -77,14 +77,6 @@
   <string name="pref_beta_sum">Otrzymuj aktualizacje (nowe funkcje, poprawki błędów, &#8230;) szybciej i zgłaszaj uwagi mailem</string>
   <string name="scan_error_no_content">Nie znaleziono muzyki</string>
   <string name="no_results_why"><u>Dlaczego?</u></string>
-  <string name="why_popup_text"><![CDATA[Szukasz tekstu piosenki "%1$s" autorstwa %2$s. Niestety QuickLyric nie mógł go znaleźć… <br/><br/>
-Jest kilka możliwych przyczyn:<br/>
-<br/>
-• Czy Twoje piosenki są prawidłowo <strong>otagowane</strong>? Jeśli nie, QuickLyric nie może ich rozpoznać.<br/>
-• Sprawdź czy masz połączenie z internetem.<br/>
-• Możliwe, że poszukiwana przez Ciebie piosenka nie znajduje się w głównym katalogu. Czy uaktywniłeś <strong>dodatkowe źródła</strong> w ustawieniach?<br/>
-• Być może natrafiłeś na błąd aplikacji. Jeśli tak, proszę o kontakt mailowy.<br/>
-• Jeśli powyższe przyczyny wydają się mało prawdopodobne, poszukiwany przez Ciebie tekst może po prostu być niedostępny. Jeśli masz sugestie dotyczące poszerzenia katalogu, śmiało możesz zgłosić mi to mailem.<br/>]]></string>
   <string name="why_popup_title">Dlaczego nie działa?</string>
   <string name="download_category">Pobrania</string>
   <string name="wearable_prompt">Otwórz na smartwatchu</string>
@@ -115,7 +107,6 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Dance</string>
   <string name="source_japanese">Muzyka japońska</string>
-  <string name="source_bollywood">Muzyka z Bollywood</string>
   <string name="source_sync">Zsynchronizowane teksty</string>
   <string name="spotify_connection">Łączenie ze Spotify&#8230;</string>
   <string name="full_text_action">Pełny tekst</string>

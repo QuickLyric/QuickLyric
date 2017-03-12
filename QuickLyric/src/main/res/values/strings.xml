@@ -122,7 +122,6 @@ A few possible reasons why:<br/>
     <string name="source_hip_hop">Hip Hop</string>
     <string name="source_EDM">Electronic Dance Music</string>
     <string name="source_japanese">Japanese</string>
-    <string name="source_bollywood">Bollywood Music</string>
     <string name="source_sync">Synchronized Lyrics</string>
     <string name="spotify_connection">Connecting to Spotify…</string>
     <string name="full_text_action">Full text</string>
@@ -155,11 +154,15 @@ A few possible reasons why:<br/>
     <string name="premium_karaoke_incent">An exclusive *karaoke mode*</string>
     <string name="premium_themes_incent">*7* new themes</string>
     <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night</string>
+    <string name="premium_android_wear">Support for *Android Wear* watches</string>
     <string name="premium_incentive">Support the artists and the team behind QuickLyric</string>
     <string name="premium_doubt">Unsure about getting a subscription? Shoot us an email: contact@quicklyric.be</string>
     <string name="premium_thanks">Thanks for your support!</string>
     <string name="about_crowdin">Help translate the app on Crowdin</string>
     <string name="online_title">Online catalog</string>
+    <string name="yearly_sub_template">%s/year</string>
+    <string name="monthly_sub_template">%s/month</string>
+    <string name="buy_sub">Buy</string>
 
 
     <plurals name="scan_dialog">

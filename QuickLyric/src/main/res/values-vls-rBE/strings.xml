@@ -75,16 +75,6 @@
   <string name="pref_beta_sum">Krijg updates (nieuwe features, bug fixes, &#8230;) sneller en geef feedback via email</string>
   <string name="scan_error_no_content">Geen muziek gevonden</string>
   <string name="no_results_why"><u>Waarom?</u></string>
-  <string name="why_popup_text"><![CDATA[
-Je was songteksten aan het zoeken voor \"%1$s\" van %2$s. QuickLyric kon deze jammer genoeg niet vinden… <br/><br/>
-Dit zou kunnen zijn omdat:<br/>
-<br/>
-• Je muziek niet <strong>getagd</strong> is. QuickLyric kan liedjes die niet getagd zijn niet vinden.<br/>
-• Je internet verbinding niet werkt.<br/>
-• Jouw liedjes geen deel uitmaakt van de hoofdbibliotheek. Heb je al gekeken naar <strong>aanvullende providers</strong> in de instellingen?<br/>
-• Je misschien wel een bug gevonden hebt. Als dit zo blijkt te zien, email me alsjeblieft.<br/>
-Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer niet beschikbaar is. Als je een suggestie hebt voor een provider kun je mij altijd via email contacteren.<br/>
-]]></string>
   <string name="why_popup_title">Waarom werkt het niet?</string>
   <string name="download_category">Downloads</string>
   <string name="wearable_prompt">Open op smartwatch</string>
@@ -115,7 +105,6 @@ Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer ni
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Elektronische Dancemuziek</string>
   <string name="source_japanese">Japans</string>
-  <string name="source_bollywood">Bollywood muziek</string>
   <string name="source_sync">Gesynchroniseerde songteksten</string>
   <string name="spotify_connection">Verbindt met Spotify...</string>
   <string name="full_text_action">Volledige tekst</string>
@@ -147,6 +136,7 @@ Als alle bovenstaande punten niet hebben geholpen kan het zijn dat het nummer ni
   <string name="premium_karaoke_incent">Een exclusieve *Karaoke modus*</string>
   <string name="premium_themes_incent">*7* nieuwe thema\'s</string>
   <string name="premium_night_mode_incent">Een *nacht modus* om je ogen \'s nachts rust te geven</string>
+  <string name="premium_android_wear">Ondersteuning voor *Android Wear*-horloges</string>
   <string name="premium_doubt">Onzeker over het kopen van de upgrade? Stuur een email naar contact@quicklyric.be</string>
   <string name="premium_thanks">Bedankt voor je bijdrage!</string>
   <string name="about_crowdin">Help met het vertalen van de app op Crowdin</string>

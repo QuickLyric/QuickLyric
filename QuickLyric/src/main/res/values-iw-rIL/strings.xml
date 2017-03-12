@@ -70,9 +70,6 @@
   <string name="pref_beta_sum">קבל עדכונים (תכונות חדשות, תיקוני באגים,...) מהר יותר ודווח חזרה באימייל</string>
   <string name="scan_error_no_content">לא היתה אפשרות למצוא מוזיקה</string>
   <string name="no_results_why"><u>למה?</u></string>
-  <string name="why_popup_text"><![CDATA[
-חיפשת את המילים של \"%1$s\" על ידי %2$s. למרבה הצער QuickLyric לא מצא אותם. <br/> <br/> כמה סיבות אפשריות מדוע: <br/> <br/> • האם המוזיקה שלך <strong>מתוייגת</strong> כהלכה? QuickLyric לא מזהה שירים שלא מתויגים. <br/> • בדוק אם החיבור שלך עובד. <br/> • אולי השיר הזה הוא לא חלק מהקטלוג הראשי. האם בדקת את <strong>ספקים נוספים</strong> בהגדרות? <br/> • אולי מצאת באג. אם כך, אנא שלח לי <br/> • בנוסף, אפשרי גם שמילות השיר לשיר הזה לא זמינות. אם יש לך הצעות לגבי תוספות לקטלוג, תרגיש חופשי לשלוח לי <br/>
-]]></string>
   <string name="why_popup_title">למה זה לא עובד?</string>
   <string name="download_category">הורדות</string>
   <string name="wearable_prompt">פתח במכשיר לביש</string>

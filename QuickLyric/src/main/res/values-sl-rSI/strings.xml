@@ -75,15 +75,6 @@
   <string name="pref_beta_sum">Dobi posodobitve (nove funkcije, popravki, &#8230;) hitreje in poročaj preko emaila</string>
   <string name="scan_error_no_content">Ni najdenih skladb</string>
   <string name="no_results_why"><u>Zakaj?</u></string>
-  <string name="why_popup_text"><![CDATA[Iskali ste besedilo "%1$s" od %2$s. QuickLyric ni našel besedila… <br/><br/>
-Nekaj možnih razlogov:<br/>
-<br/>
-• Je vaša glasba primerno <strong>označena</strong> ?
-QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
-• Preverite, ali imate delujočo povezavo.<br/>
-• Pesem morda ni v glavnem katalogu. Ste preverili <strong> dodatne kataloge</strong> v nastavitvah?<br/>
-• Morda ste našli napako. Ob tem mi prosim pišite po e-pošti.<br/>
-• Mogoče je tudi, da besedilo za skladbo ni na voljo. Če imate predloge za dodatne kataloge, jih posredujte po e-pošti.<br/>]]></string>
   <string name="why_popup_title">Zakaj ne deluje?</string>
   <string name="download_category">Prenosi</string>
   <string name="wearable_prompt">Odpri na nosljivi napravi</string>
@@ -114,7 +105,6 @@ QuickLyric ne mora prepoznati skladb, ki niso označene.<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Elektronska plesna glasba</string>
   <string name="source_japanese">Japonščina</string>
-  <string name="source_bollywood">Bollywood glasba</string>
   <string name="source_sync">Sinhronizirana besedila</string>
   <string name="spotify_connection">Povezovanje na Spotify&#8230;</string>
   <string name="full_text_action">Celotno besedilo</string>

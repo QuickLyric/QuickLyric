@@ -76,14 +76,6 @@
   <string name="pref_beta_sum">Receba atualizações (novas funcionalidades, correções de bugs, ...) mais rapidamente e contacte-me por e-mail</string>
   <string name="scan_error_no_content">Não foi possível encontrar nenhuma música</string>
   <string name="no_results_why"><u>Porquê?</u></string>
-  <string name="why_popup_text"><![CDATA[Estava à procura da letra da música %1$s por %2$s. Infelizmente QuickLyric não conseguiu encontrá-la… <br/><br/>
-Algumas possíveis razões:<br/>
-<br/>
-• A sua música está <strong>marcada</strong> corretamente? QuickLyric não consegue reconhecer músicas que não estejam marcadas.<br/>
-• Verifique a sua conexão.<br/>
-• Talvez esta música não faça parte do catálogo principal. Já verificou as <strong>fontes adicionais</strong> nas definições?<br/>
-• Talvez tenha encontrado um bug. Se for o caso, envie-me um e-mail.<br/>
-• Por último, também é possível que esta letra não esteja disponível. Se tem sugestões relacionadas com possíveis adições ao catálogo, envie-me um e-mail.<br/>]]></string>
   <string name="why_popup_title">Porque não funciona?</string>
   <string name="download_category">Transferências</string>
   <string name="wearable_prompt">Abrir em smartwatch</string>
@@ -114,7 +106,6 @@ Algumas possíveis razões:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Música eletrónica</string>
   <string name="source_japanese">Japonês</string>
-  <string name="source_bollywood">Música de Bollywood</string>
   <string name="source_sync">Letras sincronizadas</string>
   <string name="spotify_connection">A ligar ao Spotify&#8230;</string>
   <string name="full_text_action">Texto completo</string>

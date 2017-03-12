@@ -76,16 +76,6 @@
   <string name="pref_beta_sum">Ricevi aggiornamenti (nuove funzionalità, bugfix,&#8230;) più velocemente e informami via mail su eventuali errori</string>
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
-  <string name="why_popup_text"><![CDATA[
-Stavi cercando il testo di \"%1$s\" dell\'artista %2$s . Sfortunatamente QuickLyric non è riuscito a trovarlo… <br/><br/>
-Alcune cause potrebbero essere:<br/>
-<br/>
-• La tua canzone non è stata <strong>riconosciuta</strong> correttamente? QuickLyric non può cercare testi di canzoni che non riconosce.<br/>
-• Controlla se la tua connessione sta funzionando.<br/>
-• Forse questa canzone non è parte del catalogo principale. Hai selezionato le <strong>fonti aggiuntive</strong> nelle impostazioni?<br/>
-• Potresti aver trovato un bug. Se è così inviami una mail.<br/>
-• Infine, è anche possibile che il testo della canzone non sia ancora disponibile. Se hai suggerimenti su dove cercare i testi, fammelo sapere via mail.<br/>
-]]></string>
   <string name="why_popup_title">Perché non funziona?</string>
   <string name="download_category">Download</string>
   <string name="wearable_prompt">Apri su Android Wear</string>
@@ -116,7 +106,6 @@ Alcune cause potrebbero essere:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Dance Elettronica</string>
   <string name="source_japanese">Giapponese</string>
-  <string name="source_bollywood">Musica di Bollywood</string>
   <string name="source_sync">Testi sincronizzati</string>
   <string name="spotify_connection">Collegamento a Spotify&#8230;</string>
   <string name="full_text_action">Testo completo</string>

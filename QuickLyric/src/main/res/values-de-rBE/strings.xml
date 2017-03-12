@@ -78,14 +78,6 @@
   <string name="pref_beta_sum">Erhalten Sie Updates (neue Features, Fehlerbehebungen,&#8230;)  schneller und melden Sie sich zurück per E-Mail</string>
   <string name="scan_error_no_content">Konnte keine Musik finden</string>
   <string name="no_results_why"><u>Warum?</u></string>
-  <string name="why_popup_text"><![CDATA[Sie haben nach den Songtexten von "%1$s" by %2$s gesucht. Leider konnte QuickLyric diese nicht finden… <br/><br/>
-Mögliche Ursachen:<br/>
-<br/>
-• Sind Ihre Musikdateien korrekt <strong>getagged</strong>? QuickLyric erkennt Musik nur, wenn Sie richtig getagged wurde.<br/>
-• Prüfen Sie Ihre Internetverbindung.<br/>
-• Möglicherweise ist der Song nicht im Hauptkalaog zu finden. Haben Sie die <strong>zusätzlichen Quellen</strong> in den Einstellungen aktiviert?<br/>
-• Vielleicht haben Sie einen Fehler gefunden. In dem Falle senden Sie mir bitte ein E-Mail.<br/>
-• Schließlich könnte es sein, dass die Songtexte für dieses Musikstück nicht verfügbar sind. Sofern Sie Vorschläge für zusätzliche Musikkataloge haben, senden Sie mir bitte ein E-Mail.<br/>]]></string>
   <string name="why_popup_title">Warum funktioniert es nicht?</string>
   <string name="download_category">Downloads</string>
   <string name="wearable_prompt">Auf Smartwatch öffnen</string>
@@ -116,7 +108,6 @@ Mögliche Ursachen:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Elektronische Tanzmusik (EDM)</string>
   <string name="source_japanese">Japanisch</string>
-  <string name="source_bollywood">Bollywood Musik</string>
   <string name="source_sync">Synchronisierte Lyrics</string>
   <string name="spotify_connection">Verbinde zu Spotify&#8230;</string>
   <string name="full_text_action">Vollständiger Text</string>

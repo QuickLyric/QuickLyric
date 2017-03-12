@@ -76,14 +76,6 @@
   <string name="pref_beta_sum">Recevez les mises à jour (nouvelles fonctionnalités, corrections de bugs,&#8230;) plus vite et donnez vos impressions par e-mail</string>
   <string name="scan_error_no_content">Aucune musique trouvée</string>
   <string name="no_results_why"><u>Pourquoi ?</u></string>
-  <string name="why_popup_text"><![CDATA[Vous cherchiez les paroles de "%1$s" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
-Plusieurs raisons possibles:<br/>
-<br/>
-• Est-ce que votre musique est <strong>taguée</strong> correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.<br/>
-• Vérifiez votre connexion.<br/>
-• Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les <strong>sources supplémentaires</strong> dans les options?<br/>
-• Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.<br/>
-• Enfin, il est possible que ces paroles ne soient simplement pas disponibles. Si vous voulez suggérer des ajouts au catalogue, n\'hésitez pas à m\'écrire.<br/>]]></string>
   <string name="why_popup_title">Pourquoi ça ne fonctionne pas ?</string>
   <string name="download_category">Téléchargements</string>
   <string name="wearable_prompt">Ouvrir sur la montre</string>
@@ -114,7 +106,6 @@ Plusieurs raisons possibles:<br/>
   <string name="source_hip_hop">Hip Hop</string>
   <string name="source_EDM">Musique danse électronique</string>
   <string name="source_japanese">Japonais</string>
-  <string name="source_bollywood">Musique Bollywood</string>
   <string name="source_sync">Paroles synchronisées</string>
   <string name="spotify_connection">Connexion à Spotify&#8230;</string>
   <string name="full_text_action">Texte intégral</string>
@@ -151,6 +142,9 @@ Plusieurs raisons possibles:<br/>
   <string name="premium_thanks">Merci pour votre soutien !</string>
   <string name="about_crowdin">Contribuez à la traduction de QuickLyric</string>
   <string name="online_title">Catalogue en ligne</string>
+  <string name="yearly_sub_template">%s/an</string>
+  <string name="monthly_sub_template">%s/mois</string>
+  <string name="buy_sub">Acheter</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
         Vérifiez que vous avez une connexion stable pour %2$d minute.</item>

@@ -76,9 +76,6 @@
   <string name="pref_beta_sum">अपडेट (नई सुविधाओं, बग फिक्स,...) तेजी से प्राप्त करे और ईमेल के माध्यम से वापस रिपोर्ट करे</string>
   <string name="scan_error_no_content">कोई संगीत नहीं मिला।</string>
   <string name="no_results_why"><u>क्यों?</u></string>
-  <string name="why_popup_text"><![CDATA[
-आप %2$s का \"%1$s\" गीत को ढूंढ रहे थे । दुर्भाग्य से QuickLyric को वो नहीं मिला... <br/> <br/> कुछ संभावित कारण: <br/> <br/> • क्या आपके संगीत ठीक से <strong>टैग</strong> किये गए है? टैग बिना के संगीत को QuickLyric नहीं पहचान सकता। <br/> • यदि आपका कनेक्शन काम कर रहा है की नहीं ये जाँच करें. <br/> • शायद इस गीत मुख्य सूची का भाग नहीं है। क्या आप सेटिंग्स में <strong>अतिरिक्त विकल्पों</strong> की जाँच की है? <br/> • आप एक बग पाया हो सकता है। यदि हां, तो कृपया मुझे ईमेल करे। <br/> • अंत में, यह भी संभव है कि इस गीत के बोल उपलब्ध नहीं है। यदि आप सूची जोड़ने के संबंध में सुझाव दे सकते है, तो मुझे ईमेल करने में स्वतन्त्र महसूस है। <br/>
-]]></string>
   <string name="why_popup_title">यह क्यों काम नहीं कर रहा है?</string>
   <string name="download_category">आपके डौनलोड्स</string>
   <string name="wearable_prompt">किसी पहनने योग्य डिवाइस पर खोले।</string>
@@ -109,7 +106,6 @@
   <string name="source_hip_hop">हिप हॉप</string>
   <string name="source_EDM">इलेक्ट्रॉनिक डांस म्यूजिक</string>
   <string name="source_japanese">जापानी</string>
-  <string name="source_bollywood">बॉलीवुड संगीत</string>
   <string name="source_sync">सिंक्रनाइज़्ड बोल</string>
   <string name="spotify_connection">स्पॉटिफाय से जोड़ रहे है...</string>
   <string name="full_text_action">पूर्ण पाठ</string>
