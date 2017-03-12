@@ -47,11 +47,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.geecko.QuickLyric.R;
 
-public class BubblePopImageView extends ImageView {
+public class BubblePopImageView extends android.support.v7.widget.AppCompatImageView {
     private int mViewWidth;
     private int mViewHeight;
     private Paint mBubblePaint;

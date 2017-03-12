@@ -27,11 +27,10 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.ImageButton;
 
 import com.geecko.QuickLyric.R;
 
-public class ThemeButton extends ImageButton {
+public class ThemeButton extends android.support.v7.widget.AppCompatImageButton {
 
     private Drawable mCheckMark;
 
