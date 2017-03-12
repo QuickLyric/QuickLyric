@@ -301,7 +301,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 return;
             }
             IntentFilter[] intentFiltersArray = new IntentFilter[]{ndef,};
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+            try {
+                nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+            } catch (Exception ignored) {
+            }
         }
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
