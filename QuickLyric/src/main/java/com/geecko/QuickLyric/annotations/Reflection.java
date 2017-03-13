@@ -1,7 +1,7 @@
 /*
  * *
  *  * This file is part of QuickLyric
- *  * Created by geecko
+ *  * Copyright © 2017 QuickLyric SPRL
  *  *
  *  * QuickLyric is free software: you can redistribute it and/or modify
  *  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package com.geecko.QuickLyric.annotations;
 
 /**
  * This file is part of QuickLyric
- * Created by geecko on 15/03/15.
+ * Copyright © 2017 QuickLyric SPRL on 15/03/15.
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

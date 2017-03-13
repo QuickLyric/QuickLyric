@@ -51,7 +51,7 @@ import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
 
 /**
  * This file is part of QuickLyric
- * Created by geecko
+ * Copyright © 2017 QuickLyric SPRL
  * <p/>
  * QuickLyric is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
