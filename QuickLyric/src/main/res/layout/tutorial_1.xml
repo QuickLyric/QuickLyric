@@ -40,33 +40,17 @@
         tools:ignore="HardcodedText"/>
 
     <TextView
-        android:id="@+id/textView1_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textView1_c"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:maxWidth="450dp"
-        android:text="@string/apps_desc_sub"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textSize="16sp"/>
-
-    <TextView
         android:id="@+id/textView1_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textView1_b"
-        android:layout_alignEnd="@id/textView1_b"
-        android:layout_alignLeft="@id/textView1_b"
-        android:layout_alignRight="@id/textView1_b"
-        android:layout_alignStart="@id/textView1_b"
+        android:layout_above="@id/textView1_c"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5dp"
         android:text="@string/apps_desc"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="24sp"/>
+        android:textSize="31sp"/>
 
     <com.geecko.QuickLyric.view.BubblePopImageView
         android:id="@+id/table"

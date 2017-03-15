@@ -471,7 +471,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.tutorial_1, container, false);
-            rootView.findViewById(R.id.textView1_b).setVisibility(Build.VERSION.SDK_INT < 19 ? View.VISIBLE : View.INVISIBLE);
             return rootView;
         }
 
