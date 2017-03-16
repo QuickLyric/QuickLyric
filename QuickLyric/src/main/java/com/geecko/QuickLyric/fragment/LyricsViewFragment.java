@@ -871,6 +871,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity == null)
+            return;
         CollapsingToolbarLayout toolbarLayout =
                 (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
         toolbarLayout.setTitle(getString(R.string.app_name));
@@ -881,7 +883,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         inflater.inflate(lyrics, menu);
         // Get the SearchView and set the searchable configuration
-        final MaterialSuggestionsSearchView materialSearchView = (MaterialSuggestionsSearchView) getActivity().findViewById(R.id.material_search_view);
+        final MaterialSuggestionsSearchView materialSearchView = (MaterialSuggestionsSearchView) mainActivity.findViewById(R.id.material_search_view);
         materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
