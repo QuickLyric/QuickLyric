@@ -39,8 +39,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         vectorDrawables.useSupportLibrary = true
-        versionCode 114
-        versionName "2.0.5"
+        versionCode 124
+        versionName "2.0.8"
     }
 
     compileOptions {
@@ -61,8 +61,8 @@ android {
     buildTypes {
         release {
             shrinkResources true
-            minifyEnabled true
-            useProguard true
+            minifyEnabled false
+            useProguard false
             signingConfig signingConfigs.release
             proguardFiles 'proguard-rules.pro', getDefaultProguardFile('proguard-android-optimize.txt')
         }
