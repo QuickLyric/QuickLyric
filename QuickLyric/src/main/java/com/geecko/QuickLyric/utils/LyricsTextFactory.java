@@ -22,7 +22,6 @@ package com.geecko.QuickLyric.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -61,8 +60,7 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
 
     @SuppressLint("newAPI")
     public void setSelectable(TextView t) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-            t.setTextIsSelectable(true);
+        t.setTextIsSelectable(true);
     }
 
     public static class FontCache {
