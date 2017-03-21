@@ -39,7 +39,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -84,7 +83,6 @@ import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.ChangelogStringBuilder;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
-import com.geecko.QuickLyric.utils.EmailConfigGenTool;
 import com.geecko.QuickLyric.utils.IMMLeaks;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
@@ -838,17 +836,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 return;
             case 4:
                 // Feedback
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@quicklyric.be"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "QuickLyric support");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, EmailConfigGenTool.genConfig(this));
-                if (emailIntent.resolveActivity(getPackageManager()) != null) {
-                    Toast.makeText(this, R.string.pref_issues_sum, Toast.LENGTH_LONG).show();
-                    startActivity(emailIntent);
-                }
-                if (drawer instanceof DrawerLayout)
-                    ((DrawerLayout) drawer).closeDrawer(drawerView);
                 return;
             case 5:
                 // About Dialog

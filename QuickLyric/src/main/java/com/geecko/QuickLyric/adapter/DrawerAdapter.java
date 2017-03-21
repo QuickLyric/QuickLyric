@@ -66,9 +66,13 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 if (convertView != null) {
                     TextView textView = (TextView) convertView;
                     convertView.setId(position);
-                    textView.setText(stringArray[position]);
-                    textView.setCompoundDrawablesWithIntrinsicBounds
-                            (drawableArray[position], null, null, null);
+                    if (position == 4)
+                        textView.setText("");
+                    else {
+                        textView.setText(stringArray[position]);
+                        textView.setCompoundDrawablesWithIntrinsicBounds
+                                (drawableArray[position], null, null, null);
+                    }
                 }
             }
             if (convertView != null) {
@@ -83,9 +87,10 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                     int primaryDark = typedValue.data;
                     ((ListView) parent).setSelectionFromTop(position, convertView.getTop());
                     textView.setTextColor(primaryDark);
-                    textView.getCompoundDrawables()[0].setColorFilter(
-                            primaryDark,
-                            PorterDuff.Mode.SRC_IN);
+                    if (textView.getCompoundDrawables()[0] != null)
+                        textView.getCompoundDrawables()[0].setColorFilter(
+                                primaryDark,
+                                PorterDuff.Mode.SRC_IN);
                     TypedValue backgroundValue = new TypedValue();
                     getContext().getTheme().resolveAttribute(android.R.attr.galleryItemBackground, backgroundValue, true);
                     convertView.setBackgroundColor(backgroundValue.data);
@@ -94,7 +99,8 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                     getContext().getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
                     textView.setTextColor(colorValue.data);
                     convertView.setBackgroundColor(Color.TRANSPARENT);
-                    textView.getCompoundDrawables()[0].clearColorFilter();
+                    if (textView.getCompoundDrawables()[0] != null)
+                        textView.getCompoundDrawables()[0].clearColorFilter();
                 }
             } else
                 return null;
