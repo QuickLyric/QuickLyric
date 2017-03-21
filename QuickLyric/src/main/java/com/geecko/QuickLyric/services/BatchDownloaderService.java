@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
@@ -92,8 +93,8 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                if (artist == null || title == null || artist.isEmpty() || title.isEmpty()
-                        || savedLyrics.contains(Arrays.asList(artist, title)))
+                if (artist != null && title != null && !artist.isEmpty() && !title.isEmpty()
+                        && !savedLyrics.contains(Arrays.asList(artist, title)))
                     mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
                 else {
                     count++;
@@ -108,8 +109,13 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                 total = savedTracks.size();
                 updateProgress();
                 for (String[] track : savedTracks) {
-                    if (track != null && track[0] != null && track[1] != null && !track[0].isEmpty() && !track[1].isEmpty())
+                    if (track != null && !TextUtils.isEmpty(track[0]) && !TextUtils.isEmpty(track[1])
+                            && !savedLyrics.contains(Arrays.asList(track[0], track[1])))
                         mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, track[0], track[1]));
+                    else {
+                    count++;
+                    updateProgress();
+                    }
                 }
             }
         }
