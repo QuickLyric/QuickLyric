@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.text.TextUtils;
 
 import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
@@ -246,12 +247,24 @@ public class DownloadThread extends Thread {
     public static String[] correctTags(String artist, String title) {
         if (artist == null || title == null)
             return new String[]{"", ""};
-        String correctedArtist = artist.replaceAll("\\(.*\\)", "")
-                .replaceAll(" \\- .*", "").trim();
-        String correctedTrack = title.replaceAll("\\(.*\\)", "")
-                .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
-        String[] separatedArtists = correctedArtist.split(", ");
-        correctedArtist = separatedArtists[separatedArtists.length - 1];
-        return new String[]{correctedArtist, correctedTrack};
+        if (TextUtils.isEmpty(artist) || artist.toLowerCase().contains("unknown") && title.contains(" - ")) {
+            String[] tags = title.split(" - ");
+            artist = tags[0].trim();
+            title = tags[1].trim();
+        } else {
+            String correctedArtist = artist.replaceAll("\\(.*\\)", "")
+                    .replaceAll(" \\- .*", "").trim();
+            title = title.replaceAll("\\(.*\\)", "")
+                    .replaceAll("\\[.*\\]", "").replaceAll(" \\- .*", "").trim();
+            String[] separatedArtists = correctedArtist.split(", ");
+            artist = separatedArtists[separatedArtists.length - 1];
+        }
+
+        while (Character.isDigit(title.charAt(0))) {
+            title = title.substring(1).trim();
+            if (title.startsWith("-"))
+                title = title.substring(1).trim();
+        }
+        return new String[]{artist, title};
     }
 }
