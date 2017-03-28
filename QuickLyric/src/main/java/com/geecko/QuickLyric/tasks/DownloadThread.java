@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.text.TextUtils;
 
 import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
@@ -40,6 +39,9 @@ import com.geecko.QuickLyric.lyrics.ViewLyrics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  * *
@@ -247,7 +249,7 @@ public class DownloadThread extends Thread {
     public static String[] correctTags(String artist, String title) {
         if (artist == null || title == null)
             return new String[]{"", ""};
-        if (TextUtils.isEmpty(artist) || artist.toLowerCase().contains("unknown") && title.contains(" - ")) {
+        if (artist.isEmpty() || artist.toLowerCase().contains("unknown") && title.contains(" - ")) {
             String[] tags = title.split(" - ");
             artist = tags[0].trim();
             title = tags[1].trim();
@@ -260,11 +262,15 @@ public class DownloadThread extends Thread {
             artist = separatedArtists[separatedArtists.length - 1];
         }
 
-        while (Character.isDigit(title.charAt(0))) {
+        title = title.trim();
+        while (title.length() > 2 && Character.isDigit(title.charAt(0))) {
             title = title.substring(1).trim();
             if (title.startsWith("-"))
                 title = title.substring(1).trim();
         }
+        Matcher matcher = Pattern.compile("(?i)(\\sf(ea)?t\\.?\\s)").matcher(title);
+        if (matcher.find())
+            title = title.substring(matcher.start());
         return new String[]{artist, title};
     }
 }
