@@ -149,6 +149,7 @@
 
         <receiver
             android:name=".broadcastReceiver.MusicBroadcastReceiver"
+            android:enabled="@bool/enableReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.geecko.QuickLyric.SHOW_NOTIFICATION"/>

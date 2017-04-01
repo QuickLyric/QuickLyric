@@ -85,43 +85,75 @@ public class NotificationListenerService extends android.service.notification.No
         } else {
             listener = new MediaSessionManager.OnActiveSessionsChangedListener() {
                 @Override
-                public void onActiveSessionsChanged(final List<MediaController> controllers) {
-                    if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        MediaController controller = controllers.get(0);
-                        if (controllerCallback != null)
-                            controller.unregisterCallback(controllerCallback);
-                        controllerCallback = new MediaController.Callback() {
-                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onPlaybackStateChanged(PlaybackState state) {
-                                super.onPlaybackStateChanged(state);
-                                if (state == null)
-                                    return;
-                                if ("com.google.android.youtube".equals(controllers.get(0).getPackageName()) ||
-                                        "org.videolan.vlc".equals(controllers.get(0).getPackageName()))
-                                    return;
-                                boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
-                                if (!isPlaying) {
-                                    NotificationManager notificationManager =
-                                            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-                                    notificationManager.cancel(0);
-                                    notificationManager.cancel(8);
-                                }
-                                broadcastControllerState(controllers.get(0), isPlaying);
-                            }
-                        };
-                        controller.registerCallback(controllerCallback);
-                        if ("com.google.android.youtube".equals(controller.getPackageName()) ||
-                                "org.videolan.vlc".equals(controller.getPackageName()))
-                            return;
-
-                        broadcastControllerState(controller, null);
-                    }
+                public void onActiveSessionsChanged(List<MediaController> controllers) {
+                    registerActiveSessionCallback(controllers);
                 }
             };
-            ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
-                    .addOnActiveSessionsChangedListener(listener, new ComponentName(this, getClass()));
+            MediaSessionManager manager = ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE));
+            ComponentName className = new ComponentName(this, getClass());
+
+            manager.addOnActiveSessionsChangedListener(listener, className);
+
+            registerActiveSessionCallback(manager.getActiveSessions(className));
         }
+    }
+
+    @TargetApi(21)
+    private void registerActiveSessionCallback(List<MediaController> controllers) {
+        if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final MediaController controller = controllers.get(0);
+            if (controllerCallback != null)
+            {
+                for (MediaController ctlr : controllers)
+                {
+                    ctlr.unregisterCallback(controllerCallback);
+                }
+            }
+
+            controllerCallback = new MediaController.Callback() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onPlaybackStateChanged(PlaybackState state) {
+                    super.onPlaybackStateChanged(state);
+                    if (state == null)
+                        return;
+                    if (isInvalidPackage(controller))
+                        return;
+                    if ("com.spotify.music".equals(controller.getPackageName())) {
+                        return;
+                    }
+                    boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
+                    if (!isPlaying) {
+                        NotificationManager notificationManager =
+                                ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+                        notificationManager.cancel(0);
+                        notificationManager.cancel(8);
+                    }
+                    broadcastControllerState(controller, isPlaying);
+                }
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onMetadataChanged(MediaMetadata metadata) {
+                    super.onMetadataChanged(metadata);
+                    if (metadata == null)
+                        return;
+                    if (isInvalidPackage(controller))
+                        return;
+                    broadcastControllerState(controller, null);
+                }
+            };
+            controller.registerCallback(controllerCallback);
+            if (isInvalidPackage(controller))
+                return;
+
+            broadcastControllerState(controller, null);
+        }
+    }
+
+    @TargetApi(21)
+    private boolean isInvalidPackage(MediaController controller)
+    {
+        return ("com.google.android.youtube".equals(controller.getPackageName()));
     }
 
     @TargetApi(21)
