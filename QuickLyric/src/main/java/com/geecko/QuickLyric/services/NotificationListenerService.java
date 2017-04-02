@@ -59,7 +59,8 @@ import java.util.List;
 public class NotificationListenerService extends android.service.notification.NotificationListenerService
         implements RemoteController.OnClientUpdateListener {
 
-    private RemoteController mController;
+    private RemoteController mRemoteController;
+    private MediaController mMediaController;
     private boolean isRemoteControllerPlaying;
     private boolean mHasBug = true;
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
@@ -77,9 +78,9 @@ public class NotificationListenerService extends android.service.notification.No
     public void onCreate() {
         super.onCreate();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mController = new RemoteController(this, this);
-            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mController)
-                    && mController.clearArtworkConfiguration()) {
+            mRemoteController = new RemoteController(this, this);
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)
+                    && mRemoteController.clearArtworkConfiguration()) {
                 throw new RuntimeException("Error while registering RemoteController!");
             }
         } else {
@@ -102,6 +103,7 @@ public class NotificationListenerService extends android.service.notification.No
     private void registerActiveSessionCallback(List<MediaController> controllers) {
         if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final MediaController controller = controllers.get(0);
+            mMediaController = controller;
             if (controllerCallback != null)
             {
                 for (MediaController ctlr : controllers)
@@ -115,13 +117,12 @@ public class NotificationListenerService extends android.service.notification.No
                 @Override
                 public void onPlaybackStateChanged(PlaybackState state) {
                     super.onPlaybackStateChanged(state);
+                    if (mMediaController != controller)
+                        return; //ignore inactive sessions
                     if (state == null)
                         return;
                     if (isInvalidPackage(controller))
                         return;
-                    if ("com.spotify.music".equals(controller.getPackageName())) {
-                        return;
-                    }
                     boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
                     if (!isPlaying) {
                         NotificationManager notificationManager =
@@ -135,6 +136,8 @@ public class NotificationListenerService extends android.service.notification.No
                 @Override
                 public void onMetadataChanged(MediaMetadata metadata) {
                     super.onMetadataChanged(metadata);
+                    if (mMediaController != controller)
+                        return;
                     if (metadata == null)
                         return;
                     if (isInvalidPackage(controller))
@@ -187,7 +190,7 @@ public class NotificationListenerService extends android.service.notification.No
     public void onDestroy() {
         super.onDestroy();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mController);
+            ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mRemoteController);
         else
             ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
                     .removeOnActiveSessionsChangedListener(listener);
@@ -289,7 +292,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientTransportControlUpdate(int transportControlFlags) {
         if (mHasBug) {
-            long position = mController.getEstimatedMediaPosition();
+            long position = mRemoteController.getEstimatedMediaPosition();
             if (position > 3600000)
                 position = -1L;
             SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
@@ -305,7 +308,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientMetadataUpdate(RemoteController.MetadataEditor metadataEditor) {
         // isRemoteControllerPlaying = true;
-        long position = mController.getEstimatedMediaPosition();
+        long position = mRemoteController.getEstimatedMediaPosition();
         if (position > 3600000)
             position = -1L;
 
