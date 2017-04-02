@@ -65,7 +65,7 @@ public class NotificationListenerService extends android.service.notification.No
     private boolean mHasBug = true;
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
     private MediaController.Callback controllerCallback;
-    private long previousArtworkSize = 0L;
+    private Bitmap lastBitmap;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -172,6 +172,7 @@ public class NotificationListenerService extends android.service.notification.No
         String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
         String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
         Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+
         double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
         long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
@@ -343,9 +344,8 @@ public class NotificationListenerService extends android.service.notification.No
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            if (isPlaying && (artworkFile.length() == 0 || (artwork.getByteCount() != this.previousArtworkSize
-                    && previousArtworkSize != 0))) {
-                this.previousArtworkSize = artwork.getByteCount();
+
+            if (isPlaying && !artwork.sameAs(lastBitmap)) { //prevent many writes of the same Bitmap
                 FileOutputStream fos = null;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -359,14 +359,16 @@ public class NotificationListenerService extends android.service.notification.No
                         if (fos != null)
                             fos.close();
                         stream.close();
-                        artwork.recycle();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-            // This circumvents a bug where the artwork for the previous song is mistakenly sent
-            this.previousArtworkSize = artwork.getByteCount();
+            if (lastBitmap != null)
+            {
+                lastBitmap.recycle();
+            }
+            lastBitmap = artwork;
         }
     }
 }
