@@ -33,6 +33,9 @@
             </intent-filter>
 
             <meta-data
+                android:name="android.max_aspect" 
+                android:value="2.1" />
+            <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".MainActivity"/>
             <meta-data
