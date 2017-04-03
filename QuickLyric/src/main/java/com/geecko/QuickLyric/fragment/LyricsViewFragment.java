@@ -631,9 +631,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             }
 
             bugLayout.setVisibility(View.INVISIBLE);
-            id3TV.setVisibility(View.VISIBLE);
             id3TV.setMovementMethod(LinkMovementMethod.getInstance());
             if ("Storage".equals(lyrics.getSource())) {
+                id3TV.setVisibility(View.VISIBLE);
                 SpannableString text = new SpannableString(getString(R.string.from_id3));
                 text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
                 id3TV.setText(text);
@@ -645,16 +645,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 });
             } else {
                 id3TV.setOnClickListener(null);
-                SpannableString text = new SpannableString("Lyrics licensed & provided by LyricFind");
-                int start = text.toString().indexOf("LyricFind");
-                text.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.lyricfind.com")));
-                    }
-                }, start, start + 9, 0);
-                text.setSpan(new UnderlineSpan(), start, start + 9, 0);
-                id3TV.setText(text);
+                id3TV.setVisibility(View.GONE);
             }
             mScrollView.post(new Runnable() {
                 @Override
