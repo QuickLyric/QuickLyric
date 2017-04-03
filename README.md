@@ -49,7 +49,7 @@ If you're bilingual you can submit translations over at [Crowdin](https://crowdi
 
 If you want to expand the lyrics catalog, check out the [wiki](https://github.com/geecko86/QuickLyric/wiki/Expanding-the-catalog).
 
-Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update com.geecko.quicklyric.Keys with your own LastFM key.
+Don't be afraid to contribute! I welcome all forks & pull requests but *please*, if you want to fork QL, immediately update com.geecko.quicklyric.Keys with your own keys (Spotify, Genius, ..).
 
 ## Credits
 
