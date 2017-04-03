@@ -79,8 +79,8 @@ public class NotificationListenerService extends android.service.notification.No
         super.onCreate();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             mRemoteController = new RemoteController(this, this);
-            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)
-                    && mRemoteController.clearArtworkConfiguration()) {
+            mRemoteController.setArtworkConfiguration(3000, 3000);
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)) {
                 throw new RuntimeException("Error while registering RemoteController!");
             }
         } else {
