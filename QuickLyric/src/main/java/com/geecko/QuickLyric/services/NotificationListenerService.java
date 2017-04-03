@@ -59,12 +59,13 @@ import java.util.List;
 public class NotificationListenerService extends android.service.notification.NotificationListenerService
         implements RemoteController.OnClientUpdateListener {
 
-    private RemoteController mController;
+    private RemoteController mRemoteController;
+    private MediaController mMediaController;
     private boolean isRemoteControllerPlaying;
     private boolean mHasBug = true;
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
     private MediaController.Callback controllerCallback;
-    private long previousArtworkSize = 0L;
+    private Bitmap lastBitmap;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -77,51 +78,85 @@ public class NotificationListenerService extends android.service.notification.No
     public void onCreate() {
         super.onCreate();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mController = new RemoteController(this, this);
-            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mController)
-                    && mController.clearArtworkConfiguration()) {
+            mRemoteController = new RemoteController(this, this);
+            mRemoteController.setArtworkConfiguration(3000, 3000);
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController)) {
                 throw new RuntimeException("Error while registering RemoteController!");
             }
         } else {
             listener = new MediaSessionManager.OnActiveSessionsChangedListener() {
                 @Override
-                public void onActiveSessionsChanged(final List<MediaController> controllers) {
-                    if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        MediaController controller = controllers.get(0);
-                        if (controllerCallback != null)
-                            controller.unregisterCallback(controllerCallback);
-                        controllerCallback = new MediaController.Callback() {
-                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onPlaybackStateChanged(PlaybackState state) {
-                                super.onPlaybackStateChanged(state);
-                                if (state == null)
-                                    return;
-                                if ("com.google.android.youtube".equals(controllers.get(0).getPackageName()) ||
-                                        "org.videolan.vlc".equals(controllers.get(0).getPackageName()))
-                                    return;
-                                boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
-                                if (!isPlaying) {
-                                    NotificationManager notificationManager =
-                                            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-                                    notificationManager.cancel(0);
-                                    notificationManager.cancel(8);
-                                }
-                                broadcastControllerState(controllers.get(0), isPlaying);
-                            }
-                        };
-                        controller.registerCallback(controllerCallback);
-                        if ("com.google.android.youtube".equals(controller.getPackageName()) ||
-                                "org.videolan.vlc".equals(controller.getPackageName()))
-                            return;
-
-                        broadcastControllerState(controller, null);
-                    }
+                public void onActiveSessionsChanged(List<MediaController> controllers) {
+                    registerActiveSessionCallback(controllers);
                 }
             };
-            ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
-                    .addOnActiveSessionsChangedListener(listener, new ComponentName(this, getClass()));
+            MediaSessionManager manager = ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE));
+            ComponentName className = new ComponentName(this, getClass());
+
+            manager.addOnActiveSessionsChangedListener(listener, className);
+
+            registerActiveSessionCallback(manager.getActiveSessions(className));
         }
+    }
+
+    @TargetApi(21)
+    private void registerActiveSessionCallback(List<MediaController> controllers) {
+        if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final MediaController controller = controllers.get(0);
+            mMediaController = controller;
+            if (controllerCallback != null)
+            {
+                for (MediaController ctlr : controllers)
+                {
+                    ctlr.unregisterCallback(controllerCallback);
+                }
+            }
+
+            controllerCallback = new MediaController.Callback() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onPlaybackStateChanged(PlaybackState state) {
+                    super.onPlaybackStateChanged(state);
+                    if (mMediaController != controller)
+                        return; //ignore inactive sessions
+                    if (state == null)
+                        return;
+                    if (isInvalidPackage(controller))
+                        return;
+                    boolean isPlaying = state.getState() == PlaybackState.STATE_PLAYING;
+                    if (!isPlaying) {
+                        NotificationManager notificationManager =
+                                ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+                        notificationManager.cancel(0);
+                        notificationManager.cancel(8);
+                    }
+                    broadcastControllerState(controller, isPlaying);
+                }
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onMetadataChanged(MediaMetadata metadata) {
+                    super.onMetadataChanged(metadata);
+                    if (mMediaController != controller)
+                        return;
+                    if (metadata == null)
+                        return;
+                    if (isInvalidPackage(controller))
+                        return;
+                    broadcastControllerState(controller, null);
+                }
+            };
+            controller.registerCallback(controllerCallback);
+            if (isInvalidPackage(controller))
+                return;
+
+            broadcastControllerState(controller, null);
+        }
+    }
+
+    @TargetApi(21)
+    private boolean isInvalidPackage(MediaController controller)
+    {
+        return ("com.google.android.youtube".equals(controller.getPackageName()));
     }
 
     @TargetApi(21)
@@ -137,6 +172,7 @@ public class NotificationListenerService extends android.service.notification.No
         String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
         String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
         Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+
         double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
         long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
@@ -155,7 +191,7 @@ public class NotificationListenerService extends android.service.notification.No
     public void onDestroy() {
         super.onDestroy();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mController);
+            ((AudioManager) getSystemService(Context.AUDIO_SERVICE)).unregisterRemoteController(mRemoteController);
         else
             ((MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE))
                     .removeOnActiveSessionsChangedListener(listener);
@@ -257,7 +293,7 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientTransportControlUpdate(int transportControlFlags) {
         if (mHasBug) {
-            long position = mController.getEstimatedMediaPosition();
+            long position = mRemoteController.getEstimatedMediaPosition();
             if (position > 3600000)
                 position = -1L;
             SharedPreferences current = getSharedPreferences("current_music", Context.MODE_PRIVATE);
@@ -273,11 +309,11 @@ public class NotificationListenerService extends android.service.notification.No
     @Override
     public void onClientMetadataUpdate(RemoteController.MetadataEditor metadataEditor) {
         // isRemoteControllerPlaying = true;
-        long position = mController.getEstimatedMediaPosition();
+        long position = mRemoteController.getEstimatedMediaPosition();
         if (position > 3600000)
             position = -1L;
 
-        Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 60000);
+        Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 1200); //allow it to pass if not present
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));
         String track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
@@ -308,9 +344,8 @@ public class NotificationListenerService extends android.service.notification.No
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            if (isPlaying && (artworkFile.length() == 0 || (artwork.getByteCount() != this.previousArtworkSize
-                    && previousArtworkSize != 0))) {
-                this.previousArtworkSize = artwork.getByteCount();
+
+            if (isPlaying && !artwork.sameAs(lastBitmap)) { //prevent many writes of the same Bitmap
                 FileOutputStream fos = null;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -324,14 +359,16 @@ public class NotificationListenerService extends android.service.notification.No
                         if (fos != null)
                             fos.close();
                         stream.close();
-                        artwork.recycle();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-            // This circumvents a bug where the artwork for the previous song is mistakenly sent
-            this.previousArtworkSize = artwork.getByteCount();
+            if (lastBitmap != null)
+            {
+                lastBitmap.recycle();
+            }
+            lastBitmap = artwork;
         }
     }
 }

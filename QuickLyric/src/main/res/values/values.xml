@@ -20,6 +20,7 @@
 
 <resources>
     <bool name="isTablet">false</bool>
+    <bool name="enableReceiver">true</bool>
     <integer name="lrcLines">10</integer>
     <drawable name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</drawable>
 </resources>
