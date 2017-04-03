@@ -313,7 +313,7 @@ public class NotificationListenerService extends android.service.notification.No
         if (position > 3600000)
             position = -1L;
 
-        Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 60000);
+        Object durationObject = metadataEditor.getObject(MediaMetadataRetriever.METADATA_KEY_DURATION, 1200); //allow it to pass if not present
         String artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST,
                 metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, ""));
         String track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
