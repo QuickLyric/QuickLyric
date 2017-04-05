@@ -117,8 +117,6 @@ public class NotificationListenerService extends android.service.notification.No
                 @Override
                 public void onPlaybackStateChanged(PlaybackState state) {
                     super.onPlaybackStateChanged(state);
-                    if (mMediaController != controller)
-                        return; //ignore inactive sessions
                     if (state == null)
                         return;
                     if (isInvalidPackage(controller))
@@ -130,6 +128,8 @@ public class NotificationListenerService extends android.service.notification.No
                         notificationManager.cancel(0);
                         notificationManager.cancel(8);
                     }
+                    if (mMediaController != controller)
+                        return; //ignore inactive sessions
                     broadcastControllerState(controller, isPlaying);
                 }
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
