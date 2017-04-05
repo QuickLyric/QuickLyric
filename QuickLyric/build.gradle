@@ -39,8 +39,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         vectorDrawables.useSupportLibrary = true
-        versionCode 129
-        versionName "2.0.8c"
+        versionCode 131
+        versionName "2.1"
     }
 
     compileOptions {
@@ -60,7 +60,7 @@ android {
 
     buildTypes {
         release {
-            shrinkResources true
+            shrinkResources false
             minifyEnabled false
             useProguard false
             signingConfig signingConfigs.release
