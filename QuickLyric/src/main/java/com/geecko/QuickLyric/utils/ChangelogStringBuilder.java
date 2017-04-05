@@ -22,6 +22,7 @@ package com.geecko.QuickLyric.utils;
 import android.content.res.Resources;
 import android.util.SparseArray;
 
+import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.R;
 
 /**
@@ -58,7 +59,10 @@ public class ChangelogStringBuilder {
             if (change == null)
                 continue;
             stringBuilder.append("<b>Update ");
-            stringBuilder.append(i);
+            if (i == BuildConfig.VERSION_CODE)
+                stringBuilder.append(BuildConfig.VERSION_NAME);
+            else
+                stringBuilder.append(i);
             stringBuilder.append(":</b><br/>");
             stringBuilder.append(change);
             stringBuilder.append("<br/>");
