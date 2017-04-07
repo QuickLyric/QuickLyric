@@ -130,7 +130,7 @@ public class AboutActivity extends AppCompatActivity {
                 .addEmail("contact@QuickLyric.be")
                 .addFacebook("QuickLyric")
                 .addGitHub("geecko86/QuickLyric")
-                .addPlayStore("test")
+                .addPlayStore("com.geecko.QuickLyric")
                 .addTwitter("QuickLyric")
                 .addWebsite("http://www.quicklyric.be")
                 .setImage(R.drawable.icon)
