@@ -37,7 +37,7 @@ android {
         resConfigs "ar-rSA", "ca-rES", "cs-rCZ", "de-rBE", "el-rGR", "es-rES", "fa-rIR", "fr-rFR", "hi-rIN", "hu-rHU", "in-rID", "it-rIT", "iw-rIL", "ja-rJP", "pl-rPL", "pt-rBR", "pt-rPT", "ru-rRU", "sl-rSI", "sr-rSP", "sv-rSE", "tr-rTR", "uk-rUA", "vls-rBE", "zh-rCN", "zh-rTW"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         vectorDrawables.useSupportLibrary = true
         versionCode 129
         versionName "2.0.8c"
