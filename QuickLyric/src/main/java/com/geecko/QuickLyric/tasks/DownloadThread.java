@@ -25,17 +25,17 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 
-import com.geecko.QuickLyric.lyrics.AZLyrics;
-import com.geecko.QuickLyric.lyrics.Genius;
-import com.geecko.QuickLyric.lyrics.JLyric;
-import com.geecko.QuickLyric.lyrics.Lololyrics;
-import com.geecko.QuickLyric.lyrics.LyricWiki;
-import com.geecko.QuickLyric.lyrics.Lyrics;
-import com.geecko.QuickLyric.lyrics.LyricsMania;
-import com.geecko.QuickLyric.lyrics.MetalArchives;
-import com.geecko.QuickLyric.lyrics.PLyrics;
-import com.geecko.QuickLyric.lyrics.UrbanLyrics;
-import com.geecko.QuickLyric.lyrics.ViewLyrics;
+import com.geecko.QuickLyric.provider.AZLyrics;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.Lololyrics;
+import com.geecko.QuickLyric.provider.LyricWiki;
+import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.provider.LyricsMania;
+import com.geecko.QuickLyric.provider.MetalArchives;
+import com.geecko.QuickLyric.provider.PLyrics;
+import com.geecko.QuickLyric.provider.UrbanLyrics;
+import com.geecko.QuickLyric.provider.ViewLyrics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +87,7 @@ public class DownloadThread extends Thread {
                 DownloadThread.providers.add(provider);
         }
     }
+
 
     public static Runnable getRunnable(final Lyrics.Callback callback, final boolean positionAvailable, final String... params) {
         return new Runnable() {

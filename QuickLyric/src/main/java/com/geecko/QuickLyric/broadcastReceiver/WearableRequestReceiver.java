@@ -33,7 +33,7 @@ import android.text.Html;
 import android.util.TypedValue;
 
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.LrcView;

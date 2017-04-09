@@ -17,9 +17,10 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.provider;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.Jsoup;

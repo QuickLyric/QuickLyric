@@ -23,7 +23,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import com.geecko.QuickLyric.MainActivity;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.json.JSONArray;

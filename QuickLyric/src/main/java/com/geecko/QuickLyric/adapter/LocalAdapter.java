@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableListAdapter;

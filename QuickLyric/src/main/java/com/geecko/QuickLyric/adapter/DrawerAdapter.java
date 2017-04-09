@@ -45,18 +45,19 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         super(context, R.layout.drawer_row, strings);
         this.stringArray = strings;
         Drawable drawable1 = context.getResources().getDrawable(R.drawable.ic_lyrics);
-        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
+        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_timer_grey_600_24dp);
+        Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
         Drawable drawable4 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
         Drawable drawable5 = context.getResources().getDrawable(R.drawable.ic_send_feedback);
         Drawable drawable6 = context.getResources().getDrawable(R.drawable.ic_info);
-        this.drawableArray = new Drawable[]{drawable1, drawable2, null, drawable4, drawable5, drawable6};
+        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3, null, drawable4, drawable5, drawable6};
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (position == 2) {
+        if (position == 3) {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.drawer_separator, parent, false);
             }
@@ -66,7 +67,7 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 if (convertView != null) {
                     TextView textView = (TextView) convertView;
                     convertView.setId(position);
-                    if (position == 4)
+                    if (position == 5)
                         textView.setText("");
                     else {
                         textView.setText(stringArray[position]);
