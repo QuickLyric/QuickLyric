@@ -20,6 +20,9 @@
 
 <resources>
     <string-array name="changelog">
+        <item><![CDATA[132§• Expanded lyrics catalog thanks to user submissions<br/>• New round icon for supported devices<br/>• The most active users will get a discreet invitation to review the app<br/>• Improved support for opening the app directly from a music player]]></item>
+        <item><![CDATA[130§• Huge improvements to the track detection when switching between players<br/>• Fixed the issue where Spotify would send QuickLyric the wrong artwork<br/>• Added artwork detection for KitKat (thanks to Open Source contributor Steve Myers for these!)<br/>• QuickLyric 2.1 is much, much faster and more stable<br/>• Added the groundwork for user-submitted lyrics and user-ratings (this feature will be rolling out progressively)<br/>• Synchronized lyrics are now available for a lot more tracks]]></item>
+        <item><![CDATA[128§• Finally fix connection issues for older devices<br/>• Fixed some rare crashes<br/>• Improve performances<br/>• Added an explanation as to why Premium is not available as a one-time purchase]]></item>
         <item><![CDATA[104§• Fix issues with artwork not always appearing<br/>• Fix Search not working<br/>• Fix synchronized lyrics not being on by default]]></item>
         <item><![CDATA[103§• Fix issues for users attempting to buy a subscription]]></item>
         <item><![CDATA[90§• Show copyright and writer credits<br/>• Prevent youtube notifications from triggering notifications<br/>• Fix search bar appearance<br/>• Fix bug for Android Wear users<br/>• Make Android Wear support paid<br/>• Fix issue where the wrong artwork would be displayed<br/>• Crash fixes]]></item>
