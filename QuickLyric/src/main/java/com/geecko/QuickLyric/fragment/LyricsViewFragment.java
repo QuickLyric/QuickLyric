@@ -94,6 +94,7 @@ import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.CoverCache;
 import com.geecko.QuickLyric.utils.CustomSelectionCallback;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
@@ -250,11 +251,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
-            TypedValue primaryColor = new TypedValue();
-            TypedValue accentColor = new TypedValue();
-            getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
-            getActivity().getTheme().resolveAttribute(R.attr.colorAccent, accentColor, true);
-            mRefreshLayout.setColorSchemeResources(primaryColor.resourceId, accentColor.resourceId);
+
+            mRefreshLayout.setColorSchemeResources(ColorUtils.getPrimaryColorResource(getActivity()), ColorUtils.getAccentColorResource(getActivity()));
             float offset = getResources().getDisplayMetrics().density * 64;
             mRefreshLayout.setProgressViewEndTarget(true, (int) offset);
             mRefreshLayout.setOnRefreshListener(this);

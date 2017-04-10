@@ -32,11 +32,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.TypedValue;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
@@ -160,9 +160,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                     R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
             int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
 
-            TypedValue primaryColorValue = new TypedValue();
             context.setTheme(themes[themeNum]);
-            context.getTheme().resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
 
             notifBuilder.setSmallIcon(R.drawable.ic_notif)
                     .setContentTitle(context.getString(R.string.app_name))
@@ -170,7 +168,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                     .setContentIntent(openAppPending)
                     .setVisibility(-1) // Notification.VISIBILITY_SECRET
                     .setGroup("Lyrics_Notification")
-                    .setColor(primaryColorValue.data)
+                    .setColor(ColorUtils.getPrimaryColor(context))
                     .setGroupSummary(true);
 
             wearableNotifBuilder.setSmallIcon(R.drawable.ic_notif)
@@ -180,7 +178,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                     .setVisibility(-1) // Notification.VISIBILITY_SECRET
                     .setGroup("Lyrics_Notification")
                     .setOngoing(false)
-                    .setColor(primaryColorValue.data)
+                    .setColor(ColorUtils.getPrimaryColor(context))
                     .setGroupSummary(false)
                     .extend(new NotificationCompat.WearableExtender().addAction(wearableAction));
 

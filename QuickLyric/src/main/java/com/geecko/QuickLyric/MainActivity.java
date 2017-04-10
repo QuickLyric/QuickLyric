@@ -82,6 +82,7 @@ import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.ChangelogStringBuilder;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.IMMLeaks;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
@@ -179,22 +180,17 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     MainActivity.this.invalidateOptionsMenu(); // onPrepareOptionsMenu()
                 }
             };
-            Resources.Theme theme = getTheme();
-            TypedValue darkColorValue = new TypedValue();
-            TypedValue primaryColorValue = new TypedValue();
-            theme.resolveAttribute(R.attr.colorPrimaryDark, darkColorValue, true);
-            theme.resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
             ((DrawerLayout) drawer).addDrawerListener(mDrawerToggle);
             ((DrawerLayout) drawer).setStatusBarBackground(null);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
                 final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);
-                drawerHeader.setColorFilter(darkColorValue.data, PorterDuff.Mode.OVERLAY);
+                drawerHeader.setColorFilter(ColorUtils.getDarkPrimaryColor(this), PorterDuff.Mode.OVERLAY);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityManager.TaskDescription taskDescription =
                         new ActivityManager.TaskDescription
-                                (null, null, primaryColorValue.data);
+                                (null, null, ColorUtils.getPrimaryColor(this));
                 this.setTaskDescription(taskDescription);
             }
         }

@@ -45,6 +45,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -67,8 +68,6 @@ public class AboutActivity extends AppCompatActivity {
             setTheme(R.style.Theme_QuickLyric_Night);
         else
             setTheme(themes[themeNum]);
-        TypedValue primaryColor = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorPrimary, primaryColor, true);
         setStatusBarColor(null);
 
         LinearLayout linearLayout = new LinearLayout(this);
@@ -77,13 +76,13 @@ public class AboutActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.pref_about);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(8f);
-        toolbar.setBackgroundColor(primaryColor.data);
+        toolbar.setBackgroundColor(ColorUtils.getPrimaryColor(this));
         toolbar.setTitleTextColor(Color.WHITE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityManager.TaskDescription taskDescription =
                     new ActivityManager.TaskDescription
-                            (null, null, primaryColor.data);
+                            (null, null, ColorUtils.getPrimaryColor(this));
             this.setTaskDescription(taskDescription);
         }
 

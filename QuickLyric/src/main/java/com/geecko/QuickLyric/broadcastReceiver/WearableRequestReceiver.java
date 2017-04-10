@@ -30,11 +30,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.BigTextStyle;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.Html;
-import android.util.TypedValue;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.LrcView;
 
@@ -79,9 +79,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
 
-        TypedValue primaryColorValue = new TypedValue();
         mContext.setTheme(themes[themeNum]);
-        mContext.getTheme().resolveAttribute(R.attr.colorPrimary, primaryColorValue, true);
 
         notifBuilder.setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle(mContext.getString(R.string.app_name))
@@ -89,7 +87,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
                 .setStyle(bigStyle)
                 .setGroup("Lyrics_Notification")
                 .setOngoing(false)
-                .setColor(primaryColorValue.data)
+                .setColor(ColorUtils.getPrimaryColor(mContext))
                 .setGroupSummary(false)
                 .setContentIntent(openAction)
                 .setVisibility(-1); // Notification.VISIBILITY_SECRET

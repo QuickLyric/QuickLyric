@@ -20,9 +20,7 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +28,7 @@ import android.widget.TextView;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView;
 import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableListAdapter;
@@ -57,10 +56,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         mTouchListener = touchListener;
         megaListView = listView;
 
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = context.getTheme();
-        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
-        expandedColor = typedValue.data;
+        expandedColor = ColorUtils.getAccentColor(context);
     }
 
     @Override
