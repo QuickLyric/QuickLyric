@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     getIntent().getAction().equals("")) {
                 // fixme executes twice?
                 if (!"Storage".equals(lyricsViewFragment.getSource())
-                        && !lyricsViewFragment.searchResultLock)
+                        && !lyricsViewFragment.manualUpdateLock)
                     lyricsViewFragment.fetchCurrentLyrics(false);
                 lyricsViewFragment.checkPreferencesChanges();
             }
@@ -354,6 +354,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                         LyricsViewFragment lyricsFragment = (LyricsViewFragment) getFragmentManager()
                                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                         lyricsFragment.fetchLyrics(artist, track);
+                        lyricsFragment.manualUpdateLock = true;
                         selectItem(0);
                     }
                     break;
@@ -428,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         } else if (resultCode == RESULT_OK && requestCode == 55) {
             Lyrics results = (Lyrics) data.getSerializableExtra("lyrics");
             updateLyricsFragment(R.animator.slide_out_end, results.getArtist(), results.getTitle(), results.getURL());
-            lyricsViewFragment.searchResultLock = true;
+            lyricsViewFragment.manualUpdateLock = true;
         }
         lyricsViewFragment.updateSearchView(true, null, false);
     }

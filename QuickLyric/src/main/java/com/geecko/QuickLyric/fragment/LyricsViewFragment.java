@@ -129,7 +129,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private boolean mSearchFocused;
     private NestedScrollView mScrollView;
     private boolean startEmpty = false;
-    public boolean searchResultLock;
+    public boolean manualUpdateLock;
     private SwipeRefreshLayout mRefreshLayout;
     private Thread mLrcThread;
     private boolean mExpandedSearchView;
@@ -294,7 +294,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    searchResultLock = false;
+                    manualUpdateLock = false;
                     String artist = intent.getStringExtra("artist");
                     String track = intent.getStringExtra("track");
                     if (artist != null && track != null && mRefreshLayout.isEnabled()) {
@@ -505,7 +505,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public void fetchCurrentLyrics(boolean showMsg) {
-        searchResultLock = false;
+        manualUpdateLock = false;
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(false);
         if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTitle() != null)
             new ParseTask(this, showMsg, false).execute(mLyrics);
