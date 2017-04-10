@@ -80,6 +80,16 @@
   <string name="pref_beta_sum">アップデート (新機能、バグ修正、...) を早く入手して、メールでレポートしてください</string>
   <string name="scan_error_no_content">音楽が見つかりませんでした</string>
   <string name="no_results_why"><u>なぜ?</u></string>
+  <string name="why_popup_text"><![CDATA[
+%2$s で"%1$s" の歌詞を検索しました。残念ながら QuickLyric は見つけることができませんでした… &lt; br/&gt;&lt; br/&gt;
+次の可能性があります:&lt; br/&gt;
+&lt; br/&gt;
+• 音楽は適切に &lt; strong&gt; タグ付け&lt;/strong&gt; されていますか? QuickLyric タグ付けされていないトラックを認識できません。 &lt; br/&gt;
+• 正しく接続されているか確認してください。 &lt; br/&gt;
+• この曲はメインカタログに含まれていないかもしれません。 設定で、&lt; strong&gt; 追加プロバイダー&lt;/strong&gt; をチェックしていますか? &lt; br/&gt;
+• バグを発見した可能性があります。もしそうなら、私にメールしてください。 &lt; br/&gt;
+• デバイスの日付 & 時刻が正しく設定されているかどうかを確認してください。 &lt; br/&gt;
+]]></string>
   <string name="why_popup_title">なぜ動作しないのですか?</string>
   <string name="download_category">ダウンロード</string>
   <string name="wearable_prompt">ウェアラブルで開く</string>
@@ -149,6 +159,17 @@
   <string name="yearly_sub_template">%s/年</string>
   <string name="monthly_sub_template">%s/月</string>
   <string name="buy_sub">購入</string>
+  <string name="client_version_error">アプリを更新してください</string>
+  <string name="why_is_this_a_subscription">このサブスクリプションはなぜ?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>サブスクリプション収益のほとんどはアーティストや権利者に行きます。一度だけ料金を支払って QuickLyric Premium を入手するのは、Spotify に数ドル支払って、人生の残りを Premium を入手ようなものでしょうか。残念ながらそれは不可能です</p>
+<p>私たちがあなたのお金をいただき、あなたがアプリを長年使用し続ける場合、私たちはあなたの消費に対して権利者に支払う必要があります。</p>
+このような方法が音楽業界の要件であることをご理解ください。]]>    </string>
+  <string name="vote_action">投票</string>
+  <string name="user_submission_dialog_title">これらの歌詞を評価</string>
+  <string name="vote_for">これらの歌詞は正しい</string>
+  <string name="vote_against">これらの歌詞は間違っています</string>
+  <string name="vote_neutral">これらの歌詞はいくつかの修正が必要</string>
+  <string name="snackbar_ratings_QL">QuickLyric をお楽みいただいてますか?</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>

@@ -75,6 +75,16 @@
   <string name="pref_beta_sum">Obten novedades más rápido (nuevas características, corrección de errores, &#8230;) y danos tu opinión por correo electrónico</string>
   <string name="scan_error_no_content">No se encontró música</string>
   <string name="no_results_why"><u>¿Por qué?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Buscaste las letras de \"%1$s\" de %2$s. Desafortunadamente QuickLyric no pudo encontrarlos... <br/><br/>
+Algunas razones posibles por qué:<br/>
+<br/>
+• ¿Su música está <strong>etiquetada</strong> correctamente? QuickLyric no puede reconocer las pistas que no están etiquetadas.<br/>
+• Compruebe si su conexión funciona.<br/>
+• Tal vez esta canción no es parte del catálogo principal. ¿Ha comprobado los <strong>proveedores adicionales</strong> en la configuración?<br/>
+• Puede haber encontrado un error. Si es así, envíeme un correo electrónico.<br/>
+• Compruebe si la fecha y la hora de su dispositivo están configuradas correctamente.<br/>
+]]></string>
   <string name="why_popup_title">¿Por qué no funciona?</string>
   <string name="download_category">Descargas</string>
   <string name="wearable_prompt">Abrir en el reloj</string>
@@ -141,7 +151,10 @@
   <string name="premium_thanks">¡Gracias por tu apoyo!</string>
   <string name="about_crowdin">Ayudar a traducir la aplicación en Crowdin</string>
   <string name="online_title">Catálogo en línea</string>
+  <string name="yearly_sub_template">%s/año</string>
+  <string name="monthly_sub_template">%s/mes</string>
   <string name="buy_sub">Comprar</string>
+  <string name="client_version_error">Por favor, actualice la aplicación</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>

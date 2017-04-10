@@ -145,6 +145,12 @@
   <string name="yearly_sub_template">%s年</string>
   <string name="monthly_sub_template">%s 月</string>
   <string name="buy_sub">购买</string>
+  <string name="client_version_error">请更新应用</string>
+  <string name="vote_action">投票</string>
+  <string name="user_submission_dialog_title">给歌词打分</string>
+  <string name="vote_for">歌词正确</string>
+  <string name="vote_against">歌词错误</string>
+  <string name="vote_neutral">歌词需要一些修正</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric即将为 %1$d 首歌下载歌词。\
         确保你有至少 %2$d 分钟(s)的通畅网络。</item>

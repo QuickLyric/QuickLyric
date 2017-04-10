@@ -77,6 +77,16 @@
   <string name="pref_beta_sum">Otrzymuj aktualizacje (nowe funkcje, poprawki błędów, &#8230;) szybciej i zgłaszaj uwagi mailem</string>
   <string name="scan_error_no_content">Nie znaleziono muzyki</string>
   <string name="no_results_why"><u>Dlaczego?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Szukasz tekstu piosenki \"%1$s\" autorstwa %2$s. Niestety QuickLyric nie mógł go znaleźć… <br/><br/>
+Jest kilka możliwych przyczyn:<br/>
+<br/>
+• Czy Twoje piosenki są prawidłowo <strong>otagowane</strong>? Jeśli nie, QuickLyric nie może ich rozpoznać.<br/>
+• Sprawdź, czy masz połączenie z internetem.<br/>
+• Możliwe, że poszukiwana przez Ciebie piosenka nie znajduje się w głównym katalogu. Czy uaktywniłeś <strong>dodatkowe źródła</strong> w ustawieniach?<br/>
+• Być może natrafiłeś na błąd aplikacji. Jeśli tak, proszę o kontakt mailowy.<br/>
+• Sprawdź, czy data i czas są poprawnie ustawione na Twoim urządzeniu.<br/>
+]]></string>
   <string name="why_popup_title">Dlaczego nie działa?</string>
   <string name="download_category">Pobrania</string>
   <string name="wearable_prompt">Otwórz na smartwatchu</string>
@@ -138,6 +148,7 @@
   <string name="premium_karaoke_incent">Ekskluzywny *tryb karaoke*</string>
   <string name="premium_themes_incent">*7* nowych skórek</string>
   <string name="premium_night_mode_incent">*Tryb nocny*, aby dać odpocząć Twoim oczom</string>
+  <string name="premium_android_wear">Wsparcie dla zegarków *Android Wear*</string>
   <string name="premium_doubt">Nie masz pewności, czy zasubskrybować? Napisz do nas: contact@quicklyric.be</string>
   <string name="premium_thanks">Dziękujemy za wsparcie!</string>
   <string name="about_crowdin">Pomóż w tłumaczeniu aplikacji na Crowdin</string>
@@ -145,6 +156,17 @@
   <string name="yearly_sub_template">%s/rok</string>
   <string name="monthly_sub_template">%s/miesiąc</string>
   <string name="buy_sub">Kup</string>
+  <string name="client_version_error">Zaktualizuj aplikację</string>
+  <string name="why_is_this_a_subscription">Po co subskrypcja?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>Większość dochodów z subskrypcji trafia do artystów i właścicieli praw autorskich. Jednorazowe zapłacenie za QuickLyric byłoby jak wydanie kilku dolarów za dozgonny dostęp do Spotify w wersji Premium. Niestety to niemożliwe.</p>
+    <p>Jeśli otrzymalibyśmy od Ciebie zapłatę tylko raz, a Ty używałbyś aplikacji przez lata, my nadal musielibyśmy płacić właścicielom praw autorskich za Twój dostęp do tekstów.</p>
+    Zrozum proszę, że takie panują zasady w przemyśle muzycznym.]]>
+    </string>
+  <string name="vote_action">Zagłosuj</string>
+  <string name="user_submission_dialog_title">Oceń ten tekst</string>
+  <string name="vote_for">Ten tekst jest poprawny</string>
+  <string name="vote_against">Ten tekst nie jest poprawny</string>
+  <string name="vote_neutral">Ten tekst wymaga pewnych zmian</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
         Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>

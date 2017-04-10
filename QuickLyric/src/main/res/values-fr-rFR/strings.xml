@@ -76,6 +76,16 @@
   <string name="pref_beta_sum">Recevez les mises à jour (nouvelles fonctionnalités, corrections de bugs,&#8230;) plus vite et donnez vos impressions par e-mail</string>
   <string name="scan_error_no_content">Aucune musique trouvée</string>
   <string name="no_results_why"><u>Pourquoi ?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Vous cherchiez les paroles de \"%1$s\" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
+Plusieurs raisons possibles:<br/>
+<br/>
+• Est-ce que votre musique est <strong>taguée</strong> correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.<br/>
+• Vérifiez votre connexion.<br/>
+• Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les <strong>sources supplémentaires</strong> dans les options?<br/>
+• Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.<br/>
+• Vérifiez si la date et l'heure de votre appareil sont justes.<br/>
+]]></string>
   <string name="why_popup_title">Pourquoi ça ne fonctionne pas ?</string>
   <string name="download_category">Téléchargements</string>
   <string name="wearable_prompt">Ouvrir sur la montre</string>
@@ -145,6 +155,17 @@
   <string name="yearly_sub_template">%s/an</string>
   <string name="monthly_sub_template">%s/mois</string>
   <string name="buy_sub">Acheter</string>
+  <string name="client_version_error">Veuillez mettre à jour l\'application</string>
+  <string name="why_is_this_a_subscription">Pourquoi une formule d\'abonnement ?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>La majorité des revenus des abonnements va directement aux artistes et aux ayant droits. Obtenir QuickLyric Premium pour un achat unique serait comme payer Spotify quelques euros et obtenir un abonnement Premium pour le reste de votre vie. Ce n\'est malheureusement pas possible.</p>
+<p>Si nous acceptions votre argent et que vous continuiez à utiliser l\'application pendant des années, nous serions toujours obligés de payer les ayant droits pour votre usage.</p>
+Ceci étant une exigence de l\'industrie de la musique, nous vous remercions pour votre compréhension.]]>    </string>
+  <string name="vote_action">Voter</string>
+  <string name="user_submission_dialog_title">Évaluez ces paroles</string>
+  <string name="vote_for">Ces paroles sont correctes</string>
+  <string name="vote_against">Ces paroles sont erronées</string>
+  <string name="vote_neutral">Ces paroles sont approximatives</string>
+  <string name="snackbar_ratings_QL">QuickLyric vous plaît ?</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
         Vérifiez que vous avez une connexion stable pour %2$d minute.</item>

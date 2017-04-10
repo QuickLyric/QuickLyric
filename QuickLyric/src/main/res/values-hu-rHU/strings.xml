@@ -78,6 +78,16 @@
   <string name="pref_beta_sum">Kapjon frissítéseket (új funkciók, hibajavítások, &#8230;) hamarabb és jelezzen vissza e-mail segítségével</string>
   <string name="scan_error_no_content">Nem sikerült zenét találni</string>
   <string name="no_results_why"><u>Miért?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Az alábbi számhoz kerestél zeneszöveget: %2$s - \"%1$s\". Sajnos a QuickLyric nem találta meg... <br/><br/>
+Pár lehetséges ok:<br/>
+<br/>
+• Helyesen <strong>címkézve</strong> van a zenéd? QuickLyric nem tud olyan zenéket felismerni, amik nincsenek címkézve.<br/>
+• Ellenőrizd, hogy az internetkapcsolatod működik-e.<br/>
+• Lehet, hogy ez a szám nincs a főkatalogusban. Próbáltad már a <strong>további szöveg szolgáltatókat</strong> a beállításokban?<br/>
+• Lehetséges, hogy hibát találtál az alkalmazásban. Ha így történt, kérlek küldj nekem egy emailt.<br/>
+• Ellenőrizd, hogy a dátum és idő jól be van állítva a készülékeden.<br/>
+]]></string>
   <string name="why_popup_title">Miért nem működik?</string>
   <string name="download_category">Letöltések</string>
   <string name="wearable_prompt">Megnyitás viselhető készüléken</string>
@@ -147,6 +157,11 @@
   <string name="yearly_sub_template">%s/év</string>
   <string name="monthly_sub_template">%s/hónap</string>
   <string name="buy_sub">Vásárlás</string>
+  <string name="client_version_error">Kérjük frissítsd az alkalmazást</string>
+  <string name="why_is_this_a_subscription">Hogy miért előfizetés?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>Az előfizetések bevételének nagy része az előadóhoz és a jogtulajdonosokhoz kerül. Egyszeri díj fizetése a QuickLyric Premium beszerzéséhez olyan lenne, mint a Spotify-nak pár dollárt fizetni és Premium előfizetést kapni az életed végéig. Sajnos ez nem lehetséges.</p>
+<p>Ha elfogadnánk tőled az egyszeri díjat és évekig használnád az alkalmazást nekünk még továbbra is fizetnünk kéne a jogtulajdonosnak a fogyasztásodért.</p>
+Kérjük értsd meg, hogy a zeneipar követelménye az, hogy így működnek a dolgok.]]>    </string>
   <plurals name="scan_dialog">
     <item quantity="one">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
     <item quantity="other">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
