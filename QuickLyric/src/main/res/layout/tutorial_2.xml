@@ -71,6 +71,7 @@
             android:src="@drawable/demo_refresh"
             android:layout_gravity="center"
             app:borderWidth="0dp"
+            android:theme="@style/Theme.QuickLyric"
             app:elevation="@dimen/intro_fab_elevation"
             app:rippleColor="@color/accent"/>
     </FrameLayout>

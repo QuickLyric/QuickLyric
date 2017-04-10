@@ -78,6 +78,7 @@ import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
@@ -216,8 +217,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 init(fragmentManager, false);
         }
         boolean seenIntro = getSharedPreferences("intro_slides", Context.MODE_PRIVATE).getBoolean("seen", false);
-        if (!seenIntro) {
-            registerTempReceiver();
+        if (!seenIntro || (Build.VERSION.SDK_INT >= 19 && !NotificationListenerService.isListeningAuthorized(this))) {
             setupDemoScreen();
         }
 
@@ -543,32 +543,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     public void setDrawerListener(boolean bool) {
         ((ListView) findViewById(id.drawer_list))
                 .setOnItemClickListener(bool ? drawerListener : null);
-    }
-
-    private void registerTempReceiver() {
-        receiver = new MusicBroadcastReceiver();
-        MusicBroadcastReceiver.forceAutoUpdate(true);
-        IntentFilter intentfilter = new IntentFilter();
-        intentfilter.addAction("com.android.music.metachanged");
-        intentfilter.addAction("com.htc.music.metachanged");
-        intentfilter.addAction("com.miui.player.metachanged");
-        intentfilter.addAction("com.real.IMP.metachanged");
-        intentfilter.addAction("com.sonyericsson.music.metachanged");
-        intentfilter.addAction("com.rdio.android.playstatechanged");
-        intentfilter.addAction("com.samsung.sec.android.MusicPlayer.metachanged");
-        intentfilter.addAction("com.sec.android.app.music.metachanged");
-        intentfilter.addAction("com.nullsoft.winamp.metachanged");
-        intentfilter.addAction("com.amazon.mp3.metachanged");
-        intentfilter.addAction("com.rhapsody.metachanged");
-        intentfilter.addAction("com.maxmpz.audioplayer.metachanged");
-        intentfilter.addAction("com.real.IMP.metachanged");
-        intentfilter.addAction("com.andrew.apollo.metachanged");
-        intentfilter.addAction("fm.last.android.metachanged");
-        intentfilter.addAction("com.adam.aslfms.notify.playstatechanged");
-        intentfilter.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
-        intentfilter.addAction("com.spotify.music.metadatachanged");
-        registerReceiver(receiver, intentfilter);
-        this.receiverRegistered = true;
     }
 
     private void setupDemoScreen() {
