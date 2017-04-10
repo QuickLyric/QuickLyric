@@ -20,8 +20,9 @@
 
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="800"
     android:propertyName="pathData"
-    android:valueTo="M3 21.1L9 18 14 12.5l-0.2-5.8L9 12z"
-    android:valueFrom="M9 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
-    android:valueType="pathType"/>
+    android:duration="800"
+    android:valueTo="M 3 17.25 L 3 21 L 6.75 21 L 12.437 15.313 L 17.81 9.94 L 14.06 6.19 L 7.94 12.31 L 7.94 12.31 L 3 17.25 L 3 17.25 M 18.88 8.87 L 20.71 7.04 L 20.71 7.04 C 21.1 6.65 21.1 6.02 20.71 5.63 L 18.37 3.29 C 17.98 2.9 17.35 2.9 16.96 3.29 L 15.13 5.12 L 18.88 8.87"
+    android:valueFrom="M 3.4 13.4 L 9 19 L 21 7 L 20.3 6.3 L 19.6 5.6 L 14.3 10.9 L 9 16.2 L 9 16.2 L 4.8 12 L 3.4 13.4 M 18.216 5.784 L 18.216 5.784 L 18.216 5.784 C 18.216 5.784 18.216 5.784 18.216 5.784 L 18.216 5.784 C 18.216 5.784 18.216 5.784 18.216 5.784 L 18.216 5.784 L 18.216 5.784"
+    android:valueType="pathType"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>

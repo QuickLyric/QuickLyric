@@ -18,32 +18,15 @@
   ~  */
   -->
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
-        android:viewportWidth="24"
-        android:viewportHeight="24">
-
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
     <path
-        android:name="left_arm"
+        android:name="path"
+        android:pathData="M 3 17.25 L 3 21 L 6.75 21 L 12.437 15.313 L 17.81 9.94 L 14.06 6.19 L 7.94 12.31 L 7.94 12.31 L 3 17.25 L 3 17.25 M 18.88 8.87 L 20.71 7.04 L 20.71 7.04 C 21.1 6.65 21.1 6.02 20.71 5.63 L 18.37 3.29 C 17.98 2.9 17.35 2.9 16.96 3.29 L 15.13 5.12 L 18.88 8.87"
         android:fillColor="#fff"
-        android:pathData="M 9.5,16.2 L 4.8,12 3.4,13.4 9,19 Z"/>
-
-    <path
-        android:name="right_arm"
-        android:fillColor="#fff"
-        android:pathData="M9 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-
-    <path
-        android:name="pen"
-        android:fillAlpha="0"
-        android:fillColor="#fff"
-        android:pathData="M 3,17.25 L 3,21 6.75,21 17.81,9.94 14.06,6.19 Z M 20.71,7.04 c
--13.8066667,11.306667 -6.903333,5.653333 0,0 z"/>
-
-    <path
-        android:name="eraser"
-        android:fillAlpha="0"
-        android:fillColor="#fff"
-        android:pathData="M3 17.25zM20.71 7.04c.39-.39 .39 -1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        android:strokeWidth="1"/>
 </vector>
