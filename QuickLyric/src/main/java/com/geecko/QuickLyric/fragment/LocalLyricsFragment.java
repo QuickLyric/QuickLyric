@@ -62,7 +62,7 @@ import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.LocalAdapter;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
@@ -385,8 +385,8 @@ public class LocalLyricsFragment extends ListFragment {
             return;
 
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) mainActivity.findViewById(R.id.drawer_list)).getAdapter());
-        if (drawerAdapter.getSelectedItem() != 1) {
-            drawerAdapter.setSelectedItem(1);
+        if (drawerAdapter.getSelectedItem() != 2) {
+            drawerAdapter.setSelectedItem(2);
             drawerAdapter.notifyDataSetChanged();
         }
 

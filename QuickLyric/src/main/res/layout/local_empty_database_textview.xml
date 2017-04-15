@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/local_empty_database_textview"
-        android:layout_width="match_parent"
+        android:layout_width="144dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="?android:attr/textColorSecondary"

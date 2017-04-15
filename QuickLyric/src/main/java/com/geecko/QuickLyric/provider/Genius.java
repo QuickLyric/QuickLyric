@@ -1,7 +1,8 @@
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.provider;
 
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

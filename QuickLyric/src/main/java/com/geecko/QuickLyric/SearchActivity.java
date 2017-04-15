@@ -40,9 +40,9 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
-import com.geecko.QuickLyric.lyrics.Genius;
-import com.geecko.QuickLyric.lyrics.JLyric;
-import com.geecko.QuickLyric.lyrics.LyricWiki;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.LyricWiki;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;

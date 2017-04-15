@@ -19,7 +19,7 @@
 
 package com.geecko.QuickLyric.tasks;
 
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 
 import org.junit.Before;
 import org.junit.Test;

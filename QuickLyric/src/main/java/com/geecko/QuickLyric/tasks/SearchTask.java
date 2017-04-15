@@ -26,10 +26,10 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.fragment.SearchFragment;
-import com.geecko.QuickLyric.lyrics.Genius;
-import com.geecko.QuickLyric.lyrics.JLyric;
-import com.geecko.QuickLyric.lyrics.LyricWiki;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.LyricWiki;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 

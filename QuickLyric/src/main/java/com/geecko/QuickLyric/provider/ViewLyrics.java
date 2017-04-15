@@ -17,9 +17,10 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.provider;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Levenshtein;
 import com.geecko.QuickLyric.utils.Net;
 
@@ -46,10 +47,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.NEGATIVE_RESULT;
-import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
-import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
-import static com.geecko.QuickLyric.lyrics.Lyrics.SEARCH_ITEM;
+import static com.geecko.QuickLyric.model.Lyrics.NEGATIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.NO_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.POSITIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.SEARCH_ITEM;
 
 public class ViewLyrics {
 

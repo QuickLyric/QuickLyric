@@ -17,9 +17,10 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.provider;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,9 +30,9 @@ import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
-import static com.geecko.QuickLyric.lyrics.Lyrics.NO_RESULT;
-import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.ERROR;
+import static com.geecko.QuickLyric.model.Lyrics.NO_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.POSITIVE_RESULT;
 
 @Reflection
 public class MetalArchives {

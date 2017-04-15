@@ -41,7 +41,7 @@ import android.util.AttributeSet;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.tasks.CoverArtLoader;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 

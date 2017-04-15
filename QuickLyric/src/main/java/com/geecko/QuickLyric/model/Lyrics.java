@@ -17,7 +17,7 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
