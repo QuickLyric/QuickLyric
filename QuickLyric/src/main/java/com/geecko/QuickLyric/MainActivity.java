@@ -786,12 +786,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                         dialog.dismiss();
                     }
                 })
-//                .setNeutralButton(string.rate_us, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss(); TODO: Add play store page here
-//                    }
-//                }) TODO: only show this button on PLAY variant
                 .setMessage(spannedChangelog)
                 .create();
         dialog.show();
