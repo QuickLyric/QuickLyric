@@ -534,8 +534,12 @@ public class LocalLyricsFragment extends ListFragment {
                         final Uri contentProvider = Uri.parse(values[i]);
                         String[] projection = new String[]{"artist", "title"};
                         String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
-                        Cursor countCursor = getActivity().getContentResolver()
-                                .query(contentProvider, projection, selection, null, null);
+                        Cursor countCursor = null;
+                        try {
+                            countCursor = getActivity().getContentResolver()
+                                    .query(contentProvider, projection, selection, null, null);
+                        } catch (SecurityException ignored) {
+                        }
                         if (countCursor == null || countCursor.getCount() == 0) {
                             choiceDialog.cancel();
                             Toast.makeText(getActivity(),
