@@ -1,64 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Copyright © 2017 QuickLyric SPRL
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
 
-<FrameLayout
+<com.balysv.materialripple.MaterialRippleLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="64dp"
+    android:layout_gravity="center_horizontal"
+    android:clickable="false"
+    app:mrl_rippleAlpha="0.2"
+    app:mrl_rippleColor="?rippleBackGroundColor"
+    app:mrl_rippleFadeDuration="250"
+    app:mrl_rippleHover="true"
+    app:mrl_rippleOverlay="true">
 
-    <FrameLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:clickable="true"
-        android:foreground="?attr/selectableItemBackground"
-        tools:ignore="UselessParent">
+        app:contentPaddingBottom="3dp"
+        app:contentPaddingTop="3dp"
+        app:cardBackgroundColor="?android:panelColorBackground"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/recents_image_view_cover_art"
+            android:layout_width="80dp"
+            android:scaleType="fitCenter"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="84dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="84dp"
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="72dp"
-                android:paddingLeft="16dp"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/recents_image_view_cover_art"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/recents_title_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingRight="16dp"
-                android:orientation="vertical"
-                >
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"/>
 
-                <TextView
-                    android:id="@+id/recents_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="456"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/recents_artist_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="14sp"/>
 
-                <TextView
-                    android:id="@+id/recents_artist_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="123"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="14sp"/>
-
-            </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
-
-</FrameLayout>
+    </android.support.v7.widget.CardView>
+</com.balysv.materialripple.MaterialRippleLayout>

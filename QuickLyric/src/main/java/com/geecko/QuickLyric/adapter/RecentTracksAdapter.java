@@ -1,7 +1,6 @@
 package com.geecko.QuickLyric.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.event.RecentsDownloadingEvent;
-import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Recents;
-import com.geecko.QuickLyric.services.SingleLyricRetrievalService;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -52,13 +46,10 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                         int viewType) {
-
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View v = inflater.inflate(R.layout.list_item_track, parent, false);
+        final ViewGroup v = (ViewGroup) inflater.inflate(R.layout.list_item_track, parent, false);
         return new ViewHolder(v);
-
     }
 
     @Override
@@ -72,25 +63,21 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
         File artworksDir = new File(mContext.getCacheDir(), "artworks");
         File artworkFile = new File(artworksDir, artist + title + ".png");
 
-        holder.mContainer.setOnClickListener(new View.OnClickListener()
-        {
+        holder.mContainer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
-                String[] meta = new String[2];
-                meta[0] = mData.get(pos).mArtist;
-                meta[1] = mData.get(pos).mTitle;
+                String artist = mData.get(pos).mArtist;
+                String title = mData.get(pos).mTitle;
 
-                SingleLyricRetrievalService.startActionRetrieve(mContext, meta[0], meta[1]);
-                EventBus.getDefault().post(new RecentsDownloadingEvent());
+                MainActivity mainActivity = ((MainActivity) holder.mContainer.getContext());
+                mainActivity.updateLyricsFragment(R.animator.slide_out_end, artist, title);
             }
-
         });
 
         Glide.with(mContext)
                 .load(artworkFile)
-                .centerCrop()
+                .fitCenter()
                 .crossFade()
                 .fallback(R.drawable.no_cover)
                 .placeholder(R.drawable.no_cover)

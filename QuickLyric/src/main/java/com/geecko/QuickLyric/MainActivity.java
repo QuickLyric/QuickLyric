@@ -75,13 +75,11 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
-import com.geecko.QuickLyric.event.RecentsRetrievedEvent;
-import com.geecko.QuickLyric.event.RecentsDownloadingEvent;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.fragment.RecentTracksFragment;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
@@ -97,10 +95,6 @@ import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -234,8 +228,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         updatePrefs.edit().putInt("VERSION_CODE", BuildConfig.VERSION_CODE).apply();
         if (versionCode < BuildConfig.VERSION_CODE)
             onAppUpdated(versionCode);
-
-        EventBus.getDefault().register(this);
     }
 
     private LyricsViewFragment init(FragmentManager fragmentManager, boolean startEmpty) {
@@ -468,7 +460,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     .getMethod("wind‌​owDismissed", IBinder.class)).invoke(null, drawer.getWindowToken());
         } catch (Exception ignored) {
         }
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -645,37 +636,24 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.setCoverArt(url, null);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(RecentsRetrievedEvent event) {
-        updateLyricsFragment(R.animator.none, R.animator.none,
-                true, event.lyrics);
-        LyricsViewFragment lyricsViewFragment =
-                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
-        if (lyricsViewFragment != null)
-            lyricsViewFragment.stopRefreshAnimation();
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(RecentsDownloadingEvent event) {
-        selectItem(0);
-        LyricsViewFragment lyricsViewFragment =
-                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
-        if (lyricsViewFragment != null)
-        {
-            lyricsViewFragment.startRefreshAnimation();
-        }
-
-    }
-
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder
-        String artist = params[0];
-        String song = params[1];
-        String url = null;
-        if (params.length > 2)
-            url = params[2];
+        final String artist = params[0];
+        final String song = params[1];
+        final String url = params.length > 2 ? params[2] : null;
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
                 getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        if (lyricsViewFragment != null)
-            lyricsViewFragment.fetchLyrics(artist, song, url);
+        if (lyricsViewFragment != null) {
+            boolean switching = !lyricsViewFragment.isActiveFragment;
+            if (switching)
+                selectItem(0);
+            final LyricsViewFragment finalLyricsViewFragment = lyricsViewFragment;
+            lyricsViewFragment.getView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finalLyricsViewFragment.fetchLyrics(artist, song, url);
+                }
+            }, switching ? 600 : 0);
+        }
         else {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
             lyrics.setArtist(artist);

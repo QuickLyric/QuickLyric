@@ -2,7 +2,6 @@ package com.geecko.QuickLyric.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.geecko.QuickLyric.event.RecentsAddedEvent;
 import com.geecko.QuickLyric.event.RecentsRemovedEvent;
@@ -33,30 +32,25 @@ public class Recents {
         tracks = new LinkedList<>();
     }
 
-    public Track get(int i)
-    {
+    public Track get(int i) {
         return tracks.get(i);
     }
 
-    public void add(Track track)
-    {
+    public void add(Track track) {
         if (track.mTitle.equals("") && track.mArtist.equals("") ||
-                tracks.size() > 0 && track.equals(tracks.get(0)))
-        {
+                tracks.size() > 0 && track.equals(tracks.get(0))) {
             return;
         }
 
         int i = tracks.indexOf(track);
-        if (i >= 0)
-        {
+        if (i >= 0) {
             tracks.remove(i);
             EventBus.getDefault().post(new RecentsRemovedEvent(i));
         }
         tracks.addFirst(track);
         EventBus.getDefault().post(new RecentsAddedEvent(0));
 
-        if (tracks.size() > MAX_ENTRIES)
-        {
+        if (tracks.size() > MAX_ENTRIES) {
             tracks.removeLast();
             EventBus.getDefault().post(new RecentsRemovedEvent(MAX_ENTRIES - 1));
         }
@@ -69,10 +63,9 @@ public class Recents {
         return tracks.size();
     }
 
-    private void saveToPrefs()
-    {
+    private void saveToPrefs() {
         SharedPreferences.Editor edit =
-                PreferenceManager.getDefaultSharedPreferences(context).edit();
+                context.getSharedPreferences("track_history", Context.MODE_PRIVATE).edit();
 
         Gson gson = new GsonBuilder().create();
         edit.putString(PREFS_NAME, gson.toJson(this));
@@ -83,7 +76,7 @@ public class Recents {
         if (instance == null) {
             Recents.context = context.getApplicationContext();
             SharedPreferences prefs =
-                    PreferenceManager.getDefaultSharedPreferences(context);
+                    context.getSharedPreferences("track_history", Context.MODE_PRIVATE);
             Gson gson = new GsonBuilder().create();
             String str = prefs.getString(PREFS_NAME, "");
             if (str.equals(""))

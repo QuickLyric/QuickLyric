@@ -215,10 +215,6 @@
                 <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PAUSED" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".services.SingleLyricRetrievalService"
-            android:exported="false"></service>
     </application>
 
 </manifest>
