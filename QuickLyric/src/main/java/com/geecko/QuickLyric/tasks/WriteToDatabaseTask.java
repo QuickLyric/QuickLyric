@@ -37,7 +37,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.LocalAdapter;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {

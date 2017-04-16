@@ -163,6 +163,8 @@ A few possible reasons why:<br/>
     <string name="yearly_sub_template">%s/year</string>
     <string name="monthly_sub_template">%s/month</string>
     <string name="buy_sub">Buy</string>
+    <string name="recent_tracks_title">Recent Tracks</string>
+    <string name="recents_empty_database">You haven\'t listened to anything yet.</string>
 
 
     <plurals name="scan_dialog">
@@ -180,6 +182,7 @@ A few possible reasons why:<br/>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
+        <item>@string/recent_tracks_title</item>
         <item>@string/local_title</item>
         <item>-</item>
         <item>@string/settings_title</item>

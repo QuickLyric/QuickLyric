@@ -17,10 +17,30 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+/*
+ * *
+ *  * This file is part of QuickLyric
+ *  * Created by geecko
+ *  *
+ *  * QuickLyric is free software: you can redistribute it and/or modify
+ *  * it under the terms of the GNU General Public License as published by
+ *  * the Free Software Foundation, either version 3 of the License, or
+ *  * (at your option) any later version.
+ *  *
+ *  * QuickLyric is distributed in the hope that it will be useful,
+ *  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  * GNU General Public License for more details.
+ *  * You should have received a copy of the GNU General Public License
+ *  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+package com.geecko.QuickLyric.provider;
 
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.HttpStatusException;
@@ -33,9 +53,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Reflection
-public class PLyrics {
+public class UrbanLyrics {
 
-    public static final String domain = "www.plyrics.com/";
+    public static final String domain = "www.urbanlyrics.com/";
 
     @Reflection
     public static Lyrics fromMetaData(String artist, String song) {
@@ -48,7 +68,7 @@ public class PLyrics {
             htmlArtist = htmlArtist.substring(3);
 
         String urlString = String.format(
-                "http://www.plyrics.com/lyrics/%s/%s.html",
+                "http://www.urbanlyrics.com/lyrics/%s/%s.html",
                 htmlArtist.toLowerCase(Locale.getDefault()),
                 htmlSong.toLowerCase(Locale.getDefault()));
         return fromURL(urlString, artist, song);
@@ -69,7 +89,7 @@ public class PLyrics {
             return new Lyrics(Lyrics.ERROR);
         }
         Pattern p = Pattern.compile(
-                "<!-- start of lyrics -->(.*)<!-- end of lyrics -->",
+                "<!-- lyrics start -->(.*)<!-- lyrics end -->",
                 Pattern.DOTALL);
         Matcher matcher = p.matcher(html);
 
@@ -94,7 +114,7 @@ public class PLyrics {
             l.setText(text);
             l.setTitle(song);
             l.setURL(url);
-            l.setSource("PLyrics");
+            l.setSource("UrbanLyrics");
             return l;
         } else
             return new Lyrics(Lyrics.NEGATIVE_RESULT);

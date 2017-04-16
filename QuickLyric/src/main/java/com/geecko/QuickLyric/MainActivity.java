@@ -77,7 +77,8 @@ import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.fragment.RecentTracksFragment;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
 import com.geecko.QuickLyric.tasks.Id3Writer;
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
     public static final String SEARCH_FRAGMENT_TAG = "SearchFragment";
+    private static final String RECENT_TRACKS_FRAGMENT_TAG = "RecentTracksFragment";
     public static boolean waitingForListener = false;
     public View drawer;
     public View drawerView;
@@ -259,7 +261,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             if (fragment == null)
                 continue;
             if ((fragment instanceof LyricsViewFragment && ((LyricsViewFragment) fragment).isActiveFragment)
-                    || (fragment instanceof LocalLyricsFragment && ((LocalLyricsFragment) fragment).isActiveFragment))
+                    || (fragment instanceof LocalLyricsFragment && ((LocalLyricsFragment) fragment).isActiveFragment)
+                    || (fragment instanceof RecentTracksFragment && ((RecentTracksFragment) fragment).isActiveFragment))
                 return fragment;
         }
         return fragments[0];
@@ -267,11 +270,12 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     public Fragment[] getActiveFragments() {
         FragmentManager fragmentManager = this.getFragmentManager();
-        Fragment[] fragments = new Fragment[4];
+        Fragment[] fragments = new Fragment[5];
         fragments[0] = fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
         fragments[1] = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
         fragments[2] = fragmentManager.findFragmentByTag(SETTINGS_FRAGMENT);
         fragments[3] = fragmentManager.findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+        fragments[4] = fragmentManager.findFragmentByTag(RECENT_TRACKS_FRAGMENT_TAG);
         return fragments;
     }
 
@@ -488,7 +492,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             ((DrawerLayout) drawer).closeDrawer(drawerView);
         else {
             displayedFragment = getDisplayedFragment(getActiveFragments());
-            if (displayedFragment != null && displayedFragment instanceof LocalLyricsFragment)
+            if (displayedFragment != null && (displayedFragment instanceof LocalLyricsFragment ||
+                displayedFragment instanceof RecentTracksFragment))
                 selectItem(0);
             else
                 finish();
@@ -619,6 +624,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 ((LocalLyricsFragment) nextFragment).showTransitionAnim = true;
             else if (nextFragment instanceof LyricsViewFragment)
                 ((LyricsViewFragment) nextFragment).showTransitionAnim = true;
+            else if (nextFragment instanceof RecentTracksFragment)
+                ((RecentTracksFragment) nextFragment).showTransitionAnim = true;
         }
     }
 
@@ -630,15 +637,23 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder
-        String artist = params[0];
-        String song = params[1];
-        String url = null;
-        if (params.length > 2)
-            url = params[2];
+        final String artist = params[0];
+        final String song = params[1];
+        final String url = params.length > 2 ? params[2] : null;
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
                 getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        if (lyricsViewFragment != null)
-            lyricsViewFragment.fetchLyrics(artist, song, url);
+        if (lyricsViewFragment != null) {
+            boolean switching = !lyricsViewFragment.isActiveFragment;
+            if (switching)
+                selectItem(0);
+            final LyricsViewFragment finalLyricsViewFragment = lyricsViewFragment;
+            lyricsViewFragment.getView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finalLyricsViewFragment.fetchLyrics(artist, song, url);
+                }
+            }, switching ? 600 : 0);
+        }
         else {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
             lyrics.setArtist(artist);
@@ -749,12 +764,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                         dialog.dismiss();
                     }
                 })
-//                .setNeutralButton(string.rate_us, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss(); TODO: Add play store page here
-//                    }
-//                }) TODO: only show this button on PLAY variant
                 .setMessage(spannedChangelog)
                 .create();
         dialog.show();
@@ -783,6 +792,14 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 ((LyricsViewFragment) newFragment).showTransitionAnim = true;
                 break;
             case 1:
+                // Recent Tracks
+                tag = RECENT_TRACKS_FRAGMENT_TAG;
+                newFragment = fragmentManager.findFragmentByTag(tag);
+                if (newFragment == null || !(newFragment instanceof RecentTracksFragment))
+                    newFragment = new RecentTracksFragment();
+                ((RecentTracksFragment) newFragment).showTransitionAnim = true;
+                break;
+            case 2:
                 // Saved Lyrics
                 tag = LOCAL_LYRICS_FRAGMENT_TAG;
                 newFragment = fragmentManager.findFragmentByTag(tag);
@@ -790,10 +807,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     newFragment = new LocalLyricsFragment();
                 ((LocalLyricsFragment) newFragment).showTransitionAnim = true;
                 break;
-            case 2:
+            case 3:
                 // Separator
                 return;
-            case 3:
+            case 4:
                 // Settings
                 if (drawer instanceof DrawerLayout)
                     ((DrawerLayout) drawer).closeDrawer(drawerView);
@@ -805,10 +822,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     }
                 }, 250);
                 return;
-            case 4:
+            case 5:
                 // Feedback
                 return;
-            case 5:
+            case 6:
                 // About Dialog
                 if (drawer instanceof DrawerLayout)
                     ((DrawerLayout) drawer).closeDrawer(drawerView);

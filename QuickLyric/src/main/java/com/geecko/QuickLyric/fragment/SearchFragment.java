@@ -37,7 +37,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.adapter.SearchAdapter;
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.tasks.SearchTask;
 import com.squareup.leakcanary.RefWatcher;
 

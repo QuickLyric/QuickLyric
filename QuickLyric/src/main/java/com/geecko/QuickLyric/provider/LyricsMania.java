@@ -17,9 +17,10 @@
  *
  */
 
-package com.geecko.QuickLyric.lyrics;
+package com.geecko.QuickLyric.provider;
 
 import com.geecko.QuickLyric.annotations.Reflection;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.HttpStatusException;
@@ -32,9 +33,9 @@ import java.io.IOException;
 import java.text.Normalizer;
 import java.util.Locale;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
-import static com.geecko.QuickLyric.lyrics.Lyrics.NEGATIVE_RESULT;
-import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.ERROR;
+import static com.geecko.QuickLyric.model.Lyrics.NEGATIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.POSITIVE_RESULT;
 
 @Reflection
 public class LyricsMania {

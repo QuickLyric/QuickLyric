@@ -32,11 +32,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
+import android.util.TypedValue;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.utils.ColorUtils;
+import com.geecko.QuickLyric.model.Recents;
+import com.geecko.QuickLyric.model.Track;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
@@ -121,6 +125,8 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             editor.putLong("startTime", currentTime);
         }
         editor.apply();
+
+        Recents.getInstance(context).add(new Track(track, artist));
 
         autoUpdate = autoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         int notificationPref = Integer.valueOf(sharedPref.getString("pref_notifications", "0"));

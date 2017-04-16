@@ -345,7 +345,7 @@ public class NotificationListenerService extends android.service.notification.No
                     e.printStackTrace();
                 }
 
-            if (isPlaying && !artwork.sameAs(lastBitmap)) { //prevent many writes of the same Bitmap
+            if (artworkFile.length() == 0 || !artwork.sameAs(lastBitmap)) { //prevent many writes of the same Bitmap
                 FileOutputStream fos = null;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 artwork.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -357,7 +357,11 @@ public class NotificationListenerService extends android.service.notification.No
                 } finally {
                     try {
                         if (fos != null)
+                        {
+                            fos.flush();
+                            fos.getFD().sync();
                             fos.close();
+                        }
                         stream.close();
                     } catch (IOException e) {
                         e.printStackTrace();

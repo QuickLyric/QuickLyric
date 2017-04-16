@@ -30,7 +30,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -42,7 +42,7 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.POSITIVE_RESULT;
+import static com.geecko.QuickLyric.model.Lyrics.POSITIVE_RESULT;
 
 public class Id3Reader {
 

@@ -32,7 +32,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.text.Html;
 
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;

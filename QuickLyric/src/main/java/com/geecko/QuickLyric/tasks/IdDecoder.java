@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.lyrics.Lyrics;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.Net;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,7 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import static com.geecko.QuickLyric.lyrics.Lyrics.ERROR;
+import static com.geecko.QuickLyric.model.Lyrics.ERROR;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
 /**
