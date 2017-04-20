@@ -1,0 +1,134 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+import org.ajoberstar.grgit.Grgit
+def chromaprintCompilationTargets = []
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'org.ajoberstar:gradle-git:1.1.0'
+    }
+}
+
+task evaluateChromaprintPresence {
+    doLast {
+        String[] archs = ["armeabi", "armeabi-v7a", "x86"]
+        List<String> targets = new ArrayList<>()
+        for (String arch : archs) {
+            File file = file("./src/main/jniLibs/" + arch + "/libfpcalc.so")
+            if (file.exists() && file.length() > 0) {
+                print "\t" + arch + " chromaprint lib available\n"
+                continue
+            }
+            targets.add(arch)
+        }
+
+        for (int i = 0; i < targets.size(); i++) {
+            if (targets.get(i) == "armeabi")
+                targets.set(i, "arm");
+            else if (targets.get(i) == "armeabi-v7a")
+                targets.set(i, "arm7");
+        }
+        chromaprintCompilationTargets = targets
+    }
+}
+
+task compileChromaprint {
+    doLast {
+        if (chromaprintCompilationTargets.size() > 0) {
+            print "START chromaprint compilation\n"
+            def ffmpegDir = file("$buildDir/ffmpeg")
+            def chromaprintDir = file("$buildDir/chromaprint")
+
+            if (!ffmpegDir.exists()) {
+                print "Cloning FFMPEG..."
+                Grgit.clone {
+                    dir = ffmpegDir
+                    uri = 'https://bitbucket.org/phorton1/ffmpeg.git'
+                    checkout = true
+                    refToCheckout = "multi-0.9"
+                }
+                println(" Done")
+            }
+
+            if (!chromaprintDir.exists()) {
+                print "Cloning chromaprint..."
+                Grgit.clone {
+                    dir = chromaprintDir
+                    uri = 'https://bitbucket.org/phorton1/chromaprint.git'
+                    checkout = true
+                    refToCheckout = "multi-0.9"
+                }
+                println(" Done")
+            }
+
+            def ffmpegConfig = file(ffmpegDir.absolutePath + '/multi-configure')
+            def ffmpegMake = file(ffmpegDir.absolutePath + '/multi-make')
+            def chromaConfig = file(chromaprintDir.absolutePath + '/multi-configure')
+            def chromaMake = file(chromaprintDir.absolutePath + '/multi-make')
+
+            String arch = Os.isArch("amd64") ? "x86_64" : "x86"
+            String os = Os.isFamily("mac") ? "darwin" : Os.isFamily("windows") ? "windows" : "linux"
+
+            println String.format('HOST_PLATFORM=%s-%s', os, arch)
+
+            ffmpegConfig.text = ffmpegConfig.text
+                    .replace('HOST_PLATFORM=linux-x86\n', String.format('HOST_PLATFORM=%s-%s\n', os, arch))
+                    .replace("4.8", "4.9")
+                    .replace("--arch=x86 \\\n", "--arch=x86 --disable-asm \\\n")
+            chromaConfig.text = chromaConfig.text
+                    .replace('HOST_PLATFORM=linux-x86\n', String.format('HOST_PLATFORM=%s-%s\n', os, arch))
+                    .replace("4.8", "4.9")
+
+            ffmpegConfig.setExecutable(true)
+            chromaConfig.setExecutable(true)
+            ffmpegMake.setExecutable(true)
+            chromaMake.setExecutable(true)
+
+            file(ffmpegDir.absolutePath + "/multi-strip").setExecutable(true)
+            file(chromaprintDir.absolutePath + "/multi-strip").setExecutable(true)
+
+            for (String target : chromaprintCompilationTargets) {
+                println "=============\n\tCompiling for " + target + ":\n============="
+
+                print "\t\tFFMPEG configure " + target + "\n"
+                ProcessBuilder processBuilder = new ProcessBuilder(ffmpegDir.absolutePath + "/multi-configure", target)
+                processBuilder.directory(new File(ffmpegDir.absolutePath))
+                processBuilder.environment().put("NDK", android.ndkDirectory.absolutePath)
+                Process process = processBuilder.start()
+                process.waitForProcessOutput(System.out, System.err)
+
+                print "\t\tFFMPEG make " + target + "install\n"
+                processBuilder.command(ffmpegDir.absolutePath + "/multi-make", target, "install")
+                processBuilder.directory(new File(ffmpegDir.absolutePath))
+                process = processBuilder.start()
+                process.waitFor()
+                process.waitForProcessOutput(System.out, System.err)
+
+                print "\t\tCHROMAPRINT configure " + target + "s\n"
+                processBuilder.command(chromaprintDir.absolutePath + "/multi-configure",  target + "s")
+                processBuilder.directory(new File(chromaprintDir.absolutePath))
+                process = processBuilder.start()
+                process.waitForProcessOutput(System.out, System.err)
+
+                print "\t\tCHROMAPRINT make " + target + "s install\n"
+                processBuilder.command(chromaprintDir.absolutePath + "/multi-make",  target + "s", "install")
+                processBuilder.directory(new File(chromaprintDir.absolutePath))
+                process = processBuilder.start()
+                process.waitForProcessOutput(System.out, System.err)
+
+                File targetFile = file("./src/main/jniLibs/" + target.replace("arm", "armeabi").replace("7", "-v7a") + "/libfpcalc.so")
+                File sourceFile = file(chromaprintDir.absolutePath + "/../_install/0.9/_linux/" + target + "s/libfpcalc.so")
+                if ((targetFile.getParentFile().exists() || targetFile.getParentFile().mkdirs()) && (targetFile.exists() || targetFile.createNewFile()))
+                    targetFile.bytes = sourceFile.bytes
+            }
+        } else
+            print "SKIP chromaprint compilation\n"
+    }
+}
+
+compileChromaprint.dependsOn(['evaluateChromaprintPresence'])

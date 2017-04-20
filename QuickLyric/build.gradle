@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: 'chromaprint.gradle'
 
 repositories {
     mavenCentral()
@@ -19,6 +20,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'org.ajoberstar:gradle-git:1.1.0'
     }
 }
 
@@ -110,3 +112,5 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support:support-annotations:25.2.0'
 }
+
+preBuild.dependsOn(['compileChromaprint'])
