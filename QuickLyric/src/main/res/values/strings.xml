@@ -149,13 +149,11 @@ A few possible reasons why:<br/>
     <string name="remove_ads_title">Remove ads</string>
     <string name="subscription_monthly">Monthly</string>
     <string name="subscription_yearly">Yearly</string>
-    <string name="premium_sum_incent">Become Premium to support the development of QuickLyric and get access to the following features:</string>
+    <string name="premium_sum_incent">Get Premium to support the artists &amp; the team behind QuickLyric!</string>
     <string name="premium_ads_incent">No more ads!</string>
-    <string name="premium_karaoke_incent">An exclusive *karaoke mode*</string>
     <string name="premium_themes_incent">*7* new themes</string>
     <string name="premium_night_mode_incent">A *night mode* to rest your eyes at night</string>
     <string name="premium_android_wear">Support for *Android Wear* watches</string>
-    <string name="premium_incentive">Support the artists and the team behind QuickLyric</string>
     <string name="premium_doubt">Unsure about getting a subscription? Shoot us an email: contact@quicklyric.be</string>
     <string name="premium_thanks">Thanks for your support!</string>
     <string name="about_crowdin">Help translate the app on Crowdin</string>
@@ -166,6 +164,18 @@ A few possible reasons why:<br/>
     <string name="recent_tracks_title">Recent Tracks</string>
     <string name="recents_empty_database">You haven\'t listened to anything yet.</string>
     <string name="gmusic_import_securityException">Google Play Music needs to have been launched for this to work</string>
+    <string name="client_version_error">Please update the app</string>
+    <string name="why_is_this_a_subscription">Why is this a subscription?</string>
+    <string name="why_sub_explanation"><![CDATA[<p>Most of the subscription revenues go to the artists and right holders. Paying a one-time fee to get QuickLyric Premium would be like paying Spotify a couple dollars and getting Premium for the rest of your life. It is unfortunately not possible.</p>
+    <p>If we took your money and you kept using the app for years, we\'d still need to pay the right holders for your consumption.</p>
+    Please understand that it\'s a requirement of the Music Industry that things work this way.]]>
+    </string>
+    <string name="vote_action">Vote</string>
+    <string name="user_submission_dialog_title">Rate these lyrics</string>
+    <string name="vote_for">These lyrics are correct</string>
+    <string name="vote_against">These lyrics are wrong</string>
+    <string name="vote_neutral">These lyrics need some corrections</string>
+    <string name="snackbar_ratings_QL">Enjoy using QuickLyric?</string>
 
 
     <plurals name="scan_dialog">
@@ -180,7 +190,11 @@ A few possible reasons why:<br/>
         <item quantity="other">Downloaded the lyrics for %1$d songs</item>
     </plurals>
 
-
+    <string-array name="vote_options" translatable="false">
+        <item>@string/vote_for</item>
+        <item>@string/vote_against</item>
+        <item>@string/vote_neutral</item>
+    </string-array>
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
         <item>@string/recent_tracks_title</item>
