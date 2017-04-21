@@ -165,6 +165,7 @@ A few possible reasons why:<br/>
     <string name="buy_sub">Buy</string>
     <string name="recent_tracks_title">Recent Tracks</string>
     <string name="recents_empty_database">You haven\'t listened to anything yet.</string>
+    <string name="gmusic_import_securityException">Google Play Music needs to have been launched for this to work</string>
 
 
     <plurals name="scan_dialog">

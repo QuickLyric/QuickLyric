@@ -531,6 +531,7 @@ public class LocalLyricsFragment extends ListFragment {
                                     LocalLyricsFragment.REQUEST_CODE))
                                 return;
                         }
+                        int failureMsg = R.string.scan_error_no_content;
                         final Uri contentProvider = Uri.parse(values[i]);
                         String[] projection = new String[]{"artist", "title"};
                         String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
@@ -539,11 +540,13 @@ public class LocalLyricsFragment extends ListFragment {
                             countCursor = getActivity().getContentResolver()
                                     .query(contentProvider, projection, selection, null, null);
                         } catch (SecurityException ignored) {
+                            ignored.printStackTrace();
+                            failureMsg = R.string.gmusic_import_securityException;
                         }
                         if (countCursor == null || countCursor.getCount() == 0) {
                             choiceDialog.cancel();
                             Toast.makeText(getActivity(),
-                                    getString(R.string.scan_error_no_content),
+                                    getString(failureMsg),
                                     Toast.LENGTH_LONG)
                                     .show();
                             return;
