@@ -144,6 +144,20 @@ A few possible reasons why:<br/>
     <string name="nl_settings_link">Allow QuickLyric to read my notifications</string>
     <string name="changelog">What\'s new?</string>
     <string name="rate_us">Rate the app</string>
+    <string name="romanize">Romanize</string>
+    <string name="musicid_no_match">No match ☹</string>
+    <string name="notification_access">Notification Access</string>
+    <string name="pref_lyrics_overlay_name">Lyrics overlay</string>
+    <string name="pref_lyrics_overlay_sum">A floating window that makes lyrics available outside the app</string>
+    <string name="pref_notification_action">Notification action</string>
+    <string name="pref_notification_action_launch">Launch the app</string>
+    <string name="notification_access_explanation"><![CDATA[
+This permission is only needed so that QuickLyric can access your music metadata.<br/>
+QuickLyric is not interested in reading your notifications and our privacy policy prevents us to.<br/>
+The good news is that QuickLyric being open source, anyone can verify that for themselves! 😊<br/><br/>
+We thank you for your understanding!<br/><br/>
+- The QuickLyric Team
+]]></string>
 
     <string name="premium_title">Get Premium</string>
     <string name="remove_ads_title">Remove ads</string>
