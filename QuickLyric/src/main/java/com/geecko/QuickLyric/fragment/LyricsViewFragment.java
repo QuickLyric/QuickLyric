@@ -1064,7 +1064,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             final LrcView[] lrcView = {((LrcView) LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view))};
 
             if (lrcView[0] != null)
-                if (position == -1 && getActivity() != null) {
+                if (getActivity() != null && (position == -1 || !getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean("pref_lrc", true))) {
                     final Lyrics staticLyrics = lrcView[0].getStaticLyrics();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
