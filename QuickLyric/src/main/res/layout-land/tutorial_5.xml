@@ -99,6 +99,18 @@
             android:layout_below="@id/textView2"
             android:elevation="6dp">
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/why_notif_access_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/no_results_why"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:textColor="@color/material_white"
+                android:onClick="whyNotificationsPopUp"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"/>
+
             <RelativeLayout
                 android:id="@+id/NL_frame"
                 android:layout_width="match_parent"

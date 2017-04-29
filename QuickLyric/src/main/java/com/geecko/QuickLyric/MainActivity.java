@@ -898,6 +898,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         am.abandonAudioFocus(null);
     }
 
+    public void whyNotificationsPopUp(View view) {
+        new AlertDialog.Builder(this).setTitle(getString(string.notification_access))
+                .setMessage(Html.fromHtml(getString(string.notification_access_explanation)))
+                .setIcon(R.drawable.icon)
+                .show();
+    }
+
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
         @Override

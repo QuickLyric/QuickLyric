@@ -512,6 +512,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         // Last page: optional NotificationListener page
 
         static boolean nlEnabled = true;
+        static boolean buttonClicked = false;
 
         @SuppressLint("NewApi")
         @Override
@@ -526,6 +527,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     if (!nlEnabled) {
                         startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
                         MainActivity.waitingForListener = true;
+                        buttonClicked = true;
                     }
                 }
             });
@@ -547,6 +549,25 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             if (okButton != null) {
                 getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
             }
+            if (buttonClicked) {
+                ViewGroup frame = ((ViewGroup) getActivity().findViewById(R.id.NL_frame));
+                RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frame.getLayoutParams();
+                View button = getActivity().findViewById(R.id.why_notif_access_button);
+
+                if (nlEnabled) {
+                    frameParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, (int) (10 * getResources().getDimension(R.dimen.dp)));
+                    frame.setLayoutParams(frameParams);
+                    button.setVisibility(View.GONE);
+                } else {
+                    frameParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, 0);
+                    frameParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                    frame.setLayoutParams(frameParams);
+                    button.setVisibility(View.VISIBLE);
+                }
+            }
+
             MainActivity.waitingForListener = false;
         }
     }
