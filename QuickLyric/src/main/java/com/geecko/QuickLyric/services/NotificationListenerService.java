@@ -170,8 +170,12 @@ public class NotificationListenerService extends android.service.notification.No
         if (metadata == null)
             return;
         String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
+        if (artist == null)
+            artist = metadata.getString(MediaMetadata.METADATA_KEY_ALBUM_ARTIST);
         String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
         Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+        if (artwork == null)
+            artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
 
         double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
         long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
