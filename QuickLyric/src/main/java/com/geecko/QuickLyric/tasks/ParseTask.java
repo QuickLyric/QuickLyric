@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.services.NotificationListenerService;
 
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
@@ -64,12 +65,16 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
                     && currentLyrics.getOriginalTrack().equalsIgnoreCase(metaData[1])
                     && (!"Storage".equals(currentLyrics.getSource()) || ("Storage".equals(currentLyrics.getSource()) && noDoubleBroadcast))
                     && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-                if (showMsg)
-                    Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
-                lyricsViewFragment.stopRefreshAnimation();
-                lyricsViewFragment.getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
-                if (currentLyrics.isLRC())
-                    lyricsViewFragment.updateLRC();
+                if (NotificationListenerService.restartNotificationListenerServiceIfNeeded(lyricsViewFragment.getActivity())) {
+                    new ParseTask(lyricsViewFragment, showMsg, noDoubleBroadcast).execute(currentLyrics);
+                } else {
+                    if (showMsg)
+                        Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
+                    lyricsViewFragment.stopRefreshAnimation();
+                    lyricsViewFragment.getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
+                    if (currentLyrics.isLRC())
+                        lyricsViewFragment.updateLRC();
+                }
             } else {
                 lyricsViewFragment.fetchLyrics(metaData[0], metaData[1]);
             }

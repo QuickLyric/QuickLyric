@@ -20,12 +20,14 @@
 package com.geecko.QuickLyric.services;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
@@ -38,9 +40,11 @@ import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.geecko.QuickLyric.App;
@@ -53,6 +57,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -249,6 +254,45 @@ public class NotificationListenerService extends android.service.notification.No
         String packageName = context.getPackageName();
 
         return !(enabledNotificationListeners == null || !enabledNotificationListeners.contains(packageName));
+    }
+
+    public static boolean isNotificationListenerServiceEnabled(Context context) {
+        Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
+        if (packageNames.contains(context.getPackageName())) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNotificationListenerServiceRunning(Context context) {
+        ComponentName collectorComponent = new ComponentName(context, NotificationListenerService.class);
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        boolean serviceRunning = false;
+        List<ActivityManager.RunningServiceInfo> runningServices = manager.getRunningServices(Integer.MAX_VALUE);
+        if (runningServices == null ) {
+            return false;
+        }
+        for (ActivityManager.RunningServiceInfo service : runningServices) {
+            if (service.service.equals(collectorComponent) && service.pid == Process.myPid())
+                    serviceRunning = true;
+        }
+        return serviceRunning;
+    }
+
+    public static void toggleNotificationListenerService(Context context) {
+        PackageManager pm = context.getPackageManager();
+
+        pm.setComponentEnabledSetting(new ComponentName(context, NotificationListenerService.class),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        pm.setComponentEnabledSetting(new ComponentName(context, NotificationListenerService.class),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    public static boolean restartNotificationListenerServiceIfNeeded(Context context) {
+        boolean running = isNotificationListenerServiceRunning(context);
+        if (!running)
+            toggleNotificationListenerService(context);
+        return !running;
     }
 
     /* KitKat stuff */
