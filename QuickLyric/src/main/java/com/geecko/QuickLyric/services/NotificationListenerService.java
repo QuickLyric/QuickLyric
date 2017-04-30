@@ -154,9 +154,9 @@ public class NotificationListenerService extends android.service.notification.No
     }
 
     @TargetApi(21)
-    private boolean isInvalidPackage(MediaController controller)
-    {
-        return ("com.google.android.youtube".equals(controller.getPackageName()));
+    private boolean isInvalidPackage(MediaController controller) {
+        String playerPackageName = controller.getPackageName();
+        return playerPackageName != null && ("com.google.android.youtube".equals(playerPackageName) || playerPackageName.contains(".chrome"));
     }
 
     @TargetApi(21)
