@@ -82,6 +82,8 @@ public class NotificationListenerService extends android.service.notification.No
     @TargetApi(21)
     public void onCreate() {
         super.onCreate();
+        if (!isListeningAuthorized(this))
+            return;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             mRemoteController = new RemoteController(this, this);
             mRemoteController.setArtworkConfiguration(3000, 3000);
