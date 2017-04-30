@@ -551,8 +551,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             }
             if (buttonClicked) {
                 ViewGroup frame = ((ViewGroup) getActivity().findViewById(R.id.NL_frame));
-                RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frame.getLayoutParams();
                 View button = getActivity().findViewById(R.id.why_notif_access_button);
+                if (frame == null || button == null)
+                    return;
+                RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frame.getLayoutParams();
 
                 if (nlEnabled) {
                     frameParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
