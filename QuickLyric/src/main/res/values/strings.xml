@@ -190,7 +190,7 @@ We thank you for your understanding!<br/><br/>
     <string name="vote_against">These lyrics are wrong</string>
     <string name="vote_neutral">These lyrics need some corrections</string>
     <string name="snackbar_ratings_QL">Enjoy using QuickLyric?</string>
-
+    <string name="miui_autostart">MIUI users must first unblock the app</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

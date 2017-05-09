@@ -7,6 +7,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +35,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.AboutActivity;
 import com.geecko.QuickLyric.App;
@@ -513,6 +516,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
         static boolean nlEnabled = true;
         static boolean buttonClicked = false;
+        static boolean miuiAutostart = false;
 
         @SuppressLint("NewApi")
         @Override
@@ -525,9 +529,14 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 @Override
                 public void onClick(View v) {
                     if (!nlEnabled) {
-                        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-                        MainActivity.waitingForListener = true;
-                        buttonClicked = true;
+                        if (!miuiAutostart && openXiaomiSpecialMenu()) {
+                            Toast.makeText(getActivity(), R.string.miui_autostart, Toast.LENGTH_LONG).show();
+                            miuiAutostart = true;
+                        } else {
+                            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                            MainActivity.waitingForListener = true;
+                            buttonClicked = true;
+                        }
                     }
                 }
             });
@@ -571,6 +580,15 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             }
 
             MainActivity.waitingForListener = false;
+        }
+
+        private boolean openXiaomiSpecialMenu() {
+            try {
+                startActivity(new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")));
+            } catch (ActivityNotFoundException e) {
+                return false;
+            }
+            return true;
         }
     }
 }
