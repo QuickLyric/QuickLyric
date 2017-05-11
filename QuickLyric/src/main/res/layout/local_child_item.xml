@@ -22,10 +22,11 @@
 <com.balysv.materialripple.MaterialRippleLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="locale"
     android:layout_gravity="center_horizontal"
+    android:layoutDirection="locale"
     android:paddingLeft="@dimen/child_card_padding"
     android:paddingRight="@dimen/child_card_padding"
     app:mrl_rippleAlpha="0.2"
@@ -52,7 +53,15 @@
             android:paddingRight="40dp"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceListItemSmall"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="?android:textColorPrimary"
+            tools:text="Sweet Child O'Mine"/>
+
+        <View
+            android:id="@+id/child_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="?android:divider"/>
 
     </android.support.v7.widget.CardView>
 

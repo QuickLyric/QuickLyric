@@ -86,6 +86,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
             convertView = inflater.inflate(R.layout.local_child_item, parent, false);
             holder = new ChildViewHolder();
             holder.title = (TextView) convertView.findViewById(R.id.child_title);
+            holder.divider = convertView.findViewById(R.id.child_divider);
             convertView.setTag(holder);
         } else
             holder = (ChildViewHolder) convertView.getTag();
@@ -93,6 +94,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         holder.title.setText(holder.lyrics.getTitle());
         convertView.setOnTouchListener(mTouchListener);
         holder.groupPosition = groupPosition;
+        holder.divider.setVisibility(isLastChild ? View.GONE : View.VISIBLE);
         convertView.setAlpha(1f);
         convertView.setTranslationX(0f);
         return convertView;
@@ -195,6 +197,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
 
     public class ChildViewHolder {
         TextView title;
+        View divider;
         public int groupPosition;
         public Lyrics lyrics;
     }
