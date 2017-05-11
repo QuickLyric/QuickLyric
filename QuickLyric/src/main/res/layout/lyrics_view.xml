@@ -62,7 +62,10 @@
                         android:measureAllChildren="false"
                         android:minHeight="530dp"
                         android:outAnimation="@android:anim/fade_out"
-                        android:padding="5dp"/>
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"/>
 
                     <com.geecko.QuickLyric.view.LrcView
                         android:id="@+id/lrc_view"
