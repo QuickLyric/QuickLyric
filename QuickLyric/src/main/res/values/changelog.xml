@@ -20,7 +20,7 @@
 
 <resources>
     <string-array name="changelog">
-        <item><![CDATA[134§• Xiaomi/MIUI users are now invited to whitelist the app in System -> Permissions -> Autostart<br/>• The saved lyrics screen now shows dividers to make it more obvious you can delete songs by swiping them]]></item>
+        <item><![CDATA[145§• Xiaomi/MIUI users are now invited to whitelist the app in System -> Permissions -> Autostart<br/>• The saved lyrics screen now shows dividers to make it more obvious you can delete songs by swiping them]]></item>
         <item><![CDATA[139§• Support for additional music players like Napster<br/>• Crash fixes, bug fixes<br/>• Other Improvements the recovery when the QuickLyric service gets killed (if you had issues where the app wouldn\'t detect your music before this update, please reboot your device)]]></item>
         <item><![CDATA[138§• Handle bug where the Google Play Music scan fails<br/>• Show beautiful material art when no artwork is available<br/>• Fix bug where the app would blink during launch for some users<br/>• Improve the recovery when the QuickLyric service gets killed (if you had issues where the app wouldn\'t detect your music before this update, please reboot your device)]]></item>
         <item><![CDATA[132§• Expanded lyrics catalog thanks to user submissions<br/>• New round icon for supported devices<br/>• The most active users will get a discreet invitation to review the app<br/>• Improved support for opening the app directly from a music player]]></item>
