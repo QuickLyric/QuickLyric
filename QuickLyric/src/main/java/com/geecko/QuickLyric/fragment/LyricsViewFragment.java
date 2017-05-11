@@ -98,6 +98,12 @@ import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.utils.RatingUtils;
+import com.geecko.QuickLyric.utils.RomanizeUtil;
+import com.geecko.QuickLyric.utils.play.AdMobListener;
+import com.geecko.QuickLyric.utils.play.DisplayReportingJob;
+import com.geecko.QuickLyric.utils.play.Premium;
+>>>>>>> 3e4dd79a... Add romanize button
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
@@ -813,6 +819,22 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     update(DatabaseHelper.getInstance(getActivity())
                             .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
                                     mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), getView(), true);
+                break;
+            case R.id.romanize_action:
+                if (RomanizeUtil.detectIdeographic(mLyrics.getText())) {
+                    try {
+                        Lyrics lyrics = mLyrics;
+                        lyrics.setText(RomanizeUtil.romanize(mLyrics.getText()));
+                        lyrics.setTitle(RomanizeUtil.romanize(mLyrics.getTitle()));
+                        lyrics.setArtist(RomanizeUtil.romanize(mLyrics.getArtist()));
+                        update(lyrics, getView(), true);
+                    } catch (Exception e) {
+                    }
+                } else
+                    update(DatabaseHelper.getInstance(getActivity())
+                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
+                                    mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), getView(), true);
+                break;
         }
         return false;
     }
@@ -976,12 +998,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
         MenuItem resyncMenuItem = menu.findItem(R.id.resync_action);
         MenuItem convertMenuItem = menu.findItem(R.id.convert_action);
+        MenuItem romanizeMenuItem = menu.findItem(R.id.romanize_action);
         if (resyncMenuItem != null)
             resyncMenuItem.setVisible(mLyrics != null && mLyrics.isLRC());
         if (convertMenuItem != null) {
             Lyrics stored = mLyrics == null || mLyrics.isLRC() ? null : storedLyrics;
             convertMenuItem.setVisible((mLyrics != null && (mLyrics.isLRC())) || (stored != null && stored.isLRC()));
             convertMenuItem.setTitle(stored == null ? R.string.full_text_action : R.string.pref_lrc);
+        }
+        if (romanizeMenuItem != null && mLyrics != null && mLyrics.getText() != null) {
+            boolean isIdeographic = RomanizeUtil.detectIdeographic(mLyrics.getText());
+            romanizeMenuItem.setVisible(isIdeographic ||
+                    (storedLyrics != null && RomanizeUtil.detectIdeographic(storedLyrics.getText())));
+            romanizeMenuItem.setTitle(isIdeographic ? R.string.romanize : R.string.reset);
         }
 
         MenuItem shareMenuItem = menu.findItem(R.id.share_action);

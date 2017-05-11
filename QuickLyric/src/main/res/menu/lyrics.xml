@@ -29,6 +29,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/romanize_action"
+        android:orderInCategory="21"
+        android:title="@string/romanize"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/share_action"
         android:icon="@drawable/ic_menu_share"
         android:orderInCategory="30"

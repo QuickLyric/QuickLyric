@@ -145,6 +145,7 @@ A few possible reasons why:<br/>
     <string name="changelog">What\'s new?</string>
     <string name="rate_us">Rate the app</string>
     <string name="romanize">Romanize</string>
+    <string name="reset">Reset</string>
     <string name="musicid_no_match">No match ☹</string>
     <string name="notification_access">Notification Access</string>
     <string name="pref_lyrics_overlay_name">Lyrics overlay</string>
