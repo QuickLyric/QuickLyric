@@ -7,7 +7,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -585,7 +584,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         private boolean openXiaomiSpecialMenu() {
             try {
                 startActivity(new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")));
-            } catch (ActivityNotFoundException e) {
+            } catch (Exception e) {
                 return false;
             }
             return true;
