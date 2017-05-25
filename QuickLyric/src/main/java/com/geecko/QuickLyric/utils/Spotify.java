@@ -316,9 +316,13 @@ public class Spotify {
 
                 @Override
                 public void onResponse(retrofit2.Call<Pager<Playlist>> call, retrofit2.Response<Pager<Playlist>> response) {
-                    SpotifyApi.getInstance().getApiService()
-                            .getPlaylistTracks(response.body().items.get(0).owner.id, response.body().items.get(0).id)
-                            .enqueue(new PlaylistTrackCallback(response.body(), this, user));
+                    try {
+                        SpotifyApi.getInstance().getApiService()
+                                .getPlaylistTracks(response.body().items.get(0).owner.id, response.body().items.get(0).id)
+                                .enqueue(new PlaylistTrackCallback(response.body(), this, user));
+                    } catch (Exception e) {
+                        onFailure(null, null);
+                    }
                 }
 
                 @Override
