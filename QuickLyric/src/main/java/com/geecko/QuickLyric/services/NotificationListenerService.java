@@ -39,12 +39,14 @@ import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.util.ArraySet;
 import android.util.Log;
 
 import com.geecko.QuickLyric.App;
@@ -71,6 +73,8 @@ public class NotificationListenerService extends android.service.notification.No
     private MediaSessionManager.OnActiveSessionsChangedListener listener;
     private MediaController.Callback controllerCallback;
     private Bitmap lastBitmap;
+    public static Set<String> usedPlayers = new ArraySet<>();
+    private Handler handler = new Handler();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -168,34 +172,52 @@ public class NotificationListenerService extends android.service.notification.No
 
     @TargetApi(21)
     private void broadcastControllerState(MediaController controller, Boolean isPlaying) {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ignored) {
-        }
-        MediaMetadata metadata = controller.getMetadata();
-        PlaybackState playbackState = controller.getPlaybackState();
-        if (metadata == null)
-            return;
-        String artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
-        if (artist == null)
-            artist = metadata.getString(MediaMetadata.METADATA_KEY_ALBUM_ARTIST);
-        String track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
-        Bitmap artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
-        if (artwork == null)
-            artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
+        final MediaController[] controllers = new MediaController[] {controller};
+        final Boolean[] playing = new Boolean[] {isPlaying};
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MediaMetadata metadata = controllers[0].getMetadata();
+                PlaybackState playbackState = controllers[0].getPlaybackState();
+                if (metadata == null)
+                    return;
+                String artist = null;
+                try {
+                    artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
+                    if (artist == null)
+                        artist = metadata.getString(MediaMetadata.METADATA_KEY_ALBUM_ARTIST);
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                }
+                String track = null;
+                try {
+                    track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                }
+                Bitmap artwork = null;
+                try {
+                    artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+                    if (artwork == null)
+                        artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                }
 
-        double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
-        long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
+                double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+                long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_filter_20min", true) && duration > 1200000)
-            return;
+                if (PreferenceManager.getDefaultSharedPreferences(NotificationListenerService.this).getBoolean("pref_filter_20min", true) && duration > 1200000)
+                    return;
 
-        if (isPlaying == null)
-            isPlaying = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
+                if (playing[0] == null)
+                    playing[0] = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
 
-        saveArtwork(artwork, artist, track, isPlaying);
+                saveArtwork(artwork, artist, track, playing[0]);
 
-        broadcast(artist, track, isPlaying, duration, position);
+                broadcast(artist, track, playing[0], duration, position);
+            }
+        }, 100);
     }
 
     @Override
@@ -260,10 +282,7 @@ public class NotificationListenerService extends android.service.notification.No
 
     public static boolean isNotificationListenerServiceEnabled(Context context) {
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
-        if (packageNames.contains(context.getPackageName())) {
-            return true;
-        }
-        return false;
+        return packageNames.contains(context.getPackageName());
     }
 
     public static boolean isNotificationListenerServiceRunning(Context context) {
@@ -423,6 +442,16 @@ public class NotificationListenerService extends android.service.notification.No
                 lastBitmap.recycle();
             }
             lastBitmap = artwork;
+        }
+    }
+
+
+    /* Lollipop Stuff */
+    private static void savePlayerName(String packageName, Context context) {
+        if (packageName != null
+                && GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == 0) {
+            FirebaseCrash.log("Player: " + packageName);
+            usedPlayers.add(packageName);
         }
     }
 }
