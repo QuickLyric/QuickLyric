@@ -58,14 +58,13 @@ public class Recents {
         saveToPrefs();
     }
 
-    public int size()
-    {
+    public int size() {
         return tracks.size();
     }
 
     private void saveToPrefs() {
         SharedPreferences.Editor edit =
-                context.getSharedPreferences("track_history", Context.MODE_PRIVATE).edit();
+                context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
 
         Gson gson = new GsonBuilder().create();
         edit.putString(PREFS_NAME, gson.toJson(this));
@@ -76,15 +75,12 @@ public class Recents {
         if (instance == null) {
             Recents.context = context.getApplicationContext();
             SharedPreferences prefs =
-                    context.getSharedPreferences("track_history", Context.MODE_PRIVATE);
+                    context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             Gson gson = new GsonBuilder().create();
             String str = prefs.getString(PREFS_NAME, "");
-            if (str.equals(""))
-            {
+            if (str.equals("")) {
                 instance = new Recents();
-            }
-            else
-            {
+            } else {
                 try {
                     instance = gson.fromJson(str, Recents.class);
                 } catch (JsonSyntaxException e) {
