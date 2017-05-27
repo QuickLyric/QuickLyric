@@ -42,8 +42,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         vectorDrawables.useSupportLibrary = true
-        versionCode 147
-        versionName "2.1.3g"
+        versionCode 150
+        versionName "3.0 beta1"
     }
 
     compileOptions {
@@ -77,6 +77,13 @@ android {
 
     aaptOptions {
         cruncherEnabled false
+    }
+
+    gradle.taskGraph.afterTask { Task task, TaskState state ->
+        if (task.name == "packageRelease") {
+            File proguard = new File("QuickLyric/build/outputs/mapping/release/mapping.txt")
+            proguard.renameTo("QuickLyric/build/outputs/mapping/release/mapping-$project.android.defaultConfig.versionCode" + ".map")
+        }
     }
 }
 
