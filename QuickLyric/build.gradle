@@ -10,6 +10,9 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    maven {
+	url "http://www.atilika.org/nexus/content/repositories/atilika"
+    }
 }
 
 buildscript {
@@ -109,6 +112,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
     compile 'me.xuender:unidecode:0.0.7'
+    compile 'org.atilika.kuromoji:kuromoji:0.7.7'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.github.geecko86:SpotifyApi:6'

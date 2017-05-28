@@ -89,6 +89,7 @@ import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.ParseTask;
 import com.geecko.QuickLyric.tasks.PresenceChecker;
+import com.geecko.QuickLyric.tasks.RomanizeAsyncTask;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.CoverCache;
@@ -822,14 +823,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 break;
             case R.id.romanize_action:
                 if (RomanizeUtil.detectIdeographic(mLyrics.getText())) {
-                    try {
-                        Lyrics lyrics = mLyrics;
-                        lyrics.setText(RomanizeUtil.romanize(mLyrics.getText()));
-                        lyrics.setTitle(RomanizeUtil.romanize(mLyrics.getTitle()));
-                        lyrics.setArtist(RomanizeUtil.romanize(mLyrics.getArtist()));
-                        update(lyrics, getView(), true);
-                    } catch (Exception e) {
-                    }
+                    Lyrics lyrics = mLyrics;
+                    new RomanizeAsyncTask(getActivity()).execute(lyrics);
                 } else
                     update(DatabaseHelper.getInstance(getActivity())
                             .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
