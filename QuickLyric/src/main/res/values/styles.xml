@@ -61,7 +61,6 @@
         <item name="android:galleryItemBackground">@color/navigation_drawer_selected</item>
         <item name="android:listSelector">@drawable/listview_row_selector</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color</item>
-        <item name="asb_switchPreferenceStyle">@style/asb_Preference.SwitchPreference</item>
         <item name="android:panelColorForeground">@color/expanded</item>
         <item name="rippleBackGroundColor">#585858</item>
         <item name="textAppearanceSearchResultTitle">@style/SearchResult</item>

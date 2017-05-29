@@ -38,7 +38,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import org.jraf.android.backport.switchwidget.SwitchPreference;
+import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener, DialogInterface.OnCancelListener {
@@ -158,6 +158,6 @@ public class SettingsFragment extends PreferenceFragment implements
         current.edit().putInt("startHour", 42)
                 .putInt("endHour", 45)
                 .apply();
-        ((SwitchPreference) findPreference("pref_night_mode")).setChecked(false);
+        ((SwitchPreferenceCompat) findPreference("pref_night_mode")).setChecked(false);
     }
 }

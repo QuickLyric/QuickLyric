@@ -24,17 +24,17 @@
             android:entryValues="@array/themes_values"
             android:key="pref_theme"
             android:title="@string/pref_theme"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
+        <com.geecko.QuickLyric.view.NightSwitchPreference
             android:defaultValue="false"
             android:key="pref_night_mode"
             android:summary="@string/pref_night_mode_sum"
             android:title="@string/pref_night_mode"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="pref_force_screen_on"
             android:summary="@string/pref_force_screen_sum"
             android:title="@string/pref_force_screen_on"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="pref_opendyslexic"
             android:summary="@string/pref_opendyslexic_sum"
@@ -42,14 +42,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/download_category">
-        <com.geecko.QuickLyric.view.AppCompatMultiSelectListPreference
-            android:entries="@array/providers"
-            android:entryValues="@array/providers_values"
-            android:key="pref_providers"
-            android:summary="@string/pref_providers_sum"
-            android:title="@string/pref_providers"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
-            android:defaultValue="false"
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
+            android:defaultValue="true"
             android:key="pref_lrc"
             android:summary="@string/pref_lrc_sum"
             android:title="@string/pref_lrc"/>
@@ -60,7 +54,7 @@
             android:key="pref_artworks"
             android:summary="@string/artworks_pref_sum"
             android:title="@string/artworks_pref_title"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="pref_auto_save"
             android:summary="@string/pref_auto_save_sum"
@@ -68,7 +62,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_scrobbling_category">
-        <org.jraf.android.backport.switchwidget.SwitchPreference
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="pref_filter_20min"
             android:summary="@string/pref_20min_ignore_sum"

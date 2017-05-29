@@ -103,8 +103,8 @@ dependencies {
     compile 'com.android.support:percent:25.2.0'
     compile 'com.github.medyo:android-about-page:1.+'
     compile 'com.balysv:material-ripple:1.0.2'
-    compile 'com.android.volley:volley:1.+'
-    compile 'org.jraf:android-switch-backport:2.0.1'
+    compile 'com.github.geecko86:volley:3c99c01'
+    compile 'com.infstory:switch-preference-compat:1.0.0'
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
     compile 'com.wdullaer:materialdatetimepicker:1.4.2'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
@@ -123,7 +123,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support:support-annotations:25.2.0'
+    androidTestCompile 'com.android.support:support-annotations:25.3.1'
 }
 
 preBuild.dependsOn(['compileChromaprint'])
