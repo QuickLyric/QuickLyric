@@ -206,7 +206,12 @@ public class NotificationListenerService extends android.service.notification.No
                     FirebaseCrash.report(e);
                 }
 
-                double duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+                double duration = 0;
+                try {
+                    duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                }
                 long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
                 if (PreferenceManager.getDefaultSharedPreferences(NotificationListenerService.this).getBoolean("pref_filter_20min", true) && duration > 1200000)
