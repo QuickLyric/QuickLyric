@@ -125,7 +125,7 @@ public class AboutActivity extends AppCompatActivity {
         );
 
         View aboutView = new AboutPage(this)
-                .setDescription("QuickLyric is made with love in Brussels, Belgium.") // FixMe
+                .setDescription("QuickLyric is made with love in Brussels, Belgium.")
                 .addEmail("contact@QuickLyric.be")
                 .addFacebook("QuickLyric")
                 .addGitHub("geecko86/QuickLyric")
