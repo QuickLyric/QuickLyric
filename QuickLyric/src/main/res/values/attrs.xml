@@ -40,7 +40,7 @@
     </declare-styleable>
 
     <attr name="rippleBackGroundColor" format="reference|color"/>
-
+    <attr name="actionModeColor" format="reference|color"/>
     <attr name="firstLaunchCoverDrawable" format="reference"/>
 
     <attr name="themeName" format="string"/>

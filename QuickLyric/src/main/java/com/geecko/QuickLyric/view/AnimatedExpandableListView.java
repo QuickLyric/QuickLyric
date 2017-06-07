@@ -120,6 +120,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
     private AnimatedExpandableListAdapter adapter;
     private boolean hasOnGroupClickListener = false;
     private boolean hasOnChildClickListener = false;
+    private boolean hasOnItemLongClickListener = false;
 
     public AnimatedExpandableListView(Context context) {
         super(context);
@@ -206,6 +207,16 @@ public class AnimatedExpandableListView extends ExpandableListView {
 
     public boolean hasOnChildClickListener() {
         return this.hasOnChildClickListener;
+    }
+
+    @Override
+    public void setOnItemLongClickListener(OnItemLongClickListener onLongClickListener) {
+        super.setOnItemLongClickListener(onLongClickListener);
+        this.hasOnItemLongClickListener = onLongClickListener != null;
+    }
+
+    public boolean hasOnItemLongClickListener() {
+        return this.hasOnItemLongClickListener;
     }
 
     /**

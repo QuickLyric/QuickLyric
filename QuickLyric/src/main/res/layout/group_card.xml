@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        app:cardCornerRadius="0px"
         app:cardBackgroundColor="?android:panelColorBackground"
         app:cardElevation="4dp">
 

@@ -41,6 +41,7 @@
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
         <item name="android:actionModeBackground">@drawable/cab_background</item>
         <item name="actionModeBackground">@drawable/cab_background</item>
+        <item name="actionModeColor">@color/action</item>
         <item name="android:divider">@color/divider</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -155,7 +156,8 @@
         <item name="android:textColorPrimary">#EEE</item>
         <item name="rippleBackGroundColor">#191919</item>
         <item name="searchBarTheme">@style/Theme.QuickLyric.Night</item>
-        <item name="android:panelColorForeground">@color/expanded_night</item>
+        <item name="android:panelColorForeground">#191919</item>
+        <item name="actionModeColor">?attr/colorPrimary</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
         <item name="android:divider">@color/divider_night</item>
         <item name="android:listSelector">@drawable/listview_row_selector_night</item>

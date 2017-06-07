@@ -133,28 +133,32 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         } else if (fragment instanceof LocalLyricsFragment) {
             LongSparseArray<Integer> topMap = mLocalLyricsFragment.collectTopPositions();
             mLocalLyricsFragment.addObserver(topMap);
-            int position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
-                    .getGroupPosition(lyricsArray[0].getArtist());
-            if (!result)
-                ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
-                        .removeArtistFromCache(lyricsArray[0].getArtist());
-            else
-                ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
-                        .addArtist(lyricsArray[0].getArtist());
+            for (final Lyrics lyrics : lyricsArray) {
+                int position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                        .getGroupPosition(lyrics.getArtist());
+                if (!result)
+                    ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                            .removeArtistFromCache(lyrics.getArtist());
+                else
+                    ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                            .addArtist(lyrics.getArtist());
+                if (result && fragment.getView() != null && position != -1) {
+                    position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                            .getGroupPosition(lyrics.getArtist());
+                    mLocalLyricsFragment.getMegaListView().expandGroup(position);
+                }
+            }
             View.OnClickListener actionClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View snackbar) {
-                    mLocalLyricsFragment.animateUndo(lyricsArray[0]);
+                    for (Lyrics lyrics : lyricsArray)
+                        mLocalLyricsFragment.animateUndo(lyrics);
                 }
             };
             if (!result && fragment.getView() != null) {
-                Snackbar.make(fragment.getView(), message, Snackbar.LENGTH_LONG)
+                Snackbar.make(fragment.getActivity().findViewById(R.id.root_view), message, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, actionClickListener)
                         .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
-            } else if (fragment.getView() != null && position == -1) {
-                position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
-                        .getGroupPosition(lyricsArray[0].getArtist());
-                mLocalLyricsFragment.getMegaListView().expandGroupWithAnimation(position);
             }
         }
     }

@@ -206,6 +206,10 @@ We thank you for your understanding!<br/><br/>
         <item quantity="one">Downloaded the lyrics for %1$d song</item>
         <item quantity="other">Downloaded the lyrics for %1$d songs</item>
     </plurals>
+    <plurals name="action_mode_quantity">
+        <item quantity="one">%1$d item selected</item>
+        <item quantity="other">%1$d items selected</item>
+    </plurals>
 
     <string-array name="vote_options" translatable="false">
         <item>@string/vote_for</item>

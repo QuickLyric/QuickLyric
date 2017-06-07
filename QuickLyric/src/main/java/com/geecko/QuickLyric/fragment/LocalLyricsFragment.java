@@ -34,8 +34,10 @@ import android.support.v4.util.LongSparseArray;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,13 +48,13 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -74,9 +76,12 @@ import com.geecko.QuickLyric.view.AnimatedExpandableListView.DummyView;
 import com.geecko.QuickLyric.view.BackgroundContainer;
 import com.squareup.leakcanary.RefWatcher;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class LocalLyricsFragment extends ListFragment {
+public class LocalLyricsFragment extends ListFragment implements ActionMode.Callback {
 
 
     public static final int REQUEST_CODE = 0;
@@ -85,6 +90,8 @@ public class LocalLyricsFragment extends ListFragment {
     private AnimatedExpandableListView megaListView;
     private ProgressBar progressBar;
     private BackgroundContainer mBackgroundContainer;
+    private ActionMode mActionMode;
+    private Bundle savedInstanceState;
     private boolean mSwiping;
 
     private final View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -113,8 +120,6 @@ public class LocalLyricsFragment extends ListFragment {
                     break;
                 }
 
-            // v.onTouchEvent(event);
-
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     if (mItemPressed) {
@@ -131,7 +136,7 @@ public class LocalLyricsFragment extends ListFragment {
                         mVelocityTracker.clear();
                     }
                     mVelocityTracker.addMovement(event);
-                    break;
+                    return false;
                 case MotionEvent.ACTION_CANCEL:
                     v.setAlpha(1);
                     v.setTranslationX(0);
@@ -146,7 +151,7 @@ public class LocalLyricsFragment extends ListFragment {
                     mItemPressed = false;
                     mVelocityTracker.recycle();
                     mVelocityTracker = null;
-                    break;
+                    return false;
                 case MotionEvent.ACTION_MOVE: {
                     mVelocityTracker.addMovement(event);
                     float x = event.getX() + v.getTranslationX();
@@ -179,7 +184,7 @@ public class LocalLyricsFragment extends ListFragment {
                         }
                     }
                 }
-                break;
+                return true;
                 case MotionEvent.ACTION_UP: {
                     // User let go - figure out whether to animate the view out, or back into place
                     if (mSwiping) {
@@ -229,17 +234,18 @@ public class LocalLyricsFragment extends ListFragment {
                                 groupView.animate().setDuration(Math.abs(duration))
                                         .alpha(endAlpha).translationX(endX);
                         }
+                        mSwiping = false;
+                        mItemPressed = false;
+                        return true;
                     } else {
-                        megaListView.performItemClick(v, megaListView.getPositionForView(v), 0L);
+                        mSwiping = false;
+                        mItemPressed = false;
+                        return false;
                     }
                 }
-                mSwiping = false;
-                mItemPressed = false;
-                break;
                 default:
                     return false;
             }
-            return true;
         }
 
         private void animateRemoval(View viewToRemove) {
@@ -280,28 +286,34 @@ public class LocalLyricsFragment extends ListFragment {
                 observer.removeOnPreDrawListener(this);
                 firstAnimation[0] = true;
                 int firstVisiblePosition = megaListView.getFirstVisiblePosition();
-                for (int i = 0; i < megaListView.getChildCount(); ++i) {
+                boolean staticOldViewFound = false;
+                boolean descendingViewFound = false;
+                int newViewsCounter = 0;
+                for (int i = megaListView.getChildCount() - 1; i >= 0; i--) {
                     final View child = megaListView.getChildAt(i);
                     int position = firstVisiblePosition + i;
                     long itemId = getListView().getAdapter().getItemId(position);
                     Integer formerTop = itemIdTopMap.get(itemId);
                     int newTop = child.getTop();
+                    int MOVE_DURATION = 500;
                     if (formerTop != null) {
                         if (formerTop != newTop) {
-                            int delta = formerTop - newTop;
-                            child.setTranslationY(delta);
-                            int MOVE_DURATION = 500;
-                            child.animate().setDuration(MOVE_DURATION).translationY(0);
+                            int translationY = formerTop - newTop;
+                            if (translationY < 0)
+                                descendingViewFound = true;
+                            child.setTranslationY(translationY);
+                            child.animate().setDuration(MOVE_DURATION).translationY(0)
+                                    .setListener(firstAnimation[0] ? new AnimatorActionListener(new Runnable() {
+                                        public void run() {
+                                            mSwiping = false;
+                                            getListView().setEnabled(true);
+                                        }
+                                    }, AnimatorActionListener.ActionType.END) : null);
                             if (firstAnimation[0]) {
-                                child.animate().setListener(new AnimatorActionListener(new Runnable() {
-                                    public void run() {
-                                        mSwiping = false;
-                                        getListView().setEnabled(true);
-                                    }
-                                }, AnimatorActionListener.ActionType.END));
                                 firstAnimation[0] = false;
                             }
-                        }
+                        } else if (!staticOldViewFound)
+                            staticOldViewFound = true;
                     } else {
                         // Animate new views along with the others. The catch is that they did not
                         // exist in the start state, so we must calculate their starting position
@@ -315,19 +327,19 @@ public class LocalLyricsFragment extends ListFragment {
                                 break;
                             }
                         }
-                        formerTop = newTop + (i > 0 ? childHeight : -childHeight);
-                        int delta = formerTop - newTop;
-                        int MOVE_DURATION = 500;
-                        if (isFurthest) {
-                            child.setTranslationY(delta);
-                            child.animate().setDuration(MOVE_DURATION).translationY(0);
+                        formerTop = getViewByPosition(megaListView.getLastVisiblePosition()).getBottom() + (newViewsCounter++ * childHeight);
+                        if (descendingViewFound || (staticOldViewFound || (!isFurthest && formerTop < megaListView.getBottom()))) { // if undone
+//                            int translationX = formerTop > childHeight ?
+//                                    child.getWidth() : 0;
+//                            if (translationX == 0 || formerTop < megaListView.getBottom()) {
+//                                translationX = 0;
+//                                child.setTranslationY(delta);
+//                            }
+                            child.setTranslationX(child.getWidth());
+                            child.animate().setDuration(MOVE_DURATION).translationX(0);
                         } else {
-                            int translationX = formerTop > childHeight ?
-                                    child.getWidth() : 0;
-                            child.setTranslationX(translationX);
-                            if (translationX == 0)
-                                child.setTranslationY(formerTop - newTop);
-                            child.animate().setDuration(MOVE_DURATION).translationX(0).translationY(0);
+                            child.setTranslationY(formerTop - newTop);
+                            child.animate().setDuration(MOVE_DURATION).translationY(0);
                         }
                         if (firstAnimation[0]) {
                             child.animate().setListener(new AnimatorActionListener(new Runnable() {
@@ -359,6 +371,7 @@ public class LocalLyricsFragment extends ListFragment {
         megaListView = (AnimatedExpandableListView) layout.findViewById(android.R.id.list);
         mBackgroundContainer = (BackgroundContainer) layout.findViewById(R.id.listViewBackground);
         progressBar = (ProgressBar) layout.findViewById(R.id.list_progress);
+        this.savedInstanceState = savedInstanceState;
         return layout;
     }
 
@@ -378,6 +391,18 @@ public class LocalLyricsFragment extends ListFragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        boolean inActionMode = mActionMode != null;
+        if (inActionMode) {
+            int i = 0;
+            TreeSet<int[]> set = ((LocalAdapter) megaListView.getExpandableListAdapter()).getMarkedItems();
+            for (int[] position : set) outState.putIntArray("position" + i, position);
+        }
+        outState.putBoolean("inActionMode", inActionMode);
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         final MainActivity mainActivity = ((MainActivity) this.getActivity());
         super.onViewCreated(view, savedInstanceState);
@@ -392,29 +417,12 @@ public class LocalLyricsFragment extends ListFragment {
 
         if (!megaListView.hasOnGroupClickListener())
             megaListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
                 @Override
                 public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                    final ImageView indicator = (ImageView) v.findViewById(R.id.group_indicator);
-                    RotateAnimation anim;
                     if (megaListView.isGroupExpanded(groupPosition)) {
                         megaListView.collapseGroupWithAnimation(groupPosition);
-                        if (indicator != null) {
-                            anim = new RotateAnimation(180f, 360f, indicator.getWidth() / 2, indicator.getHeight() / 2);
-                            anim.setInterpolator(new DecelerateInterpolator(3));
-                            anim.setDuration(500);
-                            anim.setFillAfter(true);
-                            indicator.startAnimation(anim);
-                        }
                     } else {
                         megaListView.expandGroupWithAnimation(groupPosition);
-                        if (indicator != null) {
-                            anim = new RotateAnimation(0f, 180f, indicator.getWidth() / 2, indicator.getHeight() / 2);
-                            anim.setInterpolator(new DecelerateInterpolator(2));
-                            anim.setDuration(500);
-                            anim.setFillAfter(true);
-                            indicator.startAnimation(anim);
-                        }
                     }
                     return true;
                 }
@@ -429,6 +437,10 @@ public class LocalLyricsFragment extends ListFragment {
                         mSwiping = false;
                         return false;
                     }
+                    if (mActionMode != null) {
+                        markChildItem(v, (LocalAdapter) megaListView.getExpandableListAdapter(), groupPosition, childPosition);
+                        return true;
+                    }
                     final MainActivity mainActivity = (MainActivity) getActivity();
                     megaListView.setOnChildClickListener(null); // prevents bug on double tap
                     mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
@@ -438,8 +450,105 @@ public class LocalLyricsFragment extends ListFragment {
                 }
             });
 
+        if (!megaListView.hasOnItemLongClickListener())
+            megaListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View childView, int flatPos, long id) {
+                    if (mSwiping)
+                        return true;
+
+                    final LocalAdapter adapter = (LocalAdapter) ((ExpandableListView) parent).getExpandableListAdapter();
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                        int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
+                        markChildItem(childView, adapter, groupPosition, childPosition);
+                    } else {
+                        long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                        adapter.markGroup(groupPosition);
+                        if (!megaListView.isGroupExpanded(groupPosition))
+                            megaListView.expandGroupWithAnimation(groupPosition);
+                        if (mActionMode == null && adapter.getMarkedCount() > 0)
+                            mActionMode = getActivity().startActionMode(LocalLyricsFragment.this);
+                        else if (mActionMode != null)
+                            mActionMode.invalidate();
+                    }
+
+                    return true;
+                }
+            });
+
+        megaListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                if (mActionMode != null)
+                    mActionMode.invalidate();
+                int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
+                ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
+                if (viewGroup != null) {
+                    LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
+                    if (holder != null) {
+                        holder.artist.setTextColor(holder.textColor);
+                        holder.indicator.setRotation(181f);
+                        holder.indicator.animate().rotation(360f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
+                    }
+                }
+            }
+        });
+
+        megaListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
+                ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
+                if (viewGroup != null) {
+                    LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
+                    if (holder != null) {
+                        holder.indicator.setRotation(1f);
+                        holder.indicator.animate().rotation(180f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
+                    }
+                }
+            }
+        });
+
+        megaListView.setPadding(megaListView.getPaddingLeft(),
+                megaListView.getPaddingTop(),
+                megaListView.getPaddingRight(),
+                (getActivity().findViewById(R.id.ad_container) == null) ? 0 : getActivity().findViewById(R.id.ad_container).getMeasuredHeight());
+
         this.isActiveFragment = true;
         new DBContentLister(this).execute();
+    }
+
+    private View getViewByPosition(int pos) {
+        final int firstListItemPosition = megaListView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + megaListView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
+            return null;
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return megaListView.getChildAt(childIndex);
+        }
+    }
+
+    private boolean markChildItem(View childView, LocalAdapter adapter, int groupPosition, int childPosition) {
+        boolean marked = adapter.markChild(groupPosition, childPosition, false);
+        LocalAdapter.ChildViewHolder holder =
+                childView instanceof CardView ?
+                        (LocalAdapter.ChildViewHolder) ((View) childView.getParent()).getTag() :
+                        childView.getTag() instanceof LocalAdapter.ChildViewHolder ?
+                                (LocalAdapter.ChildViewHolder) childView.getTag() : null;
+        if (holder != null) {
+            holder.card.setBackgroundColor(marked ? adapter.childSelectedStateColor : adapter.childDefaultStateColor);
+            holder.title.setTextColor(marked ? adapter.childDefaultStateColor : adapter.childSelectedStateColor);
+        }
+        if ((marked && mActionMode == null) || (mActionMode == null && adapter.getMarkedCount() > 0))
+            mActionMode = getActivity().startActionMode(LocalLyricsFragment.this);
+        else if (mActionMode != null)
+            mActionMode.invalidate();
+        return marked;
     }
 
     public void update(final String[] results) {
@@ -449,10 +558,21 @@ public class LocalLyricsFragment extends ListFragment {
         View v = megaListView.getChildAt(0);
         int top = (v == null) ? 0 : (v.getTop() - megaListView.getPaddingTop());
 
-        megaListView.setAdapter(new LocalAdapter(getActivity(), results, mTouchListener, megaListView));
+        LocalAdapter adapter = new LocalAdapter(getActivity(), results, mTouchListener, megaListView);
         megaListView.setEmptyView(((ViewGroup) getView().findViewById(R.id.local_empty_database_textview).getParent()));
         getListView().setSelectionFromTop(index, top);
         setListShown(true);
+
+        if (savedInstanceState != null && savedInstanceState.getBoolean("inActionMode")) {
+            Integer[] openedGroups = adapter.setMarkedItems(savedInstanceState);
+            megaListView.setAdapter(adapter);
+            for (Integer openedGroup : openedGroups) {
+                megaListView.expandGroup(openedGroup, false);
+            }
+            mActionMode = getActivity().startActionMode(LocalLyricsFragment.this);
+        } else
+            megaListView.setAdapter(adapter);
+        savedInstanceState = null;
     }
 
     @Override
@@ -638,5 +758,109 @@ public class LocalLyricsFragment extends ListFragment {
         super.onDestroy();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(this);
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        mode.getMenuInflater().inflate(R.menu.local_action, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        LocalAdapter localAdapter = (LocalAdapter) megaListView.getExpandableListAdapter();
+        int count = (localAdapter).getMarkedCount();
+        if (count < 1)
+            mode.finish();
+        else
+            mode.setTitle(String.format(getResources().getQuantityString(R.plurals.action_mode_quantity, count), count));
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        if (item.getItemId() == R.id.action_remove) {
+            final LocalAdapter adapter = (LocalAdapter) megaListView.getExpandableListAdapter();
+            final ArrayList<Lyrics> lyricsList = new ArrayList<>();
+            boolean delay = false;
+            Set<int[]> markedItems = ((LocalAdapter) megaListView.getExpandableListAdapter()).getMarkedItems();
+            int backgroundTop = Integer.MAX_VALUE;
+            int backgroundBottom = -1;
+            for (final int[] position : markedItems) {
+                long packedPosition = ExpandableListView.getPackedPositionForChild(position[0], position[1]);
+                int flatPosition = megaListView.getFlatListPosition(packedPosition);
+                final View delendam = getViewByPosition(flatPosition);
+                if (delendam != null) {
+                    delay = true;
+                    delendam.animate().translationX(delendam.getMeasuredWidth()).alpha(0.4f)
+                            .setDuration(600)
+                            .setInterpolator(new AccelerateInterpolator())
+                            .setListener(new AnimatorActionListener(new Runnable() {
+                                @Override
+                                public void run() {
+                                    lyricsList.add(adapter.getChild(position[0], position[1]));
+                                    mBackgroundContainer.hideBackground();
+                                }
+                            }, AnimatorActionListener.ActionType.END)).start();
+                    backgroundTop = Math.min(backgroundTop, delendam.getTop());
+                    backgroundBottom = Math.max(backgroundBottom, delendam.getBottom());
+                } else
+                    lyricsList.add(adapter.getChild(position[0], position[1]));
+            }
+
+            ArrayList<Integer> skipGroups = new ArrayList<>();
+            emptyGroupDetection:
+            for (final int[] position : markedItems) {
+                int groupPosition = position[0];
+                if (skipGroups.contains(groupPosition))
+                    continue;
+                skipGroups.add(groupPosition);
+
+                for (int childPosition = 0; childPosition < adapter.getRealChildrenCount(groupPosition); childPosition++) {
+                    final int[] seekedPosition = new int[]{groupPosition, childPosition};
+                    if (!markedItems.contains(seekedPosition))
+                        continue emptyGroupDetection;
+                }
+
+                long packedPosition = ExpandableListView.getPackedPositionForGroup(groupPosition);
+                int flatPosition = megaListView.getFlatListPosition(packedPosition);
+                final View delendam = getViewByPosition(flatPosition);
+                if (delendam != null) {
+                    delay = true;
+                    delendam.animate().translationX(delendam.getMeasuredWidth()).alpha(0.4f)
+                            .setDuration(600)
+                            .setInterpolator(new AccelerateInterpolator()).start();
+                    backgroundTop = Math.min(backgroundTop, delendam.getTop());
+                    backgroundBottom = Math.max(backgroundBottom, delendam.getBottom());
+                }
+            }
+
+            if (backgroundBottom != -1 && backgroundTop > -1)
+                mBackgroundContainer.showBackground(backgroundTop, backgroundBottom);
+
+            megaListView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!lyricsList.isEmpty()) {
+                        Lyrics[] removedLyrics = new Lyrics[lyricsList.size()];
+                        for (int i = 0; i < lyricsList.size(); i++)
+                            removedLyrics[i] = lyricsList.get(i);
+                        adapter.unmarkAllItems();
+                        new WriteToDatabaseTask(LocalLyricsFragment.this)
+                                .execute(LocalLyricsFragment.this, null, removedLyrics);
+                    }
+                }
+            }, delay ? 700 : 0);
+            mActionMode.finish();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+        if (((LocalAdapter) megaListView.getExpandableListAdapter()).unmarkAllItems())
+            ((LocalAdapter) megaListView.getExpandableListAdapter()).notifyDataSetChanged();
+        mActionMode = null;
     }
 }

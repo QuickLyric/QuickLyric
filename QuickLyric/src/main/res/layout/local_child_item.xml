@@ -61,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom"
+            android:alpha="0.5"
             android:background="?android:divider"/>
 
     </android.support.v7.widget.CardView>
