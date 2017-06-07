@@ -62,6 +62,6 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
     protected void onPostExecute(Lyrics result) {
         super.onPostExecute(result);
         mProgressDialog.dismiss();
-        ((MainActivity)mContext).updateLyricsFragment(0, 0, false, result);
+        ((MainActivity)mContext).updateLyricsFragment(0, 0, false, false, result);
     }
 }

@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         String extra = intent.getStringExtra(Intent.EXTRA_TEXT);
         Lyrics receivedLyrics = getBeamedLyrics(intent);
         if (receivedLyrics != null) {
-            updateLyricsFragment(0, 0, false, receivedLyrics);
+            updateLyricsFragment(0, 0, false, false, receivedLyrics);
         } else {
             String s = intent.getAction();
             if ("com.geecko.QuickLyric.getLyrics".equals(s) && intent.getStringArrayExtra("TAGS") != null) {
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 case NfcAdapter.ACTION_NDEF_DISCOVERED:
                     Lyrics receivedLyrics = getBeamedLyrics(intent);
                     if (receivedLyrics != null)
-                        updateLyricsFragment(0, 0, false, receivedLyrics);
+                        updateLyricsFragment(0, 0, false, false, receivedLyrics);
                     break;
                 case "android.intent.action.SEARCH":
                     search(intent.getStringExtra(SearchManager.QUERY));
@@ -636,6 +636,28 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.setCoverArt(url, null);
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RecentsRetrievedEvent event) {
+        updateLyricsFragment(R.animator.none, R.animator.none,
+                true, false, event.lyrics);
+        LyricsViewFragment lyricsViewFragment =
+                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+        if (lyricsViewFragment != null)
+            lyricsViewFragment.stopRefreshAnimation();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RecentsDownloadingEvent event) {
+        selectItem(0);
+        LyricsViewFragment lyricsViewFragment =
+                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+        if (lyricsViewFragment != null) {
+            lyricsViewFragment.startRefreshAnimation();
+        }
+
+    }
+
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder
         final String artist = params[0];
         final String song = params[1];
@@ -686,7 +708,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         }
     }
 
-    public void updateLyricsFragment(int outAnim, int inAnim, boolean transition, Lyrics lyrics) {
+    public void updateLyricsFragment(int outAnim, int inAnim, boolean transition, boolean lock, Lyrics lyrics) {
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
@@ -701,6 +723,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 parser.setSourceLrc(lyrics.getText());
                 lyrics = parser.getStaticLyrics();
             }
+            lyricsViewFragment.manualUpdateLock = lock;
             lyricsViewFragment.update(lyrics, lyricsViewFragment.getView(), true);
             if (transition) {
                 fragmentTransaction.hide(activeFragment).show(lyricsViewFragment);

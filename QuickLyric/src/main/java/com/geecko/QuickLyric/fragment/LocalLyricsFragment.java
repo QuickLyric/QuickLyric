@@ -444,7 +444,7 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                     final MainActivity mainActivity = (MainActivity) getActivity();
                     megaListView.setOnChildClickListener(null); // prevents bug on double tap
                     mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
-                            true, ((LocalAdapter) megaListView.getExpandableListAdapter())
+                            true, false, ((LocalAdapter) megaListView.getExpandableListAdapter())
                                     .getChild(groupPosition, childPosition));
                     return true;
                 }
