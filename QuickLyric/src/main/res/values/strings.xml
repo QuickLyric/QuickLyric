@@ -194,6 +194,7 @@ We thank you for your understanding!<br/><br/>
     <string name="miui_autostart">MIUI users must first unblock the app</string>
     <string name="musicid_instructions">Hold your phone up to the music</string>
     <string name="loading">Loading…</string>
+    <string name="too_many_restarts_warning">QuickLyric has trouble reading your music - consider rebooting your device</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

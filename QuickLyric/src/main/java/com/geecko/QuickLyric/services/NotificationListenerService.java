@@ -49,9 +49,11 @@ import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 
@@ -67,6 +69,8 @@ import java.util.Set;
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class NotificationListenerService extends android.service.notification.NotificationListenerService {
 
+    private static long sLastRelaunchTime = 0;
+    private static int restarts;
     private WeakReference<RemoteController> mRemoteController;
     private WeakReference<MediaSessionManager.OnActiveSessionsChangedListener> listener;
     private MediaController.Callback controllerCallback;
@@ -315,10 +319,26 @@ public class NotificationListenerService extends android.service.notification.No
     }
 
     public static boolean restartNotificationListenerServiceIfNeeded(Context context) {
-        boolean running = isNotificationListenerServiceRunning(context);
-        if (!running)
-            toggleNotificationListenerService(context);
-        return !running;
+        if (!hasTooManyRestarts(context) && System.currentTimeMillis() - sLastRelaunchTime > 60000) {
+            sLastRelaunchTime = System.currentTimeMillis();
+            boolean running = isNotificationListenerServiceRunning(context);
+            if (!running) {
+                toggleNotificationListenerService(context);
+                restarts++;
+                return isNotificationListenerServiceRunning(context);
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasTooManyRestarts(Context context) {
+        int count = restarts;
+        if (count > 5) {
+            restarts = 0;
+            Toast.makeText(context, R.string.too_many_restarts_warning, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
     }
 
     private void saveArtwork(Bitmap artwork, String artist, String track) {
