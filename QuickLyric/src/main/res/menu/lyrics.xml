@@ -32,6 +32,7 @@
         android:id="@+id/romanize_action"
         android:orderInCategory="21"
         android:title="@string/romanize"
+        android:icon="@drawable/ic_menu_romanize"
         app:showAsAction="never" />
 
     <item

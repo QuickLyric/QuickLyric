@@ -1001,11 +1001,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             convertMenuItem.setVisible((mLyrics != null && (mLyrics.isLRC())) || (stored != null && stored.isLRC()));
             convertMenuItem.setTitle(stored == null ? R.string.full_text_action : R.string.pref_lrc);
         }
-        if (romanizeMenuItem != null && mLyrics != null && mLyrics.getText() != null) {
+        if (romanizeMenuItem != null && mLyrics != null && mLyrics.getText() != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             boolean isIdeographic = RomanizeUtil.detectIdeographic(mLyrics.getText());
             romanizeMenuItem.setVisible(isIdeographic ||
                     (storedLyrics != null && RomanizeUtil.detectIdeographic(storedLyrics.getText())));
             romanizeMenuItem.setTitle(isIdeographic ? R.string.romanize : R.string.reset);
+        } else {
+            romanizeMenuItem.setVisible(false);
         }
 
         MenuItem shareMenuItem = menu.findItem(R.id.share_action);
