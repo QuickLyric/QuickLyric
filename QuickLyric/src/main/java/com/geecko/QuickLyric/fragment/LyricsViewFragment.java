@@ -309,11 +309,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     private void startEditTagsMode() {
         ImageButton editButton = (ImageButton) getActivity().findViewById(R.id.edit_tags_btn);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            editButton.setImageResource(R.drawable.ic_edit_anim);
-            ((Animatable) editButton.getDrawable()).start();
-        } else
-            editButton.setImageResource(R.drawable.ic_done);
+        editButton.setImageResource(R.drawable.ic_edit_anim);
+        ((Animatable) editButton.getDrawable()).start();
 
         ((DrawerLayout) ((MainActivity) getActivity()).drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mRefreshLayout.setEnabled(false);
@@ -346,12 +343,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     private void exitEditTagsMode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_done_anim);
-            Drawable editIcon = ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).getDrawable();
-            ((Animatable) editIcon).start();
-        } else
-            ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_edit);
+        ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_done_anim);
+        Drawable editIcon = ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).getDrawable();
+        ((Animatable) editIcon).start();
 
         if (getActivity().getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
