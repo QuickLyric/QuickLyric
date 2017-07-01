@@ -817,8 +817,21 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 break;
             case R.id.romanize_action:
                 if (RomanizeUtil.detectIdeographic(mLyrics.getText())) {
-                    Lyrics lyrics = mLyrics;
-                    new RomanizeAsyncTask(getActivity()).execute(lyrics);
+                    if (RomanizeUtil.isRomanizerInstalled(getActivity())) {
+                        Lyrics lyrics = mLyrics;
+                        new RomanizeAsyncTask(getActivity()).execute(lyrics);
+                    } else {
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.romanizer_prompt_title)
+                                .setMessage(R.string.romanizer_prompt_msg).setIcon(R.drawable.splash_icon)
+                                .setCancelable(true)
+                                .setPositiveButton("Google Play", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.quicklyric.romanizer")));
+                                    }
+                                }).show();
+                    }
                 } else
                     update(DatabaseHelper.getInstance(getActivity())
                             .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),

@@ -20,13 +20,18 @@
 package com.geecko.QuickLyric.tasks;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
-import com.geecko.QuickLyric.utils.RomanizeUtil;
+
+import java.util.concurrent.CountDownLatch;
 
 public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
 
@@ -49,12 +54,35 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
     }
 
     @Override
-    protected Lyrics doInBackground(Lyrics... params) {
-        Lyrics lyrics = params[0];
-        lyrics.setText(RomanizeUtil.romanize(params[0].getText()));
-        lyrics.setArtist(RomanizeUtil.romanize(params[0].getArtist()));
-        lyrics.setTitle(RomanizeUtil.romanize(params[0].getTitle()));
+    protected Lyrics doInBackground(final Lyrics... params) {
+        final Lyrics lyrics = params[0];
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        Intent romanizeIntent = new Intent();
+        romanizeIntent.setComponent(new ComponentName("com.quicklyric.romanizer", "com.quicklyric.romanizer.RomanisationBroadcastReceiver"));
+        romanizeIntent.setAction("com.geecko.QuickLyric.ROMANIZE");
+        romanizeIntent.putExtra("inputs", new String[] {lyrics.getText(), lyrics.getTitle()});
+
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String[] outputs = intent.getExtras().getStringArray("output");
+                if (outputs != null && outputs.length == 2) {
+                    lyrics.setText(outputs[0]);
+                    lyrics.setTitle(outputs[1]);
+                }
+                countDownLatch.countDown();
+            }
+        };
+
+        mContext.registerReceiver(receiver, new IntentFilter("com.geecko.QuickLyric.ROMANIZED_OUTPUT"));
+        mContext.sendBroadcast(romanizeIntent);
+
         lyrics.setReported(true);
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException ignored) {
+        }
         return lyrics;
     }
 

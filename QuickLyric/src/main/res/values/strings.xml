@@ -195,6 +195,8 @@ We thank you for your understanding!<br/><br/>
     <string name="musicid_instructions">Hold your phone up to the music</string>
     <string name="loading">Loading…</string>
     <string name="too_many_restarts_warning">QuickLyric has trouble reading your music - consider rebooting your device</string>
+    <string name="romanizer_prompt_msg">To convert lyrics from Japanese, Korean or Chinese to the Latin alphabet, you need to download a separate plugin for QuickLyric.</string>
+    <string name="romanizer_prompt_title">Romanizer add-on</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\

@@ -19,31 +19,11 @@
 
 package com.geecko.QuickLyric.utils;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
-import org.atilika.kuromoji.Token;
-import org.atilika.kuromoji.Tokenizer;
-
-import java.util.List;
-
-import me.xuender.unidecode.Unidecode;
-
 public class RomanizeUtil {
-
-    public static String romanize(String s) {
-        if (containsJapanese(s)) {
-            List<Token> list = Tokenizer.builder().build().tokenize(s);
-            StringBuilder builder = new StringBuilder();
-            for (Token token : list) {
-                builder.append(token.isKnown() ? token.getReading() : token.getSurfaceForm());
-                if (!(token.getSurfaceForm().equals("<") || token.getSurfaceForm().equals("br") || token.getSurfaceForm().equals(">")))
-                    builder.append(" ");
-            }
-            s = builder.toString().trim();
-            s = s.replaceAll("\\s+!", "!").replaceAll("\\s+\\?", "?").replaceAll("\\s+:", ":");
-        }
-        return addSpacesBeforeUppercase(Unidecode.decode(s));
-    }
 
     public static boolean detectIdeographic(String s) {
         for (int i = 0; i < s.length(); ) {
@@ -80,14 +60,6 @@ public class RomanizeUtil {
                 Character.UnicodeBlock.IDEOGRAPHIC_DESCRIPTION_CHARACTERS.equals(block));
     }
 
-    private static boolean containsJapanese(String str) {
-        for (int i = 0; i < str.toCharArray().length; i++) {
-            if (isJapanese(str.codePointAt(i)))
-                return true;
-        }
-        return false;
-    }
-
     private static boolean isJapanese(int codepoint) {
         Character.UnicodeBlock block = Character.UnicodeBlock.of(codepoint);
         return (Character.UnicodeBlock.HIRAGANA.equals(block) ||
@@ -102,15 +74,13 @@ public class RomanizeUtil {
                 Character.UnicodeBlock.HANGUL_SYLLABLES.equals(block));
     }
 
-    private static String addSpacesBeforeUppercase(String s) {
-        for (int i = 1; i < s.length(); i++) {
-            char c = s.charAt(i);
-            int codepoint = Character.codePointAt(s, i);
-            if (Character.isUpperCase(c) && !Character.isSpaceChar(s.charAt(i - Character.charCount(codepoint)))) {
-                s = s.substring(0, i) + ' ' + s.substring(i, s.length());
-                i++;
-            }
+    public static boolean isRomanizerInstalled(Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo("com.quicklyric.romanizer", PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
-        return s;
+        return false;
     }
 }
