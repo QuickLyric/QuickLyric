@@ -50,7 +50,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -750,13 +749,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     private void expandToolbar(boolean expanded) {
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
-        if (behavior != null) {
-            behavior.onNestedFling((CoordinatorLayout) (findViewById(id.coordinator_layout)),
-                    appBarLayout, appBarLayout, 0, expanded ? -4000 : 4000, !expanded);
-        }
+        AppBarLayout appBarLayout = findViewById(id.appbar);
+        appBarLayout.setExpanded(expanded, true);
     }
 
     private void showRefreshFab(boolean show) {
