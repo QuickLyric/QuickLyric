@@ -78,6 +78,7 @@ public class NotificationListenerService extends android.service.notification.No
     public static Set<String> usedPlayers = new ArraySet<>();
     private Handler handler = new Handler();
     private Binder mBinder;
+    private MediaController controller;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -120,7 +121,7 @@ public class NotificationListenerService extends android.service.notification.No
     @TargetApi(21)
     private void registerActiveSessionCallback(List<MediaController> controllers) {
         if (controllers.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final MediaController controller = controllers.get(0);
+            controller = controllers.get(0);
             if (controllerCallback != null) {
                 for (MediaController ctlr : controllers)
                     ctlr.unregisterCallback(controllerCallback);
