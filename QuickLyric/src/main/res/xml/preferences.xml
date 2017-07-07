@@ -31,6 +31,18 @@
             android:title="@string/pref_night_mode"/>
         <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="false"
+            android:key="pref_overlay"
+            android:summary="@string/pref_lyrics_overlay_sum"
+            android:title="@string/pref_lyrics_overlay_name"/>
+        <com.geecko.QuickLyric.view.AppCompatListPreference
+            android:defaultValue="0"
+            android:entries="@array/overlay_behavior_options"
+            android:entryValues="@array/overlay_behavior_values"
+            android:key="pref_overlay_behavior"
+            android:enabled="false"
+            android:title="@string/pref_overlay_behavior_title"/>
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
+            android:defaultValue="false"
             android:key="pref_force_screen_on"
             android:summary="@string/pref_force_screen_sum"
             android:title="@string/pref_force_screen_on"/>
@@ -67,11 +79,6 @@
             android:key="pref_filter_20min"
             android:summary="@string/pref_20min_ignore_sum"
             android:title="@string/pref_20min_ignore"/>
-        <org.jraf.android.backport.switchwidget.SwitchPreference
-            android:defaultValue="false"
-            android:key="pref_auto_refresh"
-            android:summary="@string/pref_auto_refresh_summary"
-            android:title="@string/pref_auto_refresh_title"/>
         <com.geecko.QuickLyric.view.AppCompatListPreference
             android:defaultValue="0"
             android:entries="@array/notifications"

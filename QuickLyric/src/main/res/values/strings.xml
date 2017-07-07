@@ -150,8 +150,6 @@ A few possible reasons why:<br/>
     <string name="notification_access">Notification Access</string>
     <string name="pref_lyrics_overlay_name">Lyrics overlay</string>
     <string name="pref_lyrics_overlay_sum">A floating window that makes lyrics available outside the app</string>
-    <string name="pref_notification_action">Notification action</string>
-    <string name="pref_notification_action_launch">Launch the app</string>
     <string name="notification_access_explanation"><![CDATA[
 This permission is only needed so that QuickLyric can access your music metadata.<br/>
 QuickLyric is not interested in reading your notifications and our privacy policy prevents us to.<br/>
@@ -197,6 +195,11 @@ We thank you for your understanding!<br/><br/>
     <string name="too_many_restarts_warning">QuickLyric has trouble reading your music - consider rebooting your device</string>
     <string name="romanizer_prompt_msg">To convert lyrics from Japanese, Korean or Chinese to the Latin alphabet, you need to download a separate plugin for QuickLyric.</string>
     <string name="romanizer_prompt_title">Romanizer add-on</string>
+    <string name="pref_always_artwork">Always enabled</string>
+    <string name="pref_overlay_behavior_always">Always visible</string>
+    <string name="pref_overlay_behavior_notif">Open via notification</string>
+    <string name="pref_overlay_behavior_title">Floating lyrics behavior</string>
+    <string name="pref_notification_sum_disabled">Notifications can\'t be disabled when floating lyrics are enabled</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
@@ -243,7 +246,7 @@ We thank you for your understanding!<br/><br/>
     <string-array name="notifications">
         <item>Disabled (default)</item>
         <item>Enabled</item>
-        <item>Enabled (sticky)</item>
+        <item>Enabled (hidden)</item>
     </string-array>
     <string-array name="URI_labels">
         <item>@string/uri_storage</item>
@@ -254,8 +257,12 @@ We thank you for your understanding!<br/><br/>
         <item>@string/spotify_library</item>
         <item>@string/spotify_playlists</item>
     </string-array>
+    <string-array name="overlay_behavior_options">
+        <item>@string/pref_overlay_behavior_always</item>
+        <item>@string/pref_overlay_behavior_notif</item>
+    </string-array>
     <string-array name="artwork_download">
-        <item>Always enabled</item>
+        <item>@string/pref_always_artwork</item>
         <item>Only on WiFi</item>
     </string-array>
 </resources>

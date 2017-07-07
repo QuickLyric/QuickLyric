@@ -27,6 +27,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.lang.reflect.Method;
 
@@ -40,6 +42,13 @@ public class AppCompatListPreference extends ListPreference {
 
     public AppCompatListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    public View getView(View convertView, ViewGroup parent) {
+        View view = super.getView(convertView, parent);
+        view.setAlpha(isEnabled() ? 1f : 0.6f);
+        return view;
     }
 
     @Override

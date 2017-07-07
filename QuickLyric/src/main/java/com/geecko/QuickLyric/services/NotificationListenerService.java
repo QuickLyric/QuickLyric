@@ -275,6 +275,7 @@ public class NotificationListenerService extends android.service.notification.No
     public void onListenerConnected() {
         super.onListenerConnected();
         if (MainActivity.waitingForListener) {
+            MainActivity.waitingForListener = false;
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -431,7 +432,7 @@ public class NotificationListenerService extends android.service.notification.No
             editor.putBoolean("playing", isRemoteControllerPlaying);
             editor.apply();
 
-            if (App.isActivityVisible() && isRemoteControllerPlaying) {
+            if (App.isMainActivityVisible() && isRemoteControllerPlaying) {
                 Intent internalIntent = new Intent("Broadcast");
                 internalIntent
                         .putExtra("artist", current.getString("artist", ""))

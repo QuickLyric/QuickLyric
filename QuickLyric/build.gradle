@@ -17,6 +17,7 @@ repositories {
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
         jcenter()
         maven { url "https://maven.google.com" }
@@ -122,7 +123,8 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.3'
-    compile 'com.github.geecko86:FloatingView:100fps-SNAPSHOT'
+    compile 'com.github.geecko86:FloatingView:a31a905ef9'
+    compile('com.github.ozodrukh:CircularReveal:2.0.1@aar') { transitive = true; }
     compile 'com.github.zagum:SpeechRecognitionView:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'

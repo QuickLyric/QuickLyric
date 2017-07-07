@@ -287,7 +287,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onResume() {
         super.onResume();
-        App.activityResumed();
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null) {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, ((Object) this).getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -436,7 +435,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onPause() {
         super.onPause();
-        App.activityPaused();
         if (receiver != null && receiverRegistered) {
             unregisterReceiver(receiver);
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);

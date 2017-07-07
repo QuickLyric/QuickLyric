@@ -24,21 +24,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
+import com.geecko.QuickLyric.services.LyricsOverlayService;
+import com.geecko.QuickLyric.utils.play.Premium;
 import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
-import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener, DialogInterface.OnCancelListener {
@@ -66,6 +71,9 @@ public class SettingsFragment extends PreferenceFragment implements
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
         findPreference("pref_providers").setOnPreferenceChangeListener(this);
+        findPreference("pref_overlay").setOnPreferenceChangeListener(this);
+        findPreference("pref_overlay_behavior").setOnPreferenceChangeListener(this);
+        findPreference("pref_overlay_behavior").setEnabled(isOverlayEnabled);
     }
 
     @Override
@@ -78,15 +86,8 @@ public class SettingsFragment extends PreferenceFragment implements
                 if (newValue.equals("0")) {
                     ((NotificationManager) getActivity()
                             .getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
-                } else {
-                    SharedPreferences current = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-                    Intent intent = new Intent();
-                    intent.setAction("com.geecko.QuickLyric.SHOW_NOTIFICATION");
-                    intent.putExtra("artist", current.getString("artist", "Michael Jackson"));
-                    intent.putExtra("track", current.getString("track", "Bad"));
-                    intent.putExtra("playing", current.getBoolean("playing", false));
-                    getActivity().sendBroadcast(intent);
-                }
+                } else
+                    broadcast();
                 break;
             case "pref_night_mode":
                 if ((Boolean) newValue) {
@@ -99,6 +100,26 @@ public class SettingsFragment extends PreferenceFragment implements
                 } else {
                     this.onCancel(null);
                 }
+                break;
+            case "pref_overlay":
+                findPreference("pref_overlay_behavior").setEnabled((Boolean) newValue);
+                findPreference("pref_notifications").setEnabled(!((Boolean) newValue));
+                findPreference("pref_notifications").setSummary((Boolean) newValue ?
+                        R.string.pref_notification_sum_disabled : R.string.pref_notifications_sum);
+                if ((Boolean) newValue) {
+                    PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean(pref.getKey(), (Boolean) newValue).apply();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(getActivity())) {
+                        broadcast();
+                    } else {
+                        final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
+                        getActivity().startActivity(intent);
+                    }
+                } else {
+                    LyricsOverlayService.removeCustomFloatingView(getActivity());
+                }
+                break;
+            case "pref_overlay_behavior":
+                LyricsOverlayService.removeCustomFloatingView(getActivity());
                 break;
         }
         return true;
@@ -159,5 +180,21 @@ public class SettingsFragment extends PreferenceFragment implements
                 .putInt("endHour", 45)
                 .apply();
         ((SwitchPreferenceCompat) findPreference("pref_night_mode")).setChecked(false);
+    }
+
+    private void broadcast() {
+        Intent localIntent = new Intent("com.android.music.metachanged");
+        SharedPreferences current = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        String artist = current.getString("artist", "Michael Jackson");
+        String track = current.getString("track", "Bad");
+        boolean playing = current.getBoolean("playing", false);
+        long position = current.getLong("position", -1L);
+        localIntent.putExtra("artist", artist);
+        localIntent.putExtra("track", track);
+        localIntent.putExtra("playing", playing);
+        localIntent.putExtra("duration", 600);
+        if (position != -1)
+            localIntent.putExtra("position", position);
+        new MusicBroadcastReceiver().onReceive(getActivity(), localIntent);
     }
 }
