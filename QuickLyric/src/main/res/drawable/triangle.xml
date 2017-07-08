@@ -28,7 +28,7 @@
         android:name="triableGroup">
         <path
             android:name="triangle"
-            android:fillColor="@color/material_white"
+            android:fillColor="?attr/colorPrimary"
             android:pathData="m 50,0 l 50,100 -100,0 z"/>
     </group>
 </vector>

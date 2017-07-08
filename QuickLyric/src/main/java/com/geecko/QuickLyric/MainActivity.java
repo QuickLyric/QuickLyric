@@ -903,8 +903,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     @SuppressLint("InlinedApi")
-    public void resync(MenuItem item) {
-        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    public static void resync(Context context) {
+        AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         am.requestAudioFocus(null,
                 // Use the music stream.
                 AudioManager.STREAM_SYSTEM,

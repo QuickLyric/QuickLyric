@@ -22,35 +22,33 @@ package com.geecko.QuickLyric.tasks;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Process;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.NotificationListenerService;
+=======
+>>>>>>> ec836836... Further changes to the floating lyrics
 
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
     private final boolean showMsg;
     private final boolean noDoubleBroadcast;
-    private Lyrics currentLyrics;
-    private LyricsViewFragment lyricsViewFragment;
+    private ParseCallback callback;
     private Context mContext;
 
-    public ParseTask(LyricsViewFragment fragment, boolean showMsg, boolean noDoubleBroadcast) {
-        this.lyricsViewFragment = fragment;
+    public ParseTask(ParseCallback callback, Context context, boolean showMsg, boolean noDoubleBroadcast) {
+        this.callback = callback;
+        this.mContext = context;
         this.showMsg = showMsg;
         this.noDoubleBroadcast = noDoubleBroadcast;
     }
 
     @Override
     protected String[] doInBackground(Object... arg0) {
-        mContext = lyricsViewFragment.getActivity();
-        if (mContext == null)
-            cancel(true);
-        currentLyrics = (Lyrics) arg0[0];
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         SharedPreferences preferences = mContext.getSharedPreferences("current_music", Context.MODE_PRIVATE);
         String[] music = new String[2];
@@ -61,26 +59,10 @@ public class ParseTask extends AsyncTask<Object, Object, String[]> {
 
     @Override
     protected void onPostExecute(String[] metaData) {
-        if (lyricsViewFragment.getActivity() != null) {
-            if (currentLyrics != null && currentLyrics.getOriginalArtist().equalsIgnoreCase(metaData[0])
-                    && currentLyrics.getOriginalTrack().equalsIgnoreCase(metaData[1])
-                    && (!"Storage".equals(currentLyrics.getSource()) || ("Storage".equals(currentLyrics.getSource()) && noDoubleBroadcast))
-                    && currentLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                        NotificationListenerService.restartNotificationListenerServiceIfNeeded(lyricsViewFragment.getActivity()))
-                    new ParseTask(lyricsViewFragment, showMsg, noDoubleBroadcast).execute(currentLyrics);
-                else if (showMsg)
-                    Toast.makeText(mContext, mContext.getString(R.string.no_refresh), Toast.LENGTH_LONG).show();
-                lyricsViewFragment.stopRefreshAnimation();
-                lyricsViewFragment.getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
-                if (currentLyrics.isLRC())
-                    lyricsViewFragment.updateLRC();
-            } else {
-                lyricsViewFragment.fetchLyrics(metaData[0], metaData[1]);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                        NotificationListenerService.restartNotificationListenerServiceIfNeeded(lyricsViewFragment.getActivity()))
-                    new ParseTask(lyricsViewFragment, showMsg, noDoubleBroadcast).execute(currentLyrics);
-            }
-        }
+        callback.onMetadataParsed(metaData, showMsg, noDoubleBroadcast);
+    }
+
+    public interface ParseCallback {
+        void onMetadataParsed(String[] metadata, boolean showMsg, boolean noDoubleBroadcast);
     }
 }

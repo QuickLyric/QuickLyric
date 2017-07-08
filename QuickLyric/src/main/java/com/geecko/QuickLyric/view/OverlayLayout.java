@@ -23,12 +23,16 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+
+import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.tasks.ParseTask;
 
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.widget.RevealFrameLayout;
@@ -44,7 +48,6 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
     public OverlayLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        // TODO if keep screen on setting: FLAG_KEEP_SCREEN_ON
         WindowManager.LayoutParams layoutParams =
                 new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER_HORIZONTAL, Gravity.BOTTOM,
@@ -54,6 +57,8 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
                         PixelFormat.TRANSLUCENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
             layoutParams.flags |= WindowManager.LayoutParams.FLAG_LAYOUT_ATTACHED_IN_DECOR;
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_force_screen_on", false))
+            layoutParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
         setLayoutParams(layoutParams);
         addOnLayoutChangeListener(this);
     }
@@ -63,6 +68,12 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
             this.revealCenter = null;
         else
             this.revealCenter = params;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        new ParseTask((OverlayContentLayout) findViewById(R.id.overlay_content), getContext(), false, true).execute();
     }
 
     @Override
@@ -102,6 +113,7 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
             animator.setDuration(300L);
             animator.start();
+            revealCenter = null;
         }
     }
 

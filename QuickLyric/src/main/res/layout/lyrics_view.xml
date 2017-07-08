@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+<<<<<<< HEAD
                 <LinearLayout
                     android:id="@+id/lyrics_content"
                     android:layout_width="match_parent"
@@ -127,6 +128,9 @@
                         android:textColor="?android:textColorSecondary"
                         android:visibility="gone"/>
                 </LinearLayout>
+=======
+                <include layout="@layout/lyrics_content"/>
+>>>>>>> ec836836... Further changes to the floating lyrics
 
                 <include
                     layout="@layout/error_msg"

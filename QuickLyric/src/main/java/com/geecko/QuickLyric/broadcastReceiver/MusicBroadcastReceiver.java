@@ -219,7 +219,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
             if (isPlaying && (inDatabase || OnlineAccessVerifier.check(context))) {
                 if (prefOverlay)
-                    LyricsOverlayService.showCustomFloatingView(context, notif);
+                    LyricsOverlayService.showCustomFloatingView(context, notif, new String[] {artist, track});
                 else
                     NotificationManagerCompat.from(context).notify(0, notif);
             }

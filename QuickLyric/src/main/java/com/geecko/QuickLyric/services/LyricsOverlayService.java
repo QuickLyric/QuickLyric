@@ -47,6 +47,9 @@ import android.view.animation.DecelerateInterpolator;
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
+import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.geecko.QuickLyric.utils.play.Premium;
+import com.geecko.QuickLyric.view.OverlayContentLayout;
 import com.geecko.QuickLyric.view.OverlayLayout;
 
 import io.codetail.animation.ViewAnimationUtils;
@@ -141,6 +144,10 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                 } else if (UPDATE_NOTIFICATION_ACTION.equals(intent.getAction())) {
                     Notification notif = (Notification) intent.getExtras().get("notification");
                     NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notif);
+                    if (isInOverlay()) {
+                        OverlayContentLayout overlayContent = (OverlayContentLayout) mOverlayWindow.getTag();
+                        overlayContent.onMetadataParsed(intent.getExtras().getStringArray("metadata"), false, false);
+                    }
                 }
             }
             return START_STICKY;
@@ -172,12 +179,23 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         if (mOverlayWindow != null)
             return;
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+        int themeNum = Premium.isPremium(this) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
+        boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
+        if (nightMode && Premium.isPremium(this) && NightTimeVerifier.check(this))
+            setTheme(R.style.Theme_QuickLyric_Night);
+        else
+            setTheme(themes[themeNum]);
+
         DisplayMetrics metrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(metrics);
-        LayoutInflater inflater = LayoutInflater.from(this);
 
-        mOverlayWindow = (OverlayLayout) inflater.inflate(R.layout.overlay_window, null, false);
-        mOverlayWindow.setTag(mOverlayWindow.findViewById(R.id.overlay_card));
+        mOverlayWindow = (OverlayLayout) LayoutInflater.from(getBaseContext()).inflate(R.layout.overlay_window, null, false);
+        mOverlayWindow.setTag(mOverlayWindow.findViewById(R.id.overlay_content));
         mOverlayWindow.setListener(this);
 
         receiver = new BroadcastReceiver() {
@@ -306,8 +324,8 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         cx = cx + (mBubbleView.getWidth() / 2);
         cy = metrics.heightPixels - cy - (mBubbleView.getHeight() / 2);
 
-        int dx = Math.max(cx, ((View) mOverlayWindow.getTag()).getWidth() - cx);
-        int dy = Math.max(cy, ((View) mOverlayWindow.getTag()).getHeight() - cy);
+        int dx = Math.max(cx, mOverlayWindow.getWidth() - cx);
+        int dy = Math.max(cy, mOverlayWindow.getHeight() - cy);
         float finalRadius = (float) Math.hypot(dx, dy);
 
         mOverlayWindow.setRevealCenter((Integer) null);
@@ -406,11 +424,12 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         return mRunning;
     }
 
-    public static void showCustomFloatingView(Context context, Notification notif) {
+    public static void showCustomFloatingView(Context context, Notification notif, String[] metadata) {
         if (Build.VERSION.SDK_INT < M || Settings.canDrawOverlays(context)) {
             Intent intent = new Intent(context, LyricsOverlayService.class);
             intent.setAction(UPDATE_NOTIFICATION_ACTION);
             intent.putExtra("notification", notif);
+            intent.putExtra("metadata", metadata);
             context.getApplicationContext().startService(intent);
         }
     }

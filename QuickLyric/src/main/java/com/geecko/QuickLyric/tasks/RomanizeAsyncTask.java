@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
 
@@ -36,10 +35,12 @@ import java.util.concurrent.CountDownLatch;
 public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
 
     private final Context mContext;
+    private final RomanisationCallback callback;
     private ProgressDialog mProgressDialog;
 
-    public RomanizeAsyncTask(Context context) {
+    public RomanizeAsyncTask(Context context, RomanisationCallback callback) {
         mContext = context;
+        this.callback = callback;
     }
 
     @Override
@@ -90,6 +91,10 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
     protected void onPostExecute(Lyrics result) {
         super.onPostExecute(result);
         mProgressDialog.dismiss();
-        ((MainActivity)mContext).updateLyricsFragment(0, 0, false, false, result);
+        callback.onLyricsRomanized(result);
+    }
+
+    public interface RomanisationCallback {
+        public void onLyricsRomanized(Lyrics result);
     }
 }

@@ -26,13 +26,14 @@ import android.os.Build;
 public class RomanizeUtil {
 
     public static boolean detectIdeographic(String s) {
-        for (int i = 0; i < s.length(); ) {
-            int codepoint = s.codePointAt(i);
-            i += Character.charCount(codepoint);
-            if (isIdeographic(codepoint)) {
-                return true;
+        if (s != null)
+            for (int i = 0; i < s.length(); ) {
+                int codepoint = s.codePointAt(i);
+                i += Character.charCount(codepoint);
+                if (isIdeographic(codepoint)) {
+                    return true;
+                }
             }
-        }
         return false;
     }
 

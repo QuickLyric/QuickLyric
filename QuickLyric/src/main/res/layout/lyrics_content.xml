@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<LinearLayout
+    android:id="@+id/lyrics_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+        Fixme minHeight trick
+    !-->
+    <TextSwitcher
+        android:id="@+id/switcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:focusable="false"
+        android:inAnimation="@android:anim/fade_in"
+        android:measureAllChildren="false"
+        android:minHeight="530dp"
+        android:outAnimation="@android:anim/fade_out"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"/>
+
+    <com.geecko.QuickLyric.view.LrcView
+        android:id="@+id/lrc_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="@dimen/txt_size"
+        android:focusable="false"
+        android:visibility="gone"
+        app:currentTextColor="?highlightColor"
+        app:dividerHeight="10dip"
+        app:normalTextColor="?android:textColorPrimary"
+        app:rows="@integer/lrcLines"
+        app:textSize="@dimen/txt_size"/>
+
+    <EditText
+        android:id="@+id/edit_lyrics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:freezesText="true"
+        android:gravity="center_horizontal"
+        android:inputType="textMultiLine"
+        android:lineSpacingExtra="3dp"
+        android:measureAllChildren="false"
+        android:minHeight="530dp"
+        android:padding="5dp"
+        android:textColor="?android:textColorPrimary"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/source_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingTop="90dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="?android:textColorSecondary"
+        android:textColorLink="?android:textColorSecondary"/>
+
+    <TextView
+        android:id="@+id/writer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="?android:textColorSecondary"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/copyright_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="?android:textColorSecondary"/>
+</LinearLayout>

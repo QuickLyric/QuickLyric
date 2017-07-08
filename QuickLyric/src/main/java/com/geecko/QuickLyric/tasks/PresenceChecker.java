@@ -19,30 +19,33 @@
 
 package com.geecko.QuickLyric.tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
-    private LyricsViewFragment lyricsViewFragment;
+    private final PresenceCheckerCallback callback;
+
+    public PresenceChecker(PresenceCheckerCallback callback) {
+        this.callback = callback;
+    }
 
     @Override
     protected Boolean doInBackground(Object... params) {
-        lyricsViewFragment = (LyricsViewFragment) params[0];
+        Context context = (Context) params[0];
         String[] metaData = (String[]) params[1];
-        return lyricsViewFragment != null &&
-                lyricsViewFragment.getActivity() != null &&
-                !DatabaseHelper.getInstance(lyricsViewFragment.getActivity()).isClosed() &&
-                DatabaseHelper.getInstance(lyricsViewFragment.getActivity()).presenceCheck(metaData);
+        return context != null &&
+                !DatabaseHelper.getInstance(context).isClosed() &&
+                DatabaseHelper.getInstance(context).presenceCheck(metaData);
     }
 
     @Override
     protected void onPostExecute(Boolean present) {
-        if (lyricsViewFragment != null && lyricsViewFragment.lyricsPresentInDB != present) {
-            lyricsViewFragment.lyricsPresentInDB = present;
-            if (lyricsViewFragment.getActivity() != null)
-                lyricsViewFragment.getActivity().invalidateOptionsMenu();
-        }
+        callback.onPresenceChecked(present);
+    }
+
+    public interface PresenceCheckerCallback {
+        void onPresenceChecked(boolean present);
     }
 }
