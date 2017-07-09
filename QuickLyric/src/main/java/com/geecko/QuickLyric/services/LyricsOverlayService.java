@@ -83,6 +83,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     private BroadcastReceiver receiver;
     private boolean mDoPullBack;
     private boolean mSizeHasChanged;
+    private int selectedTheme;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -179,17 +180,8 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         if (mOverlayWindow != null)
             return;
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
-                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
-                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
-                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
-        int themeNum = Premium.isPremium(this) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
-        boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
-        if (nightMode && Premium.isPremium(this) && NightTimeVerifier.check(this))
-            setTheme(R.style.Theme_QuickLyric_Night);
-        else
-            setTheme(themes[themeNum]);
+        selectedTheme = getSelectedTheme();
+        setTheme(selectedTheme);
 
         DisplayMetrics metrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(metrics);
@@ -262,9 +254,14 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         this.mInOverlay = true;
         this.mDoPullBack = false;
 
-        FloatingView floatingView = mFloatingViewManager.getTargetFloatingView();
-        WindowManager.LayoutParams lp = (WindowManager.LayoutParams) floatingView.getLayoutParams();
-        floatingView.moveTo(lp.x, lp.y, floatingView.getPositionLimits().right - deployedMarginX, floatingView.getPositionLimits().bottom - deployedMarginY, true);
+        final FloatingView floatingView = mFloatingViewManager.getTargetFloatingView();
+        final WindowManager.LayoutParams lp = (WindowManager.LayoutParams) floatingView.getLayoutParams();
+        floatingView.post(new Runnable() {
+            @Override
+            public void run() {
+                floatingView.moveTo(lp.x, lp.y, floatingView.getPositionLimits().right - deployedMarginX, floatingView.getPositionLimits().bottom - deployedMarginY, true);
+            }
+        });
         return new int[] {lp.x, lp.y};
     }
 
@@ -278,9 +275,10 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         DisplayMetrics metrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(metrics);
 
-        if (mSizeHasChanged) {
+        if (mSizeHasChanged || selectedTheme != getSelectedTheme()) {
             mSizeHasChanged = false;
-            mWindowManager.removeView(mOverlayWindow);
+            if (isInOverlay())
+                mWindowManager.removeView(mOverlayWindow);
             mOverlayWindow = null;
             createOverlayWindow();
         }
@@ -393,6 +391,23 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
             mFloatingViewManager.removeAllViewToWindow();
             mFloatingViewManager = null;
         }
+    }
+
+    private int getSelectedTheme() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+
+        int selectedTheme;
+        int themeNum = Premium.isPremium(this) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
+        boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
+        if (nightMode && Premium.isPremium(this) && NightTimeVerifier.check(this))
+            selectedTheme = R.style.Theme_QuickLyric_Night;
+        else
+            selectedTheme = themes[themeNum];
+        return selectedTheme;
     }
 
     private void loadDynamicOptions() {

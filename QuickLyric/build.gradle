@@ -123,7 +123,7 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'org:jaudiotagger:2.0.3'
     compile 'org.jsoup:jsoup:1.8.3'
-    compile 'com.github.geecko86:FloatingView:a31a905ef9'
+    compile 'com.github.geecko86:FloatingView:bfe1ea1942'
     compile('com.github.ozodrukh:CircularReveal:2.0.1@aar') { transitive = true; }
     compile 'com.github.zagum:SpeechRecognitionView:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'

@@ -286,7 +286,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 .getBoolean("pref_lrc", true);
         if (lyrics == null && OnlineAccessVerifier.check(getContext())) {
             DownloadThread.LRC = prefLRC;
-            
+
             toolbar.setTitle(title);
             toolbar.setSubtitle(artist);
 
