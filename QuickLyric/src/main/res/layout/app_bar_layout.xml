@@ -115,6 +115,7 @@
             android:layout_margin="4dp"
             android:background="?android:attr/selectableItemBackground"
             android:padding="10dp"
+            android:visibility="invisible"
             app:srcCompat="@drawable/ic_edit"/>
 
         <android.support.v7.widget.Toolbar
