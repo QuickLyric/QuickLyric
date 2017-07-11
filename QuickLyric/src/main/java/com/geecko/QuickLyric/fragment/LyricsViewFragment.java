@@ -401,7 +401,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (!hidden) {
             this.onViewCreated(getView(), null);
             if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB)
-                new PresenceChecker(null).execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
+                new PresenceChecker(this).execute(getActivity(), new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
                         mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
         } else
             this.isActiveFragment = false;
