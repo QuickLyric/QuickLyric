@@ -47,25 +47,35 @@ import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
+import okhttp3.CertificatePinner;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Callback;
+
+import static com.geecko.QuickLyric.lyrics.QuickLyricAPI.trustManager;
 
 public class Spotify {
 
@@ -86,8 +96,6 @@ public class Spotify {
     }
 
     public static void startAuthWithRemoteKey(final Activity activity, boolean playlists) {
-        final OkHttpClient client = new OkHttpClient();
-
         AssetManager assetManager = activity.getAssets();
         String message;
         try {
@@ -108,12 +116,36 @@ public class Spotify {
             return;
         }
 
+        // Install the all-trusting trust manager
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustManager, new java.security.SecureRandom());
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+            FirebaseCrash.report(e);
+            return;
+        }
+        // Create an ssl socket factory with our all-trusting manager
+        final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory, (X509TrustManager) trustManager[0])
+                .certificatePinner(new CertificatePinner.Builder()
+                        .add("api.quicklyric.be", "sha256/KdFllu5cmyNk7Ema4dx31vDX5tJifRjscsOca/eOdAQ=")
+                        .build())
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
+
         RequestBody formBody = new FormBody.Builder()
                 .add("p", message)
                 .build();
 
         final Request spotifyRequest = new Request.Builder()
-                .url("https://api.quicklyric.be/keys/spotify")
+                .url("https://api.quicklyric.be:4433/keys/spotify")
                 .post(formBody)
                 .build();
         client.newCall(spotifyRequest).enqueue(new SpotifyKeyCallback(activity, playlists));
