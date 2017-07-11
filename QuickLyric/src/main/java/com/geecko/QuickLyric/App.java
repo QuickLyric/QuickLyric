@@ -106,7 +106,7 @@ public class App extends MultiDexApplication implements Application.ActivityLife
     @Override
     public void onActivityResumed(Activity activity) {
         visibleActivities.add(activity.getLocalClassName());
-        if (App.isAppVisible()) {
+        if (App.isAppVisible() && LyricsOverlayService.isRunning()) {
             Intent showIntent = new Intent(getApplicationContext(), LyricsOverlayService.class);
             showIntent.setAction(LyricsOverlayService.HIDE_FLOATING_ACTION);
             getApplicationContext().startService(showIntent);
@@ -116,7 +116,7 @@ public class App extends MultiDexApplication implements Application.ActivityLife
     @Override
     public void onActivityPaused(Activity activity) {
         visibleActivities.remove(activity.getLocalClassName());
-        if (!App.isAppVisible() && PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("pref_overlay", false) &&
+        if (!App.isAppVisible() && LyricsOverlayService.isRunning() && PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("pref_overlay", false) &&
                 (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(activity))) {
             Intent showIntent = new Intent(getApplicationContext(), LyricsOverlayService.class);
             showIntent.setAction(LyricsOverlayService.SHOW_FLOATING_ACTION);

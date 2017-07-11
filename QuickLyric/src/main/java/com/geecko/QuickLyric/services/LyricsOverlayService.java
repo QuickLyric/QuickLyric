@@ -72,13 +72,14 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     private static final String STOP_FLOATING_ACTION = "stop_action";
     public static final String CLICKED_FLOATING_ACTION = "clicked_action";
 
+    public static boolean sRunning;;
+
     private FloatingViewManager mFloatingViewManager;
     private WindowManager mWindowManager;
     private View mBubbleView;
     private OverlayLayout mOverlayWindow;
     private int deployedMarginX;
     private int deployedMarginY;
-    private boolean mRunning;
     private boolean mInOverlay;
     private BroadcastReceiver receiver;
     private boolean mDoPullBack;
@@ -113,7 +114,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                             mFloatingViewManager.getTargetFloatingView().setOnTouchListener(this);
                     }
                 } else if (STOP_FLOATING_ACTION.equals(intent.getAction()) && !isInOverlay()) {
-                    this.mRunning = false;
+                    this.sRunning = false;
                     if (mBubbleView != null) {
                         mBubbleView.animate().alpha(0f).setDuration(200).setInterpolator(new AccelerateInterpolator())
                                 .setListener(new AnimatorActionListener(new Runnable() {
@@ -154,7 +155,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
             return START_STICKY;
         } else if (Build.VERSION.SDK_INT < M || Settings.canDrawOverlays(this) &&
                 (intent != null && intent.getExtras() != null && intent.getExtras().get("notification") != null) && !App.isAppVisible()) {
-            this.mRunning = true;
+            this.sRunning = true;
 
             mFloatingViewManager = new FloatingViewManager(this, this);
             mFloatingViewManager.setFixedTrashIconImage(R.drawable.ic_overlay_close);
@@ -435,8 +436,8 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         return options;
     }
 
-    public boolean isRunning() {
-        return mRunning;
+    public static boolean isRunning() {
+        return sRunning;
     }
 
     public static void showCustomFloatingView(Context context, Notification notif, String[] metadata) {
