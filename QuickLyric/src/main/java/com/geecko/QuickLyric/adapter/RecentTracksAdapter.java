@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.event.RecentsDownloadingEvent;
 import com.geecko.QuickLyric.model.Recents;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -33,10 +36,10 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
         public FrameLayout mContainer;
         public ViewHolder(View v) {
             super(v);
-            mArtistTextView = (TextView) v.findViewById(R.id.recents_artist_text);
-            mTitleTextView = (TextView) v.findViewById(R.id.recents_title_text);
-            mImageView = (ImageView) v.findViewById(R.id.recents_image_view_cover_art);
-            mContainer = (FrameLayout) v.findViewById(R.id.item_container);
+            mArtistTextView = v.findViewById(R.id.recents_artist_text);
+            mTitleTextView = v.findViewById(R.id.recents_title_text);
+            mImageView = v.findViewById(R.id.recents_image_view_cover_art);
+            mContainer = v.findViewById(R.id.item_container);
         }
     }
 
@@ -69,9 +72,8 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
                 int pos = holder.getAdapterPosition();
                 String artist = mData.get(pos).mArtist;
                 String title = mData.get(pos).mTitle;
-
-                MainActivity mainActivity = ((MainActivity) holder.mContainer.getContext());
-                mainActivity.updateLyricsFragment(R.animator.slide_out_end, artist, title);
+                ((MainActivity) holder.mArtistTextView.getContext()).updateLyricsFragment(0, artist, title);
+                EventBus.getDefault().post(new RecentsDownloadingEvent());
             }
         });
 

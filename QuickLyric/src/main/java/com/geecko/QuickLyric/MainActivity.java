@@ -662,18 +662,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
                 getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
-            boolean switching = !lyricsViewFragment.isActiveFragment;
-            if (switching)
+            if (!lyricsViewFragment.isActiveFragment) {
                 selectItem(0);
-            final LyricsViewFragment finalLyricsViewFragment = lyricsViewFragment;
-            lyricsViewFragment.getView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    finalLyricsViewFragment.fetchLyrics(artist, song, url);
-                }
-            }, switching ? 600 : 0);
-        }
-        else {
+            }
+            lyricsViewFragment.fetchLyrics(artist, song, url);
+        } else {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
             lyrics.setArtist(artist);
             lyrics.setTitle(song);
