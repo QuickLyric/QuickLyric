@@ -62,6 +62,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -171,10 +172,14 @@ public class NotificationListenerService extends android.service.notification.No
         }
     }
 
+    private static final List<String> playerBlacklist = Arrays.asList("com.google.android.youtube",
+            "au.com.shiftyjelly.pocketcasts", "com.bambuna.podcastaddict");
+
     @TargetApi(21)
     private boolean isInvalidPackage(MediaController controller) {
         String playerPackageName = controller.getPackageName();
-        return playerPackageName != null && ("com.google.android.youtube".equals(playerPackageName) || playerPackageName.contains(".chrome"));
+        return playerPackageName != null && (playerPackageName.contains(".chrome") || playerPackageName.contains("firefox") ||
+                playerBlacklist.contains(playerPackageName));
     }
 
     @TargetApi(21)
