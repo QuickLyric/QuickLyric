@@ -48,27 +48,40 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/welcome2_sub"
-            android:textAppearance="?android:attr/textAppearanceMediumInverse"
-            android:textColor="?android:attr/textColorPrimaryInverse"
-            android:textSize="20sp"/>
+        <View
+            android:id="@+id/tutorial_0_center"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/welcome_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/textView2"
+            android:layout_above="@id/tutorial_0_center"
             android:layout_centerHorizontal="true"
             android:layout_alignLeft="@id/textView2"
             android:layout_alignRight="@id/textView2"
             android:text="@string/welcome"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textSize="30sp"/>
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="22sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="2sp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tutorial_0_center"
+            android:layout_alignParentBottom="true"
+            android:text="@string/welcome2_sub"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="2sp"/>
     </RelativeLayout>
 
 </android.support.percent.PercentRelativeLayout>

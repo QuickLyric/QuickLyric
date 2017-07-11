@@ -110,38 +110,80 @@
                 android:visibility="gone"
                 android:layout_alignParentBottom="true"/>
 
-            <RelativeLayout
-                android:id="@+id/NL_frame"
+            <LinearLayout
+                android:id="@+id/floating_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:background="#3000"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#30000000"
+                android:elevation="2dp"
+                android:translationZ="2dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 android:foreground="?selectableItemBackground"
                 android:padding="10dp">
 
-                <ImageView
-                    android:id="@+id/NL_icon"
+                <TextView
+                    android:id="@+id/floating_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_dialog_alert"/>
+                    android:text="@string/floating_settings_link"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:layout_weight="1"
+                    android:textStyle="bold"/>
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/floating_switch"
+                    android:clickable="false"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/NL_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/floating_frame"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#30000000"
+                android:elevation="2dp"
+                android:translationZ="2dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:foreground="?selectableItemBackground"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/NL_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/NL_icon"
-                    android:gravity="start|center_vertical"
-                    android:paddingEnd="10dp"
                     android:text="@string/nl_settings_link"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:textColor="?android:attr/textColorPrimaryInverse"
                     android:textStyle="bold"/>
-            </RelativeLayout>
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/NL_switch"
+                    android:clickable="false"
+                    android:checked="false"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 

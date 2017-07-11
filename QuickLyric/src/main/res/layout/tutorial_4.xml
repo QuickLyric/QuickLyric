@@ -1,48 +1,140 @@
-<RelativeLayout
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Copyright © 2017 QuickLyric SPRL
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/upper_margin"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:ignore="RtlCompat">
 
-    <android.support.percent.PercentRelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/textView2"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/why_notif_access_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:clipChildren="false">
+        android:text="@string/no_results_why"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="@color/material_white"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"/>
 
-        <ImageView
-            android:id="@+id/intro_4_red_key"
+    <LinearLayout
+        android:id="@+id/floating_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#30000000"
+        android:elevation="2dp"
+        android:translationZ="2dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:foreground="?selectableItemBackground"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/floating_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/demo_image"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/intro_4_red_key"
-            android:translationX="10.0dip"
-            app:layout_heightPercent="25%"/>
+            android:text="@string/floating_settings_link"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textStyle="bold"/>
 
-        <ImageView
-            android:id="@+id/intro_4_yellow_key"
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/floating_switch"
+            android:clickable="false"
+            android:checked="false"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/NL_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/floating_frame"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#30000000"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:elevation="2dp"
+        android:translationZ="2dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:foreground="?selectableItemBackground"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/NL_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/demo_image"
-            android:layout_alignLeft="@id/demo_image"
-            android:scaleType="fitCenter"
-            android:src="@drawable/intro_4_yellow_key"
-            app:layout_heightPercent="25%"/>
+            android:text="@string/nl_settings_link"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textStyle="bold"/>
 
-        <ImageView
-            android:id="@id/demo_image"
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/NL_switch"
+            android:clickable="false"
+            android:checked="false"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:src="@drawable/intro_4_ads"
-            app:layout_heightPercent="@fraction/ad_height"
-            app:layout_widthPercent="@fraction/ad_width"/>
-    </android.support.percent.PercentRelativeLayout>
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/redGear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear"
+        android:translationX="@dimen/redGear_X"
+        android:translationY="@dimen/redGear_Y"/>
+
+    <ImageView
+        android:id="@+id/blueGear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear_b"
+        android:translationX="@dimen/bluegear_X"
+        android:translationY="@dimen/bluegear_Y"/>
 
     <TextView
         android:id="@+id/textView"
@@ -50,26 +142,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10.0dip"
-        android:layout_marginRight="10.0dip"
-        android:layout_marginTop="20.0dip"
-        android:gravity="center_horizontal"
-        android:text="@string/ad_supported_title"
-        android:textAppearance="?android:textAppearanceLargeInverse"
-        android:textSize="30.0sp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/nl_title"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20.0dip"
-        android:layout_marginRight="20.0dip"
-        android:layout_marginTop="10.0dip"
-        android:lineSpacingExtra="2.0dip"
-        android:text="@string/ad_supported_text"
-        android:textAppearance="?android:textAppearanceMediumInverse"
-        android:textColor="?android:textColorPrimaryInverse"/>
-</RelativeLayout>
+        android:layout_alignLeft="@id/textView"
+        android:layout_alignRight="@id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="15dp"
+        android:text="@string/nl_instructions"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:layout_marginBottomPercent="2%"/>
+
+
+</android.support.percent.PercentRelativeLayout>

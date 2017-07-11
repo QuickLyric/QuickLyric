@@ -1,87 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /**
-  ~  * This file is part of QuickLyric
-  ~  * Copyright © 2017 QuickLyric SPRL
-  ~  *
-  ~  * QuickLyric is free software: you can redistribute it and/or modify
-  ~  * it under the terms of the GNU General Public License as published by
-  ~  * the Free Software Foundation, either version 3 of the License, or
-  ~  * (at your option) any later version.
-  ~  *
-  ~  * QuickLyric is distributed in the hope that it will be useful,
-  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  * GNU General Public License for more details.
-  ~  * You should have received a copy of the GNU General Public License
-  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
-  ~  */
-  -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/textView3_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingEnd="40dp"
-        android:text="@string/id_desc_sub"
-        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        tools:ignore="RtlCompat,RtlSymmetry"/>
 
-    <TextView
-        android:id="@+id/textView3_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textView3_b"
-        android:layout_alignLeft="@id/textView3_b"
-        android:layout_alignRight="@id/textView3_b"
-        android:maxWidth="375dp"
-        android:text="@string/id_desc"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="24sp"/>
-
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/textView3_a"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:clipChildren="false">
+
+        <ImageView
+            android:id="@+id/intro_3_red_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/demo_image"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/intro_4_red_key"
+            android:translationX="10.0dip"
+            app:layout_heightPercent="25%"/>
+
+        <ImageView
+            android:id="@+id/intro_3_yellow_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/demo_image"
+            android:layout_alignLeft="@id/demo_image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/intro_4_yellow_key"
+            app:layout_heightPercent="25%"/>
+
+        <ImageView
+            android:id="@id/demo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/intro_4_ads"
+            app:layout_heightPercent="@fraction/ad_height"
+            app:layout_widthPercent="@fraction/ad_width"/>
+    </android.support.percent.PercentRelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="20.0dip"
+        android:layout_marginTop="20.0dip"
+        android:gravity="start"
+        android:text="@string/ad_supported_title"
+        android:textAppearance="?android:textAppearanceLargeInverse"
+        android:textSize="30.0sp"/>
 
-        <ImageView
-            android:id="@+id/musicid_demo_hand_image"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:rotation="-10"
-            android:scaleType="fitCenter"
-            android:src="@drawable/intro_3_hand"/>
-
-        <ImageView
-            android:id="@+id/musicid_demo_sound_image"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:padding="20dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/intro_3_sound"
-            android:translationY="-20dp"/>
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="20.0dip"
+        android:layout_marginTop="10.0dip"
+        android:lineSpacingExtra="2.0dip"
+        android:text="@string/ad_supported_text"
+        android:textAppearance="?android:textAppearanceMediumInverse"
+        android:textColor="?android:textColorPrimaryInverse"/>
 </RelativeLayout>

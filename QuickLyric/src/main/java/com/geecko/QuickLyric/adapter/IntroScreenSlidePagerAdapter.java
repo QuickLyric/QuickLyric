@@ -11,14 +11,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,7 +38,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +88,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             Tutorial_1.class,
             Tutorial_2.class,
             Tutorial_3.class,
-            Tutorial_5.class
+            Tutorial_4.class
     };
     private Activity mActivity;
     private ViewPager mPager;
@@ -98,7 +104,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
         @Override
         public boolean onTouch(final View v, MotionEvent event) {
-            if (mCurrentPage != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_5.nlEnabled)
+            if (mCurrentPage != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_4.nlEnabled)
                 return false;
             int pointerId = event.getPointerId(event.getActionIndex());
             if (mSwipeSlop < 0) {
@@ -222,7 +228,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Tutorial_5.nlEnabled) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Tutorial_4.nlEnabled) {
                     final ViewGroup nlFrame = (ViewGroup) activity.findViewById(R.id.NL_frame);
                     final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
                             Color.parseColor("#30000000"), Color.parseColor("#80FFFFFF"));
@@ -265,7 +271,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
     @Override
     public int getCount() {
-        int count = 4;
+        int count = 3;
         if (App.playStoreVariant) {
             count += 1;
             if (tutorialScreens.length < 6) {
@@ -274,8 +280,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                         Tutorial_1.class,
                         Tutorial_2.class,
                         Tutorial_3.class,
-                        Tutorial_4.class,
-                        Tutorial_5.class
+                        Tutorial_4.class
                 };
                 colors = new Integer[]{
                         R.color.accent_dark,
@@ -310,13 +315,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 evaluator.evaluate(0.5f, mActivity.getResources().getColor(R.color.action_dark),
                         background));
 
-        View bigFab = tutorialLayout.findViewById(R.id.big_fab);
-        View handImage = tutorialLayout.findViewById(R.id.musicid_demo_hand_image);
-        View soundImage = tutorialLayout.findViewById(R.id.musicid_demo_sound_image);
-        View redKey = tutorialLayout.findViewById(R.id.intro_4_red_key);
-        View yellowKey = tutorialLayout.findViewById(R.id.intro_4_yellow_key);
-        View gearA = tutorialLayout.findViewById(R.id.redGear);
-        View gearB = tutorialLayout.findViewById(R.id.blueGear);
+        View gearA;
+        View gearB;
 
         BubblePopImageView tableImageView = (BubblePopImageView) tutorialLayout.findViewById(R.id.table);
         position = rightToLeft ? getCount() - 1 - position : position;
@@ -339,6 +339,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     tableImageView.setProgress(1f);
                     tableImageView.setTranslationX((rightToLeft ? 0.15f : -0.4f) * positionOffsetPixels);
                 }
+                View bigFab = tutorialLayout.findViewById(R.id.big_fab);
                 if (bigFab != null) {
                     bigFab.setTranslationX((rightToLeft ? -1f : 1f) *
                             (1f - positionOffset) * (bigFab.getMeasuredWidth() / 3f));
@@ -349,14 +350,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 }
                 break;
             case 2:
-                if (bigFab != null)
-                    ((View) bigFab.getParent()).setTranslationX((!rightToLeft ? -0.4f : 0.4f) * positionOffsetPixels);
-                if (soundImage != null && handImage != null) {
-                    soundImage.setTranslationX(300f - 300f * positionOffset);
-                    handImage.setTranslationX(-400f + 400f * positionOffset);
-                }
-                break;
-            case 3:
+                View redKey = tutorialLayout.findViewById(R.id.intro_3_red_key);
+                View yellowKey = tutorialLayout.findViewById(R.id.intro_3_yellow_key);
                 if (redKey != null && yellowKey != null) {
                     if (redKey.getMeasuredHeight() < redKey.getResources().getDimensionPixelSize(R.dimen.dp) * 15) {
                         redKey.setVisibility(View.INVISIBLE);
@@ -370,12 +365,16 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     yellowKey.setTranslationY(290f * Math.min(1.3f * (1 - positionOffset), 1.0f));
                     yellowKey.setTranslationX(105f * Math.min(1.3f * (1 - positionOffset), 1.0f));
                 }
+                gearA = tutorialLayout.findViewById(R.id.redGear);
+                gearB = tutorialLayout.findViewById(R.id.blueGear);
                 if (3 == count - 2 && gearA != null && gearB != null) {
                     gearA.setRotation(-180f * positionOffset);
                     gearB.setRotation(180f * positionOffset);
                 }
                 break;
-            case 4:
+            case 3:
+                gearA = tutorialLayout.findViewById(R.id.redGear);
+                gearB = tutorialLayout.findViewById(R.id.blueGear);
                 if (gearA != null && gearB != null) {
                     gearA.setRotation(-180f * positionOffset);
                     gearB.setRotation(180f * positionOffset);
@@ -494,49 +493,63 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     }
 
     public static class Tutorial_3 extends Fragment {
-        // MusicID page
+        // Ad page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.tutorial_3, container, false);
         }
     }
 
-    public static class Tutorial_4 extends Fragment {
-        // MusicID page
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.tutorial_4, container, false);
-        }
-    }
-
     @SuppressWarnings("deprecation")
-    public static class Tutorial_5 extends Fragment {
+    public static class Tutorial_4 extends Fragment {
         // Last page: optional NotificationListener page
 
         static boolean nlEnabled = true;
         static boolean buttonClicked = false;
-        static boolean miuiAutostart = false;
+        static boolean autostartEnabled = false;
 
         @SuppressLint("NewApi")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View output = inflater.inflate(R.layout.tutorial_5, container, false);
+            View output = inflater.inflate(R.layout.tutorial_4, container, false);
 
-            TextView link = (TextView) output.findViewById(R.id.NL_link);
+            TextView link = output.findViewById(R.id.NL_link);
+            View floatingFrame = output.findViewById(R.id.floating_frame);
             nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
             ((ViewGroup) link.getParent()).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!nlEnabled) {
-                        if (!miuiAutostart && openXiaomiSpecialMenu()) {
-                            Toast.makeText(getActivity(), R.string.miui_autostart, Toast.LENGTH_LONG).show();
-                            miuiAutostart = true;
+                        if (!autostartEnabled && openBootSpecialMenu()) {
+                            Toast.makeText(getActivity(), getString(R.string.miui_autostart, Build.BRAND), Toast.LENGTH_LONG).show();
+                            autostartEnabled = true;
                         } else {
                             startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
                             MainActivity.waitingForListener = true;
                             buttonClicked = true;
                         }
                     }
+                }
+            });
+            floatingFrame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getActivity())) {
+                        final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
+                        getActivity().startActivity(intent);
+                    } else {
+                        ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(true);
+                    }
+                    PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean("pref_overlay", true).apply();
+                }
+            });
+            output.findViewById(R.id.why_notif_access_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(v.getContext()).setTitle(getString(R.string.notification_access))
+                            .setMessage(Html.fromHtml(getString(R.string.notification_access_explanation)))
+                            .setIcon(R.drawable.icon)
+                            .show();
                 }
             });
             ((ViewGroup) link.getParent()).setClickable(true);
@@ -549,41 +562,55 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             super.onResume();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
                 return;
+            boolean floatingEnabled = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_overlay", false);
+            boolean floatingPermitted = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(getActivity());
             nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
-            ((ImageView) getView().findViewById(R.id.NL_icon))
-                    .setImageResource(nlEnabled ?
-                            R.drawable.ic_done : android.R.drawable.ic_dialog_alert);
+            ((SwitchCompat) getView().findViewById(R.id.NL_switch)).setChecked(nlEnabled);
+            ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(floatingEnabled && floatingPermitted);
             View okButton = getActivity().findViewById(R.id.pager_ok);
-            if (okButton != null) {
+            ViewGroup frame = getActivity().findViewById(R.id.NL_frame);
+            View floatingFrame = getActivity().findViewById(R.id.floating_frame);
+            View whyButton = getActivity().findViewById(R.id.why_notif_access_button);
+            if (okButton != null)
                 getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
-            }
-            if (buttonClicked) {
-                ViewGroup frame = ((ViewGroup) getActivity().findViewById(R.id.NL_frame));
-                View button = getActivity().findViewById(R.id.why_notif_access_button);
-                if (frame == null || button == null)
+            boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+            floatingFrame.setVisibility(nlEnabled ? View.VISIBLE : isLandscape ? View.GONE : View.INVISIBLE);
+            if (nlEnabled)
+                frame.setVisibility(isLandscape ? View.INVISIBLE : View.VISIBLE);
+            else
+                frame.setVisibility(View.VISIBLE);
+            if (buttonClicked || nlEnabled) {
+                if (frame == null || whyButton == null) {
                     return;
+                }
                 RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frame.getLayoutParams();
 
-                if (nlEnabled) {
-                    frameParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                    frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, (int) (10 * getResources().getDimension(R.dimen.dp)));
-                    frame.setLayoutParams(frameParams);
-                    button.setVisibility(View.GONE);
-                } else {
-                    frameParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                    frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, 0);
-                    frameParams.removeRule(RelativeLayout.CENTER_VERTICAL);
-                    frame.setLayoutParams(frameParams);
-                    button.setVisibility(View.VISIBLE);
-                }
+                frameParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, 0);
+                frameParams.removeRule(RelativeLayout.CENTER_VERTICAL);
+                frame.setLayoutParams(frameParams);
+                whyButton.setVisibility(nlEnabled ? View.GONE : View.VISIBLE);
             }
 
             MainActivity.waitingForListener = false;
         }
 
-        private boolean openXiaomiSpecialMenu() {
+        private boolean openBootSpecialMenu() {
             try {
-                startActivity(new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")));
+                if(Build.BRAND.equalsIgnoreCase("xiaomi") ){
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                    startActivity(intent);
+                } else if(Build.BRAND.equalsIgnoreCase("Letv")){
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+                    startActivity(intent);
+                }
             } catch (Exception e) {
                 return false;
             }

@@ -27,12 +27,14 @@
         android:id="@+id/below"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="110dp"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:layout_marginBottomPercent="10%">
+        app:layout_marginBottomPercent="5%">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView2_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,10 +42,13 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/refresh_desc"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textSize="24sp"/>
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="24sp"
+            app:autoSizeMaxTextSize="32sp"
+            app:autoSizeStepGranularity="2sp"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView2_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,8 +56,11 @@
             android:layout_alignRight="@id/textView2_a"
             android:layout_below="@id/textView2_a"
             android:text="@string/refresh_desc_sub"
-            android:textAppearance="?android:attr/textAppearanceMediumInverse"
-            android:textColor="?android:attr/textColorPrimaryInverse"/>
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeStepGranularity="2sp"/>
 
     </RelativeLayout>
 

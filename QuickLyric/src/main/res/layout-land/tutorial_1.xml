@@ -39,7 +39,7 @@
         app:layout_widthPercent="60%"
         app:screen="@drawable/intro_1_screen"/>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView1_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,20 +67,34 @@
         android:layout_below="@id/textView1_b"
         android:maxWidth="450dp"
         android:text="Google Play is a trademark of Google Inc.\nSpotify is a trademark of Spotify Ltd."
-        android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textSize="12sp"
+        app:autoSizeMaxTextSize="14sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
         tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/textView1_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textView1_b"
-        android:layout_alignLeft="@id/textView1_b"
-        android:layout_alignRight="@id/textView1_b"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/textView1_c"
+        android:gravity="center_vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/table"
+        android:layout_toRightOf="@id/table"
         android:text="@string/apps_desc"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="24sp"/>
+        app:autoSizeMaxTextSize="27sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"/>
 
 </android.support.percent.PercentRelativeLayout>

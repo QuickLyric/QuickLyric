@@ -23,34 +23,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView1_c"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:maxWidth="450dp"
         android:text="Google Play is a trademark of Google Inc.\nSpotify is a trademark of Spotify Ltd."
         android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textSize="12sp"
+        app:autoSizeTextType="uniform"
         tools:ignore="HardcodedText"/>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView1_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/textView1_c"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="5dp"
         android:text="@string/apps_desc"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="31sp"/>
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="31sp"
+        app:autoSizeMaxTextSize="40sp"
+        app:autoSizeStepGranularity="2sp"
+        />
 
     <com.geecko.QuickLyric.view.BubblePopImageView
         android:id="@+id/table"
