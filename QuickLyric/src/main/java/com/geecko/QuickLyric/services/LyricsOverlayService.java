@@ -227,7 +227,6 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         mBubbleView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                view.callOnClick();
                 return true;
             }
         });
