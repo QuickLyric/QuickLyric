@@ -85,6 +85,7 @@ public class NotificationListenerService extends android.service.notification.No
     public IBinder onBind(Intent intent) {
         if (mBinder == null)
             mBinder = new Binder();
+        onListenerConnected();
         return mBinder;
     }
 
