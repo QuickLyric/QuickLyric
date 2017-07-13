@@ -32,6 +32,7 @@
         android:id="@+id/save_action"
         android:icon="@drawable/ic_save"
         android:orderInCategory="10"
+        android:visible="false"
         android:title="@string/save_action"
         app:showAsAction="ifRoom"/>
 
@@ -39,6 +40,7 @@
         android:id="@+id/romanize_action"
         android:orderInCategory="15"
         android:title="@string/romanize"
+        android:visible="false"
         android:icon="@drawable/ic_menu_romanize"
         app:showAsAction="ifRoom" />
 
