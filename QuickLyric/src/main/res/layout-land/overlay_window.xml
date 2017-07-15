@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:layoutDirection="ltr"
         android:paddingEnd="75dp"
         android:paddingRight="75dp">
 
@@ -52,6 +53,7 @@
             android:layout_marginTop="36dp"
             android:src="@drawable/overlay_tip"
             app:srcCompat="@drawable/overlay_tip"
+            android:layoutDirection="ltr"
             android:rotation="@integer/rotation_90"
             android:transformPivotX="8dp"/>
     </LinearLayout>

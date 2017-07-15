@@ -19,5 +19,5 @@
   -->
 
 <resources>
-    <integer name="rotation_90">270</integer>
+    <integer name="rotation_90">90</integer>
 </resources>
