@@ -81,6 +81,8 @@ public class NotificationListenerService extends android.service.notification.No
     private Binder mBinder;
     private MediaController controller;
 
+    private static final String REQUEST_REBIND_ACTION = "rebind_action";
+
     @Override
     public IBinder onBind(Intent intent) {
         if (mBinder == null)
@@ -118,6 +120,15 @@ public class NotificationListenerService extends android.service.notification.No
 
             registerActiveSessionCallback(manager.getActiveSessions(className));
         }
+    }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && REQUEST_REBIND_ACTION.equals(intent.getAction()) && !isNotificationListenerServiceRunning(this)) {
+            requestRebind(new ComponentName(getApplicationContext(), NotificationListenerService.class));
+        }
+        return START_STICKY;
     }
 
     @TargetApi(21)
@@ -289,6 +300,13 @@ public class NotificationListenerService extends android.service.notification.No
         }
     }
 
+    @Override
+    @TargetApi(24)
+    public void onListenerDisconnected() {
+        super.onListenerDisconnected();
+        requestRebind(new ComponentName(getApplicationContext(), NotificationListenerService.class));
+    }
+
     public static boolean isListeningAuthorized(Context context) {
         ContentResolver contentResolver = context.getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
@@ -318,6 +336,12 @@ public class NotificationListenerService extends android.service.notification.No
     }
 
     public static void toggleNotificationListenerService(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Intent intent = new Intent(context, NotificationListenerService.class);
+            intent.setAction(REQUEST_REBIND_ACTION);
+            context.startService(intent);
+            return;
+        }
         PackageManager pm = context.getPackageManager();
 
         pm.setComponentEnabledSetting(new ComponentName(context, NotificationListenerService.class),
