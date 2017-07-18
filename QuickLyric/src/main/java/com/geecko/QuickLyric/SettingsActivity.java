@@ -24,6 +24,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,12 +55,17 @@ public class SettingsActivity extends AppCompatActivity {
             setTheme(R.style.Theme_QuickLyric_Night);
         else
             setTheme(themes[themeNum]);
-        setStatusBarColor(null);
         setContentView(R.layout.settings_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setStatusBarColor(null);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbar.setElevation(8f);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+
         if ((getIntent().getExtras() != null && !getIntent().getExtras().getString("openedDialog", "").isEmpty()) ||
                 ColorGridPreference.originalValue != null && Integer.parseInt(ColorGridPreference.originalValue) != themeNum) {
             ((ColorGridPreference) ((SettingsFragment) getFragmentManager().findFragmentByTag("SettingsFragment"))

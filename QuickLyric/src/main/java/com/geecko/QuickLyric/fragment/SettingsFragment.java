@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -130,11 +131,9 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onViewCreated(view, savedInstanceState);
         if (this.isHidden())
             return;
-        View fragmentView = getView();
         TypedValue typedValue = new TypedValue();
         view.getContext().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
-        if (fragmentView != null)
-            fragmentView.setBackgroundColor(typedValue.data);
+        view.setBackgroundDrawable(new ColorDrawable(typedValue.data));
     }
 
     @Override
