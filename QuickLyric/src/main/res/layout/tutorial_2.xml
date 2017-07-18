@@ -36,9 +36,10 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView2_a"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:minLines="2"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/refresh_desc"
