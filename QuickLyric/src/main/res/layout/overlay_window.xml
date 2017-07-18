@@ -31,7 +31,7 @@
         android:orientation="vertical"
         android:paddingTop="75dp">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="16dp"
             android:layout_height="8dp"
             android:layout_gravity="right"
@@ -45,7 +45,8 @@
             android:layout_height="match_parent"
             app:cardBackgroundColor="@color/material_white"
             app:cardCornerRadius="5dp"
-            app:cardElevation="12dp">
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false">
 
             <include layout="@layout/overlay_content" />
 

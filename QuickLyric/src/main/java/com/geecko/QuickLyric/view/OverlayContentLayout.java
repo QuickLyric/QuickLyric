@@ -24,6 +24,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,6 +68,7 @@ import com.geecko.QuickLyric.tasks.RomanizeAsyncTask;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
+import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.RomanizeUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -105,22 +111,41 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         scrollview = findViewById(R.id.scrollview);
         textSwitcher = lyricsContent.findViewById(R.id.switcher);
         lrcView = lyricsContent.findViewById(R.id.lrc_view);
-        textSwitcher.setFactory(new LyricsTextFactory(getContext()));
+        textSwitcher.setFactory(new LyricsTextFactory(new ContextThemeWrapper(getContext(), getSelectedTheme())));
         ((TextView) textSwitcher.getChildAt(0)).setTextIsSelectable(false);
         ((TextView) textSwitcher.getChildAt(1)).setTextIsSelectable(false);
 
         toolbar.inflateMenu(R.menu.overlay_lyrics);
         toolbar.setOnMenuItemClickListener(this);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
+    }
+
+    private int getSelectedTheme() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
+                R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
+                R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
+                R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
+
+        int selectedTheme;
+        int themeNum = Premium.isPremium(getContext()) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
+        boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
+        if (nightMode && Premium.isPremium(getContext()) && NightTimeVerifier.check(getContext()))
+            selectedTheme = R.style.Theme_QuickLyric_Night;
+        else
+            selectedTheme = themes[themeNum];
+        return selectedTheme;
     }
 
     private Lyrics getLyrics() {
-        Lyrics output = ((LyricsOverlayService) getContext()).getLyrics();
+        Lyrics output = ((LyricsOverlayService) getTag()).getLyrics();
         output = output == null ? new Lyrics(Lyrics.NO_RESULT) : output;
         return output;
     }
 
     public void setLyrics(Lyrics lyrics) {
-        ((LyricsOverlayService) getContext()).setLyrics(lyrics);
+        ((LyricsOverlayService) getTag()).setLyrics(lyrics);
     }
 
     private void refreshToolbar(Menu menu) {
@@ -252,6 +277,24 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         stopRefreshAnimation();
     }
 
+<<<<<<< HEAD
+=======
+    private void notifyLyricsUpdated(String artist, String track, boolean online) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.GROUP_ID, artist);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, track);
+        bundle.putBoolean(FirebaseAnalytics.Param.LEVEL, online);
+        MainActivity.notifyFireBase((App) ((LyricsOverlayService) getTag()).getApplication(), FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+    }
+
+    private void notifyLyricsNotFound(String artist, String track) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.GROUP_ID, artist);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, track);
+        MainActivity.notifyFireBase((App) ((LyricsOverlayService) getTag()).getApplication(), FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
+>>>>>>> e90066d4... Fix overlay on Android 4.x
     private void startRefreshAnimation() {
         bugLayout.setVisibility(GONE);
         if (!(viewFlipper.getCurrentView() instanceof ProgressBar))
@@ -398,6 +441,23 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    private void report(Lyrics lyrics) {
+        if (getWindowToken() != null && lyrics != null &&
+                lyrics.getFlag() == Lyrics.POSITIVE_RESULT &&
+                lyrics.equals(getLyrics()) && !lyrics.isReported()
+                && !BuildConfig.DEBUG
+                && !mRefreshing
+                && !"Storage".equalsIgnoreCase(lyrics.getSource())) {
+            ((LyricsOverlayService) getTag()).markLyricsAsReported();
+            boolean online = OnlineAccessVerifier.check(getContext());
+            ((App) ((LyricsOverlayService) getTag()).getApplication()).jobManager.addJobInBackground(new DisplayReportingJob(lyrics, online));
+            ((App) ((LyricsOverlayService) getTag()).getApplication()).jobManager.start();
+        }
+    }
+
+>>>>>>> e90066d4... Fix overlay on Android 4.x
     public void updateLRC() {
         if (mLrcThread == null || !mLrcThread.isAlive()) {
             mLrcThread = new Thread(lrcUpdater);
@@ -494,10 +554,17 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
 
     @Override
     public void onMetadataParsed(String[] metadata, boolean showMsg, boolean noDoubleBroadcast) {
+<<<<<<< HEAD
         if (mLyrics != null && mLyrics.getOriginalArtist().equalsIgnoreCase(metadata[0])
                 && mLyrics.getOriginalTrack().equalsIgnoreCase(metadata[1])
                 && (!"Storage".equals(mLyrics.getSource()) || ("Storage".equals(mLyrics.getSource()) && noDoubleBroadcast))
                 && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
+=======
+        if (getLyrics() != null && metadata[0].equalsIgnoreCase(getLyrics().getOriginalArtist())
+                && metadata[1].equalsIgnoreCase(getLyrics().getOriginalTrack())
+                && (!"Storage".equals(getLyrics().getSource()) || ("Storage".equals(getLyrics().getSource()) && noDoubleBroadcast))
+                && getLyrics().getFlag() == Lyrics.POSITIVE_RESULT) {
+>>>>>>> e90066d4... Fix overlay on Android 4.x
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
                     NotificationListenerService.restartNotificationListenerServiceIfNeeded(getContext()))
                 new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
@@ -511,4 +578,23 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
         }
     }
+<<<<<<< HEAD
+=======
+
+    public void onOpened() {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getContext() != null)
+                    RatingUtils.showRateSnackbar(OverlayContentLayout.this);
+                report(getLyrics());
+            }
+        }, 2100);
+        LyricsOverlayService service = (LyricsOverlayService) getTag();
+        if (!service.launchCountRaised) {
+            LaunchesCounter.increaseLaunchCount(getContext());
+            service.launchCountRaised = true;
+        }
+    }
+>>>>>>> e90066d4... Fix overlay on Android 4.x
 }

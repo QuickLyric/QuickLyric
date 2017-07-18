@@ -73,6 +73,9 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        Lyrics lyrics = ((LyricsOverlayService) ((OverlayContentLayout) getTag()).getTag()).getLyrics();
+        if (lyrics != null)
+            ((OverlayContentLayout) findViewById(R.id.overlay_content)).update(lyrics, true);
         new ParseTask((OverlayContentLayout) findViewById(R.id.overlay_content), getContext(), false, true).execute();
     }
 

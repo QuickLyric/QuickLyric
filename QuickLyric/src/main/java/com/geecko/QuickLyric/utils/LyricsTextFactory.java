@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -51,7 +52,7 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
             t.setTypeface(FontCache.get("light", mContext));
         TypedValue colorValue = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
-        t.setTextColor(colorValue.data);
+        t.setTextColor(Color.BLACK);
         t.setLineSpacing(mContext.getResources().getDimensionPixelSize(R.dimen.line_spacing), 1);
         setSelectable(t);
         t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.txt_size));

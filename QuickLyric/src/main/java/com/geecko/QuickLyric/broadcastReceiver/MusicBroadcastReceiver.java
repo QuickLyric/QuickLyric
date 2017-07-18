@@ -183,7 +183,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
             context.setTheme(themes[themeNum]);
 
-            notifBuilder.setSmallIcon(R.drawable.ic_notif)
+            notifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(String.format("%s - %s", artist, track))
                     .setContentIntent(prefOverlay ? overlayPending : openAppPending)
@@ -192,7 +192,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                     .setColor(ColorUtils.getPrimaryColor(context))
                     .setGroupSummary(true);
 
-            wearableNotifBuilder.setSmallIcon(R.drawable.ic_notif)
+            wearableNotifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(String.format("%s - %s", artist, track))
                     .setContentIntent(openAppPending)

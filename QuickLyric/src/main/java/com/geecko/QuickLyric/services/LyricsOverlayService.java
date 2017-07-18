@@ -35,6 +35,8 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -85,6 +87,10 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     private boolean mDoPullBack;
     private boolean mSizeHasChanged;
     private int selectedTheme;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -156,7 +162,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                 }
             }
             return START_STICKY;
-        } else if (Build.VERSION.SDK_INT < M || Settings.canDrawOverlays(this) &&
+        } else if ((Build.VERSION.SDK_INT < M || Settings.canDrawOverlays(this)) &&
                 (intent != null && intent.getExtras() != null && intent.getExtras().get("notification") != null) && !App.isAppVisible()) {
             this.sRunning = true;
 
@@ -190,8 +196,10 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         DisplayMetrics metrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(metrics);
 
-        mOverlayWindow = (OverlayLayout) LayoutInflater.from(getBaseContext()).inflate(R.layout.overlay_window, null, false);
-        mOverlayWindow.setTag(mOverlayWindow.findViewById(R.id.overlay_content));
+        mOverlayWindow = (OverlayLayout) LayoutInflater.from(new ContextThemeWrapper(getBaseContext(), selectedTheme)).inflate(R.layout.overlay_window, null, false);
+        OverlayContentLayout overlayContentLayout = mOverlayWindow.findViewById(R.id.overlay_content);
+        overlayContentLayout.setTag(this);
+        mOverlayWindow.setTag(overlayContentLayout);
         mOverlayWindow.setListener(this);
 
         receiver = new BroadcastReceiver() {
