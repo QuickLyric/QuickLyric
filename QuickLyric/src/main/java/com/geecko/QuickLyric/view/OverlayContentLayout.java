@@ -35,7 +35,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
@@ -44,6 +43,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -277,24 +279,6 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         stopRefreshAnimation();
     }
 
-<<<<<<< HEAD
-=======
-    private void notifyLyricsUpdated(String artist, String track, boolean online) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.GROUP_ID, artist);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, track);
-        bundle.putBoolean(FirebaseAnalytics.Param.LEVEL, online);
-        MainActivity.notifyFireBase((App) ((LyricsOverlayService) getTag()).getApplication(), FirebaseAnalytics.Event.VIEW_ITEM, bundle);
-    }
-
-    private void notifyLyricsNotFound(String artist, String track) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.GROUP_ID, artist);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, track);
-        MainActivity.notifyFireBase((App) ((LyricsOverlayService) getTag()).getApplication(), FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-    }
-
->>>>>>> e90066d4... Fix overlay on Android 4.x
     private void startRefreshAnimation() {
         bugLayout.setVisibility(GONE);
         if (!(viewFlipper.getCurrentView() instanceof ProgressBar))
@@ -441,23 +425,6 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         return false;
     }
 
-<<<<<<< HEAD
-=======
-    private void report(Lyrics lyrics) {
-        if (getWindowToken() != null && lyrics != null &&
-                lyrics.getFlag() == Lyrics.POSITIVE_RESULT &&
-                lyrics.equals(getLyrics()) && !lyrics.isReported()
-                && !BuildConfig.DEBUG
-                && !mRefreshing
-                && !"Storage".equalsIgnoreCase(lyrics.getSource())) {
-            ((LyricsOverlayService) getTag()).markLyricsAsReported();
-            boolean online = OnlineAccessVerifier.check(getContext());
-            ((App) ((LyricsOverlayService) getTag()).getApplication()).jobManager.addJobInBackground(new DisplayReportingJob(lyrics, online));
-            ((App) ((LyricsOverlayService) getTag()).getApplication()).jobManager.start();
-        }
-    }
-
->>>>>>> e90066d4... Fix overlay on Android 4.x
     public void updateLRC() {
         if (mLrcThread == null || !mLrcThread.isAlive()) {
             mLrcThread = new Thread(lrcUpdater);
@@ -554,17 +521,10 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
 
     @Override
     public void onMetadataParsed(String[] metadata, boolean showMsg, boolean noDoubleBroadcast) {
-<<<<<<< HEAD
-        if (mLyrics != null && mLyrics.getOriginalArtist().equalsIgnoreCase(metadata[0])
-                && mLyrics.getOriginalTrack().equalsIgnoreCase(metadata[1])
-                && (!"Storage".equals(mLyrics.getSource()) || ("Storage".equals(mLyrics.getSource()) && noDoubleBroadcast))
-                && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-=======
         if (getLyrics() != null && metadata[0].equalsIgnoreCase(getLyrics().getOriginalArtist())
                 && metadata[1].equalsIgnoreCase(getLyrics().getOriginalTrack())
                 && (!"Storage".equals(getLyrics().getSource()) || ("Storage".equals(getLyrics().getSource()) && noDoubleBroadcast))
                 && getLyrics().getFlag() == Lyrics.POSITIVE_RESULT) {
->>>>>>> e90066d4... Fix overlay on Android 4.x
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
                     NotificationListenerService.restartNotificationListenerServiceIfNeeded(getContext()))
                 new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
@@ -578,23 +538,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
         }
     }
-<<<<<<< HEAD
-=======
 
     public void onOpened() {
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (getContext() != null)
-                    RatingUtils.showRateSnackbar(OverlayContentLayout.this);
-                report(getLyrics());
-            }
-        }, 2100);
-        LyricsOverlayService service = (LyricsOverlayService) getTag();
-        if (!service.launchCountRaised) {
-            LaunchesCounter.increaseLaunchCount(getContext());
-            service.launchCountRaised = true;
-        }
     }
->>>>>>> e90066d4... Fix overlay on Android 4.x
 }

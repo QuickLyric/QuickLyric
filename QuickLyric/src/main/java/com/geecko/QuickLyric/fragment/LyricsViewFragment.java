@@ -249,6 +249,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         fetchCurrentLyrics(true);
                 }
             });
+
             if (args != null)
                 refreshFab.setEnabled(args.getBoolean("refreshFabEnabled", true));
 
@@ -568,14 +569,8 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         TextView copyrightTV = layout.findViewById(R.id.copyright_tv);
         RelativeLayout bugLayout = layout.findViewById(R.id.error_msg);
         this.mLyrics = lyrics;
-<<<<<<< HEAD
-        if (SDK_INT >= ICE_CREAM_SANDWICH)
-            beamLyrics(lyrics, this.getActivity());
-        new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTitle(),
-=======
         beamLyrics(lyrics, this.getActivity());
         new PresenceChecker(this).execute(getActivity(), new String[]{lyrics.getArtist(), lyrics.getTitle(),
->>>>>>> ec836836... Further changes to the floating lyrics
                 lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
 
         if (lyrics.getArtist() != null)
