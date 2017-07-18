@@ -612,7 +612,11 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     startActivity(intent);
                 }
             } catch (Exception e) {
-                return false;
+		try {
+                    startActivity(new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")));
+                } catch (Exception e2) {
+                     return false;
+                }
             }
             return true;
         }
