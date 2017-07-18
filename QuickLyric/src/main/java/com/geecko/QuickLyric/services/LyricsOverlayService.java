@@ -99,7 +99,8 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                                 .setListener(new AnimatorActionListener(new Runnable() {
                                     @Override
                                     public void run() {
-                                        mFloatingViewManager.setDisplayMode(FloatingViewManager.DISPLAY_MODE_HIDE_ALWAYS);
+                                        if (mFloatingViewManager != null)
+                                            mFloatingViewManager.setDisplayMode(FloatingViewManager.DISPLAY_MODE_HIDE_ALWAYS);
                                     }
                                 }, AnimatorActionListener.ActionType.END));
                     }
@@ -120,9 +121,11 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                                 .setListener(new AnimatorActionListener(new Runnable() {
                                     @Override
                                     public void run() {
-                                        mFloatingViewManager.removeAllViewToWindow();
+                                        try {
+                                            destroy();
+                                        } catch (Exception ignored) {
+                                        }
                                         mBubbleView = null;
-                                        mFloatingViewManager = null;
                                         stopForeground(true);
                                     }
                                 }, AnimatorActionListener.ActionType.END));

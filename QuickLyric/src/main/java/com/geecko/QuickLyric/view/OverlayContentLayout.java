@@ -113,6 +113,16 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         toolbar.setOnMenuItemClickListener(this);
     }
 
+    private Lyrics getLyrics() {
+        Lyrics output = ((LyricsOverlayService) getContext()).getLyrics();
+        output = output == null ? new Lyrics(Lyrics.NO_RESULT) : output;
+        return output;
+    }
+
+    public void setLyrics(Lyrics lyrics) {
+        ((LyricsOverlayService) getContext()).setLyrics(lyrics);
+    }
+
     private void refreshToolbar(Menu menu) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         menu.findItem(R.id.resync_action).setVisible(mLyrics.isLRC());
@@ -366,7 +376,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                         Lyrics lyrics = mLyrics;
                         new RomanizeAsyncTask(getContext(), this).execute(lyrics);
                     } else {
-                        new AlertDialog.Builder(getContext())
+                        AlertDialog dialog = new AlertDialog.Builder(getContext())
                                 .setTitle(R.string.romanizer_prompt_title)
                                 .setMessage(R.string.romanizer_prompt_msg).setIcon(R.drawable.splash_icon)
                                 .setCancelable(true)
@@ -375,7 +385,9 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.quicklyric.romanizer")));
                                     }
-                                }).show();
+                                }).create();
+                        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                        dialog.show();
                     }
                 } else
                     update(DatabaseHelper.getInstance(getContext())

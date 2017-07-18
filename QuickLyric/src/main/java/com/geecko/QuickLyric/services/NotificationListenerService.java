@@ -420,7 +420,10 @@ public class NotificationListenerService extends android.service.notification.No
     private static void savePlayerName(String packageName, Context context) {
         if (packageName != null
                 && GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == 0) {
-            FirebaseCrash.log("Player: " + packageName);
+            try {
+                FirebaseCrash.log("Player: " + packageName);
+            } catch (Exception ignored) {
+            }
             usedPlayers.add(packageName);
         }
     }
