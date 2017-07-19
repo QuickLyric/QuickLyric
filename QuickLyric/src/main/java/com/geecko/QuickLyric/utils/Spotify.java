@@ -70,7 +70,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
-import okhttp3.CertificatePinner;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -124,7 +123,7 @@ public class Spotify {
             }
 
             public X509Certificate[] getAcceptedIssuers() {
-                return null;
+                return new X509Certificate[0];
             }
         };
 
@@ -142,9 +141,6 @@ public class Spotify {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .sslSocketFactory(sslSocketFactory, (X509TrustManager) tm)
-                .certificatePinner(new CertificatePinner.Builder()
-                        .add("api.quicklyric.be", "sha256/KdFllu5cmyNk7Ema4dx31vDX5tJifRjscsOca/eOdAQ=")
-                        .build())
                 .readTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
