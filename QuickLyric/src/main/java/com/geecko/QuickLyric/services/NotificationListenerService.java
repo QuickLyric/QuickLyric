@@ -99,9 +99,10 @@ public class NotificationListenerService extends android.service.notification.No
         if (!isListeningAuthorized(this))
             return;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mRemoteController = new WeakReference<>(new RemoteController(this, new KKMusicListener()));
+            RemoteController remoteController = new RemoteController(this, new KKMusicListener());
+            mRemoteController = new WeakReference<>(remoteController);
             mRemoteController.get().setArtworkConfiguration(3000, 3000);
-            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController.get())) {
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(remoteController)) {
                 throw new RuntimeException("Error while registering RemoteController!");
             }
         } else {
