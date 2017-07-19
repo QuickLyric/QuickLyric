@@ -37,7 +37,6 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
@@ -216,18 +215,6 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             if ("Storage".equals(lyrics.getSource())) {
                 SpannableString text = new SpannableString(getResources().getString(R.string.from_id3));
                 text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
-                id3TV.setText(text);
-            } else {
-                id3TV.setOnClickListener(null);
-                SpannableString text = new SpannableString("Lyrics licensed & provided by LyricFind");
-                int start = text.toString().indexOf("LyricFind");
-                text.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.lyricfind.com")));
-                    }
-                }, start, start + 9, 0);
-                text.setSpan(new UnderlineSpan(), start, start + 9, 0);
                 id3TV.setText(text);
             }
 
