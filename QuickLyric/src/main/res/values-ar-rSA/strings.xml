@@ -30,6 +30,7 @@
   <string name="pref_about">حول</string>
   <string name="send_feedback">أرسال ملاحظات</string>
   <string name="local_title">الكلمات المحفوظة</string>
+  <string name="musicid_title">تعرف على الكلمات</string>
   <string name="settings_title">إعدادات</string>
   <string name="save_action">حفظ</string>
   <string name="lyrics_saved">الكلمات المحفوظة</string>
@@ -77,6 +78,16 @@
   <string name="pref_beta_sum">أحصل على تحديثات (ميزات جديدة وإصلاحات الشوائب،...) أسرع و أخبرنا برأيك عبر البريد الإلكتروني</string>
   <string name="scan_error_no_content">تعذر العثور على أية موسيقى</string>
   <string name="no_results_why"><u>لماذا؟</u></string>
+  <string name="why_popup_text"><![CDATA[
+You were looking for the lyrics of \"%1$s\" by %2$s. Unfortunately QuickLyric couldn\'t find them… <br/><br/>
+A few possible reasons why:<br/>
+<br/>
+• Is your music <strong>tagged</strong> properly? QuickLyric cannot recognize tracks that aren\'t tagged.<br/>
+• Check if your connection is working.<br/>
+• Perhaps this song isn\'t part of the main catalog. Have you checked the <strong>additional providers</strong> in the settings?<br/>
+• You might have found a bug. If so, please email me.<br/>
+• Check if the date & time in of your device are set correctly.<br/>
+]]></string>
   <string name="why_popup_title">لماذا لا يعمل؟</string>
   <string name="download_category">التحميلات</string>
   <string name="wearable_prompt">إفتح على الساعة الذكية</string>
@@ -126,29 +137,83 @@
   <string name="about_product_tour">جولة حول المنتج</string>
   <string name="nl_title">شيء واحد آخر.</string>
   <string name="nl_instructions">لكي يعمل QuickLyric مع جميع مشغلي الموسيقى، بعض الإعدادات قد تحتاج إلى تغيير.</string>
-  <string name="nl_settings_link">السماح لQuickLyric لقراءة التنويهات</string>
   <string name="changelog">ما الجديد؟</string>
   <string name="rate_us">قيّم التطبيق</string>
+  <string name="romanize">رومانيزي</string>
+  <string name="reset">أعد من جديد</string>
+  <string name="musicid_no_match">لا يوجد تطابق</string>
+  <string name="notification_access">الوصول للإشعارات</string>
+  <string name="pref_lyrics_overlay_name">تراكب الكلمات</string>
+  <string name="pref_lyrics_overlay_sum">الاطار العائم الذي يجعل الكلمات المتاحة خارج التطبيق</string>
+  <string name="notification_access_explanation"><![CDATA[
+يُحتاج هذا الإذن ليتمكن QuickLyric من الوصول إلى البيانات الوصفية للموسيقى.<br/>
+QuickLyric غير مهتم بقراءة إشعاراتك، وساسية خصوصيتنا تمنعنا من ذلك.<br/>
+الشيء الرائع هو أن QuickLyric مفتوح المصدر، أي شخص يمكنه أن يتحقق من ذلك بنفسه! 😊<br/>
+نشكركم على تفهمكم<br/><br/>
+- فريق QuickLyric
+]]></string>
   <string name="premium_title">شراء حساب المميز</string>
   <string name="remove_ads_title">إزالة الإعلانات</string>
   <string name="subscription_monthly">شهريًا</string>
   <string name="subscription_yearly">سنويًا</string>
   <string name="premium_sum_incent">أحصل على النسخة المدفوعة من التطبيق لدعم الفنانين &amp; الفريق وراء QuickLyric!</string>
   <string name="premium_ads_incent">لا مزيد من الاعلانات!</string>
-  <string name="premium_karaoke_incent">حصري * وضع كاريوكي *</string>
   <string name="premium_themes_incent">* 7 * مواضيع جديدة</string>
   <string name="premium_night_mode_incent">* وضع ليلي* لراحة عينيك في الليل</string>
+  <string name="premium_android_wear">دعم ساعات *Android Wear*</string>
   <string name="premium_doubt">غير متأكد حول الحصول على اشتراك؟ تواصل معنا عبر البريد إلكتروني: contact@quicklyric.be</string>
   <string name="premium_thanks">شكرا لدعمك!</string>
   <string name="about_crowdin">المساعدة في ترجمة التطبيق في Crowdin</string>
   <string name="online_title">القائمة عبر الأنترنت</string>
+  <string name="yearly_sub_template">%s للسنة</string>
+  <string name="monthly_sub_template">%s للشهر</string>
+  <string name="buy_sub">اشتر</string>
+  <string name="client_version_error">رجاء قم بتحديث التطبيق</string>
+  <string name="why_is_this_a_subscription">لماذا هذا الإلتزام؟</string>
+  <string name="why_sub_explanation"><![CDATA[<p>معظم عائدات الاشتراكات تذهب للفنانين وأصحاب الحقوق. أداء رسوم QuickLyric Premium لمرة واحدة فقط كأن تدفع بضع دولارات لSpotify وتحصل على Premium إلى الأبد. هذا للأسف ليس ممكنا.</p>
+    <p>لطالما استعملت التطبيق، سنحتاج لتسديد أجر استعمالك للخدمة لأصحاب الحقوق من مالك الذي ستدفع.</p>
+    المرجو تَفَهّم أن هذا الأمر من متطلبات مجال صناعة الموسيقى.]]>
+    </string>
+  <string name="vote_action">صوّت</string>
+  <string name="user_submission_dialog_title">قيم هذه الكلمات</string>
+  <string name="vote_for">هذه الكلمات صحيحة</string>
+  <string name="vote_against">هذه الكلمات خاطئة</string>
+  <string name="vote_neutral">هذه الكلمات بحاجة لبعض التصحيح</string>
+  <string name="snackbar_ratings_QL">تطبيق ممتع؟</string>
+  <string name="recent_tracks_title">مقطوعات جديدة</string>
+  <string name="recents_empty_database">لم تستمع لأي شيء بعد</string>
+  <string name="gmusic_import_securityException">يجب أن يكون Google Play Music مشغلا ليعمل هذا</string>
+  <string name="musicid_instructions">قرب هاتفك من مصدر الموسيقى</string>
+  <string name="pref_always_artwork">تمكين دائماً</string>
+  <plurals name="scan_dialog">
+    <item quantity="zero">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+    <item quantity="one">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+    <item quantity="two">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+    <item quantity="few">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+    <item quantity="many">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+    <item quantity="other">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
+        تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
+  </plurals>
+  <plurals name="dl_finished_desc">
+    <item quantity="zero">تم تحميل كلمات أغاني ل%1$d أغنية</item>
+    <item quantity="one">تم تحميل كلمات %1$d أغنية</item>
+    <item quantity="two">تم تحميل كلمات %1$d أغنية</item>
+    <item quantity="few">تم تحميل كلمات %1$d أغنية</item>
+    <item quantity="many">تم تحميل كلمات %1$d أغنية</item>
+    <item quantity="other">تم تحميل كلمات %1$d أغنية</item>
+  </plurals>
   <string-array name="notifications">
     <item>معطل (افتراضي)</item>
     <item>ممكنة</item>
-    <item>تمكين (مثبت)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>تمكين دائماً</item>
+    <item>@string/pref_always_artwork</item>
     <item>فقط على إلشبكة اللاسلكية</item>
   </string-array>
 </resources>

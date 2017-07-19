@@ -28,6 +28,7 @@
   <string name="pref_20min_ignore">忽略長的歌曲</string>
   <string name="pref_20min_ignore_sum">長度超過20分鐘的音軌(例如播客)不被視作音樂</string>
   <string name="pref_about">關於</string>
+  <string name="send_feedback">傳送回饋</string>
   <string name="local_title">已保存歌詞</string>
   <string name="settings_title">設定</string>
   <string name="save_action">保存</string>
@@ -40,15 +41,27 @@
   <string name="pref_look_feel_category">外觀微調</string>
   <string name="welcome">歡迎來到 QuickLyric!</string>
   <string name="welcome2_sub">你想找的歌詞...\n 隨時隨地</string>
+  <string name="apps_desc">能運作於您所有的應用程式</string>
+  <string name="apps_desc_sub">如果您在您的播放器中（如：Poweramp、GoneMAD 或是 Spotify）遇到問題，請確認已啟用「Scrobbling」或「播客狀態」</string>
+  <string name="id_desc">與您最喜愛的 MusicID 應用程式結合。\n（Shazam™、 SoundHound™之類的。）</string>
+  <string name="id_desc_sub">1. 辨識一首歌曲\n2. 將結果分享至QuickLyric\n3. 享受您的歌詞</string>
   <string name="refresh_desc">當歌曲已改變...</string>
   <string name="refresh_desc_sub">點擊此按鈕。QuickLyric 就會完成餘下的。</string>
   <string name="pref_more_category">更多</string>
+  <string name="first_launch">在您的裝置上開始播放音樂並點擊更新</string>
   <string name="share_prompt">從 MusicID 導入</string>
   <string name="undo">取消上一步</string>
+  <string name="beta_dialog_content">
+1) 加入 Google+ 社群：\nhttps://plus.google.com/communities/115504114424315189412\n
+2) 申請註冊使用測試版：\nhttps://play.google.com/apps/testing/com.geecko.QuickLyric
+    
+    </string>
   <string name="skip">略過</string>
   <string name="pref_theme">主題</string>
   <string name="pref_notifications">通知</string>
+  <string name="defaut_theme">琥珀色</string>
   <string name="dark_theme">暗黑</string>
+  <string name="pref_notifications_sum">當歌曲變更時接收詳細的通知</string>
   <string name="pref_auto_save">自動儲存歌詞</string>
   <string name="pref_auto_save_sum">所有歌詞都會存儲在您的裝置上</string>
   <string name="pref_night_mode">夜間模式</string>
@@ -72,6 +85,14 @@
   <string name="wrong_musicID">不支援的 MusicID 服務</string>
   <string name="ignore_id3_toast">點擊刷新按鈕，重新下載</string>
   <string name="from_id3">(歌詞從音訊檔中提取)</string>
+  <string name="uri_storage">此裝置</string>
+  <string name="uri_gmusic">你的 Google Play 音樂庫</string>
+  <string name="source_punk">龐克搖滾</string>
+  <string name="source_metal">金屬</string>
+  <string name="source_hip_hop">嘻哈</string>
+  <string name="source_EDM">電子舞蹈音樂</string>
+  <string name="source_japanese">日語</string>
+  <string name="pref_always_artwork">Always enabled</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric 將會下載共 %1$d 首歌曲的歌詞。\
          請保持連線至少 %2$d 分鐘。</item>
@@ -82,10 +103,6 @@
   <string-array name="notifications">
     <item>停用 (預設)</item>
     <item>啟用</item>
-    <item>啟用(常置)</item>
-  </string-array>
-  <string-array name="artwork_download">
-    <item>Always enabled</item>
-    <item>Only on WiFi</item>
+    <item>Enabled (hidden)</item>
   </string-array>
 </resources>

@@ -30,6 +30,7 @@
   <string name="pref_about">Про програму</string>
   <string name="send_feedback">Надіслати відгук</string>
   <string name="local_title">Збережені тексти</string>
+  <string name="musicid_title">Визначити текст</string>
   <string name="settings_title">Налаштування</string>
   <string name="save_action">Зберегти</string>
   <string name="lyrics_saved">Текст збережено</string>
@@ -126,22 +127,23 @@
   <string name="about_product_tour">Огляд продукту</string>
   <string name="nl_title">Остання річ.</string>
   <string name="nl_instructions">Аби QuickLyric працював з усіма програвачами, необхідно змінити деякі налаштування.</string>
-  <string name="nl_settings_link">Дозволити QuickLyric читати мої сповіщення</string>
   <string name="changelog">Що нового?</string>
   <string name="rate_us">Оцініть додаток</string>
+  <string name="reset">Скинути</string>
+  <string name="musicid_no_match">Збігів не знайдено</string>
   <string name="premium_title">Отримати Premium</string>
   <string name="remove_ads_title">Прибрати рекламу</string>
   <string name="subscription_monthly">Місячна</string>
   <string name="subscription_yearly">Річна</string>
   <string name="premium_sum_incent">Підпишіться на Premium, щоб підтримати виконавців та команду QuickLyric!</string>
   <string name="premium_ads_incent">Більше жодної реклами!</string>
-  <string name="premium_karaoke_incent">Ексклюзивний * караоке режим *</string>
   <string name="premium_themes_incent">*7* нових тем</string>
   <string name="premium_night_mode_incent">*Нічний режим*, щоб ваші очі відпочивали вночі</string>
   <string name="premium_doubt">Не впевнені щодо підписки? Маякніть нам на contact@quicklyric.be</string>
   <string name="premium_thanks">Дякуємо за вашу підтримку!</string>
   <string name="about_crowdin">Допоможіть перекласти на Crowdin</string>
   <string name="online_title">Мережевий каталог</string>
+  <string name="pref_always_artwork">Завше активне</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric зараз завантажить тексти для %1$d пісні.\
 Переконайтесь, що Ви маєте стабільне Інтернет-з\'єднання принаймні на %2$d хвилину.</item>
@@ -158,10 +160,10 @@
   <string-array name="notifications">
     <item>Вимкнено (стандартно)</item>
     <item>Увімкнено</item>
-    <item>Увімкнено (закріплене)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Завше активне</item>
+    <item>@string/pref_always_artwork</item>
     <item>Лише через WiFi</item>
   </string-array>
 </resources>

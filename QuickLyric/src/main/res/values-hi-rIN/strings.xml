@@ -30,6 +30,7 @@
   <string name="pref_about">बारे में</string>
   <string name="send_feedback">प्रतिक्रिया भेजें</string>
   <string name="local_title">बचाए हुए गाने</string>
+  <string name="musicid_title">गाना पहचानें</string>
   <string name="settings_title">सेटिंग्स</string>
   <string name="save_action">बचयें</string>
   <string name="lyrics_saved">बोल बच गये</string>
@@ -76,6 +77,9 @@
   <string name="pref_beta_sum">अपडेट (नई सुविधाओं, बग फिक्स,...) तेजी से प्राप्त करे और ईमेल के माध्यम से वापस रिपोर्ट करे</string>
   <string name="scan_error_no_content">कोई संगीत नहीं मिला।</string>
   <string name="no_results_why"><u>क्यों?</u></string>
+  <string name="why_popup_text"><![CDATA[
+आप इस %2$s \"%1$s\" गीत को ढूंढ रहे थे । दुर्भाग्य से QuickLyric को वो नहीं मिला... <br/> <br/> कुछ संभावित कारण: <br/> <br/> • क्या आपके संगीत ठीक से <strong>टैग</strong> किये गए है? बिना टैग के संगीत को QuickLyric नहीं पहचान सकता। <br/> • यदि आपका कनेक्शन काम कर रहा है की नहीं ये जाँच करें. <br/> • शायद इस गीत मुख्य सूची का भाग नहीं है। क्या आपने सेटिंग्स में <strong>अतिरिक्त विकल्पों</strong> की जाँच की है? <br/> • आपने एक बग पाया हो सकता है। यदि हां, तो कृपया मुझे ईमेल करे। <br/> • अंत में, यह भी संभव है कि इस गीत के बोल उपलब्ध नहीं है। यदि आप सूची जोड़ने के संबंध में सुझाव दे सकते है, तो मुझे ईमेल करने में स्वतन्त्र महसूस है। <br/> • जांचें कि आपके डिवाइस की तारीख और समय सही ढंग से सेट है या नहीं।
+]]></string>
   <string name="why_popup_title">यह क्यों काम नहीं कर रहा है?</string>
   <string name="download_category">आपके डौनलोड्स</string>
   <string name="wearable_prompt">किसी पहनने योग्य डिवाइस पर खोले।</string>
@@ -125,22 +129,29 @@
   <string name="about_product_tour">उत्पाद टूर</string>
   <string name="nl_title">एक अंतिम बात।</string>
   <string name="nl_instructions">QuickLyric का सभी म्यूजिक प्लेयर के साथ काम करने के लिए, कुछ सेटिंग्स परिवर्तित करने की जरूरत होगी।</string>
-  <string name="nl_settings_link">QuickLyric आने वाली अपनी सूचनाओं को पढ़ने की अनुमति दें</string>
+  <string name="nl_settings_link">संगीत का उपयोग शुरू करें</string>
+  <string name="floating_settings_link">फ़्लोटिंग गीत (वैकल्पिक) start करें</string>
   <string name="changelog">नया क्या है:</string>
   <string name="rate_us">इस एप्प का मूल्यांकन करें</string>
+  <string name="romanize">वर्णों का</string>
+  <string name="reset">रीसेट करें</string>
+  <string name="musicid_no_match">कोई मेल नहीं</string>
+  <string name="notification_access">अधिसूचना पहुँच</string>
+  <string name="pref_lyrics_overlay_name">गीत ओवरले</string>
+  <string name="pref_lyrics_overlay_sum">फ़्लोटिंग विंडो जो गाना बाहर app पर उपलब्ध कराता है</string>
   <string name="premium_title">प्रीमियम प्राप्त करें</string>
   <string name="remove_ads_title">विज्ञापन हटाएँ</string>
   <string name="subscription_monthly">मासिक</string>
   <string name="subscription_yearly">वार्षिक</string>
   <string name="premium_sum_incent">कलाकारों और QuickLyric के पीछे टीम का समर्थन करने के लिए प्रीमियम खरीदिये!</string>
   <string name="premium_ads_incent">और कोई अधिक विज्ञापन नहीं!</string>
-  <string name="premium_karaoke_incent">एक विशेष * कराओके मोड *</string>
   <string name="premium_themes_incent">* 7 * नई थीम्स</string>
   <string name="premium_night_mode_incent">एक * रात्रि मोड * आपकी आँखो को रात में आराम देने के लिए</string>
   <string name="premium_doubt">एक सदस्यता प्राप्त करने के बारे में अनिश्चित? हमें एक ईमेल करे: contact@quicklyric.be (केवल अंग्रेजी)</string>
   <string name="premium_thanks">मदद के लिए धन्यवाद!</string>
   <string name="about_crowdin">Crowdin पर app का अनुवाद में मदद करे</string>
   <string name="online_title">ऑनलाइन सूची</string>
+  <string name="pref_always_artwork">हमेशा सक्षम</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric कुल के %1$d गीत के बोल डाउनलोड करेगा। सुनिश्चित करें कि आपके पास %2$d मिनट के लिए एक स्थिर कनेक्शन हो।</item>
     <item quantity="other">QuickLyric कुल के %1$d गीत के बोल डाउनलोड करेगा। सुनिश्चित करें कि आपके पास %2$d मिनट के लिए एक स्थिर कनेक्शन हो।</item>
@@ -152,10 +163,10 @@
   <string-array name="notifications">
     <item>बंद (डिफॉल्ट)</item>
     <item>सक्षम</item>
-    <item>सक्षम (ना हटने वाली)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>हमेशा सक्षम</item>
+    <item>@string/pref_always_artwork</item>
     <item>केवल वाईफ़ाई पर</item>
   </string-array>
 </resources>

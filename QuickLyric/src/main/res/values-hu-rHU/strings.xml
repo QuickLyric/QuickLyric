@@ -137,7 +137,6 @@ Pár lehetséges ok:<br/>
   <string name="about_product_tour">Termékbemutató</string>
   <string name="nl_title">És még valami.</string>
   <string name="nl_instructions">Ahhoz hogy a QuickLyric működjön az összes lejátszóval, néhány beállítás kell végrehajtani.</string>
-  <string name="nl_settings_link">Engedélyezze a QuickLyric számára értesítéseinek olvasását</string>
   <string name="changelog">Újdonságok</string>
   <string name="rate_us">Értékelje az alkalmazást</string>
   <string name="premium_title">Váltson Prémiumra</string>
@@ -146,7 +145,6 @@ Pár lehetséges ok:<br/>
   <string name="subscription_yearly">Éves</string>
   <string name="premium_sum_incent">Váltson Prémiumra ezzel támogatva a szerzőket &amp; QuickLyric fejlesztői csapatát!</string>
   <string name="premium_ads_incent">Nem lesz több hirdetés!</string>
-  <string name="premium_karaoke_incent">Exklúzív *karaoke mód*</string>
   <string name="premium_themes_incent">*7* új téma</string>
   <string name="premium_night_mode_incent">*Éjszakai mód*, ami segít csökkenteni a szem megerőltetését este</string>
   <string name="premium_android_wear">*Android Wear* támogatás</string>
@@ -162,6 +160,7 @@ Pár lehetséges ok:<br/>
   <string name="why_sub_explanation"><![CDATA[<p>Az előfizetések bevételének nagy része az előadóhoz és a jogtulajdonosokhoz kerül. Egyszeri díj fizetése a QuickLyric Premium beszerzéséhez olyan lenne, mint a Spotify-nak pár dollárt fizetni és Premium előfizetést kapni az életed végéig. Sajnos ez nem lehetséges.</p>
 <p>Ha elfogadnánk tőled az egyszeri díjat és évekig használnád az alkalmazást nekünk még továbbra is fizetnünk kéne a jogtulajdonosnak a fogyasztásodért.</p>
 Kérjük értsd meg, hogy a zeneipar követelménye az, hogy így működnek a dolgok.]]>    </string>
+  <string name="pref_always_artwork">Mindig engedélyezve</string>
   <plurals name="scan_dialog">
     <item quantity="one">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
     <item quantity="other">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
@@ -173,10 +172,10 @@ Kérjük értsd meg, hogy a zeneipar követelménye az, hogy így működnek a d
   <string-array name="notifications">
     <item>Letiltva (alapértelmezett)</item>
     <item>Engedélyezve</item>
-    <item>Engedélyezve (mindig látható)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Mindig engedélyezve</item>
+    <item>@string/pref_always_artwork</item>
     <item>Csak Wi-Fi-n</item>
   </string-array>
 </resources>

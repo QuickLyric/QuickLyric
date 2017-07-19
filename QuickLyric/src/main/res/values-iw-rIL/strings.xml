@@ -82,9 +82,17 @@
   <string name="nighttime_end_dialog_title">סיום זמן לילה</string>
   <string name="pref_force_screen_sum">מנע מהמסך להכבות בזמן קריאת מילות שיר.</string>
   <string name="pref_force_screen_on">כפה על המסך להישאר פועל</string>
+  <string name="uri_storage">המכשיר הזה</string>
+  <string name="uri_gmusic">ספריית המוזיקה שלך בגוגל פליי</string>
+  <string name="source_punk">פאנק רוק</string>
+  <string name="source_metal">מטאל</string>
+  <string name="source_hip_hop">היפ הופ</string>
+  <string name="source_EDM">מוזיקת דאנס אלקטרונית</string>
+  <string name="source_japanese">יפנית</string>
+  <string name="source_sync">מילות שיר מסונכרנות</string>
   <string-array name="notifications">
     <item>מבוטל (ברירת מחדל)</item>
     <item>אפשר</item>
-    <item>אפשר (דביק)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
 </resources>

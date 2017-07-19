@@ -30,6 +30,7 @@
   <string name="pref_about">O aplikaciji</string>
   <string name="send_feedback">Pošlji povratne informacije</string>
   <string name="local_title">Shranjena besedila</string>
+  <string name="musicid_title">Prepoznaj besedilo</string>
   <string name="settings_title">Nastavitve</string>
   <string name="save_action">Shrani</string>
   <string name="lyrics_saved">Besedilo shranjeno</string>
@@ -75,6 +76,9 @@
   <string name="pref_beta_sum">Dobi posodobitve (nove funkcije, popravki, &#8230;) hitreje in poročaj preko emaila</string>
   <string name="scan_error_no_content">Ni najdenih skladb</string>
   <string name="no_results_why"><u>Zakaj?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Iskali ste besedilo za \"%1$s\" od %2$s. Nažalost ga QuickLyric ni našel…<br/><br/>Nekaj možnih razlogov zakaj:<br/><br/>•Je vaša glasba pravilno <strong>označena</strong>? QuickLyric ne zmore prepoznati pesmi, ki niso označene.<br/>•Preverite, ali vaša povezava deluje.<br/>•Morda ta pesem ni v glavnem katalogu. Ste preverili <strong>dodatne ponudnike</strong> v nastavitvah?<br/>•Morda ste našli napako. V tem primeru me kontaktirajte preko e-pošte.<br/>•Preverite, ali sta datum in ura na vaši napravi pravilna.<br/>
+]]></string>
   <string name="why_popup_title">Zakaj ne deluje?</string>
   <string name="download_category">Prenosi</string>
   <string name="wearable_prompt">Odpri na nosljivi napravi</string>
@@ -124,22 +128,58 @@
   <string name="about_product_tour">Predstavitev izdelka</string>
   <string name="nl_title">Še zadnja stvar.</string>
   <string name="nl_instructions">Da lahko QuickLyric deluje z vsemi predvajalniki, morajo nekatere nastavitve biti spremenjene.</string>
-  <string name="nl_settings_link">Omogoči da QuickLyric bere moja obvestila</string>
+  <string name="nl_settings_link">Omogoči dostop do glasbe</string>
+  <string name="floating_settings_link">Omogoči lebdeča besedila (izbirno)</string>
   <string name="changelog">Kaj je novega?</string>
   <string name="rate_us">Oceni aplikacijo</string>
+  <string name="romanize">Pretvori v latinske znake</string>
+  <string name="reset">Ponastavi</string>
+  <string name="musicid_no_match">Ni ujemanj</string>
+  <string name="notification_access">Dostop do obvestil</string>
+  <string name="pref_lyrics_overlay_name">Prekrivanje besedila</string>
+  <string name="pref_lyrics_overlay_sum">Plavajoče okno, ki omogoča besedila zunaj aplikacije</string>
+  <string name="notification_access_explanation"><![CDATA[
+To dovoljenje je potrebno samo zato, da QuickLyric lahko dostopa do metapodatkov glasbe.<br/>QuickLyric ni zainteresiran v branje vaših obvestil, to nam naša politika zasebnosti preprečuje.<br/>Dobra novica je, da zaradi odprte kode QuickLyric to lahko vsak zase preveri! 😊<br/><br/>Zahvaljujemo se vam za vaše razumevanje!<br/><br/>- Ekipa QuickLyric
+]]></string>
   <string name="premium_title">Nakup Premium</string>
   <string name="remove_ads_title">Odstrani oglase</string>
   <string name="subscription_monthly">Mesečno</string>
   <string name="subscription_yearly">Letno</string>
   <string name="premium_sum_incent">Pridobite Premium, da podprete izvajalce &amp; ekipo QuickLyric!</string>
   <string name="premium_ads_incent">Nič več oglasov!</string>
-  <string name="premium_karaoke_incent">Ekskluzivni *karaoke* način</string>
   <string name="premium_themes_incent">*7* novih tem</string>
   <string name="premium_night_mode_incent">*nočni način* za manjšo obremenitev oči ponoči</string>
+  <string name="premium_android_wear">Podpora za *Android Wear* ure</string>
   <string name="premium_doubt">Niste prepričani o naročnini? Pišite nam na contact@quicklyric.be</string>
   <string name="premium_thanks">Hvala za vašo podporo!</string>
   <string name="about_crowdin">Pomagajte prevesti aplikacijo na Crowdin</string>
   <string name="online_title">Spletni katalog</string>
+  <string name="yearly_sub_template">%s/leto</string>
+  <string name="monthly_sub_template">%s/mesec</string>
+  <string name="buy_sub">Kupi</string>
+  <string name="client_version_error">Prosimo posodobite aplikacijo</string>
+  <string name="why_is_this_a_subscription">Zakaj je to naročnina?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>Večina prihodka od naročnin se nameni izvajalcem in lastnikom avtorskih pravic. Plačilo enkratne vsote za QuickLyric Premium bi bilo kot plačati Spotify nekaj sto eurov za Premium dostop do konca življenja. To na žalost ni mogoče.</p>    <p>Če bi vzeli vaš denar, vi pa bi aplikacijo uporabljali še leta, bi mi lastnikom avtorskih pravic vseeno morali plačevati za vašo uporabo.</p>    Prosimo razumite, da je zahteva glasbene industrije, da stvari tako delujejo.]]>;    </string>
+  <string name="vote_action">Glasuj</string>
+  <string name="user_submission_dialog_title">Ocenite to besedilo</string>
+  <string name="vote_for">To besedilo je pravilno</string>
+  <string name="vote_against">To besedilo ni pravilno</string>
+  <string name="vote_neutral">To besedilo potrebuje popravke</string>
+  <string name="snackbar_ratings_QL">Radi uporabljate QuickLyric?</string>
+  <string name="recent_tracks_title">Nedavne pesmi</string>
+  <string name="recents_empty_database">Ničesar še niste poslušali</string>
+  <string name="gmusic_import_securityException">Google Play Glasba mora biti zagnana, da to deluje</string>
+  <string name="miui_autostart">%s lastniki morajo najprej odblokirati aplikacijo</string>
+  <string name="musicid_instructions">Telefon približajte glasbi</string>
+  <string name="loading">Nalaganje&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric ima težave s branjem vaše glasbe - poskusite ponovno zagnati vašo napravo</string>
+  <string name="romanizer_prompt_msg">Za pretvorbo besedil iz japonske, korejske ali kitajske v latinsko abecedo, morate prenesti dodaten vtičnik za QuickLyric.</string>
+  <string name="romanizer_prompt_title">Romanizer dodatek</string>
+  <string name="pref_always_artwork">Vedno omogočeno</string>
+  <string name="pref_overlay_behavior_always">Vedno vidno</string>
+  <string name="pref_overlay_behavior_notif">Odpri preko obvestila</string>
+  <string name="pref_overlay_behavior_title">Vedenje lebdečih besedil</string>
+  <string name="pref_notification_sum_disabled">Obvestila ne morejo biti onemogočena, ko so lebdeča besedila omogočena</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>
@@ -156,13 +196,19 @@
     <item quantity="few">Preneseno besedilo za %1$d pesmi</item>
     <item quantity="other">Preneseno besedilo za %1$d pesmi</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d izbran element</item>
+    <item quantity="two">%1$d izbrana elementa</item>
+    <item quantity="few">%1$d izbrani elementi</item>
+    <item quantity="other">%1$d izbranih elementov</item>
+  </plurals>
   <string-array name="notifications">
     <item>Onemogočeno (privzeto)</item>
     <item>Omogočeno</item>
-    <item>Omogočeno (pripeto)</item>
+    <item>Omogočeno (skrito)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Vedno omogočeno</item>
+    <item>@string/pref_always_artwork</item>
     <item>Samo na WiFi</item>
   </string-array>
 </resources>

@@ -32,14 +32,15 @@
   <string name="pref_about">Więcej</string>
   <string name="send_feedback">Prześlij sugestię</string>
   <string name="local_title">Zachowane teksty</string>
+  <string name="musicid_title">Rozpoznaj tekst</string>
   <string name="settings_title">Ustawienia</string>
   <string name="save_action">Zapisz</string>
-  <string name="lyrics_saved">Zapisane teksty piosenek</string>
-  <string name="lyrics_removed">Teksty piosenek zostały usuniete ze schowka</string>
+  <string name="lyrics_saved">Zapisane teksty</string>
+  <string name="lyrics_removed">Teksty zostały usunięte ze schowka</string>
   <string name="remove_action">Usuń</string>
   <string name="pref_auto_refresh_title">Automatycznie odświeżaj teksty</string>
   <string name="pref_auto_refresh_summary">Tekst będzie odświeżany automatycznie po zmianie piosenki</string>
-  <string name="local_empty_database">Nie zapisano jeszcze żadnych tekstów piosenek</string>
+  <string name="local_empty_database">Nie zapisano jeszcze żadnych tekstów.</string>
   <string name="pref_look_feel_category">Wygląd</string>
   <string name="welcome">Witaj w QuickLyric!</string>
   <string name="welcome2_sub">Teksty których szukałeś&#8230; Tu i teraz</string>
@@ -95,7 +96,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="wrong_musicID">Nieobsługiwana usługa MusicID</string>
   <string name="pref_issues_sum">contact@quicklyric.be (tylko w języku angielskim)</string>
   <string name="ignore_id3_toast">Naciśnij przycisk odświeżania, aby wymusić pobieranie</string>
-  <string name="from_id3">(Tekst pochodzcy z pliku audio)</string>
+  <string name="from_id3">(Tekst pochodzący z pliku audio)</string>
   <string name="nighttime_start_dialog_title">Start trybu nocnego</string>
   <string name="nighttime_end_dialog_title">Wyłączenie trybu nocnego</string>
   <string name="pref_force_screen_sum">Nie wygaszaj ekranu, gdy wyświetlany jest tekst piosenki</string>
@@ -107,9 +108,9 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="permission_denied">(odmowa dostępu)</string>
   <string name="id3_write_permission_error">Aplikacja musi być uruchomiona ponownie, aby otrzymać uprawnienia do zapisu</string>
   <string name="resync_action">Ponowna synchronizacja</string>
-  <string name="uri_storage">To urządzenie</string>
-  <string name="uri_gmusic">Twoja biblioteka Google Play Music</string>
-  <string name="uri_spotify">Twoja biblioteka Spotify</string>
+  <string name="uri_storage">Tego urządzenia</string>
+  <string name="uri_gmusic">Twojej biblioteki Google Play Music</string>
+  <string name="uri_spotify">Twojej biblioteki Spotify</string>
   <string name="spotify_library">Twoje zapisane utwory</string>
   <string name="spotify_playlists">Twoje listy odtwarzania</string>
   <string name="source_punk">Punk Rock</string>
@@ -135,17 +136,30 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="about_read_ToS">Przeczytaj warunki korzystania z usługi</string>
   <string name="about_product_tour">Prezentacja produktu</string>
   <string name="nl_title">Ostatnia sprawa.</string>
-  <string name="nl_instructions">Aby QuickLyric mógł współpracować z wszystkimi odtwarzaczami, niektóre ustawienia muszą zostać zmienione.</string>
-  <string name="nl_settings_link">Pozwól QuickLyric na odczyt moich powiadomień</string>
+  <string name="nl_instructions">Aby QuickLyric współpracował z wszystkimi odtwarzaczami, należy zmienić część ustawień.</string>
+  <string name="nl_settings_link">Włącz dostęp do muzyki</string>
+  <string name="floating_settings_link">Włącz swobodne okno tekstów (opcjonalnie)</string>
   <string name="changelog">Lista zmian</string>
   <string name="rate_us">Oceń aplikację</string>
+  <string name="romanize">Latynizuj</string>
+  <string name="reset">Resetuj</string>
+  <string name="musicid_no_match">Brak wyników ☹</string>
+  <string name="notification_access">Dostęp do powiadomień</string>
+  <string name="pref_lyrics_overlay_name">Nakładka z tekstami</string>
+  <string name="pref_lyrics_overlay_sum">Swobodne okno, dzięki któremu masz dostęp do tekstów poza aplikacją</string>
+  <string name="notification_access_explanation"><![CDATA[
+Pozwolenie jest potrzebne tylko po to, aby QuickLyric miał dostęp do metadanych muzyki.<br/>
+QuickLyric nie ma potrzeby czytania Twoich powiadomień - nasza polityka prywatności tego zabrania.<br/>
+Dobra wiadomość jest taka, że można przekonać się o tym samemu, bo QuickLyric jest aplikacją o otwartym kodzie źródłowym! 😊<br/><br/>
+Dziękujemy za zrozumienie!<br/><br/>
+- Zespół QuickLyric
+]]></string>
   <string name="premium_title">Przejdź na wersję Premium</string>
   <string name="remove_ads_title">Usuń reklamy</string>
   <string name="subscription_monthly">Na miesiąc</string>
   <string name="subscription_yearly">Na rok</string>
   <string name="premium_sum_incent">Wykup Premium, aby wesprzeć artystów &amp; twórców QuickLyric!</string>
   <string name="premium_ads_incent">Żadnych reklam!</string>
-  <string name="premium_karaoke_incent">Ekskluzywny *tryb karaoke*</string>
   <string name="premium_themes_incent">*7* nowych skórek</string>
   <string name="premium_night_mode_incent">*Tryb nocny*, aby dać odpocząć Twoim oczom</string>
   <string name="premium_android_wear">Wsparcie dla zegarków *Android Wear*</string>
@@ -167,6 +181,21 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="vote_for">Ten tekst jest poprawny</string>
   <string name="vote_against">Ten tekst nie jest poprawny</string>
   <string name="vote_neutral">Ten tekst wymaga pewnych zmian</string>
+  <string name="snackbar_ratings_QL">Lubisz korzystać z QuickLyric?</string>
+  <string name="recent_tracks_title">Ostatnie utwory</string>
+  <string name="recents_empty_database">Niczego jeszcze nie słuchano</string>
+  <string name="gmusic_import_securityException">Muzyka Google Play musi być uruchomiona, aby to zadziałało</string>
+  <string name="miui_autostart">Użytkownicy urządzeń %s muszą najpierw odblokować aplikację</string>
+  <string name="musicid_instructions">Trzymaj telefon, kierując go w stronę muzyki</string>
+  <string name="loading">Ładowanie&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric ma problem z odczytaniem muzyki - rozważ ponowne uruchomienie urządzenia</string>
+  <string name="romanizer_prompt_msg">Aby przekonwertować tekst z pisma japońskiego, koreańskiego, lub chińskiego na alfabet łaciński, należy pobrać oddzielną wtyczkę do QuickLyric.</string>
+  <string name="romanizer_prompt_title">Dodatek do latynizacji</string>
+  <string name="pref_always_artwork">Zawsze włączone</string>
+  <string name="pref_overlay_behavior_always">Zawsze widoczne</string>
+  <string name="pref_overlay_behavior_notif">Otwórz za pomocą powiadomienia</string>
+  <string name="pref_overlay_behavior_title">Zachowanie swobodnego okna tekstów</string>
+  <string name="pref_notification_sum_disabled">Powiadomienia nie mogą być wyłączone, gdy swobodne okno tekstów jest włączone</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
         Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>
@@ -180,13 +209,18 @@ Jest kilka możliwych przyczyn:<br/>
     <item quantity="few">Pobrano teksty %1$d piosenek</item>
     <item quantity="other">Pobrano teksty %1$d piosenek</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d wybrany element</item>
+    <item quantity="few">Liczba wybranych elementów: %1$d</item>
+    <item quantity="other">Liczba wybranych elementów: %1$d</item>
+  </plurals>
   <string-array name="notifications">
     <item>Wyłączone (domyślnie)</item>
     <item>Włączone</item>
-    <item>Włączone (Przyklejone)</item>
+    <item>Włączone (ukryte)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Zawsze włączone</item>
+    <item>@string/pref_always_artwork</item>
     <item>Tylko przez WiFi</item>
   </string-array>
 </resources>

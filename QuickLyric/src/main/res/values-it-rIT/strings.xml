@@ -30,6 +30,7 @@
   <string name="pref_about">A proposito</string>
   <string name="send_feedback">Inviaci un suggerimento</string>
   <string name="local_title">Testi salvati</string>
+  <string name="musicid_title">Identifica testo</string>
   <string name="settings_title">Impostazioni</string>
   <string name="save_action">Salva</string>
   <string name="lyrics_saved">Testi salvati</string>
@@ -76,6 +77,17 @@
   <string name="pref_beta_sum">Ricevi aggiornamenti (nuove funzionalità, bugfix,&#8230;) più velocemente e informami via mail su eventuali errori</string>
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Stavi cercando il testo di \"%1$s\" by %2$s. Sfortunatamente non siamo riusciti a trovarli...<br/>
+<br/>
+Alcune possibili ragioni:<br/>
+<br/>
+• La tua musica non è contrassegnata propriamente<br/>
+• La tua connessione ad internet non funziona.<br/>
+• Può darsi che la canzone non appartenga al catalogo principale.<br/>
+• È presente un bug. Se è così, inviami una mail.<br/>
+• Controlla se la data e l\'ora sono impostate correttamente.<br/>
+]]></string>
   <string name="why_popup_title">Perché non funziona?</string>
   <string name="download_category">Download</string>
   <string name="wearable_prompt">Apri su Android Wear</string>
@@ -125,16 +137,29 @@
   <string name="about_product_tour">Tour del prodotto</string>
   <string name="nl_title">Un\'ultima cosa.</string>
   <string name="nl_instructions">Per permettere a QuickLyric di funzionare con tutti i lettori musicali, è necessario modificare alcune impostazioni.</string>
-  <string name="nl_settings_link">Permetti a QuickLyric di leggere le mie notifiche</string>
+  <string name="nl_settings_link">Abilita accesso alla musica</string>
+  <string name="floating_settings_link">Abilita testi galleggianti (opzionale)</string>
   <string name="changelog">Cosa c\'è di nuovo?</string>
   <string name="rate_us">Valuta l\'applicazione</string>
+  <string name="romanize">Latinizza</string>
+  <string name="reset">Ripristina</string>
+  <string name="musicid_no_match">Nessuna corrispondenza ☹</string>
+  <string name="notification_access">Accesso alle notifiche</string>
+  <string name="pref_lyrics_overlay_name">Sovrapposizione testi</string>
+  <string name="pref_lyrics_overlay_sum">Una finestra fluttuante che rende disponibili i testi fuori dall\'app</string>
+  <string name="notification_access_explanation"><![CDATA[
+Questa autorizzazione è necessaria solo affinché QuickLyric possa accedere alle informazioni sulla tua musica.<br/>
+QuickLyric non è interessata a leggere le tue notifiche, e la nostra privacy policy ci previene dal farlo.<br/>
+La buona notizia è che, essendo QuickLyric open source, chiunque può verificarlo! 😊<br/><br/>
+Ti ringraziamo per la comprensione.<br/><br/>
+- Il team di QuickLyric
+]]></string>
   <string name="premium_title">Passa a Premium</string>
   <string name="remove_ads_title">Rimuovi gli annunci</string>
   <string name="subscription_monthly">Mensile</string>
   <string name="subscription_yearly">Annuale</string>
   <string name="premium_sum_incent">Passa a Premium per supportare gli artisti &amp; il team dietro QuickLyric!</string>
   <string name="premium_ads_incent">Niente più pubblicità!</string>
-  <string name="premium_karaoke_incent">Un\'esclusiva *modalità karaoke*</string>
   <string name="premium_themes_incent">*7* nuovi temi</string>
   <string name="premium_night_mode_incent">Una *modalità notturna* per riposare gli occhi durante la notte</string>
   <string name="premium_android_wear">Supporto per dispositivi *Android Wear*</string>
@@ -145,6 +170,29 @@
   <string name="yearly_sub_template">%s/anno</string>
   <string name="monthly_sub_template">%s/mese</string>
   <string name="buy_sub">Acquista</string>
+  <string name="client_version_error">Si prega di aggiornare l\'app</string>
+  <string name="why_is_this_a_subscription">Perché è un abbonamento?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>La maggior parte dei proventi degli abbonamenti vanno agli artisti e ai detentori dei diritti. Pagare una una sola volta per QuickLyric Premium sarebbe come pagare Spotify una volta sola e avere i benefici Premium per tutta la vita. Sfortunatamente non è possibile.</p>    <p>Se ci pagassi e continuassi a usare l\'app per anni, noi dovremmo comunque pagare i diritti per il tuo utilizzo.</p>    Vi preghiamo di comprendere che l\'industria musicale funziona in questo modo.]]>    </string>
+  <string name="vote_action">Valuta</string>
+  <string name="user_submission_dialog_title">Valuta questi testi</string>
+  <string name="vote_for">Questi testi sono corretti</string>
+  <string name="vote_against">Questi testi sono scorretti</string>
+  <string name="vote_neutral">Questi testi hanno bisogno di alcune correzioni</string>
+  <string name="snackbar_ratings_QL">Ti diverti utilizzando QuickLyric?</string>
+  <string name="recent_tracks_title">Testi recenti</string>
+  <string name="recents_empty_database">Non hai ascoltato ancora niente</string>
+  <string name="gmusic_import_securityException">È necessario che Google Play Music sia in esecuzione</string>
+  <string name="miui_autostart">Gli utenti %s devono prima sbloccare l\'app</string>
+  <string name="musicid_instructions">Tieni il telefono vicino alla musica</string>
+  <string name="loading">Caricamento&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric non riesce a leggere la tua musica - prova a riavviare il tuo dispositivo</string>
+  <string name="romanizer_prompt_msg">Per convertire testi in giapponese, coreano o cinese nell\'alfabeto latino devi scaricare un plug-in aggiuntivo per QuickLyric.</string>
+  <string name="romanizer_prompt_title">Estensione latinizzazione</string>
+  <string name="pref_always_artwork">Sempre attivo</string>
+  <string name="pref_overlay_behavior_always">Sempre visibile</string>
+  <string name="pref_overlay_behavior_notif">Apri da notifica</string>
+  <string name="pref_overlay_behavior_title">Comportamento testi galleggianti</string>
+  <string name="pref_notification_sum_disabled">Le notifiche non possono essere disabilitate quando i testi galleggianti sono attivi</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>
@@ -155,13 +203,17 @@
     <item quantity="one">Testo di %1$d canzone scaricato</item>
     <item quantity="other">Testo di %1$d canzoni scaricati</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d elemento selezionato</item>
+    <item quantity="other">%1$d elementi selezionati</item>
+  </plurals>
   <string-array name="notifications">
     <item>Disabilitate (predefinito)</item>
     <item>Abilitate</item>
-    <item>Abilitate (fissate)</item>
+    <item>Abilitato (nascosto)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Sempre</item>
+    <item>@string/pref_always_artwork</item>
     <item>Solo su WiFi</item>
   </string-array>
 </resources>

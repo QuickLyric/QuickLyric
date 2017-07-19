@@ -30,6 +30,7 @@
   <string name="pref_about">Acerca De</string>
   <string name="send_feedback">Enviar sugerencias</string>
   <string name="local_title">Letras guardadas</string>
+  <string name="musicid_title">Identificar Letras</string>
   <string name="settings_title">Ajustes</string>
   <string name="save_action">Guardar</string>
   <string name="lyrics_saved">Letras guardadas</string>
@@ -134,16 +135,30 @@ Algunas razones posibles por qué:<br/>
   <string name="about_product_tour">Tour del producto</string>
   <string name="nl_title">Una última cosa.</string>
   <string name="nl_instructions">Algunas opciones deben ser cambiadas para que Quicklyric pueda trabajar con todos los reproductores.</string>
-  <string name="nl_settings_link">Permitir que QuickLyric lea mis notificaciones</string>
+  <string name="nl_settings_link">Permitir el acceso a la música</string>
+  <string name="floating_settings_link">Permitr letras flotantes (opcional)</string>
   <string name="changelog">¿Novedades?</string>
   <string name="rate_us">Califica la aplicación</string>
+  <string name="romanize">Romanizar</string>
+  <string name="reset">Reiniciar</string>
+  <string name="musicid_no_match">Sin coincidencia ☹</string>
+  <string name="notification_access">Acceso a notificaciones</string>
+  <string name="pref_lyrics_overlay_name">Superposición de letras</string>
+  <string name="pref_lyrics_overlay_sum">Una ventana flotante hace disponible letras fuera de la aplicación</string>
+  <string name="notification_access_explanation"><![CDATA[
+Este permiso solo es necesario para que Quicklyric acceda a la metáfora de tu música.<br/>
+Quicklyric no está interesado en leer tus notificaciones y nuestra política de privacidad lo impide.<br/>
+La buena noticia es que Quicklyric es de código abierto, cualquiera puede comprobarlo por si mismo!
+😊<br/><br/>
+Te agradecemos por entender! <br/><br/>
+- El Equipo de Quicklyric
+]]></string>
   <string name="premium_title">Hazte Premium</string>
   <string name="remove_ads_title">Eliminar anuncios</string>
   <string name="subscription_monthly">Mensualmente</string>
   <string name="subscription_yearly">Anual</string>
   <string name="premium_sum_incent">Consigue Premium para apoyar los artistas &amp; el equipo detrás de QuickLyric!</string>
   <string name="premium_ads_incent">¡No más anuncios!</string>
-  <string name="premium_karaoke_incent">Un exclusivo *modo karaoke*</string>
   <string name="premium_themes_incent">*7* nuevos temas</string>
   <string name="premium_night_mode_incent">Un *modo noche* para descansar tus ojos por la noche</string>
   <string name="premium_android_wear">Soporta relojes *Android Wear*</string>
@@ -155,6 +170,30 @@ Algunas razones posibles por qué:<br/>
   <string name="monthly_sub_template">%s/mes</string>
   <string name="buy_sub">Comprar</string>
   <string name="client_version_error">Por favor, actualice la aplicación</string>
+  <string name="why_is_this_a_subscription">¿Por qué es una suscripción?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>La mayoría de los ingresos por suscripción van a los artistas y titulares de derechos. Pagar una tarifa única para obtener QuickLyric Premium sería como pagar a Spotify un par de dólares y obtener Premium por el resto de su vida. Por desgracia, no es posible</p>
+    <p>Si tomamos su dinero y mantuvo el uso de la aplicación durante años, todavía tendríamos que pagar a los titulares de derecho para su consumo.</p>
+    Por favor, entienda que es un requisito de la industria de la música que las cosas funcionan de esta manera.]]>
+    </string>
+  <string name="vote_action">Votar</string>
+  <string name="user_submission_dialog_title">Calificar esta letra</string>
+  <string name="vote_for">Estas letras son correctas</string>
+  <string name="vote_against">Estas letras están equivocadas</string>
+  <string name="vote_neutral">Estas letras necesitan algunas correcciones</string>
+  <string name="snackbar_ratings_QL">¿Disfrutas de QuickLyric?</string>
+  <string name="recent_tracks_title">Pistas recientes</string>
+  <string name="recents_empty_database">No has escuchado nada todavía</string>
+  <string name="gmusic_import_securityException">Google Play Música necesita estar iniciado para que esto funcione</string>
+  <string name="miui_autostart">%s propietarios primero deben desbloquear la aplicación</string>
+  <string name="musicid_instructions">Toma tu teléfono y subele a la música</string>
+  <string name="loading">Cargando&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric tiene problemas para leer tu música - considera reiniciar tu dispositivo</string>
+  <string name="romanizer_prompt_msg">Para convertir letras del japonés, coreano o chino al alfabeto latino, necesita descargar un plugin para QuickLyric.</string>
+  <string name="romanizer_prompt_title">Complemento romanizer</string>
+  <string name="pref_always_artwork">Siempre activado</string>
+  <string name="pref_overlay_behavior_always">Siempre visible</string>
+  <string name="pref_overlay_behavior_notif">Abrir desde notificación</string>
+  <string name="pref_overlay_behavior_title">Comportamiento de letras flotantes</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descargará las letras para un total de %1$d canción.\
         Asegúrese de tener una conexión estable por al menos %2$d minuto.</item>
@@ -168,10 +207,10 @@ Algunas razones posibles por qué:<br/>
   <string-array name="notifications">
     <item>Desactivado (por defecto)</item>
     <item>Activado</item>
-    <item>Activado (sticky)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Siempre activado</item>
+    <item>@string/pref_always_artwork</item>
     <item>Sólo en WiFi</item>
   </string-array>
 </resources>

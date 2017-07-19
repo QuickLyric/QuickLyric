@@ -34,6 +34,7 @@
   <string name="pref_about">QuickLyricについて</string>
   <string name="send_feedback">フィードバックを送信</string>
   <string name="local_title">保存した歌詞</string>
+  <string name="musicid_title">歌詞を特定</string>
   <string name="settings_title">設定</string>
   <string name="save_action">保存</string>
   <string name="lyrics_saved">歌詞を保存しました</string>
@@ -139,16 +140,29 @@
   <string name="about_product_tour">製品ツアー</string>
   <string name="nl_title">最後に一つ。</string>
   <string name="nl_instructions">QuickLyric をすべてのプレーヤーで動作させるには、いくつかの設定を変更する必要があります。</string>
-  <string name="nl_settings_link">QuickLyric で私の通知を読むことを許可する</string>
+  <string name="nl_settings_link">音楽のアクセスを有効にする</string>
+  <string name="floating_settings_link">フローティング歌詞を有効にする (オプション)</string>
   <string name="changelog">変更履歴</string>
   <string name="rate_us">アプリを評価する</string>
+  <string name="romanize">ローマ字で</string>
+  <string name="reset">リセット</string>
+  <string name="musicid_no_match">一致しません ☹</string>
+  <string name="notification_access">通知アクセス</string>
+  <string name="pref_lyrics_overlay_name">歌詞オーバーレイ</string>
+  <string name="pref_lyrics_overlay_sum">アプリの外部で歌詞を使用できるようにするフローティングウィンドウ</string>
+  <string name="notification_access_explanation"><![CDATA[
+このアクセス許可は、QuickLyric が音楽のメタデータにアクセスできるようにするためにのみ必要です。<br/>
+QuickLyric は、通知を読むことに興味がありません。私たちのプライバシーポリシーで防ぐことができます <br/>
+良いニュースは、QuickLyric がオープン ソースであることです。誰でも自分で確認することができます! 😊<br/><br/>
+ご理解いただきありがとうございます!<br/><br/>
+- QuickLyric チーム
+]]></string>
   <string name="premium_title">プレミアム版を入手</string>
   <string name="remove_ads_title">広告を削除</string>
   <string name="subscription_monthly">毎月</string>
   <string name="subscription_yearly">毎年</string>
   <string name="premium_sum_incent">プレミアムを入手して、QuickLyric の背景にいるアーティスト &amp; チームをサポートしましょう!</string>
   <string name="premium_ads_incent">広告はありません!</string>
-  <string name="premium_karaoke_incent">唯一の *カラオケ モード*</string>
   <string name="premium_themes_incent">*7* つの新しいテーマ</string>
   <string name="premium_night_mode_incent">*夜間モード* が夜に目を休ませてくれます</string>
   <string name="premium_android_wear">*Android Wear* ウォッチのサポート</string>
@@ -170,6 +184,20 @@
   <string name="vote_against">これらの歌詞は間違っています</string>
   <string name="vote_neutral">これらの歌詞はいくつかの修正が必要</string>
   <string name="snackbar_ratings_QL">QuickLyric をお楽みいただいてますか?</string>
+  <string name="recent_tracks_title">最近聴いたトラック</string>
+  <string name="recents_empty_database">まだ何も聞いていません。</string>
+  <string name="gmusic_import_securityException">この動作には Google Play ミュージックが開始されている必要があります</string>
+  <string name="miui_autostart">%s の所有者は最初にアプリのブロックを解除する必要があります</string>
+  <string name="musicid_instructions">電話を音楽に掲げる</string>
+  <string name="loading">読み込み中&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric は音楽の読み込み中に問題が発生しました - お使いのデバイスを再起動してみてください</string>
+  <string name="romanizer_prompt_msg">日本語、韓国語、中国語からラテン系のアルファベットに歌詞を変換するには、QuickLyric の別のプラグインをダウンロードする必要があります。</string>
+  <string name="romanizer_prompt_title">ローマ字化アドオン</string>
+  <string name="pref_always_artwork">常に有効</string>
+  <string name="pref_overlay_behavior_always">常に表示</string>
+  <string name="pref_overlay_behavior_notif">通知から開く</string>
+  <string name="pref_overlay_behavior_title">フローティング歌詞の動作</string>
+  <string name="pref_notification_sum_disabled">フローティング歌詞が有効な場合、通知は無効にできません</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>
@@ -177,13 +205,16 @@
   <plurals name="dl_finished_desc">
     <item quantity="other">%1$d 曲の歌詞をダウンロードしました</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="other">%1$d アイテムを選択</item>
+  </plurals>
   <string-array name="notifications">
     <item>無効 (デフォルト)</item>
     <item>有効</item>
-    <item>有効 (固定)</item>
+    <item>有効 (非表示)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>常に有効</item>
+    <item>@string/pref_always_artwork</item>
     <item>WiFi でのみ</item>
   </string-array>
 </resources>

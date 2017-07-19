@@ -23,15 +23,16 @@
   <string name="share">Paylaş</string>
   <string name="no_results">Şarkı sözleri bulunamadı</string>
   <string name="connection_error">Bağlantıda hata oluştu.</string>
-  <string name="no_refresh">Yenilemenize lüzum yok</string>
-  <string name="search_hint">Arama</string>
+  <string name="no_refresh">Yenilemenize gerek yok</string>
+  <string name="search_hint">Ara</string>
   <string name="pref_20min_ignore">Uzun parçaları görmezden gel</string>
-  <string name="pref_20min_ignore_sum">20 dakikayı geçen şarkılar (örneğin podcast gibi) bloke edilecek</string>
+  <string name="pref_20min_ignore_sum">20 dakikadan uzun şarkılar (podcast\'ler gibi) şarkı olarak değerlendirilmez</string>
   <string name="pref_about">Hakkında</string>
   <string name="send_feedback">Geri bildirim gönder</string>
-  <string name="local_title">Hafızada Kalanlar</string>
+  <string name="local_title">Kaydedilen Şarkı Sözleri</string>
+  <string name="musicid_title">Şarkı Sözlerini Bul</string>
   <string name="settings_title">Ayarlar</string>
-  <string name="save_action">Kaydetmek</string>
+  <string name="save_action">Kaydet</string>
   <string name="lyrics_saved">Şarkı sözleri kaydedildi</string>
   <string name="lyrics_removed">Şarkı sözleri silindi</string>
   <string name="remove_action">Sil</string>
@@ -42,9 +43,11 @@
   <string name="welcome">QuickLyric’e Hoşgeldiniz!</string>
   <string name="welcome2_sub">Aradığınız sözler&#8230; hemen\n&#8230;simdi.</string>
   <string name="apps_desc">Tüm uygulamalarınız ile çalışır</string>
+  <string name="apps_desc_sub">Oynatıcınızla ilgili sorunlar yaşıyorsanız (ör. Poweramp, GoneMAD veya Spotify) \"Scrobbling\" veya \"Yayın Durumu\" etkin olduğundan emin olun.</string>
+  <string name="id_desc">En sevdiğiniz MusicID uygulamalarıyla entegrasyon.\n (Shazam™, SoundHound™, vb.)</string>
   <string name="id_desc_sub">1. Bir şarkıyı tanımlama\n2. QuickLyric\'a sonuçları paylaşın\n3. şarkı sözlerinin tadını çıkar</string>
   <string name="refresh_desc">Müzik değiştiğinde&#8230;</string>
-  <string name="refresh_desc_sub">Bu düğmeye basın, birakin QuickLyric geri kalanini yapsin.</string>
+  <string name="refresh_desc_sub">Bu düğmeye dokunun. Bırakın geri kalanı QuickLyric yapsın.</string>
   <string name="pref_more_category">Diğer</string>
   <string name="first_launch">Cihazın ile müzik çalmaya başla ve yenile düğmesine bas.</string>
   <string name="share_prompt">MusicID\'den içeri aktarmak</string>
@@ -75,17 +78,33 @@ Beta sürümler için kayıt ol:
   <string name="pref_beta_sum">Güncellemeleri (Yeni özellikler, hata düzeltmeleri, ...) daha hızlı alın ve e-posta ile rapor edin</string>
   <string name="scan_error_no_content">Herhangi bir müzik bulunamadı</string>
   <string name="no_results_why"><u>Neden?</u></string>
+  <string name="why_popup_text"><![CDATA[
+\"%1$s\" ait %2$s şarkısının sözlerini arıyorduk. Maalesef QuickLyric onları bulamadı… <br/><br/>
+Birkaç olası neden:<br/>
+<br/>
+• Müziğin doğru <strong>etiketli</strong> mi? QuickLyric, etiketlenmemiş parçaları tanımıyor.<br/>
+• İnternet bağlantınızın çalışıp çalışmadığını kontrol edin.<br/>
+•Belki de bu şarkı ana kataloğumuzun parçası değildir. Ayarlarda <strong>ek sağlayıcıları </strong>kontrol ettiniz mi?<br/>
+• Bir hata bulmuş olabilirsiniz. Öyleyse, lütfen bana e-posta atın.<br/>
+• Cihazınızın tarih ve saatinin doğru ayarlanıp ayarlanmadığını kontrol edin. <br/>
+]]></string>
   <string name="why_popup_title">Sorun nerden geliyor ?</string>
   <string name="download_category">İndirmeler</string>
+  <string name="wearable_prompt">Giyilebilir cihazlarda aç</string>
   <string name="pref_opendyslexic">OpenDyslexic yazı tipini kullan</string>
   <string name="pref_opendyslexic_sum">Okuma Engelli okuyucular için oluşturulan özel bir yazı tipi kullanın</string>
   <string name="wrong_musicID">Desteklenmeyen MusicID servisi</string>
   <string name="pref_issues_sum">contact@quicklyric.be (Sadece İngilizce)</string>
   <string name="ignore_id3_toast">İndirmeye zorlamak için yenile düğmesine tıkla</string>
   <string name="from_id3">(Şarkı sözleri ses dosyasından ayıklanır)</string>
+  <string name="nighttime_start_dialog_title">Gece başlangıcı</string>
+  <string name="nighttime_end_dialog_title">Gece bitişi</string>
   <string name="pref_force_screen_sum">Şarkı sözlerine bakarken ekranın kapanmasını önle</string>
   <string name="pref_force_screen_on">Ekranı açık tutmaya zorla</string>
-  <string name="scan_error_permission_denied">Quicklyric\'in müzik taraması yapması için izin verilmedi</string>
+  <string name="scan_error_permission_denied">QuickLyric\'in müzik taraması yapması için izin verilmedi</string>
+  <string name="id3_write_error">Şarkı meta verileri düzenleme başarısız</string>
+  <string name="id3_write_success">Şarkı meta verileri başarıyla düzenlendi</string>
+  <string name="id3_read_rationale">QuickLyric\'in bu cihazdaki şarkı sözlerini ve sanat eserlerini okumak için bu iznine ihtiyacı var</string>
   <string name="permission_denied">(İzin reddedildi)</string>
   <string name="id3_write_permission_error">Uygulamanın yazma izni elde etmesi için yeniden başlatılması gerekiyor</string>
   <string name="resync_action">Tekrar senkronize et</string>
@@ -102,31 +121,43 @@ Beta sürümler için kayıt ol:
   <string name="source_sync">Senkronize şarkı sözleri</string>
   <string name="spotify_connection">Spotify\'a bağlanılıyor&#8230;</string>
   <string name="full_text_action">Tam metin</string>
-  <string name="artworks_pref_title">Otomatik şarkı kapağı indirme</string>
-  <string name="artworks_pref_sum">Mobil veri farklarına yol açabilir</string>
+  <string name="artworks_pref_title">Otomatik albüm kapağı indirme</string>
+  <string name="artworks_pref_sum">Mobil veri ücretleriyle sonuçlanabilir</string>
+  <string name="pref_lrc_sum">Söylenilen kelimeleri vurgula - tüm müzik çalarlar desteklenmiyor</string>
   <string name="pref_lrc">Senkronize şarkı sözleri</string>
   <string name="red_theme">Kırmızı</string>
   <string name="purple_theme">Mor</string>
   <string name="indigo_theme">Lacivert</string>
   <string name="green_theme">Yeşil</string>
-  <string name="lime_theme">Kireç</string>
+  <string name="lime_theme">Limon Yeşili</string>
   <string name="brown_theme">Kahverengi</string>
   <string name="ad_supported_title">QuickLyric reklam desteklidir</string>
   <string name="ad_supported_text">Reklamlar sanatçıların ve hak sahiplerinin çalışmalarını ödememizde yardımcı olur.\nQuickLyric\'i kullanırken eğlenmenizi umarız!</string>
   <string name="about_read_ToS">Hizmet Şartlarımızı Okuyun</string>
   <string name="about_product_tour">Ürün Turu</string>
   <string name="nl_title">Son bir şey.</string>
-  <string name="nl_instructions">Quicklyric\'in tüm müzik çalarlar ile çalışabilmesi için bazı ayarların değiştirilmesi gerekli.</string>
-  <string name="nl_settings_link">Quicklyric\'i bildirimlerini okuması için izin ver</string>
-  <string name="changelog">Yeni ne var?</string>
+  <string name="nl_instructions">QuickLyric\'in tüm müzik çalarlar ile çalışabilmesi için bazı ayarların değiştirilmesi gerekli.</string>
+  <string name="nl_settings_link">Müzik erişimini etkinleştir</string>
+  <string name="floating_settings_link">Hareketli şarkı sözlerini etkinleştirin (isteğe bağlı)</string>
+  <string name="changelog">Neler yeni?</string>
   <string name="rate_us">Uygulamayı değerlendirin</string>
+  <string name="romanize">Romanlaştır</string>
+  <string name="reset">Sıfırla</string>
+  <string name="musicid_no_match">Eşleşme yok ☹</string>
+  <string name="notification_access">Bildirim Erişimi</string>
+  <string name="pref_lyrics_overlay_name">Şarkı sözleri yerleşimi</string>
+  <string name="pref_lyrics_overlay_sum">Sözleri uygulamanın dışında kullanılabilir hale getiren yüzer bir pencere</string>
+  <string name="notification_access_explanation"><![CDATA[
+Bu izin, yalnızca QuickLyric\'in müzik meta verilerinize erişebilmesi için gereklidir.<br/> QuickLyric, bildirimlerini okumakla ilgilenmiyor ve gizlilik politikamız bunu engelliyor.<br/> İyi haber, QuickLyric\'in açık kaynak olması, herkes kendisi için bunu doğrulayabilmesidir! 😊<br/><br/>
+Anlayışınız için teşekkür ederiz!<br/><br/>
+- QuickLyric Ekibi
+]]></string>
   <string name="premium_title">Premium Al</string>
   <string name="remove_ads_title">Reklamları kaldır</string>
   <string name="subscription_monthly">Aylık</string>
   <string name="subscription_yearly">Yıllık</string>
-  <string name="premium_sum_incent">Sanatçıları ve QuickLyric\'in arkasındaki ekibi desteklemek için Premium alın!</string>
+  <string name="premium_sum_incent">Sanatçıları &amp; QuickLyric\'in arkasındaki ekibi desteklemek için Premium satın alın!</string>
   <string name="premium_ads_incent">Daha fazla reklam yok!</string>
-  <string name="premium_karaoke_incent">Özel *karaoke modu*</string>
   <string name="premium_themes_incent">*7* yeni tema</string>
   <string name="premium_night_mode_incent">Gözleriniz yorulmaması için *gece modu*</string>
   <string name="premium_android_wear">*Android Wear* saatler için destek</string>
@@ -138,22 +169,51 @@ Beta sürümler için kayıt ol:
   <string name="monthly_sub_template">%s/ay</string>
   <string name="buy_sub">Satın Al</string>
   <string name="client_version_error">Lütfen uygulamayı güncelleyin</string>
+  <string name="why_is_this_a_subscription">Neden abone olmalıyım?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>Abonelik gelirlerinin çoğu sanatçılar ve hak sahiplerine gidiyor. QuickLyric Premium almak için bir defalık bir ücret ödemek, birkaç dolar Spotify ödemek ve hayatınızın geri kalanı için Premium almak gibi olacaktır. Ne yazık ki mümkün değil.</p>
+    <p>Paranızı bir kez alsaydık ve yıllarca uygulamayı kullanmaya devam edersiniz, kullanımınız için yine de hak sahiplerine ödeme yapmamız gerekir.</p>
+    Müzik Endüstrisinin devamlılığı içim bunun bir gereklilik olduğunu lütfen unutmayın.]]>
+    </string>
   <string name="vote_action">Oyla</string>
   <string name="user_submission_dialog_title">Sözleri derecelendir</string>
   <string name="vote_for">Sözler doğru</string>
   <string name="vote_against">Sözler yanlış</string>
   <string name="vote_neutral">Sözlerin bir kaç düzeltmeye ihtiyacı var</string>
+  <string name="snackbar_ratings_QL">QuickLyric\'i Beğendiniz mi?</string>
+  <string name="recent_tracks_title">Yeni Parçalar</string>
+  <string name="recents_empty_database">Henüz bir şey dinlemedin</string>
+  <string name="gmusic_import_securityException">Bunun çalışması için Google Play Müzik uygulamasının başlatılmış olması gerekir</string>
+  <string name="miui_autostart">%s sahipler önce uygulamanın engellemesini kaldırmalıdır</string>
+  <string name="musicid_instructions">Telefonunuzu müziğe kadar bekletin</string>
+  <string name="loading">Yükleniyor&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric, müziğinizi okumada sorun yaşıyor - cihazınızı yeniden başlatmayı deneyin</string>
+  <string name="romanizer_prompt_msg">Sözleri Japonca, Korece veya Çince\'den Latin alfabesine dönüştürmek için, QuickLyric için ayrı bir eklenti indirmeniz gerekir.</string>
+  <string name="romanizer_prompt_title">Romanizer eklentisi</string>
+  <string name="pref_always_artwork">Her zaman etkin</string>
+  <string name="pref_overlay_behavior_always">Her zaman görünür</string>
+  <string name="pref_overlay_behavior_notif">Bildirim yoluyla aç</string>
+  <string name="pref_overlay_behavior_title">Hareketli şarkı sözleri davranışı</string>
+  <string name="pref_notification_sum_disabled">Hareketli şarkı sözleri etkinleştirildiğinde bildirimler devre dışı bırakılamaz</string>
+  <plurals name="scan_dialog">
+    <item quantity="one">QuickLyric şimdi %1$d şarkının toplamı için şarkı sözlerini indirecek.\
+         %2$d dakika kararlı bir bağlantıya sahip olduğunuzdan emin olun.</item>
+    <item quantity="other">QuickLyric şimdi %1$d şarkının toplamı için şarkı sözlerini indirecek.\ %2$d dakika kararlı bir bağlantıya sahip olduğunuzdan emin olun.</item>
+  </plurals>
   <plurals name="dl_finished_desc">
     <item quantity="one">%1$d için indirilen şarkı sözleri</item>
     <item quantity="other">%1$d şarkıları için indirilen şarkı sözleri</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d öğe seçildi</item>
+    <item quantity="other">%1$d öğe seçildi</item>
+  </plurals>
   <string-array name="notifications">
     <item>Devre dışı (varsayılan)</item>
     <item>Etkin</item>
-    <item>Etkin (Yapışkan)</item>
+    <item>Etkin (gizli)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Her zaman etkin</item>
+    <item>@string/pref_always_artwork</item>
     <item>Sadece Wi-Fi üzerinden</item>
   </string-array>
 </resources>

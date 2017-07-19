@@ -125,23 +125,39 @@
   <string name="about_product_tour">Tour do Produto</string>
   <string name="nl_title">Uma última coisa.</string>
   <string name="nl_instructions">Para o QuickLyric funcionar com todos os players, algumas definições precisam de ser mudadas.</string>
-  <string name="nl_settings_link">Permitir que o QuickLyric leia as minhas notificações</string>
   <string name="changelog">O que há de novo?</string>
   <string name="rate_us">Avaliar a app</string>
+  <string name="romanize">Romanize</string>
+  <string name="reset">Reiniciar</string>
+  <string name="musicid_no_match">Sem correspondência ☹</string>
+  <string name="notification_access">Acesso a Notificações</string>
+  <string name="pref_lyrics_overlay_name">Sobreposição de letras</string>
   <string name="premium_title">Obter Premium</string>
   <string name="remove_ads_title">Remover anúncios</string>
   <string name="subscription_monthly">Mensal</string>
   <string name="subscription_yearly">Anualmente</string>
   <string name="premium_sum_incent">Obtém Premium para apoiar os artistas &amp; a equipa por detrás do QuickLyric!</string>
   <string name="premium_ads_incent">Sem mais anúncios!</string>
-  <string name="premium_karaoke_incent">Um *modo karaoke* exclusivo</string>
   <string name="premium_themes_incent">*7* temas novos</string>
   <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite</string>
   <string name="premium_doubt">Não tem a certeza sobre ter uma subscrição? Envia-nos um email: contact@quicklyric.be</string>
   <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
   <string name="about_crowdin">Ajuda a traduzir a app no Crowdin</string>
   <string name="online_title">Catálogo online</string>
+  <string name="yearly_sub_template">%s/ano</string>
+  <string name="monthly_sub_template">%s/mês</string>
   <string name="buy_sub">Comprar</string>
+  <string name="client_version_error">Por favor atualize a aplicação</string>
+  <string name="why_is_this_a_subscription">Porque é que isto é uma subscrição?</string>
+  <string name="vote_action">Vota</string>
+  <string name="user_submission_dialog_title">Avalia estas letras</string>
+  <string name="vote_for">Estas letras estão corretas</string>
+  <string name="vote_against">Estas letras estão erradas</string>
+  <string name="vote_neutral">Estas letras precisam de correções</string>
+  <string name="snackbar_ratings_QL">Gosta de usar o QuickLyric?</string>
+  <string name="recent_tracks_title">Músicas Recentes</string>
+  <string name="recents_empty_database">Ainda não ouviste nada</string>
+  <string name="pref_always_artwork">Sempre ligado</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric vai agora descarregar a letra para %1$d música. \
         Certifique-se que tenha uma conexão estável durante no mínimo %2$d minuto.</item>
@@ -155,10 +171,10 @@
   <string-array name="notifications">
     <item>Desativado (padrão)</item>
     <item>Ativado</item>
-    <item>Activado (estático)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Sempre ligado</item>
+    <item>@string/pref_always_artwork</item>
     <item>Só em Wi-Fi</item>
   </string-array>
 </resources>

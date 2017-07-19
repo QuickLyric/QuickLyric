@@ -30,6 +30,7 @@
   <string name="pref_about">Infos</string>
   <string name="send_feedback">Senden Sie uns Feedback</string>
   <string name="local_title">Gespeicherte Songtexte</string>
+  <string name="musicid_title">Musikid_Titel</string>
   <string name="settings_title">Einstellungen</string>
   <string name="save_action">Speichern</string>
   <string name="lyrics_saved">Songtext gespeichert</string>
@@ -78,6 +79,16 @@
   <string name="pref_beta_sum">Erhalten Sie Updates (neue Features, Fehlerbehebungen,&#8230;)  schneller und melden Sie sich zurück per E-Mail</string>
   <string name="scan_error_no_content">Konnte keine Musik finden</string>
   <string name="no_results_why"><u>Warum?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Du hast nach den Lyrics für \"%1$s\" von %2$s gesucht. Leider konnte QuickLyric diese nicht finden… <br/><br/>
+Ein paar mögliche Gründe:<br/>
+<br/>
+• Ist deine Musik ordentlich ge<strong>tagged</strong>? QuickLyric kann keine Tracks erkennen die nicht getagged sind.<br/>
+• Überprüfe, ob deine Internetverbindung funktioniert.<br/>
+• Vielleicht ist dieser Song kein Teil des Hauptkataloges. Hast du schon die <strong>zusätzlichen Anbieter</strong> in den Einstellungen geprüft?<br/>
+• Du könntest einen Bug gefunden haben. Schreib mir in diesem Fall bitte eine Mail.<br/>
+• Überprüfe, ob Datum und Zeit in deinem Gerät korrekt eingestellt sind.<br/>
+]]></string>
   <string name="why_popup_title">Warum funktioniert es nicht?</string>
   <string name="download_category">Downloads</string>
   <string name="wearable_prompt">Auf Smartwatch öffnen</string>
@@ -127,22 +138,67 @@
   <string name="about_product_tour">Produkt-Tour</string>
   <string name="nl_title">Eine letzte Sache.</string>
   <string name="nl_instructions">Damit QuickLyric mit allen Media-Playern funktioniert, müssen einige Einstellungen geändert werden.</string>
-  <string name="nl_settings_link">QuickLyric erlauben meine Benachrichtigungen zu lesen</string>
+  <string name="nl_settings_link">Musik-Zugriff aktivieren</string>
+  <string name="floating_settings_link">Aktiviere schwebende Lyrics (optional)</string>
   <string name="changelog">Was ist neu?</string>
   <string name="rate_us">Bewerten Sie unsere App</string>
+  <string name="romanize">Romanisieren</string>
+  <string name="reset">Zurücksetzen</string>
+  <string name="musicid_no_match">Keine Übereinstimmung ☹</string>
+  <string name="notification_access">Zugriff auf Benachrichtigungen</string>
+  <string name="pref_lyrics_overlay_name">Lyrics einblenden</string>
+  <string name="pref_lyrics_overlay_sum">Ein schwebendes Fenster, das dir die Lyrics auch außerhalb der App anzeigt</string>
+  <string name="notification_access_explanation"><![CDATA[
+Diese Berechtigung ist nur benötigt damit QuickLyric deine Metadaten lesen kann.
+<br/>
+QuickLyric wird nicht deine Benachrichtigungen lesen, ebenso hält unsere Datenschutzrichtlinie uns davon ab.
+<br/>
+Die guten Nachrichten sind dass QuickLyric Open Source Software ist und damit jeder das für sich selbst überprüfen kann. 😊 
+<br/><br/>
+Wir danken die für dein Verständnis!<br/><br/>
+- Das QuickLyric Team
+]]></string>
   <string name="premium_title">Holen Sie sich Premium</string>
   <string name="remove_ads_title">Werbung entfernen</string>
   <string name="subscription_monthly">Monatliche</string>
   <string name="subscription_yearly">Jährlich</string>
   <string name="premium_sum_incent">Holen Sie sich Premium um die Künstler &amp; das Team hinter QuickLyric zu unterstützen!</string>
   <string name="premium_ads_incent">Keine Werbung mehr!</string>
-  <string name="premium_karaoke_incent">Einen exklusiven * Karaoke-Modus *</string>
   <string name="premium_themes_incent">* 7 * neue Themen</string>
   <string name="premium_night_mode_incent">Ein \'Nacht Modus\' um Ihre Augen bei Nacht zu entspannen</string>
+  <string name="premium_android_wear">Unterstützung für *Android Wear* Uhren</string>
   <string name="premium_doubt">Sie haben noch Fragen zum Abonnement? Schicken Sie uns eine e-Mail: contact@quicklyric.be</string>
   <string name="premium_thanks">Vielen Dank für Ihre Unterstützung!</string>
   <string name="about_crowdin">Hilf uns bei der Übersetzung der App auf Crowdin</string>
   <string name="online_title">Online-Katalog</string>
+  <string name="yearly_sub_template">%s/Jahr</string>
+  <string name="monthly_sub_template">%s/Monat</string>
+  <string name="buy_sub">Kaufen</string>
+  <string name="client_version_error">Bitte aktualisiere die App</string>
+  <string name="why_is_this_a_subscription">Warum ist dies ein Abonnement?</string>
+  <string name="why_sub_explanation"><![CDATA[<p> Die meisten Abo-Einnahmen müssen an die Künstler und Urheberrechtshaber gezahlt werden. Ein Mal eine Gebühr an uns für QuickLyric Premium zu zahlen, wäre wie ein paar Euro für Spotify zu zahlen und dafür ein Leben lang Premium zu erhalten. Dies ist leider nicht möglich. </p>
+<p> Nähmen wir Ihr Geld und Sie würden die App jahrelang nutzen, müssten wir trotzdem die Inhaber für Ihre Nutzung bezahlen. </p>
+Bitte verstehen Sie, dass dies eine Anforderung der Musikindustrie ist.]]>    </string>
+  <string name="vote_action">Wählen</string>
+  <string name="user_submission_dialog_title">Bewerte diese Songtexte</string>
+  <string name="vote_for">Dieser Songtext ist korrekt</string>
+  <string name="vote_against">Dieser Songtext ist falsch</string>
+  <string name="vote_neutral">Dieser Songtext benötigt Verbesserungen</string>
+  <string name="snackbar_ratings_QL">Gefällt dir QuickLyric?</string>
+  <string name="recent_tracks_title">Kürzlich gespielte Songs</string>
+  <string name="recents_empty_database">Du hast dir noch nichts angehört</string>
+  <string name="gmusic_import_securityException">Google Play Music muss geoeffnet sein damit dies funktioniert</string>
+  <string name="miui_autostart">%s Besitzer müssen zuerst die app freischalten</string>
+  <string name="musicid_instructions">Musikid_Anleitungen</string>
+  <string name="loading">Lädt&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric hat Probleme mit dem Erkennen deiner Musik - Versuche, dein Gerät neu zu starten</string>
+  <string name="romanizer_prompt_msg">Um Songtexte von Japanisch, Koreanisch oder Chinesisch in das lateinische Alphabet konvertieren möchten, musst du ein separates Plugin für QuickLyric herunterladen.</string>
+  <string name="romanizer_prompt_title">Romanisierer Add-On</string>
+  <string name="pref_always_artwork">Immer aktiviert</string>
+  <string name="pref_overlay_behavior_always">Immer sichtbar</string>
+  <string name="pref_overlay_behavior_notif">Öffnen über Benachrichtigung</string>
+  <string name="pref_overlay_behavior_title">Verhalten schwebender Lyrics</string>
+  <string name="pref_notification_sum_disabled">Benachrichtigungen können nicht deaktiviert werden, wenn schwebende Lyrics aktiviert sind</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric wird nun den Songtext für %1$d Musikdatei herunterladen.\
         Bitte stellen Sie sicher, dass Sie in den nächsten %2$d Minute eine Verbindung zum Internet haben.</item>
@@ -156,10 +212,10 @@
   <string-array name="notifications">
     <item>Deaktiviert (Standard)</item>
     <item>Aktiviert</item>
-    <item>Aktiviert (bleibend)</item>
+    <item>Aktiviert (versteckt)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Immer aktiviert</item>
+    <item>@string/pref_always_artwork</item>
     <item>Nur bei WLAN</item>
   </string-array>
 </resources>

@@ -123,18 +123,19 @@
   <string name="about_product_tour">Visita guiada pel producte</string>
   <string name="nl_title">Una última cosa.</string>
   <string name="nl_instructions">Per a que QuickLyric funcioni amb tots els reproductors, cal canviar algun ajustament.</string>
-  <string name="nl_settings_link">Permet QuickLyric llegir les meves notificacions</string>
   <string name="rate_us">Valora aquesta app</string>
   <string name="premium_title">Aconseguir la versió Premium</string>
   <string name="remove_ads_title">Treu els anuncis</string>
   <string name="subscription_monthly">Mensual</string>
   <string name="subscription_yearly">Anual</string>
   <string name="premium_ads_incent">Cap més anunci!</string>
-  <string name="premium_karaoke_incent">Un exclusiu *mode karaoke*</string>
   <string name="premium_themes_incent">*7* temes nous</string>
   <string name="premium_night_mode_incent">Un *mode nocturn* per a descansar els ulls a la nit</string>
   <string name="premium_thanks">Gràcies pel vostre suport!</string>
   <string name="about_crowdin">Ajuda a traduir l\'app a Crowdin</string>
+  <string name="online_title">Catàleg en línia</string>
+  <string name="yearly_sub_template">%s/any</string>
+  <string name="pref_always_artwork">Sempre habilitat</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric descarregarà ara les lletres per a un total de %1$d cançó.\
         Assegurat de que tens una connexió estable per %2$d minut.</item>
@@ -148,10 +149,10 @@
   <string-array name="notifications">
     <item>Desactivat (per defecte)</item>
     <item>Activat</item>
-    <item>Activat (permanent)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Sempre habilitat</item>
+    <item>@string/pref_always_artwork</item>
     <item>Només en WiFi</item>
   </string-array>
 </resources>

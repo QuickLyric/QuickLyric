@@ -30,6 +30,7 @@
   <string name="pref_about">Om</string>
   <string name="send_feedback">Skicka feedback</string>
   <string name="local_title">Sparade texter</string>
+  <string name="musicid_title">Identifiera sångtexter</string>
   <string name="settings_title">Inställningar</string>
   <string name="save_action">Spara</string>
   <string name="lyrics_saved">Låttexter sparade</string>
@@ -123,16 +124,20 @@
   <string name="about_product_tour">Produktvisning</string>
   <string name="nl_title">En sista sak.</string>
   <string name="nl_instructions">För att QuickLyric ska fungera ordentligt med alla musikspelare, behöver vissa inställningar ändras.</string>
-  <string name="nl_settings_link">Tillåta QuickLyric att läsa mina notifikationer</string>
+  <string name="nl_settings_link">Aktivera musik åtkomst</string>
+  <string name="floating_settings_link">Aktivera flytande lyrics (valfritt)</string>
   <string name="changelog">Vad är nytt?</string>
   <string name="rate_us">Betygsätt appen</string>
+  <string name="romanize">Romanisera</string>
+  <string name="reset">Återställ</string>
+  <string name="musicid_no_match">Ingen träff</string>
+  <string name="notification_access">Åtkomst till aviseringar</string>
   <string name="premium_title">Skaffa Premium</string>
   <string name="remove_ads_title">Ta bort annonser</string>
   <string name="subscription_monthly">Månadsvis</string>
   <string name="subscription_yearly">Årsvis</string>
   <string name="premium_sum_incent">Skaffa Premium för att stödja artisterna &amp; teamet bakom QuickLyric!</string>
   <string name="premium_ads_incent">Inga fler annonser!</string>
-  <string name="premium_karaoke_incent">Ett exklusivt *karaoke-läge *</string>
   <string name="premium_themes_incent">*7* nya teman</string>
   <string name="premium_night_mode_incent">Ett nattläge för att vila ögonen</string>
   <string name="premium_android_wear">Stöd för *Android Wear* klockor</string>
@@ -143,6 +148,15 @@
   <string name="yearly_sub_template">%s/år</string>
   <string name="monthly_sub_template">%s/månad</string>
   <string name="buy_sub">Köp</string>
+  <string name="client_version_error">Vänligen uppdatera appen</string>
+  <string name="why_is_this_a_subscription">Varför är detta en prenumeration?</string>
+  <string name="vote_action">Rösta</string>
+  <string name="user_submission_dialog_title">Betygsätt dessa låttexter</string>
+  <string name="vote_for">Dessa texter är korrekta</string>
+  <string name="vote_against">Dessa texter är inkorrekta</string>
+  <string name="vote_neutral">Dessa texter behöver vissa korrigeringar</string>
+  <string name="snackbar_ratings_QL">Tycker du om att använda QuickLyric?</string>
+  <string name="pref_always_artwork">Alltid igång</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric kommer nu att ladda ner texterna för totalt %1$d låt.\ 
 kontrollera att du har en stabil anslutning för minst %2$d minut.</item>
@@ -156,10 +170,10 @@ Kontrollera att du har en stabil anslutning för minst %2$d minuter.</item>
   <string-array name="notifications">
     <item>Inaktiverad (standard)</item>
     <item>Aktiverad</item>
-    <item>Aktiverad (klistrad)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Alltid igång</item>
+    <item>@string/pref_always_artwork</item>
     <item>Bara på WiFi</item>
   </string-array>
 </resources>

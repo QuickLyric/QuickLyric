@@ -30,6 +30,7 @@
   <string name="pref_about">À propos</string>
   <string name="send_feedback">Envoyer vos retours</string>
   <string name="local_title">Paroles sauvegardées</string>
+  <string name="musicid_title">Identifier les paroles</string>
   <string name="settings_title">Paramètres</string>
   <string name="save_action">Sauvegarder</string>
   <string name="lyrics_saved">Paroles sauvegardées</string>
@@ -76,16 +77,14 @@
   <string name="pref_beta_sum">Recevez les mises à jour (nouvelles fonctionnalités, corrections de bugs,&#8230;) plus vite et donnez vos impressions par e-mail</string>
   <string name="scan_error_no_content">Aucune musique trouvée</string>
   <string name="no_results_why"><u>Pourquoi ?</u></string>
-  <string name="why_popup_text"><![CDATA[
-Vous cherchiez les paroles de \"%1$s\" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
+  <string name="why_popup_text"><![CDATA[Vous cherchiez les paroles de \"%1$s\" par %2$s. Malheureusement QuickLyric n\'a pas su les trouver… <br/><br/>
 Plusieurs raisons possibles:<br/>
 <br/>
 • Est-ce que votre musique est <strong>taguée</strong> correctement? QuickLyric ne sait pas reconnaître les morceaux non-tagués.<br/>
 • Vérifiez votre connexion.<br/>
 • Cette chanson ne fait peut-être pas partie du catalogue principal. Avez-vous vérifié les <strong>sources supplémentaires</strong> dans les options?<br/>
 • Vous avez peut-être trouvé un bug. Dans ce cas, écrivez-moi un e-mail.<br/>
-• Vérifiez si la date et l\'heure de votre appareil sont justes.<br/>
-]]></string>
+• Vérifiez si la date et l\'heure de votre appareil sont justes.<br/>]]></string>
   <string name="why_popup_title">Pourquoi ça ne fonctionne pas ?</string>
   <string name="download_category">Téléchargements</string>
   <string name="wearable_prompt">Ouvrir sur la montre</string>
@@ -135,16 +134,29 @@ Plusieurs raisons possibles:<br/>
   <string name="about_product_tour">Présentation du produit</string>
   <string name="nl_title">Une dernière chose.</string>
   <string name="nl_instructions">Pour que QuickLyric fonctionne avec tous les lecteurs, certains paramètres doivent être modifiés.</string>
-  <string name="nl_settings_link">Permettre à QuickLyric de lire mes notifications</string>
+  <string name="nl_settings_link">Autoriser l\'accès à la musique</string>
+  <string name="floating_settings_link">Activer les paroles superposées (facultatif)</string>
   <string name="changelog">Nouveautés</string>
   <string name="rate_us">Évaluer l\'appli</string>
+  <string name="romanize">Romaniser</string>
+  <string name="reset">Réinitialiser</string>
+  <string name="musicid_no_match">Aucun résultat ☹</string>
+  <string name="notification_access">Accès aux notifications</string>
+  <string name="pref_lyrics_overlay_name">Paroles superposées</string>
+  <string name="pref_lyrics_overlay_sum">Une fenêtre qui survole votre écran, rendant les paroles accessibles en dehors de l\'application</string>
+  <string name="notification_access_explanation"><![CDATA[
+Cette permission est seulement demandée pour que QuickLyric puisse accéder aux informations sur votre musique.<br/>
+QuickLyric ne s\'intéresse pas à vos notifications et notre politique de confidentialité nous l\'interdit.<br/>
+La bonne nouvelle et que QuickLyric est open source, ce qui veut dire que tout le monde peut s\'en assurer personnellement ! 😊<br/><br/>
+Nous vous remercions pour votre compréhension !<br/><br/>
+- L\'équipe derrière QuickLyric
+]]></string>
   <string name="premium_title">Passer Premium</string>
   <string name="remove_ads_title">Enlever la publicité</string>
   <string name="subscription_monthly">Mensuel</string>
   <string name="subscription_yearly">Annuel</string>
   <string name="premium_sum_incent">Devenez Premium pour soutenir les artistes et l’équipe derrière QuickLyric !</string>
   <string name="premium_ads_incent">Plus de publicité !</string>
-  <string name="premium_karaoke_incent">Un *mode karaoké* exclusif</string>
   <string name="premium_themes_incent">*7* nouveaux thèmes</string>
   <string name="premium_night_mode_incent">Un *mode nuit* pour reposer vos yeux la nuit</string>
   <string name="premium_android_wear">Compatibilité avec les montres *Android Wear*</string>
@@ -160,12 +172,26 @@ Plusieurs raisons possibles:<br/>
   <string name="why_sub_explanation"><![CDATA[<p>La majorité des revenus des abonnements va directement aux artistes et aux ayant droits. Obtenir QuickLyric Premium pour un achat unique serait comme payer Spotify quelques euros et obtenir un abonnement Premium pour le reste de votre vie. Ce n\'est malheureusement pas possible.</p>
 <p>Si nous acceptions votre argent et que vous continuiez à utiliser l\'application pendant des années, nous serions toujours obligés de payer les ayant droits pour votre usage.</p>
 Ceci étant une exigence de l\'industrie de la musique, nous vous remercions pour votre compréhension.]]>    </string>
-  <string name="vote_action">Voter</string>
+  <string name="vote_action">Évaluer</string>
   <string name="user_submission_dialog_title">Évaluez ces paroles</string>
   <string name="vote_for">Ces paroles sont correctes</string>
   <string name="vote_against">Ces paroles sont erronées</string>
   <string name="vote_neutral">Ces paroles sont approximatives</string>
   <string name="snackbar_ratings_QL">QuickLyric vous plaît ?</string>
+  <string name="recent_tracks_title">Titres récents</string>
+  <string name="recents_empty_database">Vous n\'avez encore rien écouté</string>
+  <string name="gmusic_import_securityException">Google Play Musique doit d\'abord avoir été lancé</string>
+  <string name="miui_autostart">Les possesseurs de %s doivent d\'abord débloquer l\'appli</string>
+  <string name="musicid_instructions">Tenez votre appareil près de la musique</string>
+  <string name="loading">Chargement&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric a du mal à lire votre musique - songez à redémarrer votre appareil</string>
+  <string name="romanizer_prompt_msg">Pour convertir des paroles en Japonais, Coréen ou Chinois vers l\'alphabet latin, vous devez d\'abord télécharger une extension pour QuickLyric.</string>
+  <string name="romanizer_prompt_title">Extension pour la romanisation</string>
+  <string name="pref_always_artwork">Toujours activé</string>
+  <string name="pref_overlay_behavior_always">Toujours visible</string>
+  <string name="pref_overlay_behavior_notif">Ouvrir via la notification</string>
+  <string name="pref_overlay_behavior_title">Comportement des paroles superposées</string>
+  <string name="pref_notification_sum_disabled">Les notifications ne peuvent être désactivées lorsque les paroles superposées sont activées</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric va maintenant télécharger les paroles pour %1$d chanson.\
         Vérifiez que vous avez une connexion stable pour %2$d minute.</item>
@@ -176,13 +202,17 @@ Ceci étant une exigence de l\'industrie de la musique, nous vous remercions pou
     <item quantity="one">Les paroles d\'%1$d chanson ont été téléchargées</item>
     <item quantity="other">Les paroles de %1$d chansons ont été téléchargées</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d élément sélectionné</item>
+    <item quantity="other">%1$d éléments sélectionnés</item>
+  </plurals>
   <string-array name="notifications">
     <item>Désactivées (par défaut)</item>
     <item>Activées</item>
-    <item>Activées (statiques)</item>
+    <item>Activé (caché)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Toujours activé</item>
+    <item>@string/pref_always_artwork</item>
     <item>Wi-Fi uniquement</item>
   </string-array>
 </resources>

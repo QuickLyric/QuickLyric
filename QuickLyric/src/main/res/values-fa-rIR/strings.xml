@@ -30,6 +30,7 @@
   <string name="pref_about">درباره</string>
   <string name="send_feedback">ارسال پیشنهاد و انتقاد</string>
   <string name="local_title">اشعار ذخیره‌شده</string>
+  <string name="musicid_title">شناسایی شعر</string>
   <string name="settings_title">تنظیمات</string>
   <string name="save_action">ذخيره</string>
   <string name="lyrics_saved">اشعار ذخیره‌شدند</string>
@@ -42,6 +43,8 @@
   <string name="welcome">به QuickLyric خوش آمدید!</string>
   <string name="welcome2_sub">اشعاری که شما دنبالش می‌گردید...\nهمین‌جا، همین الآن.</string>
   <string name="apps_desc">کار کردن با همه برنامه هایتان</string>
+  <string name="apps_desc_sub">اگر مشکلی با پخش کننده شما (مثل Poweramp، GoneMAD یا Spotify) وجود دارد، مطمئن شوید Scrobbling یا اعلان وضعیت آن فعال است.</string>
+  <string name="id_desc">یکپارچگی با برنامه MusicID مورد علاقه شما.\n(Shazam™، SoundHound™ و غیره)</string>
   <string name="id_desc_sub">۱. شناسایی یک موسیقی\n۲. اشتراک‌گذاری نتایج با QuickLyric\n۳. لذت بردن از اشعار</string>
   <string name="refresh_desc">وقتی آهنگ تغییر کرد&#8230;</string>
   <string name="refresh_desc_sub">روی این دکمه بزنید. QuickLyric بقیه را انجام می‌دهد.</string>
@@ -79,6 +82,7 @@
   <string name="pref_opendyslexic">استفاده از فونت OpenDyslexic</string>
   <string name="pref_opendyslexic_sum">استفاده از یک قلم خاص که برای کاربرانی که در خواندن کم‌توان هستند ایجاد شده است</string>
   <string name="wrong_musicID">سرویس MusicID پشتیبانی نشده</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (فقط انگلیسی)</string>
   <string name="ignore_id3_toast">برای دریافت اجباری روی دکمه‌ی تازه‌سازی بزنید</string>
   <string name="from_id3">(اشعار از پرونده‌ی صوتی استخراج شده‌اند)</string>
   <string name="nighttime_start_dialog_title">زمان شروع شب</string>
@@ -91,22 +95,102 @@
   <string name="id3_read_rationale">Quick lyric به مجوز برای خواندن متن ها و اشعار روی این دستگاه نیاز دارد</string>
   <string name="permission_denied">(مجوز داده نشد)</string>
   <string name="id3_write_permission_error">برنامه نیاز به شروع مجدد برای بدست آوردن مجوز نوشتن دارد</string>
+  <string name="resync_action">همگامسازی مجدد</string>
   <string name="uri_storage">این دستگاه</string>
   <string name="uri_gmusic">مجموعه آهنگ های google plyشما</string>
+  <string name="uri_spotify">کتابخانه Spotify شما</string>
   <string name="spotify_library">آهنگ های ذخیره شده شما</string>
   <string name="spotify_playlists">لیست پخش شما</string>
+  <string name="source_punk">پانک راک</string>
   <string name="source_metal">فلز</string>
   <string name="source_hip_hop">هیپ هاپ</string>
   <string name="source_EDM">آهنگ های رقص الکترونیکی</string>
   <string name="source_japanese">ژاپنی</string>
   <string name="source_sync">همگام سازی آهنگ ها</string>
+  <string name="spotify_connection">اتصال به Spotify&#8230;</string>
+  <string name="full_text_action">متن کامل</string>
+  <string name="artworks_pref_title">دریافت خودکار کاور موسیقی</string>
+  <string name="artworks_pref_sum">ممکن است به هزینه داده تلفن همراه منجر شود</string>
+  <string name="pref_lrc_sum">برجسته کردن کلماتی که خوانده می‌شوند - فقط بخشی از پخش کننده‌ها پشتیبانی می‌شوند</string>
+  <string name="pref_lrc">اشعار هماهنگ شده</string>
+  <string name="red_theme">قرمز</string>
+  <string name="purple_theme">بنفش</string>
+  <string name="indigo_theme">نیلی</string>
+  <string name="green_theme">سبز</string>
+  <string name="lime_theme">لیمویی</string>
+  <string name="brown_theme">قهوه‌ای</string>
+  <string name="ad_supported_title">QuickLyric با تبلیغات پشتیبانی می‌شود</string>
+  <string name="ad_supported_text">تبلیغات به ما اجازه می‌دهند تا بهای هنرمندان و حقوق کارشان را بپردازیم.\nامیدواریم از QuickLyric لذت ببرید!</string>
+  <string name="about_read_ToS">شرایط خدمات ما را بخوانید</string>
+  <string name="about_product_tour">تور محصول</string>
+  <string name="nl_title">آخرین چیز.</string>
+  <string name="nl_instructions">برای این که QuickLyric با همه پخش کننده‌ها کار کند، بعضی از تنظیمات نیاز به تغییر دارند.</string>
+  <string name="nl_settings_link">فعال سازی دسترسی موسیقی</string>
+  <string name="floating_settings_link">فعال کردن متن شناور (اختیاری)</string>
+  <string name="changelog">چه چیزی جدید است؟</string>
+  <string name="rate_us">به برنامه امتیاز دهید</string>
+  <string name="romanize">Romanize</string>
+  <string name="reset">بازنشانی</string>
+  <string name="musicid_no_match">بدون نتیجه</string>
+  <string name="notification_access">دسترسی اطلاع رسانی</string>
+  <string name="pref_lyrics_overlay_name">اشعار شناور</string>
+  <string name="pref_lyrics_overlay_sum">یک پنجره شناور که اشعار را در بیرون برنامه در دسترس قرار می‌دهد</string>
+  <string name="notification_access_explanation"><![CDATA[
+این دسترسی فقط برای دریافت اطلاعات موسیقی نیاز است.<br/>
+QuickLyric علاقه‌ای به خواندن اعلان‌های شما ندارد و شرایط و سیاست ما ما را از این کار باز می‌دارد.<br/>
+خبر خوب این است که QuickLyric متن-باز است، هر کس می‌تواند از این اطمینان حاصل کند! 😊<br/><br/>
+از شما برای درک این موضوع متشکریم!<br/><br/>
+- تیم QuickLyric
+]]></string>
+  <string name="premium_title">ارتقإ نسخه</string>
+  <string name="remove_ads_title">حذف تبلیغات</string>
+  <string name="subscription_monthly">ماهیانه</string>
+  <string name="subscription_yearly">سالیانه</string>
+  <string name="premium_sum_incent">برای پشتیبانی کردن از هنرمند و تیم QuickLyric، کاربر ارتقإ یافته شوید!</string>
+  <string name="premium_ads_incent">بدون هرگونه تبلیغات!</string>
+  <string name="premium_themes_incent">*هفت* پوسته جدید</string>
+  <string name="premium_night_mode_incent">*حالت شب* برای استراحت دادن به چشمانتان در شب</string>
+  <string name="premium_android_wear">پشتیبانی برای ساعت‌های *Android Wear*</string>
+  <string name="premium_thanks">از حمایت شما متشکریم!</string>
+  <string name="about_crowdin">به ترجمه برنامه در Crowdin کمک کنید</string>
+  <string name="online_title">دسته‌بندی آنلاین</string>
+  <string name="yearly_sub_template">%s بر سال</string>
+  <string name="monthly_sub_template">%s بر ماه</string>
+  <string name="buy_sub">خرید</string>
+  <string name="client_version_error">لطفاً برنامه را به‌روزرسانی کنید</string>
+  <string name="why_is_this_a_subscription">چرا این یک اشتراک است؟</string>
+  <string name="vote_action">رای دهید</string>
+  <string name="user_submission_dialog_title">رای دادن به این شعر</string>
+  <string name="vote_for">این شعر درست است</string>
+  <string name="vote_against">این شعر اشتباه است</string>
+  <string name="vote_neutral">این شعر به اصلاح نیاز دارد</string>
+  <string name="snackbar_ratings_QL">از QuickLyric لذت بردید؟</string>
+  <string name="recent_tracks_title">آهنگ های اخیر</string>
+  <string name="recents_empty_database">شما هنوز به چیزی گوش نکرده اید!</string>
+  <string name="gmusic_import_securityException">لازم است Google Play Music برای این کار اجرا شود</string>
+  <string name="loading">در حال بارگیری&#8230;</string>
+  <string name="romanizer_prompt_msg">برای تبدیل متن از ژاپنی، کره ای و چینی به الفبای لاتین به دانلود افزونه جداگانه‌ای برای QuickLyric نیاز دارید.</string>
+  <string name="romanizer_prompt_title">افزونه Romanizer</string>
+  <string name="pref_always_artwork">همیشه فعال</string>
+  <string name="pref_overlay_behavior_always">همیشه قابل مشاهده</string>
+  <string name="pref_overlay_behavior_notif">باز کردن از طریق اطلاع رسانی</string>
+  <string name="pref_overlay_behavior_title">رفتار اشعار شناور</string>
+  <string name="pref_notification_sum_disabled">وقتی شعر شناور فعال است اعلان نمی تواند غیر فعال باشد</string>
   <plurals name="dl_finished_desc">
     <item quantity="one">اشعار برای %1$d آهنگ دریافت شدند</item>
     <item quantity="other">اشعار برای %1$d آهنگ دریافت شدند</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d مورد انتخاب شد</item>
+    <item quantity="other">%1$d مورد انتخاب شد</item>
+  </plurals>
   <string-array name="notifications">
     <item>غیر فعال (پیش فرض)</item>
     <item>فعال</item>
-    <item>فعال (چسبان)</item>
+    <item>فعال (پنهان)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>@string/pref_always_artwork</item>
+    <item>تنها روی وای‌فای</item>
   </string-array>
 </resources>

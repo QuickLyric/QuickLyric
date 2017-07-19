@@ -126,16 +126,18 @@
   <string name="about_product_tour">Турнеја кроз производ</string>
   <string name="nl_title">И још нешто.</string>
   <string name="nl_instructions">Да би Квик лирик радио са свим плејерима, неке поставке морају бити измењене.</string>
-  <string name="nl_settings_link">Дозволи Квик лирику да чита моја обавештења</string>
   <string name="changelog">Шта је ново?</string>
   <string name="rate_us">Оцените апликацију</string>
+  <string name="romanize">Романизирај</string>
+  <string name="musicid_no_match">Нема поклапања ☹</string>
+  <string name="notification_access">Приступ обавештењима</string>
+  <string name="pref_lyrics_overlay_sum">Плутајући прозор који омогућава доступност стихова изван апликације</string>
   <string name="premium_title">Купи премијум</string>
   <string name="remove_ads_title">Уклони рекламе</string>
   <string name="subscription_monthly">Месечно</string>
   <string name="subscription_yearly">Годишње</string>
   <string name="premium_sum_incent">Набавите премијум издање да бисте подржали извођаче и људе иза Квик лирика!</string>
   <string name="premium_ads_incent">Нема више реклама!</string>
-  <string name="premium_karaoke_incent">Ексклузивни *караоке режим*</string>
   <string name="premium_themes_incent">*7* нових тема</string>
   <string name="premium_night_mode_incent">*Ноћи режим* вам одмара очи ноћу</string>
   <string name="premium_android_wear">Подршка за *Android Wear* сатове</string>
@@ -146,6 +148,15 @@
   <string name="yearly_sub_template">%s годишње</string>
   <string name="monthly_sub_template">%s месечно</string>
   <string name="buy_sub">Купи</string>
+  <string name="vote_action">Гласај</string>
+  <string name="user_submission_dialog_title">Оцените ове стихове</string>
+  <string name="vote_for">Ови стихови су тачни</string>
+  <string name="vote_against">Ови стихови нису тачни</string>
+  <string name="vote_neutral">Ове стихове треба исправити</string>
+  <string name="snackbar_ratings_QL">Уживате у Квик лирику?</string>
+  <string name="recent_tracks_title">Недавне нумере</string>
+  <string name="recents_empty_database">Још ништа нисте слушали</string>
+  <string name="pref_always_artwork">Увек</string>
   <plurals name="scan_dialog">
     <item quantity="one">Квик лирик ће да преузме стихове за укупно %1$d песму.\
         Побрините се да имате стабилну везу %2$d минута.</item>
@@ -162,10 +173,10 @@
   <string-array name="notifications">
     <item>Онемогућена (подразумевано)</item>
     <item>Омогућена</item>
-    <item>Омогућена (лепљива)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Увек</item>
+    <item>@string/pref_always_artwork</item>
     <item>Само на бежичном</item>
   </string-array>
 </resources>

@@ -30,6 +30,7 @@
   <string name="pref_about">O aplikaci</string>
   <string name="send_feedback">Odeslat zpětnou vazbu</string>
   <string name="local_title">Uložené texty</string>
+  <string name="musicid_title">Rozpoznat text</string>
   <string name="settings_title">Nastavení</string>
   <string name="save_action">Uložit</string>
   <string name="lyrics_saved">Text písně uložen</string>
@@ -42,6 +43,8 @@
   <string name="welcome">Vítejte v aplikaci QuickLyric!</string>
   <string name="welcome2_sub">Texty písní, které vždy složitě hledáte&#8230;\nZde jsou dostupné ihned.</string>
   <string name="apps_desc">Funguje se všemi vašimi aplikacemi</string>
+  <string name="apps_desc_sub">V případě, že aplikace QuickLyrics s vaším hudebním přehrávačem nespolupracuje (například Poweramp, GoneMAD, nebo Spotify), tak se ujistěte, že máte v nastavení aktivovanou volbu \"Scrobbling\" nebo \"Broadcast Status\".</string>
+  <string name="id_desc">Integrace s vaší oblíbenou MusicID aplikací.\n(Shazam™, SoundHound™, a další)</string>
   <string name="id_desc_sub">1. Identifikujte píseň\n2.Výsledek sdílejte do aplikace QuickLyrics\n3. Užijte si nalezený text písně</string>
   <string name="refresh_desc">V okamžiku, kdy se skladba změní&#8230;</string>
   <string name="refresh_desc_sub">Stiskněte toto tlačíko. Apliace QuickLyric se o vše ostatní postará.</string>
@@ -49,6 +52,10 @@
   <string name="first_launch">Začněte přehrávat hudbu na vašem zařízení a zmáčkněte obnovit.</string>
   <string name="share_prompt">Importovat z aplikace pro identifikaci skladeb</string>
   <string name="undo">Zpět</string>
+  <string name="beta_dialog_content">
+1) Připojte se do Google+ komunity: \nhttps://plus.google.com/communities/115504114424315189412\n
+2) Připojte se k používání Beta verze: \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric
+    </string>
   <string name="skip">Přeskočit</string>
   <string name="pref_theme">Téma</string>
   <string name="pref_notifications">Notifikace</string>
@@ -58,6 +65,7 @@
   <string name="pref_auto_save">Automaticky ukládat texty písní</string>
   <string name="pref_auto_save_sum">Všechny texty písní budou uloženy ve vašem zařízení</string>
   <string name="pref_night_mode">Noční režim</string>
+  <string name="pref_night_mode_sum">Zobrazit tmavé pozadí v noci</string>
   <string name="scan_action">Prohledat hudbu</string>
   <string name="warning">Varování</string>
   <string name="content_providers_title">Vyhledat texty k hudbě&#8230;</string>
@@ -66,15 +74,44 @@
   <string name="pref_providers">Další zdroje textů písní</string>
   <string name="pref_providers_sum">Čím více zdrojů vyberete, tím déle bude trvat stažení každého textu písně</string>
   <string name="pref_beta">Staňte se betatesterem</string>
+  <string name="pref_beta_sum">Získávejte aktualizace (nové funkce, opravy chyb, ...) rychleji a hlaste chyby emailem</string>
   <string name="scan_error_no_content">Nebyly nalezeny žádné hudební soubory</string>
   <string name="no_results_why"><u>Proč?</u></string>
-  <string name="why_popup_title">Proč nebyly nalzeny žádné texty písní?</string>
+  <string name="why_popup_text"><![CDATA[
+Hledali jste text písně \"%1$s\" od %2$s. QuickLyric bohužel nic nenašel...<br/><br/>
+Několik možných důvodů proč:<br/>
+<br/>
+• Je Vaše hudba <strong>otagována</strong> správně? QuickLyric nedokáže rozpoznat písně, které nejsou otagovány.<br/>
+• Zkontrolujte připojení k internetu.<br/>
+• Možná tato píseň není v hlavním katalogu. Nastavili jste <strong>další zdroje textů</strong> v nastavení?<br/>
+• Možná jste našli chybu. Pokud je to opravdu chyba, pošlete mi email.<br/>
+• Zkontrolujte nastavení správného data a času Vašeho zařízení.<br/>
+]]></string>
+  <string name="why_popup_title">Proč nebyly nalezeny žádné texty písní?</string>
   <string name="download_category">Stahování</string>
+  <string name="wearable_prompt">Otevřít na chytrých hodinkách</string>
   <string name="pref_opendyslexic">Použít OpenDyslexic písmo</string>
+  <string name="pref_opendyslexic_sum">Použít speciální písmo vytvořené pro čtenáře s poruchami čtení</string>
+  <string name="wrong_musicID">Nepodporovaná MusicID služba</string>
+  <string name="pref_issues_sum">contact@quicklyric.be (pouze anglicky)</string>
+  <string name="ignore_id3_toast">Klepněte na tlačítko Aktualizovat pro vynucení stahování</string>
+  <string name="from_id3">(Texty extrahovány ze zvukového soubor)</string>
+  <string name="nighttime_start_dialog_title">Začátek nočního času</string>
+  <string name="nighttime_end_dialog_title">Konec nočního času</string>
+  <string name="pref_force_screen_sum">Zabraňuje vypnutí displeje při čtení textů</string>
+  <string name="pref_force_screen_on">Vynutit nezhasínání displeje</string>
+  <string name="scan_error_permission_denied">QuickLyric byl odepřen oprávnění k prohledávání hudby</string>
+  <string name="id3_write_error">Nepodařilo se upravit metadata skladby</string>
+  <string name="id3_write_success">Metadata skladby úspěšně upravena</string>
   <string name="id3_read_rationale">QuickLyric potřebuje toto oprávnění ke čtení textů a obrázků alb na tomto zařízení</string>
   <string name="permission_denied">(přístup zamítnut)</string>
+  <string name="id3_write_permission_error">Aplikace potřebuje restart k získání oprávnění k zápisu</string>
+  <string name="resync_action">Resynchronizovat</string>
   <string name="uri_storage">Toto zařízení</string>
   <string name="uri_gmusic">Vaše knihovna Google Play Music</string>
+  <string name="uri_spotify">Vaše Spotify knihovna</string>
+  <string name="spotify_library">Vaše uložené skladby</string>
+  <string name="spotify_playlists">Vaše playlisty</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
   <string name="source_hip_hop">Hip Hop</string>
@@ -82,12 +119,82 @@
   <string name="source_japanese">Japonština</string>
   <string name="source_sync">Synchronizované texty</string>
   <string name="spotify_connection">Připojování k Spotify&#8230;</string>
+  <string name="full_text_action">Celý text</string>
+  <string name="artworks_pref_title">Automatické stažení obrázků alb</string>
+  <string name="artworks_pref_sum">Může způsobit poplatky za datové přenosy navíc</string>
+  <string name="pref_lrc_sum">Zvýraznit právě zpívaná slova - není podporováno všemi přehrávači</string>
+  <string name="pref_lrc">Synchronizovaný text</string>
   <string name="red_theme">Červená</string>
   <string name="purple_theme">Fialová</string>
   <string name="indigo_theme">Indigo</string>
   <string name="green_theme">Zelená</string>
   <string name="lime_theme">Limetka</string>
   <string name="brown_theme">Hnědá</string>
+  <string name="ad_supported_title">QuickLyric je podporován reklamami</string>
+  <string name="ad_supported_text">Reklamy nám umožňují platit umělcům a držitelům práv za jejich práci.\nDoufáme, že si užijete používání QuickLyric!</string>
+  <string name="about_read_ToS">Přečíst si podmínky používání</string>
+  <string name="about_product_tour">Úvodní obrazovka</string>
+  <string name="nl_title">Poslední věc.</string>
+  <string name="nl_instructions">Aby QuickLyric fungoval se všemi přehrávači, potřebujeme upravit některá nastavení.</string>
+  <string name="nl_settings_link">Povolit přístup k hudbě</string>
+  <string name="floating_settings_link">Povolit bublinu s textem (volitelné)</string>
+  <string name="changelog">Co je nového?</string>
+  <string name="rate_us">Ohodnotit aplikaci</string>
+  <string name="romanize">Přepis do latinky</string>
+  <string name="reset">Resetovat</string>
+  <string name="musicid_no_match">Žádná shoda</string>
+  <string name="notification_access">Přístup k notifikacím</string>
+  <string name="pref_lyrics_overlay_name">Bublina s textem</string>
+  <string name="pref_lyrics_overlay_sum">Okno s textem překrývající právě používánou aplikaci</string>
+  <string name="notification_access_explanation"><![CDATA[
+Toto oprávnění je potřeba pouze k tomu, aby QuickLyric měl přístup k informacím o Vaší hudbě.<br/>
+QuickLyric nečte Vaše notifikace a naše zásady ochrany osobních údajů nám v tom brání.<br/>
+Dobrou zprávou je, že QuickLyric je open source, tím pádem si kdokoliv může toto ověřit! 😊<br/><br/>
+Děkujeme Vám za pochopení!<br/><br/>
+- Tým QuickLyric
+]]></string>
+  <string name="premium_title">Získat Premium</string>
+  <string name="remove_ads_title">Odstranit reklamy</string>
+  <string name="subscription_monthly">Měsíčně</string>
+  <string name="subscription_yearly">Ročně</string>
+  <string name="premium_sum_incent">Získejte Premium pro podporu umělců &amp; týmu QuickLyric!</string>
+  <string name="premium_ads_incent">Už žádné reklamy!</string>
+  <string name="premium_themes_incent">*7* nových témat</string>
+  <string name="premium_night_mode_incent">*Noční režim* pro odpočinutí Vašich očí v noci</string>
+  <string name="premium_android_wear">Podpora *Android Wear* hodinek</string>
+  <string name="premium_doubt">Máte nějaké otázky o odběru? Pošlete nám email: contact@quicklyric.be</string>
+  <string name="premium_thanks">Děkujeme za Vaši podporu!</string>
+  <string name="about_crowdin">Pomozte přeložit aplikaci na Crowdin</string>
+  <string name="online_title">Online katalog</string>
+  <string name="yearly_sub_template">%s/rok</string>
+  <string name="monthly_sub_template">%s/měsíc</string>
+  <string name="buy_sub">Koupit</string>
+  <string name="client_version_error">Prosím aktualizujte aplikaci</string>
+  <string name="why_is_this_a_subscription">Proč je to odběr?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>Většina peněz za odběr jde k umělcům a držitelům práv. Zaplacení částky za QuickLyric Premium jednou by bylo jako zaplacení několika dolarů Spotify a získání Premium na celý život. To bohužel není možné.</p>
+    <p>Pokud byste zaplatili jednou a Vy používali aplikaci po několik let, stále bychom museli platit držitelům práv za vaše využívání služeb.</p>
+    Prosím pochopte, že toto je způsob, jakým funguje hudební průmysl.]]>
+    </string>
+  <string name="vote_action">Ohodnotit text</string>
+  <string name="user_submission_dialog_title">Ohodnotit tento text</string>
+  <string name="vote_for">Tento text je správně</string>
+  <string name="vote_against">Tento text je špatně</string>
+  <string name="vote_neutral">Tento text potřebuje nějaké úpravy</string>
+  <string name="snackbar_ratings_QL">Užíváte si používání QuickLyric?</string>
+  <string name="recent_tracks_title">Poslední skladby</string>
+  <string name="recents_empty_database">Ještě jste nic nepřehráli</string>
+  <string name="gmusic_import_securityException">Hudba Google Play musí být zapnuta, aby toto fungovalo</string>
+  <string name="miui_autostart">Majitelé zařízení %s musí nejprve aplikaci odblokovat</string>
+  <string name="musicid_instructions">Držte telefon blízko zdroje hudby</string>
+  <string name="loading">Načítání&#8230;</string>
+  <string name="too_many_restarts_warning">QuickLyric má potíže se čtením vaší hudby - Zvažte restartování zařízení</string>
+  <string name="romanizer_prompt_msg">Chcete-li převést text z japonské, korejské nebo čínské abecedy do latinky, je třeba stáhnout samostatný plugin pro QuickLyric.</string>
+  <string name="romanizer_prompt_title">Doplněk pro přepis do latinky</string>
+  <string name="pref_always_artwork">Vždy zapnuto</string>
+  <string name="pref_overlay_behavior_always">Vždy viditelné</string>
+  <string name="pref_overlay_behavior_notif">Otevřít přes notifikaci</string>
+  <string name="pref_overlay_behavior_title">Chování bublin s textem</string>
+  <string name="pref_notification_sum_disabled">Notifikace nemohou být vypnuté, jestliže jsou bubliny s textem povolené</string>
   <plurals name="scan_dialog">
     <item quantity="one">Aplikace QuickLyrics nyní stáhne texty celkem %1$d písně.\         Ujistěte se, že budete mít pod dobu %2$d minuty stabilní připojení k internetu.</item>
     <item quantity="few">Aplikace QuickLyrics nyní stáhne texty celkem %1$d písní.\         Ujistěte se, že budete mít pod dobu %2$d minut stabilní připojení k internetu.</item>
@@ -98,9 +205,18 @@
     <item quantity="few">Byl staženy texty %1$d písní</item>
     <item quantity="other">Byl staženy texty %1$d písní</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d položka vybrána</item>
+    <item quantity="few">%1$d vybraných položek</item>
+    <item quantity="other">%1$d vybraných položek</item>
+  </plurals>
   <string-array name="notifications">
     <item>Zakázány (výchozí)</item>
     <item>Povoleny</item>
-    <item>Povoleny (vždy zobrazit)</item>
+    <item>Zapnuto (skryté)</item>
+  </string-array>
+  <string-array name="artwork_download">
+    <item>@string/pref_always_artwork</item>
+    <item>Pouze přes Wi-Fi</item>
   </string-array>
 </resources>

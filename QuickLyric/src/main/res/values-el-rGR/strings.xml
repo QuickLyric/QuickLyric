@@ -30,6 +30,7 @@
   <string name="pref_about">Σχετικά</string>
   <string name="send_feedback">Αποστολή υπόδειξης</string>
   <string name="local_title">Αποθηκευμένοι στίχοι</string>
+  <string name="musicid_title">Αναγνώρισε στίχους</string>
   <string name="settings_title">Επιλογές</string>
   <string name="save_action">Αποθήκευση</string>
   <string name="lyrics_saved">Αποθηκευμένοι στίχοι</string>
@@ -74,6 +75,17 @@
   <string name="pref_beta_sum">Λάβετε ενημερώσεις (νέα χαρακτηριστικά, διορθώσεις σφαλμάτων,...) γρηγορότερα και στείλτε τις εντυπώσεις σας μέσω ηλεκτρονικού ταχυδρομείου</string>
   <string name="scan_error_no_content">Δεν βρέθηκε μουσική</string>
   <string name="no_results_why"><u>Γιατί;</u></string>
+  <string name="why_popup_text"><![CDATA[
+Ψάχνατε για τους στίχους του \"%1$s\" από %2$s. Δυστυχώς το QuickLyric δεν κατάφερε να τους βρει… <br/><br/>
+Μερικές πιθανές αιτίες: <br/>
+<br/>
+• Έχει η μουσική σας σωστά <strong>δεδομένα;</strong> Το QuickLyric δεν μπορεί να αναγνωρίσει τα κομμάτια που δεν έχουν σωστές ετικέτες.<br/>
+• Ελέγξτε αν η σύνδεσή σας λειτουργεί.<br/>
+• Ίσως αυτό το τραγούδι δεν αποτελεί μέρος του κύριου καταλόγου. Έχετε ελέγξει τις <strong> πρόσθετες υπηρεσίες παροχής </strong> στις ρυθμίσεις;<br/>
+• Ίσως βρήκατε ένα bug. Αν ναι, παρακαλώ στείλτε μου email.<br/>
+• Τέλος, είναι επίσης πιθανό οτι οι στίχοι για αυτό το τραγούδι δεν είναι διαθέσιμοι. Αν έχετε προτάσεις σχετικά με προσθήκες στον κατάλογο, μη διστάσετε να μου στείλετε email.<br/>
+• Ελέγξτε αν η ώρα και η ημερομηνία της συσκευής σας έχει ρυθμιστεί σωστά.<br/>
+]]></string>
   <string name="why_popup_title">Γιατί δεν λειτουργεί;</string>
   <string name="download_category">Λήψεις</string>
   <string name="wearable_prompt">Άνοιγμα σε έξυπνο ρολόι</string>
@@ -123,22 +135,56 @@
   <string name="about_product_tour">Περιήγηση προϊόντος</string>
   <string name="nl_title">Ένα τελευταίο πράγμα.</string>
   <string name="nl_instructions">Για να δουλέψει το QuickLyric με όλες τις εφαρμογές αναπαραγωγής μουσικής, κάποιες ρυθμίσεις πρέπει να αλλαχθούν.</string>
-  <string name="nl_settings_link">Επέτρεψε στο QuickLyric να διαβάσει τις ειδοποιήσεις μου</string>
   <string name="changelog">Τι νέο υπάρχει;</string>
   <string name="rate_us">Αξιολογήστε την εφαρμογή</string>
+  <string name="romanize">Λατινικό αλφάβητο</string>
+  <string name="reset">Επαναφορά</string>
+  <string name="musicid_no_match">Καμία αντιστοιχία</string>
+  <string name="notification_access">Πρόσβαση σε ειδοποιήσεις</string>
+  <string name="pref_lyrics_overlay_name">Επικάλυψη στίχων</string>
+  <string name="pref_lyrics_overlay_sum">Ένα παράθυρο που κάνει τους στίχους διαθέσιμους έξω από την εφαρμογή</string>
+  <string name="notification_access_explanation"><![CDATA[
+Αυτή η άδεια απαιτείται, έτσι ώστε το QuickLyric να έχει πρόσβαση στα δεδομένα της μουσικής σας.<br/>
+Το QuickLyric δεν ενδιαφέρεται να διαβάσει τις ειδοποιήσεις σας και η πολιτική απορρήτου μας το απαγορεύει. 
+<br/> 
+Το καλό είναι ότι το QuickLyric ότι είναι ανοιχτού κώδικα, οπότε οποιοσδήποτε μπορεί να το εξακριβώσει μόνος του! 😊
+<br/><br/> 
+Σας ευχαριστούμε για την κατανόησή σας!<br/><br/>
+- Η ομάδα του QuickLyric
+]]></string>
   <string name="premium_title">Απόκτησε το Premium</string>
   <string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις</string>
   <string name="subscription_monthly">Μηνιαία</string>
   <string name="subscription_yearly">Ετήσια</string>
   <string name="premium_sum_incent">Απόκτησε το Premium για την υποστήριξη των καλλιτεχνών και την ομάδα πίσω από το QuickLyric!</string>
   <string name="premium_ads_incent">Όχι άλλες διαφημίσεις!</string>
-  <string name="premium_karaoke_incent">Μια αποκλειστική * karaoke λειτουργία *</string>
   <string name="premium_themes_incent">*7* νέα θέματα</string>
   <string name="premium_night_mode_incent">Μια *λειτουργία νύχτας* για να ξεκουράζετε τα μάτια σας τη νύχτα</string>
+  <string name="premium_android_wear">Υποστήριξη για *Android Wear* ρολόγια</string>
   <string name="premium_doubt">Δεν είστε σίγουροι για τη συνδρομή; Στείλτε μας ένα μήνυμα ηλεκτρονικού ταχυδρομείου: contact@quicklyric.be</string>
   <string name="premium_thanks">Ευχαριστούμε για την υποστήριξη σας!</string>
   <string name="about_crowdin">Βοηθήστε να μεταφραστεί η εφαρμογή στο Crowdin</string>
   <string name="online_title">Ηλεκτρονικός κατάλογος</string>
+  <string name="yearly_sub_template">%s/χρόνος</string>
+  <string name="monthly_sub_template">%s/μήνας</string>
+  <string name="buy_sub">Αγορά</string>
+  <string name="client_version_error">Παρακαλώ ενημερώστε την εφαρμογή</string>
+  <string name="why_is_this_a_subscription">Γιατί υπάρχει συνδρομή;</string>
+  <string name="why_sub_explanation"><![CDATA[<p> Τα περισσότερα από τα έσοδα της συνδρομής πάνε στους καλλιτέχνες και θα ήταν σαν να πληρώνατε μερικά δολάρια για το Spotify για να το έχετε για την υπόλοιπη ζωή σας. Δεν είναι αυτό δυστυχώς δυνατόν.</p> 
+    <p>Αν μας πληρώνατε μια φορά και συνεχίζατε να χρησιμοποιείτε την εφαρμογή για χρόνια, εμείς θα έπρεπε ακόμη να πληρώνουμε τους δικαιούχους για την κατανάλωση σας.</p> 
+    Παρακαλούμε να κατανοήσετε ότι είναι είναι μια απαίτηση της μουσικής βιομηχανίας να λειτουργούν έτσι τα πράγματα.]]>
+    </string>
+  <string name="vote_action">Ψηφίστε</string>
+  <string name="user_submission_dialog_title">Αξιολογήστε αυτούς τους στίχους</string>
+  <string name="vote_for">Οι στίχοι είναι σωστοί</string>
+  <string name="vote_against">Οι στίχοι είναι λάθος</string>
+  <string name="vote_neutral">Οι στίχοι χρειάζονται διορθώσεις</string>
+  <string name="snackbar_ratings_QL">Σας αρέσει το QuickLyric?</string>
+  <string name="recent_tracks_title">Πρόσφατα τραγούδια</string>
+  <string name="recents_empty_database">Δεν έχετε ακούσει τίποτα ακόμη</string>
+  <string name="gmusic_import_securityException">To Google Play Music πρέπει να λειτουργεί για να λειτουργήσει αυτό</string>
+  <string name="musicid_instructions">Κρατήστε το τηλέφωνο κοντά στην μουσική</string>
+  <string name="pref_always_artwork">Πάντα ενεργοποιημένο</string>
   <plurals name="scan_dialog">
     <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
         Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>
@@ -152,10 +198,10 @@
   <string-array name="notifications">
     <item>Απενεργοποιημένη (προεπιλογή)</item>
     <item>Ενεργοποιημένη</item>
-    <item>Ενεργοποιημένη (μόνιμη)</item>
+    <item>Enabled (hidden)</item>
   </string-array>
   <string-array name="artwork_download">
-    <item>Πάντα ενεργοποιημένο</item>
+    <item>@string/pref_always_artwork</item>
     <item>Μόνο σε Wi-Fi</item>
   </string-array>
 </resources>
