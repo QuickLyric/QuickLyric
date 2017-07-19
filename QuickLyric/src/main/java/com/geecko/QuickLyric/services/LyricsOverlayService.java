@@ -36,8 +36,8 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -186,7 +186,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
         return START_REDELIVER_INTENT;
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams, RestrictedApi")
     private void createOverlayWindow() {
         if (mOverlayWindow != null)
             return;
