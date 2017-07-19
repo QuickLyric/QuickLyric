@@ -515,7 +515,7 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         megaListView.setPadding(megaListView.getPaddingLeft(),
                 megaListView.getPaddingTop(),
                 megaListView.getPaddingRight(),
-                (getActivity().findViewById(R.id.ad_container) == null) ? 0 : getActivity().findViewById(R.id.ad_container).getMeasuredHeight());
+                0);
 
         this.isActiveFragment = true;
         new DBContentLister(this).execute();

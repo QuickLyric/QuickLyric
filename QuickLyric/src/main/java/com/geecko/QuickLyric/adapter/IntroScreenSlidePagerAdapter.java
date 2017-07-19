@@ -80,14 +80,12 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             R.color.accent_dark,
             R.color.bright_yellow,
             R.color.deep_red,
-            android.R.color.holo_orange_light,
             R.color.material_red_A700
     };
     private Class[] tutorialScreens = new Class[]{
             Tutorial_0.class,
             Tutorial_1.class,
             Tutorial_2.class,
-            Tutorial_3.class,
             Tutorial_4.class
     };
     private Activity mActivity;
@@ -274,7 +272,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         int count = 3;
         if (App.playStoreVariant) {
             count += 1;
-            if (tutorialScreens.length < 6) {
+            if (tutorialScreens.length < 5) {
                 tutorialScreens = new Class[]{
                         Tutorial_0.class,
                         Tutorial_1.class,
@@ -287,7 +285,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                         R.color.bright_yellow,
                         R.color.deep_red,
                         android.R.color.holo_orange_light,
-                        R.color.deep_red,
                         R.color.material_red_A700
                 };
             }

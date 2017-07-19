@@ -74,6 +74,8 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
+import com.geecko.QuickLyric.event.RecentsDownloadingEvent;
+import com.geecko.QuickLyric.event.RecentsRetrievedEvent;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.fragment.RecentTracksFragment;
@@ -94,6 +96,9 @@ import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

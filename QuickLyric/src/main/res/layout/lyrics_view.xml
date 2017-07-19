@@ -21,7 +21,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.geecko.QuickLyric.view.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -41,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-<<<<<<< HEAD
                 <LinearLayout
                     android:id="@+id/lyrics_content"
                     android:layout_width="match_parent"
@@ -127,9 +127,8 @@
                         android:textColor="?android:textColorSecondary"
                         android:visibility="gone"/>
                 </LinearLayout>
-=======
+
                 <include layout="@layout/lyrics_content"/>
->>>>>>> ec836836... Further changes to the floating lyrics
 
                 <include
                     layout="@layout/error_msg"

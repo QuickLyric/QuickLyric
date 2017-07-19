@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -38,6 +39,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -73,6 +75,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -99,12 +102,7 @@ import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.PermissionsChecker;
-import com.geecko.QuickLyric.utils.RatingUtils;
 import com.geecko.QuickLyric.utils.RomanizeUtil;
-import com.geecko.QuickLyric.utils.play.AdMobListener;
-import com.geecko.QuickLyric.utils.play.DisplayReportingJob;
-import com.geecko.QuickLyric.utils.play.Premium;
->>>>>>> 3e4dd79a... Add romanize button
 import com.geecko.QuickLyric.view.ControllableAppBarLayout;
 import com.geecko.QuickLyric.view.FadeInNetworkImageView;
 import com.geecko.QuickLyric.view.LrcView;
@@ -118,8 +116,6 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 import static com.geecko.QuickLyric.R.menu.lyrics;
 
 public class LyricsViewFragment extends Fragment implements Lyrics.Callback, SwipeRefreshLayout.OnRefreshListener, PresenceChecker.PresenceCheckerCallback, RomanizeAsyncTask.RomanisationCallback, ParseTask.ParseCallback {

@@ -21,15 +21,10 @@ package com.geecko.QuickLyric.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
-import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.utils.play.Premium;
 
 public class NightSwitchPreference extends SwitchPreferenceCompat {
     public NightSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -46,26 +41,11 @@ public class NightSwitchPreference extends SwitchPreferenceCompat {
 
     @Override
     protected void onClick() {
-        if (Premium.isPremium(getContext()))
-            super.onClick();
+        super.onClick();
     }
 
     @Override
     public View getView(View convertView, ViewGroup parent) {
-        View view = super.getView(convertView, parent);
-        if (!Premium.isPremium(getContext())) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(R.drawable.ic_unlock_premium);
-            int dp = (int) getContext().getResources().getDimension(R.dimen.dp);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                    (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            layoutParams.gravity = Gravity.END;
-            layoutParams.setMargins(15 * dp, 3 * dp, 15 * dp, 3 * dp);
-            imageView.setLayoutParams(layoutParams);
-            ((ViewGroup) view).removeViewAt(2);
-            ((ViewGroup) view).addView(imageView);
-            view.setAlpha(0.6f);
-        }
-        return view;
+        return super.getView(convertView, parent);
     }
 }

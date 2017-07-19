@@ -48,9 +48,9 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
-import com.geecko.QuickLyric.utils.play.Premium;
 import com.geecko.QuickLyric.view.OverlayContentLayout;
 import com.geecko.QuickLyric.view.OverlayLayout;
 
@@ -79,6 +79,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     private FloatingViewManager mFloatingViewManager;
     private WindowManager mWindowManager;
     private View mBubbleView;
+    private Lyrics mLyrics;
     private OverlayLayout mOverlayWindow;
     private int deployedMarginX;
     private int deployedMarginY;
@@ -412,9 +413,9 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                 R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
 
         int selectedTheme;
-        int themeNum = Premium.isPremium(this) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
-        if (nightMode && Premium.isPremium(this) && NightTimeVerifier.check(this))
+        if (nightMode && NightTimeVerifier.check(this))
             selectedTheme = R.style.Theme_QuickLyric_Night;
         else
             selectedTheme = themes[themeNum];
@@ -498,4 +499,13 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
 
         return output;
     }
+
+    public Lyrics getLyrics() {
+        return mLyrics;
+    }
+
+    public void setLyrics(Lyrics mLyrics) {
+        this.mLyrics = mLyrics;
+    }
+
 }

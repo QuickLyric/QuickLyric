@@ -79,7 +79,6 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
         mContext.registerReceiver(receiver, new IntentFilter("com.geecko.QuickLyric.ROMANIZED_OUTPUT"));
         mContext.sendBroadcast(romanizeIntent);
 
-        lyrics.setReported(true);
         try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {

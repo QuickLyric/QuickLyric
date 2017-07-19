@@ -25,13 +25,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -43,24 +40,23 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.services.LyricsOverlayService;
 import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.Id3Reader;
@@ -73,9 +69,6 @@ import com.geecko.QuickLyric.utils.LyricsTextFactory;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.utils.RomanizeUtil;
-import com.google.firebase.analytics.FirebaseAnalytics;
-
-import static com.google.android.gms.internal.zzail.runOnUiThread;
 
 
 public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenuItemClickListener, PresenceChecker.PresenceCheckerCallback,
@@ -131,9 +124,9 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
 
         int selectedTheme;
-        int themeNum = Premium.isPremium(getContext()) ? Integer.valueOf(sharedPref.getString("pref_theme", "0")) : 0;
+        int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
         boolean nightMode = sharedPref.getBoolean("pref_night_mode", false);
-        if (nightMode && Premium.isPremium(getContext()) && NightTimeVerifier.check(getContext()))
+        if (nightMode && NightTimeVerifier.check(getContext()))
             selectedTheme = R.style.Theme_QuickLyric_Night;
         else
             selectedTheme = themes[themeNum];
@@ -174,7 +167,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
 
     @SuppressWarnings("deprecation")
     @SuppressLint("SetTextI18n")
-    private void update(Lyrics lyrics, boolean animation) {
+    protected void update(Lyrics lyrics, boolean animation) {
         final TextView id3TV = findViewById(R.id.source_tv);
         TextView writerTV = findViewById(R.id.writer_tv);
         TextView copyrightTV = findViewById(R.id.copyright_tv);
@@ -245,33 +238,18 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                     scrollview.smoothScrollTo(0, 0);
                 }
             });
-            showAdView(true);
         } else {
             textSwitcher.setText("");
             textSwitcher.setVisibility(View.INVISIBLE);
             lrcView.setVisibility(View.INVISIBLE);
             bugLayout.setVisibility(View.VISIBLE);
-            int message = -1;
+            int message;
             if (lyrics.getFlag() == Lyrics.ERROR || !OnlineAccessVerifier.check(getContext())) {
-                switch (lyrics.getErrorCode()) {
-                    default:
-                        message = R.string.connection_error;
-                        break;
-                    case 540:
-                        message = R.string.client_version_error;
-                        break;
-                    case 504:
-                    case 800:
-                    case 900:
-                }
+                message = R.string.client_version_error;
             } else {
                 message = R.string.no_results;
-                // TODO: firebase
             }
-            if (message != -1)
-                ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
-            else
-                ((TextView) bugLayout.findViewById(R.id.bugtext)).setText("Code: " + lyrics.getErrorCode());
+            ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
             id3TV.setVisibility(View.GONE);
         }
 
@@ -288,10 +266,6 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     private void stopRefreshAnimation() {
         if (viewFlipper.getCurrentView() instanceof ProgressBar)
             viewFlipper.showNext();
-    }
-
-    private void showAdView(boolean b) {
-        //TODO
     }
 
     public void fetchLyrics(String... params) {
@@ -319,11 +293,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             if (lyrics == null)
                 lyrics = DatabaseHelper.getInstance(getContext()).get(DownloadThread.correctTags(artist, title));
         }
-        boolean prefLRC = PreferenceManager.getDefaultSharedPreferences(getContext())
-                .getBoolean("pref_lrc", true);
         if (lyrics == null && OnlineAccessVerifier.check(getContext())) {
-            DownloadThread.LRC = prefLRC;
-
             toolbar.setTitle(title);
             toolbar.setSubtitle(artist);
 
@@ -360,30 +330,6 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             case R.id.save_action:
                 if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
                     new WriteToDatabaseTask().execute(this, item, this.mLyrics);
-                break;
-            case R.id.action_vote:
-                if (mLyrics != null && "user-submission".equals(mLyrics.getSource())) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.user_submission_dialog_title)
-                            .setSingleChoiceItems(R.array.vote_options, -1, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (which == 0) {
-                                        // TODO Submit
-                                        Toast.makeText(getContext(), R.string.lyrics_saved, Toast.LENGTH_SHORT).show();
-                                        mLyrics.setSource("approved");
-                                        FirebaseAnalytics.getInstance(getContext()).logEvent("crowdsourced_lyrics_good", new Bundle());
-                                        refreshToolbar(toolbar.getMenu());
-                                    } else if (which == 1) {
-                                        mLyrics.setSource("disapproved");
-                                        refreshToolbar(toolbar.getMenu());
-                                        FirebaseAnalytics.getInstance(getContext()).logEvent("crowdsourced_lyrics_bad", new Bundle());
-                                    }
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-                }
                 break;
             case R.id.resync_action:
                 MainActivity.resync(getContext());
@@ -508,6 +454,10 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             }
         }
     };
+
+    private void runOnUiThread(Runnable runnable) {
+        new Handler(Looper.getMainLooper()).post(runnable);
+    }
 
     @Override
     public void onLyricsRomanized(Lyrics result) {

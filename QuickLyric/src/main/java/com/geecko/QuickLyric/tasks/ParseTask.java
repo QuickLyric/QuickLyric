@@ -23,15 +23,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Process;
-<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.NotificationListenerService;
-=======
->>>>>>> ec836836... Further changes to the floating lyrics
 
 public class ParseTask extends AsyncTask<Object, Object, String[]> {
 

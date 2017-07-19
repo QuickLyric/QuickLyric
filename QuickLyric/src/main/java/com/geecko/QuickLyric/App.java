@@ -19,52 +19,25 @@
 
 package com.geecko.QuickLyric;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
-import android.util.Base64;
 
-import com.birbit.android.jobqueue.JobManager;
-import com.geecko.QuickLyric.lyrics.QuickLyricAPI;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
-import com.geecko.QuickLyric.utils.CertificateUtils;
-import com.geecko.QuickLyric.utils.PowerUserChecker;
-import com.github.javiersantos.piracychecker.PiracyChecker;
-import com.github.javiersantos.piracychecker.enums.InstallerID;
-import com.github.javiersantos.piracychecker.enums.PiracyCheckerCallback;
-import com.github.javiersantos.piracychecker.enums.PiracyCheckerError;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
-import java.security.MessageDigest;
-import java.util.Collections;
 import java.util.TreeSet;
 
-import javax.net.ssl.TrustManager;
+public class App extends Application implements Application.ActivityLifecycleCallbacks {
 
-public class App extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
-
-    public static final boolean playStoreVariant = true;
-    public static boolean pirated = false;
-    public FirebaseAnalytics fireAnalyticsInstance;
-    public JobManager jobManager;
+    public static final boolean playStoreVariant = BuildConfig.FLAVOR.equals("play");
 
     public static RefWatcher getRefWatcher(Context context) {
         App app = (App) context.getApplicationContext();
@@ -97,7 +70,6 @@ public class App extends MultiDexApplication implements Application.ActivityLife
                     .build());
         }
 
-        playStoreVariant = BuildConfig.FLAVOR.equals("play");
         super.onCreate();
         refWatcher = LeakCanary.install(this);
         registerActivityLifecycleCallbacks(this);

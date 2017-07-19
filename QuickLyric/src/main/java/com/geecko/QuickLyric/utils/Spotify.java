@@ -47,7 +47,6 @@ import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.Keys;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.services.BatchDownloaderService;
-import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,6 +54,8 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -65,6 +66,7 @@ import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
@@ -74,8 +76,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Callback;
-
-import static com.geecko.QuickLyric.lyrics.QuickLyricAPI.trustManager;
 
 public class Spotify {
 
@@ -116,21 +116,32 @@ public class Spotify {
             return;
         }
 
+        TrustManager tm = new X509TrustManager() {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            public X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+        };
+
         // Install the all-trusting trust manager
         SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustManager, new java.security.SecureRandom());
+            sslContext.init(null, new TrustManager[] {tm}, new java.security.SecureRandom());
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
-            FirebaseCrash.report(e);
             return;
         }
         // Create an ssl socket factory with our all-trusting manager
         final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .sslSocketFactory(sslSocketFactory, (X509TrustManager) trustManager[0])
+                .sslSocketFactory(sslSocketFactory, (X509TrustManager) tm)
                 .certificatePinner(new CertificatePinner.Builder()
                         .add("api.quicklyric.be", "sha256/KdFllu5cmyNk7Ema4dx31vDX5tJifRjscsOca/eOdAQ=")
                         .build())

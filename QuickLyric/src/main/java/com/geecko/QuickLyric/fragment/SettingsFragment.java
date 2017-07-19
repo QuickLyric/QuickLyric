@@ -41,7 +41,6 @@ import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
-import com.geecko.QuickLyric.utils.play.Premium;
 import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -65,6 +64,7 @@ public class SettingsFragment extends PreferenceFragment implements
         addPreferencesFromResource(R.xml.preferences);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
+        boolean isOverlayEnabled = sharedPref.getBoolean("pref_overlay", false);
 
         findPreference("pref_theme").setSummary(themes[themeNum]);
         findPreference("pref_theme").setOnPreferenceChangeListener(this);

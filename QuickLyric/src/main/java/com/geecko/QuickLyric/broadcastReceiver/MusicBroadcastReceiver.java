@@ -33,8 +33,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
-import android.util.TypedValue;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
@@ -136,11 +134,6 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         int notificationPref = prefOverlay ? 2 : Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
 
         boolean retentionNotif = false;
-        if (!prefOverlay && System.currentTimeMillis() - LastOpenedUtils.getLastOpenedDate(context) > 7 * 24 * 3600 * 1000) {
-            // Retention notification
-            notificationPref = 1;
-            retentionNotif = true;
-        }
 
         if (autoUpdate && App.isMainActivityVisible()) {
             Intent internalIntent = new Intent("Broadcast");

@@ -211,13 +211,13 @@ public class NotificationListenerService extends android.service.notification.No
                     if (artist == null)
                         artist = metadata.getString(MediaMetadata.METADATA_KEY_ALBUM_ARTIST);
                 } catch (Exception e) {
-                    FirebaseCrash.report(e);
+                    e.printStackTrace();
                 }
                 String track = null;
                 try {
                     track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
                 } catch (Exception e) {
-                    FirebaseCrash.report(e);
+                    e.printStackTrace();
                 }
                 Bitmap artwork = null;
                 try {
@@ -225,14 +225,14 @@ public class NotificationListenerService extends android.service.notification.No
                     if (artwork == null)
                         artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
                 } catch (Exception e) {
-                    FirebaseCrash.report(e);
+                    e.printStackTrace();
                 }
 
                 double duration = 0;
                 try {
                     duration = (double) metadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
                 } catch (Exception e) {
-                    FirebaseCrash.report(e);
+                    e.printStackTrace();
                 }
                 long position = duration == 0 || playbackState == null ? -1 : playbackState.getPosition();
 
@@ -418,14 +418,8 @@ public class NotificationListenerService extends android.service.notification.No
 
     /* Lollipop Stuff */
     private static void savePlayerName(String packageName, Context context) {
-        if (packageName != null
-                && GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == 0) {
-            try {
-                FirebaseCrash.log("Player: " + packageName);
-            } catch (Exception ignored) {
-            }
+        if (packageName != null)
             usedPlayers.add(packageName);
-        }
     }
 
     private final class KKMusicListener implements RemoteController.OnClientUpdateListener {

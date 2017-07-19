@@ -32,6 +32,8 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.services.LyricsOverlayService;
 import com.geecko.QuickLyric.tasks.ParseTask;
 
 import io.codetail.animation.ViewAnimationUtils;
