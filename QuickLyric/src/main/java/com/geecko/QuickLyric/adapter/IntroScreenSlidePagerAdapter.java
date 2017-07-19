@@ -565,18 +565,16 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             ((SwitchCompat) getView().findViewById(R.id.NL_switch)).setChecked(nlEnabled);
             ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(floatingEnabled && floatingPermitted);
             View okButton = getActivity().findViewById(R.id.pager_ok);
-            ViewGroup frame = getActivity().findViewById(R.id.NL_frame);
-            View floatingFrame = getActivity().findViewById(R.id.floating_frame);
-            View whyButton = getActivity().findViewById(R.id.why_notif_access_button);
+            ViewGroup frame = getView().findViewById(R.id.NL_frame);
+            View floatingFrame = getView().findViewById(R.id.floating_frame);
+            View whyButton = getView().findViewById(R.id.why_notif_access_button);
             if (okButton != null)
                 getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
             boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
             floatingFrame.setVisibility(nlEnabled ? View.VISIBLE : isLandscape ? View.GONE : View.INVISIBLE);
-            if (nlEnabled)
-                frame.setVisibility(isLandscape ? View.INVISIBLE : View.VISIBLE);
-            else
-                frame.setVisibility(View.VISIBLE);
+            if (frame != null)
+                frame.setVisibility(isLandscape && nlEnabled ? View.INVISIBLE : View.VISIBLE);
             if (buttonClicked || nlEnabled) {
                 if (frame == null || whyButton == null) {
                     return;
