@@ -8,6 +8,18 @@ QuickLyric is an android app that instantly fetches your lyrics for you. Its mai
 QuickLyric is written in Java and runs on phones and tablets equipped with Android 4.0 or higher.
 The build system relies on Gradle and Android Studio is therefore recommended.
 
+## FAQ:
+
+### Can I fork this project, put it on the Google Play Store and put my ads on it? 
+
+Unless you meet all the criteria, the short answer is "No and I will get your fork taken down".
+
+A longer answer is [here](https://github.com/QuickLyric/QuickLyric/wiki/Can-I-fork-this-project,-change-the-name,-put-it-on-Google-Play-and-pretend-it's-mine%3F).
+
+### How can I integrate QuickLyric into my music player?
+
+If you want to add a button that says "show lyrics in QuickLyric" (or something like that) in your app, you can find some instructions in the [Wiki](https://github.com/QuickLyric/QuickLyric/wiki/Integrating-QuickLyric-in-your-app).
+
 ## Download
 
 [![Dowload from Google Play](https://i.imgur.com/g9vve1f.png "Download from Google Play")](https://play.google.com/store/apps/details?id=com.geecko.QuickLyric)
@@ -17,8 +29,6 @@ The build system relies on Gradle and Android Studio is therefore recommended.
 or on [the original F-Droid page](https://f-droid.org/repository/browse/?fdid=com.geecko.QuickLyric).
 
 *Note: The F-Droid page is currently not up to date, they still have a build from 2 years ago. The Google Play version contains some teeny tiny portions of code that are not public (monetization, handling copyrighted content, etc.)*
-
-#### DO NOT fork this project if you don't intend to respect the GPL license (read it). DO NOT put it on the play store if you're not licensed to, I will have you taken down. You have been warned \<3
 
 ## Features
 
