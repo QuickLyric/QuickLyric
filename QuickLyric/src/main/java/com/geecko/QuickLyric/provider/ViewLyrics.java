@@ -94,22 +94,26 @@ public class ViewLyrics {
                 );
         if (results.size() == 0)
             return new Lyrics(NEGATIVE_RESULT);
-        String url = results.get(0).getURL();
-        url = url.replace("minilyrics", "viewlyrics");
 
-        int artistDistance = Levenshtein.distance(results.get(0).getArtist(), artist);
-        int titleDistance = Levenshtein.distance(results.get(0).getTitle(), title);
+        for (Lyrics candidate : results) {
+            String url = candidate.getURL();
+            url = url.replace("minilyrics", "viewlyrics");
 
-        if (url.endsWith("txt") || artistDistance > 6 || titleDistance > 6)
-            return new Lyrics(NEGATIVE_RESULT);
-        Lyrics result = new Lyrics(POSITIVE_RESULT);
-        result.setTitle(title);
-        result.setArtist(artist);
-        result.setLRC(url.endsWith("lrc"));
-        result.setText(Net.getUrlAsString(url).replaceAll("(\\[(?=.[a-z]).+\\]|<.+?>|www.*[\\s])", "").replaceAll("[\n\r]", " ").replaceAll("\\[", "\n\\["));
-        result.setSource(clientUserAgent);
+            int artistDistance = Levenshtein.distance(candidate.getArtist(), artist);
+            int titleDistance = Levenshtein.distance(candidate.getTitle(), title);
 
-        return result;
+            if (url.endsWith("lrc") && artistDistance <= 6 && titleDistance <= 6) {
+                Lyrics result = new Lyrics(POSITIVE_RESULT);
+                result.setTitle(title);
+                result.setArtist(artist);
+                result.setLRC(true);
+                result.setText(Net.getUrlAsString(url).replaceAll("(\\[(?=.[a-z]).+\\]|<.+?>|www.*[\\s])", "").replaceAll("[\n\r]", " ").replaceAll("\\[", "\n\\["));
+                result.setSource(clientUserAgent);
+                return result;
+            }
+        }
+
+        return new Lyrics(NEGATIVE_RESULT);
     }
 
     private static ArrayList<Lyrics> search(String searchQuery) throws IOException, ParserConfigurationException, SAXException, NoSuchAlgorithmException {
