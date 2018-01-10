@@ -112,7 +112,6 @@
   <string name="full_text_action">Цео текст</string>
   <string name="artworks_pref_title">Аутоматско преузимање омота</string>
   <string name="artworks_pref_sum">Може да резултује наплатом преноса мобилних података</string>
-  <string name="pref_lrc_sum">Истиче речи које се певају — не подржавају сви музички плејери</string>
   <string name="pref_lrc">Синхронизовани стихови</string>
   <string name="red_theme">Црвена</string>
   <string name="purple_theme">Љубичаста</string>
@@ -132,7 +131,6 @@
   <string name="musicid_no_match">Нема поклапања ☹</string>
   <string name="notification_access">Приступ обавештењима</string>
   <string name="pref_lyrics_overlay_sum">Плутајући прозор који омогућава доступност стихова изван апликације</string>
-  <string name="premium_title">Купи премијум</string>
   <string name="remove_ads_title">Уклони рекламе</string>
   <string name="subscription_monthly">Месечно</string>
   <string name="subscription_yearly">Годишње</string>

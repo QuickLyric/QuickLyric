@@ -21,50 +21,63 @@ package com.geecko.QuickLyric.services;
 
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
-import com.geecko.QuickLyric.tasks.DownloadThread;
+import com.geecko.QuickLyric.provider.LyricsChart;
+import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
+import com.geecko.QuickLyric.utils.Chromaprint;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.OkHttp3Stack;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class BatchDownloaderService extends IntentService implements Lyrics.Callback {
-    // Sets the amount of time an idle thread will wait for a task before terminating
-    private static final int KEEP_ALIVE_TIME = 1;
-    // Sets the Time Unit to seconds
-    private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
-    // Sets the threadpool size to 8
+import okhttp3.OkHttpClient;
+
+public class BatchDownloaderService extends IntentService implements Lyrics.Callback,
+        Response.Listener<String>, Response.ErrorListener {
+    private static final String BATCH_NOTIF_CHANNEL = "BATCH_NOTIFICATIONS_CHANNEL";
     private static final int CORE_POOL_SIZE = 2;
     private static final int MAXIMUM_POOL_SIZE = 8;
-    private final ThreadPoolExecutor mDownloadThreadPool;
-    private final DatabaseHelper dbHelper;
-    private int total = 0;
-    private int count = 0;
+    private static final long KEEP_ALIVE_TIME = 1;
+    private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
+    private int total;
+    private CountDownLatch countDown;
     private int successCount = 0;
+    private boolean foreground;
+    private RequestQueue requestQueue;
+    private OkHttpClient client = null;
 
     public BatchDownloaderService() {
         super("Batch Downloader Service");
-        mDownloadThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
-                KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, new LinkedBlockingQueue<Runnable>());
-        this.dbHelper = DatabaseHelper.getInstance(this);
     }
 
     @Override
@@ -75,67 +88,100 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (client == null)
+            getClient();
         Uri content = intent.getExtras().getParcelable("uri");
-        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
-                .getStringSet("pref_providers", new TreeSet<String>());
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_lrc", false))
-            providersSet.add("ViewLyrics");
-        DownloadThread.setProviders(providersSet);
-        List<List> savedLyrics = dbHelper.listMetadata();
+        boolean lrc = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_lrc", true);
+        TreeSet<List> savedLyricsSet = new TreeSet<>((o1, o2) -> {
+            int comparison = ((String) o1.get(0)).compareTo((String) o2.get(0));
+            if (comparison == 0)
+                comparison = ((String) o1.get(1)).compareTo((String) o2.get(1));
+            return comparison;
+        });
+        savedLyricsSet.addAll(DatabaseHelper.getInstance(this).listMetadata());
+        ArrayList<String[]> newSongsMetadata;
+        int total = 0;
         if (content != null) {
             String[] projection = new String[]{"artist", "title"};
-            String selection = "artist IS NOT NULL AND artist <> '<unknown>' AND artist <> '<unknown artist>'";
+            String selection = "";
             Cursor cursor = getContentResolver().query(content, projection, selection, null, null);
             if (cursor == null)
                 return;
             total = cursor.getCount();
-            updateProgress();
+            countDown = new CountDownLatch(cursor.getCount());
+            newSongsMetadata = new ArrayList<>();
             while (cursor.moveToNext()) {
                 String artist = cursor.getString(0);
                 String title = cursor.getString(1);
-                if (artist != null && title != null && !artist.isEmpty() && !title.isEmpty()
-                        && !savedLyrics.contains(Arrays.asList(artist, title)))
-                    mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, artist, title));
-                else {
-                    count++;
-                    updateProgress();
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(artist) || savedLyricsSet.contains(Arrays.asList(artist.toLowerCase(), title.toLowerCase()))) {
+                    total--;
+                    countDown.countDown();
+                    continue;
                 }
+                newSongsMetadata.add(new String[]{artist, title});
             }
             cursor.close();
-        } else {
-            @SuppressWarnings("unchecked")
-            ArrayList<String[]> savedTracks = (ArrayList<String[]>) intent.getExtras().get("spotifyTracks");
-            if (savedTracks != null) {
-                total = savedTracks.size();
-                updateProgress();
-                for (String[] track : savedTracks) {
-                    if (track != null && !TextUtils.isEmpty(track[0]) && !TextUtils.isEmpty(track[1])
-                            && !savedLyrics.contains(Arrays.asList(track[0], track[1])))
-                        mDownloadThreadPool.execute(DownloadThread.getRunnable(this, true, track[0], track[1]));
-                    else {
-                    count++;
-                    updateProgress();
+        } else { // Spotify
+            //noinspection unchecked
+            newSongsMetadata = (ArrayList<String[]>) intent.getExtras().get("spotifyTracks");
+            if (newSongsMetadata != null) {
+                total = newSongsMetadata.size();
+                countDown = new CountDownLatch(newSongsMetadata.size());
+            }
+        }
+        this.total = total;
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
+                KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, new LinkedBlockingQueue<>());
+
+        if (countDown != null && countDown.getCount() > 0) {
+            updateProgress();
+            final Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024);
+            final Network network = new BasicNetwork(new OkHttp3Stack(client));
+            requestQueue = new RequestQueue(cache, network, 8);
+            requestQueue.start();
+            for (String[] track : newSongsMetadata) {
+                String artist = track[0];
+                String title = track[1];
+                threadPool.execute(() -> {
+                    try {
+                        Request request;
+                        File musicFile = Id3Reader.getFile(BatchDownloaderService.this, artist, title, false);
+                        Chromaprint.Fingerprint fingerprint = null;
+                        if (musicFile != null && musicFile.getAbsolutePath().substring(musicFile.getName().length() - 4).equalsIgnoreCase(".mp3") && musicFile.exists() && musicFile.canRead()) {
+                            fingerprint = Chromaprint.getFingerprintForPath(BatchDownloaderService.this, musicFile.getAbsolutePath());
+                        }
+                        request = LyricsChart.getVolleyRequest(lrc, BatchDownloaderService.this, BatchDownloaderService.this, fingerprint, artist, title);
+                        requestQueue.add(request);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }
+                });
             }
         }
     }
 
     @Override
     public void onLyricsDownloaded(Lyrics lyrics) {
-        count++;
         updateProgress();
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             WriteToDatabaseTask task = new WriteToDatabaseTask();
-            task.onPostExecute(task.doInBackground(DatabaseHelper.getInstance(this).getWritableDatabase(), null, lyrics));
-            successCount++;
+            Boolean written = task.doInBackground(DatabaseHelper.getInstance(this).getWritableDatabase(), null, lyrics);
+            task.onPostExecute(written);
+            if (written)
+                successCount++;
         }
     }
 
     private void updateProgress() {
         NotificationManager manager = ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            manager.createNotificationChannel(new NotificationChannel(BATCH_NOTIF_CHANNEL, getString(R.string.scan_action), NotificationManager.IMPORTANCE_LOW));
+
+        countDown.countDown();
+        int count = (int) (total - countDown.getCount());
         if (count < total) {
-            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
+            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, BATCH_NOTIF_CHANNEL);
             notifBuilder.setSmallIcon(android.R.drawable.stat_sys_download)
                     .setContentTitle(getString(R.string.app_name))
                     .setContentText(String.format(getString(R.string.dl_progress), count, total))
@@ -143,18 +189,21 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                     .setShowWhen(false);
             Notification notif = notifBuilder.build();
             notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-            if (count == 0)
+            if (!foreground) {
                 startForeground(1, notif);
-            else
+                foreground = true;
+            } else
                 manager.notify(1, notif);
         } else {
+            if (requestQueue != null)
+                requestQueue.stop();
             stopForeground(true);
             Intent refreshIntent = new Intent("com.geecko.QuickLyric.updateDBList");
             PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 4, refreshIntent,
                     PendingIntent.FLAG_ONE_SHOT);
             String text = getResources()
                     .getQuantityString(R.plurals.dl_finished_desc, successCount, successCount);
-            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
+            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, BATCH_NOTIF_CHANNEL);
             notifBuilder.setSmallIcon(android.R.drawable.stat_sys_download_done);
             notifBuilder.setContentIntent(pendingIntent);
             notifBuilder.setContentTitle(getString(R.string.dl_finished));
@@ -164,5 +213,28 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
             manager.notify(1, notif);
             stopSelf();
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        updateProgress();
+        error.printStackTrace();
+    }
+
+    @Override
+    public void onResponse(String response) {
+        try {
+            onLyricsDownloaded(LyricsChart.fromXml(response));
+        } catch (IndexOutOfBoundsException e) {
+            updateProgress();
+            e.printStackTrace();
+        }
+    }
+
+    private void getClient() {
+        client = new OkHttpClient.Builder()
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .build();
     }
 }

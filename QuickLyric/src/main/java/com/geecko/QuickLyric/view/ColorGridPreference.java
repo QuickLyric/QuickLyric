@@ -20,7 +20,6 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
@@ -28,7 +27,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SettingsActivity;
@@ -69,19 +70,13 @@ public class ColorGridPreference extends ListPreference {
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
                 .setCancelable(true)
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onDialogClosed(false);
-                        dialog.cancel();
-                    }
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    onDialogClosed(false);
+                    dialog.cancel();
                 })
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onDialogClosed(true);
-                        dialog.dismiss();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    onDialogClosed(true);
+                    dialog.dismiss();
                 })
                 .setView(R.layout.theme_dialog);
         PreferenceManager pm = getPreferenceManager();
@@ -102,19 +97,27 @@ public class ColorGridPreference extends ListPreference {
             mDialog.onRestoreInstanceState(state);
         mDialog.show();
 
-        GridLayout gridLayout = ((GridLayout) mDialog.findViewById(R.id.grid));
+        GridLayout gridLayout = mDialog.findViewById(R.id.grid);
         gridLayout.getChildAt(preselect).setSelected(true);
         for (int i = 0; i < gridLayout.getChildCount(); i++) {
-            gridLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((SettingsActivity) getContext()).selectTheme(v);
-                }
-            });
+            gridLayout.getChildAt(i).setOnClickListener(v -> ((SettingsActivity) getContext()).selectTheme(v));
         }
     }
 
     @Override
+    public View getView(View convertView, ViewGroup parent) {
+        View view = super.getView(convertView, parent);
+
+        boolean containsCoin = false;
+        for (int i = 0; !containsCoin && i < ((ViewGroup) view).getChildCount(); i++) {
+            View child = ((ViewGroup) view).getChildAt(i);
+            if (child instanceof ImageView && "coin".equals(child.getTag()))
+                containsCoin = true;
+        }
+
+        return view;
+    }
+
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(false);
         if (!positiveResult)

@@ -23,7 +23,7 @@
     </declare-styleable>
     <attr name="statusBarColor" format="reference|color"/>
 
-    <declare-styleable name="Lrc">
+    <declare-styleable name="LrcView">
         <attr name="textSize" format="dimension"/>
         <attr name="normalTextColor" format="reference|color"/>
         <attr name="currentTextColor" format="reference|color"/>
@@ -42,7 +42,7 @@
     <attr name="rippleBackGroundColor" format="reference|color"/>
     <attr name="actionModeColor" format="reference|color"/>
     <attr name="firstLaunchCoverDrawable" format="reference"/>
-
+    <attr name="musicIDBackgroundColor" format="reference|color"/>
     <attr name="themeName" format="string"/>
     <attr name="searchBarTheme" format="reference"/>
     <attr name="highlightColor" format="color"/>

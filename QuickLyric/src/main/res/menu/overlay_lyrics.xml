@@ -63,4 +63,10 @@
         android:title="@string/share"
         android:visible="false"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/open_app_action"
+        android:orderInCategory="40"
+        android:title="@string/open_app_action"
+        app:showAsAction="never"/>
 </menu>

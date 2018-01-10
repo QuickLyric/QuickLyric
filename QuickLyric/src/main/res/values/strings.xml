@@ -128,7 +128,7 @@ A few possible reasons why:<br/>
     <string name="full_text_action">Full text</string>
     <string name="artworks_pref_title">Automatic artwork download</string>
     <string name="artworks_pref_sum">May result in mobile data charges</string>
-    <string name="pref_lrc_sum">Highlight the words that are being sung - not all music players are supported</string>
+    <string name="pref_lrc_sum">Highlight the words that are being sung - not all our lyrics are synchronized</string>
     <string name="pref_lrc">Synchronized lyrics</string>
     <string name="red_theme">Red</string>
     <string name="purple_theme">Purple</string>
@@ -146,6 +146,7 @@ A few possible reasons why:<br/>
     <string name="floating_settings_link">Enable floating lyrics (optional)</string>
     <string name="changelog">What\'s new?</string>
     <string name="rate_us">Rate the app</string>
+    <string name="translate_us">Translate the app</string>
     <string name="romanize">Romanize</string>
     <string name="reset">Reset</string>
     <string name="musicid_no_match">No match</string>
@@ -160,7 +161,7 @@ We thank you for your understanding!<br/><br/>
 - The QuickLyric Team
 ]]></string>
 
-    <string name="premium_title">Get Premium</string>
+    <string name="premium_title">Get Premium (Free Trial!)</string>
     <string name="remove_ads_title">Remove ads</string>
     <string name="subscription_monthly">Monthly</string>
     <string name="subscription_yearly">Yearly</string>
@@ -194,7 +195,7 @@ We thank you for your understanding!<br/><br/>
     <string name="miui_autostart">%s owners must first unblock the app</string>
     <string name="musicid_instructions">Hold your phone up to the music</string>
     <string name="loading">Loading…</string>
-    <string name="too_many_restarts_warning">QuickLyric has trouble reading your music - consider rebooting your device</string>
+    <string name="nls_issues">QuickLyric has trouble reading your music</string>
     <string name="romanizer_prompt_msg">To convert lyrics from Japanese, Korean or Chinese to the Latin alphabet, you need to download a separate plugin for QuickLyric.</string>
     <string name="romanizer_prompt_title">Romanizer add-on</string>
     <string name="pref_always_artwork">Always enabled</string>
@@ -203,6 +204,43 @@ We thank you for your understanding!<br/><br/>
     <string name="pref_overlay_behavior_title">Floating lyrics behavior</string>
     <string name="pref_notification_sum_disabled">Notifications can\'t be disabled when floating lyrics are enabled</string>
     <string name="iab_error">Failed to retrieve subscription status from Google Play</string>
+    <string name="fix_it">Fix it</string>
+    <string name="bad_xp_msg">Is everything alright?</string>
+    <string name="bad_xp_btn">Ask for help</string>
+    <string name="nls_enable_prompt">Please select QuickLyric in this list</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="good_xp_prompt_msg">Do you love QuickLyric?</string>
+    <string name="thanks">Thanks!</string>
+    <string name="thanks_feedback">Thanks for your feedback!</string>
+    <string name="please_improve_ql">Please let us know how we can make QuickLyric better!</string>
+    <string name="goodXP_rate_prompt">We\'re so happy that you\'re enjoying QuickLyric! Rating the app would really help us. Thanks so much for using QuickLyric!</string>
+    <string name="ads_occasional">These ads will only be displayed occasionally</string>
+    <string name="ads_remove_title">Remove ads for free</string>
+    <string name="video_ad_dialog"><![CDATA[Here at QuickLyric we understand how annoying ads can be. Our goal is to provide you with the best experience on the market with as little advertising as possible.<br/><br/>Watch this short video and all ads will be removed from the app for <strong>%1$d days</strong>.]]></string>
+    <string name="watch_video">Watch video</string>
+    <string name="trial_incent">First 7 days are free with no engagement. Try it!</string>
+    <string name="storage_permission_rationale">This permission is used to identify your music files</string>
+    <string name="let_us_know">Let us know!</string>
+    <string name="overlay_resize_onclick_prompt">Hold to resize the window</string>
+    <string name="open_app_action">Open app</string>
+    <string name="user_survey_title">QuickLyric User Survey</string>
+    <string name="user_survey_sum">What features do you think QuickLyric is missing?</string>
+    <string name="survey_option_none">None</string>
+    <string name="survey_option_id">Better song identification</string>
+    <string name="survey_option_translate">Lyrics translations</string>
+    <string name="survey_option_player">A music player inside QuickLyric</string>
+    <string name="survey_option_catalog">A better lyrics catalog</string>
+    <string name="survey_option_crowdsourcing">Users adding and correcting lyrics</string>
+    <string name="survey_option_sync">Users manually synchronizing lyrics</string>
+    <string name="survey_option_share">Being able to share lyrics</string>
+    <string name="survey_option_bigger">Bigger Text</string>
+    <string name="survey_option_other">Other</string>
+    <string name="survey_importance_high">Very important</string>
+    <string name="survey_importance_medium">Important</string>
+    <string name="survey_importance_low">Not a priority</string>
+    <string name="survey_submit">Submit</string>
+    <string name="survey_thanks">Thank you for your feedback!</string>
 
     <plurals name="scan_dialog">
         <item quantity="one">QuickLyric will now download the lyrics for a total of %1$d song.\
@@ -249,7 +287,7 @@ We thank you for your understanding!<br/><br/>
         <item>@string/premium_android_wear</item>
     </string-array>
     <string-array name="notifications">
-        <item>Disabled (default)</item>
+        <item>Disabled</item>
         <item>Enabled</item>
         <item>Enabled (hidden)</item>
     </string-array>

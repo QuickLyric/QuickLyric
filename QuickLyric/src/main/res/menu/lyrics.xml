@@ -9,6 +9,14 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_vote"
+        android:icon="@drawable/ic_vote"
+        android:orderInCategory="5"
+        android:visible="false"
+        android:title="@string/vote_action"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/save_action"
         android:icon="@drawable/ic_save"
         android:orderInCategory="10"
@@ -39,5 +47,6 @@
         android:icon="@drawable/ic_menu_share"
         android:orderInCategory="30"
         android:title="@string/share"
+        android:visible="false"
         app:showAsAction="ifRoom"/>
 </menu>

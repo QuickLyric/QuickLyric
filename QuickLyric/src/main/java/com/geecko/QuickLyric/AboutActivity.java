@@ -47,8 +47,8 @@ import android.widget.ScrollView;
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
 import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
-import com.viewpagerindicator.CirclePageIndicator;
 
+import me.relex.circleindicator.CircleIndicator;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
@@ -86,12 +86,7 @@ public class AboutActivity extends AppCompatActivity {
             this.setTaskDescription(taskDescription);
         }
 
-        View.OnClickListener productTourAction = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setupDemoScreen();
-            }
-        };
+        View.OnClickListener productTourAction = v -> setupDemoScreen();
 
         Element productTourElement = new Element().setTitle(getString(R.string.about_product_tour));
         productTourElement.setOnClickListener(productTourAction);
@@ -100,24 +95,18 @@ public class AboutActivity extends AppCompatActivity {
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/quicklyric"))
         );
         Element ossLicensesElement = new Element().setTitle("Open Source Licenses");
-        ossLicensesElement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WebView webView = new WebView(AboutActivity.this);
-                String data = getResources().getString(R.string.open_source_librairies_licenses);
-                webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
-                new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
-            }
+        ossLicensesElement.setOnClickListener(v -> {
+            WebView webView = new WebView(AboutActivity.this);
+            String data = getResources().getString(R.string.open_source_librairies_licenses);
+            webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
+            new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
         });
         Element tosElement = new Element().setTitle(getString(R.string.about_read_ToS));
-        tosElement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WebView webView = new WebView(AboutActivity.this);
-                String data = getResources().getString(R.string.QL_EULA);
-                webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
-                new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
-            }
+        tosElement.setOnClickListener(v -> {
+            WebView webView = new WebView(AboutActivity.this);
+            String data = getResources().getString(R.string.QL_EULA);
+            webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
+            new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
         });
         Element cookElement = new Element().setTitle("Icon Designer");
         cookElement.setIntent(
@@ -159,30 +148,29 @@ public class AboutActivity extends AppCompatActivity {
     private void setupDemoScreen() {
         ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content).getRootView();
         getLayoutInflater().inflate(R.layout.tutorial_view, (ViewGroup) rootView.getChildAt(0));
-        final ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(getFragmentManager(), this);
+        final ViewPager pager = findViewById(R.id.pager);
+        CircleIndicator indicator = findViewById(R.id.indicator);
+        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(this);
         pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(pagerAdapter);
         indicator.setViewPager(pager);
         pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
         indicator.setOnPageChangeListener(pagerAdapter);
-        Button skipButton = (Button) rootView.findViewById(R.id.pager_button);
-        ImageButton arrowButton = (ImageButton) rootView.findViewById(R.id.pager_arrow);
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-                    pagerAdapter.exitAction();
-                else
-                    pager.setCurrentItem(pagerAdapter.getCount() - 1);
-            }
+        Button skipButton = rootView.findViewById(R.id.pager_button);
+        ImageButton arrowButton = rootView.findViewById(R.id.pager_arrow);
+        skipButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                pagerAdapter.exitAction();
+            else
+                pager.setCurrentItem(pagerAdapter.getCount() - 1);
         });
-        arrowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pagerAdapter.nextAction();
+        arrowButton.setOnClickListener(v -> pagerAdapter.nextAction());
+        arrowButton.setOnLongClickListener(v -> {
+            if (Build.MODEL.equalsIgnoreCase("Robin")) {
+                int[] ints = new int[3];
+                ints[45]++;
             }
+            return false;
         });
     }
 

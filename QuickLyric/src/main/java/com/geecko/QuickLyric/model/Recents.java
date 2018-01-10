@@ -2,6 +2,7 @@ package com.geecko.QuickLyric.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.geecko.QuickLyric.event.RecentsAddedEvent;
 import com.geecko.QuickLyric.event.RecentsRemovedEvent;

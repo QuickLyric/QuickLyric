@@ -54,12 +54,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/download_category">
-        <com.geecko.QuickLyric.view.AppCompatMultiSelectListPreference
-            android:entries="@array/providers"
-            android:entryValues="@array/providers_values"
-            android:key="pref_providers"
-            android:summary="@string/pref_providers_sum"
-            android:title="@string/pref_providers"/>
         <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="pref_lrc"

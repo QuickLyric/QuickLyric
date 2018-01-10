@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/good_xp_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_amber_600"
+                android:padding="5dp">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/hate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        tools:backgroundTint="@color/material_amber_700"
+        app:backgroundTint="@color/material_amber_700"
+        android:padding="5dp"
+        android:text="@string/no"
+        android:textColor="@color/material_white"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/love"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/hate"
+        android:layout_toStartOf="@id/hate"
+        tools:backgroundTint="@color/material_amber_700"
+        app:backgroundTint="@color/material_amber_700"
+        android:padding="5dp"
+        android:text="@string/yes"
+        android:textColor="@color/material_white"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/ic_love"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/love"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@id/love"
+        android:adjustViewBounds="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        tools:src="@drawable/ic_love"
+        app:srcCompat="@drawable/ic_love"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_toEndOf="@id/ic_love"
+        android:layout_toLeftOf="@id/love"
+        android:layout_toRightOf="@id/ic_love"
+        android:layout_toStartOf="@id/love"
+        android:text="@string/good_xp_prompt_msg"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/material_white"/>
+
+</RelativeLayout>

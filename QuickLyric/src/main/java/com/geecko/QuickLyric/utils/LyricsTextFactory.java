@@ -21,7 +21,6 @@ package com.geecko.QuickLyric.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -37,9 +36,15 @@ import java.util.Hashtable;
 public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
 
     private final Context mContext;
+    private final boolean mSelectableText;
 
     public LyricsTextFactory(Context context) {
+        this(context, true);
+    }
+
+    public LyricsTextFactory(Context context, boolean selectable) {
         this.mContext = context;
+        this.mSelectableText = selectable;
     }
 
     @Override
@@ -52,9 +57,10 @@ public class LyricsTextFactory implements ViewSwitcher.ViewFactory {
             t.setTypeface(FontCache.get("light", mContext));
         TypedValue colorValue = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.textColorPrimary, colorValue, true);
-        t.setTextColor(Color.BLACK);
+        t.setTextColor(colorValue.data);
         t.setLineSpacing(mContext.getResources().getDimensionPixelSize(R.dimen.line_spacing), 1);
-        setSelectable(t);
+        if (mSelectableText)
+            setSelectable(t);
         t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.txt_size));
         return t;
     }

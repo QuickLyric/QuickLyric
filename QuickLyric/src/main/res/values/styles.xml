@@ -26,6 +26,7 @@
 
     <style name="Theme.QuickLyric" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="themeName">Amber</item>
+        <item name="actionOverflowButtonStyle">@style/overflowButtonStyle</item> <!-- sets the style for the overflow button -->
         <item name="highlightColor">@android:color/holo_orange_light</item>
         <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
@@ -40,12 +41,10 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
         <item name="android:actionModeBackground">@drawable/cab_background</item>
-        <item name="actionModeBackground">@drawable/cab_background</item>
         <item name="actionModeColor">@color/action</item>
         <item name="android:divider">@color/divider</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="vpiCirclePageIndicatorStyle">@style/materialCirclePageIndicator</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
@@ -57,6 +56,7 @@
         <item name="android:textColorSecondary">#888</item>
         <item name="android:textColorSecondaryInverse">#575757</item>
         <item name="android:textColorPrimary">#222</item>
+        <item name="android:textColorPrimaryInverse">#FFF</item>
         <item name="android:colorBackground">#fafafa</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance</item>
         <item name="android:galleryItemBackground">@color/navigation_drawer_selected</item>
@@ -64,6 +64,7 @@
         <item name="android:detailsElementBackground">@color/pager_title_strip_color</item>
         <item name="android:panelColorForeground">@color/expanded</item>
         <item name="rippleBackGroundColor">#585858</item>
+        <item name="musicIDBackgroundColor">@color/material_orange_600</item>
         <item name="textAppearanceSearchResultTitle">@style/SearchResult</item>
         <item name="searchBarTheme">@style/Theme.QuickLyric</item>
     </style>
@@ -75,6 +76,7 @@
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/material_red_500</item>
         <item name="colorPrimaryDark">@color/material_red_800</item>
+        <item name="musicIDBackgroundColor">@color/material_red_600</item>
         <item name="android:detailsElementBackground">@color/material_red_400</item>
         <item name="colorAccent">@color/material_orange_A200</item>
     </style>
@@ -86,6 +88,7 @@
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/material_purple_500</item>
         <item name="colorPrimaryDark">@color/material_purple_700</item>
+        <item name="musicIDBackgroundColor">@color/material_purple_600</item>
         <item name="colorAccent">@color/material_amber_A700</item>
         <item name="android:detailsElementBackground">@color/material_purple_300</item>
     </style>
@@ -96,6 +99,7 @@
         <item name="android:headerBackground">@drawable/drawer_header_dark</item>
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimaryDark">@color/material_indigo_700</item>
+        <item name="musicIDBackgroundColor">@color/material_indigo_600</item>
         <item name="colorPrimary">@color/material_indigo_500</item>
         <item name="android:detailsElementBackground">@color/material_indigo_300</item>
         <item name="colorAccent">@color/material_pink_A700</item>
@@ -107,6 +111,7 @@
         <item name="android:headerBackground">@drawable/drawer_header_dark</item>
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorAccent">@color/deep_orange</item>
+        <item name="musicIDBackgroundColor">@color/material_green_600</item>
         <item name="colorPrimaryDark">@color/material_green_700</item>
         <item name="colorPrimary">@color/material_green_500</item>
         <item name="android:detailsElementBackground">@color/material_green_300</item>
@@ -118,6 +123,7 @@
         <item name="android:headerBackground">@drawable/drawer_header_dark</item>
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/material_Lime_600</item>
+        <item name="musicIDBackgroundColor">@color/material_Lime_600</item>
         <item name="colorPrimaryDark">@color/material_Lime_700</item>
         <item name="colorAccent">@color/material_pink_A200</item>
         <item name="android:detailsElementBackground">@color/material_Lime_400</item>
@@ -130,6 +136,7 @@
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/material_brown_500</item>
         <item name="colorPrimaryDark">@color/material_brown_700</item>
+        <item name="musicIDBackgroundColor">@color/material_brown_600</item>
         <item name="colorAccent">@color/material_green_A200</item>
         <item name="android:detailsElementBackground">@color/material_brown_300</item>
     </style>
@@ -140,6 +147,7 @@
         <item name="firstLaunchCoverDrawable">@drawable/first_launch_cover_dark</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
+        <item name="musicIDBackgroundColor">@color/material_grey_900</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color_dark</item>
         <item name="android:dropDownListViewStyle">@style/DropDownBackground.Dark</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
@@ -156,6 +164,7 @@
         <item name="android:textColorPrimary">#EEE</item>
         <item name="rippleBackGroundColor">#191919</item>
         <item name="searchBarTheme">@style/Theme.QuickLyric.Night</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
         <item name="android:panelColorForeground">#191919</item>
         <item name="actionModeColor">?attr/colorPrimary</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
@@ -171,6 +180,7 @@
         <item name="android:textColorSecondary">#BBB</item>
         <item name="android:textColorSecondaryInverse">#BBB</item>
         <item name="android:textColorPrimary">#EEE</item>
+        <item name="android:textColorPrimaryInverse">@color/material_textBlack_text</item>
         <item name="textColorAlertDialogListItem">#DDD</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
@@ -186,15 +196,12 @@
         </item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item>
-        <item name="android:textColorPrimaryDisableOnly">
-            @color/abc_primary_text_disable_only_material_dark
+        <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark
         </item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
-        <item name="android:textColorSecondaryInverse">@color/abc_secondary_text_material_light
-        </item>
+        <item name="android:textColorSecondaryInverse">@color/abc_secondary_text_material_light</item>
         <item name="android:textColorTertiary">@color/abc_secondary_text_material_dark</item>
-        <item name="android:textColorTertiaryInverse">@color/abc_secondary_text_material_light
-        </item>
+        <item name="android:textColorTertiaryInverse">@color/abc_secondary_text_material_light</item>
         <item name="android:textColorHint">@color/abc_hint_foreground_material_dark</item>
         <item name="android:textColorHintInverse">@color/abc_hint_foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
@@ -244,16 +251,12 @@
         <item name="android:popupBackground">#444</item>
     </style>
 
-    <style name="overflowMenuTextAppearanceNight" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
-        <item name="android:textColor">#EEE</item>
+    <style name="overflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/material_white</item>
     </style>
 
-    <style name="materialCirclePageIndicator">
-        <item name="fillColor">#a0f0f0f0</item>
-        <item name="pageColor">#232b2b2b</item>
-        <item name="strokeWidth">0dp</item>
-        <item name="radius">4.5dp</item>
-        <item name="snap">true</item>
+    <style name="overflowMenuTextAppearanceNight" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">#EEE</item>
     </style>
 
     <style name="PagerTabStripText" parent="TextAppearance.AppCompat.Large">

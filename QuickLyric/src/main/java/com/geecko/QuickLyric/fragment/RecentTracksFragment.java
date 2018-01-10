@@ -25,6 +25,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -62,9 +63,9 @@ public class RecentTracksFragment extends Fragment {
     private ViewFlipper flipper;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -72,14 +73,17 @@ public class RecentTracksFragment extends Fragment {
         setRetainInstance(true);
         setHasOptionsMenu(true);
         View layout = inflater.inflate(R.layout.recent_tracks_view, container, false);
-        mRecyclerView = (RecyclerView) layout.findViewById(R.id.track_list_view);
+        mRecyclerView = layout.findViewById(R.id.track_list_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new RecentTracksAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                mLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setNestedScrollingEnabled(false);
-        flipper = (ViewFlipper) layout.findViewById(R.id.recents_viewflipper);
-        TextView emptyText = (TextView) layout.findViewById(R.id.local_empty_database_textview);
+        flipper = layout.findViewById(R.id.recents_viewflipper);
+        TextView emptyText = layout.findViewById(R.id.local_empty_database_textview);
         String str = getActivity().getResources().getString(R.string.recents_empty_database);
         emptyText.setText(str);
         chooseView();
@@ -102,6 +106,7 @@ public class RecentTracksFragment extends Fragment {
                 fragmentView.setBackgroundColor(typedValue.data);
         }
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RecentsAddedEvent event) {
@@ -130,6 +135,11 @@ public class RecentTracksFragment extends Fragment {
             drawerAdapter.notifyDataSetChanged();
         }
 
+        mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(),
+                mRecyclerView.getPaddingTop(),
+                mRecyclerView.getPaddingRight(),
+                (getActivity().findViewById(R.id.ad_container) == null) ? 0 : getActivity().findViewById(R.id.ad_container).getMeasuredHeight());
+
         this.isActiveFragment = true;
     }
 
@@ -148,8 +158,9 @@ public class RecentTracksFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) this.getActivity();
         ActionBar actionBar = (mainActivity).getSupportActionBar();
         CollapsingToolbarLayout toolbarLayout =
-                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
-        if (mainActivity.focusOnFragment) { // focus is on Fragment
+                mainActivity.findViewById(R.id.toolbar_layout);
+        if (mainActivity.focusOnFragment) // focus is on Fragment
+        {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.recent_tracks_title)))
                 toolbarLayout.setTitle(getString(R.string.recent_tracks_title));
             inflater.inflate(R.menu.recent_tracks, menu);
@@ -159,9 +170,9 @@ public class RecentTracksFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-        }
+//        switch (item.getItemId()) {
+//
+//        }
         return false;
     }
 
@@ -177,11 +188,7 @@ public class RecentTracksFragment extends Fragment {
         return anim;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mAdapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void onDestroy() {

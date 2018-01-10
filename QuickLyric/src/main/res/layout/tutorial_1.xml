@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ /**
   ~  * This file is part of QuickLyric
   ~  * Copyright © 2017 QuickLyric SPRL
@@ -16,19 +17,46 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<RelativeLayout
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.geecko.QuickLyric.view.BubblePopImageView
+        android:id="@+id/table"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="12"
+        android:src="@drawable/intro_1_table"
+        app:icon1="@drawable/google_music"
+        app:icon2="@drawable/spotify"
+        app:icon3="@drawable/shuttle"
+        app:screen="@drawable/intro_1_screen"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textView1_a"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_weight="1.6"
+        android:layout_marginRight="30dp"
+        android:text="@string/apps_desc"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        app:autoSizeMaxTextSize="40sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView1_c"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -39,35 +67,4 @@
         app:autoSizeTextType="uniform"
         tools:ignore="HardcodedText"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView1_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textView1_c"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/apps_desc"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="31sp"
-        app:autoSizeMaxTextSize="40sp"
-        app:autoSizeStepGranularity="2sp"
-        />
-
-    <com.geecko.QuickLyric.view.BubblePopImageView
-        android:id="@+id/table"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/textView1_a"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/intro_1_table"
-        app:icon1="@drawable/google_music"
-        app:icon2="@drawable/spotify"
-        app:icon3="@drawable/shuttle"
-        app:screen="@drawable/intro_1_screen"/>
-
-</RelativeLayout>
+</LinearLayout>

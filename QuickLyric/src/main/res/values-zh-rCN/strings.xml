@@ -140,11 +140,12 @@
   <string name="floating_settings_link">启用浮动歌词 （可选）</string>
   <string name="changelog">更新日志</string>
   <string name="rate_us">赏个好评</string>
-  <string name="romanize">国际化</string>
+  <string name="translate_us">翻译此应用</string>
+  <string name="romanize">罗马音</string>
   <string name="reset">重置</string>
   <string name="musicid_no_match">无匹配</string>
   <string name="notification_access">通知权限</string>
-  <string name="pref_lyrics_overlay_name">歌词覆盖</string>
+  <string name="pref_lyrics_overlay_name">悬浮歌词</string>
   <string name="pref_lyrics_overlay_sum">浮动窗口可以后台观看歌词</string>
   <string name="notification_access_explanation"><![CDATA[
 QuickLyric 需要权限访问您的音乐标签。<br/>
@@ -153,11 +154,12 @@ QuickLyric 不会刻意读取您的通知，隐私条款不允许我们这样做
  谢谢您的理解 ！ <br/><br/>
 -QuickLyric 团队
 ]]></string>
-  <string name="premium_title">升级至专业版</string>
+  <string name="premium_title">获取高级版 (免费试用!)</string>
   <string name="remove_ads_title">移除广告</string>
   <string name="subscription_monthly">每月</string>
   <string name="subscription_yearly">每年</string>
-  <string name="premium_sum_incent">获取专业版以支持唱片作者&amp; 以及QuickLyric团队！</string>
+  <string name="premium_sum_incent">获取专业版来支持歌词作者&amp; 以及 QuickLyric
+ 团队！</string>
   <string name="premium_ads_incent">没有广告!</string>
   <string name="premium_themes_incent">* 7 * 款新主题</string>
   <string name="premium_night_mode_incent">* 夜间模式 * 在晚上保护您的眼睛</string>
@@ -170,8 +172,8 @@ QuickLyric 不会刻意读取您的通知，隐私条款不允许我们这样做
   <string name="monthly_sub_template">%s 月</string>
   <string name="buy_sub">购买</string>
   <string name="client_version_error">请更新应用</string>
-  <string name="why_is_this_a_subscription">为什么需要订阅？</string>
-  <string name="why_sub_explanation"><![CDATA[<p>大部分的订阅收入归艺术家和权利持有人。一次性付费获得 QuickLyric 高级版类似于花费几美元就可以得到 spotify 的终生使用权，很遗憾这是不可能的。</p>
+  <string name="why_is_this_a_subscription">为什么是订阅？(而不是一次性购买)</string>
+  <string name="why_sub_explanation"><![CDATA[<p>大部分的订阅收入归艺术家和权利持有人。一次性付费获得 QuickLyric 高级版类似于花费几美元就可以得到 Spotify 的终生使用权，很遗憾这是不可能的。</p>
 <p>如果我们拿你的钱允许您常年使用程序，我们仍然需要持续支付权利持有人。</p>
 请理解音乐产业的特殊性质。]]>;    </string>
   <string name="vote_action">投票</string>
@@ -186,7 +188,7 @@ QuickLyric 不会刻意读取您的通知，隐私条款不允许我们这样做
   <string name="miui_autostart">%s 所有者必须首先解锁应用</string>
   <string name="musicid_instructions">把手机靠近音源</string>
   <string name="loading">载入中&#8230;&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric 无法正常读取音乐-请尝试重启设备</string>
+  <string name="nls_issues">QuickLyric 无法读取您的音乐</string>
   <string name="romanizer_prompt_msg">要翻译日语、 朝鲜语或中文歌词，您需要单独下载一个插件。</string>
   <string name="romanizer_prompt_title">罗马化插件</string>
   <string name="pref_always_artwork">总是启用</string>
@@ -194,6 +196,44 @@ QuickLyric 不会刻意读取您的通知，隐私条款不允许我们这样做
   <string name="pref_overlay_behavior_notif">从通知打开</string>
   <string name="pref_overlay_behavior_title">浮动歌词行为</string>
   <string name="pref_notification_sum_disabled">启用浮动歌词时无法禁用通知</string>
+  <string name="iab_error">未能从Google Play获取订阅状态</string>
+  <string name="fix_it">修复</string>
+  <string name="bad_xp_msg">准备好了吗？</string>
+  <string name="bad_xp_btn">寻求帮助</string>
+  <string name="nls_enable_prompt">请在列表中选择 QuickLyric </string>
+  <string name="yes">是</string>
+  <string name="no">否</string>
+  <string name="good_xp_prompt_msg">你喜欢QuickLyric吗？</string>
+  <string name="thanks">谢谢！</string>
+  <string name="thanks_feedback">感谢您的反馈 ！</string>
+  <string name="please_improve_ql">帮助我们改善QuickLyric！</string>
+  <string name="goodXP_rate_prompt">我们很高兴你在享受 QuickLyric! 对应用程序进行评级会对我们有很大帮助。非常感谢您使用 QuickLyric!</string>
+  <string name="ads_occasional">这些广告只会偶尔显示</string>
+  <string name="ads_remove_title">免费删除广告</string>
+  <string name="video_ad_dialog"><![CDATA[QuickLyric 明白广告会有多烦人。我们的目标是为您提供最好的市场经验, 尽可能少的广告. <br/> <br/>观看此短片，所有广告将被从应用程序里删除 <strong>%1$d 天 </strong>。]]></string>
+  <string name="watch_video">观看视频</string>
+  <string name="trial_incent">前7天是免费的, 无需订购。试试看!</string>
+  <string name="storage_permission_rationale">此权限用于标识您的音乐文件</string>
+  <string name="let_us_know">请告知我们！</string>
+  <string name="overlay_resize_onclick_prompt">按住以调整窗口大小</string>
+  <string name="open_app_action">打开应用</string>
+  <string name="user_survey_title">QuickLyric 用户调查</string>
+  <string name="user_survey_sum">您认为 QuickLyric 缺少哪些功能？</string>
+  <string name="survey_option_none">无</string>
+  <string name="survey_option_id">更好地识别歌曲</string>
+  <string name="survey_option_translate">歌词翻译</string>
+  <string name="survey_option_player">内建于 QuickLyric 的音乐播放器</string>
+  <string name="survey_option_catalog">更好的歌词目录</string>
+  <string name="survey_option_crowdsourcing">用户可添加和更正歌词</string>
+  <string name="survey_option_sync">用户手动同步歌词</string>
+  <string name="survey_option_share">能够共享歌词</string>
+  <string name="survey_option_bigger">更大文本</string>
+  <string name="survey_option_other">其他</string>
+  <string name="survey_importance_high">非常重要</string>
+  <string name="survey_importance_medium">重要</string>
+  <string name="survey_importance_low">非优先事项</string>
+  <string name="survey_submit">提交</string>
+  <string name="survey_thanks">感谢您的反馈！</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric即将为 %1$d 首歌下载歌词。\
         确保你有至少 %2$d 分钟(s)的通畅网络。</item>

@@ -54,9 +54,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private boolean closed = false;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
-        if (sInstance == null) {
+        if (sInstance != null && sInstance.isClosed())
+            sInstance = null;
+        if (sInstance == null)
             sInstance = new DatabaseHelper(context.getApplicationContext());
-        }
         return sInstance;
     }
 
@@ -92,15 +93,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static List<Lyrics> search(SQLiteDatabase database, String searchQuery) {
         List<Lyrics> results;
         Object[] keywords = searchQuery.split(" ");
-        String query = "";
+        StringBuilder queryBuilder = new StringBuilder();
         for (int i = 0; i < keywords.length; ++i) {
             String keyword = String.valueOf(i + 1);
-            query = query + "(artist LIKE %" + keyword +
-                    "$s OR track LIKE %" + keyword +
-                    "$s OR original_artist LIKE %" + keyword +
-                    "$s OR original_track LIKE %" + keyword + "$s) AND ";
+            queryBuilder.append("(artist LIKE %").append(keyword).append("$s OR track LIKE %").append(keyword).append("$s OR original_artist LIKE %").append(keyword).append("$s OR original_track LIKE %").append(keyword).append("$s) AND ");
             keywords[i] = "'%" + ((String) keywords[i]).replaceAll("'", "''") + "%'";
         }
+        String query = queryBuilder.toString();
         query = query.substring(0, query.length() - 5);
 
         Cursor cursor = database.query(TABLE_NAME, null, String.format(query,
@@ -137,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<List> output = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                output.add(Arrays.asList(cursor.getString(0), cursor.getString(1)));
+                output.add(Arrays.asList(cursor.getString(0).toLowerCase(), cursor.getString(1).toLowerCase()));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -152,6 +151,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             System.arraycopy(metaData, 0, args, 2, metaData.length);
         } else
             args = metaData;
+        if (args[0] == null || args[1] == null)
+            return null;
+
         String[] columns = DatabaseHelper.columns;
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, null, String.format("(upper(%s) = upper(?) AND upper(%s) = upper(?)) OR (upper(%s)=upper(?) AND upper(%s) = upper(?))",
@@ -225,6 +227,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private static boolean presenceCheck(SQLiteDatabase database, String[] metaData) {
+        for (int i = 0; i < metaData.length; i++)
+            if (metaData[i] == null) metaData[i] = "";
+
         int count = 0;
         if (database != null) {
             database.beginTransaction();
@@ -254,5 +259,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void close() {
         this.closed = true;
         super.close();
+    }
+
+    @Override
+    public SQLiteDatabase getReadableDatabase() {
+        SQLiteDatabase db = super.getReadableDatabase();
+        db.enableWriteAheadLogging();
+        return db;
+    }
+
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        SQLiteDatabase db = super.getWritableDatabase();
+        db.enableWriteAheadLogging();
+        return db;
     }
 }

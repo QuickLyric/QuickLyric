@@ -35,6 +35,7 @@ libraries/
 
 # Gradle files
 gradle/
+mapping/
 gradle.properties
 gradle-app.setting
 gradlew

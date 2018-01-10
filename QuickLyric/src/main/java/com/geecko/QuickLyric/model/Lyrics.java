@@ -42,8 +42,12 @@ public class Lyrics implements Serializable, Parcelable {
     private String mWriter;
     private String mText;
     private String mSource;
+    private String audiofingerprint;
     private boolean mLRC = false;
+    private boolean mReported = false;
     private final int mFlag;
+    private boolean mAcoustIDUsed;
+    private int mErrCode;
     public static final int NO_RESULT = -2;
     public static final int NEGATIVE_RESULT = -1;
     public static final int POSITIVE_RESULT = 1;
@@ -70,6 +74,9 @@ public class Lyrics implements Serializable, Parcelable {
         mText = in.readString();
         mSource = in.readString();
         mLRC = in.readByte() != 0;
+        mReported = in.readByte() != 0;
+        mAcoustIDUsed = in.readByte() != 0;
+        mErrCode = in.readInt();
         mFlag = in.readInt();
     }
 
@@ -93,7 +100,7 @@ public class Lyrics implements Serializable, Parcelable {
         this.mTitle = title;
     }
 
-    public String getOriginalTrack() {
+    public String getOriginalTitle() {
         if (mOriginalTitle != null)
             return mOriginalTitle;
         else
@@ -144,6 +151,8 @@ public class Lyrics implements Serializable, Parcelable {
     }
 
     public void setCopyright(String copyright) {
+        if ("\"\"".equals(copyright))
+            copyright = null;
         this.mCopyright = copyright;
     }
 
@@ -152,6 +161,8 @@ public class Lyrics implements Serializable, Parcelable {
     }
 
     public void setWriter(String writer) {
+        if ("\"\"".equals(writer))
+            writer = null;
         this.mWriter = writer;
     }
 
@@ -183,6 +194,30 @@ public class Lyrics implements Serializable, Parcelable {
         return this.mLRC;
     }
 
+    public boolean isReported() {
+        return mReported;
+    }
+
+    public void setReported(boolean reported) {
+        this.mReported = reported;
+    }
+
+    public int getErrorCode() {
+        return mErrCode;
+    }
+
+    public void setErrorCode(int mErrCode) {
+        this.mErrCode = mErrCode;
+    }
+
+    public void setAudiofingerprint(String audiofingerprint) {
+        this.audiofingerprint = audiofingerprint;
+    }
+
+    public String getAudiofingerprint() {
+        return audiofingerprint;
+    }
+
     public byte[] toBytes() throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
@@ -193,6 +228,14 @@ public class Lyrics implements Serializable, Parcelable {
             bos.close();
         }
         return bos.toByteArray();
+    }
+
+    public boolean wasAcoustIDUsed() {
+        return mAcoustIDUsed;
+    }
+
+    public void setAcoustIDUsed(boolean acoustIDUsed) {
+        this.mAcoustIDUsed = acoustIDUsed;
     }
 
     public static Lyrics fromBytes(byte[] data) throws IOException, ClassNotFoundException {
@@ -225,7 +268,7 @@ public class Lyrics implements Serializable, Parcelable {
     public int hashCode() {
         // Potential issue with the Birthday Paradox when we hash over 50k lyrics
         return this.getURL() != null ? this.getURL().hashCode() :
-                (""+this.getOriginalArtist()+this.getOriginalTrack()+this.getSource()).hashCode();
+                (""+this.getOriginalArtist()+this.getOriginalTitle()+this.getSource()).hashCode();
     }
 
     @Override
@@ -246,6 +289,9 @@ public class Lyrics implements Serializable, Parcelable {
         dest.writeString(mText);
         dest.writeString(mSource);
         dest.writeByte((byte) (mLRC ? 1 : 0));
+        dest.writeByte((byte) (mReported ? 1 : 0));
+        dest.writeByte((byte) (mAcoustIDUsed ? 1 : 0));
+        dest.writeInt(mErrCode);
         dest.writeInt(mFlag);
     }
 }

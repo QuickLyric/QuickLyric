@@ -21,7 +21,6 @@ package com.geecko.QuickLyric.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 public class RomanizeUtil {
 
@@ -38,11 +37,7 @@ public class RomanizeUtil {
     }
 
     private static boolean isIdeographic(int codepoint) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            return Character.isIdeographic(codepoint);
-        else {
             return isCJK(codepoint) || isJapanese(codepoint) || isKoreanHangul(codepoint);
-        }
     }
 
     private static boolean isCJK(int codepoint) {

@@ -18,8 +18,7 @@
   ~  */
   -->
 
-<animated-vector 
-xmlns:android="http://schemas.android.com/apk/res/android"
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
                  android:drawable="@drawable/ic_done_svg"
                  tools:targetApi="lollipop">

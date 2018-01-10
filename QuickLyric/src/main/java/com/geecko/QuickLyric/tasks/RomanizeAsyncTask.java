@@ -19,7 +19,6 @@
 
 package com.geecko.QuickLyric.tasks;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,31 +26,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 
-import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.CountDownLatch;
 
 public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
 
-    private final Context mContext;
-    private final RomanisationCallback callback;
-    private ProgressDialog mProgressDialog;
+    private final WeakReference<Context> mContext;
+    private final WeakReference<RomanisationCallback> callback;
 
     public RomanizeAsyncTask(Context context, RomanisationCallback callback) {
-        mContext = context;
-        this.callback = callback;
+        mContext = new WeakReference<>(context);
+        this.callback = new WeakReference<>(callback);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog = new ProgressDialog(mContext);
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.setTitle(R.string.loading);
-        mProgressDialog.show();
     }
 
     @Override
@@ -76,9 +68,10 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
             }
         };
 
-        mContext.registerReceiver(receiver, new IntentFilter("com.geecko.QuickLyric.ROMANIZED_OUTPUT"));
-        mContext.sendBroadcast(romanizeIntent);
+        mContext.get().registerReceiver(receiver, new IntentFilter("com.geecko.QuickLyric.ROMANIZED_OUTPUT"));
+        mContext.get().sendBroadcast(romanizeIntent);
 
+        lyrics.setReported(true);
         try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
@@ -89,11 +82,11 @@ public class RomanizeAsyncTask extends AsyncTask<Lyrics, Void, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics result) {
         super.onPostExecute(result);
-        mProgressDialog.dismiss();
-        callback.onLyricsRomanized(result);
+        if (callback.get() != null)
+            callback.get().onLyricsRomanized(result);
     }
 
     public interface RomanisationCallback {
-        public void onLyricsRomanized(Lyrics result);
+        void onLyricsRomanized(Lyrics result);
     }
 }

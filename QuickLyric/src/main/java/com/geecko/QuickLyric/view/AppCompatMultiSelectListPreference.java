@@ -20,7 +20,6 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.MultiSelectListPreference;
 import android.preference.PreferenceManager;
@@ -70,29 +69,18 @@ public class AppCompatMultiSelectListPreference extends MultiSelectListPreferenc
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
-                .setNegativeButton(getNegativeButtonText(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
+                .setNegativeButton(getNegativeButtonText(), (dialog, which) -> dialog.dismiss())
+                .setPositiveButton(getPositiveButtonText(), (dialog, which) -> {
+                    dialog.dismiss();
+                    if (callChangeListener(mSelectedItems))
+                        setValues(new HashSet<>(mSelectedItems));
                 })
-                .setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        if (callChangeListener(mSelectedItems))
-                            setValues(new HashSet<>(mSelectedItems));
-                    }
-                })
-                .setMultiChoiceItems(getEntries(), preselect, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        String value = String.valueOf(getEntryValues()[which]);
-                        if (isChecked)
-                            mSelectedItems.add(value);
-                        else if (mSelectedItems.contains(value))
-                            mSelectedItems.remove(value);
-                    }
+                .setMultiChoiceItems(getEntries(), preselect, (dialog, which, isChecked) -> {
+                    String value = String.valueOf(getEntryValues()[which]);
+                    if (isChecked)
+                        mSelectedItems.add(value);
+                    else if (mSelectedItems.contains(value))
+                        mSelectedItems.remove(value);
                 });
 
         PreferenceManager pm = getPreferenceManager();

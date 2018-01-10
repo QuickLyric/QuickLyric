@@ -34,9 +34,13 @@ import android.text.Html;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.tasks.DownloadThread;
+import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.NotificationUtil;
 import com.geecko.QuickLyric.view.LrcView;
+
+import java.lang.ref.WeakReference;
 
 public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics.Callback {
     private Context mContext;
@@ -47,7 +51,8 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         Lyrics lyrics = DatabaseHelper.getInstance(context)
                 .get(new String[]{intent.getStringExtra("artist"), intent.getStringExtra("track")});
         if (lyrics == null)
-            new DownloadThread(this, false, intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
+            new DownloadThread(new WeakReference<>(this), null, intent.getLongExtra("duration", 0L), Id3Reader.getFile(context, intent.getStringExtra("artist"), intent.getStringExtra("track"), false),
+                    intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
         else
             onLyricsDownloaded(lyrics);
     }
@@ -61,7 +66,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
             lyrics.setText(lrcView.getStaticLyrics().getText());
         }
 
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(mContext);
+        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(mContext, NotificationUtil.TRACK_NOTIF_CHANNEL);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")

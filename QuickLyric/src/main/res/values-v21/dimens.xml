@@ -23,4 +23,5 @@
     <dimen name="child_card_padding">0dp</dimen>
     <dimen name="intro_fab_elevation">24dp</dimen>
     <dimen name="upper_margin">20dp</dimen>
+    <dimen name="overlay_window_inner_padding">0dp</dimen>
 </resources>

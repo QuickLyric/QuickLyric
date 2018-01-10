@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<RelativeLayout android:id="@+id/nls_warning"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_red_400"
+                android:padding="10dp">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/ic_nls_warning_close"
+        android:layout_width="18dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_overlay_close"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/fix_it"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/ic_nls_warning_close"
+        android:layout_toStartOf="@id/ic_nls_warning_close"
+        android:background="@color/material_red_300"
+        android:lines="2"
+        android:padding="5dp"
+        android:text="@string/fix_it"
+        android:textColor="@color/material_white"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/ic_warning"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_warning"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/ic_warning"
+        android:layout_toLeftOf="@id/fix_it"
+        android:layout_toRightOf="@id/ic_warning"
+        android:layout_toStartOf="@id/fix_it"
+        android:gravity="center_vertical"
+        android:text="@string/nls_issues"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
+        android:textColor="@color/material_white"/>
+
+</RelativeLayout>

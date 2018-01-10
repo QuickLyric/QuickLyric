@@ -111,7 +111,6 @@
   <string name="full_text_action">متن کامل</string>
   <string name="artworks_pref_title">دریافت خودکار کاور موسیقی</string>
   <string name="artworks_pref_sum">ممکن است به هزینه داده تلفن همراه منجر شود</string>
-  <string name="pref_lrc_sum">برجسته کردن کلماتی که خوانده می‌شوند - فقط بخشی از پخش کننده‌ها پشتیبانی می‌شوند</string>
   <string name="pref_lrc">اشعار هماهنگ شده</string>
   <string name="red_theme">قرمز</string>
   <string name="purple_theme">بنفش</string>
@@ -142,7 +141,6 @@ QuickLyric علاقه‌ای به خواندن اعلان‌های شما ندا
 از شما برای درک این موضوع متشکریم!<br/><br/>
 - تیم QuickLyric
 ]]></string>
-  <string name="premium_title">ارتقإ نسخه</string>
   <string name="remove_ads_title">حذف تبلیغات</string>
   <string name="subscription_monthly">ماهیانه</string>
   <string name="subscription_yearly">سالیانه</string>

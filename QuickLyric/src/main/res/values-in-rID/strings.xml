@@ -120,7 +120,7 @@ Beberapa hal mengapa hal ini terjadi:<br/>
   <string name="full_text_action">Teks lengkap</string>
   <string name="artworks_pref_title">Download otomatis sampul album</string>
   <string name="artworks_pref_sum">Dapat mengakibatkan biaya data seluler</string>
-  <string name="pref_lrc_sum">Sorot kata-kata yang sedang dinyanyikan - tidak semua pemutar musik didukung</string>
+  <string name="pref_lrc_sum">Jepang</string>
   <string name="pref_lrc">Sinkronkan lirik</string>
   <string name="red_theme">Merah</string>
   <string name="purple_theme">Ungu</string>
@@ -134,13 +134,17 @@ Beberapa hal mengapa hal ini terjadi:<br/>
   <string name="about_product_tour">Safari produk</string>
   <string name="nl_title">Satu hal lagi.</string>
   <string name="nl_instructions">Agar QuickLyric berfungsi pada semua pemutar musik, beberapa setelan perlu diubah.</string>
+  <string name="nl_settings_link">Jepang</string>
+  <string name="floating_settings_link">Memungkinkan mengambang lirik (opsional)</string>
   <string name="changelog">Apa yang baru?</string>
   <string name="rate_us">Beri nilai aplikasi</string>
+  <string name="translate_us">Terjemahkan aplikasi</string>
   <string name="romanize">Latin</string>
   <string name="reset">Kembalikan</string>
   <string name="musicid_no_match">Tidak ditemukan</string>
   <string name="notification_access">Akses Pemberitahuan</string>
   <string name="pref_lyrics_overlay_name">Tampilan lirik</string>
+  <string name="pref_lyrics_overlay_sum">Jendela mengambang yang membuat lirik tersedia di luar aplikasi</string>
   <string name="notification_access_explanation"><![CDATA[
 Izin ini dibutuhkan agar QuickLyric dapat mengakses metadata musik anda.
 QuickLyric tidak akan membaca pemberitahuan anda dan
@@ -148,7 +152,7 @@ Berita gembira QuickLyric menjadi sumber terbuka
 Kami berterimakasih atas 
 - Tim QuickLyric
 ]]></string>
-  <string name="premium_title">Dapatkan Premium</string>
+  <string name="premium_title">Dapatkan Premium (Percobaan Gratis!)</string>
   <string name="remove_ads_title">Hapus iklan</string>
   <string name="subscription_monthly">Bulanan</string>
   <string name="subscription_yearly">Tahunan</string>
@@ -156,6 +160,7 @@ Kami berterimakasih atas
   <string name="premium_ads_incent">Tidak ada lagi Iklan!</string>
   <string name="premium_themes_incent">7 tema baru</string>
   <string name="premium_night_mode_incent">*mode malam* untuk merehatkan mata Anda di malam hari</string>
+  <string name="premium_android_wear">Dukungan untuk * Android Wear * watches</string>
   <string name="premium_doubt">Ragu untuk berlangganan? Hubungi kami lewat surel: contact@quicklyric.be</string>
   <string name="premium_thanks">Terima kasih atas dukungan Anda!</string>
   <string name="about_crowdin">Bantu terjemahkan aplikasi di Crowdin</string>
@@ -165,6 +170,9 @@ Kami berterimakasih atas
   <string name="buy_sub">Beli</string>
   <string name="client_version_error">Silahkan Perbarui Aplikasi</string>
   <string name="why_is_this_a_subscription">Mengapa harus berlangganan?</string>
+  <string name="why_sub_explanation"><![CDATA[<p> Sebagian besar pendapatan berlangganan ditujukan kepada para seniman dan pemegang hak. Membayar biaya satu kali untuk mendapatkan QuickLyric Premium akan seperti membayar Spotify beberapa dolar dan mendapatkan Premium selama sisa hidup Anda. Sayangnya tidak mungkin. </ P>
+    <p> Jika kami mengambil uang Anda dan Anda terus menggunakan aplikasi ini selama bertahun-tahun, kami masih harus membayar pemegang hak untuk konsumsi Anda. </ p>
+    Harap dimengerti bahwa itu adalah persyaratan Industri Musik bahwa segala sesuatunya bekerja dengan cara ini.]]>    </string>
   <string name="vote_action">Beri Nilai</string>
   <string name="user_submission_dialog_title">Beri nilai lirik ini</string>
   <string name="vote_for">Lirik ini benar</string>
@@ -174,17 +182,49 @@ Kami berterimakasih atas
   <string name="recent_tracks_title">Lagu Terakhir</string>
   <string name="recents_empty_database">Anda belum memainkan lagu apapun</string>
   <string name="gmusic_import_securityException">Google Play Musik harus diluncurkan agar aplikasi ini bekerja</string>
+  <string name="miui_autostart">Pemilik %s terlebih dahulu harus membuka pemblokiran aplikasi</string>
+  <string name="musicid_instructions">Pegang telepon Anda ke musik</string>
+  <string name="nls_issues">QuickLyric sulit membaca musik Anda</string>
+  <string name="romanizer_prompt_msg">Untuk mengkonversi lirik dari bahasa Jepang, Korea atau China ke alfabet Latin, Anda perlu mendownload plugin terpisah untuk QuickLyric.</string>
+  <string name="romanizer_prompt_title">Romanizer add-on</string>
   <string name="pref_always_artwork">Selalu diaktifkan</string>
+  <string name="pref_overlay_behavior_always">Selalu terlihat</string>
+  <string name="pref_overlay_behavior_notif">Buka melalui notifikasi</string>
+  <string name="pref_overlay_behavior_title">Mengambang lyrics perilaku</string>
+  <string name="pref_notification_sum_disabled">Pemberitahuan tidak dapat dinonaktifkan saat lirik mengambang diaktifkan</string>
+  <string name="iab_error">Gagal mengambil status langganan dari Google Play</string>
+  <string name="fix_it">Memperbaikinya</string>
+  <string name="bad_xp_msg">Apakah semua baik-baik saja?</string>
+  <string name="bad_xp_btn">Meminta bantuan</string>
+  <string name="nls_enable_prompt">Silakan pilih QuickLyric dalam daftar ini</string>
+  <string name="yes">ya</string>
+  <string name="no">tidak</string>
+  <string name="good_xp_prompt_msg">Apakah kamu menyukai QuickLyric?</string>
+  <string name="thanks">Terimakasih!</string>
+  <string name="thanks_feedback">Terima kasih atas tanggapan anda!</string>
+  <string name="please_improve_ql">Beritahukan kami bagaimana kami bisa membuat QuickLyric lebih baik!</string>
+  <string name="goodXP_rate_prompt">Kami sangat senang bahwa Anda menikmati QuickLyric! Penilaian aplikasi akan sangat membantu kita. Terima kasih banyak untuk menggunakan QuickLyric!</string>
+  <string name="ads_occasional">Iklan ini hanya akan ditampilkan sesekali</string>
+  <string name="ads_remove_title">Hapus iklan secara gratis</string>
+  <string name="video_ad_dialog"><![CDATA[Di sini, di QuickLyric, kami memahami betapa menjengkelkannya iklan. Tujuan kami adalah memberi Anda pengalaman terbaik di pasar dengan iklan sesedikit mungkin. <br/> <br/> Tonton video singkat ini dan semua iklan akan dihapus dari aplikasi selama <strong>%1$d hari </strong>.]]></string>
+  <string name="watch_video">Menonton video</string>
+  <string name="trial_incent">7 hari pertama bebas tanpa pertunangan. Cobalah!</string>
+  <string name="storage_permission_rationale">Izin ini digunakan untuk mengidentifikasi file musik Anda</string>
+  <string name="let_us_know">Beritahu kami!</string>
+  <string name="open_app_action">Buka aplikasi</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric sekarang men-download Lirik untuk total %1$d lagu. \ pastikan Anda memiliki koneksi yang stabil untuk di setidaknya %2$d menit.</item>
   </plurals>
   <plurals name="dl_finished_desc">
     <item quantity="other">Download lirik untuk lagu-lagu %1$d</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="other">%1$d item dipilih</item>
+  </plurals>
   <string-array name="notifications">
     <item>Cacat (default)</item>
     <item>Diaktifkan</item>
-    <item>Enabled (hidden)</item>
+    <item>Diaktifkan (disembunyikan)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>@string/pref_always_artwork</item>

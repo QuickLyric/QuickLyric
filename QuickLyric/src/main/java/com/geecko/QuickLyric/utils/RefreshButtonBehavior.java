@@ -20,7 +20,6 @@
 package com.geecko.QuickLyric.utils;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
@@ -28,10 +27,6 @@ import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
-import com.geecko.QuickLyric.R;
 
 public class RefreshButtonBehavior extends FloatingActionButton.Behavior {
 
@@ -74,16 +69,9 @@ public class RefreshButtonBehavior extends FloatingActionButton.Behavior {
             return;
         button.setVisibility(View.VISIBLE);
         visible = true;
-        if (Build.VERSION.SDK_INT >= 14) {
-            ViewCompat.animate(button).translationY(0)
-                    .setInterpolator(INTERPOLATOR).withLayer().setListener(null)
-                    .start();
-        } else {
-            Animation anim = AnimationUtils.loadAnimation(button.getContext(), R.anim.refresh_in);
-            anim.setDuration(200L);
-            anim.setInterpolator(INTERPOLATOR);
-            button.startAnimation(anim);
-        }
+        ViewCompat.animate(button).translationY(0)
+                .setInterpolator(INTERPOLATOR).withLayer().setListener(null)
+                .start();
     }
 
     @Override

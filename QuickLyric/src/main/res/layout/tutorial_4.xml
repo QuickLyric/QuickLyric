@@ -26,18 +26,60 @@
     android:paddingTop="@dimen/upper_margin"
     android:clipChildren="false"
     android:clipToPadding="false"
+    tools:layout_marginBottom="75dp"
     tools:ignore="RtlCompat">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/why_notif_access_button"
+
+
+    <ImageView
+        android:id="@+id/redGear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear"
+        android:translationX="@dimen/redGear_X"
+        android:translationY="@dimen/redGear_Y"/>
+
+    <ImageView
+        android:id="@+id/blueGear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro_5_gear_b"
+        android:translationX="@dimen/bluegear_X"
+        android:translationY="@dimen/bluegear_Y"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/no_results_why"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:textColor="@color/material_white"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/nl_title"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/textView"
+        android:layout_alignRight="@id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="15dp"
+        android:text="@string/nl_instructions"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:layout_marginBottomPercent="2%"/>
 
     <LinearLayout
         android:id="@+id/floating_frame"
@@ -114,57 +156,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/redGear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/intro_5_gear"
-        android:translationX="@dimen/redGear_X"
-        android:translationY="@dimen/redGear_Y"/>
-
-    <ImageView
-        android:id="@+id/blueGear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/intro_5_gear_b"
-        android:translationX="@dimen/bluegear_X"
-        android:translationY="@dimen/bluegear_Y"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/nl_title"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textSize="30sp"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/textView"
-        android:layout_alignRight="@id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="15dp"
-        android:text="@string/nl_instructions"
-        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        app:layout_marginBottomPercent="2%"/>
-
 
 </android.support.percent.PercentRelativeLayout>

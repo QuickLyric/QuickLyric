@@ -20,7 +20,7 @@
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="app_name">QuickLyric</string>
-  <string name="title_lyrics">Tekst piosenki</string>
+  <string name="title_lyrics">Teksty piosenek</string>
   <string name="share">Udostępnij</string>
   <string name="no_results">Brak wyników</string>
   <string name="connection_error">Nie udało się połączyć.</string>
@@ -109,7 +109,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="id3_write_permission_error">Aplikacja musi być uruchomiona ponownie, aby otrzymać uprawnienia do zapisu</string>
   <string name="resync_action">Ponowna synchronizacja</string>
   <string name="uri_storage">Tego urządzenia</string>
-  <string name="uri_gmusic">Twojej biblioteki Google Play Music</string>
+  <string name="uri_gmusic">Twojej biblioteki Muzyki Google Play</string>
   <string name="uri_spotify">Twojej biblioteki Spotify</string>
   <string name="spotify_library">Twoje zapisane utwory</string>
   <string name="spotify_playlists">Twoje listy odtwarzania</string>
@@ -123,7 +123,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="full_text_action">Pełny tekst</string>
   <string name="artworks_pref_title">Automatyczne pobieranie grafiki</string>
   <string name="artworks_pref_sum">Może skutkować naliczeniem opłat</string>
-  <string name="pref_lrc_sum">Wyróżnia słowa śpiewane w danym momencie - ta funkcja nie wspiera wszystkich odtwarzaczy muzycznych</string>
+  <string name="pref_lrc_sum">Wyróżnia słowa śpiewane w danym momencie - część naszych piosenek nie jest zsynchronizowana</string>
   <string name="pref_lrc">Zsynchronizowane teksty</string>
   <string name="red_theme">Czerwony</string>
   <string name="purple_theme">Fioletowy</string>
@@ -141,6 +141,7 @@ Jest kilka możliwych przyczyn:<br/>
   <string name="floating_settings_link">Włącz swobodne okno tekstów (opcjonalnie)</string>
   <string name="changelog">Lista zmian</string>
   <string name="rate_us">Oceń aplikację</string>
+  <string name="translate_us">Przetłumacz aplikację</string>
   <string name="romanize">Latynizuj</string>
   <string name="reset">Resetuj</string>
   <string name="musicid_no_match">Brak wyników ☹</string>
@@ -154,7 +155,7 @@ Dobra wiadomość jest taka, że można przekonać się o tym samemu, bo QuickLy
 Dziękujemy za zrozumienie!<br/><br/>
 - Zespół QuickLyric
 ]]></string>
-  <string name="premium_title">Przejdź na wersję Premium</string>
+  <string name="premium_title">Zdobądź Premium (darmowa wersja próbna!)</string>
   <string name="remove_ads_title">Usuń reklamy</string>
   <string name="subscription_monthly">Na miesiąc</string>
   <string name="subscription_yearly">Na rok</string>
@@ -188,7 +189,7 @@ Dziękujemy za zrozumienie!<br/><br/>
   <string name="miui_autostart">Użytkownicy urządzeń %s muszą najpierw odblokować aplikację</string>
   <string name="musicid_instructions">Trzymaj telefon, kierując go w stronę muzyki</string>
   <string name="loading">Ładowanie&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric ma problem z odczytaniem muzyki - rozważ ponowne uruchomienie urządzenia</string>
+  <string name="nls_issues">QuickLyric ma problem z odczytaniem Twojej muzyki</string>
   <string name="romanizer_prompt_msg">Aby przekonwertować tekst z pisma japońskiego, koreańskiego, lub chińskiego na alfabet łaciński, należy pobrać oddzielną wtyczkę do QuickLyric.</string>
   <string name="romanizer_prompt_title">Dodatek do latynizacji</string>
   <string name="pref_always_artwork">Zawsze włączone</string>
@@ -196,6 +197,45 @@ Dziękujemy za zrozumienie!<br/><br/>
   <string name="pref_overlay_behavior_notif">Otwórz za pomocą powiadomienia</string>
   <string name="pref_overlay_behavior_title">Zachowanie swobodnego okna tekstów</string>
   <string name="pref_notification_sum_disabled">Powiadomienia nie mogą być wyłączone, gdy swobodne okno tekstów jest włączone</string>
+  <string name="iab_error">Nie można pobrać statusu subskrypcji z Google Play</string>
+  <string name="fix_it">Napraw to</string>
+  <string name="bad_xp_msg">Wszystko jest w porządku?</string>
+  <string name="bad_xp_btn">Poproś o pomoc</string>
+  <string name="nls_enable_prompt">Wybierz QuickLyric na tej liście</string>
+  <string name="yes">tak</string>
+  <string name="no">nie</string>
+  <string name="good_xp_prompt_msg">Lubisz QuickLyric?</string>
+  <string name="thanks">Dzięki!</string>
+  <string name="thanks_feedback">Dziękujemy za opinię!</string>
+  <string name="please_improve_ql">Proszę daj nam znać, jak możemy ulepszyć QuickLyric!</string>
+  <string name="goodXP_rate_prompt">Bardzo nas cieszy, że podoba Ci się QuickLyric! Ocena aplikacji naprawdę by nam pomogła. Wielkie dzięki za korzystanie z QuickLyric!</string>
+  <string name="ads_occasional">Te reklamy będą wyświetlane tylko od czasu do czasu</string>
+  <string name="ads_remove_title">Usuń reklamy za darmo</string>
+  <string name="video_ad_dialog"><![CDATA[Tu w QuickLyric dobrze rozumiemy, jak irytujące mogą być reklamy. Naszym celem jest zapewnienie Ci najlepszego\
+    doświadczenia na rynku z tak małą ilością reklam, jak to możliwe.<br/><br/> Obejrzyj to krótkie wideo, a wszystkie reklamy zostaną usunięte z aplikacji na <strong>%1$d dni</strong>.]]></string>
+  <string name="watch_video">Obejrzyj wideo</string>
+  <string name="trial_incent">Pierwsze 7 dni jest za darmo, bez zobowiązań. Spróbuj!</string>
+  <string name="storage_permission_rationale">To uprawnienie jest używane do rozpoznawania plików muzycznych</string>
+  <string name="let_us_know">Daj nam znać!</string>
+  <string name="overlay_resize_onclick_prompt">Przytrzymaj, aby zmienić rozmiar okna</string>
+  <string name="open_app_action">Otwórz aplikację</string>
+  <string name="user_survey_title">Ankieta użytkownika QuickLyric</string>
+  <string name="user_survey_sum">Jakich funkcji brakuje Twoim zdaniem w QuickLyric?</string>
+  <string name="survey_option_none">Żadnej</string>
+  <string name="survey_option_id">Udoskonalone rozpoznawanie piosenek</string>
+  <string name="survey_option_translate">Tłumaczenia tekstów</string>
+  <string name="survey_option_player">Odtwarzacz muzyki w QuickLyric</string>
+  <string name="survey_option_catalog">Lepszy katalog tekstów</string>
+  <string name="survey_option_crowdsourcing">Dodawanie i poprawianie tekstów przez użytkowników</string>
+  <string name="survey_option_sync">Ręczne synchronizowanie tekstów przez użytkowników</string>
+  <string name="survey_option_share">Możliwość udostępniania tekstów</string>
+  <string name="survey_option_bigger">Większy tekst</string>
+  <string name="survey_option_other">Inne</string>
+  <string name="survey_importance_high">Bardzo ważne</string>
+  <string name="survey_importance_medium">Ważne</string>
+  <string name="survey_importance_low">Niezbyt ważne</string>
+  <string name="survey_submit">Wyślij</string>
+  <string name="survey_thanks">Dziękujemy za Twoją opinię!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric pobierze teraz tekst %1$d piosenki.\
         Upewnij się, że będziesz mieć stabilne połączenie z internetem przez %2$d min.</item>

@@ -28,7 +28,9 @@
   <string name="pref_20min_ignore">התעלם מרצועות ארוכות</string>
   <string name="pref_20min_ignore_sum">רצועות ארוכות מ-20 דקות (כמו פודקאסטים) אינן נחשבות שירים</string>
   <string name="pref_about">אודות</string>
+  <string name="send_feedback">שלח/י משוב</string>
   <string name="local_title">מילות שיר שמורות</string>
+  <string name="musicid_title">זיהוי מילים</string>
   <string name="settings_title">הגדרות</string>
   <string name="save_action">שמור</string>
   <string name="lyrics_saved">מילות השיר נשמרו</string>
@@ -40,6 +42,8 @@
   <string name="pref_look_feel_category">מראה ותחושה</string>
   <string name="welcome">ברוכים הבאים ל-QuickLyric!</string>
   <string name="welcome2_sub">מילות השיר שחיפשת&#8230;\nכאן ועכשיו.</string>
+  <string name="apps_desc">עובד עם כל היישומים שלך</string>
+  <string name="apps_desc_sub">אם את/ה נתקל בבעיות עם הנגן שלך (למשל Poweramp, GoneMAD או Spotify), ודא שמופעלת עליו \"Scrobbling\" או \"Broadcast Status\".</string>
   <string name="id_desc_sub">1. זהה שיר\n2. שתף את התוצאות עם QuickLyric\n3. תיהנה עם מילות השיר שלך</string>
   <string name="refresh_desc">כאשר השיר השתנה&#8230;</string>
   <string name="refresh_desc_sub">לחץ על הכפתור הזה. QuickLyric יעשה את השאר.</string>
@@ -82,14 +86,33 @@
   <string name="nighttime_end_dialog_title">סיום זמן לילה</string>
   <string name="pref_force_screen_sum">מנע מהמסך להכבות בזמן קריאת מילות שיר.</string>
   <string name="pref_force_screen_on">כפה על המסך להישאר פועל</string>
+  <string name="scan_error_permission_denied">QuickLyric נדחתה הרשאה כדי לסרוק את המוסיקה שלך</string>
+  <string name="id3_read_rationale">QuickLyric צריך הרשאה זו כדי לקרוא את המילים והיצירות הזמינות בהתקן זה</string>
+  <string name="permission_denied">(ההרשאה נדחתה)</string>
+  <string name="id3_write_permission_error">האפליקציה צריך להיות מופעלת מחדש כדי לקבל הרשאת כתיבה</string>
+  <string name="resync_action">לסנכרן שוב</string>
   <string name="uri_storage">המכשיר הזה</string>
   <string name="uri_gmusic">ספריית המוזיקה שלך בגוגל פליי</string>
+  <string name="uri_spotify">ספריית Spotify שלך</string>
+  <string name="spotify_library">הרצועות השמורות שלך</string>
+  <string name="spotify_playlists">רשימות ההשמעה שלך</string>
   <string name="source_punk">פאנק רוק</string>
   <string name="source_metal">מטאל</string>
   <string name="source_hip_hop">היפ הופ</string>
   <string name="source_EDM">מוזיקת דאנס אלקטרונית</string>
   <string name="source_japanese">יפנית</string>
   <string name="source_sync">מילות שיר מסונכרנות</string>
+  <string name="spotify_connection">מתחבר לSpotify&#8230;</string>
+  <string name="full_text_action">טקסט מלא</string>
+  <string name="pref_lrc_sum">הדגש את המילים שמושרות - לא כל המילים שלנו מסונכרנות</string>
+  <string name="pref_lrc">מילים מסונכרנות</string>
+  <string name="red_theme">אדום</string>
+  <string name="purple_theme">סגול</string>
+  <string name="indigo_theme">אינדיגו</string>
+  <string name="green_theme">ירוק</string>
+  <string name="lime_theme">ירוק ליים</string>
+  <string name="brown_theme">חום</string>
+  <string name="translate_us">עזור לתרם את היישום</string>
   <string-array name="notifications">
     <item>מבוטל (ברירת מחדל)</item>
     <item>אפשר</item>

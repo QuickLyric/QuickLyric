@@ -41,16 +41,21 @@ import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
+import com.geecko.QuickLyric.utils.MediaControllerCallback;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.view.AppCompatListPreference;
 import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import java.util.Arrays;
 
 public class SettingsFragment extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener, TimePickerDialog.OnTimeSetListener, DialogInterface.OnCancelListener {
 
     private static final String NIGHT_START_TIME_DIALOG_TAG = "StartPickerDialog";
     private static final String NIGHT_END_TIME_DIALOG_TAG = "EndPickerDialog";
-    int[] themes = new int[]{R.string.defaut_theme, R.string.red_theme,
+    private int[] themes = new int[]{R.string.defaut_theme, R.string.red_theme,
             R.string.purple_theme, R.string.indigo_theme, R.string.green_theme,
             R.string.lime_theme, R.string.brown_theme, R.string.dark_theme};
 
@@ -71,10 +76,29 @@ public class SettingsFragment extends PreferenceFragment implements
         findPreference("pref_opendyslexic").setOnPreferenceChangeListener(this);
         findPreference("pref_night_mode").setOnPreferenceChangeListener(this);
         findPreference("pref_notifications").setOnPreferenceChangeListener(this);
-        findPreference("pref_providers").setOnPreferenceChangeListener(this);
+        findPreference("pref_notifications").setEnabled(!isOverlayEnabled);
+        findPreference("pref_notifications").setSummary(isOverlayEnabled ?
+                R.string.pref_notification_sum_disabled : R.string.pref_notifications_sum);
         findPreference("pref_overlay").setOnPreferenceChangeListener(this);
         findPreference("pref_overlay_behavior").setOnPreferenceChangeListener(this);
         findPreference("pref_overlay_behavior").setEnabled(isOverlayEnabled);
+
+
+        AppCompatListPreference notificationsPref = ((AppCompatListPreference) findPreference("pref_notifications"));
+        CharSequence[] entries = notificationsPref.getEntries();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationsPref.setDefaultValue("1");
+            CharSequence[] values = notificationsPref.getEntryValues();
+            notificationsPref.setEntries(Arrays.copyOfRange(entries, 1, 3));
+            notificationsPref.setEntryValues(Arrays.copyOfRange(values, 1, 3));
+        } else {
+            entries[0] = entries[0].toString().replaceAll("\\s?\\(.*\\)", "");
+            notificationsPref.setEntries(entries);
+        }
+    }
+
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -115,6 +139,7 @@ public class SettingsFragment extends PreferenceFragment implements
                         final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
                         getActivity().startActivity(intent);
                     }
+                    PermissionsChecker.displayMIUIPopupPermission(getActivity());
                 } else {
                     LyricsOverlayService.removeCustomFloatingView(getActivity());
                 }
@@ -187,7 +212,7 @@ public class SettingsFragment extends PreferenceFragment implements
         String artist = current.getString("artist", "Michael Jackson");
         String track = current.getString("track", "Bad");
         boolean playing = current.getBoolean("playing", false);
-        long position = current.getLong("position", -1L);
+        long position = MediaControllerCallback.getActiveControllerPosition(getActivity());
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
         localIntent.putExtra("playing", playing);

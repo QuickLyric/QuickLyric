@@ -121,7 +121,8 @@
   <string name="full_text_action">Πλήρες κείμενο</string>
   <string name="artworks_pref_title">Αυτόματο κατέβασμα εξώφυλλων άλμπουμ</string>
   <string name="artworks_pref_sum">Μπορεί να οδηγήσει σε χρεώσεις δεδομένων κινητής τηλεφωνίας</string>
-  <string name="pref_lrc_sum">Επισημαίνει τις λέξεις τη στιγμή που εκφωνούνται - όχι όλες οι εφαρμογές μουσικής είναι συμβατές</string>
+  <string name="pref_lrc_sum">Οι στιχοι που παιζουν υπογραμμιζονται
+Δεν ειναι ολοι οι στιχοι συγχρονισμενοι</string>
   <string name="pref_lrc">Συγχρονισμένοι στίχοι</string>
   <string name="red_theme">Κοκκινο</string>
   <string name="purple_theme">Μωβ</string>
@@ -135,8 +136,11 @@
   <string name="about_product_tour">Περιήγηση προϊόντος</string>
   <string name="nl_title">Ένα τελευταίο πράγμα.</string>
   <string name="nl_instructions">Για να δουλέψει το QuickLyric με όλες τις εφαρμογές αναπαραγωγής μουσικής, κάποιες ρυθμίσεις πρέπει να αλλαχθούν.</string>
+  <string name="nl_settings_link">Παραχωρηση στην εισοδο στη μουσικη</string>
+  <string name="floating_settings_link">Ενεργοποιησε το αναδυομενο συννεφο στιχων (προαιρερικο)</string>
   <string name="changelog">Τι νέο υπάρχει;</string>
   <string name="rate_us">Αξιολογήστε την εφαρμογή</string>
+  <string name="translate_us">Μετάφραση της εφαρμογής</string>
   <string name="romanize">Λατινικό αλφάβητο</string>
   <string name="reset">Επαναφορά</string>
   <string name="musicid_no_match">Καμία αντιστοιχία</string>
@@ -152,7 +156,7 @@
 Σας ευχαριστούμε για την κατανόησή σας!<br/><br/>
 - Η ομάδα του QuickLyric
 ]]></string>
-  <string name="premium_title">Απόκτησε το Premium</string>
+  <string name="premium_title">Παρε το premium! (Δωρεαν δοκιμη)</string>
   <string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις</string>
   <string name="subscription_monthly">Μηνιαία</string>
   <string name="subscription_yearly">Ετήσια</string>
@@ -183,8 +187,25 @@
   <string name="recent_tracks_title">Πρόσφατα τραγούδια</string>
   <string name="recents_empty_database">Δεν έχετε ακούσει τίποτα ακόμη</string>
   <string name="gmusic_import_securityException">To Google Play Music πρέπει να λειτουργεί για να λειτουργήσει αυτό</string>
+  <string name="miui_autostart">Οι ιδιοκτηκτες πρεπει πρωτα να ξεμπλοκαρουν την εφαρμογη</string>
   <string name="musicid_instructions">Κρατήστε το τηλέφωνο κοντά στην μουσική</string>
+  <string name="nls_issues">QuickLyric έχει πρόβλημα ανάγνωση τη μουσική σας</string>
+  <string name="romanizer_prompt_msg">Για να μετατρέψετε στίχοι από Ιαπωνικά, κορεατικά ή κινέζικα με το λατινικό αλφάβητο, θα πρέπει να κατεβάσετε ένα ξεχωριστό plugin για QuickLyric.</string>
   <string name="pref_always_artwork">Πάντα ενεργοποιημένο</string>
+  <string name="pref_overlay_behavior_always">Πάντα ορατό</string>
+  <string name="pref_overlay_behavior_notif">Ανοιγμα μεσω ειδοποιησεων</string>
+  <string name="pref_overlay_behavior_title">Δυνατοτητα αναδυομενων στιχων</string>
+  <string name="pref_notification_sum_disabled">Οι ειδοποιήσεις δεν μπορουν να απενεργοποιηθουν, όταν είναι ενεργοποιημένοι οι πλωτοι στίχοι</string>
+  <string name="iab_error">Απέτυχε η ανάκτηση της κατάστασης συνδρομής από το Google Play</string>
+  <string name="fix_it">Διόρθωσέ το</string>
+  <string name="bad_xp_msg">Είναι όλα εντάξει;</string>
+  <string name="bad_xp_btn">Ζητήστε βοήθεια</string>
+  <string name="nls_enable_prompt">Παρακαλώ επιλέξτε QuickLyric στον κατάλογο αυτό</string>
+  <string name="yes">ναι</string>
+  <string name="no">όχι</string>
+  <string name="thanks_feedback">Ευχαριστούμε για τα σχόλιά σου!</string>
+  <string name="watch_video">Προβολή βίντεο</string>
+  <string name="open_app_action">Άνοιγμα εφαρμογής</string>
   <plurals name="scan_dialog">
     <item quantity="one">Το QuickLyric θα κατεβάσει τους στίχους για συνολικά %1$d τραγούδι.\
         Βεβαιωθείτε ότι θα έχετε μια σταθερή σύνδεση για %2$d λεπτό.</item>

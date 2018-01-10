@@ -45,7 +45,7 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         super(context, R.layout.drawer_row, strings);
         this.stringArray = strings;
         Drawable drawable1 = context.getResources().getDrawable(R.drawable.ic_lyrics);
-        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_timer_grey_600_24dp);
+        Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_timer);
         Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
         Drawable drawable4 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
         Drawable drawable5 = context.getResources().getDrawable(R.drawable.ic_send_feedback);
@@ -60,6 +60,7 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         if (position == 3) {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.drawer_separator, parent, false);
+                convertView.setId(position);
             }
         } else {
             if (convertView == null || convertView.getId() != position) {

@@ -24,11 +24,13 @@ import android.os.AsyncTask;
 
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
+import java.lang.ref.WeakReference;
+
 public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
-    private final PresenceCheckerCallback callback;
+    private final WeakReference<PresenceCheckerCallback> callback;
 
     public PresenceChecker(PresenceCheckerCallback callback) {
-        this.callback = callback;
+        this.callback = new WeakReference<>(callback);
     }
 
     @Override
@@ -42,7 +44,8 @@ public class PresenceChecker extends AsyncTask<Object, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean present) {
-        callback.onPresenceChecked(present);
+        if (callback.get() != null)
+            callback.get().onPresenceChecked(present);
     }
 
     public interface PresenceCheckerCallback {

@@ -22,4 +22,5 @@
     <exclude domain="sharedpref" path="current_music.xml"/>
     <exclude domain="sharedpref" path="intro_slide.xml"/>
     <exclude domain="sharedpref" path="recent_tracks.xml"/>
+    <exclude domain="sharedpref" path="last_opened.xml"/>
 </full-backup-content>

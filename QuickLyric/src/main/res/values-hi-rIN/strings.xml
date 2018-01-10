@@ -115,7 +115,6 @@
   <string name="full_text_action">पूर्ण पाठ</string>
   <string name="artworks_pref_title">स्वत: कलाकृति डाउनलोड</string>
   <string name="artworks_pref_sum">मोबाइल डेटा शुल्क परिणाम हो सकता है</string>
-  <string name="pref_lrc_sum">गाया जा रहा गीत के शब्दों को हाइलाइट करें - सभी म्यूजिक प्लेयर का समर्थन नहीं हैं।</string>
   <string name="pref_lrc">सिंक्रनाइज़्ड बोल</string>
   <string name="red_theme">लाल</string>
   <string name="purple_theme">बैंगनी</string>
@@ -133,13 +132,13 @@
   <string name="floating_settings_link">फ़्लोटिंग गीत (वैकल्पिक) start करें</string>
   <string name="changelog">नया क्या है:</string>
   <string name="rate_us">इस एप्प का मूल्यांकन करें</string>
+  <string name="translate_us">एप्प को अनुवादित करें</string>
   <string name="romanize">वर्णों का</string>
   <string name="reset">रीसेट करें</string>
   <string name="musicid_no_match">कोई मेल नहीं</string>
   <string name="notification_access">अधिसूचना पहुँच</string>
   <string name="pref_lyrics_overlay_name">गीत ओवरले</string>
   <string name="pref_lyrics_overlay_sum">फ़्लोटिंग विंडो जो गाना बाहर app पर उपलब्ध कराता है</string>
-  <string name="premium_title">प्रीमियम प्राप्त करें</string>
   <string name="remove_ads_title">विज्ञापन हटाएँ</string>
   <string name="subscription_monthly">मासिक</string>
   <string name="subscription_yearly">वार्षिक</string>

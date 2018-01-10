@@ -123,7 +123,7 @@ A few possible reasons why:<br/>
   <string name="full_text_action">النص الكامل</string>
   <string name="artworks_pref_title">التحميل التلقائي للصور الفنية</string>
   <string name="artworks_pref_sum">قد ينتج عن رسوم البيانات المتنقلة</string>
-  <string name="pref_lrc_sum">تمييز الكلمات التي يجري غنائها--مشغلات الموسيقى ليست كلها معتمدة</string>
+  <string name="pref_lrc_sum">ظلل الكلمات التي تُغنا - ليست كل الكلمات متزامنة</string>
   <string name="pref_lrc">تزامن كلمات الاغنية</string>
   <string name="red_theme">احمر</string>
   <string name="purple_theme">بنفسجي</string>
@@ -137,8 +137,11 @@ A few possible reasons why:<br/>
   <string name="about_product_tour">جولة حول المنتج</string>
   <string name="nl_title">شيء واحد آخر.</string>
   <string name="nl_instructions">لكي يعمل QuickLyric مع جميع مشغلي الموسيقى، بعض الإعدادات قد تحتاج إلى تغيير.</string>
+  <string name="nl_settings_link">مكّن الوصول للموسيقى المشغلة</string>
+  <string name="floating_settings_link">فعّل الكلمات الحوّامة (اختياري)</string>
   <string name="changelog">ما الجديد؟</string>
   <string name="rate_us">قيّم التطبيق</string>
+  <string name="translate_us">ترجمة البرنامج</string>
   <string name="romanize">رومانيزي</string>
   <string name="reset">أعد من جديد</string>
   <string name="musicid_no_match">لا يوجد تطابق</string>
@@ -152,7 +155,7 @@ QuickLyric غير مهتم بقراءة إشعاراتك، وساسية خصوص
 نشكركم على تفهمكم<br/><br/>
 - فريق QuickLyric
 ]]></string>
-  <string name="premium_title">شراء حساب المميز</string>
+  <string name="premium_title">احصل علي النسخه الافضل (تجربة مجانية!)</string>
   <string name="remove_ads_title">إزالة الإعلانات</string>
   <string name="subscription_monthly">شهريًا</string>
   <string name="subscription_yearly">سنويًا</string>
@@ -183,8 +186,32 @@ QuickLyric غير مهتم بقراءة إشعاراتك، وساسية خصوص
   <string name="recent_tracks_title">مقطوعات جديدة</string>
   <string name="recents_empty_database">لم تستمع لأي شيء بعد</string>
   <string name="gmusic_import_securityException">يجب أن يكون Google Play Music مشغلا ليعمل هذا</string>
+  <string name="miui_autostart">يجب أن يلغي مالك %s قفل التطبيق أولا</string>
   <string name="musicid_instructions">قرب هاتفك من مصدر الموسيقى</string>
+  <string name="loading">جار التحميل..</string>
+  <string name="nls_issues">QuickLyric واجه صعوبة في قراءة موسيقاك</string>
+  <string name="romanizer_prompt_msg">لتحول الكلمات من اليابانية أو الكورية أو الصينية إلى حروف لاتينية، يجب أن تضيف برنامجا مساعدا مستقلا لـQuickLyric</string>
+  <string name="romanizer_prompt_title">اضافة Romanizer</string>
   <string name="pref_always_artwork">تمكين دائماً</string>
+  <string name="pref_overlay_behavior_always">مرئي دائما</string>
+  <string name="pref_overlay_behavior_notif">افتح عبر تنبيه</string>
+  <string name="pref_overlay_behavior_title">سلوك الكلمات الحوّامة</string>
+  <string name="pref_notification_sum_disabled">لا يمكن إبطال التنبيهات والكلمات الحوامة مفعلة</string>
+  <string name="iab_error">فشل الحصول وضعية الاشتراك من Google Play</string>
+  <string name="fix_it">اصلحه</string>
+  <string name="bad_xp_msg">هل الكل على مايرام؟</string>
+  <string name="bad_xp_btn">اطلب المساعدة</string>
+  <string name="nls_enable_prompt">رجاء اختر QuickLyric من هذه القائمة</string>
+  <string name="yes">نعم</string>
+  <string name="no">لا</string>
+  <string name="good_xp_prompt_msg">هل تحب QuickLyric؟</string>
+  <string name="thanks">شكرا لك!</string>
+  <string name="thanks_feedback">شكرا على رأيك!</string>
+  <string name="please_improve_ql">اخبرنا رجاء كيف يمكن أن نجعل QuickLyric أفضل!</string>
+  <string name="goodXP_rate_prompt">نحن سعداء بانك تستمتع ب QuickLyric !
+تقييمك للتطبيق سيساعدنا كثيرا. شكرا لك لاستخدامك QuickLyric !</string>
+  <string name="ads_occasional">سيتم عرض هذه الاعلانات في بعض الأحيان فقط</string>
+  <string name="ads_remove_title">إزالة الاعلانات مجانا</string>
   <plurals name="scan_dialog">
     <item quantity="zero">QuickLyric سيحمل الآن كلمات %1$d أغنية.\
         تأكد من وجود اتصال مستقر بالإنترنت ل%2$d دقيقة على الأقل.</item>
@@ -207,10 +234,18 @@ QuickLyric غير مهتم بقراءة إشعاراتك، وساسية خصوص
     <item quantity="many">تم تحميل كلمات %1$d أغنية</item>
     <item quantity="other">تم تحميل كلمات %1$d أغنية</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="zero">%1$d العناصر المحددة</item>
+    <item quantity="one">%1$d عنصر محدد</item>
+    <item quantity="two">%1$d عنصر محدد</item>
+    <item quantity="few">%1$d عنصر محدد</item>
+    <item quantity="many">%1$d عنصر محدد</item>
+    <item quantity="other">%1$d عنصر محدد</item>
+  </plurals>
   <string-array name="notifications">
     <item>معطل (افتراضي)</item>
     <item>ممكنة</item>
-    <item>Enabled (hidden)</item>
+    <item>مفعّل (مخفي)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>@string/pref_always_artwork</item>

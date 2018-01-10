@@ -78,15 +78,14 @@
   <string name="scan_error_no_content">Nessuna canzone trovata</string>
   <string name="no_results_why"><u>Perché?</u></string>
   <string name="why_popup_text"><![CDATA[
-Stavi cercando il testo di \"%1$s\" by %2$s. Sfortunatamente non siamo riusciti a trovarli...<br/>
-<br/>
+Stavi cercando il testo di \"%1$s\" di %2$s. Sfortunatamente QuickLyric non è riuscito a trovarlo… <br/><br/>
 Alcune possibili ragioni:<br/>
 <br/>
-• La tua musica non è contrassegnata propriamente<br/>
-• La tua connessione ad internet non funziona.<br/>
-• Può darsi che la canzone non appartenga al catalogo principale.<br/>
-• È presente un bug. Se è così, inviami una mail.<br/>
-• Controlla se la data e l\'ora sono impostate correttamente.<br/>
+• La traccia non è <strong>contrassegnata</strong> (taggata) correttamente.<br/>
+• La tua connessione a internet non funziona.<br/>
+• La canzone non è presente nel catalogo principale. Controlla la voce <strong>Fonti aggiuntive</strong> nelle impostazioni.<br/>
+• Hai trovato un bug. Se è così, inviami una mail.<br/>
+• La data e l\'ora del tuo dispositivo non sono impostate correttamente.<br/>
 ]]></string>
   <string name="why_popup_title">Perché non funziona?</string>
   <string name="download_category">Download</string>
@@ -123,7 +122,7 @@ Alcune possibili ragioni:<br/>
   <string name="full_text_action">Testo completo</string>
   <string name="artworks_pref_title">Scaricamento automatico copertina</string>
   <string name="artworks_pref_sum">Potrebbe comportare dei costi di connessione</string>
-  <string name="pref_lrc_sum">Evidenzia le parole che vengono cantate. Non tutti i lettori musicali sono supportati.</string>
+  <string name="pref_lrc_sum">Evidenzia le parole che vengono cantate - non tutti i nostri testi sono sincronizzati</string>
   <string name="pref_lrc">Testi sincronizzati</string>
   <string name="red_theme">Rosso</string>
   <string name="purple_theme">Viola</string>
@@ -141,6 +140,7 @@ Alcune possibili ragioni:<br/>
   <string name="floating_settings_link">Abilita testi galleggianti (opzionale)</string>
   <string name="changelog">Cosa c\'è di nuovo?</string>
   <string name="rate_us">Valuta l\'applicazione</string>
+  <string name="translate_us">Traduci l\'app</string>
   <string name="romanize">Latinizza</string>
   <string name="reset">Ripristina</string>
   <string name="musicid_no_match">Nessuna corrispondenza ☹</string>
@@ -154,7 +154,7 @@ La buona notizia è che, essendo QuickLyric open source, chiunque può verificar
 Ti ringraziamo per la comprensione.<br/><br/>
 - Il team di QuickLyric
 ]]></string>
-  <string name="premium_title">Passa a Premium</string>
+  <string name="premium_title">Prova il Premium (gratuitamente!)</string>
   <string name="remove_ads_title">Rimuovi gli annunci</string>
   <string name="subscription_monthly">Mensile</string>
   <string name="subscription_yearly">Annuale</string>
@@ -172,7 +172,10 @@ Ti ringraziamo per la comprensione.<br/><br/>
   <string name="buy_sub">Acquista</string>
   <string name="client_version_error">Si prega di aggiornare l\'app</string>
   <string name="why_is_this_a_subscription">Perché è un abbonamento?</string>
-  <string name="why_sub_explanation"><![CDATA[<p>La maggior parte dei proventi degli abbonamenti vanno agli artisti e ai detentori dei diritti. Pagare una una sola volta per QuickLyric Premium sarebbe come pagare Spotify una volta sola e avere i benefici Premium per tutta la vita. Sfortunatamente non è possibile.</p>    <p>Se ci pagassi e continuassi a usare l\'app per anni, noi dovremmo comunque pagare i diritti per il tuo utilizzo.</p>    Vi preghiamo di comprendere che l\'industria musicale funziona in questo modo.]]>    </string>
+  <string name="why_sub_explanation"><![CDATA[<p>La maggior parte dei proventi degli abbonamenti vanno agli artisti e ai detentori dei diritti. Pagare una una sola volta per QuickLyric Premium sarebbe come pagare Spotify una volta e avere i benefici Premium per tutta la vita. Sfortunatamente non è possibile.</p>
+    <p>Se ci pagassi una volta e continuassi a usare l\'app per anni, noi dovremmo comunque pagare i diritti per il tuo utilizzo.</p>
+    Ti preghiamo di comprendere che è un requisito dell\'industria musicale che le cose funzionino in questo modo, e non una nostra decisione.]]>
+    </string>
   <string name="vote_action">Valuta</string>
   <string name="user_submission_dialog_title">Valuta questi testi</string>
   <string name="vote_for">Questi testi sono corretti</string>
@@ -183,16 +186,54 @@ Ti ringraziamo per la comprensione.<br/><br/>
   <string name="recents_empty_database">Non hai ascoltato ancora niente</string>
   <string name="gmusic_import_securityException">È necessario che Google Play Music sia in esecuzione</string>
   <string name="miui_autostart">Gli utenti %s devono prima sbloccare l\'app</string>
-  <string name="musicid_instructions">Tieni il telefono vicino alla musica</string>
+  <string name="musicid_instructions">Tieni il telefono vicino alla sorgente musicale</string>
   <string name="loading">Caricamento&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric non riesce a leggere la tua musica - prova a riavviare il tuo dispositivo</string>
-  <string name="romanizer_prompt_msg">Per convertire testi in giapponese, coreano o cinese nell\'alfabeto latino devi scaricare un plug-in aggiuntivo per QuickLyric.</string>
-  <string name="romanizer_prompt_title">Estensione latinizzazione</string>
+  <string name="nls_issues">QuickLyric non riesce a leggere la tua musica</string>
+  <string name="romanizer_prompt_msg">Per convertire testi in giapponese, coreano o cinese all\'alfabeto latino devi scaricare un plug-in aggiuntivo per QuickLyric.</string>
+  <string name="romanizer_prompt_title">Plug-in per la latinizzazione</string>
   <string name="pref_always_artwork">Sempre attivo</string>
   <string name="pref_overlay_behavior_always">Sempre visibile</string>
   <string name="pref_overlay_behavior_notif">Apri da notifica</string>
   <string name="pref_overlay_behavior_title">Comportamento testi galleggianti</string>
   <string name="pref_notification_sum_disabled">Le notifiche non possono essere disabilitate quando i testi galleggianti sono attivi</string>
+  <string name="iab_error">Errore nella lettura dello stato dell\'abbonamento da Google Play</string>
+  <string name="fix_it">Risolvi</string>
+  <string name="bad_xp_msg">Va tutto bene?</string>
+  <string name="bad_xp_btn">Chiedi aiuto</string>
+  <string name="nls_enable_prompt">Per favore, seleziona QuickLyric in questa lista</string>
+  <string name="yes">sì</string>
+  <string name="no">no</string>
+  <string name="good_xp_prompt_msg">Ti piace QuickLyric?</string>
+  <string name="thanks">Grazie!</string>
+  <string name="thanks_feedback">Grazie per la tua opinione!</string>
+  <string name="please_improve_ql">Per favore, facci sapere come possiamo migliorare QuickLyric!</string>
+  <string name="goodXP_rate_prompt">Siamo così felici che QuickLyric ti piaccia! Votare l\'app ci aiuterebbe molto. Grazie infinite per aver usato QuickLyric!</string>
+  <string name="ads_occasional">Questi annunci verranno mostrati saltuariamente</string>
+  <string name="ads_remove_title">Rimuovi gli annunci gratuitamente</string>
+  <string name="video_ad_dialog"><![CDATA[Noi di QuickLyric sappiamo quanto possono essere fastidiosi gli annunci. Il nostro scopo è quello di fornirti il miglior servizio di testi sul mercato con meno pubblicità possibili.<br/><br/>Guarda questo breve video e non vedrai più annunci per <strong>%1$d giorni</strong>.]]></string>
+  <string name="watch_video">Guarda video</string>
+  <string name="trial_incent">I primi 7 giorni sono gratuiti senza impegno. Provalo!</string>
+  <string name="storage_permission_rationale">Il permesso é utilizzato per identificare i tuoi file musicali</string>
+  <string name="let_us_know">Facci sapere!</string>
+  <string name="overlay_resize_onclick_prompt">Tieni premuto per ridimensionare la finestra</string>
+  <string name="open_app_action">Apri l\'app</string>
+  <string name="user_survey_title">Sondaggio utente QuickLyric</string>
+  <string name="user_survey_sum">Quale funzionalità credi manchi in QuickLyric?</string>
+  <string name="survey_option_none">Nessuna</string>
+  <string name="survey_option_id">Miglior riconoscimento delle canzoni</string>
+  <string name="survey_option_translate">Traduzione dei testi</string>
+  <string name="survey_option_player">Un lettore musicale interno a QuickLyric</string>
+  <string name="survey_option_catalog">Un miglior catalogo di testi</string>
+  <string name="survey_option_crowdsourcing">Utenti che aggiungono e correggono i testi</string>
+  <string name="survey_option_sync">Utenti che sincronizzano manualmente i testi</string>
+  <string name="survey_option_share">La possibilità di condividere i testi</string>
+  <string name="survey_option_bigger">Testo più grande</string>
+  <string name="survey_option_other">Altro</string>
+  <string name="survey_importance_high">Molto importante</string>
+  <string name="survey_importance_medium">Importante</string>
+  <string name="survey_importance_low">Non una priorità</string>
+  <string name="survey_submit">Inoltra</string>
+  <string name="survey_thanks">Grazie per il tuo feedback!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric scaricherà ora il testo di %1$d canzone.\
         Assicurati di avere una connessione stabile per %2$d minuto.</item>

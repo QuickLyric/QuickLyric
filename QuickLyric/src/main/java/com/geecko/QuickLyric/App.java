@@ -25,19 +25,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.geecko.QuickLyric.services.LyricsOverlayService;
+import com.geecko.QuickLyric.utils.LaunchesCounter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.TreeSet;
 
-public class App extends Application implements Application.ActivityLifecycleCallbacks {
 
-    public static final boolean playStoreVariant = BuildConfig.FLAVOR.equals("play");
+public class App extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
 
     public static RefWatcher getRefWatcher(Context context) {
         App app = (App) context.getApplicationContext();
@@ -58,18 +59,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
     @Override
     public void onCreate() {
-        if (BuildConfig.DEBUG) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .penaltyFlashScreen()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .build());
-        }
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         super.onCreate();
         refWatcher = LeakCanary.install(this);
         registerActivityLifecycleCallbacks(this);
@@ -83,6 +73,8 @@ public class App extends Application implements Application.ActivityLifecycleCal
             showIntent.setAction(LyricsOverlayService.HIDE_FLOATING_ACTION);
             getApplicationContext().startService(showIntent);
         }
+        LaunchesCounter.increaseLaunchCount(getApplicationContext(), false);
+        PreferenceManager.getDefaultSharedPreferences(activity).edit().putLong("opened_activity_timestamp", System.currentTimeMillis()).apply();
     }
 
     @Override

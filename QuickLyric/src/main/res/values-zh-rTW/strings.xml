@@ -30,6 +30,7 @@
   <string name="pref_about">關於</string>
   <string name="send_feedback">傳送回饋</string>
   <string name="local_title">已保存歌詞</string>
+  <string name="musicid_title">辨識歌詞</string>
   <string name="settings_title">設定</string>
   <string name="save_action">保存</string>
   <string name="lyrics_saved">歌詞已保存</string>
@@ -92,6 +93,7 @@
   <string name="source_hip_hop">嘻哈</string>
   <string name="source_EDM">電子舞蹈音樂</string>
   <string name="source_japanese">日語</string>
+  <string name="translate_us">翻譯應用程式</string>
   <string name="pref_always_artwork">Always enabled</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric 將會下載共 %1$d 首歌曲的歌詞。\

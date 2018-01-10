@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,20 +41,15 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
-import com.geecko.QuickLyric.provider.Genius;
-import com.geecko.QuickLyric.provider.JLyric;
-import com.geecko.QuickLyric.provider.LyricWiki;
+import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.viewpagerindicator.TitlePageIndicator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
     public ArrayList<Class> searchProviders = new ArrayList<>();
@@ -61,27 +57,16 @@ public class SearchActivity extends AppCompatActivity {
     public boolean leaving;
 
     @SuppressWarnings("unchecked")
-    private void updateSearchProviders(Context context) {
+    private void updateSearchProviders() {
         searchProviders.clear();
         searchProviders.add(DatabaseHelper.class);
-        searchProviders.add(LyricWiki.class);
-        searchProviders.add(Genius.class);
-
-        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(context)
-                .getStringSet("pref_providers", Collections.<String>emptySet());
-        for (String name : providersSet)
-            switch (name) {
-                // TODO add missing providers here
-                case "JLyric":
-                    searchProviders.add(JLyric.class);
-                    break;
-            }
+        searchProviders.add(LyricsChart.class);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        updateSearchProviders(this);
+        updateSearchProviders();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
@@ -98,7 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         setNavBarColor(null);
 
         setContentView(R.layout.search_view_pager);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        Toolbar toolbar = findViewById(R.id.search_toolbar);
         setSupportActionBar(toolbar);
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,8 +100,8 @@ public class SearchActivity extends AppCompatActivity {
                 this.getFragmentManager(), this, searchQuery));
         boolean online = OnlineAccessVerifier.check(this);
         viewPager.setCurrentItem(online ? 1 : 0);
-        TitlePageIndicator titleIndicator = (TitlePageIndicator) findViewById(R.id.pager_title_strip);
-        titleIndicator.setViewPager(viewPager, online ? 1 : 0);
+        PagerTitleStrip titleIndicator = findViewById(R.id.pager_title_strip);
+        titleIndicator.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         setSearchQuery(getIntent().getStringExtra("query"));
     }
 
@@ -146,7 +131,7 @@ public class SearchActivity extends AppCompatActivity {
         if (leaving)
             leaving = false;
         else
-            overridePendingTransition(android.R.anim.fade_in, R.anim.fade_out);
+            overridePendingTransition(android.R.anim.fade_in, R.animator.fade_out);
     }
 
     @Override
@@ -184,25 +169,17 @@ public class SearchActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         // Get the SearchView and set the searchable configuration
         final MaterialSuggestionsSearchView materialSearchView =
-                (MaterialSuggestionsSearchView) findViewById(R.id.material_search_view);
+                findViewById(R.id.material_search_view);
         materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 materialSearchView.setSuggestions(null);
                 materialSearchView.requestFocus();
-                materialSearchView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                                .hideSoftInputFromWindow(materialSearchView.getWindowToken(), 0);
-                    }
-                });
-                materialSearchView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        SearchActivity.this.searchQuery = query;
-                        refresh();
-                    }
+                materialSearchView.post(() -> ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(materialSearchView.getWindowToken(), 0));
+                materialSearchView.postDelayed(() -> {
+                    SearchActivity.this.searchQuery = query;
+                    refresh();
                 }, 90);
                 return true;
             }

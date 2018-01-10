@@ -6,10 +6,10 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.ComponentName;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -43,11 +43,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.geecko.QuickLyric.AboutActivity;
-import com.geecko.QuickLyric.App;
+import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.utils.AnimatorActionListener;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.utils.WhiteListUtil;
 import com.geecko.QuickLyric.view.BubblePopImageView;
 
 import java.util.Arrays;
@@ -92,7 +95,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     private ViewPager mPager;
     private boolean hasClicked = false;
     private int mCurrentPage;
-    private int count = getCount();
 
     private final View.OnTouchListener exitTouchListener = new View.OnTouchListener() {
         VelocityTracker mVelocityTracker;
@@ -101,6 +103,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         boolean mSwiping;
 
         @Override
+        @SuppressLint("ClickableViewAccessibility")
         public boolean onTouch(final View v, MotionEvent event) {
             if (mCurrentPage != (rightToLeft ? 0 : getCount() - 1) || !Tutorial_4.nlEnabled)
                 return false;
@@ -124,8 +127,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 case android.view.MotionEvent.ACTION_CANCEL:
                     ((View) v.getParent()).setAlpha(1);
                     v.setTranslationX(0);
-                    mVelocityTracker.recycle();
-                    mVelocityTracker = null;
+                    if (mVelocityTracker != null) {
+                        mVelocityTracker.recycle();
+                        mVelocityTracker = null;
+                    }
                     break;
                 case android.view.MotionEvent.ACTION_MOVE: {
                     if (mVelocityTracker != null)
@@ -178,23 +183,18 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                         long duration = (int) ((1 - fractionCovered) * SWIPE_DURATION);
                         ((View) v.getParent()).animate().setDuration(Math.abs(duration)).alpha(endAlpha);
                         v.animate().setDuration(Math.abs(duration)).translationX(endX)
-                                .setListener(new AnimatorActionListener(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // Restore animated values
-                                        if (remove) {
-                                            int MOVE_DURATION = 500;
-                                            v.animate().setDuration(MOVE_DURATION).translationY(0);
-                                            v.animate().setListener(new AnimatorActionListener(new Runnable() {
-                                                public void run() {
-                                                    mSwiping = false;
-                                                    IntroScreenSlidePagerAdapter.this.onAnimationEnd();
-                                                }
-                                            }, AnimatorActionListener.ActionType.END));
-                                        } else {
-                                            ((View) v.getParent()).setAlpha(1);
-                                            v.setTranslationX(0);
-                                        }
+                                .setListener(new AnimatorActionListener(() -> {
+                                    // Restore animated values
+                                    if (remove) {
+                                        int MOVE_DURATION = 500;
+                                        v.animate().setDuration(MOVE_DURATION).translationY(0);
+                                        v.animate().setListener(new AnimatorActionListener(() -> {
+                                            mSwiping = false;
+                                            IntroScreenSlidePagerAdapter.this.onAnimationEnd();
+                                        }, AnimatorActionListener.ActionType.END));
+                                    } else {
+                                        ((View) v.getParent()).setAlpha(1);
+                                        v.setTranslationX(0);
                                     }
                                 }, AnimatorActionListener.ActionType.END));
                     }
@@ -209,10 +209,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     };
 
 
-    public IntroScreenSlidePagerAdapter(FragmentManager fm, final Activity activity) {
-        super(fm);
+    public IntroScreenSlidePagerAdapter(final Activity activity) {
+        super(activity.getFragmentManager());
         this.mActivity = activity;
-        mPager = ((ViewPager) mActivity.findViewById(R.id.pager));
+        mPager = mActivity.findViewById(R.id.pager);
         mPager.setOnTouchListener(exitTouchListener);
         if (Build.VERSION.SDK_INT >= 17)
             rightToLeft = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == 1;
@@ -221,38 +221,25 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             Collections.reverse(list);
             colors = (Integer[]) list.toArray();
         }
-        ImageButton pagerArrow = ((ImageButton) mActivity.findViewById(R.id.pager_arrow));
-        Button okButton = ((Button) mActivity.findViewById(R.id.pager_ok));
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Tutorial_4.nlEnabled) {
-                    final ViewGroup nlFrame = (ViewGroup) activity.findViewById(R.id.NL_frame);
-                    final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-                            Color.parseColor("#30000000"), Color.parseColor("#80FFFFFF"));
-                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            nlFrame.setBackgroundColor((int) animation.getAnimatedValue());
-                        }
-                    });
-                    colorAnimation.setInterpolator(new LinearOutSlowInInterpolator());
-                    colorAnimation.setRepeatCount(3);
-                    colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
-                    colorAnimation.setDuration(650L);
-                    colorAnimation.start();
-                } else if (!hasClicked) {
-                    exitAction();
-                    hasClicked = true;
-                }
+        ImageButton pagerArrow = mActivity.findViewById(R.id.pager_arrow);
+        Button okButton = mActivity.findViewById(R.id.pager_ok);
+        okButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Tutorial_4.nlEnabled) {
+                final ViewGroup nlFrame = activity.findViewById(R.id.NL_frame);
+                final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+                        Color.parseColor("#30000000"), Color.parseColor("#80FFFFFF"));
+                colorAnimation.addUpdateListener(animation -> nlFrame.setBackgroundColor((int) animation.getAnimatedValue()));
+                colorAnimation.setInterpolator(new LinearOutSlowInInterpolator());
+                colorAnimation.setRepeatCount(3);
+                colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+                colorAnimation.setDuration(650L);
+                colorAnimation.start();
+            } else if (!hasClicked) {
+                exitAction();
+                hasClicked = true;
             }
         });
-        pagerArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextAction();
-            }
-        });
+        pagerArrow.setOnClickListener(v -> nextAction());
     }
 
     @Override
@@ -270,25 +257,6 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     @Override
     public int getCount() {
         int count = 3;
-        if (App.playStoreVariant) {
-            count += 1;
-            if (tutorialScreens.length < 5) {
-                tutorialScreens = new Class[]{
-                        Tutorial_0.class,
-                        Tutorial_1.class,
-                        Tutorial_2.class,
-                        Tutorial_3.class,
-                        Tutorial_4.class
-                };
-                colors = new Integer[]{
-                        R.color.accent_dark,
-                        R.color.bright_yellow,
-                        R.color.deep_red,
-                        android.R.color.holo_orange_light,
-                        R.color.material_red_A700
-                };
-            }
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             count += 1;
         }
@@ -315,7 +283,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         View gearA;
         View gearB;
 
-        BubblePopImageView tableImageView = (BubblePopImageView) tutorialLayout.findViewById(R.id.table);
+        BubblePopImageView tableImageView = tutorialLayout.findViewById(R.id.table);
         position = rightToLeft ? getCount() - 1 - position : position;
         if (rightToLeft && positionOffset > 0.0) {
             position -= 1;
@@ -346,7 +314,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                         bigFab.setRotation((1f - positionOffset) * 360f);
                 }
                 break;
-            case 2:
+            /*case 2:
                 View redKey = tutorialLayout.findViewById(R.id.intro_3_red_key);
                 View yellowKey = tutorialLayout.findViewById(R.id.intro_3_yellow_key);
                 if (redKey != null && yellowKey != null) {
@@ -368,8 +336,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     gearA.setRotation(-180f * positionOffset);
                     gearB.setRotation(180f * positionOffset);
                 }
-                break;
-            case 3:
+                break;*/
+            case 2:
                 gearA = tutorialLayout.findViewById(R.id.redGear);
                 gearB = tutorialLayout.findViewById(R.id.blueGear);
                 if (gearA != null && gearB != null) {
@@ -382,12 +350,20 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
     @Override
     public void onPageSelected(int position) {
-        Button pagerButton = ((Button) mActivity.findViewById(R.id.pager_button));
-        ImageButton pagerArrow = ((ImageButton) mActivity.findViewById(R.id.pager_arrow));
-        Button okButton = ((Button) mActivity.findViewById(R.id.pager_ok));
+        Button pagerButton = mActivity.findViewById(R.id.pager_button);
+        ImageButton pagerArrow = mActivity.findViewById(R.id.pager_arrow);
+        Button okButton = mActivity.findViewById(R.id.pager_ok);
         if ((rightToLeft && position == 0) || (!rightToLeft && position >= getCount() - 1)) {
-            pagerButton.setText("");
-            pagerButton.setEnabled(false);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                pagerButton.setText("");
+                pagerButton.setEnabled(false);
+            } else {
+                pagerButton.setText(R.string.no_results_why);
+                pagerButton.setOnClickListener((v) -> new AlertDialog.Builder(v.getContext()).setTitle(v.getContext().getString(R.string.notification_access))
+                        .setMessage(Html.fromHtml(v.getContext().getString(R.string.notification_access_explanation)))
+                        .setIcon(R.drawable.icon)
+                        .show());
+            }
             pagerArrow.setVisibility(View.GONE);
             okButton.setVisibility(View.VISIBLE);
         } else {
@@ -425,18 +401,10 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             public void onAnimationStart(Animation animation) {
             }
         });
-        if (mActivity instanceof AboutActivity)
-            ((AboutActivity) mActivity).setStatusBarColor(null);
-        else
-            MainActivity.setStatusBarColor(mActivity.getWindow(),
-                    mActivity.getTheme(), null);
-        MainActivity.setNavBarColor(mActivity.getWindow(),
-                mActivity.getTheme(), null);
         ((RelativeLayout) mPager.getParent()).startAnimation(slideOut);
     }
 
     private void onAnimationEnd() {
-
         ((RelativeLayout) mPager.getParent()).setVisibility(View.GONE);
         if (mActivity instanceof MainActivity) {
             ((MainActivity) mActivity).focusOnFragment = true;
@@ -447,6 +415,14 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                     mActivity.getSharedPreferences("intro_slides", Context.MODE_PRIVATE).edit();
             editor.putBoolean("seen", true);
             editor.apply();
+            if (mActivity instanceof MainActivity) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                        !NotificationListenerService.isAppScrobbling(mActivity)) {
+                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
+                            mActivity.getFragmentManager().findFragmentByTag(MainActivity.LYRICS_FRAGMENT_TAG);
+                    lyricsViewFragment.showBrokenScrobblingWarning();
+                }
+            }
             MainActivity.setStatusBarColor(mActivity.getWindow(),
                     mActivity.getTheme(), null);
         } else if (mActivity instanceof AboutActivity)
@@ -468,14 +444,13 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
         // Players page
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.tutorial_1, container, false);
-            return rootView;
+            return inflater.inflate(R.layout.tutorial_1, container, false);
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            BubblePopImageView tableImageView = (BubblePopImageView) getActivity().findViewById(R.id.table);
+            BubblePopImageView tableImageView = getActivity().findViewById(R.id.table);
             if (tableImageView != null)
                 tableImageView.setProgress(1f);
         }
@@ -499,121 +474,115 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
 
     @SuppressWarnings("deprecation")
     public static class Tutorial_4 extends Fragment {
+        private static final int OVERLAY_REQUEST_CODE = 14118;
         // Last page: optional NotificationListener page
 
         static boolean nlEnabled = true;
         static boolean buttonClicked = false;
         static boolean autostartEnabled = false;
+        private boolean floatingEnabledDefault;
 
         @SuppressLint("NewApi")
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View output = inflater.inflate(R.layout.tutorial_4, container, false);
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View layout = inflater.inflate(R.layout.tutorial_4, container, false);
 
-            TextView link = output.findViewById(R.id.NL_link);
-            View floatingFrame = output.findViewById(R.id.floating_frame);
+            TextView link = layout.findViewById(R.id.NL_link);
+            View floatingFrame = layout.findViewById(R.id.floating_frame);
             nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
-            ((ViewGroup) link.getParent()).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!nlEnabled) {
-                        if (!autostartEnabled && openBootSpecialMenu()) {
-                            Toast.makeText(getActivity(), getString(R.string.miui_autostart, Build.BRAND), Toast.LENGTH_LONG).show();
-                            autostartEnabled = true;
-                        } else {
-                            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-                            MainActivity.waitingForListener = true;
-                            buttonClicked = true;
-                        }
-                    }
-                }
-            });
-            floatingFrame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getActivity())) {
-                        final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
-                        getActivity().startActivity(intent);
+            ((ViewGroup) link.getParent()).setOnClickListener(v -> {
+                if (!nlEnabled || BuildConfig.DEBUG) {
+                    if (!autostartEnabled && WhiteListUtil.openBootSpecialMenu(inflater.getContext())) {
+                        Toast.makeText(getActivity(), getString(R.string.miui_autostart, Build.BRAND), Toast.LENGTH_LONG).show();
+                        autostartEnabled = true;
                     } else {
-                        ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(true);
+                        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                        Toast.makeText(getActivity(), R.string.nls_enable_prompt, Toast.LENGTH_LONG).show();
+                        MainActivity.waitingForListener = true;
+                        final BroadcastReceiver nlsReceiver = new BroadcastReceiver() {
+                            @Override
+                            public void onReceive(Context context, Intent intent) {
+                                if (context != null) {
+                                    intent = new Intent(context, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(intent);
+                                    context.unregisterReceiver(this);
+                                }
+                            }
+                        };
+                        final IntentFilter iFilter = new IntentFilter("com.geecko.QuickLyric.NLS_CONNECTED");
+                        layout.getContext().registerReceiver(nlsReceiver, iFilter);
+                        buttonClicked = true;
                     }
-                    PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean("pref_overlay", true).apply();
+                    SharedPreferences prefs = getActivity().getSharedPreferences("intro_slides", Context.MODE_PRIVATE);
                 }
             });
-            output.findViewById(R.id.why_notif_access_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(v.getContext()).setTitle(getString(R.string.notification_access))
-                            .setMessage(Html.fromHtml(getString(R.string.notification_access_explanation)))
-                            .setIcon(R.drawable.icon)
-                            .show();
+            if (floatingEnabledDefault)
+                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean("pref_overlay", true).apply();
+
+            showFloatingFrameButton(layout);
+            floatingFrame.setOnClickListener(view -> {
+                boolean currentState = ((SwitchCompat) getView().findViewById(R.id.floating_switch)).isChecked();
+                if (!currentState && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getActivity())) {
+                    final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(!currentState);
+                    PermissionsChecker.displayMIUIPopupPermission(getActivity());
                 }
+                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean("pref_overlay", !currentState).apply();
+                SharedPreferences prefs = getActivity().getSharedPreferences("intro_slides", Context.MODE_PRIVATE);
             });
             ((ViewGroup) link.getParent()).setClickable(true);
-            return output;
+            return layout;
         }
 
-        @TargetApi(19)
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode == OVERLAY_REQUEST_CODE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getView().postDelayed(() -> {
+                    boolean floatingEnabled = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_overlay", false);
+                    boolean floatingPermitted = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(getActivity());
+                    ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(floatingEnabled && floatingPermitted);
+                }, 650);
+            }
+        }
+
         @Override
         public void onResume() {
             super.onResume();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
                 return;
-            boolean floatingEnabled = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_overlay", false);
+            boolean floatingEnabled = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_overlay", floatingEnabledDefault);
             boolean floatingPermitted = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(getActivity());
             nlEnabled = NotificationListenerService.isListeningAuthorized(getActivity());
             ((SwitchCompat) getView().findViewById(R.id.NL_switch)).setChecked(nlEnabled);
             ((SwitchCompat) getView().findViewById(R.id.floating_switch)).setChecked(floatingEnabled && floatingPermitted);
             View okButton = getActivity().findViewById(R.id.pager_ok);
-            ViewGroup frame = getView().findViewById(R.id.NL_frame);
-            View floatingFrame = getView().findViewById(R.id.floating_frame);
-            View whyButton = getView().findViewById(R.id.why_notif_access_button);
             if (okButton != null)
                 getActivity().findViewById(R.id.pager_ok).setAlpha(nlEnabled ? 1f : 0.4f);
-            boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+            showFloatingFrameButton(getView());
+            MainActivity.waitingForListener = false;
+        }
 
-            floatingFrame.setVisibility(nlEnabled ? View.VISIBLE : isLandscape ? View.GONE : View.INVISIBLE);
-            if (frame != null)
+        @TargetApi(19)
+        private void showFloatingFrameButton(View layout) {
+            boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+            boolean shouldHideFloatingFrame = false;
+
+            ViewGroup frame = layout.findViewById(R.id.NL_frame);
+            View floatingFrame = layout.findViewById(R.id.floating_frame);
+            floatingFrame.setVisibility(nlEnabled && !shouldHideFloatingFrame ? View.VISIBLE : isLandscape ? View.GONE : View.INVISIBLE);
+            if (frame != null) {
                 frame.setVisibility(isLandscape && nlEnabled ? View.INVISIBLE : View.VISIBLE);
-            if (buttonClicked || nlEnabled) {
-                if (frame == null || whyButton == null) {
-                    return;
-                }
                 RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frame.getLayoutParams();
 
                 frameParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 frameParams.setMargins(frameParams.leftMargin, frameParams.topMargin, frameParams.rightMargin, 0);
                 frameParams.removeRule(RelativeLayout.CENTER_VERTICAL);
                 frame.setLayoutParams(frameParams);
-                whyButton.setVisibility(nlEnabled ? View.GONE : View.VISIBLE);
             }
-
-            MainActivity.waitingForListener = false;
-        }
-
-        private boolean openBootSpecialMenu() {
-            try {
-                if(Build.BRAND.equalsIgnoreCase("xiaomi") ){
-                    Intent intent = new Intent();
-                    intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
-                    startActivity(intent);
-                } else if(Build.BRAND.equalsIgnoreCase("Letv")){
-                    Intent intent = new Intent();
-                    intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
-                    startActivity(intent);
-                }
-            } catch (Exception e) {
-		try {
-                    startActivity(new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")));
-                } catch (Exception e2) {
-                     return false;
-                }
-            }
-            return true;
         }
     }
 }

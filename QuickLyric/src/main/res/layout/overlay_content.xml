@@ -32,16 +32,31 @@
         android:layout_height="72dp"
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
+        style="@style/actionBar.QuickLyric"
         android:theme="@style/actionBar.QuickLyric"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/material_grey_800"
+        android:clipChildren="false"
+        android:visibility="gone"
+        android:elevation="5dp"
+        android:clipToPadding="false">
+
+    </FrameLayout>
+
     <ViewSwitcher
         android:id="@+id/overlay_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:inAnimation="@android:anim/fade_in"
         android:measureAllChildren="false"
-        android:outAnimation="@android:anim/fade_out"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:outAnimation="@android:anim/fade_out">
 
         <com.geecko.QuickLyric.view.NonFocusableNestedScrollView
             android:id="@+id/scrollview"
@@ -52,6 +67,7 @@
             android:scrollbarStyle="outsideOverlay">
 
             <FrameLayout
+                android:id="@+id/overlay_lyrics_framelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -75,5 +91,22 @@
             android:visibility="gone"/>
 
     </ViewSwitcher>
+
+    <FrameLayout
+        android:id="@+id/overlay_resize_handle"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#beee" />
+
+    </FrameLayout>
 
 </com.geecko.QuickLyric.view.OverlayContentLayout>

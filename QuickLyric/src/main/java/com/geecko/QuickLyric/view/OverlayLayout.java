@@ -20,13 +20,16 @@
 package com.geecko.QuickLyric.view;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -42,19 +45,20 @@ import io.codetail.widget.RevealFrameLayout;
 import static android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutChangeListener {
+public class OverlayLayout extends RevealFrameLayout{
 
     private OverlayLayoutListener listener;
     private Integer[] revealCenter;
 
+    @SuppressLint("ClickableViewAccessibility")
     public OverlayLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WindowManager.LayoutParams layoutParams =
                 new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER_HORIZONTAL, Gravity.BOTTOM,
-                        Build.VERSION.SDK_INT >= 26 ?
-                                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE,
+                        Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY :
+                                WindowManager.LayoutParams.TYPE_PHONE,
                         FLAG_FORCE_NOT_FULLSCREEN | FLAG_WATCH_OUTSIDE_TOUCH,
                         PixelFormat.TRANSLUCENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
@@ -62,7 +66,11 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_force_screen_on", false))
             layoutParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
         setLayoutParams(layoutParams);
-        addOnLayoutChangeListener(this);
+        setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                listener.onBackpressed();
+            return false;
+        });
     }
 
     public void setRevealCenter(Integer... params) {
@@ -70,15 +78,6 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
             this.revealCenter = null;
         else
             this.revealCenter = params;
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Lyrics lyrics = ((LyricsOverlayService) ((OverlayContentLayout) getTag()).getTag()).getLyrics();
-        if (lyrics != null)
-            ((OverlayContentLayout) findViewById(R.id.overlay_content)).update(lyrics, true);
-        new ParseTask((OverlayContentLayout) findViewById(R.id.overlay_content), getContext(), false, true).execute();
     }
 
     @Override
@@ -100,26 +99,33 @@ public class OverlayLayout extends RevealFrameLayout implements View.OnLayoutCha
         return super.dispatchKeyEvent(event);
     }
 
-    public void setListener(OverlayLayoutListener listener) {
-        this.listener = listener;
+    @Override
+    public void onVisibilityChanged(View view, int visibility) {
+        super.onVisibilityChanged(view, visibility);
+        if (visibility == View.VISIBLE && this == view) {
+            Lyrics lyrics = LyricsOverlayService.getLyrics();
+            if (lyrics != null)
+                ((OverlayContentLayout) findViewById(R.id.overlay_content)).update(lyrics, true);
+            new ParseTask(findViewById(R.id.overlay_content), getContext(), false, true, true).execute();
+
+            if (revealCenter != null && ViewCompat.isAttachedToWindow(getChildAt(0))) {
+                int cx = revealCenter[0];
+                int cy = revealCenter[1];
+                int dx = Math.max(cx, getWidth() - cx);
+                int dy = Math.max(cy, getHeight() - cy);
+                float finalRadius = (float) Math.hypot(dx, dy);
+
+                Animator animator = ViewAnimationUtils.createCircularReveal(getChildAt(0), cx, cy, 0, finalRadius);
+                animator.setInterpolator(new AccelerateDecelerateInterpolator());
+                animator.setDuration(300L);
+                animator.start();
+                revealCenter = null;
+            }
+        }
     }
 
-    @Override
-    public void onLayoutChange(final View view, int left, int top, int right, int bottom,
-                               int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        if (revealCenter != null) {
-            int cx = revealCenter[0];
-            int cy = revealCenter[1];
-            int dx = Math.max(cx, getWidth() - cx);
-            int dy = Math.max(cy, getHeight() - cy);
-            float finalRadius = (float) Math.hypot(dx, dy);
-
-            Animator animator = ViewAnimationUtils.createCircularReveal(getChildAt(0), cx, cy, 0, finalRadius);
-            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-            animator.setDuration(300L);
-            animator.start();
-            revealCenter = null;
-        }
+    public void setListener(OverlayLayoutListener listener) {
+        this.listener = listener;
     }
 
     public interface OverlayLayoutListener {

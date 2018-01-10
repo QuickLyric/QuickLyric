@@ -49,10 +49,13 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
+
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final ViewGroup v = (ViewGroup) inflater.inflate(R.layout.list_item_track, parent, false);
+        final View v = inflater.inflate(R.layout.list_item_track, parent, false);
         return new ViewHolder(v);
+
     }
 
     @Override
@@ -66,20 +69,17 @@ public class RecentTracksAdapter extends RecyclerView.Adapter<RecentTracksAdapte
         File artworksDir = new File(mContext.getCacheDir(), "artworks");
         File artworkFile = new File(artworksDir, artist + title + ".png");
 
-        holder.mContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = holder.getAdapterPosition();
-                String artist = mData.get(pos).mArtist;
-                String title = mData.get(pos).mTitle;
-                ((MainActivity) holder.mArtistTextView.getContext()).updateLyricsFragment(0, artist, title);
-                EventBus.getDefault().post(new RecentsDownloadingEvent());
-            }
+        holder.mContainer.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            String artist1 = mData.get(pos).mArtist;
+            String title1 = mData.get(pos).mTitle;
+            ((MainActivity) holder.mArtistTextView.getContext()).updateLyricsFragment(0, artist1, title1);
+            EventBus.getDefault().post(new RecentsDownloadingEvent());
         });
 
         Glide.with(mContext)
                 .load(artworkFile)
-                .fitCenter()
+                .centerCrop()
                 .crossFade()
                 .fallback(R.drawable.no_cover)
                 .placeholder(R.drawable.no_cover)

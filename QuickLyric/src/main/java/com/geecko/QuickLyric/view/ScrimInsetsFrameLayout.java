@@ -27,6 +27,8 @@ import android.widget.FrameLayout;
 
 import com.geecko.QuickLyric.R;
 
+import java.lang.ref.WeakReference;
+
 /**
  * A layout that draws something in the insets passed to {@link #fitSystemWindows(Rect)}, i.e. the area above UI chrome
  * (status and navigation bars, overlay action bars).
@@ -36,7 +38,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 
     private Rect mInsets;
     private Rect mTempRect = new Rect();
-    private OnInsetsCallback mOnInsetsCallback;
+    private WeakReference<OnInsetsCallback> mOnInsetsCallback;
 
     public ScrimInsetsFrameLayout(Context context) {
         super(context);
@@ -71,7 +73,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         setWillNotDraw(mInsetForeground == null);
         ViewCompat.postInvalidateOnAnimation(this);
         if (mOnInsetsCallback != null) {
-            mOnInsetsCallback.onInsetsChanged(insets);
+            mOnInsetsCallback.get().onInsetsChanged(insets);
         }
         return false; // don't consume insets
     }
@@ -133,7 +135,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
      * clipToPadding to false.
      */
     public void setOnInsetsCallback(OnInsetsCallback onInsetsCallback) {
-        mOnInsetsCallback = onInsetsCallback;
+        mOnInsetsCallback = new WeakReference<>(onInsetsCallback);
     }
 
     public static interface OnInsetsCallback {

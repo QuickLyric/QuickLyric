@@ -17,7 +17,7 @@
 #}
 
 #-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
--keepattributes Signature, Exceptions, Annotation
+-keepattributes Signature, Exceptions, Annotation, SourceFile, LineNumberTable
 
 -dontwarn org.jaudiotagger.**
 -dontwarn com.viewpagerindicator.**
@@ -32,6 +32,7 @@
 -dontwarn android.net.http.**
 -dontwarn com.android.volley.**
 -dontwarn okhttp3.**
+-dontwarn org.mozilla.**
 
 -keep class org.jsoup.** { *; }
 -keep class retrofit2.** { *; }
@@ -40,7 +41,7 @@
 -keep class com.drivemode.spotify.** { *; }
 
 -keep class * extends java.util.ListResourceBundle {
-    protected Object[][] getContents();
+    protected java.lang.Object[][] getContents();
 }
 
 -keepnames class * implements android.os.Parcelable {

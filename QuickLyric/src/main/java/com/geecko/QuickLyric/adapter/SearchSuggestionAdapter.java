@@ -60,8 +60,7 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
         ((TextView)suggestionRow.getChildAt(0)).setTextColor(suggestionTextColor.data);
 
         if (suggestionRow.getChildCount() < 3) {
-            final MaterialSuggestionsSearchView searchView = (MaterialSuggestionsSearchView)
-                    parent.getRootView().findViewById(R.id.material_search_view);
+            final MaterialSuggestionsSearchView searchView = parent.getRootView().findViewById(R.id.material_search_view);
             ImageButton removeButton = new ImageButton(suggestionRow.getContext());
             removeButton.setImageDrawable(searchView.getCloseIcon());
             TypedValue background = new TypedValue();
@@ -69,15 +68,12 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
                     .resolveAttribute(R.attr.selectableItemBackground, background, true);
             removeButton.setBackgroundResource(background.resourceId);
             removeButton.setClickable(true);
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    removeSuggestion(((TextView) suggestionRow
-                            .findViewById(com.miguelcatalan.materialsearchview.R.id.suggestion_text)).getText()
-                            .toString()
-                    );
-                    searchView.refreshSuggestions();
-                }
+            removeButton.setOnClickListener(v -> {
+                removeSuggestion(((TextView) suggestionRow
+                        .findViewById(com.miguelcatalan.materialsearchview.R.id.suggestion_text)).getText()
+                        .toString()
+                );
+                searchView.refreshSuggestions();
             });
 
             RelativeLayout.LayoutParams lp =
@@ -90,13 +86,9 @@ public class SearchSuggestionAdapter extends com.miguelcatalan.materialsearchvie
             int padding = suggestionRow.getResources().getDimensionPixelSize(R.dimen.search_icon_padding);
             removeButton.setPadding(padding, 0, padding, 0);
         }
-        suggestionRow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MaterialSuggestionsSearchView searchView = (MaterialSuggestionsSearchView)
-                        parent.getRootView().findViewById(R.id.material_search_view);
-                searchView.setQuery((String) getItem(position), true);
-            }
+        suggestionRow.setOnClickListener(v -> {
+            MaterialSuggestionsSearchView searchView = parent.getRootView().findViewById(R.id.material_search_view);
+            searchView.setQuery((String) getItem(position), true);
         });
         return suggestionRow;
     }

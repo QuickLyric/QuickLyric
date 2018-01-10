@@ -108,8 +108,7 @@ public class ControllableAppBarLayout extends AppBarLayout {
     }
 
     public void expandToolbar(boolean withAnimation) {
-        mQueuedChange = withAnimation ? ToolbarChange.EXPAND_WITH_ANIMATION : ToolbarChange.EXPAND;
-        requestLayout();
+        setExpanded(true, withAnimation);
     }
 
     private void performCollapsingWithoutAnimation() {

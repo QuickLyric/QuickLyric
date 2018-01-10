@@ -20,21 +20,13 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
-import android.os.Parcelable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
 
 public class RefreshIcon extends FloatingActionButton {
-
-    private boolean mRunning = false;
-    public static boolean mEnded = false;
-
     public RefreshIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

@@ -39,13 +39,6 @@
         <item>6</item>
         <item>7</item>
     </string-array>
-    <string-array name="providers_values">
-        <item>PLyrics</item>
-        <item>MetalArchives</item>
-        <item>UrbanLyrics</item>
-        <item>Lololyrics</item>
-        <item>JLyric</item>
-    </string-array>
     <string-array name="overlay_behavior_values">
         <item>0</item>
         <item>1</item>

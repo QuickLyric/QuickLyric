@@ -24,7 +24,6 @@ import android.animation.AnimatorInflater;
 import android.app.ActivityManager;
 import android.app.ListFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,7 +51,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -216,15 +214,12 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                         getListView().setEnabled(false);
                         v.animate().setDuration(Math.abs(duration))
                                 .alpha(endAlpha).translationX(endX)
-                                .setListener(new AnimatorActionListener(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (remove) {
-                                            animateRemoval(v);
-                                        } else {
-                                            mBackgroundContainer.hideBackground();
-                                            getListView().setEnabled(true);
-                                        }
+                                .setListener(new AnimatorActionListener(() -> {
+                                    if (remove) {
+                                        animateRemoval(v);
+                                    } else {
+                                        mBackgroundContainer.hideBackground();
+                                        getListView().setEnabled(true);
                                     }
                                 }, AnimatorActionListener.ActionType.END));
                         if (((LocalAdapter) megaListView.getExpandableListAdapter())
@@ -303,11 +298,9 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                                 descendingViewFound = true;
                             child.setTranslationY(translationY);
                             child.animate().setDuration(MOVE_DURATION).translationY(0)
-                                    .setListener(firstAnimation[0] ? new AnimatorActionListener(new Runnable() {
-                                        public void run() {
-                                            mSwiping = false;
-                                            getListView().setEnabled(true);
-                                        }
+                                    .setListener(firstAnimation[0] ? new AnimatorActionListener(() -> {
+                                        mSwiping = false;
+                                        getListView().setEnabled(true);
                                     }, AnimatorActionListener.ActionType.END) : null);
                             if (firstAnimation[0]) {
                                 firstAnimation[0] = false;
@@ -342,11 +335,9 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                             child.animate().setDuration(MOVE_DURATION).translationY(0);
                         }
                         if (firstAnimation[0]) {
-                            child.animate().setListener(new AnimatorActionListener(new Runnable() {
-                                public void run() {
-                                    getListView().setEnabled(true);
-                                    mSwiping = false;
-                                }
+                            child.animate().setListener(new AnimatorActionListener(() -> {
+                                getListView().setEnabled(true);
+                                mSwiping = false;
                             }, AnimatorActionListener.ActionType.END));
                             firstAnimation[0] = false;
                         }
@@ -368,9 +359,9 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         setRetainInstance(true);
         setHasOptionsMenu(true);
         View layout = inflater.inflate(R.layout.local_listview, container, false);
-        megaListView = (AnimatedExpandableListView) layout.findViewById(android.R.id.list);
-        mBackgroundContainer = (BackgroundContainer) layout.findViewById(R.id.listViewBackground);
-        progressBar = (ProgressBar) layout.findViewById(R.id.list_progress);
+        megaListView = layout.findViewById(android.R.id.list);
+        mBackgroundContainer = layout.findViewById(R.id.listViewBackground);
+        progressBar = layout.findViewById(R.id.list_progress);
         this.savedInstanceState = savedInstanceState;
         return layout;
     }
@@ -416,98 +407,83 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         }
 
         if (!megaListView.hasOnGroupClickListener())
-            megaListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                @Override
-                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                    if (megaListView.isGroupExpanded(groupPosition)) {
-                        megaListView.collapseGroupWithAnimation(groupPosition);
-                    } else {
-                        megaListView.expandGroupWithAnimation(groupPosition);
-                    }
-                    return true;
+            megaListView.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+                if (megaListView.isGroupExpanded(groupPosition)) {
+                    megaListView.collapseGroupWithAnimation(groupPosition);
+                } else {
+                    megaListView.expandGroupWithAnimation(groupPosition);
                 }
+                return true;
             });
 
         if (!megaListView.hasOnChildClickListener())
-            megaListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v,
-                                            int groupPosition, int childPosition, long id) {
-                    if (mSwiping) {
-                        mSwiping = false;
-                        return false;
-                    }
-                    if (mActionMode != null) {
-                        markChildItem(v, (LocalAdapter) megaListView.getExpandableListAdapter(), groupPosition, childPosition);
-                        return true;
-                    }
-                    final MainActivity mainActivity = (MainActivity) getActivity();
-                    megaListView.setOnChildClickListener(null); // prevents bug on double tap
-                    mainActivity.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
-                            true, false, ((LocalAdapter) megaListView.getExpandableListAdapter())
-                                    .getChild(groupPosition, childPosition));
+            megaListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+                if (((AnimatedExpandableListView.AnimatedExpandableListAdapter)megaListView.getExpandableListAdapter()).isAnimating(groupPosition))
+                    return true;
+                if (mSwiping) {
+                    mSwiping = false;
+                    return false;
+                }
+                if (mActionMode != null) {
+                    markChildItem(v, (LocalAdapter) megaListView.getExpandableListAdapter(), groupPosition, childPosition);
                     return true;
                 }
+                final MainActivity mainActivity1 = (MainActivity) getActivity();
+                megaListView.setOnChildClickListener(null); // prevents bug on double tap
+                mainActivity1.updateLyricsFragment(R.animator.slide_out_start, R.animator.slide_in_start,
+                        true, false, ((LocalAdapter.ChildViewHolder)v.getTag()).lyrics);
+                return true;
             });
 
         if (!megaListView.hasOnItemLongClickListener())
-            megaListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View childView, int flatPos, long id) {
-                    if (mSwiping)
-                        return true;
-
-                    final LocalAdapter adapter = (LocalAdapter) ((ExpandableListView) parent).getExpandableListAdapter();
-                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                        long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
-                        int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
-                        int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
-                        markChildItem(childView, adapter, groupPosition, childPosition);
-                    } else {
-                        long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
-                        int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
-                        adapter.markGroup(groupPosition);
-                        if (!megaListView.isGroupExpanded(groupPosition))
-                            megaListView.expandGroupWithAnimation(groupPosition);
-                        if (mActionMode == null && adapter.getMarkedCount() > 0)
-                            mActionMode = getActivity().startActionMode(LocalLyricsFragment.this);
-                        else if (mActionMode != null)
-                            mActionMode.invalidate();
-                    }
-
+            megaListView.setOnItemLongClickListener((parent, childView, flatPos, id) -> {
+                if (mSwiping)
                     return true;
+
+                final LocalAdapter adapter = (LocalAdapter) ((ExpandableListView) parent).getExpandableListAdapter();
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                    int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
+                    markChildItem(childView, adapter, groupPosition, childPosition);
+                } else {
+                    long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                    adapter.markGroup(groupPosition);
+                    if (!megaListView.isGroupExpanded(groupPosition))
+                        megaListView.expandGroupWithAnimation(groupPosition);
+                    if (mActionMode == null && adapter.getMarkedCount() > 0)
+                        mActionMode = getActivity().startActionMode(LocalLyricsFragment.this);
+                    else if (mActionMode != null)
+                        mActionMode.invalidate();
                 }
+
+                return true;
             });
 
-        megaListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                if (mActionMode != null)
-                    mActionMode.invalidate();
-                int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
-                ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
-                if (viewGroup != null) {
-                    LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
-                    if (holder != null) {
-                        holder.artist.setTextColor(holder.textColor);
-                        holder.indicator.setRotation(181f);
-                        holder.indicator.animate().rotation(360f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
-                    }
+        megaListView.setOnGroupCollapseListener(groupPosition -> {
+            if (mActionMode != null)
+                mActionMode.invalidate();
+            int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
+            ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
+            if (viewGroup != null) {
+                LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
+                if (holder != null) {
+                    holder.artist.setTextColor(holder.textColor);
+                    holder.indicator.setRotation(181f);
+                    holder.indicator.animate().rotation(360f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
                 }
             }
         });
 
-        megaListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
-                ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
-                if (viewGroup != null) {
-                    LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
-                    if (holder != null) {
-                        holder.indicator.setRotation(1f);
-                        holder.indicator.animate().rotation(180f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
-                    }
+        megaListView.setOnGroupExpandListener(groupPosition -> {
+            int flatPosition = megaListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(groupPosition));
+            ViewGroup viewGroup = (ViewGroup) getViewByPosition(flatPosition);
+            if (viewGroup != null) {
+                LocalAdapter.GroupViewHolder holder = (LocalAdapter.GroupViewHolder) viewGroup.getTag();
+                if (holder != null) {
+                    holder.indicator.setRotation(1f);
+                    holder.indicator.animate().rotation(180f).setInterpolator(new DecelerateInterpolator(2)).setDuration(500).start();
                 }
             }
         });
@@ -515,7 +491,7 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         megaListView.setPadding(megaListView.getPaddingLeft(),
                 megaListView.getPaddingTop(),
                 megaListView.getPaddingRight(),
-                0);
+                (getActivity().findViewById(R.id.ad_container) == null) ? 0 : getActivity().findViewById(R.id.ad_container).getMeasuredHeight());
 
         this.isActiveFragment = true;
         new DBContentLister(this).execute();
@@ -590,7 +566,7 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         MainActivity mainActivity = (MainActivity) this.getActivity();
         ActionBar actionBar = (mainActivity).getSupportActionBar();
         CollapsingToolbarLayout toolbarLayout =
-                (CollapsingToolbarLayout) mainActivity.findViewById(R.id.toolbar_layout);
+                mainActivity.findViewById(R.id.toolbar_layout);
         if (mainActivity.focusOnFragment) // focus is on Fragment
         {
             if (actionBar.getTitle() == null || !actionBar.getTitle().equals(this.getString(R.string.local_title)))
@@ -620,92 +596,83 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
         AlertDialog.Builder choiceBuilder = new AlertDialog.Builder(getActivity());
         AlertDialog choiceDialog = choiceBuilder
                 .setTitle(R.string.content_providers_title)
-                .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface choiceDialog, int i) {
-                        if (values[i].equals("Spotify")) {
-                            AlertDialog.Builder spotifyChoiceBuilder = new AlertDialog.Builder(getActivity());
-                            spotifyChoiceBuilder.setSingleChoiceItems(R.array.spotify_options, -1,
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            switch (which) {
-                                                case 1:
-                                                    Spotify.getPlaylistTracks(getActivity());
-                                                    dialog.dismiss();
-                                                    choiceDialog.dismiss();
-                                                    break;
-                                                case 0:
-                                                    Spotify.getUserTracks(getActivity());
-                                                    dialog.dismiss();
-                                                    choiceDialog.dismiss();
-                                                    break;
-                                            }
-                                        }
-                                    }).show();
-                            return;
-                        } else {
-                            if (!PermissionsChecker.requestPermission(getActivity(),
-                                    "android.permission.READ_EXTERNAL_STORAGE",
-                                    0,
-                                    LocalLyricsFragment.REQUEST_CODE))
-                                return;
-                        }
-                        int failureMsg = R.string.scan_error_no_content;
-                        final Uri contentProvider = Uri.parse(values[i]);
-                        String[] projection = new String[]{"artist", "title"};
-                        String selection = "artist IS NOT NULL AND artist <> '<unknown>'";
-                        Cursor countCursor = null;
-                        try {
-                            countCursor = getActivity().getContentResolver()
-                                    .query(contentProvider, projection, selection, null, null);
-                        } catch (SecurityException ignored) {
-                            ignored.printStackTrace();
-                            failureMsg = R.string.gmusic_import_securityException;
-                        }
-                        if (countCursor == null || countCursor.getCount() == 0) {
-                            choiceDialog.cancel();
-                            Toast.makeText(getActivity(),
-                                    getString(failureMsg),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                            return;
-                        }
-                        int count = countCursor.getCount();
-                        final int time = (int) Math.ceil(count / 500f);
-                        countCursor.close();
-                        choiceDialog.dismiss();
-                        String prompt = getResources()
-                                .getQuantityString(R.plurals.scan_dialog, count);
-                        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getActivity());
-                        confirmDialog
-                                .setTitle(R.string.warning)
-                                .setMessage(String.format(prompt, count, time))
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent scanInfo = new Intent(getActivity(),
-                                                BatchDownloaderService.class);
-                                        scanInfo.putExtra("uri", contentProvider);
-                                        getActivity().startService(scanInfo);
+                .setSingleChoiceItems(items, -1, (choiceDialog1, i) -> {
+                    if (values[i].equals("Spotify")) {
+                        AlertDialog.Builder spotifyChoiceBuilder = new AlertDialog.Builder(getActivity());
+                        spotifyChoiceBuilder.setSingleChoiceItems(R.array.spotify_options, -1,
+                                (dialog, which) -> {
+                                    switch (which) {
+                                        case 1:
+                                            Spotify.getPlaylistTracks(getActivity());
+                                            dialog.dismiss();
+                                            choiceDialog1.dismiss();
+                                            break;
+                                        case 0:
+                                            Spotify.getUserTracks(getActivity());
+                                            dialog.dismiss();
+                                            choiceDialog1.dismiss();
+                                            break;
                                     }
-                                })
-                                .setNegativeButton(android.R.string.cancel, null)
-                                .create().show();
+                                }).show();
+                        return;
+                    } else {
+                        if (!PermissionsChecker.requestPermission(getActivity(),
+                                "android.permission.READ_EXTERNAL_STORAGE",
+                                0,
+                                LocalLyricsFragment.REQUEST_CODE))
+                            return;
                     }
+                    int failureMsg = R.string.scan_error_no_content;
+                    final Uri contentProvider = Uri.parse(values[i]);
+                    String[] projection = new String[]{"artist", "title"};
+                    String selection = "";
+                    Cursor countCursor = null;
+                    try {
+                        countCursor = getActivity().getContentResolver()
+                                .query(contentProvider, projection, selection, null, null);
+                    } catch (SecurityException ignored) {
+                        ignored.printStackTrace();
+                        failureMsg = R.string.gmusic_import_securityException;
+                    }
+                    if (countCursor == null || countCursor.getCount() == 0) {
+                        choiceDialog1.cancel();
+                        Toast.makeText(getActivity(),
+                                getString(failureMsg),
+                                Toast.LENGTH_LONG)
+                                .show();
+                        return;
+                    }
+                    int count = countCursor.getCount();
+                    final int time = (int) Math.ceil(count / 360f);
+                    countCursor.close();
+                    choiceDialog1.dismiss();
+                    String prompt = getResources()
+                            .getQuantityString(R.plurals.scan_dialog, count);
+                    AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getActivity());
+                    confirmDialog
+                            .setTitle(R.string.warning)
+                            .setMessage(String.format(prompt, count, time))
+                            .setPositiveButton(android.R.string.ok, (dialogInterface, i1) -> {
+                                Intent scanInfo = new Intent(getActivity(),
+                                        BatchDownloaderService.class);
+                                scanInfo.putExtra("uri", contentProvider);
+                                getActivity().startService(scanInfo);
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .create().show();
                 })
                 .create();
         choiceDialog.show();
     }
 
     private boolean isMyServiceRunning(Context context) {
-        ActivityManager manager = (ActivityManager)context. getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (BatchDownloaderService.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
         }
-        Log.i("Service not","running");
+        Log.i("Service not", "running");
         return false;
     }
 
@@ -795,12 +762,9 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                     delendam.animate().translationX(delendam.getMeasuredWidth()).alpha(0.4f)
                             .setDuration(600)
                             .setInterpolator(new AccelerateInterpolator())
-                            .setListener(new AnimatorActionListener(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lyricsList.add(adapter.getChild(position[0], position[1]));
-                                    mBackgroundContainer.hideBackground();
-                                }
+                            .setListener(new AnimatorActionListener(() -> {
+                                lyricsList.add(adapter.getChild(position[0], position[1]));
+                                mBackgroundContainer.hideBackground();
                             }, AnimatorActionListener.ActionType.END)).start();
                     backgroundTop = Math.min(backgroundTop, delendam.getTop());
                     backgroundBottom = Math.max(backgroundBottom, delendam.getBottom());
@@ -838,20 +802,18 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
             if (backgroundBottom != -1 && backgroundTop > -1)
                 mBackgroundContainer.showBackground(backgroundTop, backgroundBottom);
 
-            megaListView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!lyricsList.isEmpty()) {
-                        Lyrics[] removedLyrics = new Lyrics[lyricsList.size()];
-                        for (int i = 0; i < lyricsList.size(); i++)
-                            removedLyrics[i] = lyricsList.get(i);
-                        adapter.unmarkAllItems();
-                        new WriteToDatabaseTask(LocalLyricsFragment.this)
-                                .execute(LocalLyricsFragment.this, null, removedLyrics);
-                    }
+            megaListView.postDelayed(() -> {
+                if (!lyricsList.isEmpty() && LocalLyricsFragment.this != null) {
+                    Lyrics[] removedLyrics = new Lyrics[lyricsList.size()];
+                    for (int i = 0; i < lyricsList.size(); i++)
+                        removedLyrics[i] = lyricsList.get(i);
+                    adapter.unmarkAllItems();
+                    new WriteToDatabaseTask(LocalLyricsFragment.this)
+                            .execute(LocalLyricsFragment.this, null, removedLyrics);
                 }
             }, delay ? 700 : 0);
-            mActionMode.finish();
+            if (mActionMode != null)
+                mActionMode.finish();
             return true;
         }
         return false;

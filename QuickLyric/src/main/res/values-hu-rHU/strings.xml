@@ -30,6 +30,7 @@
   <string name="pref_about">Névjegy</string>
   <string name="send_feedback">Visszajelzés küldése</string>
   <string name="local_title">Elmentett dalszövegek</string>
+  <string name="musicid_title">Dalszöveg azonosítása</string>
   <string name="settings_title">Beállítások</string>
   <string name="save_action">Mentés</string>
   <string name="lyrics_saved">Dalszöveg elmentve</string>
@@ -104,14 +105,14 @@ Pár lehetséges ok:<br/>
   <string name="scan_error_permission_denied">QuickLyric nem kapott engedélyt a zenéi szkennelésére</string>
   <string name="id3_write_error">Zeneszám metaadatának szerkesztése sikertelen</string>
   <string name="id3_write_success">Zeneszám medaadata sikeresen szerkesztve</string>
-  <string name="id3_read_rationale">A QuickLyric-nek szüksége van erre az engedélyre hogy hozzá férhessen dalszövegekhez és lemezborítókhoz ezen a készüléken</string>
+  <string name="id3_read_rationale">A QuickLyric-nek szüksége van erre az engedélyre hogy hozzáférhessen dalszövegekhez és lemezborítókhoz ezen a készüléken</string>
   <string name="permission_denied">(engedély megtagadva)</string>
   <string name="id3_write_permission_error">Az alkalmazást újra kell indítani az írásjog megszerzéséhez</string>
   <string name="resync_action">Újraszinkronizálás</string>
   <string name="uri_storage">Ez a készülék</string>
   <string name="uri_gmusic">Google Play Music könyvtár</string>
   <string name="uri_spotify">Spotify könyvtár</string>
-  <string name="spotify_library">Zenekönyvtár</string>
+  <string name="spotify_library">Mentett számok</string>
   <string name="spotify_playlists">Lejátszási listák</string>
   <string name="source_punk">Punk Rock</string>
   <string name="source_metal">Metal</string>
@@ -122,8 +123,8 @@ Pár lehetséges ok:<br/>
   <string name="spotify_connection">Csatlakozás Spotify-ra&#8230;</string>
   <string name="full_text_action">Teljes szöveg</string>
   <string name="artworks_pref_title">Borítók automatikus letöltése</string>
-  <string name="artworks_pref_sum">Adat használatba kerülhet</string>
-  <string name="pref_lrc_sum">Jelölje ki az éppen a dalban hangzó szavakat - nem minden zenelejátszó támogatott</string>
+  <string name="artworks_pref_sum">Mobil adatforgalmat okozhat</string>
+  <string name="pref_lrc_sum">Az éppen énekelt szavak kijelölése - nem kerül minden dalszöveg szinkronizálásra</string>
   <string name="pref_lrc">Szinkronizált dalszövegek</string>
   <string name="red_theme">Piros</string>
   <string name="purple_theme">Lila</string>
@@ -137,9 +138,25 @@ Pár lehetséges ok:<br/>
   <string name="about_product_tour">Termékbemutató</string>
   <string name="nl_title">És még valami.</string>
   <string name="nl_instructions">Ahhoz hogy a QuickLyric működjön az összes lejátszóval, néhány beállítás kell végrehajtani.</string>
+  <string name="nl_settings_link">Hozzáférés engedélyezése a zenei információhoz</string>
+  <string name="floating_settings_link">Lebegő dalszöveg engedélyezése (opcionális)</string>
   <string name="changelog">Újdonságok</string>
   <string name="rate_us">Értékelje az alkalmazást</string>
-  <string name="premium_title">Váltson Prémiumra</string>
+  <string name="translate_us">Alkalmazás fordítása</string>
+  <string name="romanize">Romanizál</string>
+  <string name="reset">Visszaállitás</string>
+  <string name="musicid_no_match">Nincs találat</string>
+  <string name="notification_access">Hozzáférés az értesítésekhez</string>
+  <string name="pref_lyrics_overlay_name">Dalszöveg átfedés</string>
+  <string name="pref_lyrics_overlay_sum">Lebegő ablak, amelyben a dalszöveg az alkalmazáson kívül is elérhető</string>
+  <string name="notification_access_explanation"><![CDATA[
+Ez az engedély ahhoz szükséges csak, hogy a QuickLyric hozzáférjen a zenefájlok metaadataihoz. <br/>
+A QuickLyric nem akarja olvasni az értesítéseidet, azt az adatvédelmi szabályaink sem engedik. <br/> 
+A jó hír, hogy a QuickLyric nyílt forráskódú, ezt bárki ellenőrizheti magának! 😊 <br/> <br/>
+Köszönjük megértését! <br/> <br/>
+-A QuickLyric csapat
+]]></string>
+  <string name="premium_title">Töltse le a Prémium verziót (Ingyenes kipróbálás!)</string>
   <string name="remove_ads_title">Reklámok eltávolítása</string>
   <string name="subscription_monthly">Havi</string>
   <string name="subscription_yearly">Éves</string>
@@ -160,7 +177,63 @@ Pár lehetséges ok:<br/>
   <string name="why_sub_explanation"><![CDATA[<p>Az előfizetések bevételének nagy része az előadóhoz és a jogtulajdonosokhoz kerül. Egyszeri díj fizetése a QuickLyric Premium beszerzéséhez olyan lenne, mint a Spotify-nak pár dollárt fizetni és Premium előfizetést kapni az életed végéig. Sajnos ez nem lehetséges.</p>
 <p>Ha elfogadnánk tőled az egyszeri díjat és évekig használnád az alkalmazást nekünk még továbbra is fizetnünk kéne a jogtulajdonosnak a fogyasztásodért.</p>
 Kérjük értsd meg, hogy a zeneipar követelménye az, hogy így működnek a dolgok.]]>    </string>
+  <string name="vote_action">Szavazz</string>
+  <string name="user_submission_dialog_title">Értékeld ezt a dalszöveget</string>
+  <string name="vote_for">Ezek a dalszövegek helyesek</string>
+  <string name="vote_against">Ezek a dalszövegek rosszak</string>
+  <string name="vote_neutral">Ezeknek a dalszövegeknek néhány javításra van szükségük</string>
+  <string name="snackbar_ratings_QL">Élvezi a QuickLyric használatát?</string>
+  <string name="recent_tracks_title">Legutóbbi számok</string>
+  <string name="recents_empty_database">Még nem hallgatott semmit</string>
+  <string name="gmusic_import_securityException">A Google Play Music-ot el kell indítani, hogy működjön</string>
+  <string name="miui_autostart">%s a tulajdonosoknak először fel kell oldaniuk az alkalmazást</string>
+  <string name="musicid_instructions">Tartsa a telefont a zenéhez</string>
+  <string name="nls_issues">A QuickLyric-nek nem sikerül olvasnia a zenét</string>
+  <string name="romanizer_prompt_msg">A japán, koreai vagy kínai dalszövegnek a latin ábécére történő konvertálásához külön plugint kell letöltenie a QuickLyric-hez.</string>
+  <string name="romanizer_prompt_title">Romanizer kiegészítő</string>
   <string name="pref_always_artwork">Mindig engedélyezve</string>
+  <string name="pref_overlay_behavior_always">Mindig látható</string>
+  <string name="pref_overlay_behavior_notif">Megnyitás értesítésen keresztül</string>
+  <string name="pref_overlay_behavior_title">Lebegő dalszöveg viselkedés</string>
+  <string name="pref_notification_sum_disabled">Az értesítéseket nem lehet letiltani, amíg a lebegő dalszöveg engedélyezve vannak</string>
+  <string name="iab_error">Nem sikerült lekérni az előfizetési állapotot a Google Play-ről</string>
+  <string name="fix_it">Javítsa meg</string>
+  <string name="bad_xp_msg">Minden rendben?</string>
+  <string name="bad_xp_btn">Kérjen segítséget</string>
+  <string name="nls_enable_prompt">Kérem, válassza ki a QuickLyric-et ebben a listában</string>
+  <string name="yes">igen</string>
+  <string name="no">nem</string>
+  <string name="good_xp_prompt_msg">Szereti a QuickLyric-et?</string>
+  <string name="thanks">Köszönjük!</string>
+  <string name="thanks_feedback">Köszönjük visszajelzését!</string>
+  <string name="please_improve_ql">Kérem, tudassa velünk, hogyan tudjuk a QuickLyricet jobbá tenni!</string>
+  <string name="goodXP_rate_prompt">Boldogok vagyunk, hogy élvezi a QuickLyric-et! Az alkalmazás értékelése valóban segítene nekünk. Köszönjük a QuickLyric használatát!</string>
+  <string name="ads_occasional">Ezek a hirdetések csak alkalmanként jelennek meg</string>
+  <string name="ads_remove_title">Távolítsa el a hirdetéseket ingyen</string>
+  <string name="video_ad_dialog"><![CDATA[Itt a QuickLyric-ben megértjük, hogy bosszantó hirdetések lehetnek. Célunk, hogy a lehető legkevesebb reklámmal biztosítsuk a piacon a legjobb élményt.<br/><br/>Nézze meg ezt a rövid videót és az összes hirdetés eltávolításra kerül az alkalmazásból <strong>%258.99Ft (1$)d nap</strong>.]]></string>
+  <string name="watch_video">Videó megnézése</string>
+  <string name="trial_incent">Az első 7 nap ingyenes, elkötelezettség nélkül. Próbálja ki!</string>
+  <string name="storage_permission_rationale">Ez az engedély a zenefájlok azonosítására szolgál</string>
+  <string name="let_us_know">Tudassa velünk!</string>
+  <string name="overlay_resize_onclick_prompt">Tartsa nyomva az ablak átméretezéséhez</string>
+  <string name="open_app_action">Nyissa meg az alkalmazást</string>
+  <string name="user_survey_title">QuickLyric felhasználói felmérés</string>
+  <string name="user_survey_sum">Mit gondol milyen funkció hiányzik a QuickLyric-ből?</string>
+  <string name="survey_option_none">Egyik sem</string>
+  <string name="survey_option_id">Jobb dal azonosítás</string>
+  <string name="survey_option_translate">Dalszöveg fordítások</string>
+  <string name="survey_option_player">Egy zenelejátszó a QuickLyric belsejében</string>
+  <string name="survey_option_catalog">Egy jobb dalszöveg katalógus</string>
+  <string name="survey_option_crowdsourcing">A felhasználók hozzáadják és javítják a dalszövegeket</string>
+  <string name="survey_option_sync">A felhasználók manuálisan szinkronizálják a dalszöveget</string>
+  <string name="survey_option_share">Képes megosztani a dalszöveget</string>
+  <string name="survey_option_bigger">Nagyobb szöveg</string>
+  <string name="survey_option_other">Másik</string>
+  <string name="survey_importance_high">Nagyon fontos</string>
+  <string name="survey_importance_medium">Fontos</string>
+  <string name="survey_importance_low">Nincs prioritás</string>
+  <string name="survey_submit">Beküldés</string>
+  <string name="survey_thanks">Köszönjük visszajelzését!</string>
   <plurals name="scan_dialog">
     <item quantity="one">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
     <item quantity="other">A QuickLyric most letölti a dalszöveget %1$d számhoz.        Biztosítson stabil internet kapcsolatot %2$d percig.</item>
@@ -169,13 +242,17 @@ Kérjük értsd meg, hogy a zeneipar követelménye az, hogy így működnek a d
     <item quantity="one">%1$d szám dalszövege letöltése befejeződött</item>
     <item quantity="other">%1$d szám dalszövege letöltése befejeződött</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d elem kiválasztva</item>
+    <item quantity="other">%1$d elem kiválasztva</item>
+  </plurals>
   <string-array name="notifications">
     <item>Letiltva (alapértelmezett)</item>
     <item>Engedélyezve</item>
-    <item>Enabled (hidden)</item>
+    <item>Engedélyezve (rejtett)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>@string/pref_always_artwork</item>
-    <item>Csak Wi-Fi-n</item>
+    <item>Csak WiFi-n keresztül</item>
   </string-array>
 </resources>

@@ -52,22 +52,19 @@ public class CustomSelectionCallback implements ActionMode.Callback {
         if (menu.size() > 0) {
             menu.add(0, 9876, Menu.NONE, R.string.share);
             menu.findItem(9876).setIcon(R.drawable.ic_menu_share);
-            menu.findItem(9876).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    View focus = mActivity.getCurrentFocus();
-                    if (focus instanceof TextView) {
-                        CharSequence selection = ((TextView) focus).getText().subSequence(((TextView) focus)
-                                .getSelectionStart(), ((TextView) focus).getSelectionEnd());
-                        final Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.setType("text/plain");
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, selection.toString());
-                        mActivity.startActivity(Intent.createChooser(sendIntent, mActivity.getString(R.string.share)));
-                        return true;
-                    }
-                    return false;
+            menu.findItem(9876).setOnMenuItemClickListener(item -> {
+                View focus = mActivity.getCurrentFocus();
+                if (focus instanceof TextView) {
+                    CharSequence selection = ((TextView) focus).getText().subSequence(((TextView) focus)
+                            .getSelectionStart(), ((TextView) focus).getSelectionEnd());
+                    final Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, selection.toString());
+                    mActivity.startActivity(Intent.createChooser(sendIntent, mActivity.getString(R.string.share)));
+                    return true;
                 }
+                return false;
             });
         }
         return true;

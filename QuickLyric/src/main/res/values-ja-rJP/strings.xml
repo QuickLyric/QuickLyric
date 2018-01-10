@@ -126,7 +126,7 @@
   <string name="full_text_action">全文</string>
   <string name="artworks_pref_title">自動的にアートワークをダウンロード</string>
   <string name="artworks_pref_sum">モバイル データ料金がかかることがあります</string>
-  <string name="pref_lrc_sum">歌われている歌詞をハイライト表示します。すべての音楽プレーヤーがサポートされているわけではありません。</string>
+  <string name="pref_lrc_sum">歌われている歌詞をハイライト表示します - すべての歌詞が同期されるわけではありません</string>
   <string name="pref_lrc">同期した歌詞</string>
   <string name="red_theme">赤</string>
   <string name="purple_theme">紫</string>
@@ -144,6 +144,7 @@
   <string name="floating_settings_link">フローティング歌詞を有効にする (オプション)</string>
   <string name="changelog">変更履歴</string>
   <string name="rate_us">アプリを評価する</string>
+  <string name="translate_us">アプリを翻訳</string>
   <string name="romanize">ローマ字で</string>
   <string name="reset">リセット</string>
   <string name="musicid_no_match">一致しません ☹</string>
@@ -157,7 +158,7 @@ QuickLyric は、通知を読むことに興味がありません。私たちの
 ご理解いただきありがとうございます!<br/><br/>
 - QuickLyric チーム
 ]]></string>
-  <string name="premium_title">プレミアム版を入手</string>
+  <string name="premium_title">プレミアム版を入手 (フリートライアル!)</string>
   <string name="remove_ads_title">広告を削除</string>
   <string name="subscription_monthly">毎月</string>
   <string name="subscription_yearly">毎年</string>
@@ -190,7 +191,7 @@ QuickLyric は、通知を読むことに興味がありません。私たちの
   <string name="miui_autostart">%s の所有者は最初にアプリのブロックを解除する必要があります</string>
   <string name="musicid_instructions">電話を音楽に掲げる</string>
   <string name="loading">読み込み中&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric は音楽の読み込み中に問題が発生しました - お使いのデバイスを再起動してみてください</string>
+  <string name="nls_issues">QuickLyric は音楽の読み込みに問題がありました</string>
   <string name="romanizer_prompt_msg">日本語、韓国語、中国語からラテン系のアルファベットに歌詞を変換するには、QuickLyric の別のプラグインをダウンロードする必要があります。</string>
   <string name="romanizer_prompt_title">ローマ字化アドオン</string>
   <string name="pref_always_artwork">常に有効</string>
@@ -198,6 +199,44 @@ QuickLyric は、通知を読むことに興味がありません。私たちの
   <string name="pref_overlay_behavior_notif">通知から開く</string>
   <string name="pref_overlay_behavior_title">フローティング歌詞の動作</string>
   <string name="pref_notification_sum_disabled">フローティング歌詞が有効な場合、通知は無効にできません</string>
+  <string name="iab_error">Google Play からサブスクリプションの状態を取得できませんでした</string>
+  <string name="fix_it">修理する</string>
+  <string name="bad_xp_msg">すべて大丈夫ですか?</string>
+  <string name="bad_xp_btn">お問い合わせ</string>
+  <string name="nls_enable_prompt">このリストで QuickLyric を選択してください</string>
+  <string name="yes">はい</string>
+  <string name="no">いいえ</string>
+  <string name="good_xp_prompt_msg">QuickLyric を気に入っていただけましたか?</string>
+  <string name="thanks">ありがとうございます!</string>
+  <string name="thanks_feedback">フィードバックありがとうございます!</string>
+  <string name="please_improve_ql">QuickLyric を向上させるため、ご要望をお聞かせください!</string>
+  <string name="goodXP_rate_prompt">QuickLyric をお楽しみ頂き、大変光栄です! アプリを評価して頂くと本当に助かります。QuickLyric をご利用いただきありがとうございます!</string>
+  <string name="ads_occasional">この広告は時々表示されます</string>
+  <string name="ads_remove_title">無料のための広告を削除</string>
+  <string name="video_ad_dialog"><![CDATA[この QuickLyric で私たちが迷惑な広告をどうすることができるかを理解します。私たちの目標は、できるだけ少ない広告でマーケットの最高の体験を提供することです。<br/><br/>この短いビデオを見ると、すべての広告は<strong>%1$d 日</strong> アプリから削除されます。]]></string>
+  <string name="watch_video">ビデオを見る</string>
+  <string name="trial_incent">最初の 7 日間は無料で契約は必要ありません。お試しください!</string>
+  <string name="storage_permission_rationale">このアクセス許可は、音楽ファイルを認識するために使用します</string>
+  <string name="let_us_know">ご連絡ください!</string>
+  <string name="overlay_resize_onclick_prompt">ウィンドウのサイズを変更します</string>
+  <string name="open_app_action">アプリを開く</string>
+  <string name="user_survey_title">QuickLyric ユーザーアンケート</string>
+  <string name="user_survey_sum">QuickLyric に不足している機能は何だと思いますか?</string>
+  <string name="survey_option_none">なし</string>
+  <string name="survey_option_id">歌をより的確に識別</string>
+  <string name="survey_option_translate">歌詞の翻訳</string>
+  <string name="survey_option_player">QuickLyric 内部の音楽プレーヤー</string>
+  <string name="survey_option_catalog">良い歌詞カタログ</string>
+  <string name="survey_option_crowdsourcing">ユーザーの追加と、歌詞の修正</string>
+  <string name="survey_option_sync">ユーザーが手動で歌詞を同期する</string>
+  <string name="survey_option_share">歌詞を共有できること</string>
+  <string name="survey_option_bigger">大きな文字</string>
+  <string name="survey_option_other">その他</string>
+  <string name="survey_importance_high">とても重要</string>
+  <string name="survey_importance_medium">重要</string>
+  <string name="survey_importance_low">優先順位は高くない</string>
+  <string name="survey_submit">提出</string>
+  <string name="survey_thanks">フィードバックありがとうございます!</string>
   <plurals name="scan_dialog">
     <item quantity="other">QuickLyric は合計 %1$d 曲の歌詞をダウンロードします。\
 %2$d 分間、安定して接続されるようにしてください。</item>

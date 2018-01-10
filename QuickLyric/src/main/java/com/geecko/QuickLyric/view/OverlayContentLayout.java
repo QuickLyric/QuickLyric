@@ -19,44 +19,50 @@
 
 package com.geecko.QuickLyric.view;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
-import com.geecko.QuickLyric.services.NotificationListenerService;
 import com.geecko.QuickLyric.tasks.DownloadThread;
 import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.ParseTask;
@@ -64,11 +70,18 @@ import com.geecko.QuickLyric.tasks.PresenceChecker;
 import com.geecko.QuickLyric.tasks.RomanizeAsyncTask;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.LaunchesCounter;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
+import com.geecko.QuickLyric.utils.MediaControllerCallback;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
+import com.geecko.QuickLyric.utils.RatingUtils;
 import com.geecko.QuickLyric.utils.RomanizeUtil;
 
+import java.lang.ref.WeakReference;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenuItemClickListener, PresenceChecker.PresenceCheckerCallback,
         RomanizeAsyncTask.RomanisationCallback, Lyrics.Callback, ParseTask.ParseCallback {
@@ -76,19 +89,14 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     private View bugLayout;
     private LrcView lrcView;
     private Toolbar toolbar;
-    private View lyricsContent;
-    private TextSwitcher textSwitcher;
-    private ViewSwitcher viewFlipper;
+    private ViewSwitcher lyricsSwitcher;
+    private ViewSwitcher viewSwitcher;
     private NonFocusableNestedScrollView scrollview;
 
-    private OnLongClickListener menuItemLongClickListener = new OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View view) {
-            return true;
-        }
-    };
-    private Lyrics mLyrics;
-    private boolean lyricsPresentInDB;
+    private OnLongClickListener menuItemLongClickListener = view -> true;
+    private ConnectivityManager.NetworkCallback networkCallback;
+    public boolean lyricsPresentInDB;
+    private boolean mRefreshing;
     private Thread mLrcThread;
 
     public OverlayContentLayout(Context context, @Nullable AttributeSet attrs) {
@@ -99,15 +107,12 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     protected void onFinishInflate() {
         super.onFinishInflate();
         toolbar = findViewById(R.id.overlay_toolbar);
-        viewFlipper = findViewById(R.id.overlay_flipper);
+        viewSwitcher = findViewById(R.id.overlay_flipper);
         bugLayout = findViewById(R.id.error_msg);
-        lyricsContent = findViewById(R.id.lyrics_content);
+        ViewGroup lyricsContent = findViewById(R.id.lyrics_content);
         scrollview = findViewById(R.id.scrollview);
-        textSwitcher = lyricsContent.findViewById(R.id.switcher);
+        lyricsSwitcher = lyricsContent.findViewById(R.id.switcher);
         lrcView = lyricsContent.findViewById(R.id.lrc_view);
-        textSwitcher.setFactory(new LyricsTextFactory(new ContextThemeWrapper(getContext(), getSelectedTheme())));
-        ((TextView) textSwitcher.getChildAt(0)).setTextIsSelectable(false);
-        ((TextView) textSwitcher.getChildAt(1)).setTextIsSelectable(false);
 
         toolbar.inflateMenu(R.menu.overlay_lyrics);
         toolbar.setOnMenuItemClickListener(this);
@@ -133,35 +138,65 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     }
 
     private Lyrics getLyrics() {
-        Lyrics output = ((LyricsOverlayService) getTag()).getLyrics();
+        Lyrics output = LyricsOverlayService.getLyrics();
         output = output == null ? new Lyrics(Lyrics.NO_RESULT) : output;
         return output;
     }
 
     public void setLyrics(Lyrics lyrics) {
-        ((LyricsOverlayService) getTag()).setLyrics(lyrics);
+        LyricsOverlayService.setLyrics(lyrics);
     }
 
     private void refreshToolbar(Menu menu) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        menu.findItem(R.id.resync_action).setVisible(mLyrics.isLRC());
-        menu.findItem(R.id.convert_action).setVisible(mLyrics.isLRC());
+        menu.findItem(R.id.resync_action).setVisible(getLyrics().isLRC());
+        menu.findItem(R.id.convert_action).setVisible(getLyrics().isLRC());
         menu.findItem(R.id.save_action).setVisible(!sharedPreferences.getBoolean("pref_auto_save", true));
-        // menu.findItem(R.id.action_vote).setVisible("user-submission".equals(mLyrics.getSource())); FIXME
-        menu.findItem(R.id.romanize_action).setVisible(RomanizeUtil.detectIdeographic(mLyrics.getText()));
+        menu.findItem(R.id.action_vote).setVisible("user-submission".equals(getLyrics().getSource()));
+        MenuItem romanizeMenuItem = menu.findItem(R.id.romanize_action); // .setVisible(RomanizeUtil.detectIdeographic(getLyrics().getText()));
 
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            View v = toolbar.findViewById(item.getItemId());
-            if (v != null) {
-                ViewGroup vg = (ViewGroup) v.getParent();
-                for (int j = 0; j < vg.getChildCount(); j++) {
-                    View subView = vg.getChildAt(j);
-                    subView.setOnLongClickListener(menuItemLongClickListener);
+        if (romanizeMenuItem != null && getLyrics() != null && getLyrics().getText() != null && getLyrics().getFlag() == Lyrics.POSITIVE_RESULT) {
+            boolean isIdeographic = RomanizeUtil.detectIdeographic(getLyrics().getText());
+            Lyrics storedLyrics = null;
+            if (!isIdeographic) {
+                storedLyrics = getLyrics() == null ? null :
+                        DatabaseHelper.getInstance(getContext()).get(new String[]{
+                                getLyrics().getArtist(),
+                                getLyrics().getTitle(),
+                                getLyrics().getOriginalArtist(),
+                                getLyrics().getOriginalTitle()});
+            }
+            romanizeMenuItem.setVisible(isIdeographic ||
+                    (storedLyrics != null && RomanizeUtil.detectIdeographic(storedLyrics.getText())));
+            romanizeMenuItem.setTitle(isIdeographic ? R.string.romanize : R.string.reset);
+
+            if (getLyrics().getFlag() == Lyrics.POSITIVE_RESULT
+                    && sharedPreferences.getBoolean("pref_auto_save", true)) {
+                if (storedLyrics == null || (getLyrics().isLRC() && !getLyrics().isLRC())) {
+                    lyricsPresentInDB = true;
+                    new WriteToDatabaseTask().execute(this, menu.findItem(R.id.save_action), getLyrics());
+                }
+                menu.findItem(R.id.save_action).setVisible(false);
+            }
+        } else {
+            romanizeMenuItem.setVisible(false);
+        }
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View toolbarChild = toolbar.getChildAt(i);
+            if (toolbarChild instanceof ActionMenuView) {
+                ViewGroup actionBarContainer = (ViewGroup) toolbarChild;
+                for (int j = 0; j < actionBarContainer.getChildCount(); j++) {
+                    View v = actionBarContainer.getChildAt(j);
+                    v.setOnLongClickListener(menuItemLongClickListener);
                 }
                 break;
             }
         }
+    }
+
+    public void setNetworkCallback(ConnectivityManager.NetworkCallback networkCallback) {
+        this.networkCallback = networkCallback;
     }
 
     @SuppressWarnings("deprecation")
@@ -172,11 +207,14 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         TextView copyrightTV = findViewById(R.id.copyright_tv);
 
         new PresenceChecker(this).execute(getContext(), new String[]{lyrics.getArtist(), lyrics.getTitle(),
-                lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
+                lyrics.getOriginalArtist(), lyrics.getOriginalTitle()});
 
         if (lyrics == null)
             lyrics = new Lyrics(Lyrics.ERROR);
-        mLyrics = lyrics;
+
+        boolean sameLyrics = getLyrics() != null && getLyrics().getArtist() != null && getLyrics().getTitle() != null
+                && getLyrics().getArtist().equals(lyrics.getArtist()) && getLyrics().getTitle().equals(lyrics.getTitle());
+        setLyrics(lyrics);
         toolbar.setTitle(lyrics.getTitle());
         toolbar.setSubtitle(lyrics.getArtist());
         copyrightTV.setText(lyrics.getCopyright() != null ? "Copyright: " + lyrics.getCopyright() : "");
@@ -192,17 +230,58 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         }
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-            //TODO: Firebase Event
-            //TODO: Report view
+            notifyLyricsDisplayed(lyrics, OnlineAccessVerifier.check(getContext()));
             if (!lyrics.isLRC()) {
-                textSwitcher.setVisibility(View.VISIBLE);
+                lyricsSwitcher.setVisibility(View.VISIBLE);
                 lrcView.setVisibility(View.GONE);
+                String[] paragraphs = Html.fromHtml(lyrics.getText()).toString().split("(\\s*\\n\\s*){2,}");
+                View[] lyricsViews = new View[paragraphs.length + 2];
+                int viewsIndex = 0;
+                int adsCount = 0;
+                LyricsTextFactory factory = new LyricsTextFactory(new ContextThemeWrapper(getContext(), getSelectedTheme()), false);
+
+                for (int i = 0; i < paragraphs.length; i++) {
+                    TextView paragraph = (TextView) factory.makeView();
+                    paragraph.setText(paragraphs[i]);
+                    lyricsViews[viewsIndex++] = paragraph;
+                    if (i == paragraphs.length - 1)
+                        break;
+                }
+
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout linearLayout = new LinearLayout(getContext());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setLayoutParams(lp);
+
+                for (View lyricsView : lyricsViews) {
+                    if (lyricsView != null) {
+                        linearLayout.addView(lyricsView);
+                        LinearLayout.LayoutParams layoutParams;
+                        if (lyricsView.getLayoutParams() != null && lyricsView.getLayoutParams() instanceof LinearLayout.LayoutParams)
+                            layoutParams = (LinearLayout.LayoutParams) lyricsView.getLayoutParams();
+                        else
+                            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+                        layoutParams.setMargins(0, 0, 0, 25 * (int) getResources().getDimension(R.dimen.dp));
+                        lyricsView.setLayoutParams(layoutParams);
+                    }
+                }
+                if (lyricsSwitcher.getChildCount() > 1)
+                    lyricsSwitcher.removeViewAt(0);
+                lyricsSwitcher.addView(linearLayout);
                 if (animation)
-                    textSwitcher.setText(Html.fromHtml(lyrics.getText()));
-                else
-                    textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
+                    lyricsSwitcher.showNext();
+                else {
+                    Animation in = lyricsSwitcher.getInAnimation();
+                    Animation out = lyricsSwitcher.getOutAnimation();
+                    lyricsSwitcher.setInAnimation(null);
+                    lyricsSwitcher.setOutAnimation(null);
+                    lyricsSwitcher.showNext();
+                    lyricsSwitcher.setInAnimation(in);
+                    lyricsSwitcher.setOutAnimation(out);
+                }
             } else {
-                textSwitcher.setVisibility(View.GONE);
+                lyricsSwitcher.setVisibility(View.GONE);
                 lrcView.setVisibility(View.VISIBLE);
                 lrcView.setOriginalLyrics(lyrics);
                 lrcView.setSourceLrc(lyrics.getText());
@@ -216,46 +295,134 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 SpannableString text = new SpannableString(getResources().getString(R.string.from_id3));
                 text.setSpan(new UnderlineSpan(), 1, text.length() - 1, 0);
                 id3TV.setText(text);
+            } else {
+                id3TV.setOnClickListener(null);
+                SpannableString text = new SpannableString("Lyrics licensed & provided by LyricFind");
+                int start = text.toString().indexOf("LyricFind");
+                text.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.lyricfind.com"));
+                        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                        getContext().startActivity(intent);
+                    }
+                }, start, start + 9, 0);
+                text.setSpan(new UnderlineSpan(), start, start + 9, 0);
+                id3TV.setText(text);
             }
+            RatingUtils.trackSuccess(getContext());
 
-            scrollview.post(new Runnable() {
-                @Override
-                public void run() {
-                    scrollview.scrollTo(0, 0); //only useful when coming from localLyricsFragment
-                    scrollview.smoothScrollTo(0, 0);
-                }
+            scrollview.post(() -> {
+                scrollview.scrollTo(0, 0); //only useful when coming from localLyricsFragment
+                scrollview.smoothScrollTo(0, 0);
             });
         } else {
-            textSwitcher.setText("");
-            textSwitcher.setVisibility(View.INVISIBLE);
+            if (lyricsSwitcher.getChildCount() > 1)
+                lyricsSwitcher.removeViewAt(0);
+            lyricsSwitcher.addView(new View(getContext()));
+            lyricsSwitcher.showNext();
+            lyricsSwitcher.setVisibility(View.INVISIBLE);
             lrcView.setVisibility(View.INVISIBLE);
             bugLayout.setVisibility(View.VISIBLE);
-            int message;
+            int message = -1;
             if (lyrics.getFlag() == Lyrics.ERROR || !OnlineAccessVerifier.check(getContext())) {
-                message = R.string.client_version_error;
+                switch (lyrics.getErrorCode()) {
+                    default:
+                        message = R.string.connection_error;
+                        break;
+                    case 540:
+                        message = R.string.client_version_error;
+                        break;
+                    case 504:
+                    case 800:
+                    case 900:
+                }
+                notifyLyricsError(lyrics);
             } else {
                 message = R.string.no_results;
+                notifyLyricsNotFound(lyrics);
             }
-            ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
+            if (message != -1)
+                ((TextView) bugLayout.findViewById(R.id.bugtext)).setText(message);
+            else
+                ((TextView) bugLayout.findViewById(R.id.bugtext)).setText("Code: " + lyrics.getErrorCode());
             id3TV.setVisibility(View.GONE);
+            RatingUtils.trackFail(getContext());
         }
 
         refreshToolbar(toolbar.getMenu());
         stopRefreshAnimation();
     }
 
+    private void notifyLyricsDisplayed(Lyrics lyrics, boolean online) {
+        SharedPreferences preferences = getContext().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        Bundle bundle = new Bundle();
+        String artist = lyrics.getArtist();
+        String track = lyrics.getTitle();
+        bundle.putString("artist", artist);
+        bundle.putString("title", track);
+        bundle.putBoolean("online", online);
+        bundle.putBoolean("acoustid_used", lyrics.wasAcoustIDUsed());
+        bundle.putBoolean("has_fingerprint", !TextUtils.isEmpty(lyrics.getAudiofingerprint()));
+        bundle.putBoolean("has_storage_access", PermissionsChecker.hasPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
+        String player = preferences.getString("player", null);
+        String currentTrack = preferences.getString("track", null);
+        String currentArtist = preferences.getString("artist", null);
+        if (player != null && track.equalsIgnoreCase(currentTrack) && artist.equalsIgnoreCase(currentArtist))
+            bundle.putString("player", player);
+    }
+
+    private void notifyLyricsNotFound(Lyrics lyrics) {
+        SharedPreferences preferences = getContext().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        String artist = lyrics.getArtist();
+        String track = lyrics.getTitle();
+        Bundle bundle = new Bundle();
+        bundle.putString("artist", artist);
+        bundle.putString("title", track);
+        bundle.putBoolean("acoustid_used", lyrics.wasAcoustIDUsed());
+        bundle.putBoolean("has_fingerprint", !TextUtils.isEmpty(lyrics.getAudiofingerprint()));
+        bundle.putBoolean("has_storage_access", PermissionsChecker.hasPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
+        String player = preferences.getString("player", null);
+        String currentTrack = preferences.getString("track", null);
+        String currentArtist = preferences.getString("artist", null);
+        if (player != null && track.equalsIgnoreCase(currentTrack) && artist.equalsIgnoreCase(currentArtist))
+            bundle.putString("player", player);
+    }
+
+    private void notifyLyricsError(Lyrics lyrics) {
+        SharedPreferences preferences = getContext().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        String artist = lyrics.getArtist();
+        String track = lyrics.getTitle();
+        Bundle bundle = new Bundle();
+        bundle.putString("artist", artist);
+        bundle.putString("title", track);
+        bundle.putBoolean("acoustid_used", lyrics.wasAcoustIDUsed());
+        bundle.putBoolean("has_fingerprint", !TextUtils.isEmpty(lyrics.getAudiofingerprint()));
+        bundle.putBoolean("has_storage_access", PermissionsChecker.hasPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
+        String player = preferences.getString("player", null);
+        String currentTrack = preferences.getString("track", null);
+        String currentArtist = preferences.getString("artist", null);
+        if (player != null && track.equalsIgnoreCase(currentTrack) && artist.equalsIgnoreCase(currentArtist))
+            bundle.putString("player", player);
+    }
+
     private void startRefreshAnimation() {
         bugLayout.setVisibility(GONE);
-        if (!(viewFlipper.getCurrentView() instanceof ProgressBar))
-            viewFlipper.showNext();
+        if (!(viewSwitcher.getCurrentView() instanceof ProgressBar))
+            viewSwitcher.showNext();
+        this.mRefreshing = true;
     }
 
     private void stopRefreshAnimation() {
-        if (viewFlipper.getCurrentView() instanceof ProgressBar)
-            viewFlipper.showNext();
+        if (viewSwitcher.getCurrentView() instanceof ProgressBar)
+            viewSwitcher.showNext();
+        this.mRefreshing = false;
     }
 
-    public void fetchLyrics(String... params) {
+    public void fetchLyrics(String player, long duration, String... params) {
         String artist = params[0];
         String title = params[1];
         String url = null;
@@ -267,30 +434,33 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         if (artist != null && title != null) {
             if (url == null &&
                     (getContext().getSharedPreferences("intro_slides", Context.MODE_PRIVATE).getBoolean("seen", false))
-                    && (mLyrics == null || mLyrics.getFlag() != Lyrics.POSITIVE_RESULT ||
-                    !("Storage".equals(mLyrics.getSource())
-                            && mLyrics.getArtist().equalsIgnoreCase(artist)
-                            && mLyrics.getTitle().equalsIgnoreCase(title))
-            ))
-                lyrics = Id3Reader.getLyrics(getContext(), artist, title);
+                    && (getLyrics() == null || getLyrics().getFlag() != Lyrics.POSITIVE_RESULT ||
+                    !("Storage".equals(getLyrics().getSource())
+                            && artist.equalsIgnoreCase(getLyrics().getArtist())
+                            && title.equalsIgnoreCase(getLyrics().getTitle()))) &&
+                    PermissionsChecker.hasPermission(getContext(), "android.permission.READ_EXTERNAL_STORAGE"))
+                lyrics = Id3Reader.getLyrics(getContext(), artist, title, true);
 
-            if (lyrics == null)
+            if (lyrics == null && !(player != null && player.contains("youtube")))
                 lyrics = DatabaseHelper.getInstance(getContext()).get(new String[]{artist, title});
 
-            if (lyrics == null)
+            if (lyrics == null && !(player != null && player.contains("youtube")))
                 lyrics = DatabaseHelper.getInstance(getContext()).get(DownloadThread.correctTags(artist, title));
         }
+        boolean prefLRC = PreferenceManager.getDefaultSharedPreferences(getContext())
+                .getBoolean("pref_lrc", true);
         if (lyrics == null && OnlineAccessVerifier.check(getContext())) {
+            DownloadThread.LRC = prefLRC;
+
             toolbar.setTitle(title);
             toolbar.setSubtitle(artist);
 
-            SharedPreferences preferences = getContext().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            boolean positionAvailable = preferences.getLong("position", 0) != -1;
+            boolean positionAvailable = MediaControllerCallback.getActiveControllerPosition(getContext()) != -1;
 
             if (url == null)
-                new DownloadThread(this, positionAvailable, artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, duration, Id3Reader.getFile(getContext(), artist, title, true), artist, title).start();
             else
-                new DownloadThread(this, positionAvailable, url, artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, 0L, null, url, artist, title).start();
 
         } else if (lyrics != null)
             onLyricsDownloaded(lyrics);
@@ -305,57 +475,103 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.open_app_action:
+                Intent mainApp = new Intent(getContext(), MainActivity.class);
+                mainApp.setAction("android.intent.action.MAIN");
+                mainApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getContext().startActivity(mainApp);
+                ((LyricsOverlayService) getTag()).onBackpressed();
+                break;
             case R.id.share_action:
                 final Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.setType("text/plain");
-                if (mLyrics != null && mLyrics.getURL() != null) {
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, mLyrics.getURL());
-                    getContext().startActivity(Intent.createChooser(sendIntent, getContext().getResources().getString(R.string.share)));
+                if (getLyrics() != null && getLyrics().getURL() != null) {
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, getLyrics().getURL());
+                    Intent intent = Intent.createChooser(sendIntent, getContext().getResources().getString(R.string.share));
+                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                    getContext().startActivity(intent);
                 }
                 return true;
             case R.id.save_action:
-                if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
-                    new WriteToDatabaseTask().execute(this, item, this.mLyrics);
+                if (getLyrics() != null && getLyrics().getFlag() == Lyrics.POSITIVE_RESULT)
+                    new WriteToDatabaseTask().execute(this, item, getLyrics());
+                break;
+            case R.id.action_vote:
+                if (getLyrics() != null && "user-submission".equals(getLyrics().getSource())) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.user_submission_dialog_title)
+                            .setSingleChoiceItems(R.array.vote_options, -1, (dialog, which) -> {
+                                if (which == 0) {
+                                    // TODO Submit
+                                    Toast.makeText(getContext(), R.string.lyrics_saved, Toast.LENGTH_SHORT).show();
+                                    getLyrics().setSource("approved");
+                                    refreshToolbar(toolbar.getMenu());
+                                } else if (which == 1) {
+                                    getLyrics().setSource("disapproved");
+                                    refreshToolbar(toolbar.getMenu());
+                                    RatingUtils.trackFail(getContext());
+                                    RatingUtils.trackFail(getContext());
+                                }
+                                dialog.dismiss();
+                            }).create();
+                    alertDialog.getWindow().setType(Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                    alertDialog.show();
+                }
                 break;
             case R.id.resync_action:
                 MainActivity.resync(getContext());
                 break;
             case R.id.convert_action:
-                if (mLyrics.isLRC()) {
-                    if (lrcView != null && lrcView.dictionnary != null)
-                        update(lrcView.getStaticLyrics(), true);
-                } else
-                    update(DatabaseHelper.getInstance(getContext())
-                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
-                                    mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), true);
+                if (getLyrics().isLRC()) {
+                    if (lrcView != null && lrcView.dictionnary != null) {
+                        Lyrics staticLyrics = lrcView.getStaticLyrics();
+                        if (staticLyrics != null)
+                            update(staticLyrics, true);
+                    }
+                } else {
+                    Lyrics lyrics = DatabaseHelper.getInstance(getContext()).get(new String[]{getLyrics().getArtist(), getLyrics().getTitle(),
+                            getLyrics().getOriginalArtist(), getLyrics().getOriginalTitle()});
+                    if (lyrics != null)
+                        update(lyrics, true);
+                }
                 break;
             case R.id.romanize_action:
-                if (RomanizeUtil.detectIdeographic(mLyrics.getText())) {
+                if (RomanizeUtil.detectIdeographic(getLyrics().getText())) {
                     if (RomanizeUtil.isRomanizerInstalled(getContext())) {
-                        Lyrics lyrics = mLyrics;
+                        Lyrics lyrics = getLyrics();
+                        startRefreshAnimation();
                         new RomanizeAsyncTask(getContext(), this).execute(lyrics);
                     } else {
                         AlertDialog dialog = new AlertDialog.Builder(getContext())
                                 .setTitle(R.string.romanizer_prompt_title)
                                 .setMessage(R.string.romanizer_prompt_msg).setIcon(R.drawable.splash_icon)
                                 .setCancelable(true)
-                                .setPositiveButton("Google Play", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.quicklyric.romanizer")));
-                                    }
+                                .setPositiveButton("Google Play", (dialogInterface, i) -> {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.quicklyric.romanizer"));
+                                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                                    getContext().startActivity(intent);
                                 }).create();
-                        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                        dialog.getWindow().setType(Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                         dialog.show();
                     }
-                } else
-                    update(DatabaseHelper.getInstance(getContext())
-                            .get(new String[]{mLyrics.getArtist(), mLyrics.getTitle(),
-                                    mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()}), true);
+                } else {
+                    Lyrics lyrics = DatabaseHelper.getInstance(getContext())
+                            .get(new String[]{getLyrics().getArtist(), getLyrics().getTitle(),
+                                    getLyrics().getOriginalArtist(), getLyrics().getOriginalTitle()});
+                    if (lyrics != null)
+                        update(lyrics, true);
+                }
                 break;
         }
         return false;
+    }
+
+    private void reopenOverlay() {
+        if (!App.isMainActivityVisible()) {
+            getContext().startService(new Intent(getContext().getApplicationContext(), LyricsOverlayService.class)
+                    .setAction(LyricsOverlayService.CLICKED_FLOATING_ACTION));
+        }
     }
 
     public void updateLRC() {
@@ -383,51 +599,40 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 return;
             SharedPreferences preferences = OverlayContentLayout.this.getContext()
                     .getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            long position = preferences.getLong("position", 0);
+            final long[] position = new long[] {MediaControllerCallback.getActiveControllerPosition(getContext())};
+            long duration = preferences.getLong("duration", -1);
+            String player = preferences.getString("player", "");
             if (lrcView == null)
                 OverlayContentLayout.this.findViewById(R.id.lrc_view);
 
-            if (lrcView != null)
-                if (OverlayContentLayout.this != null && (position == -1 || !PreferenceManager.getDefaultSharedPreferences(lrcView.getContext()).getBoolean("pref_lrc", true))) {
+            if (lrcView != null) {
+                boolean songIsTooShort = duration > 0 && lrcView.getLastLinePosition() > duration;
+                boolean youtubeSongIsTooLong = player.contains("youtube") && duration - 60000 > lrcView.getLastLinePosition();
+                if (OverlayContentLayout.this != null && (position[0] == -1 || !PreferenceManager.getDefaultSharedPreferences(lrcView.getContext()).getBoolean("pref_lrc", true))
+                        || songIsTooShort || youtubeSongIsTooLong) {
                     final Lyrics staticLyrics = lrcView.getStaticLyrics();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            update(staticLyrics, true);
-                        }
-                    });
+                    runOnUiThread(() -> update(staticLyrics, true));
                     return;
                 } else {
-                    final long finalPosition = position;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (lrcView != null)
-                                lrcView.changeCurrent(finalPosition);
-                        }
+                    runOnUiThread(() -> {
+                        if (lrcView != null)
+                            lrcView.changeCurrent(position[0]);
                     });
                 }
+            }
 
             MusicBroadcastReceiver.forceAutoUpdate(true);
-            while (preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
-                    preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
+            while (preferences.getString("track", "").equalsIgnoreCase(getLyrics().getOriginalTitle()) &&
+                    preferences.getString("artist", "").equalsIgnoreCase(getLyrics().getOriginalArtist()) &&
                     preferences.getBoolean("playing", true)) {
                 if (getWindowToken() == null)
                     return;
-                position = preferences.getLong("position", 0);
-                long startTime = preferences.getLong("startTime", System.currentTimeMillis());
-                long distance = System.currentTimeMillis() - startTime;
-                if (preferences.getBoolean("playing", true))
-                    position += distance;
-                final long finalPosition = position;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (lrcView == null)
-                            lrcView = findViewById(R.id.lrc_view);
-                        if (lrcView != null)
-                            lrcView.changeCurrent(finalPosition);
-                    }
+                position[0] = MediaControllerCallback.getActiveControllerPosition(getContext());
+                runOnUiThread(() -> {
+                    if (lrcView == null)
+                        lrcView = findViewById(R.id.lrc_view);
+                    if (lrcView != null)
+                        lrcView.changeCurrent(position[0]);
                 });
                 //String time = String.valueOf((position / 60000)) + " min ";
                 //time += String.valueOf((position / 1000) % 60) + " sec";
@@ -442,8 +647,9 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
         }
     };
 
-    private void runOnUiThread(Runnable runnable) {
-        new Handler(Looper.getMainLooper()).post(runnable);
+    private static void runOnUiThread(Runnable runnable) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(runnable);
     }
 
     @Override
@@ -457,25 +663,42 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
     }
 
     @Override
-    public void onMetadataParsed(String[] metadata, boolean showMsg, boolean noDoubleBroadcast) {
+    public void onMetadataParsed(String[] metadata, long duration, final boolean showMsg, boolean requestPermission, boolean noDoubleBroadcast) {
+        if (metadata[0] == null)
+            metadata[0] = "";
+        if (metadata[1] == null)
+            metadata[1] = "";
         if (getLyrics() != null && metadata[0].equalsIgnoreCase(getLyrics().getOriginalArtist())
-                && metadata[1].equalsIgnoreCase(getLyrics().getOriginalTrack())
+                && metadata[1].equalsIgnoreCase(getLyrics().getOriginalTitle())
                 && (!"Storage".equals(getLyrics().getSource()) || ("Storage".equals(getLyrics().getSource()) && noDoubleBroadcast))
                 && getLyrics().getFlag() == Lyrics.POSITIVE_RESULT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                    NotificationListenerService.restartNotificationListenerServiceIfNeeded(getContext()))
-                new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
+            // No need to refresh
             stopRefreshAnimation();
-            if (mLyrics.isLRC())
+            if (getLyrics().isLRC()) {
+                if (!((LrcView)findViewById(R.id.lrc_view)).hasLyrics())
+                    update(getLyrics(), false);
                 updateLRC();
+            }
         } else {
-            fetchLyrics(metadata);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                    NotificationListenerService.restartNotificationListenerServiceIfNeeded(getContext()))
-                new ParseTask(this, getContext(), showMsg, noDoubleBroadcast).execute();
+            fetchLyrics(metadata.length > 2 ? metadata[2] : null, duration, metadata[0], metadata[1]);
         }
     }
 
     public void onOpened() {
+        LyricsOverlayService service = (LyricsOverlayService) getTag();
+        if (!service.launchCountRaised) {
+            LaunchesCounter.increaseLaunchCount(getContext(), true);
+            service.launchCountRaised = true;
+        }
+    }
+
+    public void unregisterNetworkCallback() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && networkCallback != null)
+            try {
+                ((ConnectivityManager) getContext().getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE)).unregisterNetworkCallback(networkCallback);
+            } catch (IllegalArgumentException ignored) {
+            }
+
     }
 }

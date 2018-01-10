@@ -26,10 +26,11 @@
   <string name="no_refresh">Não é preciso refrescar</string>
   <string name="search_hint">Pesquisar</string>
   <string name="pref_20min_ignore">Ignorar músicas longas</string>
-  <string name="pref_20min_ignore_sum">Faixas de som mais longas que 20 minutos (como podcasts) não são consideradas como mùsicas</string>
+  <string name="pref_20min_ignore_sum">Faixas mais longas que 20 minutos (como podcasts) não são consideradas como músicas</string>
   <string name="pref_about">Sobre</string>
   <string name="send_feedback">Enviar feedback</string>
   <string name="local_title">Letras guardadas</string>
+  <string name="musicid_title">Identifica Letras</string>
   <string name="settings_title">Configuração</string>
   <string name="save_action">Guardar</string>
   <string name="lyrics_saved">Letras baixadas</string>
@@ -38,24 +39,24 @@
   <string name="pref_auto_refresh_title">Refrescar letras automaticamente</string>
   <string name="pref_auto_refresh_summary">Letras serão refrescadas automaticamente cada vez que mudas de mùsica</string>
   <string name="local_empty_database">Ainda não guardou uma letra</string>
-  <string name="pref_look_feel_category">Aspecto</string>
+  <string name="pref_look_feel_category">Aspeto</string>
   <string name="welcome">Bem-vindo a QuickLyric !</string>
-  <string name="welcome2_sub">As letras que você esta pesquisando&#8230;\nAqui, e agora</string>
-  <string name="apps_desc">Funciona com todas as suas aplicações</string>
+  <string name="welcome2_sub">As letras que estás à procura&#8230;\nAqui, e agora.</string>
+  <string name="apps_desc">Funciona com todas as tuas aplicações</string>
   <string name="apps_desc_sub">Se tiveres problemas com o teu player (ex: Poweramp, GoneMAD or Spotify), certifica-te que tem \"Scrobbling\" ou \"Status de Transmissão\" ligado.</string>
   <string name="id_desc">Integração com as suas aplicações MusicID favoritas. \n(Shazam, Soundhound, etc.)</string>
   <string name="id_desc_sub">1. Identifica uma música\n2. Compartilhe os resultados no QuickLyric\n3. Desfrute de suas letras</string>
   <string name="refresh_desc">Quando a música mudou&#8230;</string>
-  <string name="refresh_desc_sub">Aperte este botão. QuickLyric fará o resto.</string>
+  <string name="refresh_desc_sub">Toque neste botão. O QuickLyric fará o resto.</string>
   <string name="pref_more_category">Outros</string>
-  <string name="first_launch">Comece a reproduzir música no seu dispositivo e clique atualizar.</string>
+  <string name="first_launch">Começa a reproduzir música no teu dispositivo e clica em atualizar.</string>
   <string name="share_prompt">Importar de MusicID</string>
   <string name="undo">Desfazer</string>
   <string name="beta_dialog_content">
 1) Junte-se à comunidade no Google+: \nhttps://plus.google.com/communities/115504114424315189412\n
 2)Registe-se para a versão beta:
 \nhttps://play.google.com/apps/testing/com.geecko.QuickLyric    </string>
-  <string name="skip">Pular</string>
+  <string name="skip">Saltar</string>
   <string name="pref_theme">Temas</string>
   <string name="pref_notifications">Notificações</string>
   <string name="defaut_theme">Âmbar</string>
@@ -76,6 +77,16 @@
   <string name="pref_beta_sum">Receba atualizações (novas funcionalidades, correções de bugs, ...) mais rapidamente e contacte-me por e-mail</string>
   <string name="scan_error_no_content">Não foi possível encontrar nenhuma música</string>
   <string name="no_results_why"><u>Porquê?</u></string>
+  <string name="why_popup_text"><![CDATA[
+Estavas à procura da letra de \"%1$s\" por %2$s. Infelizmente o QuickLyric não a pôde encontrar...<br/><br/>
+Algumas possiveis razões do porquê:<br/>
+<br/>
+• As tuas músicas têm as <strong>tags</strong> corretas? O QuickLyric não pode reconhecer faixas que não tenham tags.<br/>
+• Verifica se a ligação à internet está a funcionar.<br/>
+• Se calhar esta música nao está no catálogo principal. Tentaste verificar pelos <strong>provedores adicionais</strong> nas definições?<br/>
+• Podes ter encontrado um bug. Se assim for, por favor envia-me um email.<br/>
+• Verifica se a data e hora no dispositivo estão corretas.<br/>
+]]></string>
   <string name="why_popup_title">Porque não funciona?</string>
   <string name="download_category">Transferências</string>
   <string name="wearable_prompt">Abrir em smartwatch</string>
@@ -88,7 +99,7 @@
   <string name="nighttime_start_dialog_title">Início da noite</string>
   <string name="nighttime_end_dialog_title">Fim da noite</string>
   <string name="pref_force_screen_sum">Impedir que o ecrã se desligue enquanto lê as letras.</string>
-  <string name="pref_force_screen_on">Force ecrã ligado</string>
+  <string name="pref_force_screen_on">Manter o ecrã ligado</string>
   <string name="scan_error_permission_denied">QuickLyrics tem a permissão que analisar as músicas negada</string>
   <string name="id3_write_error">Falha ao editar os metadados da música</string>
   <string name="id3_write_success">Metadados da música editados com sucesso</string>
@@ -111,7 +122,7 @@
   <string name="full_text_action">Texto completo</string>
   <string name="artworks_pref_title">Download automático das capas</string>
   <string name="artworks_pref_sum">Pode resultar em gasto de dados móveis</string>
-  <string name="pref_lrc_sum">Sublinha as palavras que estão a ser cantadas. Nem todos os players de música são suportados.</string>
+  <string name="pref_lrc_sum">Realça as palavras que estão a ser cantadas - nem todas as nossas letras estão sincronizadas</string>
   <string name="pref_lrc">Letras sincronizadas</string>
   <string name="red_theme">Vermelho</string>
   <string name="purple_theme">Roxo</string>
@@ -125,14 +136,25 @@
   <string name="about_product_tour">Tour do Produto</string>
   <string name="nl_title">Uma última coisa.</string>
   <string name="nl_instructions">Para o QuickLyric funcionar com todos os players, algumas definições precisam de ser mudadas.</string>
+  <string name="nl_settings_link">Autoriza o acesso às músicas</string>
+  <string name="floating_settings_link">Autoriza a sobrepoaição das letras (opcional)</string>
   <string name="changelog">O que há de novo?</string>
   <string name="rate_us">Avaliar a app</string>
+  <string name="translate_us">Traduzir a aplicação</string>
   <string name="romanize">Romanize</string>
   <string name="reset">Reiniciar</string>
   <string name="musicid_no_match">Sem correspondência ☹</string>
   <string name="notification_access">Acesso a Notificações</string>
   <string name="pref_lyrics_overlay_name">Sobreposição de letras</string>
-  <string name="premium_title">Obter Premium</string>
+  <string name="pref_lyrics_overlay_sum">A sobreposição torna as letras disponiveis fora da app</string>
+  <string name="notification_access_explanation"><![CDATA[
+Esta permissão só é necessária para que o QuickLyric possa aceder aos metadados das suas músicas.<br/>
+O QuickLyric não tem interesse em ler as tuas notificações e a nossa politica de privacidade previne-nos de o fazer.<br/>
+A boa notícia é que o QuickLyric é opensource, qualquer um pode verificá-lo por si próprio!😊<br/><br/>
+Nós agradecemos pela tua compreensão!<br/><br/>
+- A equipa QuickLyric
+]]></string>
+  <string name="premium_title">Obtém o premium (experimente grátis!)</string>
   <string name="remove_ads_title">Remover anúncios</string>
   <string name="subscription_monthly">Mensal</string>
   <string name="subscription_yearly">Anualmente</string>
@@ -140,7 +162,8 @@
   <string name="premium_ads_incent">Sem mais anúncios!</string>
   <string name="premium_themes_incent">*7* temas novos</string>
   <string name="premium_night_mode_incent">Um *modo noite* para descansar os teus olhos à noite</string>
-  <string name="premium_doubt">Não tem a certeza sobre ter uma subscrição? Envia-nos um email: contact@quicklyric.be</string>
+  <string name="premium_android_wear">Suporte para relógios *Android Wear*</string>
+  <string name="premium_doubt">Não tens a certeza sobre ter uma subscrição? Envia-nos um email: contact@quicklyric.bea</string>
   <string name="premium_thanks">Obrigado pelo vosso apoio!</string>
   <string name="about_crowdin">Ajuda a traduzir a app no Crowdin</string>
   <string name="online_title">Catálogo online</string>
@@ -149,6 +172,11 @@
   <string name="buy_sub">Comprar</string>
   <string name="client_version_error">Por favor atualize a aplicação</string>
   <string name="why_is_this_a_subscription">Porque é que isto é uma subscrição?</string>
+  <string name="why_sub_explanation"><![CDATA[<p>A maioria dos ganhos com a susbcrição vão para os artistas e os detentores dos direitos de autor.
+Ao pagar uma subscrição única para obter o QuickLyric Premium seria como pagar alguns euros ao Spotify para obter o Spotify Premium para o resto da tua vida. Não é possível infelizmente.</p>
+    <p>Se nós pegassemos no teu dinheiro e continuasses a usar a app durante anos, nós ainda teriamos de pagar à entidade detentora dos direitos de autor pelo teu consumo.</p>
+    Por favor compreende que isto é um requerimento da indústria músical que as coisas funcionem desta maneira.]]>
+    </string>
   <string name="vote_action">Vota</string>
   <string name="user_submission_dialog_title">Avalia estas letras</string>
   <string name="vote_for">Estas letras estão corretas</string>
@@ -157,7 +185,56 @@
   <string name="snackbar_ratings_QL">Gosta de usar o QuickLyric?</string>
   <string name="recent_tracks_title">Músicas Recentes</string>
   <string name="recents_empty_database">Ainda não ouviste nada</string>
+  <string name="gmusic_import_securityException">A app músicas do Google Play tem de estar aberta para que isto funcione</string>
+  <string name="miui_autostart">%s os proprietários devem primeiro desbloquear a app</string>
+  <string name="musicid_instructions">Segura o teu smartphone contra a música</string>
+  <string name="nls_issues">O QuickLyric está a ter problemas em ler a tua música</string>
+  <string name="romanizer_prompt_msg">Para converter letras Japonesas, Coreanas ou Chinesas para o alfabeto latino, tens de descarregar um plugin para o QuickLyric.</string>
+  <string name="romanizer_prompt_title">Extensão Romanizer</string>
   <string name="pref_always_artwork">Sempre ligado</string>
+  <string name="pref_overlay_behavior_always">Sempre visível</string>
+  <string name="pref_overlay_behavior_notif">Abrir via notificação</string>
+  <string name="pref_overlay_behavior_title">Comportamento da sobreposição de letras</string>
+  <string name="pref_notification_sum_disabled">As notificações não podem ser desativadas quando a sobreposição de letras está ativada</string>
+  <string name="iab_error">Falha ao pedir o estado da subscrição ao Google Play</string>
+  <string name="fix_it">Repare-o</string>
+  <string name="bad_xp_msg">Está tudo bem?</string>
+  <string name="bad_xp_btn">Pede ajuda</string>
+  <string name="nls_enable_prompt">Por favor seleciona o QuickLyric nesta lista</string>
+  <string name="yes">sim</string>
+  <string name="no">não</string>
+  <string name="good_xp_prompt_msg">Gostas do QuickLyric?</string>
+  <string name="thanks">Obrigado!</string>
+  <string name="thanks_feedback">Obrigado pelo teu comentário!</string>
+  <string name="please_improve_ql">Por favor, diz-nos como podemos tornar o QuickLyric melhor!</string>
+  <string name="goodXP_rate_prompt">Estamos muito contentes de que estás a gostar do QuickLyric!
+Classificando a app iria ajudar-nos imenso. Muito obrigado por usar o QuickLyric!</string>
+  <string name="ads_occasional">A publicidade só será apresentada ocasionalmente</string>
+  <string name="ads_remove_title">Remove a publicidade de graça</string>
+  <string name="video_ad_dialog"><![CDATA[Aqui na QuickLyric nós percebemos o quão irritante a publicidade pode ser. O nosso objetivo é oferecer a melhor experiência no mercado com a menor publicidade possível.<br/><br/>Vê este pequeno vídeo e toda a publicidade será removida por <strong>%1$d dias</strong>.]]></string>
+  <string name="watch_video">Ver um video</string>
+  <string name="trial_incent">Os primeiros 7 dias são gratuitos sem qualquer compromisso. Experimenta!</string>
+  <string name="storage_permission_rationale">Estas permissões são necessárias para ser possível identificar os seus ficheiros de música</string>
+  <string name="let_us_know">Deixe-nos sabe!</string>
+  <string name="overlay_resize_onclick_prompt">Segure para redimensionar a janela</string>
+  <string name="open_app_action">Abrir app</string>
+  <string name="user_survey_title">Sondagem ao utilizador QuickLyric</string>
+  <string name="user_survey_sum">Na tua opinião, que funções estão em falta no QuickLyric?</string>
+  <string name="survey_option_none">Nenhuma</string>
+  <string name="survey_option_id">Melhor identificação das canções</string>
+  <string name="survey_option_translate">Tradução das letras</string>
+  <string name="survey_option_player">Um reprodutor de música dentro do QuickLyric</string>
+  <string name="survey_option_catalog">Um melhor catálogo de letras</string>
+  <string name="survey_option_crowdsourcing">Utilizadores adicionam e corrigem letras</string>
+  <string name="survey_option_sync">Utilizadores manualmente sincronizam letras</string>
+  <string name="survey_option_share">Estar apto para participar as letras</string>
+  <string name="survey_option_bigger">Texto Maior</string>
+  <string name="survey_option_other">Outro</string>
+  <string name="survey_importance_high">Muito importante</string>
+  <string name="survey_importance_medium">Importante</string>
+  <string name="survey_importance_low">Não é uma prioridade</string>
+  <string name="survey_submit">Submeter</string>
+  <string name="survey_thanks">Obrigado pela sua opinião!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric vai agora descarregar a letra para %1$d música. \
         Certifique-se que tenha uma conexão estável durante no mínimo %2$d minuto.</item>
@@ -168,10 +245,14 @@
     <item quantity="one">Letras descarregadas para %1$d músicas</item>
     <item quantity="other">Letras descarregadas para %1$d músicas</item>
   </plurals>
+  <plurals name="action_mode_quantity">
+    <item quantity="one">%1$d item selecionado</item>
+    <item quantity="other">%1$d itens selecionados</item>
+  </plurals>
   <string-array name="notifications">
     <item>Desativado (padrão)</item>
     <item>Ativado</item>
-    <item>Enabled (hidden)</item>
+    <item>Ativado (escondido)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>@string/pref_always_artwork</item>

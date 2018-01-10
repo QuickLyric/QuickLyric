@@ -32,44 +32,42 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
-    private MainActivity mActivity;
+    private WeakReference<MainActivity> mActivity;
+
+    public CoverArtLoader(MainActivity activity) {
+        mActivity = new WeakReference<>(activity);
+    }
 
     @Override
     protected String doInBackground(Object... objects) {
         Lyrics lyrics = (Lyrics) objects[0];
-        mActivity = (MainActivity) objects[1];
         String url = lyrics.getCoverURL();
         boolean online = objects.length >= 3 && (Boolean) objects[2];
         boolean secondTry = objects.length >= 4 && (Boolean) objects[3];
 
-        File artworksDir = new File(mActivity.getCacheDir(), "artworks");
+        File artworksDir = new File(mActivity.get().getCacheDir(), "artworks");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && (artworksDir.exists() || artworksDir.mkdirs())) {
             long size = 0;
             List<File> files = new ArrayList<>(Arrays.asList(artworksDir.listFiles()));
             for (File file : files) {
                 size += file.length() / 1024;
             }
-            File artworkFile = new File(artworksDir, lyrics.getOriginalArtist() + lyrics.getOriginalTrack() + ".png");
+            File artworkFile = new File(artworksDir, lyrics.getOriginalArtist() + lyrics.getOriginalTitle() + ".png");
             if (size > 20000L) {
                 File[] sortedFiles = new File[files.size() / 2];
 
                 for (int i = 0; i < files.size() / 2; i++) {
-                    sortedFiles[i] = Collections.min(files, new Comparator<File>() {
-                        @Override
-                        public int compare(File file1, File file2) {
-                            return (int) (file1.lastModified() - file2.lastModified());
-                        }
-                    });
+                    sortedFiles[i] = Collections.min(files, (file1, file2) -> (int) (file1.lastModified() - file2.lastModified()));
                     files.remove(sortedFiles[i]);
                 }
                 for (File file : sortedFiles) {
@@ -82,7 +80,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
                 return artworkFile.getAbsoluteFile().getAbsolutePath();
             }
         }
-        if (url == null && online) {
+        if (url == null && online && lyrics.getArtist() != null && lyrics.getTitle() != null) {
             try {
                 String requestURL = String.format(
                         "https://itunes.apple.com/search?term=%s+%s&entity=song&media=music",
@@ -98,7 +96,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
             } catch (JSONException ignored) {
                 if (!secondTry) {
                     lyrics.setArtist(lyrics.getOriginalArtist());
-                    lyrics.setTitle(lyrics.getOriginalTrack());
+                    lyrics.setTitle(lyrics.getOriginalTitle());
                     return doInBackground(lyrics, mActivity, online, Boolean.TRUE);
                 }
             }
@@ -108,7 +106,7 @@ public class CoverArtLoader extends AsyncTask<Object, Object, String> {
 
     @Override
     protected void onPostExecute(String url) {
-        if (mActivity != null && !mActivity.hasBeenDestroyed())
-            mActivity.updateArtwork(url);
+        if (mActivity != null && !mActivity.get().hasBeenDestroyed())
+            mActivity.get().updateArtwork(url);
     }
 }

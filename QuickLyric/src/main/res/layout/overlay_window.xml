@@ -21,15 +21,20 @@
 <com.geecko.QuickLyric.view.OverlayLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="top">
+    android:layout_gravity="top"
+    android:visibility="invisible"
+    tools:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="75dp">
+        android:layout_marginTop="@dimen/overlay_window_padding"
+        android:layout_gravity="top|right"
+        android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="16dp"
@@ -43,12 +48,11 @@
             android:id="@+id/overlay_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/material_white"
-            app:cardCornerRadius="5dp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="false">
+            app:contentPadding="@dimen/overlay_window_inner_padding"
+            app:cardCornerRadius="5dp">
 
-            <include layout="@layout/overlay_content" />
+            <include layout="@layout/overlay_content"/>
 
         </android.support.v7.widget.CardView>
     </LinearLayout>

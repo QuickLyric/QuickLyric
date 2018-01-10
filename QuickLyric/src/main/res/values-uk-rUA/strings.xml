@@ -113,7 +113,6 @@
   <string name="full_text_action">Повний текст</string>
   <string name="artworks_pref_title">Автоматичне завантаження обкладинок</string>
   <string name="artworks_pref_sum">Може призвести до стягнення плати за мобільне зʼєднання</string>
-  <string name="pref_lrc_sum">Підсвічує співані зараз слова. Не всі програвачі підтримуються.</string>
   <string name="pref_lrc">Синхронізовані тексти</string>
   <string name="red_theme">Червоний</string>
   <string name="purple_theme">Рожевий</string>
@@ -129,9 +128,9 @@
   <string name="nl_instructions">Аби QuickLyric працював з усіма програвачами, необхідно змінити деякі налаштування.</string>
   <string name="changelog">Що нового?</string>
   <string name="rate_us">Оцініть додаток</string>
+  <string name="translate_us">Допоможіть з перекладом</string>
   <string name="reset">Скинути</string>
   <string name="musicid_no_match">Збігів не знайдено</string>
-  <string name="premium_title">Отримати Premium</string>
   <string name="remove_ads_title">Прибрати рекламу</string>
   <string name="subscription_monthly">Місячна</string>
   <string name="subscription_yearly">Річна</string>
@@ -143,7 +142,11 @@
   <string name="premium_thanks">Дякуємо за вашу підтримку!</string>
   <string name="about_crowdin">Допоможіть перекласти на Crowdin</string>
   <string name="online_title">Мережевий каталог</string>
+  <string name="yearly_sub_template">%s / рік</string>
+  <string name="monthly_sub_template">%s / місяць</string>
   <string name="pref_always_artwork">Завше активне</string>
+  <string name="yes">так</string>
+  <string name="no">ні</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric зараз завантажить тексти для %1$d пісні.\
 Переконайтесь, що Ви маєте стабільне Інтернет-з\'єднання принаймні на %2$d хвилину.</item>

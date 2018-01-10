@@ -6,17 +6,18 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'org.ajoberstar:gradle-git:1.1.0'
     }
 }
 
 task evaluateChromaprintPresence {
     doLast {
-        String[] archs = ["armeabi", "armeabi-v7a", "x86"]
+        String[] archs = ["armeabi", "armeabi-v7a"]
         List<String> targets = new ArrayList<>()
         for (String arch : archs) {
             File file = file("./src/main/jniLibs/" + arch + "/libfpcalc.so")
@@ -50,7 +51,7 @@ task compileChromaprint {
                     dir = ffmpegDir
                     uri = 'https://bitbucket.org/phorton1/ffmpeg.git'
                     checkout = true
-                    refToCheckout = "multi-0.9"
+                    refToCheckout = "multi-0.11"
                 }
                 println(" Done")
             }
@@ -61,7 +62,7 @@ task compileChromaprint {
                     dir = chromaprintDir
                     uri = 'https://bitbucket.org/phorton1/chromaprint.git'
                     checkout = true
-                    refToCheckout = "multi-0.9"
+                    refToCheckout = "multi-0.11"
                 }
                 println(" Done")
             }
@@ -79,7 +80,9 @@ task compileChromaprint {
             ffmpegConfig.text = ffmpegConfig.text
                     .replace('HOST_PLATFORM=linux-x86\n', String.format('HOST_PLATFORM=%s-%s\n', os, arch))
                     .replace("4.8", "4.9")
-                    .replace("--arch=x86 \\\n", "--arch=x86 --disable-asm \\\n")
+                    .replace("--arch=x86 \\\n", "--arch=x86 --disable-asm --enable-pic\\\n")
+                    .replace("--arch=arm \\\n", "--arch=arm --disable-asm --enable-pic \\\n")
+                    .replace("--arch=arm7 \\\n", "--arch=arm7 --disable-asm --enable-pic \\\n")
             chromaConfig.text = chromaConfig.text
                     .replace('HOST_PLATFORM=linux-x86\n', String.format('HOST_PLATFORM=%s-%s\n', os, arch))
                     .replace("4.8", "4.9")
@@ -122,7 +125,7 @@ task compileChromaprint {
                 process.waitForProcessOutput(System.out, System.err)
 
                 File targetFile = file("./src/main/jniLibs/" + target.replace("arm", "armeabi").replace("7", "-v7a") + "/libfpcalc.so")
-                File sourceFile = file(chromaprintDir.absolutePath + "/../_install/0.9/_linux/" + target + "s/libfpcalc.so")
+                File sourceFile = file(chromaprintDir.absolutePath + "/../_install/0.11/_linux/" + target + "s/libfpcalc.so")
                 if ((targetFile.getParentFile().exists() || targetFile.getParentFile().mkdirs()) && (targetFile.exists() || targetFile.createNewFile()))
                     targetFile.bytes = sourceFile.bytes
             }

@@ -40,31 +40,18 @@
         app:screen="@drawable/intro_1_screen"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView1_b"
+        android:id="@+id/textView1_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/table"
         android:layout_toRightOf="@id/table"
-        android:maxWidth="300dp"
-        android:text="@string/apps_desc_sub"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/textView1_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/textView1_b"
-        android:layout_alignStart="@id/textView1_b"
-        android:layout_below="@id/textView1_b"
         android:maxWidth="450dp"
         android:text="Google Play is a trademark of Google Inc.\nSpotify is a trademark of Spotify Ltd."
         android:textColor="?android:attr/textColorPrimaryInverse"

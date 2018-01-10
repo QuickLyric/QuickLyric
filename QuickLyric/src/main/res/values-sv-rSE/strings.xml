@@ -110,7 +110,6 @@
   <string name="full_text_action">Hela texten</string>
   <string name="artworks_pref_title">Automatisk omslagsnedladdning</string>
   <string name="artworks_pref_sum">Kan resultera i mobildata avgifter</string>
-  <string name="pref_lrc_sum">Markera de ord som sjungs - inte alla musikspelare stöds</string>
   <string name="pref_lrc">Synkroniserade låttexter</string>
   <string name="red_theme">Röd</string>
   <string name="purple_theme">Lila</string>
@@ -128,11 +127,11 @@
   <string name="floating_settings_link">Aktivera flytande lyrics (valfritt)</string>
   <string name="changelog">Vad är nytt?</string>
   <string name="rate_us">Betygsätt appen</string>
+  <string name="translate_us">Översätt appen</string>
   <string name="romanize">Romanisera</string>
   <string name="reset">Återställ</string>
   <string name="musicid_no_match">Ingen träff</string>
   <string name="notification_access">Åtkomst till aviseringar</string>
-  <string name="premium_title">Skaffa Premium</string>
   <string name="remove_ads_title">Ta bort annonser</string>
   <string name="subscription_monthly">Månadsvis</string>
   <string name="subscription_yearly">Årsvis</string>

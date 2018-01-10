@@ -23,6 +23,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
 
@@ -46,6 +47,15 @@ public class NightSwitchPreference extends SwitchPreferenceCompat {
 
     @Override
     public View getView(View convertView, ViewGroup parent) {
-        return super.getView(convertView, parent);
+        View view = super.getView(convertView, parent);
+
+        boolean containsCoin = false;
+        for (int i = 0; !containsCoin && i < ((ViewGroup) view).getChildCount(); i++) {
+            View child = ((ViewGroup) view).getChildAt(i);
+            if (child instanceof ImageView && "coin".equals(child.getTag()))
+                containsCoin = true;
+        }
+
+        return view;
     }
 }

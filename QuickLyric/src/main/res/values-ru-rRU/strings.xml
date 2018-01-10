@@ -122,7 +122,7 @@
   <string name="full_text_action">Полный текст</string>
   <string name="artworks_pref_title">Скачивать обложки альбомов автоматически</string>
   <string name="artworks_pref_sum">Может расходовать интернет-траффик</string>
-  <string name="pref_lrc_sum">Подсвечивает слова, которые поются. Не все музыкальные плееры поддерживаются.</string>
+  <string name="pref_lrc_sum">Выделите слова которые поются - не все наши слова синхронизированы</string>
   <string name="pref_lrc">Синхронизированные слова</string>
   <string name="red_theme">Красная</string>
   <string name="purple_theme">Фиолетовая</string>
@@ -136,8 +136,11 @@
   <string name="about_product_tour">Основные возможности</string>
   <string name="nl_title">Ещё одна вещь.</string>
   <string name="nl_instructions">Для того, чтобы QuickLyric работал со всеми плеерами, некоторые настройки следует изменить.</string>
+  <string name="nl_settings_link">Включить доступ к музыке</string>
+  <string name="floating_settings_link">Включить плавающее окно (опционально)</string>
   <string name="changelog">Изменения</string>
   <string name="rate_us">Оценить на Google Play</string>
+  <string name="translate_us">Перевести приложение</string>
   <string name="romanize">Романизация</string>
   <string name="reset">Сбросить</string>
   <string name="musicid_no_match">Не найдено соответствий☹</string>
@@ -151,7 +154,7 @@ QuickLyrics не читает ваши уведомления - наша пол�
 Благодарим Вас за понимание!<br/><br/>
 - Команда QuickLyrics
 ]]></string>
-  <string name="premium_title">Получить Премиум доступ</string>
+  <string name="premium_title">Получить премиум (Попробовать бесплатно!)</string>
   <string name="remove_ads_title">Убрать рекламу</string>
   <string name="subscription_monthly">Ежемесячно</string>
   <string name="subscription_yearly">Ежегодно</string>
@@ -182,8 +185,53 @@ QuickLyrics не читает ваши уведомления - наша пол�
   <string name="recent_tracks_title">Недавно прослушанные песни</string>
   <string name="recents_empty_database">Вы не прослушали ни одной песни</string>
   <string name="gmusic_import_securityException">Для работы нужно запустить Google Play Music</string>
+  <string name="miui_autostart">Пользователи %s сначала должны разблокировать приложение</string>
   <string name="musicid_instructions">Держите телефон по направлению к музыке</string>
+  <string name="nls_issues">У QuickLyric проблемы с чтением вашей музыки</string>
+  <string name="romanizer_prompt_msg">Чтобы преобразовать тексты с японского, корейского или китайского на латиницу, вам нужно скачать отдельный плагин для QuickLyric.</string>
   <string name="pref_always_artwork">Всегда</string>
+  <string name="pref_overlay_behavior_always">Отображать всегда</string>
+  <string name="pref_overlay_behavior_notif">Открыть через уведомление</string>
+  <string name="pref_overlay_behavior_title">Поведение плавающего окна</string>
+  <string name="pref_notification_sum_disabled">Уведомления не могут быть отключены при включенном плавающем окне</string>
+  <string name="iab_error">Не удалось получить статус подписки от Google Play</string>
+  <string name="fix_it">Исправить</string>
+  <string name="bad_xp_msg">Всё в порядке?</string>
+  <string name="bad_xp_btn">Попросить о помощи</string>
+  <string name="nls_enable_prompt">Пожалуйста, выберите QuickLyric в этом списке</string>
+  <string name="yes">да</string>
+  <string name="no">нет</string>
+  <string name="good_xp_prompt_msg">Вам нравится QuickLyric?</string>
+  <string name="thanks">Спасибо!</string>
+  <string name="thanks_feedback">Благодарим за Ваш отзыв!</string>
+  <string name="please_improve_ql">Пожалуйста, дайте нам знать, как мы можем сделать QuickLyric лучше!</string>
+  <string name="goodXP_rate_prompt">Мы так рады, что вы наслаждаетесь QuickLyric! Если вы поставите оценку нашему приложению, это действительно поможет нам. Спасибо за использование QuickLyric!</string>
+  <string name="ads_occasional">Эти объявления будут отображаться только изредка</string>
+  <string name="ads_remove_title">Удалить рекламу бесплатно</string>
+  <string name="video_ad_dialog"><![CDATA[Мы понимаем, что реклама в QuickLyric может раздражать. Наша цель – предоставить вам лучшие впечатления с наименьшим количеством рекламы.<br/> <br/> Посмотрите этот короткий ролик и все объявления будут удалены из приложения на<strong>%1$d дней</strong>.]]></string>
+  <string name="watch_video">Просмотреть видео</string>
+  <string name="trial_incent">Первые 7 дней бесплатно без участия. Попробуйте его!</string>
+  <string name="storage_permission_rationale">Это разрешение используется для идентификации ваших музыкальных файлов</string>
+  <string name="let_us_know">Дайте нам знать!</string>
+  <string name="overlay_resize_onclick_prompt">Удержите, чтобы изменить размер окна</string>
+  <string name="open_app_action">Открыть приложение</string>
+  <string name="user_survey_title">Опрос пользователей QuickLyric</string>
+  <string name="user_survey_sum">Каких возможностей, по-вашему, не хватает в QuickLyric?</string>
+  <string name="survey_option_none">Ни один</string>
+  <string name="survey_option_id">Лучшая идентификация песни</string>
+  <string name="survey_option_translate">Перевод слов песни</string>
+  <string name="survey_option_player">Музыкальный проигрыватель внутри QuickLyric</string>
+  <string name="survey_option_catalog">Лучший каталог слов песни</string>
+  <string name="survey_option_crowdsourcing">Пользователи добавляют и корректируют слова песни</string>
+  <string name="survey_option_sync">Пользователи вручную синхронизирую слова песни</string>
+  <string name="survey_option_share">Будучи в состоянии поделиться песеней</string>
+  <string name="survey_option_bigger">Увеличить размер шрифта текста</string>
+  <string name="survey_option_other">Другой</string>
+  <string name="survey_importance_high">Очень важно</string>
+  <string name="survey_importance_medium">Важно</string>
+  <string name="survey_importance_low">Без приоритета</string>
+  <string name="survey_submit">Подтвердить</string>
+  <string name="survey_thanks">Спасибо за вас отзыв!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric загрузит текст для %1$d песни.\
         Удостоверьтесь в стабильном соединении на %2$d минуту.</item>
@@ -199,7 +247,7 @@ QuickLyrics не читает ваши уведомления - наша пол�
   <string-array name="notifications">
     <item>Отключено (По умолчанию)</item>
     <item>Включено</item>
-    <item>Enabled (hidden)</item>
+    <item>Включен (скрыт)</item>
   </string-array>
   <string-array name="artwork_download">
     <item>@string/pref_always_artwork</item>

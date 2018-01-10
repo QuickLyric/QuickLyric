@@ -39,14 +39,18 @@ import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.view.OverlayContentLayout;
+
+import java.lang.ref.WeakReference;
 
 public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
-    private Fragment fragment;
-    private Context mContext;
+    private WeakReference<Fragment> fragment;
+    private WeakReference<Context> mContext = new WeakReference<>(null);
     private MenuItem item;
     private Lyrics[] lyricsArray;
-    private LocalLyricsFragment mLocalLyricsFragment;
+    private WeakReference<LocalLyricsFragment> mLocalLyricsFragment;
+    private WeakReference<OverlayContentLayout> mOverlay;
 
     public WriteToDatabaseTask() {
         super();
@@ -54,7 +58,7 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
     public WriteToDatabaseTask(LocalLyricsFragment fragment) {
         super();
-        this.mLocalLyricsFragment = fragment;
+        this.mLocalLyricsFragment = new WeakReference<>(fragment);
     }
 
     @Override
@@ -62,13 +66,19 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
         lyricsArray = new Lyrics[params.length - 2];
         SQLiteDatabase database;
         if (params[0] instanceof Fragment) {
-            fragment = (Fragment) params[0];
-            mContext = fragment.getActivity();
-            if (mContext == null || !(mContext instanceof MainActivity))
+            fragment = new WeakReference<>((Fragment) params[0]);
+            mContext = new WeakReference<>(fragment.get().getActivity());
+            if (mContext == null || !(mContext.get() instanceof MainActivity))
                 cancel(true);
-            database = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+            database = DatabaseHelper.getInstance(mContext.get()).getWritableDatabase();
+        } else if (params[0] instanceof OverlayContentLayout) {
+            mOverlay = new WeakReference<>((OverlayContentLayout) params[0]);
+            mContext = new WeakReference<>(mOverlay.get().getContext());
+            database = DatabaseHelper.getInstance(mContext.get()).getWritableDatabase();
         } else
             database = (SQLiteDatabase) params[0];
+        if (!database.isOpen())
+            return null;
         item = (MenuItem) params[1];
         if (params[2] instanceof Lyrics[])
             lyricsArray = (Lyrics[]) params[2];
@@ -76,14 +86,16 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
             for (int i = 0; i < lyricsArray.length; i++) {
                 lyricsArray[i] = (Lyrics) params[i + 2];
             }
-        boolean result = true;
+        boolean result = false;
         String[] columns = DatabaseHelper.columns;
         if (database != null && database.isOpen()) {
             database.beginTransaction();
             try {
                 for (Lyrics lyrics : lyricsArray) {
-                    Lyrics storedLyrics = DatabaseHelper.getInstance(mContext).get(new String[]{lyrics.getArtist(), lyrics.getTitle(),
-                            lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
+                    if ("user-submission".equals(lyrics.getSource()) || "disapproved".equals(lyrics.getSource()))
+                        continue;
+                    Lyrics storedLyrics = DatabaseHelper.getInstance(mContext.get()).get(new String[]{lyrics.getArtist(), lyrics.getTitle(),
+                            lyrics.getOriginalArtist(), lyrics.getOriginalTitle()});
                     if ((storedLyrics == null || (!storedLyrics.isLRC() && lyrics.isLRC()))
                             && !"Storage".equals(lyrics.getSource())) {
                         ContentValues values = new ContentValues(2);
@@ -95,20 +107,23 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
                         if (lyrics.getCoverURL() != null && lyrics.getCoverURL().startsWith("http://"))
                             values.put(columns[5], lyrics.getCoverURL());
                         values.put(columns[6], lyrics.getOriginalArtist());
-                        values.put(columns[7], lyrics.getOriginalTrack());
+                        values.put(columns[7], lyrics.getOriginalTitle());
                         values.put(columns[8], lyrics.isLRC() ? 1 : 0);
                         values.put(columns[9], lyrics.getWriter());
                         values.put(columns[10], lyrics.getCopyright());
                         database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTitle()});
+                        if (fragment != null && fragment.get() != null && fragment.get() instanceof LyricsViewFragment)
+                            ((LyricsViewFragment) fragment.get()).lyricsPresentInDB = true;
+                        else if (mOverlay != null && mOverlay.get() != null)
+                            mOverlay.get().lyricsPresentInDB = true;
                         database.insert(DatabaseHelper.TABLE_NAME, null, values);
-                        if (fragment instanceof LyricsViewFragment)
-                            ((LyricsViewFragment) fragment).lyricsPresentInDB = true;
                         result = true;
-                    } else if (mContext != null) { // if called from activity, not service
+                    } else if (mContext != null) { // if called from activity or overlay, not service
                         database.delete(DatabaseHelper.TABLE_NAME, String.format("%s=? AND %s=?", columns[0], columns[1]), new String[]{lyrics.getArtist(), lyrics.getTitle()});
-                        if (fragment instanceof LyricsViewFragment)
-                            ((LyricsViewFragment) fragment).lyricsPresentInDB = false;
-                        result = false;
+                        if (fragment != null && fragment.get() != null && fragment.get() instanceof LyricsViewFragment)
+                            ((LyricsViewFragment) fragment.get()).lyricsPresentInDB = false;
+                        else if (mOverlay != null && mOverlay.get() != null)
+                            mOverlay.get().lyricsPresentInDB = true;
                     }
                     database.yieldIfContendedSafely();
                 }
@@ -122,43 +137,42 @@ public class WriteToDatabaseTask extends AsyncTask<Object, Void, Boolean> {
 
     @Override
     public void onPostExecute(Boolean result) {
+        if (result == null)
+            return;
         int message = result ? R.string.lyrics_saved : R.string.lyrics_removed;
-        if (fragment instanceof LyricsViewFragment) {
+        if ((fragment != null && fragment.get() instanceof LyricsViewFragment) || (mOverlay != null && mOverlay.get() != null)) {
             SharedPreferences sharedPref =
-                    PreferenceManager.getDefaultSharedPreferences(mContext);
+                    PreferenceManager.getDefaultSharedPreferences(mContext.get());
             if (!sharedPref.getBoolean("pref_auto_save", true))
-                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext.get(), message, Toast.LENGTH_SHORT).show();
             item.setIcon(result ? R.drawable.ic_trash : R.drawable.ic_save);
             item.setTitle(result ? R.string.remove_action : R.string.save_action);
-        } else if (fragment instanceof LocalLyricsFragment) {
-            LongSparseArray<Integer> topMap = mLocalLyricsFragment.collectTopPositions();
-            mLocalLyricsFragment.addObserver(topMap);
+        } else if (fragment != null && fragment.get() instanceof LocalLyricsFragment && mLocalLyricsFragment != null) {
+            LongSparseArray<Integer> topMap = mLocalLyricsFragment.get().collectTopPositions();
+            mLocalLyricsFragment.get().addObserver(topMap);
             for (final Lyrics lyrics : lyricsArray) {
-                int position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                int position = ((LocalAdapter) mLocalLyricsFragment.get().getExpandableListAdapter())
                         .getGroupPosition(lyrics.getArtist());
                 if (!result)
-                    ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                    ((LocalAdapter) mLocalLyricsFragment.get().getExpandableListAdapter())
                             .removeArtistFromCache(lyrics.getArtist());
                 else
-                    ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                    ((LocalAdapter) mLocalLyricsFragment.get().getExpandableListAdapter())
                             .addArtist(lyrics.getArtist());
-                if (result && fragment.getView() != null && position != -1) {
-                    position = ((LocalAdapter) mLocalLyricsFragment.getExpandableListAdapter())
+                if (result && fragment.get().getView() != null && position != -1) {
+                    position = ((LocalAdapter) mLocalLyricsFragment.get().getExpandableListAdapter())
                             .getGroupPosition(lyrics.getArtist());
-                    mLocalLyricsFragment.getMegaListView().expandGroup(position);
+                    mLocalLyricsFragment.get().getMegaListView().expandGroup(position);
                 }
             }
-            View.OnClickListener actionClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View snackbar) {
-                    for (Lyrics lyrics : lyricsArray)
-                        mLocalLyricsFragment.animateUndo(lyrics);
-                }
+            View.OnClickListener actionClickListener = snackbar -> {
+                for (Lyrics lyrics : lyricsArray)
+                    mLocalLyricsFragment.get().animateUndo(lyrics);
             };
-            if (!result && fragment.getView() != null) {
-                Snackbar.make(fragment.getActivity().findViewById(R.id.root_view), message, Snackbar.LENGTH_LONG)
+            if (!result && fragment.get().getView() != null) {
+                Snackbar.make(fragment.get().getActivity().findViewById(R.id.root_view), message, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, actionClickListener)
-                        .setActionTextColor(mContext.getResources().getColor(R.color.accent_light)).show();
+                        .setActionTextColor(mContext.get().getResources().getColor(R.color.accent_light)).show();
             }
         }
     }

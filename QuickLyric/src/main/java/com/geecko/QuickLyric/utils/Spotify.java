@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.res.AssetManager;
@@ -178,12 +177,7 @@ public class Spotify {
         @Override
         public void onFailure(Call call, IOException e) {
             e.printStackTrace();
-            mActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show();
-                }
-            });
+            mActivity.runOnUiThread(() -> Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_LONG).show());
         }
 
         @Override
@@ -267,14 +261,11 @@ public class Spotify {
                                 confirmDialog
                                         .setTitle(R.string.warning)
                                         .setMessage(String.format(prompt, savedTracks.size(), time))
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                Intent scanInfo = new Intent(mActivity,
-                                                        BatchDownloaderService.class);
-                                                scanInfo.putExtra("spotifyTracks", cleanResults(savedTracks));
-                                                mActivity.startService(scanInfo);
-                                            }
+                                        .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                                            Intent scanInfo = new Intent(mActivity,
+                                                    BatchDownloaderService.class);
+                                            scanInfo.putExtra("spotifyTracks", cleanResults(savedTracks));
+                                            mActivity.startService(scanInfo);
                                         })
                                         .setNegativeButton(android.R.string.cancel, null)
                                         .create().show();
@@ -406,14 +397,11 @@ public class Spotify {
                         confirmDialog
                                 .setTitle(R.string.warning)
                                 .setMessage(String.format(prompt, tracks.size(), time))
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent scanInfo = new Intent(mActivity,
-                                                BatchDownloaderService.class);
-                                        scanInfo.putExtra("spotifyTracks", tracks);
-                                        mActivity.startService(scanInfo);
-                                    }
+                                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                                    Intent scanInfo = new Intent(mActivity,
+                                            BatchDownloaderService.class);
+                                    scanInfo.putExtra("spotifyTracks", tracks);
+                                    mActivity.startService(scanInfo);
                                 })
                                 .setNegativeButton(android.R.string.cancel, null)
                                 .create().show();

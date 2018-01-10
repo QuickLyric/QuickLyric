@@ -27,9 +27,11 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.utils.AnimatorActionListener;
 import com.geecko.QuickLyric.utils.LyricsTextFactory;
 
 import java.io.BufferedReader;
@@ -47,6 +49,8 @@ public class LrcView extends View {
 
     public TreeMap<Long, String> dictionnary;
 
+    private int mCurrentLine = -1;
+    private int mNextLine = -1;
     private long mCurrentTime = 0L;
     private long mNextTime = 0L;
 
@@ -55,6 +59,7 @@ public class LrcView extends View {
     private int mRows;
     private float mTextSize;
     private float mDividerHeight;
+    private int mLastOffset = 0;
 
     private Paint mNormalPaint;
     private Paint mCurrentPaint;
@@ -74,14 +79,14 @@ public class LrcView extends View {
 
     private void initViews(AttributeSet attrs) {
         TypedArray ta = getContext().obtainStyledAttributes(attrs,
-                R.styleable.Lrc);
-        mTextSize = ta.getDimension(R.styleable.Lrc_textSize, 50.0f);
-        mRows = ta.getInteger(R.styleable.Lrc_rows, 5);
-        mDividerHeight = ta.getDimension(R.styleable.Lrc_dividerHeight, 0.0f);
+                R.styleable.LrcView);
+        mTextSize = ta.getDimension(R.styleable.LrcView_textSize, 50.0f);
+        mRows = ta.getInteger(R.styleable.LrcView_rows, 5);
+        mDividerHeight = ta.getDimension(R.styleable.LrcView_dividerHeight, 0.0f);
 
-        int normalTextColor = ta.getColor(R.styleable.Lrc_normalTextColor,
+        int normalTextColor = ta.getColor(R.styleable.LrcView_normalTextColor,
                 0xffffffff);
-        int currentTextColor = ta.getColor(R.styleable.Lrc_currentTextColor,
+        int currentTextColor = ta.getColor(R.styleable.LrcView_currentTextColor,
                 0xff00ffde);
 
         ta.recycle();
@@ -123,48 +128,50 @@ public class LrcView extends View {
         if (dictionnary.isEmpty())
             return;
 
-        int currentLine = Math.max(mTimes.indexOf(mCurrentTime), 0);
-
-        canvas.save();
-
         int breakOffset = 0;
 
-        if (currentLine - 1 >= 0) {
-            long previousTime = mTimes.get(currentLine - 1);
+        // Line at the top
+        if (mCurrentLine - 1 >= 0) {
+            long previousTime = mTimes.get(mCurrentLine - 1); // FIXME Bug if mTimes is empty
             String previousLrc = dictionnary.get(previousTime);
             if (previousLrc != null) {
                 breakOffset = drawDividedText(previousLrc, canvas, mTextSize + mDividerHeight, breakOffset, mNormalPaint);
             }
         }
 
-        String currentLrc = dictionnary.get(mCurrentTime);
+        mLastOffset = breakOffset;
+
+        // Highlighted line
+        String currentLrc = dictionnary.get(mTimes.get(Math.max(mCurrentLine, 0)));
         if (currentLrc == null) {
             mCurrentTime = dictionnary.firstKey();
             currentLrc = dictionnary.get(mCurrentTime);
         }
         breakOffset = drawDividedText(currentLrc, canvas, (mTextSize + mDividerHeight) * 2, breakOffset, mCurrentPaint);
 
-        for (int i = currentLine + 1; i < Math.min(currentLine + mRows - 2, mTimes.size()); i++) {
-            String lrc = dictionnary.get(mTimes.get(i));
-            if (lrc == null)
-                continue;
-            breakOffset = drawDividedText(lrc, canvas,
-                    (mTextSize + mDividerHeight) * (2 + i - currentLine), breakOffset, mNormalPaint);
+        if (mTimes.size() >= mCurrentLine + 1) {
+            // Next lines
+            for (int i = mCurrentLine + 1; i < Math.min(mCurrentLine + mRows - 2, mTimes.size()); i++) {
+                String lrc = dictionnary.get(mTimes.get(i));
+                if (lrc == null)
+                    continue;
+                breakOffset = drawDividedText(lrc, canvas,
+                        (mTextSize + mDividerHeight) * (2 + i - mCurrentLine), breakOffset, mNormalPaint);
+            }
         }
 
         mLrcHeight = (int) (mTextSize + mDividerHeight) * (mRows + 1) + breakOffset + 5;
         canvas.clipRect(0, 0, mViewWidth, mLrcHeight);
 
-        canvas.restore();
         requestLayout();
     }
 
     private int drawDividedText(String lrc, Canvas canvas, float y, int breakOffset, Paint paint) {
-        int overflow = lrc.length() - mNormalPaint.breakText(lrc, true, mViewWidth * 0.965f, null);
+        int overflow = lrc.length() - mCurrentPaint.breakText(lrc, true, mViewWidth * 0.965f, null);
         int contained = lrc.length() - overflow;
         String cutLrc = lrc.substring(0, contained);
         cutLrc = cutLrc.substring(0, overflow > 0 && cutLrc.contains(" ") ? cutLrc.lastIndexOf(" ") : contained);
-        float x = (mViewWidth - mNormalPaint.measureText(cutLrc)) / 2;
+        float x = (mViewWidth - mCurrentPaint.measureText(cutLrc)) / 2;
         canvas.drawText(cutLrc, x, y + breakOffset, paint);
 
         if (overflow > 0) {
@@ -222,19 +229,41 @@ public class LrcView extends View {
         mNextTime = dictionnary.lastKey();
         if (time < mNextTime)
             mNextTime = dictionnary.higherKey(time);
-        mCurrentTime = dictionnary.firstKey();
-        if (time > mCurrentTime)
+        if (time > dictionnary.firstKey())
             mCurrentTime = dictionnary.floorKey(time);
-        postInvalidate();
+        else
+            mCurrentTime = dictionnary.firstKey();
+
+        int currentLine = Math.max(mTimes.indexOf(mCurrentTime), 0);
+        if (currentLine < mCurrentLine || mCurrentLine < 0) {
+            mCurrentLine = currentLine;
+            mNextLine = currentLine;
+            setTranslationY(0);
+        } else if (currentLine > mCurrentLine && currentLine > mNextLine && getTranslationY() == 0) { // We're moving forward, show neat animation
+            animate().setListener(new AnimatorActionListener(() -> {
+                mCurrentLine = currentLine;
+                setTranslationY(0);
+                invalidate();
+            }, AnimatorActionListener.ActionType.END)).translationY(-(mTextSize + mDividerHeight + mLastOffset)).setDuration(300)
+                    .setInterpolator(new AccelerateInterpolator()).start();
+            mNextLine = currentLine;
+        }
     }
 
     public boolean isFinished() {
         return mTimes.isEmpty() || mTimes.get(mTimes.size() - 1) <= mCurrentTime;
     }
 
+    public boolean hasLyrics() {
+        return mTimes != null && dictionnary != null && this.lyrics != null;
+    }
+
     public void setSourceLrc(String lrc) {
         mNextTime = 0;
         mCurrentTime = 0;
+        mCurrentLine = -1;
+        mNextLine = -1;
+        mLastOffset = 0;
 
         List<String> texts = new ArrayList<>();
         mTimes = new ArrayList<>();
@@ -244,13 +273,13 @@ public class LrcView extends View {
         String line;
         String[] arr;
         try {
-            while (null != (line = reader.readLine())) {
+            while ((line = reader.readLine()) != null) {
                 arr = parseLine(line);
-                if (null == arr) {
+                if (arr == null) {
                     continue;
                 }
 
-                if (1 == arr.length) {
+                if (arr.length == 1) {
                     String last = texts.remove(texts.size() - 1);
                     texts.add(last + arr[0]);
                     continue;
@@ -275,6 +304,13 @@ public class LrcView extends View {
                     dictionnary.put(mTimes.get(i), texts.get(i));
         }
         Collections.sort(mTimes);
+        if (mTimes.isEmpty()) {
+            mTimes.add(0L);
+        }
+    }
+
+    public long getLastLinePosition() {
+        return mTimes == null || mTimes.isEmpty() ? Long.MAX_VALUE : Collections.max(mTimes);
     }
 
     public Lyrics getStaticLyrics() {

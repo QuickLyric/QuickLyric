@@ -27,8 +27,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 
 import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.fragment.SearchFragment;
 import com.geecko.QuickLyric.SearchActivity;
+import com.geecko.QuickLyric.fragment.SearchFragment;
+import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
 import java.util.Locale;
@@ -98,6 +99,8 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter implements Vie
                     .get(rightToLeft ? getCount() - 1 - position : position);
             if (provider == DatabaseHelper.class)
                 return searchTabs.getString(R.string.local_title);
+            if (provider == LyricsChart.class)
+                return searchTabs.getString(R.string.online_title);
             return provider.getSimpleName();
         } catch (Exception e) {
             e.printStackTrace();

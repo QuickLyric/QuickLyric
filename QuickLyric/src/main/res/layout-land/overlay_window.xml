@@ -22,40 +22,46 @@
 <com.geecko.QuickLyric.view.OverlayLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
-    android:layout_gravity="start">
+    android:layout_gravity="start"
+    android:visibility="invisible"
+    tools:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:layoutDirection="ltr"
-        android:paddingEnd="75dp"
-        android:paddingRight="75dp">
+        android:orientation="horizontal"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="@dimen/overlay_window_padding"
+        android:layout_marginRight="@dimen/overlay_window_padding"
+        tools:ignore="RtlSymmetry">
 
         <android.support.v7.widget.CardView
             android:id="@+id/overlay_card"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@color/material_white"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="12dp">
+            app:cardPreventCornerOverlap="false"
+            app:contentPadding="@dimen/overlay_window_inner_padding"
+            app:cardCornerRadius="5dp">
 
             <include layout="@layout/overlay_content"/>
 
         </android.support.v7.widget.CardView>
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="16dp"
             android:layout_height="8dp"
             android:layout_marginTop="36dp"
-            android:src="@drawable/overlay_tip"
-            app:srcCompat="@drawable/overlay_tip"
             android:layoutDirection="ltr"
             android:rotation="@integer/rotation_90"
-            android:transformPivotX="8dp"/>
+            android:src="@drawable/overlay_tip"
+            android:transformPivotX="8dp"
+            app:srcCompat="@drawable/overlay_tip"/>
     </LinearLayout>
 
 </com.geecko.QuickLyric.view.OverlayLayout>

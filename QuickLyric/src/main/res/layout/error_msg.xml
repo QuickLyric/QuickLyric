@@ -24,7 +24,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="?actionBarSize"
-    android:visibility="invisible">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:visibility="invisible"
+    tools:visibility="visible"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/bugtext"
@@ -49,20 +53,39 @@
         android:src="@drawable/ic_error"/>
 
     <TextView
-        android:id="@+id/bugtext_why"
+        android:id="@+id/bugtext_letusknow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/no_results"
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:gravity="bottom|center_horizontal"
-        android:onClick="whyPopUp"
+        android:paddingLeft="15dp"
+        android:onClick="letUsKnowPopUp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:text="@string/let_us_know"
+        android:textColor="#42000000"
+        android:textSize="@dimen/small_txt_size"
+        tools:visibility="visible"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/bugtext_storage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/no_results"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:gravity="bottom|center_horizontal"
+        android:onClick="storagePermissionRequest"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="8dp"
-        android:text="@string/no_results_why"
+        android:text="@string/fix_it"
         android:textColor="#42000000"
         android:textSize="@dimen/small_txt_size"
+        tools:visibility="visible"
         android:visibility="gone"/>
 
 </RelativeLayout>

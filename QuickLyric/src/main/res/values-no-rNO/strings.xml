@@ -43,4 +43,5 @@
   <string name="welcome2_sub">Sangteksten du lette etter\n Akkurat her, akkurat nå.</string>
   <string name="apps_desc">Fungerer med alle dine apper</string>
   <string name="apps_desc_sub">Dersom du opplever problemer med din spiller (f.eks Poweramp, GoneMAD eller Spotify), forsikre deg om at \"Scrobbling\" eller \"Broadcast status\" er aktivert.</string>
+  <string name="translate_us">Oversett applikasjonen</string>
 </resources>

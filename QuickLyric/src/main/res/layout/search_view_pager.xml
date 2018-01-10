@@ -28,7 +28,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         android:minHeight="56dp"
         android:background="@android:color/white">
 
@@ -36,7 +35,6 @@
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
             android:focusable="false"
             android:visibility="gone"
             android:background="?attr/colorPrimary"
@@ -50,31 +48,29 @@
             android:textColor="?android:textColorPrimary"
             app:searchBackIcon="@drawable/searchBackIcon"
             app:searchBackground="?android:colorBackground"
-            android:elevation="5dp"
             app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
             app:searchSuggestionBackground="?android:colorBackground"
             app:searchSuggestionIcon="@drawable/ic_suggestion"/>
 
     </FrameLayout>
 
-    <com.viewpagerindicator.TitlePageIndicator
-        android:id="@+id/pager_title_strip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="?android:detailsElementBackground"
-        android:elevation="4dp"
-        android:textColor="?colorAccent"
-        app:footerColor="@android:color/transparent"
-        app:footerIndicatorStyle="none"
-        app:footerPadding="5dp"
-        app:selectedColor="?colorAccent"
-        app:topPadding="3dp"/>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/search_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:background="?android:detailsElementBackground"
+            android:elevation="4dp"
+            android:textColor="?colorAccent" />
+
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

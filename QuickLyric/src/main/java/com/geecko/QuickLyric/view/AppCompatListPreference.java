@@ -20,7 +20,6 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
@@ -67,16 +66,13 @@ public class AppCompatListPreference extends ListPreference {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
-                .setSingleChoiceItems(getEntries(), preselect, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which >= 0 && getEntryValues() != null) {
-                            String value = getEntryValues()[which].toString();
-                            if (callChangeListener(value) && isPersistent())
-                                setValue(value);
-                        }
-                        dialog.dismiss();
+                .setSingleChoiceItems(getEntries(), preselect, (dialog, which) -> {
+                    if (which >= 0 && getEntryValues() != null) {
+                        String value = getEntryValues()[which].toString();
+                        if (callChangeListener(value) && isPersistent())
+                            setValue(value);
                     }
+                    dialog.dismiss();
                 });
 
         PreferenceManager pm = getPreferenceManager();

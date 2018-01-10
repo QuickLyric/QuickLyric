@@ -114,7 +114,7 @@ Iskali ste besedilo za \"%1$s\" od %2$s. Nažalost ga QuickLyric ni našel…<br
   <string name="full_text_action">Celotno besedilo</string>
   <string name="artworks_pref_title">Samodejen prenos slik albuma</string>
   <string name="artworks_pref_sum">Lahko povzroči stroške na mobilnih podatkih</string>
-  <string name="pref_lrc_sum">Poudari pete besede - vsi glasbeni predvajalniki niso podprti</string>
+  <string name="pref_lrc_sum">Poudari péte besede - vsa naša besedila niso sinhronizirana</string>
   <string name="pref_lrc">Sinhronizirana besedila</string>
   <string name="red_theme">Rdeča</string>
   <string name="purple_theme">Vijolična</string>
@@ -141,7 +141,7 @@ Iskali ste besedilo za \"%1$s\" od %2$s. Nažalost ga QuickLyric ni našel…<br
   <string name="notification_access_explanation"><![CDATA[
 To dovoljenje je potrebno samo zato, da QuickLyric lahko dostopa do metapodatkov glasbe.<br/>QuickLyric ni zainteresiran v branje vaših obvestil, to nam naša politika zasebnosti preprečuje.<br/>Dobra novica je, da zaradi odprte kode QuickLyric to lahko vsak zase preveri! 😊<br/><br/>Zahvaljujemo se vam za vaše razumevanje!<br/><br/>- Ekipa QuickLyric
 ]]></string>
-  <string name="premium_title">Nakup Premium</string>
+  <string name="premium_title">Kupi Premium (brezplačen preizkus!)</string>
   <string name="remove_ads_title">Odstrani oglase</string>
   <string name="subscription_monthly">Mesečno</string>
   <string name="subscription_yearly">Letno</string>
@@ -172,7 +172,7 @@ To dovoljenje je potrebno samo zato, da QuickLyric lahko dostopa do metapodatkov
   <string name="miui_autostart">%s lastniki morajo najprej odblokirati aplikacijo</string>
   <string name="musicid_instructions">Telefon približajte glasbi</string>
   <string name="loading">Nalaganje&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric ima težave s branjem vaše glasbe - poskusite ponovno zagnati vašo napravo</string>
+  <string name="nls_issues">QuickLyric ima težave pri branju vaše glasbe</string>
   <string name="romanizer_prompt_msg">Za pretvorbo besedil iz japonske, korejske ali kitajske v latinsko abecedo, morate prenesti dodaten vtičnik za QuickLyric.</string>
   <string name="romanizer_prompt_title">Romanizer dodatek</string>
   <string name="pref_always_artwork">Vedno omogočeno</string>
@@ -180,6 +180,23 @@ To dovoljenje je potrebno samo zato, da QuickLyric lahko dostopa do metapodatkov
   <string name="pref_overlay_behavior_notif">Odpri preko obvestila</string>
   <string name="pref_overlay_behavior_title">Vedenje lebdečih besedil</string>
   <string name="pref_notification_sum_disabled">Obvestila ne morejo biti onemogočena, ko so lebdeča besedila omogočena</string>
+  <string name="iab_error">Napaka pri pridobivanju stanja naročnine iz Google Play</string>
+  <string name="fix_it">Popravi</string>
+  <string name="bad_xp_msg">Je vse vredu?</string>
+  <string name="bad_xp_btn">Vprašaj za pomoč</string>
+  <string name="nls_enable_prompt">Prosimo, izberite QuickLyric s seznama</string>
+  <string name="yes">da</string>
+  <string name="no">ne</string>
+  <string name="good_xp_prompt_msg">Ali imate radi QuickLyric?</string>
+  <string name="thanks">Hvala!</string>
+  <string name="thanks_feedback">Hvala za povratne informacije!</string>
+  <string name="please_improve_ql">Prosimo povejte nam, kako lahko QuickLyric izboljšamo!</string>
+  <string name="goodXP_rate_prompt">Veseli nas, da uživate v QuickLyric! Podaja ocene o aplikaciji bi nam zelo pomagala. Zahvaljujemo se vam, da uporabljate QuickLyric!</string>
+  <string name="ads_occasional">Ti oglasi bodo le občasno prikazani</string>
+  <string name="ads_remove_title">Odstrani oglase brezplačno</string>
+  <string name="video_ad_dialog"><![CDATA[Tukaj na QuickLyric razumemo, kako nadležni so lahko oglasi. Nas cilj je, da vam nudimo najboljšo izkušnjo na trgu s čimmanj oglaševanja.<br/><br/>Oglejte si ta kratek video in vsi oglasi bomo odstranjeni iz aplikacije za <strong>%1$d dni</strong>.]]></string>
+  <string name="watch_video">Ogled videa</string>
+  <string name="trial_incent">Prvih 7 dni je brezplačnih brez vezave. Preizkusite!</string>
   <plurals name="scan_dialog">
     <item quantity="one">QuickLyric bo prenesel besedilo za %1$d pesem.\
         Poskrbite, da imate stabilno povezavo vsaj za %2$d minuto.</item>

@@ -22,44 +22,49 @@ package com.geecko.QuickLyric.tasks;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Process;
-import android.widget.Toast;
 
-import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.model.Lyrics;
-import com.geecko.QuickLyric.services.NotificationListenerService;
+import java.lang.ref.WeakReference;
 
-public class ParseTask extends AsyncTask<Object, Object, String[]> {
+//TODO This doesn't need to be an AsyncTask... Come on.
+public class ParseTask extends AsyncTask<Object, Object, Object[]> {
 
     private final boolean showMsg;
     private final boolean noDoubleBroadcast;
-    private ParseCallback callback;
-    private Context mContext;
+    private final boolean requestPermission;
+    private WeakReference<ParseCallback> callback;
+    private WeakReference<Context> mContext;
 
-    public ParseTask(ParseCallback callback, Context context, boolean showMsg, boolean noDoubleBroadcast) {
-        this.callback = callback;
-        this.mContext = context;
+    public ParseTask(ParseCallback callback, Context context, boolean showMsg, boolean requestPermission, boolean noDoubleBroadcast) {
+        this.callback = new WeakReference<>(callback);
+        this.mContext = new WeakReference<>(context);
         this.showMsg = showMsg;
         this.noDoubleBroadcast = noDoubleBroadcast;
+        this.requestPermission = requestPermission;
     }
 
     @Override
-    protected String[] doInBackground(Object... arg0) {
-        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-        SharedPreferences preferences = mContext.getSharedPreferences("current_music", Context.MODE_PRIVATE);
-        String[] music = new String[2];
+    protected Object[] doInBackground(Object... arg0) {
+        SharedPreferences preferences = mContext.get().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        Object[] music = new Object[4];
         music[0] = preferences.getString("artist", null);
         music[1] = preferences.getString("track", null);
+        music[2] = preferences.getString("player", null);
+        music[3] = preferences.getLong("duration", 0L);
         return music;
     }
 
     @Override
-    protected void onPostExecute(String[] metaData) {
-        callback.onMetadataParsed(metaData, showMsg, noDoubleBroadcast);
+    protected void onPostExecute(Object[] results) {
+        if (callback.get() != null) {
+            String[] metadata = new String[3];
+            for (int i = 0; i < 3; i++) {
+                metadata[i] = (String) results[i];
+            }
+            callback.get().onMetadataParsed(metadata, (Long) results[3], showMsg, requestPermission, noDoubleBroadcast);
+        }
     }
 
     public interface ParseCallback {
-        void onMetadataParsed(String[] metadata, boolean showMsg, boolean noDoubleBroadcast);
+        void onMetadataParsed(String[] metadata, long duration, boolean showMsg, boolean requestPermission, boolean noDoubleBroadcast);
     }
 }

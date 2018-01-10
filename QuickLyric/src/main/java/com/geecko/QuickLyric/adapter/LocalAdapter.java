@@ -40,7 +40,6 @@ import com.geecko.QuickLyric.view.AnimatedExpandableListView.AnimatedExpandableL
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
@@ -56,15 +55,12 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
     private View.OnTouchListener mTouchListener;
     public final int childDefaultStateColor;
     public final int childSelectedStateColor;
-    private final TreeSet<int[]> markedRows = new TreeSet<>(new Comparator<int[]>() {
-        @Override
-        public int compare(int[] o1, int[] o2) {
-            if (o1[0] < o2[0])
-                return -1;
-            if (o1[0] > o2[0])
-                return 1;
-            return o1[1] < o2[1] ? -1 : o1[1] == o2[1] ? 0 : 1;
-        }
+    private final TreeSet<int[]> markedRows = new TreeSet<>((o1, o2) -> {
+        if (o1[0] < o2[0])
+            return -1;
+        if (o1[0] > o2[0])
+            return 1;
+        return o1[1] < o2[1] ? -1 : o1[1] == o2[1] ? 0 : 1;
     });
 
     public LocalAdapter(Context context, String[] artists, View.OnTouchListener touchListener, AnimatedExpandableListView listView) {
@@ -89,8 +85,8 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.group_card, parent, false);
             holder = new GroupViewHolder();
-            holder.artist = (TextView) convertView.findViewById(android.R.id.text1);
-            holder.indicator = (ImageView) convertView.findViewById(R.id.group_indicator);
+            holder.artist = convertView.findViewById(android.R.id.text1);
+            holder.indicator = convertView.findViewById(R.id.group_indicator);
             holder.textColor = holder.artist.getCurrentTextColor();
             convertView.setTag(holder);
         } else
@@ -111,20 +107,24 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         if (convertView == null || !(convertView.getTag() instanceof ChildViewHolder)) {
             convertView = inflater.inflate(R.layout.local_child_item, parent, false);
             holder = new ChildViewHolder();
-            holder.title = (TextView) convertView.findViewById(R.id.child_title);
+            holder.title = convertView.findViewById(R.id.child_title);
             holder.divider = convertView.findViewById(R.id.child_divider);
             holder.card = (CardView) holder.title.getParent();
             convertView.setTag(holder);
         } else
             holder = (ChildViewHolder) convertView.getTag();
         holder.lyrics = getChild(groupPosition, childPosition);
-        holder.title.setText(holder.lyrics.getTitle());
-        holder.card.setBackgroundColor(markedRows.contains(new int[]{groupPosition, childPosition}) ? childSelectedStateColor : childDefaultStateColor);
-        holder.title.setTextColor(markedRows.contains(new int[]{groupPosition, childPosition}) ? childDefaultStateColor : childSelectedStateColor);
-        convertView.setOnTouchListener(mTouchListener);
-        holder.groupPosition = groupPosition;
-        holder.divider.setVisibility(isLastChild ? View.GONE : View.VISIBLE);
-        convertView.setAlpha(1f);
+        if (holder.lyrics != null) {
+            holder.title.setText(holder.lyrics.getTitle());
+            holder.card.setBackgroundColor(markedRows.contains(new int[]{groupPosition, childPosition}) ? childSelectedStateColor : childDefaultStateColor);
+            holder.title.setTextColor(markedRows.contains(new int[]{groupPosition, childPosition}) ? childDefaultStateColor : childSelectedStateColor);
+            convertView.setOnTouchListener(mTouchListener);
+            holder.groupPosition = groupPosition;
+            holder.divider.setVisibility(isLastChild ? View.GONE : View.VISIBLE);
+            convertView.setAlpha(1f);
+            convertView.setVisibility(View.VISIBLE);
+        } else
+            convertView.setVisibility(View.GONE);
         convertView.setTranslationX(0f);
         return convertView;
     }
@@ -173,6 +173,8 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
 
     @Override
     public Lyrics getChild(int groupPosition, int childPosition) {
+        if (groupPosition >= getGroupCount() || childPosition >= getGroup(groupPosition).length)
+            return null;
         return getGroup(groupPosition)[childPosition];
     }
 
@@ -190,7 +192,8 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return getChild(groupPosition, childPosition).hashCode();
+        Lyrics lyrics = getChild(groupPosition, childPosition);
+        return lyrics == null ? 0 : lyrics.hashCode();
     }
 
     @Override
@@ -229,7 +232,7 @@ public class LocalAdapter extends AnimatedExpandableListAdapter {
         if (!Arrays.asList(mArtists).contains(artist)) {
             String[] newArtists = Arrays.copyOf(mArtists, mArtists.length + 1);
             newArtists[newArtists.length - 1] = artist;
-            List artistsList = Arrays.asList(newArtists);
+            List<String> artistsList = Arrays.asList(newArtists);
             Collections.sort(artistsList, String.CASE_INSENSITIVE_ORDER);
             this.mArtists = (String[]) artistsList.toArray();
         }

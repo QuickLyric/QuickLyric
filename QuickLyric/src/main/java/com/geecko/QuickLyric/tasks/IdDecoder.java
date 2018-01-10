@@ -16,6 +16,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.lang.ref.WeakReference;
+
 import static com.geecko.QuickLyric.model.Lyrics.ERROR;
 import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
 
@@ -37,19 +39,19 @@ import static com.geecko.QuickLyric.utils.Net.getUrlAsString;
  */
 
 public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
-    private Context mContext;
-    private LyricsViewFragment lyricsViewFragment;
+    private WeakReference<Context> mContext;
+    private WeakReference<LyricsViewFragment> mFragment;
 
     public IdDecoder(Context context, LyricsViewFragment lyricsFragment) {
-        this.mContext = context;
-        this.lyricsViewFragment = lyricsFragment;
+        this.mContext = new WeakReference<>(context);
+        this.mFragment = new WeakReference<>(lyricsFragment);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (lyricsViewFragment != null)
-            lyricsViewFragment.startRefreshAnimation();
+        if (mFragment.get() != null)
+            mFragment.get().startRefreshAnimation();
     }
 
     @Override
@@ -110,14 +112,14 @@ public class IdDecoder extends AsyncTask<String, Integer, Lyrics> {
     @Override
     protected void onPostExecute(Lyrics lyrics) {
         super.onPostExecute(lyrics);
-        if (lyricsViewFragment != null) {
+        if (mFragment.get() != null) {
             if (lyrics.getFlag() == ERROR || (lyrics.getArtist() == null && lyrics.getTitle() == null))
-                lyricsViewFragment.stopRefreshAnimation();
+                mFragment.get().stopRefreshAnimation();
             else
-                lyricsViewFragment.fetchLyrics(lyrics.getArtist(), lyrics.getTitle());
+                mFragment.get().fetchLyrics(true, null, 0L, lyrics.getArtist(), lyrics.getTitle());
         } else
-            ((MainActivity) mContext).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTitle());
+            ((MainActivity) mContext.get()).updateLyricsFragment(0, lyrics.getArtist(), lyrics.getTitle());
         if (lyrics.getFlag() == ERROR)
-            Toast.makeText(mContext, R.string.wrong_musicID, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext.get(), R.string.wrong_musicID, Toast.LENGTH_LONG).show();
     }
 }

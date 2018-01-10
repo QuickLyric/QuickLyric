@@ -28,6 +28,8 @@ public class Net {
 
     public static String USER_AGENT =
             "Mozilla/5.0 (Linux; U; Android 6.0.1; ko-kr; Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+    public static String DESKTOP_USER_AGENT =
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
 
     public static String getUrlAsString(String paramURL) throws IOException {
         return getUrlAsString(new URL(paramURL));

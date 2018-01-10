@@ -30,7 +30,7 @@
     <!--
         Fixme minHeight trick
     !-->
-    <TextSwitcher
+    <ViewSwitcher
         android:id="@+id/switcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

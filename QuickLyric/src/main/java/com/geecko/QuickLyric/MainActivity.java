@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -29,7 +30,6 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -39,6 +39,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -50,7 +52,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -73,7 +75,6 @@ import android.widget.Toast;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
-import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.event.RecentsDownloadingEvent;
 import com.geecko.QuickLyric.event.RecentsRetrievedEvent;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
@@ -81,28 +82,36 @@ import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.fragment.RecentTracksFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.services.NotificationListenerService;
+import com.geecko.QuickLyric.services.ScrobblerService;
 import com.geecko.QuickLyric.tasks.DBContentLister;
+import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.Id3Writer;
 import com.geecko.QuickLyric.tasks.IdDecoder;
 import com.geecko.QuickLyric.utils.ChangelogStringBuilder;
 import com.geecko.QuickLyric.utils.ColorUtils;
-import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.EmailConfigGenTool;
 import com.geecko.QuickLyric.utils.IMMLeaks;
+import com.geecko.QuickLyric.utils.LastOpenedUtils;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
+import com.geecko.QuickLyric.utils.PermissionsChecker;
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;
+import com.geecko.QuickLyric.utils.RetentionUtils;
 import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
-import com.viewpagerindicator.CirclePageIndicator;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import me.relex.circleindicator.CircleIndicator;
 
 import static com.geecko.QuickLyric.R.array;
 import static com.geecko.QuickLyric.R.id;
@@ -111,7 +120,7 @@ import static com.geecko.QuickLyric.R.string;
 
 public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    private static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
+    public static final String LYRICS_FRAGMENT_TAG = "LyricsViewFragment";
     private static final String SETTINGS_FRAGMENT = "SettingsFragment";
     private static final String LOCAL_LYRICS_FRAGMENT_TAG = "LocalLyricsFragment";
     public static final String SEARCH_FRAGMENT_TAG = "SearchFragment";
@@ -119,20 +128,24 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     public static boolean waitingForListener = false;
     public View drawer;
     public View drawerView;
-    public DrawerItemClickListener drawerListener;
+    private DrawerItemClickListener drawerListener;
     public boolean focusOnFragment = true;
     public ActionMode mActionMode;
     public ActionBarDrawerToggle mDrawerToggle;
     public int themeNum;
     private Fragment displayedFragment;
-    private MusicBroadcastReceiver receiver;
-    private boolean receiverRegistered = false;
     private boolean destroyed = false;
     private int selectedRow = -1;
+    private ConnectivityManager.NetworkCallback networkCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        IMMLeaks.fixFocusedViewLeak(getApplication());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && NotificationListenerService.isListeningAuthorized(this))
+            ScrobblerService.startScrobbler(this);
+        try {
+            IMMLeaks.fixFocusedViewLeak(getApplication());
+        } catch (Exception ignored) {
+        }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
                 R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
@@ -149,16 +162,17 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         setNavBarColor(null);
         final FragmentManager fragmentManager = getFragmentManager();
         setContentView(layout.nav_drawer_activity);
-        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(id.toolbar));
+        setSupportActionBar(findViewById(id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(string.app_name);
 
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        AppBarLayout appBarLayout = findViewById(id.appbar);
         appBarLayout.addOnOffsetChangedListener(this);
 
-        /** Drawer setup */
-        final ListView drawerList = (ListView) findViewById(id.drawer_list);
-        DrawerAdapter drawerAdapter = new DrawerAdapter(this, this.getResources().getStringArray(array.nav_items));
+        /* Drawer setup */
+        final ListView drawerList = findViewById(id.drawer_list);
+        String[] navigationItems = this.getResources().getStringArray(array.nav_items);
+        DrawerAdapter drawerAdapter = new DrawerAdapter(this, navigationItems);
         drawerList.setAdapter(drawerAdapter);
         drawerView = this.findViewById(id.left_drawer);
         drawer = this.findViewById(id.drawer_layout);
@@ -191,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             ((DrawerLayout) drawer).setStatusBarBackground(null);
 
             if (themeNum > 0 && themeNum != 7) { // Is not Amber or Dark
-                final ImageView drawerHeader = (ImageView) findViewById(id.drawer_header);
+                final ImageView drawerHeader = findViewById(id.drawer_header);
                 drawerHeader.setColorFilter(ColorUtils.getDarkPrimaryColor(this), PorterDuff.Mode.OVERLAY);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -223,15 +237,21 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 init(fragmentManager, false);
         }
         boolean seenIntro = getSharedPreferences("intro_slides", Context.MODE_PRIVATE).getBoolean("seen", false);
-        if (!seenIntro || (Build.VERSION.SDK_INT >= 19 && !NotificationListenerService.isListeningAuthorized(this))) {
+        if (!seenIntro || (Build.VERSION.SDK_INT >= 19 && !NotificationListenerService.isAppScrobbling(this) && !NotificationListenerService.isListeningAuthorized(this))) {
             setupDemoScreen();
+            RetentionUtils.recordFirstOpen(this);
+        } else {
+            RetentionUtils.recordTimeDifference(this);
         }
+
+        LastOpenedUtils.setLastOpenedDate(this);
 
         SharedPreferences updatePrefs = getSharedPreferences("update_tracker", Context.MODE_PRIVATE);
         int versionCode = updatePrefs.getInt("VERSION_CODE", seenIntro ? BuildConfig.VERSION_CODE - 1 : BuildConfig.VERSION_CODE);
         updatePrefs.edit().putInt("VERSION_CODE", BuildConfig.VERSION_CODE).apply();
         if (versionCode < BuildConfig.VERSION_CODE)
             onAppUpdated(versionCode);
+        EventBus.getDefault().register(this);
     }
 
     private LyricsViewFragment init(FragmentManager fragmentManager, boolean startEmpty) {
@@ -260,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         return lyricsViewFragment;
     }
 
-    public Fragment getDisplayedFragment(Fragment[] fragments) {
+    private Fragment getDisplayedFragment(Fragment[] fragments) {
         for (Fragment fragment : fragments) {
             if (fragment == null)
                 continue;
@@ -272,9 +292,9 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         return fragments[0];
     }
 
-    public Fragment[] getActiveFragments() {
+    private Fragment[] getActiveFragments() {
         FragmentManager fragmentManager = this.getFragmentManager();
-        Fragment[] fragments = new Fragment[5];
+        Fragment[] fragments = new Fragment[6];
         fragments[0] = fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
         fragments[1] = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
         fragments[2] = fragmentManager.findFragmentByTag(SETTINGS_FRAGMENT);
@@ -307,6 +327,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             } catch (Exception ignored) {
             }
         }
+        updatePrefsChanges();
+        AppBarLayout appBarLayout = findViewById(id.appbar);
+        appBarLayout.removeOnOffsetChangedListener(this);
+        appBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    public void updatePrefsChanges() {
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
@@ -315,13 +342,10 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 // fixme executes twice?
                 if (!"Storage".equals(lyricsViewFragment.getSource())
                         && !lyricsViewFragment.manualUpdateLock)
-                    lyricsViewFragment.fetchCurrentLyrics(false);
+                    lyricsViewFragment.fetchCurrentLyrics(false, false);
                 lyricsViewFragment.checkPreferencesChanges();
             }
         }
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
-        appBarLayout.removeOnOffsetChangedListener(this);
-        appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
@@ -334,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 case NfcAdapter.ACTION_NDEF_DISCOVERED:
                     Lyrics receivedLyrics = getBeamedLyrics(intent);
                     if (receivedLyrics != null)
-                        updateLyricsFragment(0, 0, false, false, receivedLyrics);
+                        updateLyricsFragment(0, 0, false, true, receivedLyrics);
                     break;
                 case "android.intent.action.SEARCH":
                     search(intent.getStringExtra(SearchManager.QUERY));
@@ -356,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                         String track = metadata[1];
                         LyricsViewFragment lyricsFragment = (LyricsViewFragment) getFragmentManager()
                                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
-                        lyricsFragment.fetchLyrics(artist, track);
+                        lyricsFragment.fetchLyrics(true, null, 0L, artist, track);
                         lyricsFragment.manualUpdateLock = true;
                         selectItem(0);
                     }
@@ -416,7 +440,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             if (matcher.find())
                 return extra.substring(matcher.start(), matcher.end());
         }
-            return null;
+        return null;
     }
 
     @Override
@@ -440,28 +464,27 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     protected void onPause() {
         super.onPause();
-        if (receiver != null && receiverRegistered) {
-            unregisterReceiver(receiver);
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-            receiverRegistered = false;
-        }
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter != null)
             nfcAdapter.disableForegroundDispatch(this);
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(id.appbar);
+        AppBarLayout appBarLayout = findViewById(id.appbar);
         appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     protected void onDestroy() {
         this.destroyed = true;
-        if (DatabaseHelper.getInstance(getApplicationContext()) != null)
-            DatabaseHelper.getInstance(getApplicationContext()).close();
         try {
             ((Class.forName("android.view.inputmethod.InputMethodManager"))
-                    .getMethod("wind‌​owDismissed", IBinder.class)).invoke(null, drawer.getWindowToken());
+                    .getMethod("wind‌owDismissed", IBinder.class)).invoke(null, drawer.getWindowToken());
         } catch (Exception ignored) {
         }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -487,7 +510,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     @Override
     public void onBackPressed() {
         MaterialSuggestionsSearchView suggestionsSearchView =
-                (MaterialSuggestionsSearchView) findViewById(R.id.material_search_view);
+                findViewById(id.material_search_view);
         if (suggestionsSearchView.isSearchOpen())
             suggestionsSearchView.closeSearch();
         else if (drawer instanceof DrawerLayout && ((DrawerLayout) drawer).isDrawerOpen(drawerView))
@@ -495,7 +518,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         else {
             displayedFragment = getDisplayedFragment(getActiveFragments());
             if (displayedFragment != null && (displayedFragment instanceof LocalLyricsFragment ||
-                displayedFragment instanceof RecentTracksFragment))
+                    displayedFragment instanceof RecentTracksFragment))
                 selectItem(0);
             else
                 finish();
@@ -519,14 +542,13 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        LyricsViewFragment lyricsViewFragment =
-                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
-        if (lyricsViewFragment != null)
-            lyricsViewFragment.enablePullToRefresh(i == 0);
+        // When the appbarlayout offset changes
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (permissions.length == 0 || grantResults.length == 0)
+            return;
         switch (requestCode) {
             case LocalLyricsFragment.REQUEST_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -544,7 +566,18 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     String message = getString(string.id3_write_error) + " " + getString(string.permission_denied);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                 }
+                break;
+            case Id3Reader.REQUEST_CODE:
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, string.storage_permission_rationale, Toast.LENGTH_LONG).show();
+                } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("never_ask_checked", true).apply();
+                }
+                break;
         }
+        Bundle bundle = new Bundle();
+        bundle.putString("permissions", Arrays.toString(permissions));
+        bundle.putBoolean("granted", grantResults[0] == PackageManager.PERMISSION_GRANTED);
     }
 
     public void setDrawerListener(boolean bool) {
@@ -553,33 +586,27 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     private void setupDemoScreen() {
-        ViewGroup rootView = (ViewGroup) findViewById(id.root_view);
+        ViewGroup rootView = findViewById(id.root_view);
         getLayoutInflater().inflate(layout.tutorial_view, rootView);
-        final ViewPager pager = (ViewPager) findViewById(id.pager);
-        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(id.indicator);
-        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(getFragmentManager(), this);
+        final ViewPager pager = findViewById(id.pager);
+        CircleIndicator indicator = findViewById(R.id.indicator);
+        final IntroScreenSlidePagerAdapter pagerAdapter = new IntroScreenSlidePagerAdapter(this);
         pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(pagerAdapter);
         indicator.setViewPager(pager);
         pager.setCurrentItem(pagerAdapter.rightToLeft ? pagerAdapter.getCount() - 1 : 0);
         indicator.setOnPageChangeListener(pagerAdapter);
-        Button skipButton = (Button) rootView.findViewById(id.pager_button);
-        ImageButton arrowButton = (ImageButton) rootView.findViewById(id.pager_arrow);
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-                    pagerAdapter.exitAction();
-                else
-                    pager.setCurrentItem(pagerAdapter.getCount() - 1);
-            }
+        Button skipButton = rootView.findViewById(id.pager_button);
+        ImageButton arrowButton = rootView.findViewById(id.pager_arrow);
+        skipButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                pagerAdapter.exitAction();
+            else
+                pager.setCurrentItem(pagerAdapter.getCount() - 1);
+            Bundle bundle = new Bundle();
+            bundle.putInt("current_page", pager.getCurrentItem());
         });
-        arrowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pagerAdapter.nextAction();
-            }
-        });
+        arrowButton.setOnClickListener(v -> pagerAdapter.nextAction());
         if (mDrawerToggle != null)
             ((DrawerLayout) drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         focusOnFragment = false;
@@ -638,7 +665,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment.setCoverArt(url, null);
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RecentsRetrievedEvent event) {
         updateLyricsFragment(R.animator.none, R.animator.none,
@@ -661,16 +687,18 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void updateLyricsFragment(int outAnim, String... params) { // Should only be called from SearchFragment or IdDecoder
-        final String artist = params[0];
-        final String song = params[1];
-        final String url = params.length > 2 ? params[2] : null;
+        String artist = params[0];
+        String song = params[1];
+        String url = null;
+        if (params.length > 2)
+            url = params[2];
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
                 getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
             if (!lyricsViewFragment.isActiveFragment) {
                 selectItem(0);
             }
-            lyricsViewFragment.fetchLyrics(artist, song, url);
+            lyricsViewFragment.fetchLyrics(true, null, 0L, params);
         } else {
             Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
             lyrics.setArtist(artist);
@@ -712,7 +740,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             SharedPreferences preferences = getSharedPreferences("current_music", Context.MODE_PRIVATE);
             String artist = preferences.getString("artist", null);
             String track = preferences.getString("track", null);
-            if (lyrics.isLRC() && !(lyrics.getOriginalArtist().equals(artist) && lyrics.getOriginalTrack().equals(track))) {
+            if (lyrics.isLRC() && !(lyrics.getOriginalArtist().equals(artist) && lyrics.getOriginalTitle().equals(track))) {
                 LrcView parser = new LrcView(this, null);
                 parser.setOriginalLyrics(lyrics);
                 parser.setSourceLrc(lyrics.getText());
@@ -746,11 +774,12 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     private void expandToolbar(boolean expanded) {
         AppBarLayout appBarLayout = findViewById(id.appbar);
-        appBarLayout.setExpanded(expanded, true);
+        if (appBarLayout != null)
+            appBarLayout.setExpanded(expanded, true);
     }
 
     private void showRefreshFab(boolean show) {
-        RefreshIcon refreshFAB = (RefreshIcon) findViewById(id.refresh_fab);
+        RefreshIcon refreshFAB = findViewById(id.refresh_fab);
         if (show)
             refreshFAB.show();
         else
@@ -765,17 +794,14 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(string.changelog)
                 .setCancelable(true)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog12, which) -> dialog12.dismiss())
+                .setNegativeButton(string.rate_us, (dialog1, which) -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.geecko.QuickLyric")));
+                    dialog1.dismiss();
                 })
-                .setNeutralButton("Translate the app", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
+                .setNeutralButton(string.translate_us, (dialog3, which) -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/quicklyric")));
+                    dialog3.dismiss();
                 })
                 .setMessage(spannedChangelog)
                 .create();
@@ -867,32 +893,47 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             else
                 fragmentTransaction.add(id.main_fragment_container, newFragment, tag);
             ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setCollapsedTitleTextColor(Color.WHITE);
-            fragmentTransaction.commit();
-
+            fragmentTransaction.commitAllowingStateLoss();
             if (activeFragment instanceof LyricsViewFragment || newFragment instanceof LyricsViewFragment) {
                 final Fragment newFragmentCopy = newFragment;
-                activeFragment.getView().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (activeFragment instanceof LyricsViewFragment) {
-                            expandToolbar(false);
-                            showRefreshFab(false);
-                        } else if (newFragmentCopy instanceof LyricsViewFragment) {
-                            expandToolbar(true);
-                            showRefreshFab(true);
-                        }
+                activeFragment.getView().postDelayed(() -> {
+                    if (activeFragment instanceof LyricsViewFragment && activeFragment.getView() != null) {
+                        expandToolbar(false);
+                        showRefreshFab(false);
+                    } else if (newFragmentCopy instanceof LyricsViewFragment && activeFragment.getView() != null) {
+                        expandToolbar(true);
+                        showRefreshFab(true);
                     }
                 }, getResources().getInteger(android.R.integer.config_longAnimTime));
             }
+            MaterialSuggestionsSearchView suggestionsSearchView = findViewById(id.material_search_view);
+            if (suggestionsSearchView.isSearchOpen())
+                suggestionsSearchView.closeSearch();
         }
         if (drawer instanceof DrawerLayout && (newFragment == activeFragment))
             ((DrawerLayout) drawer).closeDrawer(drawerView);
     }
 
-    public void whyPopUp(View view) {
+    public static void startFeedbackActivity(Context context, boolean filter) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@quicklyric.be"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, filter ? "QuickLyric Feedback" : "QuickLyric Support");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, EmailConfigGenTool.genConfig(context));
+        if (emailIntent.resolveActivity(context.getPackageManager()) != null) {
+            Toast.makeText(context, R.string.pref_issues_sum, Toast.LENGTH_LONG).show();
+            context.startActivity(emailIntent);
+        }
+    }
+
+    public void storagePermissionRequest(View view) {
+        PermissionsChecker.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, 0, Id3Reader.REQUEST_CODE);
+    }
+
+    public void letUsKnowPopUp(View view) {
         LyricsViewFragment lyricsViewFragment = ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
         if (lyricsViewFragment != null && !lyricsViewFragment.isDetached())
-            lyricsViewFragment.showWhyPopup();
+            startFeedbackActivity(this, false);
     }
 
     @SuppressWarnings("unused")
@@ -911,11 +952,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         am.abandonAudioFocus(null);
     }
 
-    public void whyNotificationsPopUp(View view) {
-        new AlertDialog.Builder(this).setTitle(getString(string.notification_access))
-                .setMessage(Html.fromHtml(getString(string.notification_access_explanation)))
-                .setIcon(R.drawable.icon)
-                .show();
+    public void goToPremiumPage(View view) {
+        selectItem(8);
     }
 
     private class DrawerItemClickListener implements

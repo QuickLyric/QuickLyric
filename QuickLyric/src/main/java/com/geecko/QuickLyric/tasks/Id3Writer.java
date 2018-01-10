@@ -21,15 +21,14 @@ package com.geecko.QuickLyric.tasks;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextSwitcher;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -51,33 +50,33 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class Id3Writer extends AsyncTask<Object, Object, Boolean> {
 
     public static final int REQUEST_CODE = 1;
-    private final Context mContext;
-    private final LyricsViewFragment fragment;
+    private final WeakReference<Activity> mActivity;
+    private final WeakReference<LyricsViewFragment> mFragment;
 
     public Id3Writer(LyricsViewFragment lyricsViewFragment) {
-        this.fragment = lyricsViewFragment;
-        this.mContext = lyricsViewFragment.getActivity();
+        this.mFragment = new WeakReference<>(lyricsViewFragment);
+        this.mActivity = new WeakReference<>(lyricsViewFragment.getActivity());
     }
 
     @Override
     public void onPreExecute() {
-        MainActivity activity = (MainActivity) mContext;
+        MainActivity activity = (MainActivity) mActivity.get();
 
         ((DrawerLayout) activity.drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        fragment.enablePullToRefresh(true);
+        mFragment.get().enablePullToRefresh(true);
         activity.findViewById(R.id.refresh_fab).setEnabled(true);
         ((RefreshIcon) activity.findViewById(R.id.refresh_fab)).show();
         activity.invalidateOptionsMenu();
 
-        TextSwitcher textSwitcher = ((TextSwitcher) activity.findViewById(R.id.switcher));
-        EditText newLyrics = (EditText) activity.findViewById(R.id.edit_lyrics);
+        ViewSwitcher viewSwitcher = activity.findViewById(R.id.switcher);
+        EditText newLyrics = activity.findViewById(R.id.edit_lyrics);
 
-        textSwitcher.setCurrentText(newLyrics.getText().toString());
-        textSwitcher.setVisibility(View.VISIBLE);
+        viewSwitcher.setVisibility(View.VISIBLE);
         newLyrics.setVisibility(View.GONE);
     }
 
@@ -102,18 +101,17 @@ public class Id3Writer extends AsyncTask<Object, Object, Boolean> {
                 e.printStackTrace();
                 failed = true;
             }
-            
         return failed;
     }
 
     @Override
     protected void onPostExecute(Boolean failed) {
         if (failed) {
-            Toast.makeText(mContext, R.string.id3_write_error, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity.get(), R.string.id3_write_error, Toast.LENGTH_LONG).show();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                    && PermissionsChecker.hasPermission((Activity) mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                Toast.makeText(mContext, R.string.id3_write_permission_error, Toast.LENGTH_LONG).show();
+                    && PermissionsChecker.hasPermission(mActivity.get(), Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                Toast.makeText(mActivity.get(), R.string.id3_write_permission_error, Toast.LENGTH_LONG).show();
         } else
-            Toast.makeText(mContext, R.string.id3_write_success, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity.get(), R.string.id3_write_success, Toast.LENGTH_LONG).show();
     }
 }

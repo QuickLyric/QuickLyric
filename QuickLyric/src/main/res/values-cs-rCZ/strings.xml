@@ -122,7 +122,6 @@ Několik možných důvodů proč:<br/>
   <string name="full_text_action">Celý text</string>
   <string name="artworks_pref_title">Automatické stažení obrázků alb</string>
   <string name="artworks_pref_sum">Může způsobit poplatky za datové přenosy navíc</string>
-  <string name="pref_lrc_sum">Zvýraznit právě zpívaná slova - není podporováno všemi přehrávači</string>
   <string name="pref_lrc">Synchronizovaný text</string>
   <string name="red_theme">Červená</string>
   <string name="purple_theme">Fialová</string>
@@ -140,6 +139,7 @@ Několik možných důvodů proč:<br/>
   <string name="floating_settings_link">Povolit bublinu s textem (volitelné)</string>
   <string name="changelog">Co je nového?</string>
   <string name="rate_us">Ohodnotit aplikaci</string>
+  <string name="translate_us">Přelož aplikaci</string>
   <string name="romanize">Přepis do latinky</string>
   <string name="reset">Resetovat</string>
   <string name="musicid_no_match">Žádná shoda</string>
@@ -153,7 +153,6 @@ Dobrou zprávou je, že QuickLyric je open source, tím pádem si kdokoliv můž
 Děkujeme Vám za pochopení!<br/><br/>
 - Tým QuickLyric
 ]]></string>
-  <string name="premium_title">Získat Premium</string>
   <string name="remove_ads_title">Odstranit reklamy</string>
   <string name="subscription_monthly">Měsíčně</string>
   <string name="subscription_yearly">Ročně</string>
@@ -187,7 +186,6 @@ Děkujeme Vám za pochopení!<br/><br/>
   <string name="miui_autostart">Majitelé zařízení %s musí nejprve aplikaci odblokovat</string>
   <string name="musicid_instructions">Držte telefon blízko zdroje hudby</string>
   <string name="loading">Načítání&#8230;</string>
-  <string name="too_many_restarts_warning">QuickLyric má potíže se čtením vaší hudby - Zvažte restartování zařízení</string>
   <string name="romanizer_prompt_msg">Chcete-li převést text z japonské, korejské nebo čínské abecedy do latinky, je třeba stáhnout samostatný plugin pro QuickLyric.</string>
   <string name="romanizer_prompt_title">Doplněk pro přepis do latinky</string>
   <string name="pref_always_artwork">Vždy zapnuto</string>

@@ -294,7 +294,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
      * adapters used with AnimatedExpandableListView MUST extend this class.
      */
     public static abstract class AnimatedExpandableListAdapter extends BaseExpandableListAdapter {
-        private SparseArray<GroupInfo> groupInfo = new SparseArray<GroupInfo>();
+        private SparseArray<GroupInfo> groupInfo = new SparseArray<>();
         private AnimatedExpandableListView parent;
 
         private static final int STATE_IDLE = 0;
@@ -329,6 +329,11 @@ public class AnimatedExpandableListView extends ExpandableListView {
         public void notifyGroupExpanded(int groupPosition) {
             GroupInfo info = getGroupInfo(groupPosition);
             info.dummyHeight = -1;
+        }
+
+        public boolean isAnimating(int groupPosition) {
+            GroupInfo info = getGroupInfo(groupPosition);
+            return info.animating;
         }
 
         private void startExpandAnimation(int groupPosition, int firstChildPosition) {
@@ -389,6 +394,9 @@ public class AnimatedExpandableListView extends ExpandableListView {
         public final View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
             final GroupInfo info = getGroupInfo(groupPosition);
 
+            String msg = "AnimatedExpandableListAdapter GroupCount: " + getGroupCount();
+            if (getGroupCount() > 0)
+                msg += " ChildrenCount: " + getChildrenCount(0) + " " + getRealChildrenCount(0);
             if (info.animating) {
                 // If this group is animating, return the a DummyView...
                 if (!(convertView instanceof DummyView)) {
@@ -478,7 +486,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
 
                 if (info.expanding && state != STATE_EXPANDING) {
                     ExpandAnimation ani = new ExpandAnimation(dummyView, 0, totalHeight, info);
-                    ani.setDuration(Math.min((Math.max(300, len * 60)), 1600));
+                    ani.setDuration(Math.min((Math.max(300, len * 60)), 950));
                     ani.setInterpolator(new AccelerateInterpolator());
                     ani.setAnimationListener(new AnimationListener() {
 
@@ -506,7 +514,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
                     }
 
                     ExpandAnimation ani = new ExpandAnimation(dummyView, info.dummyHeight, 0, info);
-                    ani.setDuration(Math.min((Math.max(500, len * 60)), 1600));
+                    ani.setDuration(Math.min((Math.max(500, len * 60)), 950));
                     ani.setInterpolator(new DecelerateInterpolator(4));
                     ani.setAnimationListener(new AnimationListener() {
 
@@ -551,7 +559,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
     }
 
     public static class DummyView extends View {
-        public List<View> views = new ArrayList<View>();
+        public List<View> views = new ArrayList<>();
         private Drawable divider;
         private int dividerWidth;
         private int dividerHeight;

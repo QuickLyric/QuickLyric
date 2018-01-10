@@ -17,36 +17,31 @@
   ~  */
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewFlipper
+    android:id="@+id/recents_viewflipper"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewFlipper
-        android:id="@+id/recents_viewflipper"
+    <include
+        layout="@layout/local_empty_database_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <view
+        android:id="@+id/listViewBackground"
+        class="com.geecko.QuickLyric.view.BackgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            layout="@layout/local_empty_database_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <view
-            android:id="@+id/listViewBackground"
-            class="com.geecko.QuickLyric.view.BackgroundContainer"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/track_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/track_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:layout_marginBottom="4dp"/>
-        </view>
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"/>
+    </view>
 
 
-    </ViewFlipper>
-
-</RelativeLayout>
+</ViewFlipper>

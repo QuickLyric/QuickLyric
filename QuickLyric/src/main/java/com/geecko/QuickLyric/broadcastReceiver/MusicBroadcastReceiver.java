@@ -20,8 +20,8 @@
 package com.geecko.QuickLyric.broadcastReceiver;
 
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,24 +31,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.text.TextUtils;
 
 import com.geecko.QuickLyric.App;
-import com.geecko.QuickLyric.MainActivity;
-import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Recents;
 import com.geecko.QuickLyric.model.Track;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
-import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
+import com.geecko.QuickLyric.utils.LastOpenedUtils;
+import com.geecko.QuickLyric.utils.NotificationUtil;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
+
+import static com.geecko.QuickLyric.utils.NotificationUtil.NOTIFICATION_ID;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
 
-    static boolean autoUpdate = false;
-    static boolean spotifyPlaying = false;
+    private static boolean autoUpdate = false;
+    private static boolean spotifyPlaying = false;
 
     public static void forceAutoUpdate(boolean force) {
         autoUpdate = force;
@@ -56,19 +57,6 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        /** Google Play Music
-         //bool streaming				long position
-         //long albumId					String album
-         //bool currentSongLoaded		String track
-         //long ListPosition			long ListSize
-         //long id						bool playing
-         //long duration				int previewPlayType
-         //bool supportsRating			int domain
-         //bool albumArtFromService		String artist
-         //int rating					bool local
-         //bool preparing				bool inErrorState
-         */
-
         Bundle extras = intent.getExtras();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean lengthFilter = sharedPref.getBoolean("pref_filter_20min", true);
@@ -81,22 +69,32 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             }
 
         if (extras == null || extras.getInt("state") > 1 //Tracks longer than 20min are presumably not songs
-                || (lengthFilter && (extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000)
-                || (extras.get("duration") instanceof Double && extras.getDouble("duration") > 1200000)
-                || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200))
-                || (lengthFilter && (extras.get("secs") instanceof Long && extras.getLong("secs") > 1200000)
-                || (extras.get("secs") instanceof Double && extras.getDouble("secs") > 1200000)
-                || (extras.get("secs") instanceof Integer && extras.getInt("secs") > 1200))
-                || (extras.containsKey("com.maxmpz.audioplayer.source") && Build.VERSION.SDK_INT >= 19))
+                || (extras.getString("artist") == null && extras.getString("track") == null)
+                || lengthFilter && (
+                ((extras.get("duration") instanceof Long && extras.getLong("duration") > 1200000)
+                        || (extras.get("duration") instanceof Double && extras.getDouble("duration") > 1200000)
+                        || (extras.get("duration") instanceof Integer && extras.getInt("duration") > 1200))
+                        || ((extras.get("secs") instanceof Long && extras.getLong("secs") > 1200000)
+                        || (extras.get("secs") instanceof Double && extras.getDouble("secs") > 1200000)
+                        || (extras.get("secs") instanceof Integer && extras.getInt("secs") > 1200))
+        )) {
             return;
+        }
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
+        String player = extras.getString("player");
         long position = extras.containsKey("position") && extras.get("position") instanceof Long ?
                 extras.getLong("position") : -1;
         if (extras.get("position") instanceof Double)
             position = Double.valueOf(extras.getDouble("position")).longValue();
         boolean isPlaying = extras.getBoolean(extras.containsKey("playstate") ? "playstate" : "playing", true);
+        Object durationObject = extras.get("duration");
+        Long duration = durationObject == null ? -1 : durationObject instanceof Long ? (Long) durationObject :
+                durationObject instanceof Double ? ((Double) durationObject).longValue() :
+                        durationObject instanceof Float ? ((Float) durationObject).longValue() :
+                                durationObject instanceof Integer ? (((Integer) durationObject).longValue() * 1000) :
+                                        durationObject instanceof String ? (Double.valueOf((String) durationObject)).longValue() : -1;
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
@@ -106,10 +104,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         else if (intent.getAction().equals("com.spotify.music.playbackstatechanged"))
             spotifyPlaying = isPlaying;
 
-        if ((artist == null || "".equals(artist))  //Could be problematic
-                || (track == null || "".equals(track)
-                || track.startsWith("DTNS"))) // Ignore one of my favorite podcasts
+        if (artist != null && artist.trim().startsWith("<") && artist.trim().endsWith(">") && artist.contains("unknown"))
+            artist = "";
+
+        if (!TextUtils.isEmpty(player) && player.contains("youtube") && (TextUtils.isEmpty(artist) || TextUtils.isEmpty(track) ||
+                (!artist.contains("VEVO") && !track.contains("-")))) {
             return;
+        }
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
         String currentArtist = current.getString("artist", "");
@@ -118,25 +119,44 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = current.edit();
         editor.putString("artist", artist);
         editor.putString("track", track);
-        if (!(artist.equals(currentArtist) && track.equals(currentTrack) && position == -1))
+        editor.putString("player", player);
+        if (!(currentArtist.equals(artist) && currentTrack.equals(track) && position == -1))
             editor.putLong("position", position);
         editor.putBoolean("playing", isPlaying);
+        editor.putLong("duration", duration);
         if (isPlaying) {
-            long currentTime = System.currentTimeMillis();
-            editor.putLong("startTime", currentTime);
+            editor.putLong("startTime", System.currentTimeMillis());
         }
-        editor.apply();
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
+            editor.commit();
+        else
+            editor.apply();
 
         Recents.getInstance(context).add(new Track(track, artist));
 
         autoUpdate = autoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
         boolean prefOverlay = sharedPref.getBoolean("pref_overlay", false) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context));
         int notificationPref = prefOverlay ? 2 : Integer.valueOf(sharedPref.getString("pref_notifications", "0"));
-
         boolean retentionNotif = false;
 
+        if (player != null && player.contains("youtube") && notificationPref == 1)
+            notificationPref = 0;
+        else if (!prefOverlay && System.currentTimeMillis() - LastOpenedUtils.getLastOpenedDate(context) > 7 * 24 * 3600 * 1000) {
+            // Retention notification
+            notificationPref = 1;
+            retentionNotif = true;
+        }
+
+        if (!extras.getBoolean("notifications_allowed", true)) {
+            notificationPref = 0;
+            NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationPref == 0)
+            notificationPref = 2;
+
         if (autoUpdate && App.isMainActivityVisible()) {
-            Intent internalIntent = new Intent("Broadcast");
+            Intent internalIntent = new Intent(LyricsViewFragment.UPDATE_LYRICS_ACTION);
             internalIntent.putExtra("artist", artist).putExtra("track", track);
             LyricsViewFragment.sendIntent(context, internalIntent);
             forceAutoUpdate(false);
@@ -145,87 +165,25 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         boolean inDatabase = DatabaseHelper.getInstance(context).presenceCheck(new String[]{artist, track, artist, track});
 
-        if (notificationPref != 0 && isPlaying
+        if (notificationPref != 0 && (isPlaying || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 && (inDatabase || OnlineAccessVerifier.check(context))) {
-            Intent activityIntent = new Intent(context.getApplicationContext(), MainActivity.class)
-                    .setAction("com.geecko.QuickLyric.getLyrics")
-                    .putExtra("TAGS", new String[]{artist, track})
-                    .putExtra("retention_notif", retentionNotif);
-            Intent wearableIntent = new Intent("com.geecko.QuickLyric.SEND_TO_WEARABLE")
-                    .putExtra("artist", artist).putExtra("track", track);
-            final Intent overlayIntent = new Intent(context.getApplicationContext(), LyricsOverlayService.class)
-                    .setAction(LyricsOverlayService.CLICKED_FLOATING_ACTION);
-
-            PendingIntent overlayPending = PendingIntent.getService(context.getApplicationContext(), 0, overlayIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent openAppPending = PendingIntent.getActivity(context.getApplicationContext(), 0, activityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            PendingIntent wearablePending = PendingIntent.getBroadcast(context.getApplicationContext(), 8, wearableIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-            NotificationCompat.Action wearableAction =
-                    new NotificationCompat.Action.Builder(R.drawable.ic_watch,
-                            context.getString(R.string.wearable_prompt), wearablePending)
-                            .build();
-
-            NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context.getApplicationContext());
-            NotificationCompat.Builder wearableNotifBuilder = new NotificationCompat.Builder(context.getApplicationContext());
-
-            int[] themes = new int[]{R.style.Theme_QuickLyric, R.style.Theme_QuickLyric_Red,
-                    R.style.Theme_QuickLyric_Purple, R.style.Theme_QuickLyric_Indigo,
-                    R.style.Theme_QuickLyric_Green, R.style.Theme_QuickLyric_Lime,
-                    R.style.Theme_QuickLyric_Brown, R.style.Theme_QuickLyric_Dark};
-            int themeNum = Integer.valueOf(sharedPref.getString("pref_theme", "0"));
-
-            context.setTheme(themes[themeNum]);
-
-            notifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
-                    .setContentTitle(context.getString(R.string.app_name))
-                    .setContentText(String.format("%s - %s", artist, track))
-                    .setContentIntent(prefOverlay ? overlayPending : openAppPending)
-                    .setVisibility(-1) // Notification.VISIBILITY_SECRET
-                    .setGroup("Lyrics_Notification")
-                    .setColor(ColorUtils.getPrimaryColor(context))
-                    .setGroupSummary(true);
-
-            wearableNotifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
-                    .setContentTitle(context.getString(R.string.app_name))
-                    .setContentText(String.format("%s - %s", artist, track))
-                    .setContentIntent(openAppPending)
-                    .setVisibility(-1) // Notification.VISIBILITY_SECRET
-                    .setGroup("Lyrics_Notification")
-                    .setOngoing(false)
-                    .setColor(ColorUtils.getPrimaryColor(context))
-                    .setGroupSummary(false)
-                    .extend(new NotificationCompat.WearableExtender().addAction(wearableAction));
-
-            if (notificationPref == 2) {
-                notifBuilder.setOngoing(true).setPriority(-2); // Notification.PRIORITY_MIN
-                wearableNotifBuilder.setPriority(-2);
-            } else
-                notifBuilder.setPriority(-1); // Notification.PRIORITY_LOW
-
-            Notification notif = notifBuilder.build();
-            Notification wearableNotif = wearableNotifBuilder.build();
-
-            if (notificationPref == 2)
-                notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+            Notification notif = NotificationUtil.makeNotification(context, artist, track, duration, retentionNotif, isPlaying);
+            if (prefOverlay)
+                LyricsOverlayService.showCustomFloatingView(context, player, notif, new String[] {artist, track}, duration);
             else
-                notif.flags |= Notification.FLAG_AUTO_CANCEL;
+                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notif);
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID);
 
-            if (isPlaying && (inDatabase || OnlineAccessVerifier.check(context))) {
-                if (prefOverlay)
-                    LyricsOverlayService.showCustomFloatingView(context, notif, new String[] {artist, track});
-                else
-                    NotificationManagerCompat.from(context).notify(0, notif);
-            }
-            try {
-                context.getPackageManager().getPackageInfo("com.google.android.wearable.app", PackageManager.GET_META_DATA);
-                NotificationManagerCompat.from(context).notify(8, wearableNotif);
-            } catch (PackageManager.NameNotFoundException ignored) {
-            }
-        } else if (track.equals(current.getString("track", "")))
-            NotificationManagerCompat.from(context).cancel(0);
-
-        if (!isPlaying || !prefOverlay || (!inDatabase && !OnlineAccessVerifier.check(context))) {
+        if (!prefOverlay)
             LyricsOverlayService.removeCustomFloatingView(context);
-        }
+        else if (!isPlaying || (!inDatabase && !OnlineAccessVerifier.check(context)))
+            LyricsOverlayService.hideFloatingView(context);
+    }
+
+    public static void disableBroadcastReceiver(Context context) {
+        int flag=(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+        ComponentName component=new ComponentName(context.getApplicationContext(), MusicBroadcastReceiver.class);
+        context.getPackageManager().setComponentEnabledSetting(component, flag, PackageManager.DONT_KILL_APP);
     }
 }

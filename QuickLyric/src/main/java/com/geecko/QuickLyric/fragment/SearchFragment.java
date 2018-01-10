@@ -115,17 +115,14 @@ public class SearchFragment extends ListFragment {
                     ((ViewGroup) getView()).addView(errorView);
             }
 
-            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Lyrics lyrics = SearchFragment.this.results.get(position);
-                    Intent activityResult = getActivity().getIntent();
-                    activityResult = activityResult == null ? new Intent() : activityResult;
-                    activityResult.putExtra("lyrics", (Serializable) lyrics);
-                    getActivity().setResult(Activity.RESULT_OK, activityResult);
-                    getActivity().finish();
-                    getActivity().overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
-                }
+            getListView().setOnItemClickListener((parent, view, position, id) -> {
+                Lyrics lyrics = SearchFragment.this.results.get(position);
+                Intent activityResult = getActivity().getIntent();
+                activityResult = activityResult == null ? new Intent() : activityResult;
+                activityResult.putExtra("lyrics", (Serializable) lyrics);
+                getActivity().setResult(Activity.RESULT_OK, activityResult);
+                getActivity().finish();
+                getActivity().overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_end);
             });
             ViewGroup parent = ((ViewGroup) getListView().getParent());
             parent.removeView(parent.findViewById(R.id.error_msg));
@@ -153,7 +150,7 @@ public class SearchFragment extends ListFragment {
     protected void search(String searchQuery) {
         if (getView() != null)
             this.setListShown(false);
-        ViewGroup errorView = (ViewGroup) getActivity().findViewById(R.id.error_msg);
+        ViewGroup errorView = getActivity().findViewById(R.id.error_msg);
         if (errorView != null) {
             errorView.setVisibility(View.INVISIBLE);
         }

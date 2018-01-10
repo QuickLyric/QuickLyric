@@ -17,7 +17,6 @@ package com.geecko.QuickLyric;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Keys {
-    public static final String GENIUS = "5eDKEfmGtQulq_eFxVB2v-bhf_hIgb9fT14IY_LYUsgHx9KjN_H6Tid7yO6jc_Xa";
     // Put your Spotify Key here
     public static final String SPOTIFY_PUBLIC = "0abc29261dc74426b72c3c44bde9a4d5";
     // Put your Spotify Secret here

@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import com.geecko.QuickLyric.fragment.LocalLyricsFragment;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 
+import java.lang.ref.WeakReference;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,24 +34,24 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class DBContentLister extends AsyncTask<Object, Void, String[]> {
-    private LocalLyricsFragment localLyricsFragment;
+    private WeakReference<LocalLyricsFragment> localLyricsFragment;
 
     public DBContentLister(LocalLyricsFragment localLyricsFragment) {
-        this.localLyricsFragment = localLyricsFragment;
+        this.localLyricsFragment = new WeakReference<>(localLyricsFragment);
     }
 
     @Override
     protected void onPreExecute() {
-        localLyricsFragment.setListShown(false);
+        localLyricsFragment.get().setListShown(false);
     }
 
     @Override
     protected String[] doInBackground(Object... params) {
-        if (localLyricsFragment == null || localLyricsFragment.getActivity() == null)
+        if (localLyricsFragment == null || localLyricsFragment.get().getActivity() == null)
             return new String[0];
         String[] columns = new String[]{DatabaseHelper.columns[0], DatabaseHelper.columns[1]};
         String query = String.format("LTRIM(Replace(%s, 'The ', '')) COLLATE NOCASE DESC,%s COLLATE NOCASE ASC", columns[0], columns[1]);
-        SQLiteDatabase database = DatabaseHelper.getInstance(localLyricsFragment.getActivity()).getReadableDatabase();
+        SQLiteDatabase database = DatabaseHelper.getInstance(localLyricsFragment.get().getActivity()).getReadableDatabase();
         if (database != null) {
             Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, new String[] {DatabaseHelper.columns[0]},
                     null, null, null, null, query);
@@ -72,6 +73,6 @@ public class DBContentLister extends AsyncTask<Object, Void, String[]> {
     }
 
     protected void onPostExecute(final String[] results) {
-        localLyricsFragment.update(results);
+        localLyricsFragment.get().update(results);
     }
 }

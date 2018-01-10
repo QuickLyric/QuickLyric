@@ -32,5 +32,5 @@
     android:textSize="14sp"
     android:textColor="?android:attr/textColorPrimary"
     android:minHeight="@dimen/drawer_row_height"
-    android:singleLine="true"
+    android:maxLines="2"
     android:drawablePadding="32dp" />
